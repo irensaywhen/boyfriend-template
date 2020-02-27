@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en" class="pink-theme">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="Maxartkiller">
+
+    <title>Profile · GoFruit</title>
+
+    <!-- Material design icons CSS -->
+    <link rel="stylesheet" href="vendor/materializeicon/material-icons.css">
+
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Roboto fonts CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap-4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">
+
+    <!-- Chosen multiselect CSS -->
+    <link href="vendor/chosen_v1.8.7/chosen.min.css" rel="stylesheet">
+
+    <!-- nouislider CSS -->
+    <link href="vendor/nouislider/nouislider.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="text-center">
+            <div class="figure-menu shadow">
+                <figure>
+                    <img src="img/user1.png" alt="">
+                </figure>
+            </div>
+            <h5 class="mb-1 ">Ammy Jahnson</h5>
+            <p class="text-mute small">Sydney, Australia</p>
+        </div>
+        <br>
+        <div class="row mx-0">
+            <div class="col">
+                <div class="card w-100 m-0 border-0 shadow-sm bg-template-light">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-secondary small mb-0">Balance Available</p>
+                                <h6 class="text-dark my-0">$2585.00</h6>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-default button-rounded-36 shadow">
+                                    <i class="material-icons">add</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h5 class="subtitle text-uppercase">
+                    <span>Menu</span>
+                </h5>
+                <div class="list-group main-menu">
+                    <a href="index.html" class="list-group-item list-group-item-action active">Store</a>
+                    <a href="notification.html" class="list-group-item list-group-item-action">Notification
+                        <span class="badge badge-dark text-white">2</span>
+                    </a>
+                    <a href="all-products.html" class="list-group-item list-group-item-action">All Products</a>
+                    <a href="my-order.html" class="list-group-item list-group-item-action">My Order</a>
+                    <a href="profile.html" class="list-group-item list-group-item-action">My Profile</a>
+                    <a href="controls.html" class="list-group-item list-group-item-action">Pages Controls
+                        <span class="badge badge-light ml-2">Check</span>
+                    </a>
+                    <a href="setting.html" class="list-group-item list-group-item-action">Settings</a>
+                    <a href="login.html" class="list-group-item list-group-item-action mt-4">Logout</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="wrapper bg-lg">
+
+        <header class="header pb-3">
+            <button class="menu-btn bg-transparent d-flex">
+                <img src="img/menu.png" alt="">
+                <span class="ml-2 new-notification"></span>
+            </button>
+            <div class="container">
+
+                <div class="row d-flex align-items-center header__wrap">
+                    <div class="col-6 col-md-4 header__logo">
+                        <a href="./index.html">
+                            <img src="./img/logo.png" alt="logo">
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+        <div class="editProfile container pt-5 pb-0 px-0">
+           
+            <div class="mb-5">
+
+                <div class="figure-profile m-auto shadow-sm">
+
+                    <figure>
+                        <img src="./img/profile.jpg" alt="">
+                    </figure>
+                    <div class="btn btn-dark text-white floating-btn">
+                        <i class="material-icons">camera_alt</i>
+                        <input type="file" class="float-file">
+                    </div>
+                </div>
+                
+
+            </div>
+
+        </div>
+        <div class="container px-0 pb-5">
+            <div class="card w-100 shadow-sm border-0 mb-3 mx-0 wizard">
+                <div class="card-header p-0">
+                    <ul class="nav nav-tabs tabs-md nav-justified" role="tablist">
+                        <li role="presentation" class="nav-item">
+                            <a href="#step13" class="nav-link border-primary active" data-toggle="tab" aria-controls="step13" role="tab" title="Step 1">Podstawowe informacje</a>
+                        </li>
+                        <li role="presentation" class="nav-item">
+                            <a href="#step23" class="nav-link border-primary" data-toggle="tab" aria-controls="step23" role="tab" title="Step 2">Powiadomienia</a>
+                        </li>
+                        <li role="presentation" class="nav-item">
+                            <a href="#step33" class="nav-link border-primary" data-toggle="tab" aria-controls="step33" role="tab" title="Step 3">Konto</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active py-4" role="tabpanel" id="step13">
+                            
+
+            <div class="px-2 py-md-4 py-2 m-0">
+                    <h5 class="pl-2 mb-2">Dodaj więcej zdjęć:</h5>
+                    <div class="row">
+    
+                        <div class="col-md-8 pl-0">
+                            <div class="demo-swiper-custom">
+                                <div data-pagination='{"el": ".swiper-pagination", "clickable": true}' data-navigation='{"nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev"}'
+                                    data-space-between="0" class="swiper-container swiper-init demo-swiper">
+    
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide edit__photoContainer">
+                                            <img src="./img/photo1.jpg" alt="">
+                                            <h6 class="mb-2 text-secondary">
+                                                Photo1
+                                            </h6>
+                                        </div>
+                                        <div class="swiper-slide edit__photoContainer">
+                                            <img src="./img/photo2.jpg" alt="">
+                                            <h6 class="mb-2 text-secondary">
+                                                Photo1
+                                            </h6>
+                                        </div>
+                                        <div class="swiper-slide edit__photoContainer">
+                                            <img src="./img/photo1.jpg" alt="">
+                                            <h6 class="mb-2 text-secondary">
+                                                Photo1
+                                            </h6>
+                                        </div>
+                                        <div class="swiper-slide edit__photoContainer">
+                                            <img src="./img/photo2.jpg" alt="">
+                                            <h6 class="mb-2 text-secondary">
+                                                Photo1
+                                            </h6>
+                                        </div>
+                                        <div class="swiper-slide edit__photoContainer">
+                                            <img src="./img/photo1.jpg" alt="">
+                                            <h6 class="mb-2 text-secondary">
+                                                Photo1
+                                            </h6>
+                                        </div>
+                                        <div class="swiper-slide edit__photoContainer">
+                                            <img src="./img/photo2.jpg" alt="">
+                                            <h6 class="mb-2 text-secondary">
+                                                Photo1
+                                            </h6>
+                                        </div>
+                                        <div class="swiper-slide edit__photoContainer">
+                                            <img src="./img/photo1.jpg" alt="">
+                                            <h6 class="mb-2 text-secondary">
+                                                Photo1
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-button-prev"></div>
+                                    <div class="swiper-button-next"></div>
+                                </div>
+                            </div>
+                            <div class="edit__photoContainer">
+    
+                            </div>
+                        </div>
+                        <div class="col-md-4 edit__addPhoto">
+                            <img src="./img/addphoto.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+                            <form class="pt-4">
+                        
+                                <div class="row">
+                                       
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group float-label active">
+                                            <input type="text" class="form-control" required="">
+                                            <label class="form-control-label">Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group float-label active">
+                                            <input type="email" class="form-control" required="">
+                                            <label class="form-control-label">Email address</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="mb-1 d-flex">
+                                            <div class="float-label active pr-md-4 pr-2 col-4">
+                                                <select class="form-control">
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                </select>
+                                                <label class="form-control-label">Dzień</label>
+                                            </div>
+                                            <div class="float-label active pr-md-4 pr-2 col-4">
+                                                <select class="form-control">
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                </select>
+                                                <label class="form-control-label">Miesiąc</label>
+                                            </div>
+                                            <div class="float-label active pr-md-4 pr-2 col-4">
+                                                <select class="form-control">
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                </select>
+                                                <label class="form-control-label">Rok</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 mt-md-0 mt-3">
+                                        <div class="form-group float-label active">
+                                            <input type="tel" class="form-control" required="">
+                                            <label class="form-control-label">Lokalizacja</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="float-label form-group w-100 col-12 px-3">
+                                        
+                                        <textarea id="inputDesc" class="form-control bgwhite"></textarea>
+                                        <label for="inputDesc" class="form-control-label px-3 py-0 z-5">Twój opis</label>
+                                    </div>
+                                </div>
+                                <div class="text-right col-12">
+                                    <input type="submit" class="primaryButton primaryButton--pink signUpButton mb-0 border-0" data-target="2" value="Zapisz">
+
+
+
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane pt-4" role="tabpanel" id="step23">
+                            <div class="col-12 px-0">
+                                <ul class="list-group list-group-flush mb-4">
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h6 class="text-dark mb-1">Email Notification</h6>
+                                                <p class="text-secondary mb-0 small">Default all notification will be sent</p>
+                                            </div>
+                                            <div class="col-2 pl-0 align-self-center text-right">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
+                                                    <label class="custom-control-label" for="customSwitch1"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h6 class="text-dark mb-1">SMS Notification</h6>
+                                                <p class="text-secondary mb-0 small">Receive SMS notification</p>
+                                            </div>
+                                            <div class="col-2 pl-0 align-self-center text-right">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="customSwitch4" checked>
+                                                    <label class="custom-control-label" for="customSwitch4"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h6 class="text-dark mb-1">Profile Avaialability</h6>
+                                                <p class="text-secondary mb-0 small">Everyone can see my profile in search</p>
+                                            </div>
+                                            <div class="col-2 pl-0 align-self-center text-right">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="customSwitch2">
+                                                    <label class="custom-control-label" for="customSwitch2"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h6 class="text-dark mb-1">Sent Request</h6>
+                                                <p class="text-secondary mb-0 small">Everyone can sent me a request</p>
+                                            </div>
+                                            <div class="col-2 pl-0 align-self-center text-right">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="customSwitch3">
+                                                    <label class="custom-control-label" for="customSwitch3"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <div class="list-group-item text-right">
+                                        <h6 type="submit" class="primaryButton primaryButton--pink signUpButton mb-0 border-0 mt-2" data-target="2">Zapisz</h6>
+
+
+
+                                    </div>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane" role="tabpanel" id="step33">
+                            <form class="py-4">
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group float-label active">
+                                            <input type="text" class="form-control" required="">
+                                            <label class="form-control-label">Login</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group float-label active">
+                                            <input type="email" class="form-control" required="true">
+                                            <label class="form-control-label">Password</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h6 class="mb-2">Konto premium
+                                        <div class="badge badge-success">Aktywne</div>
+
+                                    </h6>
+                                    <h6 class="small text-secondary">subskrypcja ważna do 12/12/2020</h6>
+                                </div>
+                                <div class="form-group">
+                                    <ul class="mt-3 pl-0">
+                                        <h6>Ostatnie płatności</h6>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <h6 class="small">12/11/2020</h6>
+                                            <h5>30zł</h5>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <h6 class="small">12/10/2020</h6>
+                                            <h5>30zł</h5>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <h6 class="small">12/09/2020</h6>
+                                            <h5>30zł</h5>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <h6 class="small">12/08/2020</h6>
+                                            <h5>30zł</h5>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="text-right col-12">
+                                    <input type="submit" class="primaryButton primaryButton--pink signUpButton mb-0 border-0" data-target="2" value="Zapisz">
+
+
+
+                                </div>
+                            </form>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    
+    </div>
+    <div class="footer">
+            <div class="no-gutters">
+                <div class="col-auto mx-auto">
+                    <div class="row no-gutters justify-content-center">
+                        <div class="col-auto">
+                            <a href="index.html" class="btn btn-link-default ">
+                                <i class="material-icons">store_mall_directory</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="statistics.html" class="btn btn-link-default">
+                                <i class="material-icons">insert_chart_outline</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="cart.html" class="btn btn-default shadow centerbutton">
+                                <i class="material-icons">local_mall</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="favorite-products.html" class="btn btn-link-default">
+                                <i class="material-icons">favorite</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="profile.html" class="btn btn-link-default active">
+                                <i class="material-icons">account_circle</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <!-- jquery, popper and bootstrap js -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+
+    <!-- swiper js -->
+    <script src="vendor/swiper/js/swiper.min.js"></script>
+
+    <!-- nouislider js -->
+    <script src="vendor/nouislider/nouislider.min.js"></script>
+
+    <!-- chart js -->
+    <script src="vendor/chartjs/Chart.min.js"></script>
+    <script src="vendor/chartjs/utils.js"></script>
+
+    <!-- chosen multiselect js -->
+    <script src="vendor/chosen_v1.8.7/chosen.jquery.min.js"></script>
+
+    <!-- template custom js -->
+    <script src="js/main.js"></script>
+    <script src="./js/feed.js"></script>
+
+    <!-- page level script -->
+    <script>
+        $(window).on('load', function () {
+
+            /* Swiper*/
+            $(window).on('load', function () { });
+
+            const swiper = new Swiper('.swiper-container', {
+                slidesPerView: 2,
+                spaceBetween: 5,
+                keyboard: {
+                    enabled: true,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+
+            /* range picker for filter */
+            var html5Slider = document.getElementById('rangeslider');
+            noUiSlider.create(html5Slider, {
+                start: [0, 100],
+                connect: true,
+                range: {
+                    'min': 0,
+                    'max': 500
+                }
+            });
+
+            var inputNumber = document.getElementById('input-number');
+            var select = document.getElementById('input-select');
+
+            html5Slider.noUiSlider.on('update', function (values, handle) {
+                var value = values[handle];
+
+                if (handle) {
+                    inputNumber.value = value;
+                } else {
+                    select.value = Math.round(value);
+                }
+            });
+            select.addEventListener('change', function () {
+                html5Slider.noUiSlider.set([this.value, null]);
+            });
+            inputNumber.addEventListener('change', function () {
+                html5Slider.noUiSlider.set([null, this.value]);
+            });
+
+            /* chosen select*/
+            $(".chosen").chosen();
+
+            /* Preferences collapse*/
+            const preferences = document.querySelector('.collapse')
+
+            if (document.body.clientWidth < 576) {
+                preferences.classList.remove('show');
+            }
+            window.addEventListener("resize", function () {
+
+                if (document.body.clientWidth < 576) {
+                    preferences.classList.remove('show');
+                } else if (document.body.clientWidth > 576) {
+                    preferences.classList.add('show');
+                }
+            });
+
+            /*autoLoad*/
+            let users = document.querySelectorAll('.userList__user')
+
+            users.forEach(user => {
+                slideIfVisible(user);
+            })
+
+            document.addEventListener('scroll', () => {
+
+                users.forEach(user => {
+                    slideIfVisible(user);
+                })
+            })
+
+
+
+        });
+
+    </script>
+
+</body>
+
+</html>

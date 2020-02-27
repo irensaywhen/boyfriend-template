@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en" class="pink-theme">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="Maxartkiller">
+
+    <title>Profile · GoFruit</title>
+
+    <!-- Material design icons CSS -->
+    <link rel="stylesheet" href="vendor/materializeicon/material-icons.css">
+
+    <!-- Roboto fonts CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap-4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">
+
+    <!-- Chosen multiselect CSS -->
+    <link href="vendor/chosen_v1.8.7/chosen.min.css" rel="stylesheet">
+
+    <!-- nouislider CSS -->
+    <link href="vendor/nouislider/nouislider.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+</head>
+
+<body>
+
+
+    <div class="headerWrapper">
+        <header class="logoutHeader container">
+
+            <div class="col-md-5 logoutHeader__logoContainer">
+                <a href="./signup.html">
+                    <img src="./img/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="col-md-5 offset-md-3 logoutHeader__buttonsContainer">
+                <h6 class="primaryButton primaryButton--invert">ProfileBoost</h6>
+                <h6 class="primaryButton primaryButton--main">Premium</h6>
+            </div>
+    </div>
+
+    </header>
+    <div class="feed container">
+        <div class="row">
+            <div class="info info--fullWidth">
+                <a href="#">
+                    <img src="./img/ad.jpg" alt="">
+                </a>
+            </div>
+        </div>
+
+        <div class="row feed__wrapper">
+            <div class="signUp__testimonialHeader feed__header">
+                <img src="./img/filter.svg" alt="">
+                <h6 class="subheader subheader--light">Filtruj użytkowników:</h6>
+            </div>
+            <div class="card gifts__summary feed__container mt0">
+
+
+                <div class="card-body feed__inputs">
+                    <div class="col-md-3 feed__inputsColumn">
+                        <div class="form-group">
+
+                            <div class="float-label">
+
+                                <div class="form-group float-label active">
+                                    <select class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                    <label class="form-control-label">Twoje Preferencje</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="float-label">
+
+                                <div class="form-group float-label active">
+                                    <select class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                    <label class="form-control-label">Twoje Preferencje</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 feed__inputsColumn feed__preferences text-center">
+
+                        <div class="custom-control custom-checkbox form-group">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                            <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
+                        </div>
+                        <div class="custom-control custom-checkbox form-group">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2">
+                            <label class="custom-control-label" for="customCheck2">Check this custom checkbox</label>
+                        </div>
+                        <div class="custom-control custom-checkbox form-group">
+                            <input type="checkbox" class="custom-control-input" id="customCheck3">
+                            <label class="custom-control-label" for="customCheck3">Check this custom checkbox</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3 feed__inputsColumn">
+                        <div class="form-group">
+
+                            <div class="float-label">
+
+                                <div class="form-group float-label active">
+                                    <select class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                    <label class="form-control-label">Twoje Preferencje</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group float-label pt-0">
+                            <div id="rangeslider" class="mt-2"></div>
+                            <div class="row">
+
+                                <div class="col">
+                                    <input type="number" min="0" max="500" value="100" step="1" id="input-select" class="form-control">
+                                </div>
+
+                                <div class="col">
+                                    <input type="number" min="0" max="500" value="100" step="1" id="input-number" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 feed__inputsColumn text-center space-around">
+                        <div class="form-group">
+
+                            <div class="float-label">
+
+                                <div class="form-group float-label active">
+                                    <select class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                    <label class="form-control-label">Twoje Preferencje</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="custom-control custom-checkbox form-group">
+                            <input type="checkbox" class="custom-control-input" id="customCheck4">
+                            <label class="custom-control-label" for="customCheck4">Check this custom checkbox</label>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12 feed__users">
+                <div class="feed__user">
+                    <div class="card shadow-sm border-0 ">
+                        <div class="card-header">
+                        </div>
+                        <div class="feed__userPhoto">
+                            <img src="./img/profile.jpg" alt="">
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title pricing-card-title">Michał
+                                <small class="text-muted">24</small>
+                            </h2>
+
+                            <div class="text-center">
+                                <h6 class="primaryButton primaryButton--pink signUpButton w100" data-target="1">Zobacz</h6>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="feed__user">
+                    <div class="card shadow-sm border-0 ">
+                        <div class="card-header">
+                        </div>
+                        <div class="feed__userPhoto">
+                            <img src="./img/profile.jpg" alt="">
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title pricing-card-title">Michał
+                                <small class="text-muted">24</small>
+                            </h2>
+
+                            <div class="text-center">
+                                <h6 class="primaryButton primaryButton--pink signUpButton w100" data-target="1">Zobacz</h6>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="feed__user">
+                    <div class="card shadow-sm border-0 ">
+                        <div class="card-header">
+                        </div>
+                        <div class="feed__userPhoto">
+                            <img src="./img/profile.jpg" alt="">
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title pricing-card-title">Michał
+                                <small class="text-muted">24</small>
+                            </h2>
+
+                            <div class="text-center">
+                                <h6 class="primaryButton primaryButton--pink signUpButton w100" data-target="1">Zobacz</h6>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="feed__user">
+                    <div class="card shadow-sm border-0 ">
+                        <div class="card-header">
+                        </div>
+                        <div class="feed__userPhoto">
+                            <img src="./img/profile.jpg" alt="">
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title pricing-card-title">Michał
+                                <small class="text-muted">24</small>
+                            </h2>
+
+                            <div class="text-center">
+                                <h6 class="primaryButton primaryButton--pink signUpButton w100" data-target="1">Zobacz</h6>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="feed__user">
+                    <div class="card shadow-sm border-0 ">
+                        <div class="card-header">
+                        </div>
+                        <div class="feed__userPhoto">
+                            <img src="./img/profile.jpg" alt="">
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title pricing-card-title">Michał
+                                <small class="text-muted">24</small>
+                            </h2>
+
+                            <div class="text-center">
+                                <h6 class="primaryButton primaryButton--pink signUpButton w100" data-target="1">Zobacz</h6>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="feed__user">
+                    <div class="card shadow-sm border-0 ">
+                        <div class="card-header">
+                        </div>
+                        <div class="feed__userPhoto">
+                            <img src="./img/profile.jpg" alt="">
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title pricing-card-title">Michał
+                                <small class="text-muted">24</small>
+                            </h2>
+
+                            <div class="text-center">
+                                <h6 class="primaryButton primaryButton--pink signUpButton w100" data-target="1">Zobacz</h6>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="footer">
+            <div class="no-gutters">
+                <div class="col-auto mx-auto">
+                    <div class="row no-gutters justify-content-center">
+                        <div class="col-auto">
+                            <a href="index.html" class="btn btn-link-default ">
+                                <i class="material-icons">store_mall_directory</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="statistics.html" class="btn btn-link-default">
+                                <i class="material-icons">insert_chart_outline</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="cart.html" class="btn btn-default shadow centerbutton">
+                                <i class="material-icons">local_mall</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="favorite-products.html" class="btn btn-link-default">
+                                <i class="material-icons">favorite</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="profile.html" class="btn btn-link-default active">
+                                <i class="material-icons">account_circle</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- jquery, popper and bootstrap js -->
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+
+        <!-- swiper js -->
+        <script src="vendor/swiper/js/swiper.min.js"></script>
+
+        <!-- nouislider js -->
+        <script src="vendor/nouislider/nouislider.min.js"></script>
+
+        <!-- chart js -->
+        <script src="vendor/chartjs/Chart.min.js"></script>
+        <script src="vendor/chartjs/utils.js"></script>
+
+        <!-- chosen multiselect js -->
+        <script src="vendor/chosen_v1.8.7/chosen.jquery.min.js"></script>
+
+        <!-- template custom js -->
+        <script src="js/main.js"></script>
+        <script src="vendor/swiper/js/swiper.min.js"></script>
+        <script src="./js/feed.js"></script>
+
+        <!-- page level script -->
+        <script>
+
+            $(window).on('load', function () {
+
+
+                /* range picker for filter */
+                var html5Slider = document.getElementById('rangeslider');
+                noUiSlider.create(html5Slider, {
+                    start: [0, 100],
+                    connect: true,
+                    range: {
+                        'min': 0,
+                        'max': 500
+                    }
+                });
+
+                var inputNumber = document.getElementById('input-number');
+                var select = document.getElementById('input-select');
+
+                html5Slider.noUiSlider.on('update', function (values, handle) {
+                    var value = values[handle];
+
+                    if (handle) {
+                        inputNumber.value = value;
+                    } else {
+                        select.value = Math.round(value);
+                    }
+                });
+                select.addEventListener('change', function () {
+                    html5Slider.noUiSlider.set([this.value, null]);
+                });
+                inputNumber.addEventListener('change', function () {
+                    html5Slider.noUiSlider.set([null, this.value]);
+                });
+
+                /* chosen select*/
+                $(".chosen").chosen();
+                
+                /*Animation on scroll*/
+
+                let users = document.querySelectorAll('.feed__user')
+
+                users.forEach(user => {
+                    slideIfVisible(user);
+                })
+
+                document.addEventListener('scroll', () => {
+
+                    users.forEach(user => {
+                        slideIfVisible(user);
+                    })
+                })
+
+
+            });
+
+        </script>
+
+</body>
+
+</html>

@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en" class="pink-theme">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="Maxartkiller">
+
+    <title>Signin · GoFruit</title>
+
+    <!-- Material design icons CSS -->
+    <link rel="stylesheet" href="vendor/materializeicon/material-icons.css">
+
+    <!-- Roboto fonts CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap-4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">
+
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="logout">
+        <header class="container header">
+            <div class="row d-flex align-items-center header__wrap">
+                <div class="col-md-4 col-8 header__logo">
+                    <a href="./index.html">
+                        <img src="./img/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="col-md-8 d-flex justify-content-end header__buttons">
+
+                    <a href="login.html" class="primaryButton primaryButton--main mx-3 header__button">Zaloguj</a>
+                </div>
+            </div>
+
+        </header>
+        <section class="container signUp">
+            <div class="row" id="signUp1">
+                <div class="col-lg-3 col-md-5 col-12 px-0 mb-4">
+                    <form class="form-signin shadow" id="signUp1Form">
+                        <div class="form-group float-label">
+                            <input type="email" id="inputEmail" class="form-control" autofocus>
+                            <label for="inputEmail" class="form-control-label pl-2">Email address</label>
+                        </div>
+
+                        <div class="form-group float-label">
+                            <input type="password" id="inputPassword" class="form-control">
+                            <label for="inputPassword" class="form-control-label pl-2">Password</label>
+                        </div>
+
+                        <div class="form-group my-4 text-left">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="rememberme">
+                                <label class="custom-control-label" for="rememberme">Remember Me</label>
+                            </div>
+                        </div>
+
+                        <div class="row pb-2">
+
+                            <input type="submit" class="primaryButton primaryButton--pink signUpButton border-0 mr-3" type="button" data-direction="next"
+                                data-target="1" value="Zarejestruj">
+
+
+
+                        </div>
+                    </form>
+                    <p class="text-center text-white py-2">
+                        Masz już konto?
+                        <br>
+                        <u>
+                            <a href="login.html" class="text-decoration-underline">Zaloguj się</a>
+                        </u>
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-5 offset-md-1 px-0">
+                    <div class="form-signin showLeft mb-5">
+                        <div class="d-flex align-items-end mb-3">
+                            <img src="./img/graphic.svg" alt="icon" class="icon50">
+                            <h5 class="card-title ml-3 mb-0">Co zyskujesz?</h6>
+                        </div>
+                        <p class="font-weight-light h6">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima officia suscipit obcaecati fugit animi maiores iusto soluta
+                            deserunt quos ipsum?
+                        </p>
+                    </div>
+                    <div class="form-signin showLeft mb-4">
+                        <div class="d-flex align-items-end mb-3">
+                            <img src="./img/chat.svg" alt="icon" class="icon50">
+                            <h5 class="card-title ml-3 mb-0">Dlaczego warto założyć konto?</h5>
+                        </div>
+                        <p class="font-weight-light h6">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima officia suscipit obcaecati fugit animi maiores iusto soluta
+                            deserunt quos ipsum?
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row nodisplay" id="signUp2">
+                <div class="col-md-4 offset-md-4 col-12 px-0">
+                    <form id="signUp2Form" class="mb-2">
+                        <div class="form-signin form-signin2 shadow">
+
+
+
+                            <div class="form-group float-label">
+                                <input type="text" id="inputName" class="form-control" autofocus>
+                                <label for="inputName" class="form-control-label">Imie</label>
+                            </div>
+
+
+                            <div class="form-group float-label">
+                                <textarea id="inputDesc" class="form-control" value=""></textarea>
+                                <label for="inputDesc" class="form-control-label">Napisz coś o sobie</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-auto pb-2 pl-0">
+                                    <button class="primaryButton primaryButton--pink signUpButton" type="button" data-direction="next" data-target="2">Następny krok
+                                        <i class="fa fa-angle-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                    <h6 class="text-white pl-2 pointer clickable signUpButton" data-direction="previous" data-target="2">
+                        <i class="fa fa-chevron-left"></i> Wróć
+
+                    </h6>
+                </div>
+
+            </div>
+            <div class="row nodisplay" id="signUp3">
+                <div class="col-md-4 offset-md-4 col-12 px-0">
+                    <form id="signUp3Form" class="form-signin mb-2">
+
+                        <div class="form-date mb-1 float-label">
+                            <div class="form-group form-date__item float-label active px-0">
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                                <label class="form-control-label">Dzień</label>
+                            </div>
+                            <div class="form-group form-date__item float-label active px-0">
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                                <label class="form-control-label">Miesiąc</label>
+                            </div>
+                            <div class="form-group form-date__item float-label active px-0">
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                                <label class="form-control-label">Rok</label>
+                            </div>
+                        </div>
+                        <div class="form-meassurements form-group float-label mb-0">
+                            <div class="form-group float-label form-meassurements__item px-0">
+                                <input type="text" id="inputHeight" class="form-control">
+                                <label for="inputHeight" class="form-control-label">Wzrost</label>
+                            </div>
+                            <div class="form-group float-label form-meassurements__item px-0">
+                                <input type="text" id="inputWeight" class="form-control">
+                                <label for="inputWeight" class="form-control-label">Waga</label>
+                            </div>
+                        </div>
+                        <div class="form-group float-label active">
+                            <select class="form-control">
+                                <option>1</option>
+                                <option>2</option>
+
+                            </select>
+                            <label class="form-control-label">Jestem</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto pb-2 mt-2 pl-0">
+                                <button class="primaryButton primaryButton--pink signUpButton" type="button" data-target="3">Zakończ
+                                    <i class="fa fa-angle-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <h6 class="text-white pl-2 pointer clickable signUpButton" data-direction="previous" data-target="3">
+                        <i class="fa fa-chevron-left"></i> Wróć
+
+                    </h6>
+                </div>
+  
+
+        </section>
+
+        <footer class="footer">
+                <div class="no-gutters">
+                    <div class="col-auto mx-auto">
+                        <div class="row no-gutters justify-content-center">
+                            <div class="footerList ">
+                                <a href="index.html" class="d-flex px-3 py-2 align-items-center">
+                                    <i class="fa fa-home mr-2"></i>Home</a>
+                                <a href="login.html" class="d-flex px-3 py-2 align-items-center">
+                                    <i class="fa fa-sign-in mr-2"></i>Logowanie</a>
+                                <a href="login.html" class="d-flex px-3 py-2 align-items-center">
+                                    <i class="fa fa-user-plus mr-2"></i>Rejestracja</a>
+                                <a href="login.html" class="d-flex px-3 py-2 align-items-center">
+                                    <i class="fa fa-list mr-2"></i>Polityka</a>
+                            </div>
+        
+        
+        
+        
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+       
+
+        </div>
+
+
+
+
+
+
+
+
+    <!-- jquery, popper and bootstrap js -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+
+    <!-- swiper js -->
+    <script src="vendor/swiper/js/swiper.min.js"></script>
+
+    <!-- template custom js -->
+    <script src="js/main.js"></script>
+    <!--display scripts-->
+    <script src="./js/signUp.js"></script>
+    <script>
+        const buttons = document.querySelectorAll('.signUpButton')
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function (e) {
+                next(e.target)
+            })
+        })
+
+        const form1 = document.getElementById('signUp1Form');
+        form1.addEventListener('submit', function (e) {
+            e.preventDefault();
+        })
+    </script>
+
+</body>
+
+</html>
