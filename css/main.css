@@ -362,9 +362,6 @@ header {
     font-weight: 300; }
 
 /*signUp*/
-.signUp {
-  margin-top: 30px; }
-
 @media (max-width: 576px) {
   .signUp {
     padding: 0;
@@ -372,6 +369,9 @@ header {
 
   #signUp1, #signUp2, #signUp3 {
     margin: 15px; } }
+@media (max-width: 576px) {
+  .signUp {
+    min-height: 100vh; } }
 /*register*/
 .form-signin {
   position: relative;
@@ -660,5 +660,14 @@ Footer
 
 .z-5 {
   z-index: 5 !important; }
+
+.validError {
+  border: 1px solid red; }
+
+.validationError {
+  padding: 5px;
+  background: white;
+  border: 1px solid black;
+  font-size: 12px; }
 
 /*# sourceMappingURL=main.css.map */

@@ -525,7 +525,10 @@ select.form-control optgroup {
     font-size: 13px;
     line-height: 20px;
 }
-
+.activeLabel{
+    top: 0 !important;
+    font-size: 13px !important;
+}
 .form-control-lg {
     font-size: 18px;
 }

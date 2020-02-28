@@ -4,8 +4,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no">
-    <meta name="description" content="">
+    <meta name="description" content="Randki gejowskie">
+    <meta name="keywords" content="Randki, Gej, Anonse">
     <meta name="author" content="Maxartkiller">
+    <meta property="og:title" content="Boyfriend.pl - Join Us! "/>
+    <meta property="og:url" content="Boyfriend.pl/signup.html"/>
+    <meta property="og:site_name" content="Boyfriend.pl"/>
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="./img/logo.png"/>
+    <meta property="og:image:width" content="300" />
+    <meta property="og:image:height" content="300" />
+   
+
+
+
 
     <title>Signin · GoFruit</title>
 
@@ -27,10 +39,15 @@
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
+
+    <!-- Alerts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 </head>
 
 <body>
     <div class="logout">
+        <div class="mobileWrap">
         <header class="container header">
             <div class="row d-flex align-items-center header__wrap">
                 <div class="col-md-4 col-8 header__logo">
@@ -45,12 +62,13 @@
             </div>
 
         </header>
-        <section class="container signUp">
+        <div class="registerWrap">
+        <section class="container signUp mt-md-4 mt-0">
             <div class="row" id="signUp1">
                 <div class="col-lg-3 col-md-5 col-12 px-0 mb-4">
-                    <form class="form-signin shadow" id="signUp1Form">
+                    <form class="form-signin shadow" id="signUp1Form" data-direction="next" data-target="1">
                         <div class="form-group float-label">
-                            <input type="email" id="inputEmail" class="form-control" autofocus>
+                            <input type="text" id="inputEmail" class="form-control">
                             <label for="inputEmail" class="form-control-label pl-2">Email address</label>
                         </div>
 
@@ -62,14 +80,13 @@
                         <div class="form-group my-4 text-left">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="rememberme">
-                                <label class="custom-control-label" for="rememberme">Remember Me</label>
+                                <label class="custom-control-label" for="rememberme">Accept terms</label>
                             </div>
                         </div>
 
                         <div class="row pb-2">
 
-                            <input type="submit" class="primaryButton primaryButton--pink signUpButton border-0 mr-3" type="button" data-direction="next"
-                                data-target="1" value="Zarejestruj">
+                            <input type="submit" class="primaryButton primaryButton--pink border-0 mr-3" type="button" data-target="1" value="Zarejestruj">
 
 
 
@@ -109,7 +126,7 @@
             </div>
             <div class="row nodisplay" id="signUp2">
                 <div class="col-md-4 offset-md-4 col-12 px-0">
-                    <form id="signUp2Form" class="mb-2">
+                    <form id="signUp2Form" class="mb-2" data-direction="next" data-target="2">
                         <div class="form-signin form-signin2 shadow">
 
 
@@ -126,10 +143,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-auto pb-2 pl-0">
-                                    <button class="primaryButton primaryButton--pink signUpButton" type="button" data-direction="next" data-target="2">Następny krok
-                                        <i class="fa fa-angle-right"></i>
-                                    </button>
-                                </div>
+                                    <input type="submit" class="primaryButton primaryButton--pink border-0 mr-3" type="button" data-target="2" data-direction="next"
+                                        value="Zarejestruj"> </div>
                             </div>
 
                         </div>
@@ -147,48 +162,158 @@
 
                         <div class="form-date mb-1 float-label">
                             <div class="form-group form-date__item float-label active px-0">
-                                <select class="form-control">
+                                <select class="form-control" id="inputDay">
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
                                     <option>4</option>
                                     <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                    <option>13</option>
+                                    <option>14</option>
+                                    <option>15</option>
+                                    <option>16</option>
+                                    <option>17</option>
+                                    <option>18</option>
+                                    <option>19</option>
+                                    <option>20</option>
+                                    <option>2</option>
+                                    <option>22</option>
+                                    <option>23</option>
+                                    <option>24</option>
+                                    <option>25</option>
+                                    <option>26</option>
+                                    <option>27</option>
+                                    <option>28</option>
+                                    <option>29</option>
+                                    <option>30</option>
+                                    <option>31</option>
                                 </select>
                                 <label class="form-control-label">Dzień</label>
                             </div>
                             <div class="form-group form-date__item float-label active px-0">
-                                <select class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                <select class="form-control" id="inputMonth">
+                                    <option>Styczeń</option>
+                                    <option>Luty</option>
+                                    <option>Marzec</option>
+                                    <option>Kwiecień</option>
+                                    <option>Maj</option>
+                                    <option>Czerwiec</option>
+                                    <option>Lipiec</option>
+                                    <option>Sierpień</option>
+                                    <option>Wrzesień</option>
+                                    <option>Październik</option>
+                                    <option>Listopad</option>
+                                    <option>Grudzień</option>
                                 </select>
                                 <label class="form-control-label">Miesiąc</label>
                             </div>
                             <div class="form-group form-date__item float-label active px-0">
-                                <select class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                <select class="form-control" id="inputYear">
+                                    <option>1920</option>
+                                    <option>1921</option>
+                                    <option>1922</option>
+                                    <option>1923</option>
+                                    <option>1924</option>
+                                    <option>1925</option>
+                                    <option>1926</option>
+                                    <option>1927</option>
+                                    <option>1928</option>
+                                    <option>1929</option>
+                                    <option>1930</option>
+                                    <option>1931</option>
+                                    <option>1932</option>
+                                    <option>1933</option>
+                                    <option>1934</option>
+                                    <option>1935</option>
+                                    <option>1936</option>
+                                    <option>1937</option>
+                                    <option>1938</option>
+                                    <option>1939</option>
+                                    <option>1940</option>
+                                    <option>1941</option>
+                                    <option>1942</option>
+                                    <option>1943</option>
+                                    <option>1944</option>
+                                    <option>1945</option>
+                                    <option>1946</option>
+                                    <option>1947</option>
+                                    <option>1948</option>
+                                    <option>1949</option>
+                                    <option>1950</option>
+                                    <option>1951</option>
+                                    <option>1952</option>
+                                    <option>1953</option>
+                                    <option>1954</option>
+                                    <option>1955</option>
+                                    <option>1956</option>
+                                    <option>1957</option>
+                                    <option>1958</option>
+                                    <option>1959</option>
+                                    <option>1960</option>
+                                    <option>1961</option>
+                                    <option>1962</option>
+                                    <option>1963</option>
+                                    <option>1964</option>
+                                    <option>1965</option>
+                                    <option>1966</option>
+                                    <option>1967</option>
+                                    <option>1968</option>
+                                    <option>1969</option>
+                                    <option>1970</option>
+                                    <option>1971</option>
+                                    <option>1972</option>
+                                    <option>1973</option>
+                                    <option>1974</option>
+                                    <option>1975</option>
+                                    <option>1976</option>
+                                    <option>1977</option>
+                                    <option>1978</option>
+                                    <option>1979</option>
+                                    <option>1980</option>
+                                    <option>1981</option>
+                                    <option>1982</option>
+                                    <option>1983</option>
+                                    <option>1984</option>
+                                    <option>1985</option>
+                                    <option>1986</option>
+                                    <option>1987</option>
+                                    <option>1988</option>
+                                    <option>1989</option>
+                                    <option>1990</option>
+                                    <option>1991</option>
+                                    <option>1992</option>
+                                    <option>1993</option>
+                                    <option>1994</option>
+                                    <option>1995</option>
+                                    <option>1996</option>
+                                    <option>1997</option>
+                                    <option>1998</option>
+                                    <option>1999</option>
+                                    <option>2000</option>
+                                    <option>2001</option>debuggerevalcode:2:
                                 </select>
                                 <label class="form-control-label">Rok</label>
                             </div>
                         </div>
                         <div class="form-meassurements form-group float-label mb-0">
                             <div class="form-group float-label form-meassurements__item px-0">
-                                <input type="text" id="inputHeight" class="form-control">
+                                <input type="text" id="inputHeight" class="form-control" maxlength='3'>
                                 <label for="inputHeight" class="form-control-label">Wzrost</label>
                             </div>
                             <div class="form-group float-label form-meassurements__item px-0">
-                                <input type="text" id="inputWeight" class="form-control">
+                                <input type="text" id="inputWeight" class="form-control" malength='3'>
                                 <label for="inputWeight" class="form-control-label">Waga</label>
                             </div>
                         </div>
                         <div class="form-group float-label active">
-                            <select class="form-control">
+                            <select class="form-control" id="inputOption">
                                 <option>1</option>
                                 <option>2</option>
 
@@ -197,47 +322,48 @@
                         </div>
                         <div class="row">
                             <div class="col-auto pb-2 mt-2 pl-0">
-                                <button class="primaryButton primaryButton--pink signUpButton" type="button" data-target="3">Zakończ
-                                    <i class="fa fa-angle-right"></i>
-                                </button>
-                            </div>
+                                <input type="submit" class="primaryButton primaryButton--pink border-0 mr-3" type="button" data-target="3" data-direction="next"
+                                    value="Zarejestruj"> </div>
                         </div>
-                    </form>
-                    <h6 class="text-white pl-2 pointer clickable signUpButton" data-direction="previous" data-target="3">
+                </div>
+                <h6 class="text-white pl-2 pointer clickable signUpButton" data-direction="previous" data-target="3">
                         <i class="fa fa-chevron-left"></i> Wróć
 
                     </h6>
-                </div>
-  
+                </form>
+
+            </div>
+
 
         </section>
-
+    </div>
+    </div>
         <footer class="footer">
-                <div class="no-gutters">
-                    <div class="col-auto mx-auto">
-                        <div class="row no-gutters justify-content-center">
-                            <div class="footerList ">
-                                <a href="index.html" class="d-flex px-3 py-2 align-items-center">
-                                    <i class="fa fa-home mr-2"></i>Home</a>
-                                <a href="login.html" class="d-flex px-3 py-2 align-items-center">
-                                    <i class="fa fa-sign-in mr-2"></i>Logowanie</a>
-                                <a href="login.html" class="d-flex px-3 py-2 align-items-center">
-                                    <i class="fa fa-user-plus mr-2"></i>Rejestracja</a>
-                                <a href="login.html" class="d-flex px-3 py-2 align-items-center">
-                                    <i class="fa fa-list mr-2"></i>Polityka</a>
-                            </div>
-        
-        
-        
-        
+            <div class="no-gutters">
+                <div class="col-auto mx-auto">
+                    <div class="row no-gutters justify-content-center">
+                        <div class="footerList ">
+                            <a href="index.html" class="d-flex px-3 py-2 align-items-center">
+                                <i class="fa fa-home mr-2"></i>Home</a>
+                            <a href="login.html" class="d-flex px-3 py-2 align-items-center">
+                                <i class="fa fa-sign-in mr-2"></i>Logowanie</a>
+                            <a href="login.html" class="d-flex px-3 py-2 align-items-center">
+                                <i class="fa fa-user-plus mr-2"></i>Rejestracja</a>
+                            <a href="login.html" class="d-flex px-3 py-2 align-items-center">
+                                <i class="fa fa-list mr-2"></i>Polityka</a>
                         </div>
+
+
+
+
                     </div>
                 </div>
-            </footer>
-        </div>
-       
+            </div>
+        </footer>
+    </div>
 
-        </div>
+
+    </div>
 
 
 
@@ -258,20 +384,214 @@
     <script src="js/main.js"></script>
     <!--display scripts-->
     <script src="./js/signUp.js"></script>
+    <!-- Validation scripts -->
+    <script src="./js/validation.js"></script> 
     <script>
+        /* Sign up pages transitions */
+
+        $('form').each(function () { this.reset() });
+
         const buttons = document.querySelectorAll('.signUpButton')
 
+        /*back buttons listeners */
         buttons.forEach(button => {
             button.addEventListener('click', function (e) {
                 next(e.target)
             })
         })
 
+        /* ----------1 form submit --------*/
         const form1 = document.getElementById('signUp1Form');
         form1.addEventListener('submit', function (e) {
             e.preventDefault();
+            let email = $('#inputEmail').val()
+            let password = $('#inputPassword').val()
+            let validation = true
+            if ($('.validationError')) {
+                $('.validationError').remove();
+            }
+            if (validate(email, 'email', function () {
+                /* email validation fail callback*/
+
+                $('#inputEmail').after("<h6 class='validationError d-blockmt-1 shadow-sm'>Please provide valid e-mail address</h6>");
+                activateLabels();
+                return false
+            }) == false) {
+                validation = false
+            };
+
+            if (validate(password, 'password', function () {
+                /*password validation fail callback*/
+                $('#inputPassword').after("<h6 class='validationError d-blockmt-1 shadow-sm'>Password must be between 5 and 15 character long</h6>");
+                activateLabels();
+                return false
+            }, { min: 5, max: 15 }) == false) {
+
+                validation = false
+
+            }
+            if (!$('#rememberme').is(':checked')) {
+                /*checkbox validation fail callback*/
+                $('#rememberme').parent().after("<h6 class='validationError d-blockmt-1 shadow-sm'>Please accept terms and conditions</h6>")
+                activateLabels();
+                validation = false
+            }
+
+            if (!validation) {
+                return false
+            }
+
+            fetch('https://jsonplaceholder.typicode.com/post', {
+                method: 'POST',
+                body: {
+                    email,
+                    password
+                }
+            }).then(() => {
+                /*Success Callback*/
+                next(e.target)
+                deactivateLabels();
+            }).catch((error) => {
+                /*Error message from server*/
+                alert(error)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                })
+
+            })
+            /*Load another form*/
+
+        })
+
+        /* ----------2 form submit --------*/
+        const form2 = document.getElementById('signUp2Form');
+        form2.addEventListener('submit', function (e) {
+            e.preventDefault();
+            let name = $('#inputName').val();
+            let desc = $('#inputDesc').val();
+
+            let validation = true
+
+            if ($('.validationError')) {
+                $('.validationError').remove();
+            }
+
+            if (validate(name, 'name', function () {
+                /*name validation fail callback*/
+                $('#inputName').after("<h6 class='validationError d-blockmt-1 shadow-sm'>Your name should be at least 3 characters long</h6>");
+                activateLabels();
+                return false
+            }, { min: 3, max: 20 }) == false) {
+
+                validation = false
+
+            }
+
+
+            if (!validation) {
+                return false
+            }
+            fetch('https://jsonplaceholder.typicode.com/post', {
+                method: 'POST',
+                body: {
+                    name,
+                    desc
+                }
+            }).then(() => {
+                /*Success Callback*/
+                next(e.target)
+                deactivateLabels();
+            }).catch((error) => {
+                /*Error message from server*/
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                })
+
+            })
+        }
+        )
+        const form3 = document.getElementById('signUp3Form');
+        form3.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if ($('.validationError')) {
+                $('.validationError').remove();
+            }
+
+            let weight = $('#inputWeight').val();
+            let height = $('#inputHeight').val();
+            let day = $('#inputDay').val();
+            let month = $('#inputMonth').val();
+            let year = $('#inputYear').val();
+            let option = $('#inputOption').val();
+
+            let validation = true
+
+            if (weight > 300 || weight < 30) {
+                $('#inputWeight').after("<h6 class='validationError d-blockmt-1 shadow-sm'>Please enter proper weight</h6>");
+                activateLabels();
+                validation = false
+            }
+            if (height > 250 || height < 50) {
+                $('#inputHeight').after("<h6 class='validationError d-blockmt-1 shadow-sm'>Please enter height</h6>");
+                activateLabels();
+                
+                validation = false
+            }
+
+            if (!validation) {
+                return false
+            }
+
+            fetch('https://jsonplaceholder.typicode.com/post', {
+                method: 'POST',
+                body: {
+                    weight,
+                    height,
+                    day,
+                    month,
+                    year,
+                    option
+                }
+            }).then(() => {
+                /*Success Callback*/
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Your account has been created',
+                    text: 'Thank you for joining us',
+                })
+            }).catch((error) => {
+                /*Error message from server*/
+                alert(error)
+
+            })
+
+
+
         })
     </script>
+     <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Boyfriend.pl",
+            "item": "http://Boyfriend.pl"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Rejestracja",
+            "item": "http://Boyfriend.pl"
+          }]
+        }
+    }
+        </script>
 
 </body>
 
