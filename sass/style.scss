@@ -24,6 +24,12 @@ a:hover, button:hover{
 header{
     background: #006caa
 }
+.modal-backdrop{
+    display: none;
+}
+.op50{
+    background: rgba(0,0,0,.5)
+}
 .header{
     &Wrapper{
         width: 100%;
@@ -149,6 +155,9 @@ header{
     &:hover{
         text-decoration: underline;
     }
+}
+.centerbutton{
+   background: white;
 }
 .primaryButton{
     font-size: 18px;
@@ -362,6 +371,26 @@ flex-direction: column;
         height: auto;
         margin-left: 10px;
     }
+}
+
+/*Profile Photo*/
+.profilePhoto{
+    &__icon{
+        width: 220px;
+        border-radius: 50%;
+        background: #eaeaea;
+        & icon{
+            width: 100%;
+       
+        }
+    }
+
+}
+.scroll500{
+height: 500px;
+
+    max-height: 500px;
+    overflow-y: scroll;
 }
 /*Article*/
 .article{
@@ -902,14 +931,13 @@ align-items: center;
 }
 .validationError{
 
-
+margin-top:5px;
 padding: 5px;
-
 background:
 white;
-
 border: 1px solid
-black;
+#BBBBBB;
+border-radius: 13px;
 
 font-size: 12px;
 }

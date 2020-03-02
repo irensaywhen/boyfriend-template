@@ -47,6 +47,19 @@
 
 <body>
     <div class="logout">
+            <div id="loader" class="row no-gutters vh-100 loader-screen d-none">
+                    <div class="col align-self-center text-white text-center">
+                        <img src="img/logo.png" alt="logo">
+                        <h1>
+                            <span class="font-weight-light">Randki</h1>
+                        <div class="laoderhorizontal">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
         <div class="mobileWrap">
         <header class="container header">
             <div class="row d-flex align-items-center header__wrap">
@@ -159,7 +172,11 @@
             <div class="row nodisplay" id="signUp3">
                 <div class="col-md-4 offset-md-4 col-12 px-0">
                     <form id="signUp3Form" class="form-signin mb-2">
-
+                        
+                        <div class="form-group float-label">
+                            <input type="text" id="inputLocation" class="form-control" autofocus>
+                            <label for="inputLocation" class="form-control-label">Location</label>
+                        </div>
                         <div class="form-date mb-1 float-label">
                             <div class="form-group form-date__item float-label active px-0">
                                 <select class="form-control" id="inputDay">
@@ -183,7 +200,7 @@
                                     <option>18</option>
                                     <option>19</option>
                                     <option>20</option>
-                                    <option>2</option>
+                                    <option>21</option>
                                     <option>22</option>
                                     <option>23</option>
                                     <option>24</option>
@@ -297,7 +314,7 @@
                                     <option>1998</option>
                                     <option>1999</option>
                                     <option>2000</option>
-                                    <option>2001</option>debuggerevalcode:2:
+                                    <option>2001</option>
                                 </select>
                                 <label class="form-control-label">Rok</label>
                             </div>
@@ -308,7 +325,7 @@
                                 <label for="inputHeight" class="form-control-label">Wzrost</label>
                             </div>
                             <div class="form-group float-label form-meassurements__item px-0">
-                                <input type="text" id="inputWeight" class="form-control" malength='3'>
+                                <input type="text" id="inputWeight" class="form-control" maxlength='3'>
                                 <label for="inputWeight" class="form-control-label">Waga</label>
                             </div>
                         </div>
@@ -440,8 +457,10 @@
             if (!validation) {
                 return false
             }
+            $('#loader').removeClass('d-none')
+            $('#loader').addClass('d-flex')
 
-            fetch('https://jsonplaceholder.typicode.com/post', {
+            fetch('https://reqres.in/api/users', {
                 method: 'POST',
                 body: {
                     email,
@@ -449,6 +468,8 @@
                 }
             }).then(() => {
                 /*Success Callback*/
+                $('#loader').removeClass('d-flex')
+            $('#loader').addClass('d-none')
                 next(e.target)
                 deactivateLabels();
             }).catch((error) => {
@@ -493,7 +514,9 @@
             if (!validation) {
                 return false
             }
-            fetch('https://jsonplaceholder.typicode.com/post', {
+            $('#loader').removeClass('d-none')
+            $('#loader').addClass('d-flex')
+            fetch('https://reqres.in/api/users', {
                 method: 'POST',
                 body: {
                     name,
@@ -501,6 +524,8 @@
                 }
             }).then(() => {
                 /*Success Callback*/
+                $('#loader').removeClass('d-flex')
+            $('#loader').addClass('d-none')
                 next(e.target)
                 deactivateLabels();
             }).catch((error) => {
@@ -530,6 +555,7 @@
             let month = $('#inputMonth').val();
             let year = $('#inputYear').val();
             let option = $('#inputOption').val();
+            let location = $('#inputLocation').val();
 
             let validation = true
 
@@ -544,12 +570,23 @@
                 
                 validation = false
             }
+            if (validate(location, 'name', function () {
+                /*name validation fail callback*/
+                $('#inputLocation').after("<h6 class='validationError d-blockmt-1 shadow-sm'>Your Location should be at least 3 characters long</h6>");
+                activateLabels();
+                return false
+            }, { min: 3, max: 20 }) == false) {
+
+                validation = false
+
+            }
 
             if (!validation) {
                 return false
             }
-
-            fetch('https://jsonplaceholder.typicode.com/post', {
+            $('#loader').removeClass('d-none')
+            $('#loader').addClass('d-flex')
+            fetch('https://reqres.in/api/users', {
                 method: 'POST',
                 body: {
                     weight,
@@ -561,6 +598,8 @@
                 }
             }).then(() => {
                 /*Success Callback*/
+                $('#loader').removeClass('d-flex')
+            $('#loader').addClass('d-none')
                 Swal.fire({
                     icon: 'success',
                     title: 'Your account has been created',

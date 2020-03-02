@@ -27,8 +27,9 @@
     <!-- Chosen multiselect CSS -->
     <link href="vendor/chosen_v1.8.7/chosen.min.css" rel="stylesheet">
 
-    <!-- nouislider CSS -->
-    <link href="vendor/nouislider/nouislider.min.css" rel="stylesheet">
+    <!-- Alerts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
@@ -87,7 +88,19 @@
 
     </div>
     <div class="wrapper bg-lg">
-
+        <div class="row no-gutters vh-100 loader-screen d-none">
+            <div class="col align-self-center text-white text-center">
+                <img src="img/logo.png" alt="logo">
+                <h1>
+                    <span class="font-weight-light">Randki</h1>
+                <div class="laoderhorizontal">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
         <header class="header pb-3">
             <button class="menu-btn bg-transparent d-flex">
                 <img src="img/menu.png" alt="">
@@ -106,7 +119,62 @@
             </div>
         </header>
         <div class="editProfile container pt-5 pb-0 px-0">
-           
+            <div id="loader" class="row no-gutters vh-100 loader-screen d-none">
+                <div class="col align-self-center text-white text-center">
+                    <img src="img/logo.png" alt="logo">
+                    <h1>
+                        <span class="font-weight-light">Randki</h1>
+                    <div class="laoderhorizontal">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade profilePhoto" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-backdrop custom-backdrop d-block op50">
+                    <div class="modal-dialog" role="document">
+                        <form class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Zmień zdjęcie profilowe</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body scroll500 text-center">
+                                <h5 class="p-2">Obecne zdjęcie:</h6>
+                                <img src="./img/profile.jpg" alt="" class="w-75 mb-3">
+                                <div class="text-center floating-btn d-flex flex-column my-4 pointer">
+                                    <div class="position-relative">
+                                        <figure class="profilePhoto__icon p-5 mx-auto my-2">
+                                            <img src="./img/camera.svg" class="w-100">
+                                        </figure>
+
+                                        <input type="file" class="float-file" capture="camera">
+                                        <h6 class="mt-2">Dodaj zdjęcie z Aparatu</h5>
+                                    </div>
+                                </div>
+                                <div class="text-center floating-btn d-flex flex-column my-4 pointer">
+                                    <div class="position-relative">
+                                        <figure class="profilePhoto__icon p-5 mx-auto my-2">
+                                            <img src="./img/upload.svg" class="w-100">
+                                        </figure>
+
+                                        <input type="file" class="float-file">
+                                        <h6 class="mt-2">Dodaj zdjęcie z Pliku</h5>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+
+                                <input type="submit" class="primaryButton primaryButton--pink border-0">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <div class="mb-5">
 
                 <div class="figure-profile m-auto shadow-sm">
@@ -116,10 +184,10 @@
                     </figure>
                     <div class="btn btn-dark text-white floating-btn">
                         <i class="material-icons">camera_alt</i>
-                        <input type="file" class="float-file">
+                        <input type="button" class="float-file" data-toggle="modal" data-target="#exampleModal">
                     </div>
                 </div>
-                
+
 
             </div>
 
@@ -142,87 +210,87 @@
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="tab-pane active py-4" role="tabpanel" id="step13">
-                            
 
-            <div class="px-2 py-md-4 py-2 m-0">
-                    <h5 class="pl-2 mb-2">Dodaj więcej zdjęć:</h5>
-                    <div class="row">
-    
-                        <div class="col-md-8 pl-0">
-                            <div class="demo-swiper-custom">
-                                <div data-pagination='{"el": ".swiper-pagination", "clickable": true}' data-navigation='{"nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev"}'
-                                    data-space-between="0" class="swiper-container swiper-init demo-swiper">
-    
-                                    <div class="swiper-wrapper">
-                                        <div class="swiper-slide edit__photoContainer">
-                                            <img src="./img/photo1.jpg" alt="">
-                                            <h6 class="mb-2 text-secondary">
-                                                Photo1
-                                            </h6>
+
+                            <div class="px-2 py-md-4 py-2 m-0">
+                                <h5 class="pl-2 mb-2">Dodaj więcej zdjęć:</h5>
+                                <div class="row">
+
+                                    <div class="col-md-8 pl-0">
+                                        <div class="demo-swiper-custom">
+                                            <div data-pagination='{"el": ".swiper-pagination", "clickable": true}' data-navigation='{"nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev"}'
+                                                data-space-between="0" class="swiper-container swiper-init demo-swiper">
+
+                                                <div class="swiper-wrapper">
+                                                    <div class="swiper-slide edit__photoContainer">
+                                                        <img src="./img/photo1.jpg" alt="">
+                                                        <h6 class="mb-2 text-secondary">
+                                                            Photo1
+                                                        </h6>
+                                                    </div>
+                                                    <div class="swiper-slide edit__photoContainer">
+                                                        <img src="./img/photo2.jpg" alt="">
+                                                        <h6 class="mb-2 text-secondary">
+                                                            Photo1
+                                                        </h6>
+                                                    </div>
+                                                    <div class="swiper-slide edit__photoContainer">
+                                                        <img src="./img/photo1.jpg" alt="">
+                                                        <h6 class="mb-2 text-secondary">
+                                                            Photo1
+                                                        </h6>
+                                                    </div>
+                                                    <div class="swiper-slide edit__photoContainer">
+                                                        <img src="./img/photo2.jpg" alt="">
+                                                        <h6 class="mb-2 text-secondary">
+                                                            Photo1
+                                                        </h6>
+                                                    </div>
+                                                    <div class="swiper-slide edit__photoContainer">
+                                                        <img src="./img/photo1.jpg" alt="">
+                                                        <h6 class="mb-2 text-secondary">
+                                                            Photo1
+                                                        </h6>
+                                                    </div>
+                                                    <div class="swiper-slide edit__photoContainer">
+                                                        <img src="./img/photo2.jpg" alt="">
+                                                        <h6 class="mb-2 text-secondary">
+                                                            Photo1
+                                                        </h6>
+                                                    </div>
+                                                    <div class="swiper-slide edit__photoContainer">
+                                                        <img src="./img/photo1.jpg" alt="">
+                                                        <h6 class="mb-2 text-secondary">
+                                                            Photo1
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                                <div class="swiper-button-prev"></div>
+                                                <div class="swiper-button-next"></div>
+                                            </div>
                                         </div>
-                                        <div class="swiper-slide edit__photoContainer">
-                                            <img src="./img/photo2.jpg" alt="">
-                                            <h6 class="mb-2 text-secondary">
-                                                Photo1
-                                            </h6>
-                                        </div>
-                                        <div class="swiper-slide edit__photoContainer">
-                                            <img src="./img/photo1.jpg" alt="">
-                                            <h6 class="mb-2 text-secondary">
-                                                Photo1
-                                            </h6>
-                                        </div>
-                                        <div class="swiper-slide edit__photoContainer">
-                                            <img src="./img/photo2.jpg" alt="">
-                                            <h6 class="mb-2 text-secondary">
-                                                Photo1
-                                            </h6>
-                                        </div>
-                                        <div class="swiper-slide edit__photoContainer">
-                                            <img src="./img/photo1.jpg" alt="">
-                                            <h6 class="mb-2 text-secondary">
-                                                Photo1
-                                            </h6>
-                                        </div>
-                                        <div class="swiper-slide edit__photoContainer">
-                                            <img src="./img/photo2.jpg" alt="">
-                                            <h6 class="mb-2 text-secondary">
-                                                Photo1
-                                            </h6>
-                                        </div>
-                                        <div class="swiper-slide edit__photoContainer">
-                                            <img src="./img/photo1.jpg" alt="">
-                                            <h6 class="mb-2 text-secondary">
-                                                Photo1
-                                            </h6>
+                                        <div class="edit__photoContainer">
+
                                         </div>
                                     </div>
-                                    <div class="swiper-button-prev"></div>
-                                    <div class="swiper-button-next"></div>
+                                    <div class="col-md-4 edit__addPhoto">
+                                        <img src="./img/addphoto.svg" alt="">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="edit__photoContainer">
-    
-                            </div>
-                        </div>
-                        <div class="col-md-4 edit__addPhoto">
-                            <img src="./img/addphoto.svg" alt="">
-                        </div>
-                    </div>
-                </div>
-                            <form class="pt-4">
-                        
+                            <form class="pt-4" id="form1">
+
                                 <div class="row">
-                                       
+
                                     <div class="col-12 col-md-6">
                                         <div class="form-group float-label active">
-                                            <input type="text" class="form-control" required="">
+                                            <input type="text" class="form-control" id="inputName">
                                             <label class="form-control-label">Name</label>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group float-label active">
-                                            <input type="email" class="form-control" required="">
+                                            <input type="email" class="form-control" id="inputEmail">
                                             <label class="form-control-label">Email address</label>
                                         </div>
                                     </div>
@@ -231,32 +299,142 @@
                                     <div class="col-12 col-md-6">
                                         <div class="mb-1 d-flex">
                                             <div class="float-label active pr-md-4 pr-2 col-4">
-                                                <select class="form-control">
+                                                <select class="form-control" id="inputDay">
                                                     <option>1</option>
                                                     <option>2</option>
                                                     <option>3</option>
                                                     <option>4</option>
                                                     <option>5</option>
+                                                    <option>6</option>
+                                                    <option>7</option>
+                                                    <option>8</option>
+                                                    <option>9</option>
+                                                    <option>10</option>
+                                                    <option>11</option>
+                                                    <option>12</option>
+                                                    <option>13</option>
+                                                    <option>14</option>
+                                                    <option>15</option>
+                                                    <option>16</option>
+                                                    <option>17</option>
+                                                    <option>18</option>
+                                                    <option>19</option>
+                                                    <option>20</option>
+                                                    <option>21</option>
+                                                    <option>22</option>
+                                                    <option>23</option>
+                                                    <option>24</option>
+                                                    <option>25</option>
+                                                    <option>26</option>
+                                                    <option>27</option>
+                                                    <option>28</option>
+                                                    <option>29</option>
+                                                    <option>30</option>
+                                                    <option>31</option>
                                                 </select>
                                                 <label class="form-control-label">Dzień</label>
                                             </div>
                                             <div class="float-label active pr-md-4 pr-2 col-4">
-                                                <select class="form-control">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                <select class="form-control" id="inputMonth">
+                                                    <option>Styczeń</option>
+                                                    <option>Luty</option>
+                                                    <option>Marzec</option>
+                                                    <option>Kwiecień</option>
+                                                    <option>Maj</option>
+                                                    <option>Czerwiec</option>
+                                                    <option>Lipiec</option>
+                                                    <option>Sierpień</option>
+                                                    <option>Wrzesień</option>
+                                                    <option>Październik</option>
+                                                    <option>Listopad</option>
+                                                    <option>Grudzień</option>
                                                 </select>
                                                 <label class="form-control-label">Miesiąc</label>
                                             </div>
                                             <div class="float-label active pr-md-4 pr-2 col-4">
-                                                <select class="form-control">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                <select class="form-control" id="inputYear">
+                                                    <option>1920</option>
+                                                    <option>1921</option>
+                                                    <option>1922</option>
+                                                    <option>1923</option>
+                                                    <option>1924</option>
+                                                    <option>1925</option>
+                                                    <option>1926</option>
+                                                    <option>1927</option>
+                                                    <option>1928</option>
+                                                    <option>1929</option>
+                                                    <option>1930</option>
+                                                    <option>1931</option>
+                                                    <option>1932</option>
+                                                    <option>1933</option>
+                                                    <option>1934</option>
+                                                    <option>1935</option>
+                                                    <option>1936</option>
+                                                    <option>1937</option>
+                                                    <option>1938</option>
+                                                    <option>1939</option>
+                                                    <option>1940</option>
+                                                    <option>1941</option>
+                                                    <option>1942</option>
+                                                    <option>1943</option>
+                                                    <option>1944</option>
+                                                    <option>1945</option>
+                                                    <option>1946</option>
+                                                    <option>1947</option>
+                                                    <option>1948</option>
+                                                    <option>1949</option>
+                                                    <option>1950</option>
+                                                    <option>1951</option>
+                                                    <option>1952</option>
+                                                    <option>1953</option>
+                                                    <option>1954</option>
+                                                    <option>1955</option>
+                                                    <option>1956</option>
+                                                    <option>1957</option>
+                                                    <option>1958</option>
+                                                    <option>1959</option>
+                                                    <option>1960</option>
+                                                    <option>1961</option>
+                                                    <option>1962</option>
+                                                    <option>1963</option>
+                                                    <option>1964</option>
+                                                    <option>1965</option>
+                                                    <option>1966</option>
+                                                    <option>1967</option>
+                                                    <option>1968</option>
+                                                    <option>1969</option>
+                                                    <option>1970</option>
+                                                    <option>1971</option>
+                                                    <option>1972</option>
+                                                    <option>1973</option>
+                                                    <option>1974</option>
+                                                    <option>1975</option>
+                                                    <option>1976</option>
+                                                    <option>1977</option>
+                                                    <option>1978</option>
+                                                    <option>1979</option>
+                                                    <option>1980</option>
+                                                    <option>1981</option>
+                                                    <option>1982</option>
+                                                    <option>1983</option>
+                                                    <option>1984</option>
+                                                    <option>1985</option>
+                                                    <option>1986</option>
+                                                    <option>1987</option>
+                                                    <option>1988</option>
+                                                    <option>1989</option>
+                                                    <option>1990</option>
+                                                    <option>1991</option>
+                                                    <option>1992</option>
+                                                    <option>1993</option>
+                                                    <option>1994</option>
+                                                    <option>1995</option>
+                                                    <option>1996</option>
+                                                    <option>1997</option>
+                                                    <option>1998</option>
+                                                    <option>1999</option>
+                                                    <option>2000</option>
+                                                    <option>2001</option>
                                                 </select>
                                                 <label class="form-control-label">Rok</label>
                                             </div>
@@ -264,20 +442,20 @@
                                     </div>
                                     <div class="col-12 col-md-6 mt-md-0 mt-3">
                                         <div class="form-group float-label active">
-                                            <input type="tel" class="form-control" required="">
+                                            <input type="tel" class="form-control" id="inputLocation">
                                             <label class="form-control-label">Lokalizacja</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <div class="float-label form-group w-100 col-12 px-3">
-                                        
-                                        <textarea id="inputDesc" class="form-control bgwhite"></textarea>
+
+                                        <textarea id="inputDesc" class="form-control bgwhite" id="inputDesc"></textarea>
                                         <label for="inputDesc" class="form-control-label px-3 py-0 z-5">Twój opis</label>
                                     </div>
                                 </div>
                                 <div class="text-right col-12">
-                                    <input type="submit" class="primaryButton primaryButton--pink signUpButton mb-0 border-0" data-target="2" value="Zapisz">
+                                    <input type="submit" class="primaryButton primaryButton--pink signUpButton mb-0 border-0" value="Zapisz">
 
 
 
@@ -285,7 +463,7 @@
                             </form>
                         </div>
                         <div class="tab-pane pt-4" role="tabpanel" id="step23">
-                            <div class="col-12 px-0">
+                            <form class="col-12 px-0" id="form2">
                                 <ul class="list-group list-group-flush mb-4">
                                     <li class="list-group-item">
                                         <div class="row">
@@ -344,28 +522,23 @@
                                         </div>
                                     </li>
                                     <div class="list-group-item text-right">
-                                        <h6 type="submit" class="primaryButton primaryButton--pink signUpButton mb-0 border-0 mt-2" data-target="2">Zapisz</h6>
+                                        <input type="submit" class="primaryButton primaryButton--pink signUpButton mb-0 border-0" value="Zapisz">
 
 
 
                                     </div>
 
                                 </ul>
-                            </div>
+                            </form>
                         </div>
                         <div class="tab-pane" role="tabpanel" id="step33">
-                            <form class="py-4">
+                            <form class="py-4" id="form3">
 
                                 <div class="row">
+
                                     <div class="col-12 col-md-6">
                                         <div class="form-group float-label active">
-                                            <input type="text" class="form-control" required="">
-                                            <label class="form-control-label">Login</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <div class="form-group float-label active">
-                                            <input type="email" class="form-control" required="true">
+                                            <input type="text" id="inputPassword" class="form-control">
                                             <label class="form-control-label">Password</label>
                                         </div>
                                     </div>
@@ -401,7 +574,7 @@
                                 </div>
 
                                 <div class="text-right col-12">
-                                    <input type="submit" class="primaryButton primaryButton--pink signUpButton mb-0 border-0" data-target="2" value="Zapisz">
+                                    <input type="submit" class="primaryButton primaryButton--pink signUpButton mb-0 border-0" value="Zapisz">
 
 
 
@@ -414,11 +587,7 @@
             </div>
         </div>
 
-
-    </div>
-    
-    </div>
-    <div class="footer">
+        <div class="footer">
             <div class="no-gutters">
                 <div class="col-auto mx-auto">
                     <div class="row no-gutters justify-content-center">
@@ -451,6 +620,10 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    </div>
+
 
 
     <!-- jquery, popper and bootstrap js -->
@@ -461,8 +634,6 @@
     <!-- swiper js -->
     <script src="vendor/swiper/js/swiper.min.js"></script>
 
-    <!-- nouislider js -->
-    <script src="vendor/nouislider/nouislider.min.js"></script>
 
     <!-- chart js -->
     <script src="vendor/chartjs/Chart.min.js"></script>
@@ -475,6 +646,7 @@
     <script src="js/main.js"></script>
     <script src="./js/feed.js"></script>
 
+    <script src="./js/validation.js"></script>
     <!-- page level script -->
     <script>
         $(window).on('load', function () {
@@ -499,67 +671,192 @@
             });
 
             /* range picker for filter */
-            var html5Slider = document.getElementById('rangeslider');
-            noUiSlider.create(html5Slider, {
-                start: [0, 100],
-                connect: true,
-                range: {
-                    'min': 0,
-                    'max': 500
-                }
-            });
 
-            var inputNumber = document.getElementById('input-number');
-            var select = document.getElementById('input-select');
 
-            html5Slider.noUiSlider.on('update', function (values, handle) {
-                var value = values[handle];
 
-                if (handle) {
-                    inputNumber.value = value;
-                } else {
-                    select.value = Math.round(value);
-                }
-            });
-            select.addEventListener('change', function () {
-                html5Slider.noUiSlider.set([this.value, null]);
-            });
-            inputNumber.addEventListener('change', function () {
-                html5Slider.noUiSlider.set([null, this.value]);
-            });
+
 
             /* chosen select*/
             $(".chosen").chosen();
 
-            /* Preferences collapse*/
-            const preferences = document.querySelector('.collapse')
-
-            if (document.body.clientWidth < 576) {
-                preferences.classList.remove('show');
-            }
-            window.addEventListener("resize", function () {
-
-                if (document.body.clientWidth < 576) {
-                    preferences.classList.remove('show');
-                } else if (document.body.clientWidth > 576) {
-                    preferences.classList.add('show');
+            /*Basic info validate*/
+            const form1 = document.getElementById('form1');
+            form1.addEventListener('submit', function (e) {
+                e.preventDefault();
+                let email = $('#inputEmail').val()
+                let name = $('#inputName').val()
+                let location = $('#inputLocation').val()
+                let desc = $('#inputDesc').val()
+                let year = $('#inputYear').val()
+                let month = $('#inputMonth').val()
+                let day = $('#inputDay').val()
+                let validation = true
+                if ($('.validationError')) {
+                    $('.validationError').remove();
                 }
-            });
+                if (validate(email, 'email', function () {
+                    /* email validation fail callback*/
 
-            /*autoLoad*/
-            let users = document.querySelectorAll('.userList__user')
+                    $('#inputEmail').after("<h6 class='validationError d-blockmt-1 shadow-sm'>Please provide valid e-mail address</h6>");
+                    activateLabels();
+                    return false
+                }) == false) {
+                    validation = false
+                };
 
-            users.forEach(user => {
-                slideIfVisible(user);
+                if (validate(name, 'name', function () {
+                    /*password validation fail callback*/
+                    $('#inputName').after("<h6 class='validationError d-blockmt-1 shadow-sm'>Your name must be at least 3 characters long</h6>");
+                    activateLabels();
+                    return false
+                }, { min: 3, max: 50 }) == false) {
+
+                    validation = false
+
+                }
+                if (validate(location, 'name', function () {
+                    /*password validation fail callback*/
+                    $('#inputLocation').after("<h6 class='validationError d-blockmt-1 shadow-sm'>Your Location must be at least 3 characters long</h6>");
+                    activateLabels();
+                    return false
+                }, { min: 3, max: 50 }) == false) {
+
+                    validation = false
+
+                }
+
+
+
+                if (!validation) {
+                    return false
+                }
+                $('#loader').removeClass('d-none')
+                $('#loader').addClass('d-flex')
+
+                fetch('https://reqres.in/api/users', {
+                    method: 'POST',
+                    body: {
+                        name,
+                        email,
+                        year,
+                        month,
+                        day,
+                        desc
+                    }
+                }).then(() => {
+                    /*Success Callback*/
+                    $('#loader').removeClass('d-flex')
+                    $('#loader').addClass('d-none')
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Twoje dane zostały zmienione',
+                        text: 'Profil został zaktualizowany',
+                    })
+                    deactivateLabels();
+                }).catch((error) => {
+                    /*Error message from server*/
+                    alert(error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+
+                })
+
+
             })
+            /*Notifications submit*/
+            const form2 = document.getElementById('form2');
+            form2.addEventListener('submit', function (e) {
+                e.preventDefault();
+                let switch1 = $('#switch1').is(':checked');
+                let switch2 = $('#switch2').is(':checked');
+                let switch3 = $('#switch3').is(':checked');
+                let switch4 = $('#switch4').is(':checked');
 
-            document.addEventListener('scroll', () => {
+                $('#loader').removeClass('d-none')
+                $('#loader').addClass('d-flex')
 
-                users.forEach(user => {
-                    slideIfVisible(user);
+                fetch('https://reqres.in/api/users', {
+                    method: 'POST',
+                    body: {
+                        switch1,
+                        switch2,
+                        switch3,
+                        switch4
+                    }
+                }).then(() => {
+                    /*Success Callback*/
+                    $('#loader').removeClass('d-flex')
+                    $('#loader').addClass('d-none')
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Twoje dane zostały zmienione',
+                        text: 'Profil został zaktualizowany',
+                    })
+                    deactivateLabels();
+                }).catch((error) => {
+                    /*Error message from server*/
+                    alert(error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+
                 })
             })
 
+            const form3 = document.getElementById('form3');
+            form3.addEventListener('submit', function (e) {
+                e.preventDefault();
+                let validation = true;
+                let password = $('#inputPassword').val();
+                if ($('.validationError')) {
+                    $('.validationError').remove();
+                }
+                if (validate(password, 'password', function () {
+                    /*password validation fail callback*/
+                    $('#inputPassword').after("<h6 class='validationError d-blockmt-1 shadow-sm'>Password must be between 5 and 15 character long</h6>");
+                    activateLabels();
+                    return false
+                }, { min: 5, max: 15 }) == false) {
+                    validation = false
+                }
+
+                if (!validation) {
+                    return false
+                }
+                $('#loader').removeClass('d-none')
+                $('#loader').addClass('d-flex')
+
+                fetch('https://reqres.in/api/users', {
+                    method: 'POST',
+                    body: {
+                        password
+                    }
+                }).then(() => {
+                    /*Success Callback*/
+                    $('#loader').removeClass('d-flex')
+                    $('#loader').addClass('d-none')
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Twoje dane zostały zmienione',
+                        text: 'Profil został zaktualizowany',
+                    })
+                    deactivateLabels();
+                }).catch((error) => {
+                    /*Error message from server*/
+                    alert(error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+
+                })
+            })
 
 
         });
