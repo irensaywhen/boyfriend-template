@@ -58,14 +58,26 @@
         <i class="material-icons">arrow_forward</i>
     </a>
     <!-- Floating logo -->
-    <div class="logo--index">
-        <div class="container">
-            <img class="logo--indexIMG" src="./img/logo.png" alt="">
-        </div>
-
-    </div>
+    
     <!-- Swiper -->
     <div class="swiper-container introduction vh-100">
+        <div class="position-absolute w-100 z-100">
+            <header class="container header bg-transparent mx-auto">
+                    <div class="row d-flex align-items-center header__wrap">
+                        <div class="col-md-4 col-8 header__logo">
+                            <a href="./index.html">
+                                <img src="./img/logo.png" alt="logo">
+                            </a>
+                        </div>
+                        <div class="col-md-8 d-flex justify-content-end header__buttons">
+        
+                            <a href="signup.html" class="primaryButton primaryButton--main mx-3 header__button">Zarejestruj</a>
+                            <a href="signup.html" class="primaryButton primaryButton--main mx-3 header__button">Zaloguj</a>
+                        </div>
+                    </div>
+        
+                </header>
+            </div>
         <div class="swiper-wrapper">
             <div class="swiper-slide overflow-hidden bg-1 text-white">
                 <div class="row no-gutters h-100">
@@ -76,7 +88,7 @@
                                 <div class="row">
                                     <div class="col-6 text-left">
                                         <h1 class="text-uppercase">Heading</h1>
-                                        <p>Heading</p>
+                                        <h2 class="font-weight-light">Heading</h2>
                                     </div>
                                 </div>
                             </div>

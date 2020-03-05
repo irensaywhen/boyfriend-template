@@ -190,7 +190,7 @@ header{
         background: #f24167;
         color: #ffffff;
         &:hover{
-            text-decoration: underline;
+           background: #e12d54;
         }
      
     }
@@ -200,6 +200,10 @@ header{
         #f24167;
         color:
         #212529;
+        &:hover{
+            background: #f24167;
+            color: white;
+         }
     }
     &--yellow{
         background-color: #f2be41;
@@ -376,7 +380,7 @@ flex-direction: column;
 /*Profile Photo*/
 .profilePhoto{
     &__icon{
-        width: 220px;
+        width: 175px;
         border-radius: 50%;
         background: #eaeaea;
         & icon{
@@ -386,10 +390,46 @@ flex-direction: column;
     }
 
 }
+.addPhotoPreview{
+    width: 100%;
+    max-height: 250px;
+    min-height: 250px;
+    overflow: hidden;
+    animation: showDown .4s ease;
+    & img{
+        height: 100%;
+    }
+     & > .custom-control{
+         position: absolute;
+         right: 20px
+     }
+}
+.photoEdit{
+    &__private{
+        top: 0;
+    }
+    &__delete{
+        top: 0;
+        right: 0;
+    }
+}
+.addPhotoDesc{
+    height: 120px;
+}
+@media (max-width: 768px) {
+    .modal-open{
+        padding-right: 0 !important;
+    }
+}
+.profilePreview{
+    height: 100% !important;
+    position: relative !important;
+    width: initial !important;
+}
 .scroll500{
-height: 500px;
+height: 600px;
 
-    max-height: 500px;
+    max-height: 600px;
     overflow-y: scroll;
 }
 /*Article*/
@@ -892,25 +932,11 @@ align-items: center;
 .white{
     color: white;
 }
-.ml15{
-    margin-left: 15px;
-}
-.mb30{
-    margin-bottom: 30px;
-}
-.mb5{
-    margin-bottom: 5px !important;
+.w-250{
+    width: 250px;
+    height: 250px;
 }
 
-.space-around{
-    justify-content: space-around;
-}
-.mt0{
-    margin-top: 0;
-}
-.mb0{
-    margin-bottom: 0;
-}
 .centered{
     margin: 0 auto;
 }
@@ -925,19 +951,15 @@ align-items: center;
 .z-5{
     z-index: 5 !important;
 }
+.z-100{
+    z-index: 5 !important;
+}
 .validError{
     border: 1px solid red;
    
 }
 .validationError{
+    margin-top: 5px; padding: 5px; background: #ffd9d9; font-size: 12px;
 
-margin-top:5px;
-padding: 5px;
-background:
-white;
-border: 1px solid
-#BBBBBB;
-border-radius: 13px;
 
-font-size: 12px;
 }

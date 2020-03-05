@@ -9,13 +9,6 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     line-height: 22px;
-    -webkit-overflow-scrolling: touch;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 
@@ -179,8 +172,6 @@ body.sidemenu-open .wrapper:after {
     height: 100%;
     width: 100%;
     display: block;
-    user-select: none;
-    -webkit-user-select: none;
     z-index: 10;
     cursor: pointer
 }
@@ -369,7 +360,7 @@ body.sidemenu-open .sidebar {
     left: 0;
     height: 100%;
     width: 100%;
-    z-index: 99;
+    z-index: 999;
     background-color: #006caa;
 }
 
@@ -1404,7 +1395,7 @@ body a.btn-light-grey {
 .figure-profile {
     height: 178px;
     width: 178px;
-    border-radius: 90px;
+    border-radius: 50%;
     margin: 0;
     position: relative;
 }
