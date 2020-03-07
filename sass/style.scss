@@ -156,6 +156,9 @@ header{
         text-decoration: underline;
     }
 }
+.underline{
+    text-decoration: underline;
+}
 .centerbutton{
    background: white;
 }
@@ -172,8 +175,8 @@ header{
         border: 1px solid #ffffff;
         font-weight: 500;
         &:hover{
-            background-color: rgba(255,255,255,.2);
-            text-decoration: underline;
+            background-color: white;
+            color:#036ba8;
          
         }
     }
@@ -183,7 +186,7 @@ header{
         border: 1px solid #ffffff;
         font-weight: 700;
         &:hover{
-            text-decoration: underline;
+            background: rgba(255,255,255,.9)
         }
     }
     &--pink{
@@ -191,6 +194,7 @@ header{
         color: #ffffff;
         &:hover{
            background: #e12d54;
+           color: #ffffff;
         }
      
     }
@@ -345,7 +349,8 @@ flex-direction: column;
     &__article{
         background: white;
         border-radius: 15px;
-        cursor: pointer;
+       
+        animation: showDown .4s ease;
     }
     &__articleIMG{
         width: 100%;
@@ -354,7 +359,7 @@ flex-direction: column;
 }
 .articles{
     &__entry{
-        opacity: 0;
+        
     }
 }
 /*buttons*/
@@ -389,6 +394,9 @@ flex-direction: column;
         }
     }
 
+}
+#profilePhotoUpload{
+    min-width: 100%;
 }
 .addPhotoPreview{
     width: 100%;
@@ -440,6 +448,11 @@ height: 600px;
         & img{
             width: 30px;
             margin-left: 10px;
+            opacity: .8;
+            cursor: pointer;
+            &:hover{
+                opacity: 1;
+            }
         }
        
     }
@@ -574,7 +587,20 @@ align-items: baseline;
     }
  }
 
-
+#listGroup{
+    width: 100%;
+    position:absolute;
+    padding:0;
+    z-index: 100;
+    max-width: 100vh;
+    overflow-y: scroll;
+}
+.citySelect{
+    background: rgb(236, 239, 243);
+    &:hover{
+        background: white;
+    }
+}
 /*register*/
 .form-signin{
     position: relative;
@@ -683,6 +709,9 @@ align-items: baseline;
         & img{
             width: 100%;
             height: auto;
+            &:hover{
+                opacity: .8;
+            }
         }
     }
     &__addPhoto{
@@ -916,8 +945,19 @@ align-items: center;
         transform: translateX(0px)
     }
 }
+.w-250{
+    width: 250px;
+    height: 250px;
+}
+@media(max-width: 576px){
+    .w-250{
+        width: 200px;
+        height: 200px;
+    }
+}
 
 /*mobile-classes*/
+
 @media(max-width: 576px){
 .mobile-flex-column{
     flex-direction: column;
@@ -931,10 +971,6 @@ align-items: center;
 }
 .white{
     color: white;
-}
-.w-250{
-    width: 250px;
-    height: 250px;
 }
 
 .centered{

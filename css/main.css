@@ -128,6 +128,9 @@ header {
 .clickable:hover {
   text-decoration: underline; }
 
+.underline {
+  text-decoration: underline; }
+
 .centerbutton {
   background: white; }
 
@@ -143,20 +146,21 @@ header {
     border: 1px solid #ffffff;
     font-weight: 500; }
     .primaryButton--main:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-      text-decoration: underline; }
+      background-color: white;
+      color: #036ba8; }
   .primaryButton--invert {
     color: #036ba8;
     background: #ffffff;
     border: 1px solid #ffffff;
     font-weight: 700; }
     .primaryButton--invert:hover {
-      text-decoration: underline; }
+      background: rgba(255, 255, 255, 0.9); }
   .primaryButton--pink {
     background: #f24167;
     color: #ffffff; }
     .primaryButton--pink:hover {
-      background: #e12d54; }
+      background: #e12d54;
+      color: #ffffff; }
   .primaryButton--pinkoutline {
     background: transparent;
     border: 1px solid #f24167;
@@ -266,13 +270,10 @@ header {
 .index__article {
   background: white;
   border-radius: 15px;
-  cursor: pointer; }
+  animation: showDown .4s ease; }
 .index__articleIMG {
   width: 100%;
   padding: 5px 0; }
-
-.articles__entry {
-  opacity: 0; }
 
 /*buttons*/
 .buttons__vertical {
@@ -296,6 +297,9 @@ header {
   background: #eaeaea; }
   .profilePhoto__icon icon {
     width: 100%; }
+
+#profilePhotoUpload {
+  min-width: 100%; }
 
 .addPhotoPreview {
   width: 100%;
@@ -336,7 +340,11 @@ header {
   background: white; }
   .article__social img {
     width: 30px;
-    margin-left: 10px; }
+    margin-left: 10px;
+    opacity: .8;
+    cursor: pointer; }
+    .article__social img:hover {
+      opacity: 1; }
   .article__headerGroup {
     display: flex;
     justify-content: space-between;
@@ -426,6 +434,19 @@ header {
 @media (max-width: 576px) {
   .signUp {
     min-height: 100vh; } }
+#listGroup {
+  width: 100%;
+  position: absolute;
+  padding: 0;
+  z-index: 100;
+  max-width: 100vh;
+  overflow-y: scroll; }
+
+.citySelect {
+  background: #eceff3; }
+  .citySelect:hover {
+    background: white; }
+
 /*register*/
 .form-signin {
   position: relative;
@@ -511,6 +532,8 @@ header {
     .edit__photoContainer img {
       width: 100%;
       height: auto; }
+      .edit__photoContainer img:hover {
+        opacity: .8; }
   .edit__addPhoto {
     display: flex;
     align-items: center;
@@ -671,6 +694,14 @@ Footer
   100% {
     opacity: 1;
     transform: translateX(0px); } }
+.w-250 {
+  width: 250px;
+  height: 250px; }
+
+@media (max-width: 576px) {
+  .w-250 {
+    width: 200px;
+    height: 200px; } }
 /*mobile-classes*/
 @media (max-width: 576px) {
   .mobile-flex-column {
@@ -683,10 +714,6 @@ Footer
 
 .white {
   color: white; }
-
-.w-250 {
-  width: 250px;
-  height: 250px; }
 
 .centered {
   margin: 0 auto; }
