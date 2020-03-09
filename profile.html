@@ -91,6 +91,65 @@
 
     </div>
     <div class="wrapper">
+        <div class="modal fade" id="unlockPhoto" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-backdrop custom-backdrop d-block op50">
+                <div class="modal-dialog modal-dialog-scrollable col-md-4 offset-md-4 mt-4 pb-3" role="document">
+                    <form class="modal-content" id="photoEdit">
+                        <div class="modal-header">
+                            <h5>Poproś o udostępnienie:</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeFullPhoto">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center">
+
+                            <img src="./img/lock.svg" alt="lock" class="w-25 mx-auto my-3">
+                            <div class="text-center py-2">
+
+                                <h5 class="pt-2 ">Zdjęcie prywatne</h6>
+                                    <h6 class="pb-2 small text-secondary">Wyślij do użytkownika Tomek prośbe o udostępnienie tego zdjęcia</h6>
+
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <div class="text-right my-2 text-center w-100">
+                                <button type="submit" id="newPhotoDesc" class="primaryButton primaryButton--pink border-0 w-100" value="zmień opis">Wyślij prośbe</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="fullPhoto" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-backdrop custom-backdrop d-block op50">
+                <div class="modal-dialog modal-dialog-scrollable col-md-4 offset-md-4 mt-4 pb-3" role="document">
+                    <form class="modal-content" id="photoEdit">
+                        <div class="modal-header">
+                            <h5>Zdjęcie</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeFullPhoto">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center p-2">
+
+                            <img src="" alt="" class="w-100" data-id="" id="fullPhotoIMG">
+                            <div class="text-center p-3 mt-2">
+                                <h5>Zdjęcie 1</h5>
+<h6 class="text-secondary small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, nobis!</h6>
+                            </div>
+
+
+
+                        </div>
+                        <div class="modal-footer">
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <header class="header pb-3">
             <button class="menu-btn bg-transparent d-flex">
@@ -144,45 +203,45 @@
 
 
                                 <div class="d-flex text-center">
-                                    <h6 class="primaryButton primaryButton--pink signUpButton w-100 mb-0" data-target="2">Wyślij wiadomość
+                                       <a class="w-100" href="./chat.html"><h6 class="primaryButton primaryButton--pink signUpButton w-100 mb-0" data-target="2">Wyślij wiadomość
                                         <img src="./img/mail.svg" alt="" class="buttons__image">
-                                    </h6>
+                                    </h6></a>
 
                                 </div>
 
                         </div>
-                        <img src="./img/profile.jpg" alt="" class="w-100 mb-3">
+                        <img src="./img/profile.jpg" alt="profile Photo" class="w-100 mb-3 pointer" id="profilePhoto" data-toggle="modal" data-target="#fullPhoto">
                         <div class="demo-swiper-custom">
                             <div data-pagination='{"el": ".swiper-pagination", "clickable": true}' data-navigation='{"nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev"}'
                                 data-space-between="0" class="swiper-container swiper-init demo-swiper">
 
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <img src="./img/photo1.jpg" alt="photo" class="w-100">
+                                    <div class="swiper-slide profile__smallPhoto pointer" data-toggle="modal" data-target="#fullPhoto">
+                                        <img src="./img/photo1.jpg" alt="photo" class="w-100" id="1" >
 
                                     </div>
-                                    <div class="swiper-slide">
-                                        <img src="./img/photo2.jpg" alt="photo" class="w-100">
+                                    <div class="swiper-slide profile__privatePhoto pointer" data-toggle="modal" data-target="#unlockPhoto">
+                                        <img src="./img/lock.svg" alt="photo" class="w-100 p-3" id="2" >
 
                                     </div>
-                                    <div class="swiper-slide">
-                                        <img src="./img/photo1.jpg" alt="photo" class="w-100">
+                                    <div class="swiper-slide profile__smallPhoto pointer" data-toggle="modal" data-target="#fullPhoto">
+                                        <img src="./img/photo1.jpg" alt="photo" class="w-100" id="3" >
 
                                     </div>
-                                    <div class="swiper-slide">
-                                        <img src="./img/photo2.jpg" alt="photo" class="w-100">
+                                    <div class="swiper-slide profile__smallPhoto pointer" data-toggle="modal" data-target="#fullPhoto">
+                                        <img src="./img/photo2.jpg" alt="photo" class="w-100" id="4" >
 
                                     </div>
-                                    <div class="swiper-slide">
-                                        <img src="./img/photo1.jpg" alt="photo" class="w-100">
+                                    <div class="swiper-slide profile__smallPhoto pointer" data-toggle="modal" data-target="#fullPhoto">
+                                        <img src="./img/photo1.jpg" alt="photo" class="w-100" id="5" >
 
                                     </div>
-                                    <div class="swiper-slide">
-                                        <img src="./img/photo2.jpg" alt="photo" class="w-100">
+                                    <div class="swiper-slide profile__smallPhoto pointer" data-toggle="modal" data-target="#fullPhoto">
+                                        <img src="./img/photo2.jpg" alt="photo" class="w-100" id="6" >
 
                                     </div>
-                                    <div class="swiper-slide">
-                                        <img src="./img/photo1.jpg" alt="photo" class="w-100">
+                                    <div class="swiper-slide profile__smallPhoto pointer" data-toggle="modal" data-target="#fullPhoto">
+                                        <img src="./img/photo1.jpg" alt="photo" class="w-100" id="7" >
 
                                     </div>
                                 </div>
@@ -220,9 +279,9 @@
                                     </h6>
                                 </div>
                                 <div class="d-flex text-center">
-                                    <h6 class="primaryButton primaryButton--pink signUpButton w-100 mb-0" data-target="2">Wyślij wiadomość
+                                   <a class="w-100" href="./chat.html"><h6 class="primaryButton primaryButton--pink signUpButton w-100 mb-0" data-target="2">Wyślij wiadomość
                                         <img src="./img/mail.svg" alt="" class="buttons__image">
-                                    </h6>
+                                    </h6></a>
 
                                 </div>
                                 <div class="info h-100 d-flex align-items-end">
@@ -252,10 +311,13 @@
                         </div>
 
                     </div>
+                    <div class="info h-100 w-100 d-flex align-items-end">
+                        <img src="./img/ad2.jpg" alt="info" class="w-100">
+                    </div>
 
                 </div>
                 <div class="row">
-                  
+
                 </div>
 
 
@@ -323,23 +385,41 @@
 
     <!-- page level script -->
     <script>
-        $(window).on('load', function () { });
+        $(window).on('load', function () {
 
-        const swiper = new Swiper('.swiper-container', {
-            slidesPerView: 2,
-            spaceBetween: 5,
-            keyboard: {
-                enabled: true,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
+            const swiper = new Swiper('.swiper-container', {
+                slidesPerView: 2,
+                spaceBetween: 5,
+                keyboard: {
+                    enabled: true,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+
+            /*display full photo*/
+            photoList = document.querySelectorAll('.profile__smallPhoto')
+            photoList.forEach(photo => {
+                photo.addEventListener('click', function (e) {
+                  
+                    $('#fullPhotoIMG').attr('src', $(photo).find('img').attr('src'))
+                    $('#fullPhotoIMG').attr('data-id', $(photo).data('id'))
+                })
+            })
+            $('#profilePhoto').click(function(e){
+
+                $('#fullPhotoIMG').attr('src', $('#profilePhoto').attr('src'))
+            })
         });
+
+
+
 
     </script>
 
