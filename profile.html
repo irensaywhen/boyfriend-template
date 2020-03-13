@@ -27,6 +27,8 @@
     <!-- nouislider CSS -->
     <link href="vendor/nouislider/nouislider.min.css" rel="stylesheet">
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
@@ -34,15 +36,16 @@
 
 <body>
 
-    <div class="sidebar bg-lg">
+        <div class="sidebar bg-lg">
         <div class="text-center">
+            <a href="./profile-edit.html">
             <div class="figure-menu shadow">
                 <figure>
                     <img src="./img/photo1.jpg" alt="">
                 </figure>
             </div>
             <h5 class="mb-1 ">Tomek</h5>
-
+        </a>
         </div>
         <br>
         <div class="row mx-0">
@@ -62,9 +65,11 @@
                                 <br>
                                 <span class="text-dark font-weight-bold">12/12/2020</span>
                             </h6>
-                            <button class="btn btn-default button-rounded-36 shadow">
+                            <a href="pricing.html"><button class="btn btn-default button-rounded-36 shadow">
                                 <i class="material-icons">add</i>
                             </button>
+                            </a>
+                        </a>
                         </div>
                     </div>
                 </div>
@@ -73,11 +78,11 @@
             <div class="list-group main-menu p-md-3 p-2">
                 <a href="userlist.html" class="list-group-item list-group-item-action active">Przeglądaj profile</a>
                 </a>
-                <a href="all-products.html" class="list-group-item list-group-item-action">Wiadomości
+                <a href="chat.html" class="list-group-item list-group-item-action">Wiadomości
                     <span class="badge badge-success ml-2">2</span>
                 </a>
                 <a href="my-order.html" class="list-group-item list-group-item-action">Ulubieni</a>
-                <a href="profile.html" class="list-group-item list-group-item-action">Kto cie lubi
+                <a href="likes.html" class="list-group-item list-group-item-action">Kto cie lubi
                     <span class="badge badge-success ml-2">2</span>
                 </a>
                 <a href="viewers.html" class="list-group-item list-group-item-action">Odwiedzający
@@ -88,7 +93,6 @@
             </div>
         </div>
     </div>
-
     </div>
     <div class="wrapper">
         <div class="modal fade" id="unlockPhoto" tabindex="-1" role="dialog" aria-hidden="true">
@@ -115,7 +119,7 @@
                         </div>
                         <div class="modal-footer">
                             <div class="text-right my-2 text-center w-100">
-                                <button type="submit" id="newPhotoDesc" class="primaryButton primaryButton--pink border-0 w-100" value="zmień opis">Wyślij prośbe</button>
+                                <button type="submit" id="unlockRequest" class="primaryButton primaryButton--pink border-0 w-100" value="zmień opis">Wyślij prośbe</button>
                             </div>
                         </div>
                     </form>
@@ -151,23 +155,28 @@
             </div>
         </div>
 
-        <header class="header pb-3">
-            <button class="menu-btn bg-transparent d-flex">
-                <img src="img/menu.png" alt="">
-                <span class="ml-2 new-notification"></span>
-            </button>
-            <div class="container">
-
-                <div class="row d-flex align-items-center header__wrap">
-                    <div class="col-6 col-md-4 header__logo">
-                        <a href="./index.html">
-                            <img src="./img/logo.png" alt="logo">
-                        </a>
+        <header class="header pb-3 chat__header">
+                <button class="menu-btn bg-transparent d-flex">
+                    <img src="img/menu.png" alt="">
+                    <span class="ml-2 new-notification"></span>
+                </button>
+                <div class="container">
+    
+                    <div class="row d-flex align-items-center header__wrap">
+                            <div class="col-md-4 col-8 header__logo">
+                                    <a href="./index.html">
+                                        <img src="./img/logo.png" alt="logo">
+                                    </a>
+                                </div>
+                                <div class="col-md-8 d-flex justify-content-end header__buttons">
+                
+                                        <a href="pricing.html" class="primaryButton primaryButton--main mx-3 header__button">Premium</a>
+                                </div>
+    
                     </div>
-
                 </div>
-            </div>
-        </header>
+            </header>
+    
 
         <div class="bg-lg pb-5 pt-md-5">
 
@@ -217,31 +226,31 @@
 
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide profile__smallPhoto pointer" data-toggle="modal" data-target="#fullPhoto">
-                                        <img src="./img/photo1.jpg" alt="photo" class="w-100" id="1" >
+                                        <img src="./img/photo1.jpg" alt="photo" class="w-100" data-id="1" >
 
                                     </div>
                                     <div class="swiper-slide profile__privatePhoto pointer" data-toggle="modal" data-target="#unlockPhoto">
-                                        <img src="./img/lock.svg" alt="photo" class="w-100 p-3" id="2" >
+                                        <img src="./img/lock.svg" alt="photo" class="w-100 p-3" data-id="2" >
 
                                     </div>
                                     <div class="swiper-slide profile__smallPhoto pointer" data-toggle="modal" data-target="#fullPhoto">
-                                        <img src="./img/photo1.jpg" alt="photo" class="w-100" id="3" >
+                                        <img src="./img/photo1.jpg" alt="photo" class="w-100" data-id="3" >
 
                                     </div>
                                     <div class="swiper-slide profile__smallPhoto pointer" data-toggle="modal" data-target="#fullPhoto">
-                                        <img src="./img/photo2.jpg" alt="photo" class="w-100" id="4" >
+                                        <img src="./img/photo2.jpg" alt="photo" class="w-100" data-id="4" >
 
                                     </div>
                                     <div class="swiper-slide profile__smallPhoto pointer" data-toggle="modal" data-target="#fullPhoto">
-                                        <img src="./img/photo1.jpg" alt="photo" class="w-100" id="5" >
+                                        <img src="./img/photo1.jpg" alt="photo" class="w-100" data-id="5" >
 
                                     </div>
                                     <div class="swiper-slide profile__smallPhoto pointer" data-toggle="modal" data-target="#fullPhoto">
-                                        <img src="./img/photo2.jpg" alt="photo" class="w-100" id="6" >
+                                        <img src="./img/photo2.jpg" alt="photo" class="w-100" data-id="6" >
 
                                     </div>
                                     <div class="swiper-slide profile__smallPhoto pointer" data-toggle="modal" data-target="#fullPhoto">
-                                        <img src="./img/photo1.jpg" alt="photo" class="w-100" id="7" >
+                                        <img src="./img/photo1.jpg" alt="photo" class="w-100" data-id="7" >
 
                                     </div>
                                 </div>
@@ -415,6 +424,15 @@
             $('#profilePhoto').click(function(e){
 
                 $('#fullPhotoIMG').attr('src', $('#profilePhoto').attr('src'))
+            })
+     
+            $('#unlockRequest').click(function(e){
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Wysłano prośbę o udostępnienie',
+                    text: 'W momencie zaakceptowania twojej prośby będziesz mógł obejrzeć to zdjęcie',
+                })
             })
         });
 

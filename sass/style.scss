@@ -387,7 +387,9 @@ flex-direction: column;
         margin-left: 10px;
     }
 }
-
+.disabledSubmit{
+    background: rgb(173, 183, 194) !important;
+}
 /*Profile Photo*/
 .profilePhoto{
     &__icon{
@@ -684,7 +686,8 @@ align-items: baseline;
         margin:0;
     }
     &__summaryItem{
-        margin: 0 0 10px 15px;
+        
+        animation: showDown .4s ease;
     }
     &__sum{
         width: 100%;
@@ -771,6 +774,23 @@ align-items: baseline;
 }
 .nodisplay{
     display: none;
+}
+.mobileColumn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.mobile-absolute{
+    position: absolute;
+}
+@media(max-width: 576px){
+  
+    .mobileColumn{
+        flex-direction: column
+    }
+    .mobile-absolute{
+        position:initial;
+    }
 }
 /* Profile */
 .profile{
@@ -895,9 +915,13 @@ align-items: baseline;
 .pinkActive{
     background:#f24167;
     color: white;
-    &:hover{
-        background:#f24167;
-    }
+
+        &:hover{
+            background: #e12d54;
+            color: #ffffff;
+         }
+      
+    
 }
 .blueActive{
     background: #006caa;

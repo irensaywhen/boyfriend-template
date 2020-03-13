@@ -34,15 +34,16 @@
 
 <body>
 
-    <div class="sidebar bg-lg">
+        <div class="sidebar bg-lg">
         <div class="text-center">
+            <a href="./profile-edit.html">
             <div class="figure-menu shadow">
                 <figure>
                     <img src="./img/photo1.jpg" alt="">
                 </figure>
             </div>
             <h5 class="mb-1 ">Tomek</h5>
-
+        </a>
         </div>
         <br>
         <div class="row mx-0">
@@ -62,9 +63,11 @@
                                 <br>
                                 <span class="text-dark font-weight-bold">12/12/2020</span>
                             </h6>
-                            <button class="btn btn-default button-rounded-36 shadow">
+                            <a href="pricing.html"><button class="btn btn-default button-rounded-36 shadow">
                                 <i class="material-icons">add</i>
                             </button>
+                            </a>
+                        </a>
                         </div>
                     </div>
                 </div>
@@ -73,11 +76,11 @@
             <div class="list-group main-menu p-md-3 p-2">
                 <a href="userlist.html" class="list-group-item list-group-item-action active">Przeglądaj profile</a>
                 </a>
-                <a href="all-products.html" class="list-group-item list-group-item-action">Wiadomości
+                <a href="chat.html" class="list-group-item list-group-item-action">Wiadomości
                     <span class="badge badge-success ml-2">2</span>
                 </a>
                 <a href="my-order.html" class="list-group-item list-group-item-action">Ulubieni</a>
-                <a href="profile.html" class="list-group-item list-group-item-action">Kto cie lubi
+                <a href="likes.html" class="list-group-item list-group-item-action">Kto cie lubi
                     <span class="badge badge-success ml-2">2</span>
                 </a>
                 <a href="viewers.html" class="list-group-item list-group-item-action">Odwiedzający
@@ -88,11 +91,10 @@
             </div>
         </div>
     </div>
-
-    </div>
     <div class="wrapper fullMobile">
 
 
+           
         <header class="header pb-3 chat__header">
             <button class="menu-btn bg-transparent d-flex">
                 <img src="img/menu.png" alt="">
@@ -101,11 +103,15 @@
             <div class="container">
 
                 <div class="row d-flex align-items-center header__wrap">
-                    <div class="col-6 col-md-4 header__logo">
-                        <a href="./index.html">
-                            <img src="./img/logo.png" alt="logo">
-                        </a>
-                    </div>
+                        <div class="col-md-4 col-8 header__logo">
+                                <a href="./index.html">
+                                    <img src="./img/logo.png" alt="logo">
+                                </a>
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-end header__buttons">
+            
+                                    <a href="pricing.html" class="primaryButton primaryButton--main mx-3 header__button">Premium</a>
+                            </div>
 
                 </div>
             </div>

@@ -290,6 +290,9 @@ header {
   height: auto;
   margin-left: 10px; }
 
+.disabledSubmit {
+  background: #adb7c2 !important; }
+
 /*Profile Photo*/
 .profilePhoto__icon {
   width: 175px;
@@ -509,7 +512,7 @@ header {
   border-radius: 0;
   margin: 0; }
 .gifts__summaryItem {
-  margin: 0 0 10px 15px; }
+  animation: showDown .4s ease; }
 .gifts__sum {
   width: 100%;
   margin: 0;
@@ -580,6 +583,20 @@ header {
 .nodisplay {
   display: none; }
 
+.mobileColumn {
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
+
+.mobile-absolute {
+  position: absolute; }
+
+@media (max-width: 576px) {
+  .mobileColumn {
+    flex-direction: column; }
+
+  .mobile-absolute {
+    position: initial; } }
 /* Profile */
 .profile {
   background: white;
@@ -673,7 +690,8 @@ header {
   background: #f24167;
   color: white; }
   .pinkActive:hover {
-    background: #f24167; }
+    background: #e12d54;
+    color: #ffffff; }
 
 .blueActive {
   background: #006caa;
