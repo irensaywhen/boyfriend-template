@@ -34,16 +34,16 @@
 
 <body>
 
-        <div class="sidebar bg-lg">
+    <div class="sidebar bg-lg">
         <div class="text-center">
             <a href="./profile-edit.html">
-            <div class="figure-menu shadow">
-                <figure>
-                    <img src="./img/photo1.jpg" alt="">
-                </figure>
-            </div>
-            <h5 class="mb-1 ">Tomek</h5>
-        </a>
+                <div class="figure-menu shadow">
+                    <figure>
+                        <img src="./img/photo1.jpg" alt="">
+                    </figure>
+                </div>
+                <h5 class="mb-1 ">Tomek</h5>
+            </a>
         </div>
         <br>
         <div class="row mx-0">
@@ -63,11 +63,12 @@
                                 <br>
                                 <span class="text-dark font-weight-bold">12/12/2020</span>
                             </h6>
-                            <a href="pricing.html"><button class="btn btn-default button-rounded-36 shadow">
-                                <i class="material-icons">add</i>
-                            </button>
+                            <a href="pricing.html">
+                                <button class="btn btn-default button-rounded-36 shadow">
+                                    <i class="material-icons">add</i>
+                                </button>
                             </a>
-                        </a>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -92,9 +93,166 @@
         </div>
     </div>
     <div class="wrapper fullMobile">
+        <div class="modal fade" id="giftList" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-backdrop custom-backdrop d-block op50">
+                <div class="modal-dialog modal-dialog-scrollable col-md-6 offset-md-3 col-lg-4 offset-lg-4 mt-4 pb-3" role="document">
+                    <form class="modal-content" id="profilePhotoUpload">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Wyślij prezent</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center py-0">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="row text-left">
+                                        <div class="d-flex align-items-start justify-content-between w-100">
+                                            <div class="col px-0 d-flex align-items-center mobileColumn">
+                                                <img src="./img/superlike.svg" class="icon50 iconmobile35 mr-2 mr-md-3" alt="">
+
+                                                <div class="d-flex flex-column mr-md-0">
+                                                    <h5 class="text-dark m-0">Super Like</h5>
+                                                    <h6 class="small mb-0">Pozostało:
+                                                        <span class="giftAmount font-weight-bold" data-target="superlike">2</span>
+                                                    </h6>
+                                                </div>
+                                                <button class="primaryButton primaryButton--pink border-0 giftSubmit ml-auto" data-item="superlike" data-toggle="modal" data-target="#superLike"
+                                                    data-fullName="Super Like">Wyślij</button>
 
 
-           
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row text-left">
+                                        <div class="d-flex align-items-start justify-content-between w-100">
+                                            <div class="col px-0 d-flex align-items-center mobileColumn">
+                                                <img src="./img/boost.svg" class="icon50 iconmobile35 mr-2 mr-md-3" alt="">
+
+                                                <div class="d-flex flex-column mr-md-0">
+                                                    <h5 class="text-dark m-0">Boost</h5>
+                                                    <h6 class="small mb-0">Pozostało:
+                                                        <span class="giftAmount font-weight-bold" data-target="boost">2</span>
+                                                    </h6>
+                                                </div>
+                                                <button class="primaryButton primaryButton--pink border-0 giftSubmit ml-auto" data-item="boost" data-fullName="Boost" data-toggle="modal"
+                                                    data-target="#boost">Wyślij</button>
+
+
+
+
+                                            </div>
+                                            <div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <div class="row text-left">
+                                        <div class="d-flex align-items-start justify-content-between w-100">
+                                            <div class="col px-0 d-flex align-items-center mobileColumn">
+                                                <img src="./img/camera.svg" class="icon50 iconmobile35 mr-2 mr-md-3" alt="">
+
+                                                <div class="d-flex flex-column mr-md-0">
+                                                    <h5 class="text-dark m-0">Foto Pocztówka</h5>
+                                                    <h6 class="small mb-0">Pozostało:
+                                                        <span class="giftAmount font-weight-bold" data-target="photo">2</span>
+                                                    </h6>
+                                                </div>
+                                                <button class="primaryButton primaryButton--pink border-0 giftSubmit ml-auto" data-item="photo" data-fullName="Foto pocztówkę">Wyślij</button>
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
+                                </li>
+
+
+                            </ul>
+
+
+                        </div>
+                        <div class="modal-footer text-center">
+
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="superLike" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-backdrop custom-backdrop d-flex align-items-center op50">
+                <div class="modal-dialog modal-dialog-scrollable col-md-6 offset-md-3 col-lg-3 offset-lg-6 mt-4 pb-3 col-12 m-0" role="document">
+                    <form class="modal-content" id="profilePhotoUpload">
+                        <div class="modal-header text-center">
+
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center py-4">
+                            <img src="./img/superlike.svg" class="icon80 mb-3" alt="superlike">
+                            <h5>Wow!</h5>
+                            <h6 class="small">Wysłałeś SuperLike!
+                                <br> Tomek doceni twój gest!</h6>
+                            <button class="primaryButton primaryButton--pink border-0 ml-auto mt-2" data-item="superlike" data-toggle="modal" data-target="#superLike">OK</button>
+
+
+                        </div>
+                        <div class="modal-footer text-center">
+
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="boost" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-backdrop custom-backdrop d-flex align-items-center op50">
+                <div class="modal-dialog modal-dialog-scrollable col-md-6 offset-md-3 col-lg-3 offset-lg-6 mt-4 pb-3 col-12 m-0" role="document">
+                    <form class="modal-content" id="profilePhotoUpload">
+                        <div class="modal-header text-center">
+
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center py-4">
+                            <img src="./img/boost.svg" class="icon80 mb-3" alt="superlike">
+                            <h5>Wow!</h5>
+                            <h6 class="small">Wysłałeś Boost!
+                                <br> Tomek doceni twój gest!</h6>
+                            <button class="primaryButton primaryButton--pink border-0 ml-auto mt-2" data-item="superlike" data-toggle="modal" data-target="#boost">OK</button>
+
+
+                        </div>
+                        <div class="modal-footer text-center">
+
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
         <header class="header pb-3 chat__header">
             <button class="menu-btn bg-transparent d-flex">
                 <img src="img/menu.png" alt="">
@@ -103,15 +261,15 @@
             <div class="container">
 
                 <div class="row d-flex align-items-center header__wrap">
-                        <div class="col-md-4 col-8 header__logo">
-                                <a href="./index.html">
-                                    <img src="./img/logo.png" alt="logo">
-                                </a>
-                            </div>
-                            <div class="col-md-8 d-flex justify-content-end header__buttons">
-            
-                                    <a href="pricing.html" class="primaryButton primaryButton--main mx-3 header__button">Premium</a>
-                            </div>
+                    <div class="col-md-4 col-8 header__logo">
+                        <a href="./index.html">
+                            <img src="./img/logo.png" alt="logo">
+                        </a>
+                    </div>
+                    <div class="col-md-8 d-flex justify-content-end header__buttons">
+
+
+                    </div>
 
                 </div>
             </div>
@@ -125,37 +283,46 @@
                             <figure class="chat__profilePhoto m-0">
                                 <img src="./img/profile.jpg" alt="">
                             </figure>
-                            <a href="./profile.html"><h4 class="pl-3">Tomek</h4></a>
-                            <h6 class="primaryButton primaryButton--pink signUpButton text-center ml-sm-auto py-2 px-md-3 px-2 ml-3" data-target="2">Wyślij prezent
+                            <a href="./profile.html">
+                                <h4 class="pl-3">Tomek</h4>
+                            </a>
+                            <h6 id="giftListNav" class="primaryButton primaryButton--pink signUpButton text-center ml-sm-auto py-2 px-md-3 px-2 ml-3"
+                                data-toggle="modal" data-target="#giftList">Wyślij prezent
                                 <img src="./img/gift.svg" alt="" class="buttons__image ml-md-2 ml-1">
                             </h6>
                         </div>
                         <div class="modal-body inner-shadow d-flex py-5 flex-column chat__body" id="messageContainer">
-                               <!-- Messages here -->
+                            <!-- Messages here -->
                             <div class="chat__message message--self position-relative">
-                                    <h6 class="chat__date text-right position-absolute"><span class="badge badge-success font-weight-bold">14:20</span></h6>
+                                <h6 class="chat__date text-right position-absolute">
+                                    <span class="badge badge-success font-weight-bold">14:20</span>
+                                </h6>
                                 <h6 class="chat__text p-3 position-relative pointer">Hej</h6>
-                                <h6 class="small text-dark chat__premiumInf position-absolute text-right">Wyświetlono: <span class="text-secondary">12/20/2020 14:20:30</span></h6>
+                                <h6 class="small text-dark chat__premiumInf position-absolute text-right">Wyświetlono:
+                                    <span class="text-secondary">12/20/2020 14:20:30</span>
+                                </h6>
                             </div>
                             <div class="chat__message position-relative">
-                                    <h6 class="badge badge-success chat__date text-center font-weight-bold position-absolute ">14:20</h6>
+                                <h6 class="badge badge-success chat__date text-center font-weight-bold position-absolute ">14:20</h6>
                                 <h6 class="chat__text p-3 position-relative pointer">Hej</h6>
-                                <h6 class="small text-dark chat__premiumInf position-absolute">Wyświetlono: <span class="text-secondary">12/20/2020 14:20:30</span></h6>
+                                <h6 class="small text-dark chat__premiumInf position-absolute">Wyświetlono:
+                                    <span class="text-secondary">12/20/2020 14:20:30</span>
+                                </h6>
                             </div>
-                        
+
                             <!-- Messages end -->
-                         
-                            
+
+
 
                         </div>
                         <div class="modal-footer chat__footer text-left flex-column">
-                                <h6 class="pb-2 small text-secondary mr-auto">Wyślij wiadomość</h6>
-                                <div class="w-100 position-relative">
-                                    <form id="messageForm">
-                            <input type="text" class="form-control bgwhite" id="messageInput"></input>
-                            <img src="./img/mail.svg" alt="" class="p-2 position-absolute chat__icon primaryButton--pink mt-2 mr-3 pointer" id="messageSubmit">
-                        </form>
-                        </div>
+                            <h6 class="pb-2 small text-secondary mr-auto">Wyślij wiadomość</h6>
+                            <div class="w-100 position-relative">
+                                <form id="messageForm">
+                                    <input type="text" class="form-control bgwhite" id="messageInput"></input>
+                                    <img src="./img/mail.svg" alt="" class="p-2 position-absolute chat__icon primaryButton--pink mt-2 mr-3 pointer" id="messageSubmit">
+                                </form>
+                            </div>
                         </div>
                     </div>
 
@@ -221,6 +388,8 @@
 
         <!-- page level script -->
         <script>
+
+
             $(window).on('load', function () {
 
                 const swiper = new Swiper('.swiper-container', {
@@ -255,47 +424,89 @@
 
                 /*display message info*/
                 let messages = document.querySelectorAll('.chat__message')
-                
+
                 messages.forEach(message => {
-                    message.addEventListener('click',function(e){
-                   
+                    message.addEventListener('click', function (e) {
+
                         $(message).children('.chat__date').toggleClass('showedUp')
                         $(message).children('.chat__premiumInf').toggleClass('showedDown')
                         $(message).toggleClass('my-3')
                     })
                 })
-              
+
             });
-            
-            function displayMessage(self){
-                if(!$('#messageInput').val()){
+
+            function displayMessage(self = false, gift = false, target = false, fullName = "") {
+                if (!$('#messageInput').val() && !gift) {
                     return false
                 }
-               
-                let message = self ? `<div class="chat__message message--self position-relative">
+
+                let message = ''
+                if (gift) {
+                    let tempMessage = self ? `<div class="chat__message message--self message--gift position-relative">
+                                    <h6 class="chat__date text-right position-absolute">
+                                        <span class="badge badge-success font-weight-bold">14:20</span>
+                                    </h6>
+                                    <h6 class="chat__text p-3 position-relative pointer d-flex justify-content-end">Wysłałeś ${fullName}!<img src="./img/${target}.svg" class="icon50 ml-3" alt="superlike"></h6>
+                                    <h6 class="small text-dark chat__premiumInf position-absolute text-right">Wyświetlono:
+                                        <span class="text-secondary">12/20/2020 14:20:30</span>
+                                    </h6>
+                                </div>` : `<div class="chat__message message--gift position-relative">
+                                    <h6 class="chat__date text-right position-absolute">
+                                        <span class="badge badge-success font-weight-bold">14:20</span>
+                                    </h6>
+                                    <h6 class="chat__text text-left p-3 position-relative pointer d-flex justify-content-start"><img src="./img/${target}.svg" class="icon50 mr-3" alt="superlike"> Otrzymałeś ${fullName}!</h6>
+                                    <h6 class="small text-dark chat__premiumInf position-absolute text-right">Wyświetlono:
+                                        <span class="text-secondary">12/20/2020 14:20:30</span>
+                                    </h6>
+                                </div>`
+                    message = tempMessage
+                } else {
+
+                    let tempMessage = self ? `<div class="chat__message message--self position-relative">
                                     <h6 class="chat__date text-right position-absolute"><span class="badge badge-success font-weight-bold">14:20</span></h6>
                                 <h6 class="chat__text p-3 position-relative pointer">${$('#messageInput').val()}</h6>
                                 <h6 class="small text-dark chat__premiumInf position-absolute text-right">Wyświetlono: <span class="text-secondary">12/20/2020 14:20:30</span></h6>
-                            </div>` : ''
+                            </div>` : `<div class="chat__message position-relative">
+                                    <h6 class="chat__date text-right position-absolute"><span class="badge badge-success font-weight-bold">14:20</span></h6>
+                                <h6 class="chat__text p-3 position-relative pointer">${$('#messageInput').val()}</h6>
+                                <h6 class="small text-dark chat__premiumInf position-absolute text-right">Wyświetlono: <span class="text-secondary">12/20/2020 14:20:30</span></h6>
+                            </div>`
+                    message = tempMessage
+                }
+                console.log(message)
                 $('#messageContainer').append(message)
                 $('#messageContainer').scrollTop($('#messageContainer')[0].scrollHeight);
                 $('#messageInput').val('')
                 let display = $('*.chat__message').last();
-               
-                    display.click(function(e){
-                   
-                        $(display).children('.chat__date').toggleClass('showedUp')
-                        $(display).children('.chat__premiumInf').toggleClass('showedDown')
-                        $(display).toggleClass('my-3')
-                   
+
+                display.click(function (e) {
+
+                    $(display).children('.chat__date').toggleClass('showedUp')
+                    $(display).children('.chat__premiumInf').toggleClass('showedDown')
+                    $(display).toggleClass('my-3')
+
                 })
             }
 
-            $('#messageSubmit').click(function(){
-                displayMessage(self)})
-            $('#messageForm').submit(function(e){
+            $('#messageSubmit').click(function () {
+                displayMessage(true)
+            })
+            $('#messageForm').submit(function (e) {
                 e.preventDefault();
-                displayMessage(self)
+                displayMessage(true)
+            })
+            $('*.primaryButton').click(function (e) {
+                e.preventDefault();
+            })
+            /*gifts*/
+            $('*.giftSubmit').click(function (e) {
+                e.preventDefault();
+                let target = $(this).attr('data-item');
+                let fullName = $(this).attr('data-fullname');
+                console.log(fullName)
+                displayMessage(true, true, target, fullName);
+                $('#giftListNav').trigger('click')
             })
 
         </script>

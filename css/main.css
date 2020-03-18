@@ -214,6 +214,11 @@ header {
   height: auto;
   min-height: 50px; }
 
+.icon80 {
+  width: 80px;
+  height: auto;
+  min-height: 80px; }
+
 @media (max-width: 768px) {
   .iconmobile35 {
     width: 40px;
@@ -457,6 +462,11 @@ header {
     right: 2px; }
   .message--self > .chat__premiumInf {
     right: 0; }
+
+.message--gift > .chat__text {
+  background: white !important;
+  color: #212529 !important;
+  text-align: right; }
 
 .message--self
 .articles__preview {
@@ -876,5 +886,13 @@ Footer
   padding: 5px;
   background: #ffd9d9;
   font-size: 12px; }
+
+@media (max-width: 576px) {
+  .mobileColumn {
+    flex-direction: column;
+    text-align: center; }
+    .mobileColumn > button {
+      width: 100%;
+      margin-top: 10px; } }
 
 /*# sourceMappingURL=main.css.map */
