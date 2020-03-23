@@ -214,6 +214,12 @@ header {
   height: auto;
   min-height: 50px; }
 
+.icon70round {
+  width: 70px;
+  height: auto;
+  min-height: 70px;
+  border-radius: 50%; }
+
 .icon80 {
   width: 80px;
   height: auto;
@@ -468,25 +474,42 @@ header {
   color: #212529 !important;
   text-align: right; }
 
-.message--self
+/*chatList*/
+.chatList {
+  max-height: 500px;
+  min-height: 500px;
+  overflow-y: scroll; }
+  .chatList__image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; }
+  .chatList__item {
+    background: #f7f8fa;
+    animation: showDown .4s ease; }
+    .chatList__item:hover {
+      background: white; }
+
+@media (max-width: 576px) {
+  .chatList {
+    max-height: 90vh;
+    min-height: 90vh;
+    margin-bottom: 60px; }
+    .chatList__footer {
+      display: none; } }
+/*Articles*/
 .articles__preview {
   background: white;
   width: 25%;
   border-radius: 10px; }
-.message--self
 .articles__previewIMG {
   width: 100%; }
-.message--self
 .articles__overviewHeader {
   padding: 30px; }
-  .message--self
   .articles__overviewHeader h1 {
     margin: 0 auto; }
-.message--self
 .articles__overview {
   padding-bottom: 90px;
   background: white; }
-.message--self
 .articles__slider {
   opacity: 0; }
 

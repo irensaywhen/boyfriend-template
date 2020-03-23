@@ -278,6 +278,12 @@ header{
     height: auto;
     min-height: 50px;
 }
+.icon70round{
+    width: 70px;
+    height: auto;
+    min-height: 70px;
+    border-radius: 50%;
+}
 .icon80{
     width: 80px;
     height: auto;
@@ -627,7 +633,39 @@ align-items: baseline;
         
     }
 }
-.message--self 
+
+/*chatList*/
+.chatList{
+    max-height: 500px;
+    min-height: 500px;
+    overflow-y:scroll;
+    &__image{
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        
+    }
+    &__item{
+        background: rgb(247, 248, 250);
+        animation: showDown .4s ease;
+        &:hover{
+            background: white;
+        }
+    }
+}
+@media (max-width: 576px){
+    .chatList{
+        max-height: 90vh;
+        min-height: 90vh;
+        margin-bottom: 60px;
+        &__footer{
+            display: none;
+        }
+    }
+    
+    
+ }
+
 /*Articles*/
 .articles{
     &__preview{
