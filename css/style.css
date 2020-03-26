@@ -1744,7 +1744,7 @@ pre {
 .blue-theme .nav-pills .nav-link.active,
 .blue-theme .nav-pills .show > .nav-link,
 .blue-theme .loader-screen {
-    background-color: #4885FF;
+    background-color: #f24167;
 }
 
 .blue-theme .filter,
@@ -1778,7 +1778,7 @@ pre {
 .blue-theme .float-label .form-control:focus,
 .blue-theme .page-item.active .page-link,
 .blue-theme .btn-outline-default {
-    border-color: #4885FF
+    border-color: #f24167;
 }
 
 .blue-theme .filter .form-control:focus,
