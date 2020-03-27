@@ -575,7 +575,12 @@
     <script>
         $(window).on('load', function () {
 
-            let displayedUsers = 12
+             let displayedUsers = 12
+            
+            function stopDisplay(){
+                $('#usersContainer').html('<div class="my-4 col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-12 text-center bgwhite py-4 shadow-sm rounded"><img src="./img/sad.svg" class="w-75 py-4"> <h6>Twoje konto wyświetliło już 6 użytkowników!</h6><h6 class="text-secondary small">Zobacz kto</h6><a href="pricing.html"><button type="submit" id="unlockRequest" class="primaryButton primaryButton--pink border-0 w-100" value="zmień opis">Kup konto premium</button></a></div>')
+            }
+
 
             function createUsers(users) {
                 return users.map(user => {
@@ -612,7 +617,7 @@
                 })
                 return arr
             }
-
+            
             function showPage(page) {
                 $('#usersContainer').html(groupedUsers[page].join(''))
             }
@@ -642,6 +647,9 @@
                     usersObj.forEach(user => {
                         slideIfVisible(user);
                     })
+                    if (selectedPage === 3){
+                        stopDisplay();
+                    }
                     document.addEventListener('scroll', () => {
                         usersObj.forEach(user => {
                             slideIfVisible(user);
@@ -676,6 +684,8 @@
                     slideIfVisible(user);
                 })
             })
+
+       
 
 
 

@@ -95,6 +95,134 @@
     </div>
     </div>
     <div class="wrapper">
+            <div class="modal fade" id="giftList" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-backdrop custom-backdrop d-block op50">
+                        <div class="modal-dialog modal-dialog-scrollable col-md-6 offset-md-3 col-lg-4 offset-lg-4 mt-4 pb-3" role="document">
+                            <form class="modal-content" id="profilePhotoUpload">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Wyślij prezent</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body text-center py-0">
+                                    <ul class="list-group list-group-flush">
+                                        
+                                        <li class="list-group-item">
+                                            <div class="row text-left">
+                                                <div class="d-flex align-items-start justify-content-between w-100">
+                                                    <div class="col px-0 d-flex align-items-center mobileColumn">
+                                                        <img src="./img/boost.svg" class="icon50 iconmobile35 mr-2 mr-md-3" alt="">
+        
+                                                        <div class="d-flex flex-column mr-md-0">
+                                                            <h5 class="text-dark m-0">Boost</h5>
+                                                            <h6 class="small mb-0">Pozostało:
+                                                                <span class="giftAmount font-weight-bold" data-target="boost">2</span>
+                                                            </h6>
+                                                        </div>
+                                                        <button class="primaryButton primaryButton--pink border-0 giftSubmit ml-auto" data-item="boost" data-fullName="Boost" data-toggle="modal"
+                                                            data-target="#boost">Wyślij</button>
+        
+        
+        
+        
+                                                    </div>
+                                                    <div>
+        
+                                                    </div>
+        
+                                                </div>
+        
+        
+                                            </div>
+                                        </li>
+        
+                                        <li class="list-group-item">
+                                            <div class="row text-left">
+                                                <div class="d-flex align-items-start justify-content-between w-100">
+                                                    <div class="col px-0 d-flex align-items-center mobileColumn">
+                                                        <img src="./img/camera.svg" class="icon50 iconmobile35 mr-2 mr-md-3" alt="">
+        
+                                                        <div class="d-flex flex-column mr-md-0">
+                                                            <h5 class="text-dark m-0">Foto Pocztówka</h5>
+                                                            <h6 class="small mb-0">Pozostało:
+                                                                <span class="giftAmount font-weight-bold" data-target="photo">2</span>
+                                                            </h6>
+                                                        </div>
+                                                        <button class="primaryButton primaryButton--pink border-0 giftSubmit ml-auto" data-item="photo" data-fullName="Foto pocztówkę" data-toggle="modal"
+                                                        data-target="#photo">Wyślij</button>
+                                                    </div>
+        
+        
+                                                </div>
+        
+        
+                                            </div>
+                                        </li>
+        
+                                    </ul>
+        
+        
+                                </div>
+                                <div class="modal-footer text-center">
+        
+        
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="superLike" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-backdrop custom-backdrop d-block op50">
+                            <div class="modal-dialog modal-dialog-scrollable col-md-6 offset-md-3 col-lg-4 offset-lg-4 mt-4 pb-3" role="document">
+                                <form class="modal-content" id="profilePhotoUpload">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Wyślij prezent</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-center py-0">
+                                        <ul class="list-group list-group-flush">
+                                            
+                                                <li class="list-group-item">
+                                                        <div class="row text-left">
+                                                            <div class="d-flex align-items-start justify-content-between w-100">
+                                                                <div class="col px-0 d-flex align-items-center mobileColumn">
+                                                                    <img src="./img/superlike.svg" class="icon50 iconmobile35 mr-2 mr-md-3" alt="">
+                    
+                                                                    <div class="d-flex flex-column mr-md-0">
+                                                                        <h5 class="text-dark m-0">Super Like</h5>
+                                                                        <h6 class="small mb-0">Pozostało:
+                                                                            <span class="giftAmount font-weight-bold" data-target="superlike">2</span>
+                                                                        </h6>
+                                                                    </div>
+                                                                    <button class="primaryButton primaryButton--pink border-0 giftSubmit ml-auto" data-item="superlike" data-toggle="modal" data-target="#superLike"
+                                                                        data-fullName="Super Like">Wyślij</button>
+                    
+                    
+                    
+                                                                </div>
+                    
+                    
+                                                            </div>
+                    
+                    
+                                                        </div>
+                                                    </li>
+            
+                                        </ul>
+            
+            
+                                    </div>
+                                    <div class="modal-footer text-center">
+            
+            
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
         <div class="modal fade" id="unlockPhoto" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-backdrop custom-backdrop d-block op50">
                 <div class="modal-dialog modal-dialog-scrollable col-md-4 offset-md-4 mt-4 pb-3" role="document">
@@ -120,6 +248,64 @@
                         <div class="modal-footer">
                             <div class="text-right my-2 text-center w-100">
                                 <button type="submit" id="unlockRequest" class="primaryButton primaryButton--pink border-0 w-100" value="zmień opis">Wyślij prośbe</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="giftModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-backdrop custom-backdrop d-block op50">
+                    <div class="modal-dialog modal-dialog-scrollable col-md-4 offset-md-4 mt-4 pb-3" role="document">
+                        <form class="modal-content" id="photoEdit">
+                            <div class="modal-header">
+                                <h5>Poproś o udostępnienie:</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeFullPhoto">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-center">
+    
+                                <img src="./img/lock.svg" alt="lock" class="w-25 mx-auto my-3">
+                                <div class="text-center py-2">
+    
+                                    <h5 class="pt-2 ">Zdjęcie prywatne</h6>
+                                        <h6 class="pb-2 small text-secondary">Wyślij do użytkownika Tomek prośbe o udostępnienie tego zdjęcia</h6>
+    
+                                </div>
+    
+    
+                            </div>
+                            <div class="modal-footer">
+                                <div class="text-right my-2 text-center w-100">
+                                    <button type="submit" id="unlockRequest" class="primaryButton primaryButton--pink border-0 w-100" value="zmień opis">Wyślij prośbe</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-backdrop custom-backdrop d-block op50">
+                <div class="modal-dialog modal-dialog-scrollable col-md-4 offset-md-4 mt-4 pb-3" role="document">
+                    <form class="modal-content" id="photoEdit">
+                        <div class="modal-header">
+                            <h5>Zgłoś Użytkownika:</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeFullPhoto">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center">
+
+                            <h4 class="pt-2 mt-3">Zgłoszenie</h4>
+                                <h6 class="pb-2 small text-secondary mb-3">Wpisz treść zgłoszenia</h6>
+                                <textarea class="form-control bgwhite" id="newPhotoDescInput"></textarea>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <div class="text-right my-2 text-center w-100">
+                                <button type="submit" id="reportSubmit" class="primaryButton primaryButton--pink border-0 w-100" value="zmień opis">Wyślij zgłoszenie</button>
                             </div>
                         </div>
                     </form>
@@ -184,7 +370,7 @@
 
                     <div class="col-md-4 d-flex flex-column justify-content-between">
                         <div class="d-flex flex-column d-none d-sm-block d-md-none mb-4">
-                            <h1 class="font-weight-bold mb-0">Tomek</h2>
+                                <h1 class="font-weight-bold mb-0">Tomek <span><img src="./img/heart.svg" alt="heart" class="icon50 p-3"></span></h2>
                                 <h3 class="ml-3 mb-3 text-secondary font-weight-light">Wrocław</h3>
                                 <div class="d-flex mb-3">
                                     <div class="float-label active ml-3">
@@ -201,10 +387,10 @@
                                     </div>
                                 </div>
                                 <div class="d-flex mobile-flex-column">
-                                    <h6 class="primaryButton primaryButton--yellow signUpButton mr-sm-4 text-center" data-target="2">Wyślij super like!
+                                    <h6 class="primaryButton primaryButton--yellow signUpButton mr-sm-4 text-center" data-toggle="modal" data-target="#superLike">Wyślij super like!
                                         <img src="./img/polygon.svg" alt="" class="buttons__image">
                                     </h6>
-                                    <h6 class="primaryButton primaryButton--blue signUpButton text-center" data-target="2">Wyślij prezent
+                                    <h6 class="primaryButton primaryButton--blue signUpButton text-center" data-toggle="modal" data-target="#giftList">Wyślij prezent
                                         <img src="./img/gift.svg" alt="" class="buttons__image">
                                     </h6>
                                 </div>
@@ -262,7 +448,7 @@
                     <div class="col-md-8 w-100">
                         <!-- DESKTOP DESCRIPTION -->
                         <div class="d-none d-md-flex flex-column h-100">
-                            <h1 class="font-weight-bold mb-0">Tomek</h2>
+                            <h1 class="font-weight-bold mb-0 d-flex justify-content-between pointer">Tomek <span><img src="./img/heart.svg" alt="heart" id="heartButton" class="icon50 p-1"></span></h2>
                                 <h3 class="ml-3 mb-3 text-secondary font-weight-light">Wrocław</h3>
                                 <div class="d-flex mb-3">
                                     <div class="float-label active ml-3">
@@ -279,10 +465,10 @@
                                     </div>
                                 </div>
                                 <div class="d-flex mobile-flex-column">
-                                    <h6 class="primaryButton primaryButton--yellow signUpButton mr-sm-4 text-center w-50" data-target="2">Wyślij super like!
+                                    <h6 class="primaryButton primaryButton--yellow signUpButton mr-sm-4 text-center w-50" data-toggle="modal" data-target="#superLike">Wyślij super like!
                                         <img src="./img/polygon.svg" alt="" class="buttons__image">
                                     </h6>
-                                    <h6 class="primaryButton primaryButton--blue signUpButton text-center w-50" data-target="2">Wyślij prezent
+                                    <h6 class="primaryButton primaryButton--blue signUpButton text-center w-50" data-toggle="modal" data-target="#giftList">Wyślij prezent
                                         <img src="./img/gift.svg" alt="" class="buttons__image">
                                     </h6>
                                 </div>
@@ -316,6 +502,7 @@
                                 voluptates. Odio nam atque maxime aperiam provident in sapiente, assumenda ullam voluptatum
                                 voluptatem veniam fugiat expedita dolorum consequatur eum ea libero? Perspiciatis mollitia
                                 rerum quia</p>
+                                <div class="w-100 text-right"><button type="submit" id="report" class="primaryButton primaryButton--pink border-0" data-toggle="modal" data-target="#reportModal">Zgłoś <img src="./img/alert.svg" alt="alert" class="buttons__image"></button></div>
                         </div>
 
                     </div>
@@ -433,7 +620,25 @@
                     text: 'W momencie zaakceptowania twojej prośby będziesz mógł obejrzeć to zdjęcie',
                 })
             })
+
+            $('#heartButton').click(function(){
+                $(this).toggleClass('fullHeart')
+                if($(this).hasClass('fullHeart')){
+                    $(this).attr('src', './img/heartFull.svg')
+                } else {
+                    $(this).attr('src', './img/heart.svg')
+                }
+            })
         });
+        
+        $('#reportSubmit').click(function(e){
+            e.preventDefault();
+            Swal.fire({
+                    icon: 'success',
+                    title: 'Dziękujemy za zgłoszenie',
+                    text: 'Rozpatrzymy najszybciej jak się da',
+                })
+        })
 
 
 

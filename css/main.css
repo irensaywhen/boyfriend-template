@@ -397,6 +397,16 @@ header {
     max-height: 90vh; }
     .chat__header {
       max-height: 10vh; } }
+.fullHeart {
+  animation: showDown .4s ease; }
+
+#report {
+  background: #fb5454; }
+  #report:hover {
+    background: #ff3c3c; }
+
+.chat__link:hover {
+  color: #fb5454; }
 .chat__profilePhoto {
   border-radius: 50%;
   width: 65px;
@@ -459,7 +469,7 @@ header {
   transform: translateY(-22px); }
 
 .showedDown {
-  transform: translateY(20px); }
+  transform: translateY(25px); }
 
 .message--self {
   margin-right: 15px;

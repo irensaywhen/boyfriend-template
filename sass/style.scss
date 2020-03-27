@@ -531,9 +531,21 @@ align-items: baseline;
   
         
 }
-
+.fullHeart{
+    animation: showDown .4s ease;
+}
+#report{
+    background: #fb5454;
+    &:hover{
+       background: #ff3c3c;
+    }
+}
 .chat{
-  
+    &__link{
+        &:hover{
+            color: #fb5454;
+        }
+    }
     &__profilePhoto{
         border-radius: 50%;
         width: 65px;
@@ -609,7 +621,7 @@ align-items: baseline;
     transform: translateY(-22px);
 }
 .showedDown{
-    transform: translateY(20px);
+    transform: translateY(25px);
 }
 .message--self{
     margin-right: 15px;
