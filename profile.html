@@ -76,21 +76,21 @@
             </div>
 
             <div class="list-group main-menu p-md-3 p-2">
-                <a href="userlist.html" class="list-group-item list-group-item-action active">Przeglądaj profile</a>
-                </a>
-                <a href="chat.html" class="list-group-item list-group-item-action">Wiadomości
-                    <span class="badge badge-success ml-2">2</span>
-                </a>
-                <a href="my-order.html" class="list-group-item list-group-item-action">Ulubieni</a>
-                <a href="likes.html" class="list-group-item list-group-item-action">Kto cie lubi
-                    <span class="badge badge-success ml-2">2</span>
-                </a>
-                <a href="viewers.html" class="list-group-item list-group-item-action">Odwiedzający
-                    <span class="badge badge-success ml-2">2</span>
-                </a>
-                <a href="setting.html" class="list-group-item list-group-item-action mt-3">Ustawienia</a>
-                <a href="login.html" class="list-group-item list-group-item-action mt-4">Wyloguj</a>
-            </div>
+                    <a href="userlist.html" class="list-group-item list-group-item-action active">Przeglądaj profile</a>
+                    </a>
+                    <a href="chat.html" class="list-group-item list-group-item-action">Wiadomości
+                        <span class="badge badge-success ml-2">2</span>
+                    </a>
+                    <a href="likes.html" class="list-group-item list-group-item-action">Ulubieni</a>
+                    <a href="likes.html" class="list-group-item list-group-item-action">Kto cie lubi
+                        <span class="badge badge-success ml-2">2</span>
+                    </a>
+                    <a href="viewers.html" class="list-group-item list-group-item-action">Odwiedzający
+                        <span class="badge badge-success ml-2">2</span>
+                    </a>
+                    <a href="profile-edir.html" class="list-group-item list-group-item-action mt-3">Ustawienia</a>
+                    <a href="login.html" class="list-group-item list-group-item-action mt-4">Wyloguj</a>
+                </div>
         </div>
     </div>
     </div>
@@ -370,7 +370,7 @@
 
                     <div class="col-md-4 d-flex flex-column justify-content-between">
                         <div class="d-flex flex-column d-none d-sm-block d-md-none mb-4">
-                                <h1 class="font-weight-bold mb-0">Tomek <span><img src="./img/heart.svg" alt="heart" class="icon50 p-3"></span></h2>
+                                <h1 class="font-weight-bold mb-0">Tomek <span><img src="./img/heart.svg" alt="heart"  class="icon50 p-1 ml-2 heartButton"></span></h2>
                                 <h3 class="ml-3 mb-3 text-secondary font-weight-light">Wrocław</h3>
                                 <div class="d-flex mb-3">
                                     <div class="float-label active ml-3">
@@ -448,7 +448,7 @@
                     <div class="col-md-8 w-100">
                         <!-- DESKTOP DESCRIPTION -->
                         <div class="d-none d-md-flex flex-column h-100">
-                            <h1 class="font-weight-bold mb-0 d-flex justify-content-between pointer">Tomek <span><img src="./img/heart.svg" alt="heart" id="heartButton" class="icon50 p-1"></span></h2>
+                            <h1 class="font-weight-bold mb-0 d-flex justify-content-between pointer">Tomek <span><img src="./img/heart.svg" alt="heart" class="icon50 p-1 heartButton"></span></h2>
                                 <h3 class="ml-3 mb-3 text-secondary font-weight-light">Wrocław</h3>
                                 <div class="d-flex mb-3">
                                     <div class="float-label active ml-3">
@@ -506,7 +506,7 @@
                         </div>
 
                     </div>
-                    <div class="info h-100 w-100 d-flex align-items-end">
+                    <div class="info mb-3 w-100 d-flex align-items-end">
                         <img src="./img/ad2.jpg" alt="info" class="w-100">
                     </div>
 
@@ -621,7 +621,7 @@
                 })
             })
 
-            $('#heartButton').click(function(){
+            $('*.heartButton').click(function(){
                 $(this).toggleClass('fullHeart')
                 if($(this).hasClass('fullHeart')){
                     $(this).attr('src', './img/heartFull.svg')

@@ -232,7 +232,7 @@ header{
 }
 /*Header*/
 .header{
-    padding: 45px 0;
+    padding: 15px 0;
     &__logo{
         & img{
             width: 100%;
@@ -248,7 +248,7 @@ header{
 @media(max-width: 768px){
     
 .header{
-    padding: 25px 0 0 0;
+    padding: 15px 0 0 0;
     &__wrap{
         flex-direction: column;
         max-width: 100%;
@@ -664,10 +664,11 @@ align-items: baseline;
         
     }
     &__item{
-        background: rgb(247, 248, 250);
+        background: white;
         animation: showDown .4s ease;
         &:hover{
-            background: white;
+            background: rgb(247, 248, 250);
+            
         }
     }
 }
@@ -679,6 +680,15 @@ align-items: baseline;
         &__footer{
             display: none;
         }
+    }
+    .nav-tabs{
+        display: flex;
+        & > li {
+            
+            width: 33%;
+            font-size: 12px;
+        }
+        margin: auto;
     }
     
     
@@ -934,6 +944,7 @@ align-items: baseline;
         border-bottom: 1px solid #ced4da;
         margin: 15px 0 30px 0;
     }
+    
     &__photoContainer{
         max-height: 250px;
         overflow: hidden;
@@ -1090,6 +1101,11 @@ Footer
    position: fixed;
    bottom: 0;
 }
+.footerFront{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
 .footerList{
     display: flex;
     flex-direction: row;
@@ -1111,6 +1127,9 @@ Footer
 /*loader*/
 
 .loader{
+    &__logo{
+        max-width:90%
+    }
     &--form{
         position: absolute;
         height: 100%;
@@ -1130,6 +1149,7 @@ align-items: center;
     width:40%;
     margin: 0 auto;
 }
+
     }
 }
 

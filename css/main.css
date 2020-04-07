@@ -181,7 +181,7 @@ header {
 
 /*Header*/
 .header {
-  padding: 45px 0; }
+  padding: 15px 0; }
   .header__logo img {
     width: 100%;
     max-width: 380px; }
@@ -192,7 +192,7 @@ header {
 
 @media (max-width: 768px) {
   .header {
-    padding: 25px 0 0 0; }
+    padding: 15px 0 0 0; }
     .header__wrap {
       flex-direction: column;
       max-width: 100%;
@@ -499,10 +499,10 @@ header {
     height: 60px;
     border-radius: 50%; }
   .chatList__item {
-    background: #f7f8fa;
+    background: white;
     animation: showDown .4s ease; }
     .chatList__item:hover {
-      background: white; }
+      background: #f7f8fa; }
 
 @media (max-width: 576px) {
   .chatList {
@@ -510,7 +510,14 @@ header {
     min-height: 90vh;
     margin-bottom: 60px; }
     .chatList__footer {
-      display: none; } }
+      display: none; }
+
+  .nav-tabs {
+    display: flex;
+    margin: auto; }
+    .nav-tabs > li {
+      width: 33%;
+      font-size: 12px; } }
 /*Pagination*/
 .page-item.active .page-link {
   background-color: #f24167; }
@@ -806,6 +813,11 @@ Footer
   position: fixed;
   bottom: 0; }
 
+.footerFront {
+  width: 100%;
+  position: absolute;
+  bottom: 0; }
+
 .footerList {
   display: flex;
   flex-direction: row;
@@ -819,6 +831,8 @@ Footer
     .footerList > a {
       border-bottom: 1px solid #e5e5e6 !important; } }
 /*loader*/
+.loader__logo {
+  max-width: 90%; }
 .loader--form {
   position: absolute;
   height: 100%;
