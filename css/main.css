@@ -955,5 +955,11 @@ Footer
     .mobileColumn > button {
       width: 100%;
       margin-top: 10px; } }
+.mobile-static {
+  position: absolute; }
+
+@media (max-width: 768px) {
+  .mobile-static {
+    position: static !important; } }
 
 /*# sourceMappingURL=main.css.map */

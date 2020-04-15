@@ -1304,3 +1304,12 @@ align-items: center;
     
         
 }
+.mobile-static{
+    position: absolute;
+}
+@media (max-width: 768px) {
+    .mobile-static{
+        position: static !important;
+    }
+    
+}
