@@ -522,9 +522,11 @@ align-items: baseline;
         display: flex;
     }
     .chat{
-        max-height: 90vh;
+        max-height: 80vh;
+        height: 80vh;
+        overflow: hidden;
         &__header{
-            max-height: 10vh;
+            height: 20vh;
         }
     }
 
