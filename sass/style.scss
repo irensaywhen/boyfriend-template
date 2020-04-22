@@ -37,6 +37,7 @@ header{
     background: rgba(0,0,0,.5)
 }
 .header{
+    overflow: hidden;
     &Wrapper{
         width: 100%;
         background: #006caa;
@@ -516,6 +517,9 @@ align-items: baseline;
      
 }
 @media (max-width: 576px){
+    .modal-dialog-scrollable{
+         max-height: calc(90% - 1rem) !important;
+    }
     .fullMobile{
         height: 100vh;
         flex-direction: column;
@@ -577,6 +581,7 @@ align-items: baseline;
         background: rgb(238, 241, 244);
         text-align: left;
         z-index: 2;
+        word-wrap: break-word;
 
     }
     &__date{
@@ -613,8 +618,40 @@ align-items: baseline;
         &__footer{
             margin-bottom: 80px;
         }
+        &__button{
+            padding: 8px 25px;
+        }
+        &__back{
+            font-size: 0.8rem;
+        }
+        &__profilePhoto{
+            width: 45px;
+            height: 45px;
+            min-width: 45px;
+            min-height: 45px;
+        }
+        #giftListNav{
+            font-size:14px;
+            margin-bottom: 0;
+            margin-left: auto;
+        }
+        &__h4{
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        &__input{
+            width: 80%;
+        }
+        &__messageContainer{
+            margin-bottom:26px;
+        }
+        #messageInput{
+            height: 40px;
+        }
     }
-    
+    #photosUpload{
+        z-index: 999;
+    }
  }
 #messageInput{
  height: 60px;    
@@ -1311,7 +1348,7 @@ align-items: center;
 }
 @media (max-width: 768px) {
     .mobile-static{
-        position: static !important;
+        position: initial !important;
     }
     
 }

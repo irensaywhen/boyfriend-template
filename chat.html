@@ -408,9 +408,9 @@
                                     <img src="./img/logo.png" alt="logo">
                                 </a>
                             </div>
-                            <div class="col-md-8 d-flex justify-content-end align-items-center mt-2 header__buttons">
+                            <div class="col-md-8 d-flex justify-content-end align-items-center mt-3 header__buttons">
                                     <div class="header__boost clickable pointer"><img src="./img/boost.svg" alt="boost" class="icon50 p-2"></div>
-                                    <a href="pricing.html" class="primaryButton primaryButton--main mx-3 header__button">Premium</a>
+                                    <a href="pricing.html" class="primaryButton primaryButton--main mx-3 chat__button">Premium</a>
                             </div>
 
                 </div>
@@ -420,34 +420,34 @@
         <div class="bg-lg pt-sm-5 pb-sm-5 chat">
             <div class="container p-0 h-100">
                 <div class="col-md-8 offset-md-2 col-12 p-0 mb-sm-5 h-100">
-                        <a class="chat__link " href="./chatlist.html"><h5 class="py-2 pl-2 d-flex align-items-center"><i class="fa fa-arrow-left pr-2"></i> Powrót</h5></a>
+                        <a class="chat__link " href="./chatlist.html"><h5 class="py-2 pl-2 m-0 d-flex align-items-center chat__back"><i class="fa fa-arrow-left pr-2"></i> Powrót</h5></a>
                     <div class="w-100 h-100 modal-content w m-auto">
-                        <div class="modal-header d-flex justify-content-start align-items-center">
+                        <div class="modal-header d-flex justify-content-start align-items-center p-md-3 p-2">
                             <figure class="chat__profilePhoto m-0">
                                 <img src="./img/profile.jpg" alt="">
                             </figure>
                             <a href="./profile.html">
-                                <h4 class="pl-3">Tomek</h4>
+                                <h4 class="pl-3 chat__h4">Tomek</h4>
                             </a>
-                            <h6 id="giftListNav" class="primaryButton primaryButton--pink signUpButton text-center ml-sm-auto py-2 px-md-3 px-2 ml-3"
+                            <h6 id="giftListNav" class="primaryButton primaryButton--pink signUpButton text-center ml-sm-auto py-2 px-md-3 px-2"
                                 data-toggle="modal" data-target="#giftList">Wyślij prezent
                                 <img src="./img/gift.svg" alt="" class="buttons__image ml-md-2 ml-1">
                             </h6>
                         </div>
-                        <div class="modal-body inner-shadow d-flex py-5 flex-column chat__body" id="messageContainer">
+                        <div class="modal-body inner-shadow d-flex py--md-5 py-2 flex-column chat__body" id="messageContainer">
                             <!-- Messages here -->
                             <div class="chat__message message--self position-relative">
                                 <h6 class="chat__date text-right position-absolute">
                                     <span class="badge badge-success font-weight-bold">14:20</span>
                                 </h6>
-                                <h6 class="chat__text p-3 position-relative pointer">Hej</h6>
+                                <h6 class="chat__text p-md-3 p-2 position-relative pointer">Hej</h6>
                                 <h6 class="small text-dark chat__premiumInf position-absolute text-right">Wyświetlono:
                                     <span class="text-secondary">12/20/2020 14:20:30</span>
                                 </h6>
                             </div>
                             <div class="chat__message position-relative">
                                 <h6 class="badge badge-success chat__date text-center font-weight-bold position-absolute ">14:20</h6>
-                                <h6 class="chat__text p-3 position-relative pointer">Hej</h6>
+                                <h6 class="chat__text p-md-3 p-2 position-relative pointer">Hej</h6>
                                 <h6 class="small text-dark chat__premiumInf position-absolute">Wyświetlono:
                                     <span class="text-secondary">12/20/2020 14:20:30</span>
                                 </h6>
@@ -458,13 +458,13 @@
 
 
                         </div>
-                        <div class="modal-footer chat__footer text-left d-flex flex-column">
+                        <div class="modal-footer chat__footer text-left d-flex flex-column p-md-3 p-1">
                             <div class="d-flex flex-column w-100">
-                            <h6 class="pb-2 small text-secondary mr-auto">Wyślij wiadomość</h6>
-                            <div class="w-100 position-relative">
+                            <h6 class="pb-2 small text-secondary mr-auto mb-0">Wyślij wiadomość</h6>
+                            <div class="w-100 position-relative chat__messageContainer">
                                 <form id="messageForm">
-                                    <input type="text" class="form-control bgwhite" id="messageInput"></input>
-                                    <img src="./img/mail.svg" alt="" class="p-2 position-absolute chat__icon primaryButton--pink mt-2 mr-3 pointer" id="messageSubmit">
+                                    <input type="text" class="form-control bgwhite chat__input" id="messageInput"></input>
+                                    <img src="./img/mail.svg" alt="" class="p-2 position-absolute chat__icon primaryButton--pink mt-sm-2 mr-sm-3 mx-2 pointer" id="messageSubmit">
                                 </form>
                             </div>
                         </div>
@@ -594,7 +594,7 @@
                                     <h6 class="chat__date text-right position-absolute">
                                         <span class="badge badge-success font-weight-bold">14:20</span>
                                     </h6>
-                                    <h6 class="chat__text p-3 position-relative pointer d-flex justify-content-end">Wysłałeś ${options.fullName}!<img src="./img/${options.target}.svg" class="icon50 ml-3" alt="superlike"></h6>
+                                    <h6 class="chat__text p-md-3 p-2 position-relative pointer d-flex justify-content-end">Wysłałeś ${options.fullName}!<img src="./img/${options.target}.svg" class="icon50 ml-3" alt="superlike"></h6>
                                     <h6 class="small text-dark chat__premiumInf position-absolute text-right">Wyświetlono:
                                         <span class="text-secondary">12/20/2020 14:20:30</span>
                                     </h6>
@@ -602,7 +602,7 @@
                                     <h6 class="chat__date text-right position-absolute">
                                         <span class="badge badge-success font-weight-bold">14:20</span>
                                     </h6>
-                                    <h6 class="chat__text text-left p-3 position-relative pointer d-flex justify-content-start"><img src="./img/${options.target}.svg" class="icon50 mr-3" alt="superlike"> Otrzymałeś ${options.fullName}!</h6>
+                                    <h6 class="chat__text text-left p-md-3 p-2 position-relative pointer d-flex justify-content-start"><img src="./img/${options.target}.svg" class="icon50 mr-3" alt="superlike"> Otrzymałeś ${options.fullName}!</h6>
                                     <h6 class="small text-dark chat__premiumInf position-absolute text-right">Wyświetlono:
                                         <span class="text-secondary">12/20/2020 14:20:30</span>
                                     </h6>
@@ -613,7 +613,7 @@
                                     <h6 class="chat__date text-right position-absolute">
                                         <span class="badge badge-success font-weight-bold">14:20</span>
                                     </h6>
-                                    <div class="chat__text mb-2 p-3 position-relative pointer d-flex flex-column justify-content-center align-items-center text-center">
+                                    <div class="chat__text mb-2 p-md-3 p-2 position-relative pointer d-flex flex-column justify-content-center align-items-center text-center">
                                         Wysłałeś Foto Pocztówkę!
                                         <img src="./img/${options.target}.svg" class="icon50 my-2" alt="superlike">
                                         <img src="${options.src}" class="w-100 my-2 chat__messageIMG" data-toggle="modal" data-target="#fullPhoto">
@@ -626,7 +626,7 @@
                                     <h6 class="chat__date text-right position-absolute">
                                         <span class="badge badge-success font-weight-bold">14:20</span>
                                     </h6>
-                                    <div class="chat__text mb-2 p-3 position-relative pointer d-flex flex-column justify-content-center align-items-center text-center">
+                                    <div class="chat__text mb-2 p-3 p-md-3 p-2 position-relative pointer d-flex flex-column justify-content-center align-items-center text-center">
                                         Wysłałeś Foto Pocztówkę!
                                         <img src="./img/${options.target}.svg" class="icon50 my-2" alt="superlike">
                                         <img src="${options.src}" class="w-100 my-2 chat__messageIMG" data-toggle="modal" data-target="#fullPhoto">
@@ -641,11 +641,11 @@
 
                     let tempMessage = self ? `<div class="chat__message message--self position-relative">
                                     <h6 class="chat__date text-right position-absolute"><span class="badge badge-success font-weight-bold">14:20</span></h6>
-                                <h6 class="chat__text p-3 position-relative pointer">${$('#messageInput').val()}</h6>
+                                <h6 class="chat__text p-md-3 p-2 position-relative pointer">${$('#messageInput').val()}</h6>
                                 <h6 class="small text-dark chat__premiumInf position-absolute text-right">Wyświetlono: <span class="text-secondary">12/20/2020 14:20:30</span></h6>
                             </div>` : `<div class="chat__message position-relative">
                                     <h6 class="chat__date text-right position-absolute"><span class="badge badge-success font-weight-bold">14:20</span></h6>
-                                <h6 class="chat__text p-3 position-relative pointer">${$('#messageInput').val()}</h6>
+                                <h6 class="chat__text p-md-3 p-2 position-relative pointer">${$('#messageInput').val()}</h6>
                                 <h6 class="small text-dark chat__premiumInf position-absolute text-right">Wyświetlono: <span class="text-secondary">12/20/2020 14:20:30</span></h6>
                             </div>`
                     message = tempMessage
