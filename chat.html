@@ -704,18 +704,20 @@
                 photoPreviews.innerHTML = `<div class='py-3 offset-md-3 col-sm-6 col-12 d-flex flex-column justify-content-center'><figure class='addPhotoPreview justify-content-center d-flex'><img src='${source}' alt='photo'></figure>  <h6 class="small text-secondary">Dodaj opis</h6><textarea class="form-control bgwhite addPhotoDesc"></textarea>
                                         </div>`
             }
-
+            let sourcePhoto
             /*display previes*/
             photoFile2.addEventListener('change', function () {
                 let source = URL.createObjectURL(photoFile2.files[0])
+                sourcePhoto = source
                     /*appending previevs*/
                     createPreview(source, 0)
                 
 
             })
             photoCamera2.addEventListener('change', function () {
-               
+                    console.log(photoCamera2.files[0])
                     let source = URL.createObjectURL(photoCamera2.files[0])
+                    sourcePhoto = source
                     /*appending previevs*/
                     createPreview(source, 0)
                 
@@ -726,13 +728,18 @@
           
 
             $('#photoSubmit').click(function(e){
+                if(!sourcePhoto){
+                    return false
+                }
+
                 e.preventDefault()
                 $('#closeAddPhotos').trigger('click')
                 displayMessage(true, 'photo', {
-                    src: URL.createObjectURL(photoFile2.files[0]),
+                    src: sourcePhoto,
                     desc: $('.addPhotoDesc').val(),
                     target: 'photo'
                 });
+                sourcePhoto = false
                 let image = $('*.chat__messageIMG').last();
 
 image.click(function(e){

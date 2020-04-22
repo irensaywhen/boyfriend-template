@@ -324,12 +324,10 @@ header {
 
 .addPhotoPreview {
   width: 100%;
-  max-height: 250px;
-  min-height: 250px;
   overflow: hidden;
   animation: showDown .4s ease; }
   .addPhotoPreview img {
-    height: 100%; }
+    width: 100%; }
   .addPhotoPreview > .custom-control {
     position: absolute;
     right: 20px; }
