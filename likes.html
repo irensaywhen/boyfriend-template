@@ -39,16 +39,16 @@
 
 <body class="bg-lg">
 
-        <div class="sidebar bg-lg">
+    <div class="sidebar bg-lg">
         <div class="text-center">
             <a href="./profile-edit.html">
-            <div class="figure-menu shadow">
-                <figure>
-                    <img src="./img/photo1.jpg" alt="">
-                </figure>
-            </div>
-            <h5 class="mb-1 ">Tomek</h5>
-        </a>
+                <div class="figure-menu shadow">
+                    <figure>
+                        <img src="./img/photo1.jpg" alt="">
+                    </figure>
+                </div>
+                <h5 class="mb-1 ">Tomek</h5>
+            </a>
         </div>
         <br>
         <div class="row mx-0">
@@ -68,11 +68,12 @@
                                 <br>
                                 <span class="text-dark font-weight-bold">12/12/2020</span>
                             </h6>
-                            <a href="pricing.html"><button class="btn btn-default button-rounded-36 shadow">
-                                <i class="material-icons">add</i>
-                            </button>
+                            <a href="pricing.html">
+                                <button class="btn btn-default button-rounded-36 shadow">
+                                    <i class="material-icons">add</i>
+                                </button>
                             </a>
-                        </a>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -97,29 +98,31 @@
         </div>
     </div>
     <div>
-
+        <div class="wrapper">
         <header class="header pb-3">
             <button class="menu-btn bg-transparent d-flex ml-md-3 pt-md-3">
-                <img src="img/menu.png" alt="menu" >
+                <img src="img/menu.png" alt="menu">
                 <span class="ml-2 new-notification"></span>
             </button>
             <div class="container">
 
                 <div class="row d-flex align-items-center header__wrap">
-                        <div class="col-md-4 col-8 header__logo">
-                                <a href="./index.html">
-                                    <img src="./img/logo.png" alt="logo">
-                                </a>
-                            </div>
-                            <div class="col-md-8 d-flex justify-content-end align-items-center mt-2 header__buttons">
-                                    <div class="header__boost clickable pointer"><img src="./img/boost.svg" alt="boost" class="icon50 p-2"></div>
-                                    <a href="pricing.html" class="primaryButton primaryButton--main mx-3 header__button">Premium</a>
-                            </div>
+                    <div class="col-md-4 col-8 header__logo">
+                        <a href="./index.html">
+                            <img src="./img/logo.png" alt="logo">
+                        </a>
+                    </div>
+                    <div class="col-md-8 d-flex justify-content-end align-items-center mt-2 header__buttons">
+                        <div class="header__boost clickable pointer">
+                            <img src="./img/boost.svg" alt="boost" class="icon50 p-2">
+                        </div>
+                        <a href="pricing.html" class="primaryButton primaryButton--main mx-3 header__button">Premium</a>
+                    </div>
 
                 </div>
             </div>
         </header>
-        
+
         <div class="bg-lg pb-5 pt-md-5">
             <div class="userList p-0 container">
 
@@ -547,6 +550,7 @@
             </div>
         </div>
     </div>
+    </div>
 
 
     <!-- jquery, popper and bootstrap js -->
@@ -575,9 +579,9 @@
     <script>
         $(window).on('load', function () {
 
-             let displayedUsers = 12
-            
-            function stopDisplay(){
+            let displayedUsers = 12
+
+            function stopDisplay() {
                 $('#usersContainer').html('<div class="my-4 col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-12 text-center bgwhite py-4 shadow-sm rounded"><img src="./img/sad.svg" class="w-75 py-4"> <h6>Twoje konto wyświetliło już 6 użytkowników!</h6><h6 class="text-secondary small">Zobacz kto</h6><a href="pricing.html"><button type="submit" id="unlockRequest" class="primaryButton primaryButton--pink border-0 w-100" value="zmień opis">Kup konto premium</button></a></div>')
             }
 
@@ -617,7 +621,7 @@
                 })
                 return arr
             }
-            
+
             function showPage(page) {
                 $('#usersContainer').html(groupedUsers[page].join(''))
             }
@@ -647,8 +651,8 @@
                     usersObj.forEach(user => {
                         slideIfVisible(user);
                     })
-                    
-                        
+
+
                     stopDisplay();
                     document.addEventListener('scroll', () => {
                         usersObj.forEach(user => {
@@ -685,7 +689,7 @@
                 })
             })
 
-       
+
 
 
 
