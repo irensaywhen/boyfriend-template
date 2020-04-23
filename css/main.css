@@ -410,6 +410,8 @@ header {
   #report:hover {
     background: #ff3c3c; }
 
+.chat__info {
+  min-height: 63px; }
 .chat__link:hover {
   color: #fb5454; }
 .chat__profilePhoto {

@@ -547,6 +547,9 @@ align-items: baseline;
     }
 }
 .chat{
+    &__info{
+        min-height: 63px;
+    }
     &__link{
         &:hover{
             color: #fb5454;
