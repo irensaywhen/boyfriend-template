@@ -467,7 +467,6 @@ header {
   .chat__body {
     min-height: initial; }
   .chat__footer {
-    margin-bottom: 80px;
     min-height: 190px; }
   .chat__button {
     padding: 8px 25px; }
