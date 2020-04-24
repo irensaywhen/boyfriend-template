@@ -21,6 +21,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+
+
 Route::prefix('/backend')->name('backend.')->namespace('Backend')->group(function(){
 
     Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
