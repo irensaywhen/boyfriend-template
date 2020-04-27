@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="en" class="pink-theme">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="Maxartkiller">
+
+    <title>Profile · GoFruit</title>
+
+    <!-- Material design icons CSS -->
+    <link rel="stylesheet" href="vendor/materializeicon/material-icons.css">
+
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Roboto fonts CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap-4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">
+
+    <!-- Chosen multiselect CSS -->
+    <link href="vendor/chosen_v1.8.7/chosen.min.css" rel="stylesheet">
+
+    <!-- nouislider CSS -->
+    <link href="vendor/nouislider/nouislider.min.css" rel="stylesheet">
+
+
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+</head>
+
+<body class="bg-lg">
+
+    <div class="sidebar bg-lg">
+        <div class="text-center">
+            <a href="./profile-edit.html">
+                <div class="figure-menu shadow">
+                    <figure>
+                        <img src="./img/photo1.jpg" alt="">
+                    </figure>
+                </div>
+                <h5 class="mb-1 ">Tomek</h5>
+            </a>
+        </div>
+        <br>
+        <div class="row mx-0">
+            <div class="col">
+                <div class="card w-100 m-0 border-0 shadow-sm">
+                    <div class="card-body">
+
+
+
+                        <h6 class="text-dark">Premium
+                            <span class="badge badge-success">Aktywne</span>
+                        </h6>
+
+
+                        <div class="d-flex justify-content-between">
+                            <h6 class="small text-secondary">subskrypcja do:
+                                <br>
+                                <span class="text-dark font-weight-bold">12/12/2020</span>
+                            </h6>
+                            <a href="pricing.html">
+                                <button class="btn btn-default button-rounded-36 shadow">
+                                    <i class="material-icons">add</i>
+                                </button>
+                            </a>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group main-menu p-md-3 p-2">
+                <a href="userlist.html" class="list-group-item list-group-item-action active">Przeglądaj profile</a>
+                </a>
+                <a href="chat.html" class="list-group-item list-group-item-action">Wiadomości
+                    <span class="badge badge-success ml-2">2</span>
+                </a>
+                <a href="likes.html" class="list-group-item list-group-item-action">Ulubieni</a>
+                <a href="likes.html" class="list-group-item list-group-item-action">Kto cie lubi
+                    <span class="badge badge-success ml-2">2</span>
+                </a>
+                <a href="viewers.html" class="list-group-item list-group-item-action">Odwiedzający
+                    <span class="badge badge-success ml-2">2</span>
+                </a>
+                <a href="profile-edir.html" class="list-group-item list-group-item-action mt-3">Ustawienia</a>
+                <a href="login.html" class="list-group-item list-group-item-action mt-4">Wyloguj</a>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="wrapper">
+        <header class="header pb-3">
+            <button class="menu-btn bg-transparent d-flex ml-md-3 pt-md-3">
+                <img src="img/menu.png" alt="menu">
+                <span class="ml-2 new-notification"></span>
+            </button>
+            <div class="container">
+
+                <div class="row d-flex align-items-center header__wrap">
+                    <div class="col-md-4 col-8 header__logo">
+                        <a href="./index.html">
+                            <img src="./img/logo.png" alt="logo">
+                        </a>
+                    </div>
+                    <div class="col-md-8 d-flex justify-content-end align-items-center mt-2 header__buttons">
+                        <div class="header__boost clickable pointer">
+                            <img src="./img/boost.svg" alt="boost" class="icon50 p-2">
+                        </div>
+                        <a href="pricing.html" class="primaryButton primaryButton--main mx-3 header__button">Premium</a>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+        <div class="bg-lg pb-5 pt-md-5">
+            <div class="userList p-0 container">
+
+                <h4 class="text-underline pt-md-0 pt-4 pl-2">Ostatnio polubili Twój profil:</h4>
+                <div class="info h-100 py-3 col-12">
+                    <img src="./img/ad2.jpg" alt="info" class="w-100 h-100">
+                </div>
+                <div class="row" id="usersContainer">
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+                                <div class="badge badge-success float-right mt-1 w-100 mb-2">Gorący użytkownik</div>
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+                                <div class="badge badge-success float-right mt-1 w-100 mb-2">Gorący użytkownik</div>
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+                                <div class="badge badge-success float-right mt-1 w-100 mb-2">Gorący użytkownik</div>
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+                                <div class="badge badge-success float-right mt-1 w-100 mb-2">Gorący użytkownik</div>
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+                                <div class="badge badge-success float-right mt-1 w-100 mb-2">Gorący użytkownik</div>
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+                                <div class="badge badge-success float-right mt-1 w-100 mb-2">Gorący użytkownik</div>
+
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+
+
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+
+
+                                <img src="./img/photo1.jpg" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">Tomek,
+                                    <span class="text-secondary">27</span>
+                                </a>
+                                <p class="text-secondary small mb-2">Wrocław</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <nav class="container">
+                    <ul class="pagination pagination-lg d-flex justify-content-center m-0 pt-3 pb-5">
+                        <li class="page-item" id="navPrevious">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">«</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+
+                        <li class="page-item" id="navNext">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">»</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="no-gutters">
+                <div class="col-auto mx-auto">
+                    <div class="row no-gutters justify-content-center">
+                        <div class="col-auto">
+                            <a href="index.html" class="btn btn-link-default ">
+                                <i class="material-icons">store_mall_directory</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="statistics.html" class="btn btn-link-default">
+                                <i class="material-icons">insert_chart_outline</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="cart.html" class="btn btn-default shadow centerbutton">
+                                <i class="material-icons">local_mall</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="favorite-products.html" class="btn btn-link-default">
+                                <i class="material-icons">favorite</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="profile.html" class="btn btn-link-default active">
+                                <i class="material-icons">account_circle</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <!-- jquery, popper and bootstrap js -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+
+    <!-- swiper js -->
+    <script src="vendor/swiper/js/swiper.min.js"></script>
+
+    <!-- nouislider js -->
+    <script src="vendor/nouislider/nouislider.min.js"></script>
+
+    <!-- chart js -->
+    <script src="vendor/chartjs/Chart.min.js"></script>
+    <script src="vendor/chartjs/utils.js"></script>
+
+    <!-- chosen multiselect js -->
+    <script src="vendor/chosen_v1.8.7/chosen.jquery.min.js"></script>
+
+    <!-- template custom js -->
+    <script src="js/main.js"></script>
+    <script src="./js/feed.js"></script>
+    <script src="./testdata/users.js"></script>
+    <!-- page level script -->
+    <script>
+        $(window).on('load', function () {
+
+            let displayedUsers = 12
+
+            function stopDisplay() {
+                $('#usersContainer').html('<div class="my-4 col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-12 text-center bgwhite py-4 shadow-sm rounded"><img src="./img/sad.svg" class="w-75 py-4"> <h6>Twoje konto wyświetliło już 6 użytkowników!</h6><h6 class="text-secondary small">Zobacz kto</h6><a href="pricing.html"><button type="submit" id="unlockRequest" class="primaryButton primaryButton--pink border-0 w-100" value="zmień opis">Kup konto premium</button></a></div>')
+            }
+
+
+            function createUsers(users) {
+                return users.map(user => {
+                    let hot = user.hot ? '<div class="badge badge-success float-right mt-1 w-100 mb-2">Gorący użytkownik</div>' : ''
+                    return `<div class="px-md-3 px-0 col-12 col-md-4 col-lg-3 userList__user">
+                        <div class="card shadow-sm border-0 mb-4 w-100">
+                            <div class="card-body">
+                                ${hot}
+                                <img src="${user.photo}" alt="" class="w-100">
+
+                                <a href="product-details.html" class="text-dark mb-1 mt-2 h5 d-block">${user.name},
+                                    <span class="text-secondary">${user.age}</span>
+                                </a>
+                                <p class="text-secondary small mb-2">${user.location}</p>
+                                <a href="./profile.html">
+                                    <button class="btn btn-default button-rounded-36 shadow-sm float-bottom-right">
+                                        <i class="fa fa-chevron-right pl-1"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>`
+                })
+            }
+
+            function groupUsers(users, count) {
+                let groupCount = Math.floor(users.length / count)
+                let arr = []
+                users.map((article, i) => {
+                    if (i % count == 0) {
+                        arr.push([])
+                    }
+                    arr[arr.length - 1].push(article)
+                })
+                return arr
+            }
+
+            function showPage(page) {
+                $('#usersContainer').html(groupedUsers[page].join(''))
+            }
+
+            let groupedUsers = groupUsers(createUsers(users), displayedUsers)
+            showPage(0)
+
+            let navDOM = groupedUsers.map((group, i) => {
+                let active = i === 0 ? 'active' : ''
+                return `<li class="page-item ${active}">
+                        <a class="page-link" href="#">${i + 1}</a>
+                    </li>`
+            }).join('')
+            $('#navPrevious').after(navDOM)
+            let paginationItems = document.querySelectorAll('.page-item')
+            /*Change page listneer*/
+            paginationItems.forEach(item => {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    stopDisplay();
+                    $('*.page-item').removeClass('active');
+                    $(item).addClass('active');
+                    let selectedPage = $(item).index()
+                    showPage(selectedPage - 1);
+
+                    let usersObj = document.querySelectorAll('.userList__user')
+                    usersObj.forEach(user => {
+                        slideIfVisible(user);
+                    })
+
+
+                    stopDisplay();
+                    document.addEventListener('scroll', () => {
+                        usersObj.forEach(user => {
+                            slideIfVisible(user);
+                        })
+                    })
+
+
+                    $('html, body').animate({
+                        scrollTop: $("#usersContainer").offset().top
+                    }, 1000);
+
+
+
+                })
+            })
+            stopDisplay();
+
+
+
+
+
+            /*autoLoad*/
+            let usersObj = document.querySelectorAll('.userList__user')
+
+            usersObj.forEach(user => {
+                slideIfVisible(user);
+            })
+
+            document.addEventListener('scroll', () => {
+
+                usersObj.forEach(user => {
+                    slideIfVisible(user);
+                })
+            })
+
+
+
+
+
+        });
+
+    </script>
+
+</body>
+
+</html>
