@@ -371,10 +371,7 @@ header {
     padding: 5px 0;
   }
 }
-.articles {
-  &__entry {
-  }
-}
+
 /*buttons*/
 .buttons {
   &__vertical {
@@ -763,8 +760,6 @@ header {
     display: flex;
     justify-content: space-between;
   }
-  &__container {
-  }
 }
 
 /*gifts*/
@@ -798,8 +793,7 @@ header {
   }
 }
 /*signUp*/
-.signUp {
-}
+
 @media (max-width: 576px) {
   .signUp {
     padding: 0;
