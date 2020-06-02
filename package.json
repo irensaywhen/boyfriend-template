@@ -1,0 +1,19 @@
+{
+  "name": "boyfriend",
+  "version": "1.0.0",
+  "description": "Boyfriend template",
+  "main": "index.js",
+  "scripts": {
+    "sass": "node-sass -w sass/ -o css/ --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://IrenSayWhen@bitbucket.org/Maciej_Katarzynski/boyfriend.git"
+  },
+  "author": "Irina Gataullina",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/Maciej_Katarzynski/boyfriend#readme",
+  "dependencies": {
+    "node-sass": "^4.14.1"
+  }
+}
