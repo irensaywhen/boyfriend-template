@@ -1,0 +1,10 @@
+@mixin background($image) {
+  background-image: $image;
+  background-size: cover;
+}
+
+@mixin image {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}

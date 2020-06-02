@@ -1,1 +1,21 @@
+/*Utilities*/
+@import "utilities/helper_classes";
+@import "utilities/variables";
+@import "utilities/mixins";
+@import "utilities/functions";
+
+/*Components*/
+@import "components/buttons";
+
+/*Themes*/
+@import "themes/blue_theme";
+
+/*Layout*/
+@import "layout/header_public";
+@import "layout/header_private";
+@import "layout/footer";
+@import "layout/sidebar";
 @import "layout/loader";
+
+/*Pages*/
+@import "pages/front_page";

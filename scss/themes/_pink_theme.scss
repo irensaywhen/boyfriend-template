@@ -1,0 +1,138 @@
+.pink-theme .bg-background,
+.pink-theme .header.active,
+.pink-theme .list-group-item.active {
+  background-color: #e3eaf1;
+}
+
+.pink-theme .wrapper {
+  background-color: #e3eaf1;
+  background-image: -moz-radial-gradient(
+    center,
+    ellipse cover,
+    rgba(250, 250, 250, 1) 0%,
+    #e3eaf1 100%
+  );
+  background-image: -webkit-gradient(
+    radial,
+    center center,
+    0px,
+    center center,
+    100%,
+    color-stop(0%, rgba(250, 250, 250, 1)),
+    color-stop(100%, #e3eaf1)
+  );
+  background-image: -webkit-radial-gradient(
+    center,
+    ellipse cover,
+    rgba(250, 250, 250, 1) 0%,
+    #e3eaf1 100%
+  );
+  background-image: -o-radial-gradient(
+    center,
+    ellipse cover,
+    rgba(250, 250, 250, 1) 0%,
+    #e3eaf1 100%
+  );
+  background-image: -ms-radial-gradient(
+    center,
+    ellipse cover,
+    rgba(250, 250, 250, 1) 0%,
+    #e3eaf1 100%
+  );
+  background-image: radial-gradient(
+    ellipse at center,
+    rgba(250, 250, 250, 1) 0%,
+    #e3eaf1 100%
+  );
+  background-attachment: inherit;
+  background-position: center top;
+  background-size: 100% 100%;
+}
+
+.pink-theme body,
+.pink-theme body.sidemenu-open,
+.pink-theme .bg-template,
+.pink-theme .btn-default,
+.pink-theme .custom-control-input:checked ~ .custom-control-label::before,
+.pink-theme .small-slide .swiper-slide .card:hover,
+.pink-theme .small-slide .swiper-slide .card:focus,
+.pink-theme .filter,
+.pink-theme .chosen-container .chosen-results li.highlighted,
+.pink-theme .page-item.active .page-link,
+.pink-theme .nav-pills .nav-link.active,
+.pink-theme .nav-pills .show > .nav-link {
+  background-color: #ff0068;
+}
+
+.pink-theme .filter,
+.pink-theme .filter .form-control,
+.pink-theme .filter .form-group label,
+.pink-theme .float-label .chosen-container-multi .chosen-choices,
+.pink-theme
+  .float-label
+  .chosen-container-multi
+  .chosen-choices
+  li.search-field
+  input[type="text"],
+.pink-theme .filter .chosen-container-multi .chosen-choices li.search-choice,
+.pink-theme .btn-default,
+.pink-theme .sidebar,
+.pink-theme .sidebar .main-menu .list-group-item,
+.pink-theme .small-slide .swiper-slide .card:hover *,
+.pink-theme .small-slide .swiper-slide .card:focus * {
+  color: #ffff !important;
+}
+
+.pink-theme .filter .form-group label {
+  opacity: 0.85;
+}
+
+.pink-theme .btn-default:hover,
+.pink-theme .btn-default:focus {
+  color: #ffffff;
+  background-color: #dd015b;
+}
+
+.pink-theme .figure-profile,
+.pink-theme .form-control:focus,
+.pink-theme .custom-control-input:focus ~ .custom-control-label::before,
+.pink-theme .custom-control-input:checked ~ .custom-control-label::before,
+.pink-theme .float-label .form-control:focus,
+.pink-theme .page-item.active .page-link,
+.pink-theme .btn-outline-default {
+  border-color: #ff0068;
+}
+
+.pink-theme .filter .form-control:focus,
+.pink-theme .filter .custom-control-input:focus ~ .custom-control-label::before,
+.pink-theme
+  .filter
+  .custom-control-input:checked
+  ~ .custom-control-label::before,
+.pink-theme .filter .float-label .form-control:focus {
+  border-color: #ffffff;
+}
+
+.pink-theme .custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 104, 0.3);
+}
+
+.pink-theme .btn-light:hover,
+.pink-theme .btn-light:focus,
+.pink-theme .btn-light:not(:disabled):not(.disabled).active,
+.pink-theme .bg-template-light {
+  background-color: #ffe5f0;
+}
+
+.pink-theme .text-template,
+.pink-theme .btn-link,
+.pink-theme a,
+.pink-theme .float-label .form-control:focus + .form-control-label,
+.pink-theme .btn-light:hover,
+.pink-theme .btn-light:focus,
+.pink-theme .btn-light:not(:disabled):not(.disabled).active,
+.pink-theme .btn.btn-link-default:hover,
+.pink-theme .btn.btn-link-default:focus,
+.pink-theme .btn.btn-link-default.active {
+  color: #ff0068;
+}
