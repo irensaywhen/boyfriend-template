@@ -4,7 +4,7 @@
   "description": "Boyfriend template",
   "main": "index.js",
   "scripts": {
-    "sass": "node-sass -w sass/ -o css/ --recursive"
+    "sass": "node-sass -w scss/ -o css/ --recursive"
   },
   "repository": {
     "type": "git",
