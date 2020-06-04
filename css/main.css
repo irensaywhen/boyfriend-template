@@ -28,7 +28,7 @@ html {
 
 body {
   min-height: 100%;
-  height: auto;
+  height: 100%;
   overflow-y: auto;
   font-family: "Roboto", sans-serif;
   font-size: 16px;
@@ -49,6 +49,16 @@ nav {
   nav ul {
     list-style: none !important;
     width: 100%; }
+
+body {
+  display: flex;
+  flex-direction: column; }
+
+.content {
+  flex: 1 0 auto; }
+
+footer {
+  flex-shrink: 0; }
 
 .blue-theme .bg-background,
 .blue-theme .header.active,
@@ -470,6 +480,29 @@ body.sidemenu-open .sidebar {
   z-index: 99;
   background-color: #046aaa; }
 
+/*---Articles---*/
+/*--Articles cards--*/
+article h2 {
+  font-size: 22px; }
+
+article .header {
+  display: grid;
+  grid-gap: 3px;
+  grid-template-areas: "title" "subtitle" "date" "social";
+  grid-template-columns: 1fr; }
+  article .header h1 {
+    grid-area: title; }
+  article .header h2 {
+    grid-area: subtitle; }
+  article .header .social {
+    grid-area: social;
+    font-size: 32px; }
+    article .header .social a {
+      color: #000; }
+  article .header time {
+    grid-area: date; }
+
+/*--Articles slider--*/
 .news-slide {
   height: 500px;
   padding-bottom: 20px;
@@ -498,31 +531,7 @@ body.sidemenu-open .sidebar {
 .news-slide.swiper-container-horizontal > .swiper-pagination-bullets {
   margin-bottom: -10px; }
 
-/*Pages*/
-/*---Front page---*/
-.top-section {
-  background-image: url("../img/main-bg.jpg");
-  background-size: cover;
-  min-height: 100%; }
-
-article .header {
-  display: grid;
-  grid-gap: 3px;
-  grid-template-areas: "title" "subtitle" "date" "social";
-  grid-template-columns: 1fr; }
-  article .header h1 {
-    grid-area: title; }
-  article .header h2 {
-    grid-area: subtitle;
-    font-size: 22px; }
-  article .header .social {
-    grid-area: social;
-    font-size: 32px; }
-    article .header .social a {
-      color: #000; }
-  article .header time {
-    grid-area: date; }
-
+/*--Articles media queries--*/
 @media (min-width: 576px) {
   article .header {
     grid-template-areas: "title social" "subtitle empty" "date empty";
@@ -534,3 +543,77 @@ article .header {
     grid-gap: 0; }
     article .header time {
       justify-self: end; } }
+
+/*Pages*/
+/*---Front page---*/
+.top-section {
+  background-image: url("../img/main-bg.jpg");
+  background-size: cover;
+  min-height: 100%; }
+
+/*article {
+  .header {
+    display: grid;
+    grid-gap: 3px;
+    grid-template-areas:
+      "title"
+      "subtitle"
+      "date"
+      "social";
+    grid-template-columns: 1fr;
+
+    h1 {
+      grid-area: title;
+    }
+
+    h2 {
+      grid-area: subtitle;
+      font-size: decrease-font-size($h2, 10);
+    }
+
+    .social {
+      grid-area: social;
+      font-size: $h2;
+
+      a {
+        color: #000;
+      }
+    }
+
+    time {
+      grid-area: date;
+    }
+  }
+}
+
+@include screen-sm {
+  article {
+    .header {
+      grid-template-areas:
+        "title social"
+        "subtitle empty"
+        "date empty";
+      grid-template-columns: 2fr 1fr;
+
+      .social {
+      }
+    }
+  }
+}
+
+@include screen-md {
+  article {
+    .header {
+      grid-template-areas:
+        "title social"
+        "subtitle date";
+
+      grid-gap: 0;
+
+      time {
+        justify-self: end;
+      }
+    }
+  }
+}
+*/
