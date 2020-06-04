@@ -8,14 +8,19 @@
 @import "components/buttons";
 
 /*Themes*/
+@import "themes/main_theme";
 @import "themes/blue_theme";
 
 /*Layout*/
 @import "layout/header_public";
 @import "layout/header_private";
-@import "layout/footer";
+@import "layout/footer_private";
+@import "layout/footer_public";
 @import "layout/sidebar";
 @import "layout/loader";
+@import "layout/articles";
 
 /*Pages*/
 @import "pages/front_page";
+
+@import "utilities/media";

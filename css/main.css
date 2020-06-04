@@ -15,8 +15,34 @@
 .h-10 {
   height: 10px; }
 
+/*Colors*/
+/*Text sizes*/
+/*Media queries*/
+/*Fonts*/
+/*Card height*/
 /*Components*/
 /*Themes*/
+html {
+  height: 100%; }
+
+body {
+  min-height: 100%;
+  height: auto;
+  overflow-y: auto;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+  -webkit-overflow-scrolling: touch;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+a {
+  text-decoration: none !important; }
+
 .blue-theme .bg-background,
 .blue-theme .header.active,
 .blue-theme .list-group-item.active {
@@ -85,6 +111,14 @@ input[type="text"],
 .blue-theme .page-item.active .page-link,
 .blue-theme .btn-outline-default {
   border-color: #4885ff; }
+
+.blue-theme .btn-outline-white {
+  border-color: #fff;
+  background: transparent;
+  color: #fff; }
+  .blue-theme .btn-outline-white:focus, .blue-theme .btn-outline-white:hover {
+    color: #1563ff;
+    background: #fff; }
 
 .blue-theme .filter .form-control:focus,
 .blue-theme .filter .custom-control-input:focus ~ .custom-control-label::before,
@@ -219,6 +253,22 @@ input[type="text"],
   border-radius: 30px;
   margin: 0 15px;
   margin-top: -20px; }
+
+footer.public-footer h2 {
+  font-size: 22px; }
+
+footer.public-footer nav {
+  width: 100%; }
+  footer.public-footer nav ul {
+    list-style: none;
+    width: 100%; }
+
+@media (min-width: 768px) {
+  footer.public-footer nav {
+    min-width: 350px;
+    max-width: 450px; }
+    footer.public-footer nav ul {
+      width: auto; } }
 
 /* sideabr  */
 body.menuactive {
@@ -406,8 +456,37 @@ body.sidemenu-open .sidebar {
   z-index: 99;
   background-color: #046aaa; }
 
+.news-slide {
+  height: 500px;
+  padding-bottom: 20px;
+  margin-bottom: 30px; }
+
+.news-slide .swiper-slide {
+  padding: 0 15px 10px 15px; }
+  .news-slide .swiper-slide img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 270px; }
+  .news-slide .swiper-slide h3 {
+    font-size: 20px; }
+  .news-slide .swiper-slide p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden; }
+
+.news-slide .swiper-slide .card {
+  overflow: hidden;
+  height: 100%;
+  margin: 0; }
+
+.news-slide.swiper-container-horizontal > .swiper-pagination-bullets {
+  margin-bottom: -10px; }
+
 /*Pages*/
 /*---Front page---*/
 .top-section {
   background-image: url("../img/main-bg.jpg");
-  background-size: cover; }
+  background-size: cover;
+  min-height: 100%; }

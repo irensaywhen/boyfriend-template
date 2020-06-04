@@ -61,7 +61,7 @@
 .blue-theme .nav-pills .nav-link.active,
 .blue-theme .nav-pills .show > .nav-link,
 .blue-theme .loader-screen {
-  background-color: #4885ff;
+  background-color: $main-blue;
 }
 
 .blue-theme .btn-default {
@@ -104,7 +104,19 @@
 .blue-theme .float-label .form-control:focus,
 .blue-theme .page-item.active .page-link,
 .blue-theme .btn-outline-default {
-  border-color: #4885ff;
+  border-color: $main-blue;
+}
+
+.blue-theme .btn-outline-white {
+  border-color: #fff;
+  background: transparent;
+  color: #fff;
+
+  &:focus,
+  &:hover {
+    color: darken($main-blue, 10);
+    background: #fff;
+  }
 }
 
 .blue-theme .filter .form-control:focus,
@@ -138,7 +150,7 @@
 .blue-theme .btn.btn-link-default:hover,
 .blue-theme .btn.btn-link-default:focus,
 .blue-theme .btn.btn-link-default.active {
-  color: #4885ff;
+  color: $main-blue;
 }
 
 .blue-theme .bg-warning,
