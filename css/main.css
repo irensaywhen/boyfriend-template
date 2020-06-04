@@ -17,6 +17,7 @@
 
 /*Colors*/
 /*Text sizes*/
+/*Transition effects*/
 /*Media queries*/
 /*Fonts*/
 /*Card height*/
@@ -118,14 +119,6 @@ input[type="text"],
 .blue-theme .btn-outline-default {
   border-color: #4885ff; }
 
-.blue-theme .btn-outline-white {
-  border-color: #fff;
-  background: transparent;
-  color: #fff; }
-  .blue-theme .btn-outline-white:focus, .blue-theme .btn-outline-white:hover {
-    color: #1563ff;
-    background: #fff; }
-
 .blue-theme .filter .form-control:focus,
 .blue-theme .filter .custom-control-input:focus ~ .custom-control-label::before,
 .blue-theme
@@ -174,6 +167,19 @@ input[type="text"],
 
 .blue-theme .orange-slice {
   margin-right: -110px; }
+
+.blue-theme .btn-outline-white {
+  border-color: #fff;
+  background: transparent;
+  color: #fff; }
+  .blue-theme .btn-outline-white:focus, .blue-theme .btn-outline-white:hover {
+    color: #1563ff;
+    background: #fff; }
+
+.blue-theme .blue-link {
+  transition: all 0.5s ease-out; }
+  .blue-theme .blue-link:focus, .blue-theme .blue-link:hover {
+    color: #7ba7ff !important; }
 
 /*Layout*/
 .public-header img {
