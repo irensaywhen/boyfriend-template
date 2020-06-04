@@ -43,6 +43,12 @@ body {
 a {
   text-decoration: none !important; }
 
+nav {
+  width: 100%; }
+  nav ul {
+    list-style: none !important;
+    width: 100%; }
+
 .blue-theme .bg-background,
 .blue-theme .header.active,
 .blue-theme .list-group-item.active {
@@ -176,7 +182,7 @@ input[type="text"],
   height: auto;
   max-width: 380px; }
 
-.header {
+/*.header {
   width: 100%;
   height: auto;
   position: fixed;
@@ -187,20 +193,23 @@ input[type="text"],
   transition: all ease 0.5s;
   -webkit-transition: all ease 0.5s;
   -moz-transition: all ease 0.5s;
-  -ms-transition: all ease 0.5s; }
+  -ms-transition: all ease 0.5s;
+}
 
 .header.active {
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
-  -ms-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1); }
+  -ms-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+}
 
 .header-logo {
   height: auto;
   max-height: 48px;
   display: inline-block;
   vertical-align: middle;
-  margin: 6px auto 0px auto; }
+  margin: 6px auto 0px auto;
+}
 
 .header .btn {
   height: 54px;
@@ -208,11 +217,12 @@ input[type="text"],
   padding: 0;
   text-align: center;
   vertical-align: middle;
-  line-height: 50px; }
+  line-height: 50px;
+}
 
 .header + div {
-  padding-top: 54px; }
-
+  padding-top: 54px;
+}*/
 .footer {
   width: 100%;
   height: auto;
@@ -256,12 +266,6 @@ input[type="text"],
 
 footer.public-footer h2 {
   font-size: 22px; }
-
-footer.public-footer nav {
-  width: 100%; }
-  footer.public-footer nav ul {
-    list-style: none;
-    width: 100%; }
 
 @media (min-width: 768px) {
   footer.public-footer nav {
@@ -494,3 +498,33 @@ body.sidemenu-open .sidebar {
   background-image: url("../img/main-bg.jpg");
   background-size: cover;
   min-height: 100%; }
+
+article .header {
+  display: grid;
+  grid-gap: 3px;
+  grid-template-areas: "title" "subtitle" "date" "social";
+  grid-template-columns: 1fr; }
+  article .header h1 {
+    grid-area: title; }
+  article .header h2 {
+    grid-area: subtitle;
+    font-size: 22px; }
+  article .header .social {
+    grid-area: social;
+    font-size: 32px; }
+    article .header .social a {
+      color: #000; }
+  article .header time {
+    grid-area: date; }
+
+@media (min-width: 576px) {
+  article .header {
+    grid-template-areas: "title social" "subtitle empty" "date empty";
+    grid-template-columns: 2fr 1fr; } }
+
+@media (min-width: 768px) {
+  article .header {
+    grid-template-areas: "title social" "subtitle date";
+    grid-gap: 0; }
+    article .header time {
+      justify-self: end; } }
