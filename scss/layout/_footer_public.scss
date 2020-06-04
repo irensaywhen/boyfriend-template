@@ -21,6 +21,14 @@ footer.public-footer {
 
       ul {
         width: auto;
+
+        li {
+          border-right: 1px solid $bootstrap-secondary;
+
+          &:last-of-type {
+            border: none;
+          }
+        }
       }
     }
   }

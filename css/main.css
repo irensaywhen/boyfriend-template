@@ -268,7 +268,11 @@ footer.public-footer nav {
     min-width: 350px;
     max-width: 450px; }
     footer.public-footer nav ul {
-      width: auto; } }
+      width: auto; }
+      footer.public-footer nav ul li {
+        border-right: 1px solid #6c757d; }
+        footer.public-footer nav ul li:last-of-type {
+          border: none; } }
 
 /* sideabr  */
 body.menuactive {
