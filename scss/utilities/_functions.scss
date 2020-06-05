@@ -3,7 +3,8 @@
 /*--Adjust font size--*/
 
 @function increase-font-size($current-size, $addition) {
-  @return calc($current-size + $addition);
+  $font-size: $current-size + $addition;
+  @return $font-size;
 }
 
 @function decrease-font-size($current-size, $addition) {

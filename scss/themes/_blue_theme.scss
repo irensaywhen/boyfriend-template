@@ -5,7 +5,7 @@
 }
 
 .blue-theme .wrapper {
-  background-color: #f1ecdf;
+  background-color: $main-background-color;
   background-image: -moz-radial-gradient(
     center,
     ellipse cover,
@@ -19,30 +19,30 @@
     center center,
     100%,
     color-stop(0%, rgba(250, 250, 250, 1)),
-    color-stop(100%, #e7efff)
+    color-stop(100%, $main-background-color)
   );
   background-image: -webkit-radial-gradient(
     center,
     ellipse cover,
     rgba(250, 250, 250, 1) 0%,
-    #e7efff 100%
+    $main-background-color 100%
   );
   background-image: -o-radial-gradient(
     center,
     ellipse cover,
     rgba(250, 250, 250, 1) 0%,
-    #e7efff 100%
+    $main-background-color 100%
   );
   background-image: -ms-radial-gradient(
     center,
     ellipse cover,
     rgba(250, 250, 250, 1) 0%,
-    #e7efff 100%
+    $main-background-color 100%
   );
   background-image: radial-gradient(
     ellipse at center,
     rgba(250, 250, 250, 1) 0%,
-    #e7efff 100%
+    $main-background-color 100%
   );
   background-attachment: inherit;
   background-position: center top;

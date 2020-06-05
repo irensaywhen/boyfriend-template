@@ -41,4 +41,35 @@
   border-radius: 30px;
   margin: 0 15px;
   margin-top: -20px;
+
+  .icon {
+    font-size: increase-font-size($icon-size, 2px);
+    width: auto;
+  }
+}
+
+.footer {
+  .icon {
+    font-size: decrease-font-size($icon-size, 2px);
+  }
+
+  .centerbutton {
+    height: 60px;
+    /*line-height: 54px;*/
+    width: 60px;
+    border-radius: 30px;
+    margin: 0 15px;
+    margin-top: -20px;
+
+    .icon {
+      font-size: increase-font-size($icon-size, 2px);
+      width: auto;
+    }
+
+    .badge-circle {
+      position: absolute;
+      bottom: -11px;
+      font-size: 12px;
+    }
+  }
 }

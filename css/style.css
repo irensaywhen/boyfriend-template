@@ -567,19 +567,6 @@ body a.btn-light-grey {
   -ms-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Notifications  */
-.new-notification {
-  height: 10px;
-  width: 10px;
-  border-radius: 6px;
-  background-color: #ff0068;
-  display: block;
-  position: absolute;
-  top: 23px;
-  right: 5px;
-  border: 2px solid #ffffff;
-}
-
 /* List items  */
 .list-items {
   padding: 0;
@@ -800,13 +787,6 @@ body a.btn-light-grey {
   top: 0;
   bottom: 0;
   right: 0;
-}
-
-.badge {
-  border-radius: 30px;
-  font-weight: 400;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 .product-image {
@@ -1121,20 +1101,6 @@ pre {
 }
 
 /* media query */
-
-@media screen and (min-width: 993px) {
-  .sidebar {
-    width: 280px;
-    left: -290px;
-  }
-}
-
-@media screen and (min-width: 1180px) {
-  .sidebar {
-    width: 290px;
-    left: -300px;
-  }
-}
 
 @media screen and (max-width: 374px) {
   .footer .btn:not(.centerbutton) {

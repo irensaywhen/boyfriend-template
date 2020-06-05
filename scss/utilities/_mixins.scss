@@ -10,6 +10,15 @@
   height: auto;
 }
 
+/*Circular badge*/
+@mixin circular-badge($diameter) {
+  width: $diameter;
+  height: $diameter;
+  line-height: $diameter;
+  vertical-align: middle;
+  border-radius: 100%;
+}
+
 /*Responsize font size*/
 
 @mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {

@@ -99,3 +99,17 @@ body.sidemenu-open .sidebar {
 .sidebar .figure-menu figure img {
   width: 100%;
 }
+
+@media screen and (min-width: 993px) {
+  .sidebar {
+    width: 280px;
+    left: -290px;
+  }
+}
+
+@media screen and (min-width: 1180px) {
+  .sidebar {
+    width: 290px;
+    left: -300px;
+  }
+}

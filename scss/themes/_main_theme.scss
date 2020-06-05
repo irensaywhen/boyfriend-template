@@ -38,3 +38,14 @@ nav {
     width: 100%;
   }
 }
+
+.badge {
+  border-radius: 30px;
+  font-weight: 400;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.badge-circle {
+  @include circular-badge(22px);
+}
