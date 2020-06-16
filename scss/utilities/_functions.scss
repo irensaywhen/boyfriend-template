@@ -1,0 +1,12 @@
+/*Fonts*/
+
+@function increase-font-size($current-size, $addition) {
+  @return calc($current-size + $addition);
+}
+
+@function decrease-font-size($current-size, $addition) {
+  $font-size: $current-size - $addition;
+  @return $font-size;
+}
+
+/*Card height*/

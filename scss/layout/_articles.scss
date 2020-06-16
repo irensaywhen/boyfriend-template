@@ -1,0 +1,35 @@
+.news-slide {
+  height: 500px;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.news-slide .swiper-slide {
+  padding: 0 15px 10px 15px;
+
+  img {
+    @include image;
+    max-height: 270px;
+  }
+
+  h3 {
+    font-size: $h3;
+  }
+
+  p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+  }
+}
+
+.news-slide .swiper-slide .card {
+  overflow: hidden;
+  height: 100%;
+  margin: 0;
+}
+
+.news-slide.swiper-container-horizontal > .swiper-pagination-bullets {
+  margin-bottom: -10px;
+}

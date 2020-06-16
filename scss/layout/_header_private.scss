@@ -1,0 +1,41 @@
+.header {
+  width: 100%;
+  height: auto;
+  position: fixed;
+  padding: env(safe-area-inset-top);
+  top: 0;
+  left: 0;
+  z-index: 9;
+  transition: all ease 0.5s;
+  -webkit-transition: all ease 0.5s;
+  -moz-transition: all ease 0.5s;
+  -ms-transition: all ease 0.5s;
+}
+
+.header.active {
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-logo {
+  height: auto;
+  max-height: 48px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 6px auto 0px auto;
+}
+
+.header .btn {
+  height: 54px;
+  width: 54px;
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50px;
+}
+
+.header + div {
+  padding-top: 54px;
+}

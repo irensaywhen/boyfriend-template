@@ -1,0 +1,6 @@
+.public-header {
+  img {
+    @include image;
+    max-width: 380px;
+  }
+}

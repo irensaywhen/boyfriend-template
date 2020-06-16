@@ -1,0 +1,41 @@
+@mixin background($image) {
+  background-image: $image;
+  background-size: cover;
+  min-height: 100%;
+}
+
+@mixin image {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+/*Media queries*/
+
+@mixin screen-xs {
+  @content;
+}
+
+@mixin screen-sm {
+  @media (min-width: 576px) {
+    @content;
+  }
+}
+
+@mixin screen-md {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin screen-lg {
+  @media (min-width: 992px) {
+    @content;
+  }
+}
+
+@mixin screen-xl {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
