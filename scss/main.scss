@@ -19,8 +19,10 @@
 @import "layout/sidebar";
 @import "layout/loader";
 @import "layout/articles";
+@import "layout/breadcrumbs";
 
 /*Pages*/
 @import "pages/front_page";
+@import "pages/single_page";
 
 @import "utilities/media";

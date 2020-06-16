@@ -107,18 +107,6 @@
   border-color: $main-blue;
 }
 
-.blue-theme .btn-outline-white {
-  border-color: #fff;
-  background: transparent;
-  color: #fff;
-
-  &:focus,
-  &:hover {
-    color: darken($main-blue, 10);
-    background: #fff;
-  }
-}
-
 .blue-theme .filter .form-control:focus,
 .blue-theme .filter .custom-control-input:focus ~ .custom-control-label::before,
 .blue-theme
@@ -175,4 +163,27 @@
 
 .blue-theme .orange-slice {
   margin-right: -110px;
+}
+
+.blue-theme {
+  .btn-outline-white {
+    border-color: #fff;
+    background: transparent;
+    color: #fff;
+
+    &:focus,
+    &:hover {
+      color: darken($main-blue, 10);
+      background: #fff;
+    }
+  }
+
+  .blue-link {
+    @include ease-out;
+
+    &:focus,
+    &:hover {
+      color: lighten($main-blue, 10) !important;
+    }
+  }
 }
