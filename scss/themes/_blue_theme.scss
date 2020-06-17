@@ -116,14 +116,14 @@
 }
 
 .blue-theme .custom-control-input:focus ~ .custom-control-label::before {
-  box-shadow: 0 0 0 0.2rem rgba(255, 0, 104, 0.3);
+  box-shadow: 0 0 0 0.2rem $light-blue;
 }
 
 .blue-theme .btn-light:hover,
 .blue-theme .btn-light:focus,
 .blue-theme .btn-light:not(:disabled):not(.disabled).active,
 .blue-theme .bg-template-light {
-  background-color: #c8daff;
+  background-color: $light-blue;
 }
 
 .blue-theme .text-template,
@@ -141,22 +141,22 @@
 
 .blue-theme .bg-warning,
 .blue-theme .badge-warning {
-  background-color: #fdd835 !important;
+  background-color: $warning-yellow !important;
 }
 
 .blue-theme .bg-success,
 .blue-theme .badge-success {
-  background-color: #5fefa1 !important;
+  background-color: $success-green !important;
 }
 
 .blue-theme .bg-orange,
 .blue-theme .badge-orange {
-  background-color: #ff9133 !important;
+  background-color: $orange !important;
 }
 
 .blue-theme .bg-primary,
 .blue-theme .badge-primary {
-  background-color: #3fa7ff !important;
+  background-color: $primary-blue !important;
 }
 
 .blue-theme .orange-slice {
@@ -164,6 +164,13 @@
 }
 
 .blue-theme {
+  /*Additional badge and background*/
+  .bg-pink,
+  .badge-pink {
+    background-color: $main-pink !important;
+  }
+
+  /*Transparent white button*/
   .btn-outline-white {
     border-color: #fff;
     background: transparent;
@@ -176,6 +183,7 @@
     }
   }
 
+  /*Link effects*/
   .blue-link {
     @include ease-out;
 

@@ -6,6 +6,7 @@
 
 /*Components*/
 @import "components/buttons";
+@import "components/form_controls";
 
 /*Themes*/
 @import "themes/main_theme";
@@ -21,9 +22,12 @@
 @import "layout/articles";
 @import "layout/breadcrumbs";
 @import "layout/menu_notification";
+@import "layout/upload_photo";
+@import "layout/modal";
 
 /*Pages*/
 @import "pages/front_page";
 @import "pages/single_page";
+@import "pages/fill_profile";
 
 @import "utilities/media";
