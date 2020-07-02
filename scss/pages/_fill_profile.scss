@@ -87,6 +87,10 @@
     max-width: 600px !important;
   }
 
+  .modal-xl {
+    max-width: 950px !important;
+  }
+
   .modal-body {
     .photo-description {
       figure {
@@ -95,8 +99,7 @@
         position: relative;
 
         img {
-          width: 100%;
-          height: auto;
+          @include image;
         }
 
         .privacy {
@@ -151,12 +154,6 @@
     li {
       font-weight: 300;
       font-size: $paragraph-size;
-    }
-  }
-
-  .photo-preview {
-    img {
-      @include image;
     }
   }
 }

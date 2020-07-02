@@ -66,7 +66,7 @@
     >
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
-          <form action="fill-profile.html" id="upload-avatar-form">
+          <form action="" id="upload-avatar-form">
             <!--Modal header start-->
             <div class="modal-header">
               <h3 class="title">
@@ -99,6 +99,7 @@
 
               <!--Avatar Upload-->
               <ul class="pl-1">
+                <!--Avatar upload from the computer-->
                 <li class="position-relative">
                   <label
                     for="avatar-file-input"
@@ -110,12 +111,15 @@
                     type="file"
                     id="avatar-file-input"
                     name="avatar-file-input"
-                    class="invisible position-absolute"
+                    class="invisible position-absolute avatar-input"
+                    accept="image/*"
                   />
                   <p class="d-inline-block pl-3">
                     Upload your avatar from your computer
                   </p>
                 </li>
+
+                <!--Capturing avatar from device-->
                 <li class="position-relative d-lg-none">
                   <label
                     for="make-avatar"
@@ -127,7 +131,9 @@
                     type="file"
                     id="make-avatar"
                     name="make-avatar"
-                    class="invisible position-absolute"
+                    class="invisible position-absolute avatar-input"
+                    accept="image/*"
+                    capture
                   />
                   <p class="d-inline-block pl-3">
                     Make photo from your camera
@@ -154,6 +160,7 @@
                 <button
                   type="submit"
                   class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
+                  id="submit-avatar"
                 >
                   <span>Submit</span><i class="material-icons">arrow_forward</i>
                 </button>
@@ -175,7 +182,7 @@
       aria-labelledby="addPhotosModal"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
           <form action="fill-profile.html" id="upload-photos-form">
             <!--Modal header start-->
@@ -198,79 +205,101 @@
               <!--Photos preview start-->
               <div class="container-fluid">
                 <div class="row" id="photos-previews-container">
-                  <div class="col-12 col-sm-6">
-                    <div class="photo-preview">
-                      <img src="img/photo1.jpg" alt="Photo 1" />
-                      <div class="form-group">
-                        <label for="about" class="section-subtitle pt-2 mb-1"
-                          >Photo description</label
+                  <!--Photo and description start-->
+                  <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+                    <div class="photo-description">
+                      <figure class="text-center">
+                        <img src="img/photo1.jpg" alt="photo 1" />
+                        <div
+                          class="privacy bg-white rounded d-flex justify-content-between align-items-center px-1"
                         >
+                          <h4 class="m-0">Privacy</h4>
+                          <div class="custom-control custom-switch">
+                            <input
+                              type="checkbox"
+                              class="custom-control-input"
+                              id="photo-upload-privacy-1"
+                              checked
+                            />
+                            <label
+                              class="custom-control-label"
+                              for="photo-upload-privacy-1"
+                            ></label>
+                          </div>
+                        </div>
+                        <button
+                          class="delete bg-white rounded d-flex justify-content-between align-items-center px-1"
+                        >
+                          Delete
+                          <i class="fas fa-trash-alt"></i>
+                        </button>
+                      </figure>
+                      <label for="upload-description-1"
+                        >Add photo description</label
+                      >
+                      <div class="form-group">
                         <textarea
                           class="form-control"
-                          id="about"
-                          name="about"
+                          id="upload-description-1"
+                          name="photo-description-1"
                           rows="4"
-                          placeholder="Add photo description"
+                          placeholder="Photo description"
                         ></textarea>
                       </div>
                     </div>
                   </div>
-                  <div class="col-12 col-sm-6">
-                    <div class="photo-preview">
-                      <img src="img/photo2.jpg" alt="Photo 1" />
-                      <div class="form-group">
-                        <label for="about" class="section-subtitle pt-2 mb-1"
-                          >Photo description</label
+                  <!--Photo and description end-->
+
+                  <!--Photo and description start-->
+                  <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+                    <div class="photo-description">
+                      <figure class="text-center">
+                        <img src="img/photo1.jpg" alt="photo 1" />
+                        <div
+                          class="privacy bg-white rounded d-flex justify-content-between align-items-center px-1"
                         >
+                          <h4 class="m-0">Privacy</h4>
+                          <div class="custom-control custom-switch">
+                            <input
+                              type="checkbox"
+                              class="custom-control-input"
+                              id="photo-upload-privacy-2"
+                              checked
+                            />
+                            <label
+                              class="custom-control-label"
+                              for="photo-upload-privacy-2"
+                            ></label>
+                          </div>
+                        </div>
+                        <button
+                          class="delete bg-white rounded d-flex justify-content-between align-items-center px-1"
+                        >
+                          Delete
+                          <i class="fas fa-trash-alt"></i>
+                        </button>
+                      </figure>
+                      <label for="upload-description-2"
+                        >Add photo description</label
+                      >
+                      <div class="form-group">
                         <textarea
                           class="form-control"
-                          id="about"
-                          name="about"
+                          id="upload-description-2"
+                          name="photo-description-2"
                           rows="4"
-                          placeholder="Add photo description"
+                          placeholder="Photo description"
                         ></textarea>
                       </div>
                     </div>
                   </div>
-                  <div class="col-12 col-sm-6">
-                    <div class="photo-preview">
-                      <img src="img/photo1.jpg" alt="Photo 1" />
-                      <div class="form-group">
-                        <label for="about" class="section-subtitle pt-2 mb-1"
-                          >Photo description</label
-                        >
-                        <textarea
-                          class="form-control"
-                          id="about"
-                          name="about"
-                          rows="4"
-                          placeholder="Add photo description"
-                        ></textarea>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-sm-6">
-                    <div class="photo-preview">
-                      <img src="img/photo1.jpg" alt="Photo 1" />
-                      <div class="form-group">
-                        <label for="about" class="section-subtitle"
-                          >Photo description</label
-                        >
-                        <textarea
-                          class="form-control"
-                          id="about"
-                          name="about"
-                          rows="5"
-                          placeholder="Your information"
-                        ></textarea>
-                      </div>
-                    </div>
-                  </div>
+                  <!--Photo and description end-->
                 </div>
               </div>
               <!--Photos preview end-->
               <!--Photo Upload-->
               <ul class="pl-1">
+                <!--Upload photos from your device-->
                 <li class="position-relative">
                   <label
                     for="photos-file-input"
@@ -283,12 +312,14 @@
                     id="photos-file-input"
                     name="photos-file-input"
                     class="invisible position-absolute"
+                    accept="image/*"
                     multiple
                   />
                   <p class="d-inline-block pl-3">
-                    Upload your photos from your computer
+                    Upload your photos from your device
                   </p>
                 </li>
+                <!--Capture photo-->
                 <li class="position-relative d-lg-none">
                   <label
                     for="make-photo"
@@ -301,6 +332,8 @@
                     id="make-photo"
                     name="make-photo"
                     class="invisible position-absolute"
+                    accept="image/*"
+                    capture
                   />
                   <p class="d-inline-block pl-3">
                     Make photo from your camera
@@ -473,7 +506,9 @@
     <div class="sidebar">
       <div class="text-center">
         <div class="figure-menu shadow">
-          <figure><img src="img/photo1.jpg" alt="" /></figure>
+          <figure>
+            <img src="img/photo1.jpg" class="avatar-image" alt="Avatar" />
+          </figure>
         </div>
         <h5 class="mb-1">Lukasz</h5>
       </div>
@@ -578,7 +613,13 @@
         <!--Profile photo upload start-->
         <div class="text-center pt-5">
           <div class="figure-profile shadow my-4">
-            <figure><img src="img/placeholder-avatar.png" alt="" /></figure>
+            <figure>
+              <img
+                src="img/placeholder-avatar.png"
+                class="avatar-image"
+                alt="Avatar"
+              />
+            </figure>
             <div
               class="btn btn-dark text-white floating-btn"
               data-toggle="modal"
@@ -1190,7 +1231,7 @@
     <script src="js/main.js"></script>
 
     <!--Handle image previews class-->
-    <script src="js/previews.js"></script>
+    <script src="js/avatar.js"></script>
 
     <!-- page level script -->
     <script>
@@ -1212,18 +1253,28 @@
           },
         });
 
-        // Caching
-        $avatarPreview = $("#avatar-preview");
+        const avatarHeaders = {
+          "Content-Type": "form/multipart",
+        };
+
+        const avatarEndpoint =
+          "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar";
+
+        const avatarOptions = {
+          avatar: {
+            elementSelector: ".avatar-image",
+            uploadingModalSelector: "#upload-avatar",
+            inputSelector: ".avatar-input",
+            previewSelector: "#avatar-preview",
+            formSelector: "#upload-avatar-form",
+          },
+          headers: avatarHeaders,
+          endpoint: avatarEndpoint,
+        };
+
+        const avatar = new Avatar(avatarOptions);
+
         $photosPreviewsContainer = $("#photos-previews-container");
-
-        const preview = new Preview($avatarPreview);
-
-        // Set up event listeners
-
-        // Uploading avatar from the device
-        $("#avatar-file-input").change(function (e) {
-          preview.previewAvatar(this);
-        });
 
         //Making avatar from the camera
       });

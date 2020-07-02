@@ -1,4 +1,4 @@
-class Preview {
+class PreviewAvatar {
   /**
    * Constructor accepts jQuery Object containing DOM Element for avatar preview.
    * @param {jQuery Object} $avatarPreview
@@ -7,10 +7,6 @@ class Preview {
   constructor($avatarPreview, $photosPreviewsContainer) {
     // Create FileReader instance to handle reading image data
     this.reader = new FileReader();
-
-    // Fields responsible for indicating which part we're handling now
-    this.avatarPreview = false;
-    this.photosPreview = false;
 
     //Container for photos previews
     this.$photosPreviewsContainer = $photosPreviewsContainer;
@@ -21,20 +17,11 @@ class Preview {
     // Binding context
     this.previewAvatar = this.previewAvatar.bind(this);
     this.previewPhotos = this.previewPhotos.bind(this);
-    this.showPhotoPreviews = this.showPhotoPreviews.bind.bind(this);
+    this.showPhotoPreview = this.showPhotoPreview.bind(this);
 
     // Setup event handler for loading of the image data event
     this.reader.onload = (e) => {
-      if (this.avatarPreview) {
-        //Change src attribute of the preview image to show the uploaded photo
-        this.$avatarPreview.attr("src", e.target.result);
-
-        //Uploading avatar has been finished
-        this.avatarPreview = false;
-      } else if (this.photosPreview) {
-        //Uploading photos has been finished
-        this.photosPreview = false;
-      }
+      this.$avatarPreview.attr("src", e.target.result);
     };
   }
 
@@ -45,9 +32,6 @@ class Preview {
    * @param {DOMElement} input
    */
   previewAvatar(input) {
-    // Declare we're working with avatar
-    this.avatarPreview = true;
-
     if (input.files && input.files[0]) {
       //Start reading the image from the input
       this.reader.readAsDataURL(input.files[0]);
@@ -59,9 +43,6 @@ class Preview {
    * @param {DOMElement} input
    */
   previewPhotos(input) {
-    // Declare we're working with photos
-    this.photosPreview = true;
-
     if (input.files) {
       input.files.forEach((file) => {
         this.reader.readAsDataURL(file);
