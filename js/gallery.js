@@ -1,18 +1,4 @@
-class Gallery {
-  constructor(options) {
-    // Binding context
-
-    this.deletePhoto = this.deletePhoto.bind(this);
-  }
-
-  setAttributes() {}
-
-  cacheElements() {}
-
-  addNewPhotos() {}
-}
-
-class Photo extends Gallery {
+class PhotoEditor extends EditorModal {
   constructor(options) {
     super(options);
 
@@ -52,19 +38,10 @@ class Photo extends Gallery {
    */
   cacheElements() {
     // Cache elements required for gallery to work
-    super().cacheElements();
-
-    // Modal
-    this.$modal = $(this.selectors.modal);
+    super.cacheElements();
 
     // Description
     this.$description = this.$modal.find(this.selectors.description);
-
-    // Closing button
-    this.$closeButton = this.$modal.find(".close");
-
-    // Deleting button
-    this.$deleteButton = this.$modal.find(".delete");
 
     // Privacy input
     this.$privacyInput = this.$modal.find(this.selectors["privacy-input"]);
@@ -148,7 +125,7 @@ class Photo extends Gallery {
    * Maybe for photo upload add functionality to delete from upload modal
    */
   deletePhoto() {
-    $(this.photo).closest(this.selectors.slides).remove();
+    $(this.photo).closest(this.selectors.container).remove();
   }
 }
 

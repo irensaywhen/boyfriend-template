@@ -1,4 +1,4 @@
-class Avatar {
+class Avatar extends EditorModal {
   /**
    * Constructor accepts options object which contains:
    * jQuery Object containing DOM Element for avatar preview,
@@ -8,6 +8,8 @@ class Avatar {
    * @param {object} options
    */
   constructor(options) {
+    super(options);
+
     // Currently selected avatar. Data type - blob or file
     this.avatar = null;
 
@@ -39,7 +41,7 @@ class Avatar {
     this.headers = options.headers;
 
     // Save avatar options
-    this.avatarOptions = options.avatar;
+    this.selectors = options.selectors;
 
     // Binding context
     this.cacheElements = this.cacheElements.bind(this);
@@ -62,26 +64,22 @@ class Avatar {
    * Function caches elements according to passed options.
    */
   cacheElements() {
+    super.cacheElements();
+
     // Avatar elements in the markup
-    this.$avatar = $(this.avatarOptions.elementSelector);
-
-    // Modal
-    this.$modal = $(this.avatarOptions.uploadingModalSelector);
-
-    // Closing button
-    this.$closeButton = this.$modal.find(".close");
+    this.$avatar = $(this.selectors.elementSelector);
 
     // Avatar preview
-    this.$avatarPreview = this.$modal.find(this.avatarOptions.previewSelector);
+    this.$avatarPreview = this.$modal.find(this.selectors.preview);
 
     // Save previous avatar to discard changes if user doesn't submit the form
     this.prevAvatarLink = this.$avatarPreview.attr("src");
 
     // Form
-    this.$avatarForm = this.$modal.find(this.avatarOptions.formSelector);
+    this.$avatarForm = this.$modal.find(this.selectors.form);
 
     // Inputs
-    this.$avatarInputs = this.$modal.find(this.avatarOptions.inputSelector);
+    this.$avatarInputs = this.$modal.find(this.selectors.input);
   }
 
   /**
@@ -186,13 +184,6 @@ class Avatar {
    */
   discardChanges() {
     this.$avatarPreview.attr("src", this.prevAvatarLink);
-  }
-
-  /**
-   * Function to close the modal
-   */
-  closeModal() {
-    this.$closeButton.click();
   }
 
   /**

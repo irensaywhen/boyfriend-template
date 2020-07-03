@@ -15,7 +15,7 @@ class EditorModal {
     this.$closeButton = this.$modal.find(".close");
 
     // Deleting button
-    if (deleteButton in this.selectors) {
+    if ("deleteButton" in this.selectors) {
       this.$deleteButton = this.$modal.find(this.selectors.deleteButton);
     }
   }
