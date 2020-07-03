@@ -411,12 +411,11 @@
                     <div class="custom-control custom-switch">
                       <input
                         type="checkbox"
-                        class="custom-control-input privacy"
+                        class="custom-control-input privacy-input"
                         id="private-photo-1"
-                        checked
                       />
                       <label
-                        class="custom-control-label"
+                        class="custom-control-label privacy-label"
                         for="private-photo-1"
                       ></label>
                     </div>
@@ -705,65 +704,77 @@
                           data-id, data-description, and data-private are for modal and 
                           ajax requests
                         -->
-                        <div
-                          class="swiper-slide gallery-slide"
-                          data-toggle="modal"
-                          data-target="#edit-photo"
-                          data-id="1"
-                          data-description="Lorem ipsum"
-                          data-private="false"
-                        >
-                          <img src="./img/photo1.jpg" alt="photo 1" />
+                        <div class="swiper-slide gallery-slide">
+                          <img
+                            src="./img/photo1.jpg"
+                            class="gallery-photo"
+                            data-toggle="modal"
+                            data-target="#edit-photo"
+                            data-id="1"
+                            data-description="Lorem ipsum"
+                            data-private="true"
+                            alt="photo 1"
+                          />
                         </div>
-                        <div
-                          class="swiper-slide gallery-slide"
-                          data-toggle="modal"
-                          data-target="#edit-photo"
-                          data-id="2"
-                          data-description="Lorem ipsum dolor sit amet"
-                          data-private="false"
-                        >
-                          <img src="./img/photo2.jpg" alt="photo 2" />
+                        <div class="swiper-slide gallery-slide">
+                          <img
+                            src="./img/photo2.jpg"
+                            class="gallery-photo"
+                            data-toggle="modal"
+                            data-target="#edit-photo"
+                            data-id="2"
+                            data-description="Lorem ipsum dolor sit amet"
+                            data-private="false"
+                            alt="photo 2"
+                          />
                         </div>
-                        <div
-                          class="swiper-slide gallery-slide"
-                          data-toggle="modal"
-                          data-target="#edit-photo"
-                          data-id="3"
-                          data-description="This is another photo description"
-                          data-private="false"
-                        >
-                          <img src="./img/photo1.jpg" alt="photo 1" />
+                        <div class="swiper-slide gallery-slide">
+                          <img
+                            src="./img/photo1.jpg"
+                            class="gallery-photo"
+                            data-toggle="modal"
+                            data-target="#edit-photo"
+                            data-id="3"
+                            data-description="This is another photo description"
+                            data-private="false"
+                            alt="photo 1"
+                          />
                         </div>
-                        <div
-                          class="swiper-slide gallery-slide"
-                          data-toggle="modal"
-                          data-target="#edit-photo"
-                          data-id="4"
-                          data-description=""
-                          data-private="true"
-                        >
-                          <img src="./img/photo2.jpg" alt="photo 2" />
+                        <div class="swiper-slide gallery-slide">
+                          <img
+                            src="./img/photo2.jpg"
+                            class="gallery-photo"
+                            data-toggle="modal"
+                            data-target="#edit-photo"
+                            data-id="4"
+                            data-description=""
+                            data-private="true"
+                            alt="photo 2"
+                          />
                         </div>
-                        <div
-                          class="swiper-slide gallery-slide"
-                          data-toggle="modal"
-                          data-target="#edit-photo"
-                          data-id="5"
-                          data-description=""
-                          data-private="false"
-                        >
-                          <img src="./img/photo1.jpg" alt="photo 1" />
+                        <div class="swiper-slide gallery-slide">
+                          <img
+                            src="./img/photo1.jpg"
+                            class="gallery-photo"
+                            data-toggle="modal"
+                            data-target="#edit-photo"
+                            data-id="5"
+                            data-description=""
+                            data-private="false"
+                            alt="photo 1"
+                          />
                         </div>
-                        <div
-                          class="swiper-slide gallery-slide"
-                          data-toggle="modal"
-                          data-target="#edit-photo"
-                          data-id="4"
-                          data-description="Description"
-                          data-private="true"
-                        >
-                          <img src="./img/photo2.jpg" alt="photo 2" />
+                        <div class="swiper-slide gallery-slide">
+                          <img
+                            src="./img/photo2.jpg"
+                            class="gallery-photo"
+                            data-toggle="modal"
+                            data-target="#edit-photo"
+                            data-id="4"
+                            data-description="Description"
+                            data-privacy="true"
+                            alt="photo 2"
+                          />
                         </div>
                       </div>
                       <div class="swiper-button-prev swiper-button-white"></div>
@@ -1266,11 +1277,15 @@
     <!-- template custom js -->
     <script src="js/main.js"></script>
 
+    <script src="js/modal.js"></script>
+
     <!--Handle avatar-->
     <script src="js/avatar.js"></script>
 
     <!--Handle gallery-->
     <script src="js/gallery.js"></script>
+
+    <script src="js/uploader.js"></script>
 
     <!-- page level script -->
     <script>
@@ -1313,23 +1328,44 @@
         };
 
         // Photo editor options
-        const photoEditorHeaders = {};
-        const photoEditorEndpoint = "";
+        const photoHeaders = {};
+        const photoEndpoint = "";
 
-        const photoEditorOptions = {
+        const photoOptions = {
+          selectors: {
+            modal: "#edit-photo",
+            closeButton: ".close",
+            deleteButton: ".delete",
+            description: "#photo-description",
+            "privacy-input": ".privacy-input",
+            "privacy-label": ".privacy-label",
+            photos: ".gallery-photo",
+            slides: ".gallery-slide",
+          },
+          headers: photoHeaders,
+          endpoint: photoEndpoint,
+        };
+
+        // Uploader options
+        const uploaderHeaders = {};
+        const uploaderEndpoint = "";
+
+        const uploaderOptions = {
           selectors: {
             modal: "#edit-photo",
             description: "#photo-description",
-            privacy: ".privacy",
+            "privacy-input": ".privacy-input",
+            "privacy-label": ".privacy-label",
+            photos: ".gallery-photo",
             slides: ".gallery-slide",
           },
-          headers: photoEditorHeaders,
-          endpoint: photoEditorEndpoint,
+          headers: uploaderHeaders,
+          endpoint: uploaderEndpoint,
         };
 
         const avatar = new Avatar(avatarOptions);
 
-        const photoEditor = new photoEditor(photoEditorOptions);
+        const photo = new Photo(photoOptions);
 
         $photosPreviewsContainer = $("#photos-previews-container");
 

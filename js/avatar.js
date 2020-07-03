@@ -59,8 +59,7 @@ class Avatar {
   }
 
   /**
-   * Function is called to cache the elements required for the avatar handling
-   * according to passed options.
+   * Function caches elements according to passed options.
    */
   cacheElements() {
     // Avatar elements in the markup
