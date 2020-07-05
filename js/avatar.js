@@ -1,4 +1,7 @@
 class Avatar extends EditorModal {
+  // Currently selected avatar. Data type - blob or file
+  avatar = null;
+
   /**
    * Constructor accepts options object which contains:
    * jQuery Object containing DOM Element for avatar preview,
@@ -9,9 +12,6 @@ class Avatar extends EditorModal {
    */
   constructor(options) {
     super(options);
-
-    // Currently selected avatar. Data type - blob or file
-    this.avatar = null;
 
     // Generated link pointing to the avatar locally in the browser
     this.newAvatarLink = null;
@@ -25,23 +25,11 @@ class Avatar extends EditorModal {
     // Array containing avatar input elements
     this.$avatarInputs = null;
 
-    // Modal close button
-    this.$closeButton = null;
-
     // Is new avatar uploaded yet?
     this.avatarUploaded = false;
 
     // Create FileReader instance to handle reading image data
     this.reader = new FileReader();
-
-    // Save endpoint to submit avatar
-    this.endpoint = options.endpoint;
-
-    // Save headers
-    this.headers = options.headers;
-
-    // Save avatar options
-    this.selectors = options.selectors;
 
     // Binding context
     this.cacheElements = this.cacheElements.bind(this);
@@ -92,6 +80,7 @@ class Avatar extends EditorModal {
     if (input.files && input.files[0]) {
       //Save the currently selected avatar
       this.avatar = input.files[0];
+      console.log(this.avatar);
 
       //Start reading the image from the input
       this.reader.readAsDataURL(input.files[0]);

@@ -1,4 +1,7 @@
 class PhotoEditor extends EditorModal {
+  // Currently clicked photo
+  photo = null;
+
   constructor(options) {
     super(options);
 
@@ -10,25 +13,12 @@ class PhotoEditor extends EditorModal {
       src: "",
     };
 
-    this.photo = null;
-
     // Binding context
-    this.cacheElements = this.cacheElements.bind(this);
-    this.setUpEventListeners = this.setUpEventListeners.bind(this);
     this.getAttributes = this.getAttributes.bind(this);
     this.prepareModal = this.prepareModal.bind(this);
     this.deletePhoto = this.deletePhoto.bind(this);
 
-    // Save endpoint to submit avatar
-    this.endpoint = options.endpoint;
-
-    // Save headers
-    this.headers = options.headers;
-
-    // Save selectors
-    this.selectors = options.selectors;
-
-    // Cache elements
+    // Prepare editor
     this.cacheElements();
     this.setUpEventListeners();
   }
@@ -60,6 +50,7 @@ class PhotoEditor extends EditorModal {
     this.$photos.click((event) => {
       // Set the currently clicked photo
       this.photo = event.target;
+
       // Get attributes of the clicked photo
       this.getAttributes(event.target);
 
@@ -127,8 +118,4 @@ class PhotoEditor extends EditorModal {
   deletePhoto() {
     $(this.photo).closest(this.selectors.container).remove();
   }
-}
-
-class PhotoUploader {
-  constructor() {}
 }

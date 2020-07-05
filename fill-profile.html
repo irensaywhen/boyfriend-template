@@ -205,11 +205,17 @@
               <!--Photos preview start-->
               <div class="container-fluid">
                 <div class="row" id="photos-previews-container">
-                  <!--Photo and description start-->
-                  <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+                  <!--Photo container start-->
+                  <div
+                    class="col-12 col-sm-6 col-md-4 col-xl-3 photo-container"
+                  >
+                    <!--Photo description start-->
                     <div class="photo-description">
-                      <figure class="text-center">
+                      <!--Figure start-->
+                      <figure>
+                        <!--Image-->
                         <img src="img/photo1.jpg" alt="photo 1" />
+                        <!--Privacy checkbox-->
                         <div
                           class="privacy bg-white rounded d-flex justify-content-between align-items-center px-1"
                         >
@@ -217,16 +223,17 @@
                           <div class="custom-control custom-switch">
                             <input
                               type="checkbox"
-                              class="custom-control-input"
+                              class="custom-control-input privacy-input"
                               id="photo-upload-privacy-1"
                               checked
                             />
                             <label
-                              class="custom-control-label"
+                              class="custom-control-label privacy-label"
                               for="photo-upload-privacy-1"
                             ></label>
                           </div>
                         </div>
+                        <!--Delete button-->
                         <button
                           class="delete bg-white rounded d-flex justify-content-between align-items-center px-1"
                         >
@@ -234,66 +241,25 @@
                           <i class="fas fa-trash-alt"></i>
                         </button>
                       </figure>
-                      <label for="upload-description-1"
-                        >Add photo description</label
-                      >
+                      <!--Figure end-->
+                      <!--Description textarea container start-->
                       <div class="form-group">
+                        <label for="upload-description-1"
+                          >Add photo description</label
+                        >
                         <textarea
-                          class="form-control"
+                          class="form-control new-photo-description"
                           id="upload-description-1"
                           name="photo-description-1"
                           rows="4"
                           placeholder="Photo description"
                         ></textarea>
                       </div>
+                      <!--Description textarea container end-->
                     </div>
+                    <!--Photo description end-->
                   </div>
-                  <!--Photo and description end-->
-
-                  <!--Photo and description start-->
-                  <div class="col-12 col-sm-6 col-md-4 col-xl-3">
-                    <div class="photo-description">
-                      <figure class="text-center">
-                        <img src="img/photo1.jpg" alt="photo 1" />
-                        <div
-                          class="privacy bg-white rounded d-flex justify-content-between align-items-center px-1"
-                        >
-                          <h4 class="m-0">Privacy</h4>
-                          <div class="custom-control custom-switch">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="photo-upload-privacy-2"
-                              checked
-                            />
-                            <label
-                              class="custom-control-label"
-                              for="photo-upload-privacy-2"
-                            ></label>
-                          </div>
-                        </div>
-                        <button
-                          class="delete bg-white rounded d-flex justify-content-between align-items-center px-1"
-                        >
-                          Delete
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                      </figure>
-                      <label for="upload-description-2"
-                        >Add photo description</label
-                      >
-                      <div class="form-group">
-                        <textarea
-                          class="form-control"
-                          id="upload-description-2"
-                          name="photo-description-2"
-                          rows="4"
-                          placeholder="Photo description"
-                        ></textarea>
-                      </div>
-                    </div>
-                  </div>
-                  <!--Photo and description end-->
+                  <!--Photo container end-->
                 </div>
               </div>
               <!--Photos preview end-->
@@ -311,7 +277,7 @@
                     type="file"
                     id="photos-file-input"
                     name="photos-file-input"
-                    class="invisible position-absolute"
+                    class="invisible position-absolute photo-input"
                     accept="image/*"
                     multiple
                   />
@@ -331,9 +297,10 @@
                     type="file"
                     id="make-photo"
                     name="make-photo"
-                    class="invisible position-absolute"
+                    class="invisible position-absolute photo-input"
                     accept="image/*"
                     capture
+                    multiple
                   />
                   <p class="d-inline-block pl-3">
                     Make photo from your camera
@@ -1331,6 +1298,8 @@
         const photoEditorHeaders = {};
         const photoEditorEndpoint = "";
 
+        // In caching elements we'll need to check whether
+        //photos and description attribute is specified
         const photoEditorOptions = {
           selectors: {
             modal: "#edit-photo",
@@ -1347,27 +1316,31 @@
         };
 
         // Uploader options
-        const uploaderHeaders = {};
-        const uploaderEndpoint = "";
+        const photoUploaderHeaders = {};
+        const photoUploaderEndpoint = "";
+        const photoUploaderIdEndpoint =
+          "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/get-id";
 
-        const uploaderOptions = {
+        const photoUploaderOptions = {
           selectors: {
-            modal: "#edit-photo",
-            description: "#photo-description",
+            modal: "#add-photos",
+            description: ".new-photo-description",
+            input: ".photo-input",
             "privacy-input": ".privacy-input",
             "privacy-label": ".privacy-label",
-            photos: ".gallery-photo",
-            slides: ".gallery-slide",
+            container: ".photo-container",
+            previewContainer: "#photos-previews-container",
           },
-          headers: uploaderHeaders,
-          endpoint: uploaderEndpoint,
+          headers: photoUploaderHeaders,
+          endpoint: photoUploaderEndpoint,
+          idEndpoint: photoUploaderIdEndpoint,
         };
 
         const avatar = new Avatar(avatarOptions);
 
-        const photo = new PhotoEditor(photoEditorOptions);
+        const photoEditor = new PhotoEditor(photoEditorOptions);
 
-        $photosPreviewsContainer = $("#photos-previews-container");
+        const photoUploader = new PhotoUploader(photoUploaderOptions);
 
         //Making avatar from the camera
       });
