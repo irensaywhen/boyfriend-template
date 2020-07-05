@@ -4,9 +4,6 @@ class PhotoUploader extends EditorModal {
 
   photos = {};
 
-  // FileReader object to handle reading image data
-  reader = new FileReader();
-
   constructor(options) {
     super(options);
 
@@ -18,6 +15,7 @@ class PhotoUploader extends EditorModal {
     this.generatePreviewHTML = this.generatePreviewHTML.bind(this);
     this.getPhotosIds = this.getPhotosIds.bind(this);
     this.makeURLObjects = this.makeURLObjects.bind(this);
+    this.savePhotoInformation = this.savePhotoInformation.bind(this);
 
     // Prepare Uploader
     this.cacheElements();
@@ -40,11 +38,6 @@ class PhotoUploader extends EditorModal {
     this.$photoInputs.change((event) => {
       this.previewPhotos(event.target);
     });
-
-    // Preview photos when it is loaded
-    //this.reader.onload = (event) => {
-    //  this.generatePhotoPreview();
-    //};
   }
 
   // Make this function to convert all the endpoints into URL objects later
@@ -58,7 +51,6 @@ class PhotoUploader extends EditorModal {
    */
   getPhotosIds(filesAmount) {
     // Add amount of files as a query parameter
-
     this.idEndpoint.searchParams.set("amount", String(filesAmount));
 
     // Make request to the server
@@ -100,17 +92,62 @@ class PhotoUploader extends EditorModal {
         // Make fileReader for each photo
         let reader = new FileReader();
 
+        // Cache id of the loading photo
+        let id = ids[i];
+
+        // Initialize object to store information about this photo
+        this.photos[id] = {};
+
         // Save the id of the loading photo for reference
-        reader.id = ids[i];
+        reader.id = id;
 
         // Preview photos when it is loaded
         reader.onload = (event) => {
-          this.generatePreviewHTML(event.target.id);
+          // Cache
+          let [id, src] = [event.target.id, event.target.result];
+
+          this.generatePreviewHTML({ id: id, src: src });
+          this.savePhotoInformation({ id: id, src: src });
         };
 
         // Start reading photo
         reader.readAsDataURL(input.files[i]);
+
+        this.savePhotoInformation({ id: id, file: input.files[i] });
+        console.log(this.photos);
       }
+    }
+  }
+
+  loadPhoto() {}
+
+  /**
+   * Function saving information about the photo
+   * @param {object}
+   * @param {object.id} id from the database for particular photo
+   * @param {object.file} file object containing photo
+   * @param {object.src} src for the image preview
+   * @param {object.privacy} privacy input value
+   * @param {object.description} description for the current photo
+   */
+  savePhotoInformation({
+    id = null,
+    file = null,
+    src = null,
+    privacy = false,
+    description = null,
+  }) {
+    if (file) {
+      this.photos[id].file = file;
+    }
+    if (src) {
+      this.photos[id].src = src;
+    }
+    if (privacy) {
+      this.photos[id].privacy = privacy;
+    }
+    if (description) {
+      this.photos[id].description = description;
     }
   }
 
@@ -118,7 +155,7 @@ class PhotoUploader extends EditorModal {
    * Function generating markup for preview
    * @param {Number} id - photo id that will be used in the database to store photo
    */
-  generatePreviewHTML(id) {
+  generatePreviewHTML({ id, src }) {
     // Preparing ids for preview
     let privacyId = "photo-upload-privacy-" + id;
     let descriptionId = "upload-description" + id;
@@ -149,7 +186,7 @@ class PhotoUploader extends EditorModal {
 
     // Figure
     let $figure = $("<figure></figure>")
-      .append($("<img>").attr("src", "img/photo1.jpg").attr("alt", ""))
+      .append($("<img>").attr("src", src).attr("alt", ""))
       .append($privacyBox)
       .append(
         $("<button></button>")
