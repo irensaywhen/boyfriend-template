@@ -1,9 +1,17 @@
 class EditorModal {
   constructor(options) {
+    // Making configuration object
+    this.configuration = {
+      avatar: false,
+      uploader: false,
+      editor: false,
+    };
+
     // Binding context
     this.cacheElements = this.cacheElements.bind(this);
     this.setUpEventListeners = this.setUpEventListeners.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.deletePhoto = this.deletePhoto.bind(this);
 
     // Save passed options
     this.endpoint = options.endpoint;
@@ -30,5 +38,25 @@ class EditorModal {
    */
   closeModal() {
     this.$closeButton.click();
+  }
+
+  /**
+   * Function to delete photo
+   * If used in editor, it will delete provided photo
+   * If used in uploader, it will find the photo containing the currently clicked button
+   * and delete the photo container
+   */
+  deletePhoto(event, photo) {
+    event.preventDefault();
+
+    if (this.configuration.editor) {
+      // Delete photo container
+      $(photo).closest(this.selectors.container).remove();
+      this.closeModal();
+    }
+
+    if (this.configuration.uploader) {
+      $(event.target).closest(this.selectors.container).remove();
+    }
   }
 }

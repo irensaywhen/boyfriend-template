@@ -7,6 +7,8 @@ class PhotoUploader extends EditorModal {
   constructor(options) {
     super(options);
 
+    this.configuration.uploader = true;
+
     // Save endpoint for id
     this.idEndpoint = options.idEndpoint;
 
@@ -203,10 +205,14 @@ class PhotoUploader extends EditorModal {
       .append($privacyBox)
       .append(
         $("<button></button>")
+          .attr("type", "button")
           .addClass(
             "delete bg-white rounded d-flex justify-content-between align-items-center px-1"
           )
           .text("Delete")
+          .click((event) => {
+            this.deletePhoto(event);
+          })
           .append($('<i class="fas fa-trash-alt"></i>'))
       );
 

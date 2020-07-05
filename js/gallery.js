@@ -5,6 +5,8 @@ class PhotoEditor extends EditorModal {
   constructor(options) {
     super(options);
 
+    this.configuration.editor = true;
+
     // Data attributes of the current photo
     this.attributes = {
       id: "",
@@ -16,7 +18,6 @@ class PhotoEditor extends EditorModal {
     // Binding context
     this.getAttributes = this.getAttributes.bind(this);
     this.prepareModal = this.prepareModal.bind(this);
-    this.deletePhoto = this.deletePhoto.bind(this);
 
     // Prepare editor
     this.cacheElements();
@@ -52,18 +53,14 @@ class PhotoEditor extends EditorModal {
       this.photo = event.target;
 
       // Get attributes of the clicked photo
-      this.getAttributes(event.target);
+      this.getAttributes(this.photo);
 
       // Adjust modal according to retrieved attributes
       this.prepareModal();
     });
 
     this.$deleteButton.click((event) => {
-      event.preventDefault();
-      // Delete photo from markup
-      // Later implement popup asking approval here
-      this.deletePhoto();
-      this.closeModal();
+      this.deletePhoto(event, this.photo);
     });
   }
 
@@ -76,7 +73,7 @@ class PhotoEditor extends EditorModal {
     this.$modalPhotoElement.attr("src", this.attributes.src);
 
     // Generate photo id
-    const photoId = "photo" + this.attributes.id;
+    let photoId = "photo" + this.attributes.id;
 
     // Set privacy
     this.$privacyInput
@@ -109,13 +106,5 @@ class PhotoEditor extends EditorModal {
       // Convert privacy into boolean
       this.attributes.private = JSON.parse(this.attributes.private);
     }
-  }
-
-  /**
-   * Function deletes photo from the markup
-   * Maybe for photo upload add functionality to delete from upload modal
-   */
-  deletePhoto() {
-    $(this.photo).closest(this.selectors.container).remove();
   }
 }
