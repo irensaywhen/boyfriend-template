@@ -4,6 +4,9 @@ class PhotoUploader extends EditorModal {
 
   photos = {};
 
+  // FileReader object to handle reading image data
+  reader = new FileReader();
+
   constructor(options) {
     super(options);
 
@@ -12,12 +15,14 @@ class PhotoUploader extends EditorModal {
 
     // Binding context
     this.previewPhotos = this.previewPhotos.bind(this);
-    this.generatePhotoPreview = this.generatePhotoPreview.bind(this);
-    this.getPhotoId = this.getPhotoId.bind(this);
+    this.generatePreviewHTML = this.generatePreviewHTML.bind(this);
+    this.getPhotosIds = this.getPhotosIds.bind(this);
+    this.makeURLObjects = this.makeURLObjects.bind(this);
 
     // Prepare Uploader
     this.cacheElements();
     this.setUpEventListeners();
+    this.makeURLObjects();
   }
 
   cacheElements() {
@@ -35,63 +40,78 @@ class PhotoUploader extends EditorModal {
     this.$photoInputs.change((event) => {
       this.previewPhotos(event.target);
     });
+
+    // Preview photos when it is loaded
+    //this.reader.onload = (event) => {
+    //  this.generatePhotoPreview();
+    //};
+  }
+
+  // Make this function to convert all the endpoints into URL objects later
+  makeURLObjects() {
+    this.idEndpoint = new URL(this.idEndpoint);
+  }
+
+  /**
+   * Function retrieving ids according to uploading amount of files.
+   * @param {Number} filesAmount - amount of files to get ids for
+   */
+  getPhotosIds(filesAmount) {
+    // Add amount of files as a query parameter
+
+    this.idEndpoint.searchParams.set("amount", String(filesAmount));
+
+    // Make request to the server
+    return fetch(this.idEndpoint)
+      .then((response) => {
+        if (response.ok) {
+          // Read the array of passed ids as JSON
+          return response.json();
+        } else {
+          throw Error(response.statusText);
+        }
+      })
+      .then((ids) => ids)
+      .catch((error) => {
+        // We'll need to add a popup here
+        alert("Error occured!");
+      });
   }
 
   /**
    * Function reading uploaded photos from input
    * @param {DOM Element} input - input element from which to take the photo files
    */
-  previewPhotos(input) {
+  async previewPhotos(input) {
+    let ids;
+
     if (input.files) {
       let filesAmount = input.files.length;
 
+      try {
+        // Wait until the server provide ids for photos
+        ids = await this.getPhotosIds(filesAmount);
+      } catch (error) {
+        //Here we'll need to add popup
+        alert("Error with Ids");
+      }
+
       for (let i = 0; i < filesAmount; i++) {
+        // Make fileReader for each photo
         let reader = new FileReader();
 
+        // Save the id of the loading photo for reference
+        reader.id = ids[i];
+
+        // Preview photos when it is loaded
         reader.onload = (event) => {
-          this.generatePhotoPreview();
+          this.generatePreviewHTML(event.target.id);
         };
 
-        // Start reading the image from the input
+        // Start reading photo
         reader.readAsDataURL(input.files[i]);
-
-        // Add photo to files that should be submitted to the server
-        this.photoFiles.push(input.files[i]);
       }
     }
-  }
-
-  /**
-   * Function handling operations to preview photo
-   */
-  async generatePhotoPreview() {
-    // Ask server for id for the currently previewing photo
-    let id = await this.getPhotoId();
-
-    // Make markup with the retrieved id
-    this.generatePreviewHTML(id);
-  }
-
-  /**
-   * Function getting id for the currently previewing photo
-   */
-  getPhotoId() {
-    return fetch(this.idEndpoint)
-      .then((response) => {
-        if (response.ok) {
-          // Read the passed number as text
-          return response.text();
-        } else {
-          throw Error(response.statusText);
-        }
-      })
-      .then((id) => {
-        return parseInt(id);
-      })
-      .catch((error) => {
-        // We'll need to add a popup here
-        alert("Error occured!");
-      });
   }
 
   /**
