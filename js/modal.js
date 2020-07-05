@@ -10,6 +10,9 @@ class EditorModal {
     // Binding context
     this.cacheElements = this.cacheElements.bind(this);
     this.setUpEventListeners = this.setUpEventListeners.bind(this);
+    this.getFormInputs = this.getFormInputs.bind(this);
+    this.savePhotoInformation = this.savePhotoInformation.bind(this);
+    this.setPhotoData = this.setPhotoData.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.deletePhoto = this.deletePhoto.bind(this);
 
@@ -25,6 +28,9 @@ class EditorModal {
     // Modal
     this.$modal = $(this.selectors.modal);
 
+    // Form
+    this.$form = this.$modal.find(this.selectors.form);
+
     // Closing button
     this.$closeButton = this.$modal.find(".close");
 
@@ -32,6 +38,25 @@ class EditorModal {
     if ("deleteButton" in this.selectors) {
       this.$deleteButton = this.$modal.find(this.selectors.deleteButton);
     }
+  }
+
+  getFormInputs() {
+    console.log(this.$privacyInput[0].checked);
+    let description = this.$description.val();
+  }
+
+  setPhotoData() {}
+
+  generateFormData() {}
+
+  updateDataAttributes() {}
+
+  setUpEventListeners() {
+    this.$form.submit((event) => {
+      event.preventDefault();
+      console.log(event.target);
+      this.getFormInputs();
+    });
   }
   /**
    * Function to close the modal
@@ -57,6 +82,36 @@ class EditorModal {
 
     if (this.configuration.uploader) {
       $(event.target).closest(this.selectors.container).remove();
+    }
+  }
+
+  /**
+   * Function saving information about the photo
+   * @param {object}
+   * @param {object.id} id from the database for particular photo
+   * @param {object.file} file object containing photo
+   * @param {object.src} src for the image preview
+   * @param {object.privacy} privacy input value
+   * @param {object.description} description for the current photo
+   */
+  savePhotoInformation({
+    id = null,
+    file = null,
+    src = null,
+    privacy = false,
+    description = null,
+  }) {
+    if (file) {
+      this.photoData[id].file = file;
+    }
+    if (src) {
+      this.photoData[id].src = src;
+    }
+    if (privacy) {
+      this.photoData[id].privacy = privacy;
+    }
+    if (description) {
+      this.photoData[id].description = description;
     }
   }
 }

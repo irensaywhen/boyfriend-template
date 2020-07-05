@@ -66,7 +66,7 @@
     >
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
-          <form action="" id="upload-avatar-form">
+          <form action="" id="avatar-editor">
             <!--Modal header start-->
             <div class="modal-header">
               <h3 class="title">
@@ -184,7 +184,7 @@
     >
       <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
-          <form action="fill-profile.html" id="upload-photos-form">
+          <form action="fill-profile.html" id="photo-uploader">
             <!--Modal header start-->
             <div class="modal-header">
               <h3 class="title">
@@ -368,7 +368,7 @@
           <!--Modal header end-->
           <!--Modal body start-->
           <div class="modal-body">
-            <form action="fill-profile.html" method="POST" id="photo-settings">
+            <form action="fill-profile.html" method="POST" id="photo-editor">
               <div class="photo-description">
                 <figure class="text-center">
                   <img src="img/photo1.jpg" alt="photo 1" />
@@ -669,7 +669,7 @@
                       <div class="swiper-wrapper">
                         <!--
                           Information about the photo is passed from the database.
-                          data-id, data-description, and data-private are for modal and 
+                          data-id, data-description, and data-privacy are for modal and 
                           ajax requests
                         -->
                         <div class="swiper-slide gallery-slide">
@@ -680,7 +680,7 @@
                             data-target="#edit-photo"
                             data-id="1"
                             data-description="Lorem ipsum"
-                            data-private="true"
+                            data-privacy="true"
                             alt="photo 1"
                           />
                         </div>
@@ -692,7 +692,7 @@
                             data-target="#edit-photo"
                             data-id="2"
                             data-description="Lorem ipsum dolor sit amet"
-                            data-private="false"
+                            data-privacy="false"
                             alt="photo 2"
                           />
                         </div>
@@ -704,7 +704,7 @@
                             data-target="#edit-photo"
                             data-id="3"
                             data-description="This is another photo description"
-                            data-private="false"
+                            data-privacy="false"
                             alt="photo 1"
                           />
                         </div>
@@ -716,7 +716,7 @@
                             data-target="#edit-photo"
                             data-id="4"
                             data-description=""
-                            data-private="true"
+                            data-privacy="true"
                             alt="photo 2"
                           />
                         </div>
@@ -728,7 +728,7 @@
                             data-target="#edit-photo"
                             data-id="5"
                             data-description=""
-                            data-private="false"
+                            data-privacy="false"
                             alt="photo 1"
                           />
                         </div>
@@ -1289,7 +1289,7 @@
             modal: "#upload-avatar",
             input: ".avatar-input",
             preview: "#avatar-preview",
-            form: "#upload-avatar-form",
+            form: "#avatar-editor",
           },
           headers: avatarHeaders,
           endpoint: avatarEndpoint,
@@ -1304,6 +1304,7 @@
         const photoEditorOptions = {
           selectors: {
             modal: "#edit-photo",
+            form: "#photo-editor",
             closeButton: ".close",
             deleteButton: ".delete",
             description: "#photo-description",
@@ -1325,6 +1326,7 @@
         const photoUploaderOptions = {
           selectors: {
             modal: "#add-photos",
+            form: "#photo-uploader",
             description: ".new-photo-description",
             input: ".photo-input",
             "privacy-input": ".privacy-input",

@@ -2,7 +2,15 @@ class PhotoUploader extends EditorModal {
   // Photos in Blob/File format that should be sent to the server
   photoFiles = [];
 
-  photos = {};
+  /**
+   * Information about photos.
+   * @param photoData.id - id of the photo from the database
+   * @param photoData.id.file - photo fileobject to save to the database
+   * @param photoData.id.src - photo src
+   * @param photoData.id.private - photo privacy information
+   * @param photoData.id.description - photo description
+   */
+  photoData = {};
 
   constructor(options) {
     super(options);
@@ -17,7 +25,6 @@ class PhotoUploader extends EditorModal {
     this.generatePreviewHTML = this.generatePreviewHTML.bind(this);
     this.getPhotosIds = this.getPhotosIds.bind(this);
     this.makeURLObjects = this.makeURLObjects.bind(this);
-    this.savePhotoInformation = this.savePhotoInformation.bind(this);
 
     // Prepare Uploader
     this.cacheElements();
@@ -98,7 +105,7 @@ class PhotoUploader extends EditorModal {
         let id = ids[i];
 
         // Initialize object to store information about this photo
-        this.photos[id] = {};
+        this.photoData[id] = {};
 
         // Save the id of the loading photo for reference
         reader.id = id;
@@ -134,36 +141,6 @@ class PhotoUploader extends EditorModal {
       // Add popup here
       alert("Something went wrong");
     };
-  }
-
-  /**
-   * Function saving information about the photo
-   * @param {object}
-   * @param {object.id} id from the database for particular photo
-   * @param {object.file} file object containing photo
-   * @param {object.src} src for the image preview
-   * @param {object.privacy} privacy input value
-   * @param {object.description} description for the current photo
-   */
-  savePhotoInformation({
-    id = null,
-    file = null,
-    src = null,
-    privacy = false,
-    description = null,
-  }) {
-    if (file) {
-      this.photos[id].file = file;
-    }
-    if (src) {
-      this.photos[id].src = src;
-    }
-    if (privacy) {
-      this.photos[id].privacy = privacy;
-    }
-    if (description) {
-      this.photos[id].description = description;
-    }
   }
 
   /**
