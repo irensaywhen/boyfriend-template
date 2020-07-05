@@ -62,17 +62,23 @@ class PhotoEditor extends EditorModal {
     super.setUpEventListeners();
 
     this.$photos.click((event) => {
+      // Save photo
       this.photo = event.target;
-      let photoId = photo.dataset.id;
+
+      let photoId = this.photo.dataset.id;
 
       // Prepare empty object
       this.photoData[photoId] = {};
 
+      // Save src
+      this.savePhotoInformation({ id: photoId, src: this.photo.src });
+
       // Save data-* attributes
       this.savePhotoInformation(this.photo.dataset);
+      console.log(this.photoData);
 
       //// Adjust modal according to retrieved attributes
-      //this.prepareModal();
+      this.prepareModal(photoId);
     });
 
     this.$deleteButton.click((event) => {
@@ -83,52 +89,24 @@ class PhotoEditor extends EditorModal {
   /**
    * Function generates content of the modal window
    * depending on the attributes of the clicked photo
+   * @param {Number} id - database id of the photo
    */
-  prepareModal() {
+  prepareModal(id) {
     // Set photo
-    this.$modalPhotoElement.attr("src", this.attributes.src);
+    this.$modalPhotoElement.attr("src", this.photoData[id].src);
 
     // Generate photo id
-    let photoId = "photo-" + this.attributes.id;
+    let photoId = "photo-" + id;
 
     // Set privacy
     this.$privacyInput
-      .prop("checked", this.attributes.private)
+      .prop("checked", this.photoData[id].privacy)
       .attr("id", photoId);
 
     // Set toggle
     this.$privacyLabel.attr("for", photoId);
 
     // Set description
-    this.$description.text(this.attributes.description);
-  }
-
-  /**
-   * Function retrieves attributes of the element
-   * @param {element} DOMElement - Element to get attributes from
-   */
-  getAttributes(element) {
-    // Empty object for photo information
-    this.photoData[element.dataset.id] = {};
-    this.savePhotoInformation(element.dataset);
-    console.log(this.photoData);
-    console.log(element.dataset);
-    // Save src attribute of the current photo
-    this.attributes.src = element.src;
-
-    // Save data-* attributes related to the current photo
-    for (let dataAttribute in element.dataset) {
-      // Don't save id attribute
-      //if (dataAttribute === "id") continue;
-
-      if (dataAttribute in this.attributes) {
-        this.attributes[dataAttribute] = element.dataset[dataAttribute];
-      }
-    }
-
-    if ("private" in this.attributes) {
-      // Convert privacy into boolean
-      this.attributes.private = JSON.parse(this.attributes.private);
-    }
+    this.$description.text(this.photoData[id].description);
   }
 }

@@ -108,7 +108,7 @@ class EditorModal {
       this.photoData[id].src = src;
     }
     if (privacy) {
-      this.photoData[id].privacy = privacy;
+      this.photoData[id].privacy = JSON.parse(privacy);
     }
     if (description) {
       this.photoData[id].description = description;
