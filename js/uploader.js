@@ -101,25 +101,38 @@ class PhotoUploader extends EditorModal {
         // Save the id of the loading photo for reference
         reader.id = id;
 
-        // Preview photos when it is loaded
-        reader.onload = (event) => {
-          // Cache
-          let [id, src] = [event.target.id, event.target.result];
-
-          this.generatePreviewHTML({ id: id, src: src });
-          this.savePhotoInformation({ id: id, src: src });
-        };
+        this.setReaderEventListeners(reader);
 
         // Start reading photo
         reader.readAsDataURL(input.files[i]);
 
+        // Save file
         this.savePhotoInformation({ id: id, file: input.files[i] });
-        console.log(this.photos);
       }
     }
   }
 
-  loadPhoto() {}
+  /**
+   * Function attaching event listeners to File Reader
+   * @param {FileReader object} reader - reader to attach event listeners to
+   */
+  setReaderEventListeners(reader) {
+    // Preview photos when it is loaded
+    reader.onload = (event) => {
+      // Cache
+      let [id, src] = [event.target.id, event.target.result];
+
+      this.generatePreviewHTML({ id: id, src: src });
+      // Save src
+      this.savePhotoInformation({ id: id, src: src });
+    };
+
+    // Handle errors
+    reader.onerror = (event) => {
+      // Add popup here
+      alert("Something went wrong");
+    };
+  }
 
   /**
    * Function saving information about the photo
