@@ -52,6 +52,28 @@ class PhotoUploader extends EditorModal {
     this.$photoInputs.change((event) => {
       this.previewPhotos(event.target);
     });
+
+    this.$form.submit((event) => {
+      event.preventDefault();
+      // Make server request here
+      // And update markup
+      // After that - clean all the cached data
+      this.collectData();
+
+      for (let id in this.photoData) {
+        let photoData = this.photoData[id];
+
+        // Add each uploaded photo to the markup
+        this.updateMarkup({
+          id: id,
+          src: photoData.src,
+          privacy: photoData.privacy,
+          description: photoData.description,
+        });
+      }
+
+      this.closeModal();
+    });
   }
 
   // Make this function to convert all the endpoints into URL objects later
@@ -268,7 +290,5 @@ class PhotoUploader extends EditorModal {
             .addClass("gallery-photo")
         )
     );
-
-    console.log($("#newphoto")[0].dataset);
   }
 }

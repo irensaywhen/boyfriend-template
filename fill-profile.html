@@ -160,7 +160,6 @@
                 <button
                   type="submit"
                   class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
-                  id="submit-modal"
                 >
                   <span>Submit</span><i class="material-icons">arrow_forward</i>
                 </button>
@@ -328,7 +327,6 @@
                 <button
                   type="submit"
                   class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
-                  id="submit-modal"
                 >
                   <span>Submit</span><i class="material-icons">arrow_forward</i>
                 </button>
@@ -412,7 +410,6 @@
                     <button
                       type="submit"
                       class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
-                      id="submit-modal"
                     >
                       <span>Submit</span
                       ><i class="material-icons">arrow_forward</i>
@@ -1223,6 +1220,7 @@
         // Swiper initialization
         const swiper = new Swiper(".swiper-container", {
           slidesPerView: 2,
+          observer: true,
           spaceBetween: 5,
           keyboard: {
             enabled: true,
@@ -1273,6 +1271,7 @@
             "privacy-input": ".privacy-input",
             "privacy-label": ".privacy-label",
             photos: ".gallery-photo",
+            gallery: "#photos-container",
             container: ".gallery-slide",
           },
           headers: photoEditorHeaders,
@@ -1296,6 +1295,7 @@
             container: ".photo-container",
             previewContainer: "#photos-previews-container",
             gallery: "#photos-container",
+            photos: ".gallery-photo",
           },
           headers: photoUploaderHeaders,
           endpoint: photoUploaderEndpoint,
@@ -1304,7 +1304,7 @@
 
         const avatar = new Avatar(avatarOptions);
 
-        const photoEditor = new PhotoEditor(photoEditorOptions);
+        let photoEditor = new PhotoEditor(photoEditorOptions);
 
         const photoUploader = new PhotoUploader(photoUploaderOptions);
 

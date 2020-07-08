@@ -19,7 +19,7 @@ class PhotoEditor extends EditorModal {
 
     // Binding context
     this.prepareModal = this.prepareModal.bind(this);
-    this.updatePhoto = this.updatePhoto.bind(this);
+    this.updateMarkup = this.updateMarkup.bind(this);
 
     // Prepare editor
     this.cacheElements();
@@ -38,7 +38,6 @@ class PhotoEditor extends EditorModal {
 
     // Privacy input
     this.$privacyInput = this.$modal.find(this.selectors["privacy-input"]);
-    console.log(this.$privacyInput);
 
     // Privacy label
     this.$privacyLabel = this.$modal.find(this.selectors["privacy-label"]);
@@ -48,29 +47,32 @@ class PhotoEditor extends EditorModal {
 
     // Photos triggering opening modal
     this.$photos = $(this.selectors.photos);
+
+    // Photos gallery
+    this.$gallery = $(this.selectors.gallery);
   }
 
   setUpEventListeners() {
-    //super.setUpEventListeners();
+    super.setUpEventListeners();
 
-    // Open modal when user clicks on photo
-    this.$photos.click((event) => {
+    this.$gallery.click((event) => {
+      let target = event.target;
+
+      if (target.tagName !== "IMG") return;
+
       // Save photo
-      this.photo = event.target;
+      this.photo = target;
 
-      // Cache photo id
+      // Cache id
       let photoId = this.photo.dataset.id;
 
-      // Prepare empty object
       this.photoData[photoId] = {};
 
-      // Save src
+      // Save photo information
       this.savePhotoInformation({ id: photoId, src: this.photo.src });
-
-      // Save data-* attributes
       this.savePhotoInformation(this.photo.dataset);
 
-      // Adjust modal according to retrieved attributes
+      // Adjust modal
       this.prepareModal(photoId);
     });
 
@@ -89,7 +91,7 @@ class PhotoEditor extends EditorModal {
         description: this.$description.val(),
       });
 
-      this.updatePhoto();
+      this.updateMarkup();
       this.photoData = {};
       this.closeModal();
     });
@@ -98,7 +100,7 @@ class PhotoEditor extends EditorModal {
   /**
    * Function updating photo in the gallery
    */
-  updatePhoto() {
+  updateMarkup() {
     let values = this.photoData[this.photo.dataset.id];
 
     for (let property in values) {
@@ -114,6 +116,7 @@ class PhotoEditor extends EditorModal {
    * @param {Number} id - database id of the photo
    */
   prepareModal(id) {
+    alert("Preparing modal!");
     // Set photo
     this.$modalPhotoElement.attr("src", this.photoData[id].src);
 
