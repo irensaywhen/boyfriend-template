@@ -160,7 +160,7 @@
                 <button
                   type="submit"
                   class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
-                  id="submit-avatar"
+                  id="submit-modal"
                 >
                   <span>Submit</span><i class="material-icons">arrow_forward</i>
                 </button>
@@ -328,6 +328,7 @@
                 <button
                   type="submit"
                   class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
+                  id="submit-modal"
                 >
                   <span>Submit</span><i class="material-icons">arrow_forward</i>
                 </button>
@@ -411,6 +412,7 @@
                     <button
                       type="submit"
                       class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
+                      id="submit-modal"
                     >
                       <span>Submit</span
                       ><i class="material-icons">arrow_forward</i>
@@ -426,46 +428,6 @@
     </div>
 
     <!--Modal for editing photos end-->
-
-    <!--Delete confirmation modal start
-    <div
-      class="modal fade"
-      id="delete-photo"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="DeletePhotoModal"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>-->
-    <!--Delete confirmation modal end-->
 
     <!--Modals end-->
 
@@ -666,7 +628,7 @@
                       class="swiper-container swiper-profile-photos"
                     >
                       <div class="swiper-pagination"></div>
-                      <div class="swiper-wrapper">
+                      <div class="swiper-wrapper" id="photos-container">
                         <!--
                           Information about the photo is passed from the database.
                           data-id, data-description, and data-privacy are for modal and 
@@ -1333,6 +1295,7 @@
             "privacy-label": ".privacy-label",
             container: ".photo-container",
             previewContainer: "#photos-previews-container",
+            gallery: "#photos-container",
           },
           headers: photoUploaderHeaders,
           endpoint: photoUploaderEndpoint,

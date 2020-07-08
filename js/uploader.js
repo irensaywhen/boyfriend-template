@@ -23,6 +23,7 @@ class PhotoUploader extends EditorModal {
     // Binding context
     this.previewPhotos = this.previewPhotos.bind(this);
     this.generatePreviewHTML = this.generatePreviewHTML.bind(this);
+    this.updateMarkup = this.updateMarkup.bind(this);
     this.getPhotosIds = this.getPhotosIds.bind(this);
     this.makeURLObjects = this.makeURLObjects.bind(this);
 
@@ -40,6 +41,9 @@ class PhotoUploader extends EditorModal {
 
     // Inputs
     this.$photoInputs = this.$modal.find(this.selectors.input);
+
+    // Gallery
+    this.$gallery = $(this.selectors.gallery);
   }
 
   setUpEventListeners() {
@@ -154,6 +158,7 @@ class PhotoUploader extends EditorModal {
   /**
    * Function generating markup for preview
    * @param {Number} id - photo id that will be used in the database to store photo
+   * @param {String} src - src of the image to preview
    */
   generatePreviewHTML({ id, src }) {
     // Preparing ids for preview
@@ -220,11 +225,50 @@ class PhotoUploader extends EditorModal {
     // Photo container
     $("<div></div>")
       .addClass("col-12 col-sm-6 col-md-4 col-xl-3 photo-container")
+      .attr("data-id", id)
       .append(
         $("<div></div>")
           .addClass("photo-description")
           .append([$figure, $descriptionTextarea])
       )
       .appendTo(this.$previewContainer);
+  }
+
+  collectData() {
+    $(this.selectors.container).each((index, element) => {
+      let id = element.dataset.id;
+
+      let privacy = $(element)
+        .find(this.selectors["privacy-input"])
+        .is(":checked");
+
+      let description = $(element).find(this.selectors.description).val();
+
+      this.savePhotoInformation({
+        id: id,
+        privacy: privacy,
+        description: description,
+      });
+    });
+  }
+
+  updateMarkup({ id = null, src = null, privacy = false, description = "" }) {
+    this.$gallery.append(
+      $("<div></div>")
+        .addClass("swiper-slide gallery-slide")
+        .append(
+          $("<img>")
+            .attr("src", src)
+            .attr("alt", description)
+            .attr("data-toggle", "modal")
+            .attr("data-target", "#edit-photo")
+            .attr("data-id", id)
+            .attr("data-description", description)
+            .attr("data-privacy", privacy)
+            .addClass("gallery-photo")
+        )
+    );
+
+    console.log($("#newphoto")[0].dataset);
   }
 }

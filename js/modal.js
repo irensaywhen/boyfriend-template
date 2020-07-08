@@ -54,6 +54,26 @@ class EditorModal {
         }
       });
     }
+
+    this.$form.submit((event) => {
+      event.preventDefault();
+      // Make server request here
+      // And update markup
+      // After that - clean all the cached data
+      this.collectData();
+      for (let id in this.photoData) {
+        let photoData = this.photoData[id];
+
+        this.updateMarkup({
+          id: id,
+          src: photoData.src,
+          privacy: photoData.privacy,
+          description: photoData.description,
+        });
+      }
+
+      this.closeModal();
+    });
   }
 
   getFormInputs() {
