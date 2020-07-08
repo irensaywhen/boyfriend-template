@@ -1204,6 +1204,8 @@
     <!-- template custom js -->
     <script src="js/main.js"></script>
 
+    <script src="js/requests.js"></script>
+
     <script src="js/modal.js"></script>
 
     <!--Handle avatar-->
@@ -1236,12 +1238,6 @@
         });
 
         // Avatar options
-        const avatarHeaders = {
-          "Content-Type": "form/multipart",
-        };
-
-        const avatarEndpoint =
-          "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar";
 
         const avatarOptions = {
           selectors: {
@@ -1251,16 +1247,20 @@
             preview: "#avatar-preview",
             form: "#avatar-editor",
           },
-          headers: avatarHeaders,
-          endpoint: avatarEndpoint,
+          requests: {
+            saveAvatar: {
+              method: "POST",
+              headers: {
+                "Content-Type": "form/multipart",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar",
+            },
+          },
         };
 
-        // Photo editor options
-        const photoEditorHeaders = {};
-        const photoEditorEndpoint = "";
-
         // In caching elements we'll need to check whether
-        //photos and description attribute is specified
+        // photos and description attribute is specified
         const photoEditorOptions = {
           selectors: {
             modal: "#edit-photo",
@@ -1274,16 +1274,23 @@
             gallery: "#photos-container",
             container: ".gallery-slide",
           },
-          headers: photoEditorHeaders,
-          endpoint: photoEditorEndpoint,
+          requests: {
+            savePhoto: {
+              method: "POST",
+              headers: {},
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-changes",
+            },
+            deletePhoto: {
+              method: "POST",
+              headers: {},
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/delete-photo",
+            },
+          },
         };
 
         // Uploader options
-        const photoUploaderHeaders = {};
-        const photoUploaderEndpoint = "";
-        const photoUploaderIdEndpoint =
-          "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/get-id";
-
         const photoUploaderOptions = {
           selectors: {
             modal: "#add-photos",
@@ -1297,9 +1304,14 @@
             gallery: "#photos-container",
             photos: ".gallery-photo",
           },
-          headers: photoUploaderHeaders,
-          endpoint: photoUploaderEndpoint,
-          idEndpoint: photoUploaderIdEndpoint,
+          requests: {
+            getIds: {
+              method: "GET",
+              headers: {},
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/get-id",
+            },
+          },
         };
 
         const avatar = new Avatar(avatarOptions);

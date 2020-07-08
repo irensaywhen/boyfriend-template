@@ -79,7 +79,6 @@ class Avatar extends EditorModal {
     if (input.files && input.files[0]) {
       //Save the currently selected avatar
       this.avatar = input.files[0];
-      console.log(this.avatar);
 
       //Start reading the image from the input
       this.reader.readAsDataURL(input.files[0]);
@@ -109,9 +108,9 @@ class Avatar extends EditorModal {
     // Generate formData object for the selected avatar
     this.generateFormData();
 
-    fetch(this.endpoint, {
-      method: "POST",
-      headers: this.headers,
+    fetch(this.requests.saveAvatar.endpoint, {
+      method: this.requests.saveAvatar.method,
+      headers: this.requests.saveAvatar.headers,
       body: this.formData,
     })
       .then((response) => {

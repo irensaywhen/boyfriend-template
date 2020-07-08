@@ -92,6 +92,7 @@ class PhotoEditor extends EditorModal {
       });
 
       this.updateMarkup();
+      // Instead of this line rn cleaning function which will be setup later
       this.photoData = {};
       this.closeModal();
     });
@@ -116,7 +117,6 @@ class PhotoEditor extends EditorModal {
    * @param {Number} id - database id of the photo
    */
   prepareModal(id) {
-    alert("Preparing modal!");
     // Set photo
     this.$modalPhotoElement.attr("src", this.photoData[id].src);
 

@@ -1,5 +1,6 @@
-class EditorModal {
+class EditorModal extends ServerRequest {
   constructor(options) {
+    super(options);
     // Making configuration object
     this.configuration = {
       avatar: false,
@@ -19,11 +20,18 @@ class EditorModal {
     this.setPhotoData = this.setPhotoData.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.deletePhoto = this.deletePhoto.bind(this);
+    this.makeURLObjects = this.makeURLObjects.bind(this);
 
     // Save passed options
     this.endpoint = options.endpoint;
     this.headers = options.headers;
     this.selectors = options.selectors;
+    this.requests = options.requests;
+
+    // Transform endpoints into URL Objects
+    // Fix it later
+    //this.makeURLObjects();
+    this.makeURLObjects();
   }
   /**
    * Function caches elements according to passed options.
@@ -41,6 +49,14 @@ class EditorModal {
     // Deleting button
     if ("deleteButton" in this.selectors) {
       this.$deleteButton = this.$modal.find(this.selectors.deleteButton);
+    }
+  }
+
+  makeURLObjects() {
+    for (let request in this.requests) {
+      this.requests[request].endpoint = new URL(
+        this.requests[request].endpoint
+      );
     }
   }
 
@@ -79,13 +95,28 @@ class EditorModal {
    * If used in uploader, it will find the photo containing the currently clicked button
    * and delete the photo container
    */
-  deletePhoto(event, photo) {
+  async deletePhoto(event, photo) {
     event.preventDefault();
 
     if (this.configuration.editor) {
-      // Delete photo container
-      $(photo).closest(this.selectors.container).remove();
-      this.closeModal();
+      // Make server request to delete photo
+      let response = await super.deletePhoto({
+        id: photo.dataset.id,
+        headers: this.requests.deletePhoto.headers,
+        endpoint: this.requests.deletePhoto.endpoint,
+        method: this.requests.deletePhoto.method,
+      });
+
+      if (response.success) {
+        // Add popup here
+        alert(response.message);
+        // Delete photo container
+        $(photo).closest(this.selectors.container).remove();
+        this.closeModal();
+      } else {
+        // Add unsuccessful popup here
+        alert(response.message);
+      }
     }
 
     if (this.configuration.uploader) {

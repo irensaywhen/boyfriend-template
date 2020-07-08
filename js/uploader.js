@@ -25,12 +25,10 @@ class PhotoUploader extends EditorModal {
     this.generatePreviewHTML = this.generatePreviewHTML.bind(this);
     this.updateMarkup = this.updateMarkup.bind(this);
     this.getPhotosIds = this.getPhotosIds.bind(this);
-    this.makeURLObjects = this.makeURLObjects.bind(this);
 
     // Prepare Uploader
     this.cacheElements();
     this.setUpEventListeners();
-    this.makeURLObjects();
   }
 
   cacheElements() {
@@ -76,18 +74,13 @@ class PhotoUploader extends EditorModal {
     });
   }
 
-  // Make this function to convert all the endpoints into URL objects later
-  makeURLObjects() {
-    this.idEndpoint = new URL(this.idEndpoint);
-  }
-
   /**
    * Function retrieving ids according to uploading amount of files.
    * @param {Number} filesAmount - amount of files to get ids for
    */
   getPhotosIds(filesAmount) {
     // Add amount of files as a query parameter
-    this.idEndpoint.searchParams.set("amount", String(filesAmount));
+    this.requests.getIds.searchParams.set("amount", String(filesAmount));
 
     // Make request to the server
     return fetch(this.idEndpoint)
