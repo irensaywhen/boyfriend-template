@@ -20,6 +20,7 @@ class PhotoEditor extends EditorModal {
     // Binding context
     this.prepareModal = this.prepareModal.bind(this);
     this.updateMarkup = this.updateMarkup.bind(this);
+    this.updatePhotoInformation = this.updatePhotoInformation.bind(this);
 
     // Prepare editor
     this.cacheElements();
@@ -84,18 +85,43 @@ class PhotoEditor extends EditorModal {
     this.$form.submit((event) => {
       event.preventDefault();
 
-      // Save information
-      this.savePhotoInformation({
-        id: this.photo.dataset.id,
-        privacy: this.$privacyInput.is(":checked"),
-        description: this.$description.val(),
-      });
+      this.updatePhotoInformation();
+    });
+  }
 
+  async updatePhotoInformation() {
+    // Cache id
+    let id = this.photo.dataset.id;
+
+    // Save information
+    this.savePhotoInformation({
+      id: id,
+      privacy: this.$privacyInput.is(":checked"),
+      description: this.$description.val(),
+    });
+
+    let response = await super.sendPhotoInformationToServer({
+      id: id,
+      privacy: this.photoData[id].privacy,
+      description: this.photoData[id].description,
+      headers: this.requests.savePhoto.headers,
+      endpoint: this.requests.savePhoto.endpoint,
+      method: this.requests.savePhoto.method,
+    });
+
+    if (response.success) {
+      // Add popup here
+      alert(response.message);
+      // Delete photo container
       this.updateMarkup();
+      this.closeModal();
+
       // Instead of this line rn cleaning function which will be setup later
       this.photoData = {};
-      this.closeModal();
-    });
+    } else {
+      // Add unsuccessful popup here
+      alert(response.message);
+    }
   }
 
   /**

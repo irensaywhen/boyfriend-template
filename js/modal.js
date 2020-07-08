@@ -100,7 +100,7 @@ class EditorModal extends ServerRequest {
 
     if (this.configuration.editor) {
       // Make server request to delete photo
-      let response = await super.deletePhoto({
+      let response = await super.deletePhotoOnServer({
         id: photo.dataset.id,
         headers: this.requests.deletePhoto.headers,
         endpoint: this.requests.deletePhoto.endpoint,
