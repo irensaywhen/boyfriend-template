@@ -43,6 +43,7 @@ class PhotoUploader extends EditorModal {
   }
 
   setUpEventListeners() {
+    super.setUpEventListeners();
     // Listen to changes on the input elements
     this.$photoInputs.change((event) => {
       this.previewPhotos(event.target);
@@ -141,6 +142,13 @@ class PhotoUploader extends EditorModal {
       // Add popup here
       alert("Something went wrong");
     };
+  }
+
+  /**
+   * Function deleting uploaded photos
+   */
+  discardChanges() {
+    this.$previewContainer.empty();
   }
 
   /**

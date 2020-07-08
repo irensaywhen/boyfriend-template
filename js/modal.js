@@ -7,6 +7,10 @@ class EditorModal {
       editor: false,
     };
 
+    if (this.configuration.avatar || this.configuration.uploader) {
+      this.uploaded = false;
+    }
+
     // Binding context
     this.cacheElements = this.cacheElements.bind(this);
     this.setUpEventListeners = this.setUpEventListeners.bind(this);
@@ -40,24 +44,28 @@ class EditorModal {
     }
   }
 
+  setUpEventListeners() {
+    if (this.configuration.avatar || this.configuration.uploader) {
+      this.$closeButton.click((event) => {
+        // If user closes modal without submitting changes
+        if (!this.uploaded) {
+          // Delete his newly uploaded photo
+          this.discardChanges();
+        }
+      });
+    }
+  }
+
   getFormInputs() {
-    console.log(this.$privacyInput[0].checked);
+    console.log(this.$privacyInput.is(":checked"));
     let description = this.$description.val();
+    console.log(description);
   }
 
   setPhotoData() {}
 
   generateFormData() {}
 
-  updateDataAttributes() {}
-
-  setUpEventListeners() {
-    this.$form.submit((event) => {
-      event.preventDefault();
-      console.log(event.target);
-      this.getFormInputs();
-    });
-  }
   /**
    * Function to close the modal
    */
@@ -109,6 +117,8 @@ class EditorModal {
     }
     if (privacy) {
       this.photoData[id].privacy = JSON.parse(privacy);
+    } else {
+      this.photoData[id].privacy = false;
     }
     if (description) {
       this.photoData[id].description = description;

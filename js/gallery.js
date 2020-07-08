@@ -17,17 +17,9 @@ class PhotoEditor extends EditorModal {
 
     this.configuration.editor = true;
 
-    // Data attributes of the current photo
-    this.attributes = {
-      id: "",
-      description: "",
-      private: false,
-      src: "",
-    };
-
     // Binding context
-    this.getAttributes = this.getAttributes.bind(this);
     this.prepareModal = this.prepareModal.bind(this);
+    this.updatePhoto = this.updatePhoto.bind(this);
 
     // Prepare editor
     this.cacheElements();
@@ -59,12 +51,14 @@ class PhotoEditor extends EditorModal {
   }
 
   setUpEventListeners() {
-    super.setUpEventListeners();
+    //super.setUpEventListeners();
 
+    // Open modal when user clicks on photo
     this.$photos.click((event) => {
       // Save photo
       this.photo = event.target;
 
+      // Cache photo id
       let photoId = this.photo.dataset.id;
 
       // Prepare empty object
@@ -75,15 +69,43 @@ class PhotoEditor extends EditorModal {
 
       // Save data-* attributes
       this.savePhotoInformation(this.photo.dataset);
-      console.log(this.photoData);
 
-      //// Adjust modal according to retrieved attributes
+      // Adjust modal according to retrieved attributes
       this.prepareModal(photoId);
     });
 
+    // Delete photo when user clicks on deleting button
     this.$deleteButton.click((event) => {
       this.deletePhoto(event, this.photo);
     });
+
+    this.$form.submit((event) => {
+      event.preventDefault();
+
+      // Save information
+      this.savePhotoInformation({
+        id: this.photo.dataset.id,
+        privacy: this.$privacyInput.is(":checked"),
+        description: this.$description.val(),
+      });
+
+      this.updatePhoto();
+      this.photoData = {};
+      this.closeModal();
+    });
+  }
+
+  /**
+   * Function updating photo in the gallery
+   */
+  updatePhoto() {
+    let values = this.photoData[this.photo.dataset.id];
+
+    for (let property in values) {
+      if (property in this.photo.dataset) {
+        this.photo.dataset[property] = values[property];
+      }
+    }
   }
 
   /**

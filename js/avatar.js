@@ -13,6 +13,8 @@ class Avatar extends EditorModal {
   constructor(options) {
     super(options);
 
+    this.configuration.avatar = true;
+
     // Generated link pointing to the avatar locally in the browser
     this.newAvatarLink = null;
 
@@ -24,9 +26,6 @@ class Avatar extends EditorModal {
 
     // Array containing avatar input elements
     this.$avatarInputs = null;
-
-    // Is new avatar uploaded yet?
-    this.avatarUploaded = false;
 
     // Create FileReader instance to handle reading image data
     this.reader = new FileReader();
@@ -121,7 +120,7 @@ class Avatar extends EditorModal {
           alert("Everything is fine!");
 
           // Update the avatar status to not to discard changes
-          this.avatarUploaded = true;
+          this.uploaded = true;
 
           // Update markup
           this.updateMarkup();
@@ -157,7 +156,7 @@ class Avatar extends EditorModal {
     this.newAvatarLink = null;
 
     // Return the previous avatar status
-    this.avatarUploaded = false;
+    this.uploaded = false;
   }
 
   /**
@@ -179,6 +178,7 @@ class Avatar extends EditorModal {
    * Function setup event listeners on the initialization stage of the object creation
    */
   setUpEventListeners() {
+    super.setUpEventListeners();
     // Setup event handler for loading of the image data event
     this.reader.onload = (e) => {
       // Show avatar preview
@@ -197,15 +197,6 @@ class Avatar extends EditorModal {
       // Prevent form from normal submission
       event.preventDefault();
       this.submitAvatar();
-    });
-
-    // Close modal
-    this.$closeButton.click((event) => {
-      // If user closes modal without submitting changes
-      if (!this.avatarUploaded) {
-        // Delete his newly uploaded photo
-        this.discardChanges();
-      }
     });
   }
 }
