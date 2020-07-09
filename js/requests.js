@@ -1,10 +1,25 @@
 class ServerRequest {
-  constructor() {
+  constructor(options) {
     // Bind context
     this.sendPhotoInformationToServer = this.sendPhotoInformationToServer.bind(
       this
     );
     this.deletePhotoOnServer = this.deletePhotoOnServer.bind(this);
+
+    // Save passed options
+    this.selectors = options.selectors;
+    this.requests = options.requests;
+
+    // Transform endpoints into URL Objects
+    this.makeURLObjects();
+  }
+
+  makeURLObjects() {
+    for (let request in this.requests) {
+      this.requests[request].endpoint = new URL(
+        this.requests[request].endpoint
+      );
+    }
   }
 
   makeRequest({ headers, endpoint, method, body }) {

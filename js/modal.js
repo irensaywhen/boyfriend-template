@@ -22,16 +22,6 @@ class EditorModal extends ServerRequest {
     this.deletePhoto = this.deletePhoto.bind(this);
     this.makeURLObjects = this.makeURLObjects.bind(this);
     this.clean = this.clean.bind(this);
-
-    // Save passed options
-    this.endpoint = options.endpoint;
-    this.headers = options.headers;
-    this.selectors = options.selectors;
-    this.requests = options.requests;
-
-    // Transform endpoints into URL Objects
-    // Fix it later
-    this.makeURLObjects();
   }
   /**
    * Function caches elements according to passed options.
@@ -49,14 +39,6 @@ class EditorModal extends ServerRequest {
     // Deleting button
     if ("deleteButton" in this.selectors) {
       this.$deleteButton = this.$modal.find(this.selectors.deleteButton);
-    }
-  }
-
-  makeURLObjects() {
-    for (let request in this.requests) {
-      this.requests[request].endpoint = new URL(
-        this.requests[request].endpoint
-      );
     }
   }
 

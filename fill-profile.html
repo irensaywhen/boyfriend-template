@@ -203,64 +203,7 @@
             <div class="modal-body">
               <!--Photos preview start-->
               <div class="container-fluid">
-                <div class="row" id="photos-previews-container">
-                  <!--Photo container start-->
-                  <div
-                    class="col-12 col-sm-6 col-md-4 col-xl-3 photo-container"
-                  >
-                    <!--Photo description start-->
-                    <div class="photo-description">
-                      <!--Figure start-->
-                      <figure>
-                        <!--Image-->
-                        <img src="img/photo1.jpg" alt="photo 1" />
-                        <!--Privacy checkbox-->
-                        <div
-                          class="privacy bg-white rounded d-flex justify-content-between align-items-center px-1"
-                        >
-                          <h4 class="m-0">Privacy</h4>
-                          <div class="custom-control custom-switch">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input privacy-input"
-                              id="photo-upload-privacy-1"
-                              checked
-                            />
-                            <label
-                              class="custom-control-label privacy-label"
-                              for="photo-upload-privacy-1"
-                            ></label>
-                          </div>
-                        </div>
-                        <!--Delete button-->
-                        <button
-                          type="button"
-                          class="delete bg-white rounded d-flex justify-content-between align-items-center px-1"
-                        >
-                          Delete
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                      </figure>
-                      <!--Figure end-->
-                      <!--Description textarea container start-->
-                      <div class="form-group">
-                        <label for="upload-description-1"
-                          >Add photo description</label
-                        >
-                        <textarea
-                          class="form-control new-photo-description"
-                          id="upload-description-1"
-                          name="photo-description-1"
-                          rows="4"
-                          placeholder="Photo description"
-                        ></textarea>
-                      </div>
-                      <!--Description textarea container end-->
-                    </div>
-                    <!--Photo description end-->
-                  </div>
-                  <!--Photo container end-->
-                </div>
+                <div class="row" id="photos-previews-container"></div>
               </div>
               <!--Photos preview end-->
               <!--Photo Upload-->
@@ -719,6 +662,8 @@
                   </div>
                 </div>
               </div>
+
+              <!--Profile form start-->
               <form
                 id="profile-information"
                 method="POST"
@@ -735,7 +680,12 @@
                     <!--Name-->
                     <div class="col-12 col-md-6">
                       <div class="form-group float-label">
-                        <input type="text" class="form-control" required />
+                        <input
+                          type="text"
+                          name="name"
+                          class="form-control"
+                          required
+                        />
                         <label class="form-control-label">Name</label>
                       </div>
                     </div>
@@ -743,7 +693,12 @@
                     <!--City-->
                     <div class="col-12 col-md-6">
                       <div class="form-group float-label">
-                        <input type="text" class="form-control" required />
+                        <input
+                          type="text"
+                          name="city"
+                          class="form-control"
+                          required
+                        />
                         <label class="form-control-label">City</label>
                       </div>
                     </div>
@@ -839,6 +794,7 @@
                   </div>
                 </div>
               </form>
+              <!--Profile form end-->
             </div>
             <!--Profile tab end-->
 
@@ -849,6 +805,7 @@
               role="tabpanel"
               aria-labelledby="notifications-tab"
             >
+              <!--Notification form start-->
               <form
                 id="profile-notifications"
                 method="POST"
@@ -976,6 +933,7 @@
                   </div>
                 </div>
               </form>
+              <!--Notification form end-->
             </div>
             <!--Notifications tab end-->
 
@@ -986,7 +944,7 @@
               role="tabpanel"
               aria-labelledby="account-tab"
             >
-              <!--Change password start-->
+              <!--Change password form start-->
               <form
                 id="change-password"
                 method="POST"
@@ -1025,7 +983,7 @@
                   </div>
                 </div>
               </form>
-              <!--Change password end-->
+              <!--Change password form end-->
 
               <!--Account info start-->
               <div class="container">
@@ -1215,6 +1173,7 @@
     <script src="js/gallery.js"></script>
 
     <script src="js/uploader.js"></script>
+    <script src="js/forms.js"></script>
 
     <!-- page level script -->
     <script>
@@ -1251,7 +1210,7 @@
             saveAvatar: {
               method: "POST",
               headers: {
-                "Content-Type": "form/multipart",
+                "Content-Type": "multipart/form-data",
               },
               endpoint:
                 "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar",
@@ -1311,7 +1270,7 @@
             savePhotos: {
               method: "POST",
               headers: {
-                "Content-Type": "form/multipart",
+                "Content-Type": "multipart/form-data",
               },
               endpoint:
                 "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-photos",
@@ -1319,13 +1278,27 @@
           },
         };
 
+        const formOptions = {
+          selectors: {
+            forms: ["#profile-information"],
+          },
+          requests: {
+            submit: {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/submit-profile",
+            },
+          },
+        };
+
         const avatar = new Avatar(avatarOptions);
 
-        let photoEditor = new PhotoEditor(photoEditorOptions);
+        const photoEditor = new PhotoEditor(photoEditorOptions);
 
         const photoUploader = new PhotoUploader(photoUploaderOptions);
-
-        //Making avatar from the camera
       });
     </script>
   </body>
