@@ -1,7 +1,4 @@
 class PhotoUploader extends EditorModal {
-  // Photos in Blob/File format that should be sent to the server
-  photoFiles = [];
-
   /**
    * Information about photos.
    * @param photoData.id - id of the photo from the database
@@ -17,14 +14,12 @@ class PhotoUploader extends EditorModal {
 
     this.configuration.uploader = true;
 
-    // Save endpoint for id
-    this.idEndpoint = options.idEndpoint;
-
     // Binding context
     this.previewPhotos = this.previewPhotos.bind(this);
     this.generatePreviewHTML = this.generatePreviewHTML.bind(this);
     this.updateMarkup = this.updateMarkup.bind(this);
     this.getPhotosIds = this.getPhotosIds.bind(this);
+    this.uploadNewPhotos = this.uploadNewPhotos.bind(this);
 
     // Prepare Uploader
     this.cacheElements();
@@ -53,11 +48,48 @@ class PhotoUploader extends EditorModal {
 
     this.$form.submit((event) => {
       event.preventDefault();
+
+      // If user didn't upload new photos
+      if (Object.keys(this.photoData).length === 0) {
+        // Add popup here
+        alert("No photos specified!");
+        return;
+      }
       // Make server request here
       // And update markup
       // After that - clean all the cached data
-      this.collectData();
+      this.uploadNewPhotos();
+    });
+  }
 
+  clean() {
+    this.photoData = {};
+  }
+
+  async uploadNewPhotos() {
+    this.collectData();
+    this.generateFormData();
+
+    let response;
+
+    try {
+      // Make server request to save photos
+      response = await this.makeRequest({
+        headers: this.requests.savePhotos.headers,
+        endpoint: this.requests.savePhotos.endpoint,
+        method: this.requests.savePhotos.method,
+        body: this.formData,
+      });
+    } catch (error) {
+      // Add popup here
+      alert(error);
+    }
+
+    if (response.success) {
+      // Add popup here
+      alert(response.message);
+
+      // Update markup according to photoData object
       for (let id in this.photoData) {
         let photoData = this.photoData[id];
 
@@ -71,7 +103,10 @@ class PhotoUploader extends EditorModal {
       }
 
       this.closeModal();
-    });
+    } else {
+      // Add unsuccessful popup here
+      alert(response.message);
+    }
   }
 
   /**
@@ -80,10 +115,13 @@ class PhotoUploader extends EditorModal {
    */
   getPhotosIds(filesAmount) {
     // Add amount of files as a query parameter
-    this.requests.getIds.searchParams.set("amount", String(filesAmount));
+    this.requests.getIds.endpoint.searchParams.set(
+      "amount",
+      String(filesAmount)
+    );
 
     // Make request to the server
-    return fetch(this.idEndpoint)
+    return fetch(this.requests.getIds.endpoint)
       .then((response) => {
         if (response.ok) {
           // Read the array of passed ids as JSON

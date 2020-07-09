@@ -2,6 +2,12 @@ class Avatar extends EditorModal {
   // Currently selected avatar. Data type - blob or file
   avatar = null;
 
+  // Generated link pointing to the avatar locally in the browser
+  newAvatarLink = null;
+
+  // Previous avatar link
+  prevAvatarLink = null;
+
   /**
    * Constructor accepts options object which contains:
    * jQuery Object containing DOM Element for avatar preview,
@@ -15,12 +21,6 @@ class Avatar extends EditorModal {
 
     this.configuration.avatar = true;
 
-    // Generated link pointing to the avatar locally in the browser
-    this.newAvatarLink = null;
-
-    // Previous avatar link
-    this.prevAvatarLink = null;
-
     // FormData object containing avatar
     this.formData = null;
 
@@ -32,13 +32,11 @@ class Avatar extends EditorModal {
 
     // Binding context
     this.cacheElements = this.cacheElements.bind(this);
+    this.setUpEventListeners = this.setUpEventListeners.bind(this);
     this.previewAvatar = this.previewAvatar.bind(this);
     this.submitAvatar = this.submitAvatar.bind(this);
     this.updateMarkup = this.updateMarkup.bind(this);
-    this.closeModal = this.closeModal.bind(this);
     this.generateFormData = this.generateFormData.bind(this);
-    this.setUpEventListeners = this.setUpEventListeners.bind(this);
-    this.clean = this.clean.bind(this);
 
     // Cache elements according to passed selectors
     this.cacheElements();
@@ -70,6 +68,38 @@ class Avatar extends EditorModal {
   }
 
   /**
+   * Function setup event listeners on the initialization stage of the object creation
+   */
+  setUpEventListeners() {
+    super.setUpEventListeners();
+    // Setup event handler for loading of the image data event
+    this.reader.onload = (e) => {
+      // Show avatar preview
+      this.$avatarPreview.attr("src", e.target.result);
+
+      this.newAvatarLink = e.target.result;
+    };
+
+    // Listen to changes on the input elements
+    this.$avatarInputs.change((event) => {
+      this.previewAvatar(event.target);
+    });
+
+    // Submit avatar
+    this.$avatarForm.submit((event) => {
+      event.preventDefault();
+
+      // If user didn't select avatar
+      if (!this.avatar) {
+        // Add popup here
+        alert("Please select avatar");
+        return;
+      }
+      this.submitAvatar();
+    });
+  }
+
+  /**
    * This function is called when the process of avatar preview is occuring.
    * It accepts the input field from which the avatar is being upload
    * The function starts loading the image
@@ -86,58 +116,38 @@ class Avatar extends EditorModal {
   }
 
   /**
-   * Function is called to prepare formData object to send the avatar to the server
-   */
-  generateFormData() {
-    // Create new formData object
-    this.formData = new FormData();
-    this.formData.set("avatar", this.avatar, this.avatar.name);
-  }
-
-  /**
    *
    */
-  submitAvatar() {
-    // If user didn't select new avatar
-    // Close the avatar editing modal
-    if (!this.avatar) {
-      alert("Please select avatar");
-      return;
-    }
-
-    // Generate formData object for the selected avatar
+  async submitAvatar() {
     this.generateFormData();
 
-    fetch(this.requests.saveAvatar.endpoint, {
-      method: this.requests.saveAvatar.method,
-      headers: this.requests.saveAvatar.headers,
-      body: this.formData,
-    })
-      .then((response) => {
-        if (response.ok) {
-          // Here we'll show some sort of popup
-          alert("Everything is fine!");
+    let response;
 
-          // Update the avatar status to not to discard changes
-          this.uploaded = true;
-
-          // Update markup
-          this.updateMarkup();
-
-          // Close modal
-          this.closeModal();
-
-          // Prepare avatar object for the futher uploads
-          this.clean();
-        } else {
-          // Here we'll show some sort of popup
-          alert("Something went wrong :(");
-        }
-      })
-      .catch((error) => {
-        // Here we'll show some sort of popup
-        alert("Error occured!");
+    try {
+      // Make server request to save avatar
+      response = await this.makeRequest({
+        headers: this.requests.saveAvatar.headers,
+        endpoint: this.requests.saveAvatar.endpoint,
+        method: this.requests.saveAvatar.method,
+        body: this.formData,
       });
+    } catch (error) {
+      // Add popup here
+      alert(error);
+    }
+
+    if (response.success) {
+      // Add popup here
+      alert(response.message);
+
+      this.uploaded = true;
+      this.updateMarkup();
+      this.closeModal();
+      this.clean();
+    } else {
+      // Add unsuccessful popup here
+      alert(response.message);
+    }
   }
 
   /**
@@ -171,31 +181,5 @@ class Avatar extends EditorModal {
    */
   discardChanges() {
     this.$avatarPreview.attr("src", this.prevAvatarLink);
-  }
-
-  /**
-   * Function setup event listeners on the initialization stage of the object creation
-   */
-  setUpEventListeners() {
-    super.setUpEventListeners();
-    // Setup event handler for loading of the image data event
-    this.reader.onload = (e) => {
-      // Show avatar preview
-      this.$avatarPreview.attr("src", e.target.result);
-
-      this.newAvatarLink = e.target.result;
-    };
-
-    // Listen to changes on the input elements
-    this.$avatarInputs.change((event) => {
-      this.previewAvatar(event.target);
-    });
-
-    // Submit avatar
-    this.$avatarForm.submit((event) => {
-      // Prevent form from normal submission
-      event.preventDefault();
-      this.submitAvatar();
-    });
   }
 }

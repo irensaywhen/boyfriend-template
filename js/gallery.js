@@ -46,9 +46,6 @@ class PhotoEditor extends EditorModal {
     // Photo in editor
     this.$modalPhotoElement = this.$modal.find("img");
 
-    // Photos triggering opening modal
-    this.$photos = $(this.selectors.photos);
-
     // Photos gallery
     this.$gallery = $(this.selectors.gallery);
   }
@@ -67,6 +64,7 @@ class PhotoEditor extends EditorModal {
       // Cache id
       let photoId = this.photo.dataset.id;
 
+      // Make empty object for photo information
       this.photoData[photoId] = {};
 
       // Save photo information
@@ -100,14 +98,22 @@ class PhotoEditor extends EditorModal {
       description: this.$description.val(),
     });
 
-    let response = await super.sendPhotoInformationToServer({
-      id: id,
-      privacy: this.photoData[id].privacy,
-      description: this.photoData[id].description,
-      headers: this.requests.savePhoto.headers,
-      endpoint: this.requests.savePhoto.endpoint,
-      method: this.requests.savePhoto.method,
-    });
+    let response;
+
+    try {
+      // Make server request to update photo information
+      response = await super.sendPhotoInformationToServer({
+        id: id,
+        privacy: this.photoData[id].privacy,
+        description: this.photoData[id].description,
+        headers: this.requests.savePhoto.headers,
+        endpoint: this.requests.savePhoto.endpoint,
+        method: this.requests.savePhoto.method,
+      });
+    } catch (error) {
+      // Add popup here
+      alert(error);
+    }
 
     if (response.success) {
       // Add popup here
@@ -115,9 +121,6 @@ class PhotoEditor extends EditorModal {
       // Delete photo container
       this.updateMarkup();
       this.closeModal();
-
-      // Instead of this line rn cleaning function which will be setup later
-      this.photoData = {};
     } else {
       // Add unsuccessful popup here
       alert(response.message);
@@ -159,5 +162,10 @@ class PhotoEditor extends EditorModal {
 
     // Set description
     this.$description.text(this.photoData[id].description);
+  }
+
+  clean() {
+    this.photo = null;
+    this.photoData = {};
   }
 }

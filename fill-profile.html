@@ -1265,12 +1265,10 @@
           selectors: {
             modal: "#edit-photo",
             form: "#photo-editor",
-            closeButton: ".close",
             deleteButton: ".delete",
             description: "#photo-description",
             "privacy-input": ".privacy-input",
             "privacy-label": ".privacy-label",
-            photos: ".gallery-photo",
             gallery: "#photos-container",
             container: ".gallery-slide",
           },
@@ -1298,7 +1296,6 @@
             description: ".new-photo-description",
             input: ".photo-input",
             "privacy-input": ".privacy-input",
-            "privacy-label": ".privacy-label",
             container: ".photo-container",
             previewContainer: "#photos-previews-container",
             gallery: "#photos-container",
@@ -1310,6 +1307,14 @@
               headers: {},
               endpoint:
                 "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/get-id",
+            },
+            savePhotos: {
+              method: "POST",
+              headers: {
+                "Content-Type": "form/multipart",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-photos",
             },
           },
         };

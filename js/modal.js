@@ -1,4 +1,5 @@
 class EditorModal extends ServerRequest {
+  formData = null;
   constructor(options) {
     super(options);
     // Making configuration object
@@ -15,12 +16,12 @@ class EditorModal extends ServerRequest {
     // Binding context
     this.cacheElements = this.cacheElements.bind(this);
     this.setUpEventListeners = this.setUpEventListeners.bind(this);
-    this.getFormInputs = this.getFormInputs.bind(this);
     this.savePhotoInformation = this.savePhotoInformation.bind(this);
-    this.setPhotoData = this.setPhotoData.bind(this);
+    this.generateFormData = this.generateFormData.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.deletePhoto = this.deletePhoto.bind(this);
     this.makeURLObjects = this.makeURLObjects.bind(this);
+    this.clean = this.clean.bind(this);
 
     // Save passed options
     this.endpoint = options.endpoint;
@@ -30,7 +31,6 @@ class EditorModal extends ServerRequest {
 
     // Transform endpoints into URL Objects
     // Fix it later
-    //this.makeURLObjects();
     this.makeURLObjects();
   }
   /**
@@ -72,21 +72,12 @@ class EditorModal extends ServerRequest {
     }
   }
 
-  getFormInputs() {
-    console.log(this.$privacyInput.is(":checked"));
-    let description = this.$description.val();
-    console.log(description);
-  }
-
-  setPhotoData() {}
-
-  generateFormData() {}
-
   /**
    * Function to close the modal
    */
   closeModal() {
     this.$closeButton.click();
+    this.clean();
   }
 
   /**
@@ -99,13 +90,20 @@ class EditorModal extends ServerRequest {
     event.preventDefault();
 
     if (this.configuration.editor) {
-      // Make server request to delete photo
-      let response = await super.deletePhotoOnServer({
-        id: photo.dataset.id,
-        headers: this.requests.deletePhoto.headers,
-        endpoint: this.requests.deletePhoto.endpoint,
-        method: this.requests.deletePhoto.method,
-      });
+      let response;
+
+      try {
+        // Make server request to delete photo
+        response = await super.deletePhotoOnServer({
+          id: photo.dataset.id,
+          headers: this.requests.deletePhoto.headers,
+          endpoint: this.requests.deletePhoto.endpoint,
+          method: this.requests.deletePhoto.method,
+        });
+      } catch (error) {
+        // Add popup here
+        alert(error);
+      }
 
       if (response.success) {
         // Add popup here
@@ -138,7 +136,7 @@ class EditorModal extends ServerRequest {
     file = null,
     src = null,
     privacy = false,
-    description = null,
+    description = "",
   }) {
     if (file) {
       this.photoData[id].file = file;
@@ -151,8 +149,24 @@ class EditorModal extends ServerRequest {
     } else {
       this.photoData[id].privacy = false;
     }
-    if (description) {
-      this.photoData[id].description = description;
+    this.photoData[id].description = description;
+  }
+
+  generateFormData() {
+    this.formData = new FormData();
+
+    if (this.configuration.uploader) {
+      for (let id in this.photoData) {
+        for (let property in this.photoData[id]) {
+          // Don't send src for previews
+          if (property === "src") continue;
+          this.formData.append(property + id, this.photoData[id][property]);
+        }
+      }
+    }
+
+    if (this.configuration.avatar) {
+      this.formData.set("avatar", this.avatar, this.avatar.name);
     }
   }
 }

@@ -7,11 +7,11 @@ class ServerRequest {
     this.deletePhotoOnServer = this.deletePhotoOnServer.bind(this);
   }
 
-  deletePhotoOnServer({ id, headers, endpoint, method }) {
+  makeRequest({ headers, endpoint, method, body }) {
     return fetch(endpoint, {
-      method: method,
-      headers: headers,
-      body: JSON.stringify({ id }),
+      method,
+      headers,
+      body,
     })
       .then((response) => {
         if (response.ok) {
@@ -30,7 +30,16 @@ class ServerRequest {
       });
   }
 
-  sendPhotoInformationToServer({
+  async deletePhotoOnServer({ id, headers, endpoint, method }) {
+    return await this.makeRequest({
+      headers,
+      endpoint,
+      method,
+      body: JSON.stringify({ id }),
+    });
+  }
+
+  async sendPhotoInformationToServer({
     id,
     privacy,
     description,
@@ -38,25 +47,11 @@ class ServerRequest {
     endpoint,
     method,
   }) {
-    return fetch(endpoint, {
-      method: method,
-      headers: headers,
+    return await this.makeRequest({
+      headers,
+      endpoint,
+      method,
       body: JSON.stringify({ id, privacy, description }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          // Add popup here
-          alert("Something went wrong");
-        }
-      })
-      .then((json) => {
-        return json;
-      })
-      .catch((error) => {
-        // Add popup here
-        alert("Error!");
-      });
+    });
   }
 }
