@@ -683,12 +683,7 @@
                     <!--Name-->
                     <div class="col-12 col-md-6">
                       <div class="form-group float-label">
-                        <input
-                          type="text"
-                          name="name"
-                          class="form-control"
-                          required
-                        />
+                        <input type="text" name="name" class="form-control" />
                         <label class="form-control-label">Name</label>
                       </div>
                     </div>
@@ -699,8 +694,7 @@
                         <input
                           type="text"
                           name="city"
-                          class="form-control"
-                          required
+                          class="form-control location"
                         />
                         <label class="form-control-label">City</label>
                       </div>
@@ -716,10 +710,10 @@
                             <div class="form-group float-label">
                               <input
                                 type="number"
+                                name="day"
                                 min="1"
                                 max="31"
                                 class="form-control"
-                                required
                               />
                               <label class="form-control-label">Day</label>
                             </div>
@@ -728,10 +722,10 @@
                             <div class="form-group float-label">
                               <input
                                 type="number"
+                                name="month"
                                 min="1"
                                 max="12"
                                 class="form-control"
-                                required
                               />
                               <label class="form-control-label">Month</label>
                             </div>
@@ -740,8 +734,8 @@
                             <div class="form-group float-label">
                               <input
                                 type="number"
+                                name="year"
                                 class="form-control"
-                                required
                               />
                               <label class="form-control-label">Year</label>
                             </div>
@@ -1222,9 +1216,11 @@
         // In caching elements we'll need to check whether
         // photos and description attribute is specified
 
-        const formOptions = {
+        const profileInformationForm = new Form({
           selectors: {
-            forms: ["#profile-information"],
+            form: "#profile-information",
+            locationInput: ".location",
+            inputs: ".form-control",
           },
           requests: {
             submit: {
@@ -1235,8 +1231,20 @@
               endpoint:
                 "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/submit-profile",
             },
+            location: {
+              method: "GET",
+              headers: {},
+              endpoint: "https://nominatim.openstreetmap.org/search",
+              searchParams: {
+                //country: "Poland",
+                format: "json",
+                addressdetails: "1",
+              },
+            },
           },
-        };
+          // Does this form contains location?
+          location: true,
+        });
 
         const avatar = new Avatar({
           selectors: {
