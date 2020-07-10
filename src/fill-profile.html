@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en" class="blue-theme">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="Maxartkiller" />
+
+    <title>Shop · GoFruit</title>
+
+    <!-- Material design icons CSS -->
+    <link rel="stylesheet" href="vendor/materializeicon/material-icons.css" />
+
+    <!-- Roboto fonts CSS -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--Fontawesome-->
+    <link rel="stylesheet" href="fontawesome/css/all.min.css" />
+
+    <!-- Bootstrap core CSS -->
+    <link
+      href="vendor/bootstrap-4.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Swiper CSS min-->
+    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body>
+    <!--Loader start-->
+    <div class="row no-gutters vh-100 loader-screen">
+      <div class="col align-self-center text-white text-center">
+        <img src="img/logo.png" alt="logo" />
+        <h1><span class="font-weight-light">Boy</span>friend</h1>
+        <div class="laoderhorizontal">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+    <!--Loader end-->
+
+    <!--Modals start-->
+
+    <!--Modal for uploading avatar start-->
+    <div
+      class="modal fade upload-avatar"
+      id="upload-avatar"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="uploadAvatarModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <form action="" id="avatar-editor">
+            <!--Modal header start-->
+            <div class="modal-header">
+              <h3 class="title">
+                Upload your avatar:
+              </h3>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <!--Modal header end-->
+            <!--Modal body start-->
+            <div class="modal-body">
+              <!--Current avatar and preview-->
+              <div class="text-center">
+                <div class="figure-profile shadow my-4">
+                  <figure>
+                    <img
+                      src="img/placeholder-avatar.png"
+                      id="avatar-preview"
+                      alt="Avatar Placeholder"
+                    />
+                  </figure>
+                </div>
+              </div>
+
+              <!--Avatar Upload-->
+              <ul class="pl-1">
+                <!--Avatar upload from the computer-->
+                <li class="position-relative">
+                  <label
+                    for="avatar-file-input"
+                    class="upload-photo-label text-center"
+                  >
+                    <img src="img/upload.svg" alt="Upload photo" />
+                  </label>
+                  <input
+                    type="file"
+                    id="avatar-file-input"
+                    name="avatar-file-input"
+                    class="invisible position-absolute avatar-input"
+                    accept="image/*"
+                  />
+                  <p class="d-inline-block pl-3">
+                    Upload your avatar from your computer
+                  </p>
+                </li>
+
+                <!--Capturing avatar from device-->
+                <li class="position-relative d-lg-none">
+                  <label
+                    for="make-avatar"
+                    class="upload-photo-label text-center"
+                  >
+                    <i class="fas fa-camera-retro"></i>
+                  </label>
+                  <input
+                    type="file"
+                    id="make-avatar"
+                    name="make-avatar"
+                    class="invisible position-absolute avatar-input"
+                    accept="image/*"
+                    capture
+                  />
+                  <p class="d-inline-block pl-3">
+                    Make photo from your camera
+                  </p>
+                </li>
+              </ul>
+
+              <!--Avatar requirements-->
+              <div class="avatar-requirements border-top">
+                <h4 class="section-title pt-3">
+                  Avatar requirements
+                </h4>
+                <ul class="pl-1">
+                  <li>Rozmiar: 500x500px</li>
+                  <li>Dostępne rozszerzenia</li>
+                  <li>Lorem ipsum</li>
+                </ul>
+              </div>
+            </div>
+            <!--Modal body end-->
+            <!--Modal footer start-->
+            <div class="modal-footer">
+              <div class="px-0 py-3 text-center w-100">
+                <button
+                  type="submit"
+                  class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
+                >
+                  <span>Submit</span><i class="material-icons">arrow_forward</i>
+                </button>
+              </div>
+            </div>
+            <!--Modal footer end-->
+          </form>
+        </div>
+      </div>
+    </div>
+    <!--Modal for uploading avatar end-->
+
+    <!--Modal for uploading photos start-->
+    <div
+      class="modal fade upload-avatar"
+      id="add-photos"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="addPhotosModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+          <form action="fill-profile.html" id="photo-uploader">
+            <!--Modal header start-->
+            <div class="modal-header">
+              <h3 class="title">
+                Upload your photos:
+              </h3>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <!--Modal header end-->
+            <!--Modal body start-->
+            <div class="modal-body">
+              <!--Photos preview start-->
+              <div class="container-fluid">
+                <div class="row" id="photos-previews-container"></div>
+              </div>
+              <!--Photos preview end-->
+              <!--Photo Upload-->
+              <ul class="pl-1">
+                <!--Upload photos from your device-->
+                <li class="position-relative">
+                  <label
+                    for="photos-file-input"
+                    class="upload-photo-label text-center"
+                  >
+                    <img src="img/upload.svg" alt="Upload photo" />
+                  </label>
+                  <input
+                    type="file"
+                    id="photos-file-input"
+                    name="photos-file-input"
+                    class="invisible position-absolute photo-input"
+                    accept="image/*"
+                    multiple
+                  />
+                  <p class="d-inline-block pl-3">
+                    Upload your photos from your device
+                  </p>
+                </li>
+                <!--Capture photo-->
+                <li class="position-relative d-lg-none">
+                  <label
+                    for="make-photo"
+                    class="upload-photo-label text-center"
+                  >
+                    <i class="fas fa-camera-retro"></i>
+                  </label>
+                  <input
+                    type="file"
+                    id="make-photo"
+                    name="make-photo"
+                    class="invisible position-absolute photo-input"
+                    accept="image/*"
+                    capture
+                    multiple
+                  />
+                  <p class="d-inline-block pl-3">
+                    Make photo from your camera
+                  </p>
+                </li>
+              </ul>
+
+              <!--Photo requirements-->
+              <div class="avatar-requirements border-top">
+                <h4 class="section-title pt-3">
+                  Photo requirements
+                </h4>
+                <ul class="pl-1">
+                  <li>Rozmiar: 500x500px</li>
+                  <li>Dostępne rozszerzenia</li>
+                  <li>Lorem ipsum</li>
+                </ul>
+              </div>
+            </div>
+            <!--Modal body end-->
+            <!--Modal footer start-->
+            <div class="modal-footer">
+              <div class="px-0 py-3 text-center w-100">
+                <button
+                  type="submit"
+                  class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
+                >
+                  <span>Submit</span><i class="material-icons">arrow_forward</i>
+                </button>
+              </div>
+            </div>
+            <!--Modal footer end-->
+          </form>
+        </div>
+      </div>
+    </div>
+    <!--Modal for uploading photos end-->
+
+    <!--Modal for editing photos start-->
+    <div
+      class="modal fade"
+      id="edit-photo"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="editPhotoModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <!--Modal header start-->
+          <div class="modal-header">
+            <h3 class="title">
+              Edit your photo information:
+            </h3>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!--Modal header end-->
+          <!--Modal body start-->
+          <div class="modal-body">
+            <form action="fill-profile.html" method="POST" id="photo-editor">
+              <div class="photo-description">
+                <figure class="text-center">
+                  <img src="img/photo1.jpg" alt="photo 1" />
+                  <div
+                    class="privacy bg-white rounded d-flex justify-content-between align-items-center px-1"
+                  >
+                    <h4 class="m-0">Privacy</h4>
+                    <div class="custom-control custom-switch">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input privacy-input"
+                        id="private-photo-1"
+                      />
+                      <label
+                        class="custom-control-label privacy-label"
+                        for="private-photo-1"
+                      ></label>
+                    </div>
+                  </div>
+                  <button
+                    class="delete bg-white rounded d-flex justify-content-between align-items-center px-1"
+                  >
+                    Delete
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </figure>
+                <label for="photo-description">Add photo description</label>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                </p>
+                <div class="form-group">
+                  <textarea
+                    class="form-control"
+                    id="photo-description"
+                    name="photo-description"
+                    rows="5"
+                    placeholder="Photo description"
+                  ></textarea>
+                  <div class="px-0 py-3 text-center">
+                    <button
+                      type="submit"
+                      class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
+                    >
+                      <span>Submit</span
+                      ><i class="material-icons">arrow_forward</i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!--Modal body end-->
+        </div>
+      </div>
+    </div>
+
+    <!--Modal for editing photos end-->
+
+    <!--Modals end-->
+
+    <!-- sidebar -->
+    <div class="sidebar">
+      <div class="text-center">
+        <div class="figure-menu shadow">
+          <figure>
+            <img src="img/photo1.jpg" class="avatar-image" alt="Avatar" />
+          </figure>
+        </div>
+        <h5 class="mb-1">Lukasz</h5>
+      </div>
+      <br />
+      <div class="row mx-0">
+        <div class="col">
+          <div class="card mb-3 border-0 shadow-sm bg-template-light">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <p class="text-secondary small mb-0">Premium until:</p>
+                  <h6 class="text-dark my-0"><time>22/09/2019</time></h6>
+                </div>
+                <div class="col-auto">
+                  <a class="btn btn-default button-rounded-36 shadow">
+                    <i class="material-icons">add</i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h5 class="subtitle text-uppercase"><span>Menu</span></h5>
+          <div class="list-group main-menu">
+            <a href="index.html" class="list-group-item list-group-item-action"
+              >View profiles</a
+            >
+            <a
+              href="notification.html"
+              class="list-group-item list-group-item-action"
+              >Messages <span class="badge badge-pink ml-2">15</span></a
+            >
+            <a
+              href="all-products.html"
+              class="list-group-item list-group-item-action"
+              >Favourites</a
+            >
+            <a
+              href="likes-you.html"
+              class="list-group-item list-group-item-action"
+              >Who likes you <span class="badge badge-pink ml-2">7</span></a
+            >
+            <a
+              href="visited-you.html"
+              class="list-group-item list-group-item-action"
+              >Who Visited you <span class="badge badge-pink ml-2">2</span></a
+            >
+            <a
+              href="setting.html"
+              class="list-group-item list-group-item-action mt-4"
+              >Settings</a
+            >
+            <a href="login.html" class="list-group-item list-group-item-action"
+              >Logout</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- sidebar ends -->
+
+    <div class="wrapper">
+      <!-- header -->
+      <div class="header">
+        <div class="container-fluid">
+          <div class="row no-gutters justify-content-between">
+            <!--Menu-->
+            <div class="col-4 d-flex">
+              <button class="btn btn-link text-dark menu-btn position-relative">
+                <img src="img/menu.png" alt="" /><span
+                  class="new-notification"
+                ></span>
+              </button>
+            </div>
+            <!--Logo-->
+            <div class="col-4 text-center">
+              <img
+                src="img/logo.png"
+                alt=""
+                class="header-logo d-none d-md-inline-block"
+              />
+            </div>
+            <!--Icons-->
+            <div class="col-4">
+              <div class="d-flex justify-content-end align-items-center">
+                <a href="#" class="btn boost"
+                  ><img src="img/boost.svg" alt="Boost"
+                /></a>
+                <a href="#" class="btn btn-default text-white premium mr-3"
+                  >Premium</a
+                >
+                <a href="profile.html" class="btn blue-link text-white account"
+                  ><i class="material-icons">account_circle</i></a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- header ends -->
+
+      <div class="container py-5">
+        <!--Profile photo upload start-->
+        <div class="text-center pt-5">
+          <div class="figure-profile shadow my-4">
+            <figure>
+              <img
+                src="img/placeholder-avatar.png"
+                class="avatar-image"
+                alt="Avatar"
+              />
+            </figure>
+            <div
+              class="btn btn-dark text-white floating-btn"
+              data-toggle="modal"
+              data-target="#upload-avatar"
+            >
+              <i class="material-icons">camera_alt</i>
+            </div>
+          </div>
+        </div>
+        <!--Profile photo upload end-->
+
+        <!--Profile info start-->
+        <div>
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a
+                class="nav-link active px-5"
+                id="profile-tab"
+                data-toggle="tab"
+                href="#profile"
+                role="tab"
+                aria-controls="profile"
+                aria-selected="true"
+                >Profile</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link px-5"
+                id="notifications-tab"
+                data-toggle="tab"
+                href="#notifications"
+                role="tab"
+                aria-controls="notifications"
+                aria-selected="false"
+                >Notifications</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link px-5"
+                id="account-tab"
+                data-toggle="tab"
+                href="#account"
+                role="tab"
+                aria-controls="account"
+                aria-selected="false"
+                >Account</a
+              >
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <!--Profile tab start-->
+            <div
+              class="tab-pane fade show active profile"
+              id="profile"
+              role="tabpanel"
+              aria-labelledby="profile-tab"
+            >
+              <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                    <h2 class="tab-title pt-4 pb-2">
+                      In quae ab nesciunt velit veniam.
+                    </h2>
+                    <p class="tab-description pb-2">
+                      Lorem ipsum dolor.
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-md-8">
+                    <div
+                      data-pagination='{"el": ".swiper-pagination", "clickable": true}'
+                      data-navigation='{"nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev"}'
+                      data-space-between="0"
+                      class="swiper-container swiper-profile-photos"
+                    >
+                      <div class="swiper-pagination"></div>
+                      <div class="swiper-wrapper" id="photos-container">
+                        <!--
+                          Information about the photo is passed from the database.
+                          data-id, data-description, and data-privacy are for modal and 
+                          ajax requests
+                        -->
+                        <div class="swiper-slide gallery-slide">
+                          <img
+                            src="./img/photo1.jpg"
+                            class="gallery-photo"
+                            data-toggle="modal"
+                            data-target="#edit-photo"
+                            data-id="1"
+                            data-description="Lorem ipsum"
+                            data-privacy="true"
+                            alt="photo 1"
+                          />
+                        </div>
+                        <div class="swiper-slide gallery-slide">
+                          <img
+                            src="./img/photo2.jpg"
+                            class="gallery-photo"
+                            data-toggle="modal"
+                            data-target="#edit-photo"
+                            data-id="2"
+                            data-description="Lorem ipsum dolor sit amet"
+                            data-privacy="false"
+                            alt="photo 2"
+                          />
+                        </div>
+                        <div class="swiper-slide gallery-slide">
+                          <img
+                            src="./img/photo1.jpg"
+                            class="gallery-photo"
+                            data-toggle="modal"
+                            data-target="#edit-photo"
+                            data-id="3"
+                            data-description="This is another photo description"
+                            data-privacy="false"
+                            alt="photo 1"
+                          />
+                        </div>
+                        <div class="swiper-slide gallery-slide">
+                          <img
+                            src="./img/photo2.jpg"
+                            class="gallery-photo"
+                            data-toggle="modal"
+                            data-target="#edit-photo"
+                            data-id="4"
+                            data-description=""
+                            data-privacy="true"
+                            alt="photo 2"
+                          />
+                        </div>
+                        <div class="swiper-slide gallery-slide">
+                          <img
+                            src="./img/photo1.jpg"
+                            class="gallery-photo"
+                            data-toggle="modal"
+                            data-target="#edit-photo"
+                            data-id="5"
+                            data-description=""
+                            data-privacy="false"
+                            alt="photo 1"
+                          />
+                        </div>
+                        <div class="swiper-slide gallery-slide">
+                          <img
+                            src="./img/photo2.jpg"
+                            class="gallery-photo"
+                            data-toggle="modal"
+                            data-target="#edit-photo"
+                            data-id="4"
+                            data-description="Description"
+                            data-privacy="true"
+                            alt="photo 2"
+                          />
+                        </div>
+                      </div>
+                      <div class="swiper-button-prev swiper-button-white"></div>
+                      <div class="swiper-button-next swiper-button-white"></div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4 pl-0">
+                    <div
+                      class="upload w-100 h-100 d-flex justify-content-center align-items-center"
+                      data-toggle="modal"
+                      data-target="#add-photos"
+                    >
+                      <img src="./img/addphoto.svg" alt="Upload photo" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!--Profile form start-->
+              <form
+                id="profile-information"
+                method="POST"
+                action="fill-profile.html"
+              >
+                <div class="container pb-4">
+                  <div class="row">
+                    <div class="col-12">
+                      <h3 class="section-title text-dark pt-3">
+                        Your Information
+                      </h3>
+                    </div>
+
+                    <!--Name-->
+                    <div class="col-12 col-md-6">
+                      <div class="form-group float-label">
+                        <input
+                          type="text"
+                          name="name"
+                          class="form-control"
+                          required
+                        />
+                        <label class="form-control-label">Name</label>
+                      </div>
+                    </div>
+
+                    <!--City-->
+                    <div class="col-12 col-md-6">
+                      <div class="form-group float-label">
+                        <input
+                          type="text"
+                          name="city"
+                          class="form-control"
+                          required
+                        />
+                        <label class="form-control-label">City</label>
+                      </div>
+                    </div>
+                    <!--Date-->
+                    <div class="col-12 col-md-6 date">
+                      <h4 class="section-subtitle">
+                        Date of birth
+                      </h4>
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-4 pl-0">
+                            <div class="form-group float-label">
+                              <input
+                                type="number"
+                                min="1"
+                                max="31"
+                                class="form-control"
+                                required
+                              />
+                              <label class="form-control-label">Day</label>
+                            </div>
+                          </div>
+                          <div class="col-4">
+                            <div class="form-group float-label">
+                              <input
+                                type="number"
+                                min="1"
+                                max="12"
+                                class="form-control"
+                                required
+                              />
+                              <label class="form-control-label">Month</label>
+                            </div>
+                          </div>
+                          <div class="col-4">
+                            <div class="form-group float-label">
+                              <input
+                                type="number"
+                                class="form-control"
+                                required
+                              />
+                              <label class="form-control-label">Year</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--Preference-->
+                    <div class="col-12 col-md-6 preference">
+                      <div class="form-group">
+                        <label for="preference" class="section-subtitle"
+                          >Preference</label
+                        >
+                        <select
+                          class="form-control"
+                          id="preference"
+                          name="preference"
+                        >
+                          <option value="" disabled selected hidden
+                            >Choose you preference</option
+                          >
+                          <option value="active">Active</option>
+                          <option value="passive">Passive</option>
+                          <option value="both">Both</option>
+                          <option value="secret">Won't tell</option>
+                        </select>
+                      </div>
+                    </div>
+                    <!--Textarea-->
+                    <div class="col-12 about">
+                      <div class="form-group">
+                        <label for="about" class="section-subtitle"
+                          >Write about yourself:</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="about"
+                          name="about"
+                          rows="5"
+                          placeholder="Your information"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div class="col-12 px-0 text-center text-lg-right">
+                      <button
+                        type="submit"
+                        class="btn btn-lg btn-default text-white btn-rounded shadow mr-lg-3"
+                      >
+                        <span>Submit</span
+                        ><i class="material-icons">arrow_forward</i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <!--Profile form end-->
+            </div>
+            <!--Profile tab end-->
+
+            <!--Notifications tab start-->
+            <div
+              class="tab-pane fade"
+              id="notifications"
+              role="tabpanel"
+              aria-labelledby="notifications-tab"
+            >
+              <!--Notification form start-->
+              <form
+                id="profile-notifications"
+                method="POST"
+                action="fill-profile.html"
+              >
+                <div class="container pb-4">
+                  <div class="row mt-3">
+                    <div class="col-12 px-0">
+                      <ul class="list-group list-group-flush mb-4">
+                        <li class="list-group-item">
+                          <div class="row">
+                            <div class="col">
+                              <h6 class="text-dark mb-1">Email Notification</h6>
+                              <p class="text-secondary mb-0 small">
+                                Default all notification will be sent
+                              </p>
+                            </div>
+                            <div
+                              class="col-2 pl-0 align-self-center text-right"
+                            >
+                              <div class="custom-control custom-switch">
+                                <input
+                                  type="checkbox"
+                                  class="custom-control-input"
+                                  id="email-notifications"
+                                  checked
+                                />
+                                <label
+                                  class="custom-control-label"
+                                  for="email-notifications"
+                                ></label>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item">
+                          <div class="row">
+                            <div class="col">
+                              <h6 class="text-dark mb-1">SMS Notification</h6>
+                              <p class="text-secondary mb-0 small">
+                                Receive SMS notification
+                              </p>
+                            </div>
+                            <div
+                              class="col-2 pl-0 align-self-center text-right"
+                            >
+                              <div class="custom-control custom-switch">
+                                <input
+                                  type="checkbox"
+                                  class="custom-control-input"
+                                  id="sms-notifications"
+                                  checked
+                                />
+                                <label
+                                  class="custom-control-label"
+                                  for="sms-notifications"
+                                ></label>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item">
+                          <div class="row">
+                            <div class="col">
+                              <h6 class="text-dark mb-1">
+                                Profile Avaialability
+                              </h6>
+                              <p class="text-secondary mb-0 small">
+                                Everyone can see my profile in search
+                              </p>
+                            </div>
+                            <div
+                              class="col-2 pl-0 align-self-center text-right"
+                            >
+                              <div class="custom-control custom-switch">
+                                <input
+                                  type="checkbox"
+                                  class="custom-control-input"
+                                  id="profile-avaialability"
+                                />
+                                <label
+                                  class="custom-control-label"
+                                  for="profile-avaialability"
+                                ></label>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item">
+                          <div class="row">
+                            <div class="col">
+                              <h6 class="text-dark mb-1">Sent Request</h6>
+                              <p class="text-secondary mb-0 small">
+                                Everyone can sent me a request
+                              </p>
+                            </div>
+                            <div
+                              class="col-2 pl-0 align-self-center text-right"
+                            >
+                              <div class="custom-control custom-switch">
+                                <input
+                                  type="checkbox"
+                                  class="custom-control-input"
+                                  id="send-request"
+                                />
+                                <label
+                                  class="custom-control-label"
+                                  for="send-request"
+                                ></label>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-12 px-0 text-center text-lg-right">
+                      <button
+                        type="submit"
+                        class="btn btn-lg btn-default text-white btn-rounded shadow mr-lg-3"
+                      >
+                        <span>Submit</span
+                        ><i class="material-icons">arrow_forward</i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <!--Notification form end-->
+            </div>
+            <!--Notifications tab end-->
+
+            <!--Account tab-->
+            <div
+              class="tab-pane fade account"
+              id="account"
+              role="tabpanel"
+              aria-labelledby="account-tab"
+            >
+              <!--Change password form start-->
+              <form
+                id="change-password"
+                method="POST"
+                action="fill-profile.html"
+              >
+                <div class="container">
+                  <div class="row">
+                    <div class="col-12">
+                      <h3 class="section-title text-dark pt-3">
+                        Change Password
+                      </h3>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="form-group float-label">
+                        <input type="password" class="form-control" required />
+                        <label class="form-control-label">New Password</label>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="form-group float-label">
+                        <input type="password" class="form-control" required />
+                        <label class="form-control-label"
+                          >Repeat Password</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-12 px-0 text-center text-md-right">
+                      <button
+                        type="submit"
+                        class="btn btn-lg btn-default text-white btn-rounded shadow mr-md-3"
+                      >
+                        <span>Submit</span
+                        ><i class="material-icons">arrow_forward</i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <!--Change password form end-->
+
+              <!--Account info start-->
+              <div class="container">
+                <div class="row"></div>
+                <div class="row">
+                  <div class="col-12 col-md-5">
+                    <h3 class="section-title text-dark pt-3">
+                      Premium Status
+                    </h3>
+
+                    <!--Activated premium status-->
+                    <div
+                      class="d-flex flex-column align-items-center premium py-2 mx-auto"
+                    >
+                      <span class="badge badge-success mb-1 active"
+                        >Active</span
+                      >
+                      <time class="text-muted small">until 12/12/2020</time>
+                    </div>
+
+                    <br />
+                    <!--Disactivated premium status-->
+                    <div
+                      class="d-flex flex-column align-items-center premium py-2 mx-auto"
+                    >
+                      <span class="badge badge-light mb-1"
+                        >Premium is not activated</span
+                      >
+                      <a
+                        href="#"
+                        class="btn btn-default text-white btn-rounded shadow my-1 py-2 px-3"
+                        >Buy premium</a
+                      >
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-7">
+                    <h3 class="section-title text-dark pt-3">
+                      Extras
+                    </h3>
+                    <div class="d-flex flex-wrap py-2">
+                      <div class="extra">
+                        <img src="img/boost.svg" alt="boost" />
+                        <span class="amount text-center bg-success">x2</span>
+                      </div>
+                      <div class="extra">
+                        <img src="img/premium.svg" alt="premium" />
+                        <span class="amount text-center bg-success">x2</span>
+                      </div>
+                      <div class="extra">
+                        <img src="img/superlike.svg" alt="superlike" />
+                        <span class="amount text-center bg-orange">x0</span>
+                      </div>
+                      <div class="extra">
+                        <img src="img/camera.svg" alt="camera" />
+                        <span class="amount text-center bg-success">x2</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--Account info end-->
+
+              <!--Table start-->
+              <div class="container">
+                <h3 class="section-title text-dark pt-3 pb-1">
+                  Previous Purchases
+                </h3>
+                <table class="account-table w-100 text-center mt-2 mb-1">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Price</th>
+                      <th>Date</th>
+                      <th>Invoice</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Premium Account</td>
+                      <td>12.99 zł</td>
+                      <td>12/20/2020</td>
+                      <td>
+                        <a href="#" class="blue-link">Preview</a> &nbsp; |
+                        &nbsp;
+                        <a href="#" class="blue-link">Change</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Premium Account</td>
+                      <td>12.99 zł</td>
+                      <td>12/20/2020</td>
+                      <td>
+                        <a href="#" class="blue-link">Preview</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Premium Account</td>
+                      <td>12.99 zł</td>
+                      <td>12/20/2020</td>
+                      <td>
+                        <a href="#" class="blue-link">Preview</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Premium Account</td>
+                      <td>12.99 zł</td>
+                      <td>12/20/2020</td>
+                      <td>
+                        <a href="#" class="blue-link">Preview</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!--Table end-->
+
+              <!--Delete account start-->
+              <div class="container text-center text-md-left">
+                <a href="#" class="small text-muted">Delete my account</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Profile info end-->
+      </div>
+
+      <!-- footer -->
+      <footer class="footer">
+        <div class="no-gutters">
+          <div class="col-auto mx-auto">
+            <div class="row no-gutters justify-content-center">
+              <div class="col-auto">
+                <a href="index.html" class="btn btn-link-default active icon">
+                  <i class="fas fa-home"></i>
+                </a>
+              </div>
+              <div class="col-auto">
+                <a href="statistics.html" class="btn btn-link-default icon">
+                  <i class="far fa-eye"></i>
+                </a>
+              </div>
+              <div class="col-auto">
+                <a
+                  href="cart.html"
+                  class="btn btn-default shadow centerbutton d-flex justify-content-center align-items-center position-relative"
+                >
+                  <i class="far fa-envelope icon"></i>
+                  <span class="badge-circle badge-primary mb-1">3</span>
+                </a>
+              </div>
+              <div class="col-auto">
+                <a href="favorite-products.html" class="btn btn-link-default">
+                  <i class="material-icons">favorite</i>
+                </a>
+              </div>
+              <div class="col-auto">
+                <a href="profile.html" class="btn btn-link-default">
+                  <i class="material-icons">account_circle</i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- footer ends -->
+
+      <!-- notification -->
+      <div class="notification bg-white shadow border-primary">
+        <div class="row">
+          <div class="col-auto align-self-center pr-0">
+            <i class="material-icons text-primary md-36">fullscreen</i>
+          </div>
+          <div class="col">
+            <h6>Viewing in Phone?</h6>
+            <p class="mb-0 text-secondary">
+              Double tap to enter into fullscreen mode for each page.
+            </p>
+          </div>
+          <div class="col-auto align-self-center pl-0">
+            <button class="btn btn-link closenotification">
+              <i class="material-icons text-secondary text-mute md-18">close</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- notification ends -->
+    </div>
+
+    <!-- jquery, popper and bootstrap js -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+
+    <!-- swiper js -->
+    <script src="vendor/swiper/js/swiper.min.js"></script>
+
+    <!-- template custom js -->
+    <script src="js/main.bundle.js"></script>
+    <script src="js/main-authorized.bundle.js"></script>
+
+    <!-- page level script -->
+    <script>
+      $(window).on("load", function () {
+        // Swiper initialization
+        const swiper = new Swiper(".swiper-container", {
+          slidesPerView: 2,
+          observer: true,
+          spaceBetween: 5,
+          keyboard: {
+            enabled: true,
+          },
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+        });
+
+        /* notification view and hide */
+        setTimeout(function () {
+          $(".notification").addClass("active");
+          setTimeout(function () {
+            $(".notification").removeClass("active");
+          }, 3500);
+        }, 500);
+        $(".closenotification").on("click", function () {
+          $(this).closest(".notification").removeClass("active");
+        });
+
+        // Avatar options
+
+        const avatarOptions = {
+          selectors: {
+            elementSelector: ".avatar-image",
+            modal: "#upload-avatar",
+            input: ".avatar-input",
+            preview: "#avatar-preview",
+            form: "#avatar-editor",
+          },
+          requests: {
+            saveAvatar: {
+              method: "POST",
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar",
+            },
+          },
+        };
+
+        // In caching elements we'll need to check whether
+        // photos and description attribute is specified
+        const photoEditorOptions = {
+          selectors: {
+            modal: "#edit-photo",
+            form: "#photo-editor",
+            deleteButton: ".delete",
+            description: "#photo-description",
+            "privacy-input": ".privacy-input",
+            "privacy-label": ".privacy-label",
+            gallery: "#photos-container",
+            container: ".gallery-slide",
+          },
+          requests: {
+            savePhoto: {
+              method: "POST",
+              headers: { "Content-Type": "application/json;charset=utf-8" },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-changes",
+            },
+            deletePhoto: {
+              method: "POST",
+              headers: { "Content-Type": "application/json;charset=utf-8" },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/delete-photo",
+            },
+          },
+        };
+
+        // Uploader options
+        const photoUploaderOptions = {
+          selectors: {
+            modal: "#add-photos",
+            form: "#photo-uploader",
+            description: ".new-photo-description",
+            input: ".photo-input",
+            "privacy-input": ".privacy-input",
+            container: ".photo-container",
+            previewContainer: "#photos-previews-container",
+            gallery: "#photos-container",
+            photos: ".gallery-photo",
+          },
+          requests: {
+            getIds: {
+              method: "GET",
+              headers: {},
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/get-id",
+            },
+            savePhotos: {
+              method: "POST",
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-photos",
+            },
+          },
+        };
+
+        const formOptions = {
+          selectors: {
+            forms: ["#profile-information"],
+          },
+          requests: {
+            submit: {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/submit-profile",
+            },
+          },
+        };
+
+        const avatar = new Avatar(avatarOptions);
+
+        const photoEditor = new PhotoEditor(photoEditorOptions);
+
+        const photoUploader = new PhotoUploader(photoUploaderOptions);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1338 @@
+<!doctype html>
+<html lang="en" class="pink-theme">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="Maxartkiller">
+
+    <title>Profile · GoFruit</title>
+
+    <!-- Material design icons CSS -->
+    <link rel="stylesheet" href="vendor/materializeicon/material-icons.css">
+
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Roboto fonts CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap-4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">
+
+    <!-- Chosen multiselect CSS -->
+    <link href="vendor/chosen_v1.8.7/chosen.min.css" rel="stylesheet">
+
+    <!-- Alerts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+</head>
+
+<body>
+
+        <div class="sidebar bg-lg">
+                <div class="text-center">
+                    <a href="./profile-edit.html">
+                    <div class="figure-menu shadow">
+                        <figure>
+                            <img src="./img/photo1.jpg" alt="">
+                        </figure>
+                    </div>
+                    <h5 class="mb-1 ">Tomek</h5>
+                </a>
+                </div>
+                <br>
+                <div class="row mx-0">
+                    <div class="col">
+                        <div class="card w-100 m-0 border-0 shadow-sm">
+                            <div class="card-body">
+        
+        
+        
+                                <h6 class="text-dark">Premium
+                                    <span class="badge badge-success">Aktywne</span>
+                                </h6>
+        
+        
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="small text-secondary">subskrypcja do:
+                                        <br>
+                                        <span class="text-dark font-weight-bold">12/12/2020</span>
+                                    </h6>
+                                    <a href="pricing.html"><button class="btn btn-default button-rounded-36 shadow">
+                                        <i class="material-icons">add</i>
+                                    </button>
+                                    </a>
+                                </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="list-group main-menu p-md-3 p-2">
+                            <a href="userlist.html" class="list-group-item list-group-item-action active">Przeglądaj profile</a>
+                            </a>
+                            <a href="chat.html" class="list-group-item list-group-item-action">Wiadomości
+                                <span class="badge badge-success ml-2">2</span>
+                            </a>
+                            <a href="likes.html" class="list-group-item list-group-item-action">Ulubieni</a>
+                            <a href="likes.html" class="list-group-item list-group-item-action">Kto cie lubi
+                                <span class="badge badge-success ml-2">2</span>
+                            </a>
+                            <a href="viewers.html" class="list-group-item list-group-item-action">Odwiedzający
+                                <span class="badge badge-success ml-2">2</span>
+                            </a>
+                            <a href="profile-edir.html" class="list-group-item list-group-item-action mt-3">Ustawienia</a>
+                            <a href="login.html" class="list-group-item list-group-item-action mt-4">Wyloguj</a>
+                        </div>
+                </div>
+            </div>
+    <div class="wrapper bg-lg">
+        <div class="row no-gutters vh-100 loader-screen d-none">
+            <div class="col align-self-center text-white text-center">
+                <img src="img/logo.png" alt="logo">
+                <h1>
+                    <span class="font-weight-light">Randki</h1>
+                <div class="laoderhorizontal">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <header class="header pb-3">
+            <button class="menu-btn bg-transparent d-flex ml-md-3 pt-md-3">
+                <img src="img/menu.png" alt="menu" >
+                <span class="ml-2 new-notification"></span>
+            </button>
+            <div class="container">
+
+                <div class="row d-flex align-items-center header__wrap">
+                        <div class="col-md-4 col-8 header__logo">
+                                <a href="./index.html">
+                                    <img src="./img/logo.png" alt="logo">
+                                </a>
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-end align-items-center mt-2 header__buttons">
+                                    <div class="header__boost clickable pointer"><img src="./img/boost.svg" alt="boost" class="icon50 p-2"></div>
+                                    <a href="pricing.html" class="primaryButton primaryButton--main mx-3 header__button">Premium</a>
+                            </div>
+
+                </div>
+            </div>
+        </header>
+    
+        <div class="editProfile container pt-5 pb-0 px-0">
+            <div id="loader" class="row no-gutters vh-100 loader-screen d-none">
+                <div class="col align-self-center text-white text-center">
+                    <img src="img/logo.png" alt="logo" class="loader__logo">
+                    <h1>
+                        <span class="font-weight-light">Randki</h1>
+                    <div class="laoderhorizontal">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade profilePhoto" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-backdrop custom-backdrop d-block op50">
+                    <div class="modal-dialog modal-dialog-scrollable col-md-6 offset-md-3 col-lg-4 offset-lg-4 mt-4 pb-3" role="document">
+                        <form class="modal-content" id="profilePhotoUpload">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Zmień zdjęcie profilowe</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-center">
+
+                                <h5 class="p-2">Obecne zdjęcie:</h6>
+                                    <div class="figure-profile m-auto shadow-sm w-250">
+
+                                        <figure class="d-flex justify-content-center">
+                                            <img src="./img/profile.jpg" alt="profile photo" id="profilePreview" class="profilePreview">
+                                        </figure>
+
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="text-center floating-btn d-sm-none d-flex flex-column my-4 col-md-6">
+                                            <div class="position-relative">
+                                                <figure class="profilePhoto__icon p-5 mx-auto my-2">
+                                                    <img src="./img/camera.svg" class="w-100">
+                                                </figure>
+
+                                                <input type="file" id="photoCamera" class="float-file pointer" capture="camera">
+                                                <h6 class="mt-2">Dodaj zdjęcie z Aparatu</h5>
+                                </div>
+                                </div>
+                                <div class="text-center floating-btn d-flex flex-column my-4 col-12">
+                                    <div class="position-relative">
+                                        <figure class="profilePhoto__icon p-5 mx-auto my-2">
+                                            <img src="./img/upload.svg" class="w-100">
+                                        </figure>
+
+                                        <input type="file" id="photoFile" class="float-file pointer">
+                                        <h6 class="mt-2">Dodaj zdjęcie z Pliku</h5>
+                                    </div>
+                                </div>
+
+
+                                </div>
+                                <hr class="mt-0">
+                                <ul class="text-left">
+                                    <h6 class="text-dark">Wytyczne zdjęcia profilowego</h6>
+                                    <h6 class="text-secondary small">Rozmiar: 500x500px</h6>
+                                    <h6 class="text-secondary small">Dostępne rozszerzenia</h6>
+                                    <h6 class="text-secondary small">Lorem ipsum</h6>
+                                </ul>
+
+                            </div>
+                            <div class="modal-footer text-center">
+
+                                <input type="submit" class="primaryButton primaryButton--pink border-0 w-100">
+                            </div>
+                        </form> multiple
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade profilePhoto" id="exampleModal2" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-backdrop custom-backdrop d-block op50">
+                    <div class="modal-dialog modal-dialog-scrollable col-xl-6 col-md-9 offset-md-3 mt-4 pb-3" role="document">
+                        <form class="modal-content" id="photosUpload">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Dodaj więcej zdjęć</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeAddPhotos">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <div class="row" id="photoPreviews">
+                                    <!--<div class="col-lg-4 col-sm-6 col-12 d-flex justify-content-center">
+                                            <figure class="addPhotoPreview justify-content-center d-flex">
+                                                <img src="./img/photo1.jpg" alt="">
+                                            </figure>
+                                        </div> -->
+
+                                </div>
+
+
+                                <div class="row mt-3">
+                                    <div class="text-center floating-btn d-flex d-flex d-sm-none flex-column my-4 col-12">
+                                        <div class="position-relative">
+                                            <figure class="profilePhoto__icon p-5 mx-auto my-2">
+                                                <img src="./img/camera.svg" class="w-100">
+                                            </figure>
+
+                                            <input type="file" id="photoCamera2" class="float-file pointer" capture="camera">
+                                            <h6 class="mt-2">Dodaj zdjęcie z Aparatu</h5>
+                                        </div>
+                                    </div>
+                                    <div class="text-center floating-btn d-flex flex-column my-4 col-12">
+                                        <div class="position-relative">
+                                            <figure class="profilePhoto__icon p-5 mx-auto my-2">
+                                                <img src="./img/upload.svg" class="w-100">
+                                            </figure>
+
+                                            <input type="file" id="photoFile2" class="float-file pointer" multiple>
+                                            <h6 class="mt-2">Dodaj zdjęcia z Pliku</h5>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <hr class="mt-0">
+                                <ul class="text-left">
+                                    <h6 class="text-dark">Wytyczne zdjęć</h6>
+                                    <h6 class="text-secondary small">Rozmiar: 500x500px</h6>
+                                    <h6 class="text-secondary small">Dostępne rozszerzenia</h6>
+                                    <h6 class="text-secondary small">Lorem ipsum</h6>
+                                </ul>
+
+                            </div>
+                            <div class="modal-footer text-center">
+
+                                <input type="submit" class="primaryButton primaryButton--pink border-0 w-100">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade profilePhoto" id="fullPhoto" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-backdrop custom-backdrop d-block op50">
+                    <div class="modal-dialog modal-dialog-scrollable col-md-4 offset-md-4 mt-4 pb-3" role="document">
+                        <form class="modal-content" id="photoEdit">
+                            <div class="modal-header">
+                                <h5>Edytuj zdjęcie:</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeFullPhoto">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <img src="" alt="" class="w-100" data-id="" id="fullPhotoIMG">
+
+                                <div class="badge ml-2 mt-4 badge-light d-flex position-absolute align-items-center photoEdit__private shadow-sm pointer">
+                                    <label for="privateSwitch" class="m-0 pointer" data-target="#changePrivacy">Prywatne</label>
+                                    <div class="custom-control ml-2 custom-switch">
+
+
+                                        <input type="checkbox" class="custom-control-input privateInput" id="privateSwitch" data-photoId="" data-toggle="modal" data-target="#changePrivacy">
+                                        <label class="custom-control-label pointer" for="privateSwitch"></label>
+
+                                    </div>
+
+                                </div>
+                                <div class="badge mr-4 mt-4 p-2 d-flex badge-light position-absolute align-items-center photoEdit__delete shadow-sm pointer"
+                                    data-photoId="" data-toggle="modal" data-target="#deletePhoto">
+                                    Usuń
+                                    <i class="fa fa-trash h6 my-0 mx-2" aria-hidden="true"></i>
+                                </div>
+                                
+                                    <div class="text-left">
+                                        <hr>
+                                        <h5 class="pt-2 mt-3">Opis</h6>
+                                            <h6 class="pb-2 small text-secondary">Edytuj swój opis i zatwierdź w celu zapisania</h6>
+                                            <textarea class="form-control bgwhite" id="newPhotoDescInput"></textarea>
+                                    </div>
+                                    <div class="text-right my-2 text-center">
+                                        <button type="submit" id="newPhotoDesc" class="primaryButton primaryButton--pink border-0 w-100" value="zmień opis">Zmień opis</button>
+                                    </div>
+                                
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade profilePhoto" id="changePrivacy" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-backdrop custom-backdrop d-block op50">
+                    <div class="modal-dialog modal-dialog-scrollable col-md-3 offset-md-4 mt-5 pb-3" role="document">
+                        <form class="modal-content">
+                            <div class="modal-header">
+                                Czy chcesz zmienić ustawienia prywatności?
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-center ">
+                                <h6 class="small">Twoje zdjęcie będzie widoczne dla wszystkich użytkowników</h6>
+                                <button id="changePrivacyButton" class="primaryButton primaryButton--pink signUpButton mb-0 border-0 mt-3" data-toggle="modal"
+                                    data-target="#changePrivacy">Potwierdź</button>
+
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade profilePhoto" id="deletePhoto" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-backdrop custom-backdrop d-block op50">
+                    <div class="modal-dialog modal-dialog-scrollable col-md-3 offset-md-4 mt-5 pb-3" role="document">
+                        <form class="modal-content">
+                            <div class="modal-header">
+                                Czy chcesz usunąć zdjęcie?
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-center ">
+                                <h6 class="small">Twoje zdjęcie zostanie usunięte</h6>
+                                <btn id="deletePhotoButton" class="primaryButton primaryButton--pink signUpButton mb-0 border-0 mt-3" data-toggle="modal"
+                                    data-target="#deletePhoto">Potwierdź</btn>
+
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-5">
+
+                <div class="figure-profile m-auto shadow-sm">
+
+                    <figure class="d-flex justify-content-center">
+                        <img src="./img/profile.jpg" alt="" class="profilePreview">
+                    </figure>
+                    <div class="btn btn-dark text-white floating-btn">
+                        <i class="material-icons">camera_alt</i>
+                        <input type="button" class="float-file" data-toggle="modal" data-target="#exampleModal">
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        <div class="container px-0 pb-5">
+            <div class="card w-100 shadow-sm border-0 mb-3 mx-0 wizard">
+                <div class="card-header p-0">
+                    <ul class="nav nav-tabs tabs-md nav-justified" role="tablist">
+                        <li role="presentation" class="nav-item">
+                            <a href="#step13" class="justify-content-center nav-link d-flex flex-column h-100 p-md-3 p-1 border-primary active" data-toggle="tab" aria-controls="step13" role="tab" title="Step 1">Podstawowe informacje</a>
+                        </li>
+                        <li role="presentation" class="nav-item">
+                            <a href="#step23" class="justify-content-center nav-link d-flex flex-column h-100 p-md-3 p-1 border-primary" data-toggle="tab" aria-controls="step23" role="tab" title="Step 2">Powiadomienia</a>
+                        </li>
+                        <li role="presentation" class="nav-item">
+                            <a href="#step33" class="justify-content-center nav-link d-flex flex-column h-100 p-md-3 p-1 border-primary" data-toggle="tab" aria-controls="step33" role="tab" title="Step 3">Konto</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active py-4" role="tabpanel" id="step13">
+
+
+                            <div class="px-2 py-md-4 py-2 m-0">
+                                <h5 class="text-dark">Twoje zdjęcia</h5>
+                                <p class="text-secondary small">Dodaj lub edytuj zdjęcia</p>
+                                <div class="row">
+
+                                    <div class="col-md-8 pl-0">
+                                        <div class="demo-swiper-custom">
+                                            <div data-pagination='{"el": ".swiper-pagination", "clickable": true}' data-navigation='{"nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev"}'
+                                                data-space-between="0" class="swiper-container swiper-init demo-swiper">
+
+                                                <div class="swiper-wrapper">
+                                                    <div class="swiper-slide edit__photoContainer pointer" data-toggle="modal" data-target="#fullPhoto" data-id="1">
+                                                        <img src="./img/photo1.jpg" alt="">
+                                                        <h6 class="mb-2 text-secondary">
+                                                            Photo1
+                                                        </h6>
+                                                    </div>
+                                                    <div class="swiper-slide edit__photoContainer pointer" data-toggle="modal" data-target="#fullPhoto" data-id="2">
+                                                        <img src="./img/photo2.jpg" alt="">
+                                                        <h6 class="mb-2 text-secondary">
+                                                            Photo1
+                                                        </h6>
+                                                    </div>
+                                                    <div class="swiper-slide edit__photoContainer pointer" data-toggle="modal" data-target="#fullPhoto" data-id="3">
+                                                        <img src="./img/photo1.jpg" alt="">
+                                                        <h6 class="mb-2 text-secondary">
+                                                            Photo1
+                                                        </h6>
+                                                    </div>
+                                                    <div class="swiper-slide edit__photoContainer pointer" data-toggle="modal" data-target="#fullPhoto" data-id="4">
+                                                        <img src="./img/photo2.jpg" alt="">
+                                                        <h6 class="mb-2 text-secondary">
+                                                            Photo1
+                                                        </h6>
+                                                    </div>
+                                                    <div class="swiper-slide edit__photoContainer pointer" data-toggle="modal" data-target="#fullPhoto" data-id="5">
+                                                        <img src="./img/photo1.jpg" alt="">
+                                                        <h6 class="mb-2 text-secondary">
+                                                            Photo1
+                                                        </h6>
+                                                    </div>
+                                                    <div class="swiper-slide edit__photoContainer pointer" data-toggle="modal" data-target="#fullPhoto" data-id="6">
+                                                        <img src="./img/photo2.jpg" alt="">
+                                                        <h6 class="mb-2 text-secondary">
+                                                            Photo1
+                                                        </h6>
+                                                    </div>
+                                                    <div class="swiper-slide edit__photoContainer pointer" data-toggle="modal" data-target="#fullPhoto" data-id="7">
+                                                        <img src="./img/photo1.jpg" alt="">
+                                                        <h6 class="mb-2 text-secondary">
+                                                            Photo1
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                                <div class="swiper-button-prev"></div>
+                                                <div class="swiper-button-next"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4 edit__addPhoto" data-toggle="modal" data-target="#exampleModal2">
+                                        <img src="./img/addphoto.svg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <form class="pt-4" id="form1">
+
+                                <div class="row">
+
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group float-label active">
+                                            <input type="text" class="form-control" id="inputName">
+                                            <label class="form-control-label">Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group float-label active">
+                                            <input type="email" class="form-control" id="inputEmail">
+                                            <label class="form-control-label">Email address</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="mb-1 d-flex">
+                                            <div class="float-label active pr-md-4 pr-2 col-4">
+                                                <select class="form-control" id="inputDay">
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>6</option>
+                                                    <option>7</option>
+                                                    <option>8</option>
+                                                    <option>9</option>
+                                                    <option>10</option>
+                                                    <option>11</option>
+                                                    <option>12</option>
+                                                    <option>13</option>
+                                                    <option>14</option>
+                                                    <option>15</option>
+                                                    <option>16</option>
+                                                    <option>17</option>
+                                                    <option>18</option>
+                                                    <option>19</option>
+                                                    <option>20</option>
+                                                    <option>21</option>
+                                                    <option>22</option>
+                                                    <option>23</option>
+                                                    <option>24</option>
+                                                    <option>25</option>
+                                                    <option>26</option>
+                                                    <option>27</option>
+                                                    <option>28</option>
+                                                    <option>29</option>
+                                                    <option>30</option>
+                                                    <option>31</option>
+                                                </select>
+                                                <label class="form-control-label">Dzień</label>
+                                            </div>
+                                            <div class="float-label active pr-md-4 pr-2 col-4">
+                                                <select class="form-control" id="inputMonth">
+                                                    <option>Styczeń</option>
+                                                    <option>Luty</option>
+                                                    <option>Marzec</option>
+                                                    <option>Kwiecień</option>
+                                                    <option>Maj</option>
+                                                    <option>Czerwiec</option>
+                                                    <option>Lipiec</option>
+                                                    <option>Sierpień</option>
+                                                    <option>Wrzesień</option>
+                                                    <option>Październik</option>
+                                                    <option>Listopad</option>
+                                                    <option>Grudzień</option>
+                                                </select>
+                                                <label class="form-control-label">Miesiąc</label>
+                                            </div>
+                                            <div class="float-label active pr-md-4 pr-2 col-4">
+                                                <select class="form-control" id="inputYear">
+                                                    <option>1920</option>
+                                                    <option>1921</option>
+                                                    <option>1922</option>
+                                                    <option>1923</option>
+                                                    <option>1924</option>
+                                                    <option>1925</option>
+                                                    <option>1926</option>
+                                                    <option>1927</option>
+                                                    <option>1928</option>
+                                                    <option>1929</option>
+                                                    <option>1930</option>
+                                                    <option>1931</option>
+                                                    <option>1932</option>
+                                                    <option>1933</option>
+                                                    <option>1934</option>
+                                                    <option>1935</option>
+                                                    <option>1936</option>
+                                                    <option>1937</option>
+                                                    <option>1938</option>
+                                                    <option>1939</option>
+                                                    <option>1940</option>
+                                                    <option>1941</option>
+                                                    <option>1942</option>
+                                                    <option>1943</option>
+                                                    <option>1944</option>
+                                                    <option>1945</option>
+                                                    <option>1946</option>
+                                                    <option>1947</option>
+                                                    <option>1948</option>
+                                                    <option>1949</option>
+                                                    <option>1950</option>
+                                                    <option>1951</option>
+                                                    <option>1952</option>
+                                                    <option>1953</option>
+                                                    <option>1954</option>
+                                                    <option>1955</option>
+                                                    <option>1956</option>
+                                                    <option>1957</option>
+                                                    <option>1958</option>
+                                                    <option>1959</option>
+                                                    <option>1960</option>
+                                                    <option>1961</option>
+                                                    <option>1962</option>
+                                                    <option>1963</option>
+                                                    <option>1964</option>
+                                                    <option>1965</option>
+                                                    <option>1966</option>
+                                                    <option>1967</option>
+                                                    <option>1968</option>
+                                                    <option>1969</option>
+                                                    <option>1970</option>
+                                                    <option>1971</option>
+                                                    <option>1972</option>
+                                                    <option>1973</option>
+                                                    <option>1974</option>
+                                                    <option>1975</option>
+                                                    <option>1976</option>
+                                                    <option>1977</option>
+                                                    <option>1978</option>
+                                                    <option>1979</option>
+                                                    <option>1980</option>
+                                                    <option>1981</option>
+                                                    <option>1982</option>
+                                                    <option>1983</option>
+                                                    <option>1984</option>
+                                                    <option>1985</option>
+                                                    <option>1986</option>
+                                                    <option>1987</option>
+                                                    <option>1988</option>
+                                                    <option>1989</option>
+                                                    <option>1990</option>
+                                                    <option>1991</option>
+                                                    <option>1992</option>
+                                                    <option>1993</option>
+                                                    <option>1994</option>
+                                                    <option>1995</option>
+                                                    <option>1996</option>
+                                                    <option>1997</option>
+                                                    <option>1998</option>
+                                                    <option>1999</option>
+                                                    <option>2000</option>
+                                                    <option>2001</option>
+                                                </select>
+                                                <label class="form-control-label">Rok</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 mt-md-0 mt-3">
+                                        <div class="form-group float-label active">
+                                            <input type="tel" class="form-control" id="inputLocation">
+                                            <label class="form-control-label">Lokalizacja</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="float-label form-group w-100 col-12 px-3">
+
+                                        <textarea id="inputDesc" class="form-control bgwhite" id="inputDesc"></textarea>
+                                        <label for="inputDesc" class="form-control-label px-3 py-0 z-5">Twój opis</label>
+                                    </div>
+                                </div>
+                                <div class="text-right col-12">
+                                    <input type="submit" class="primaryButton primaryButton--pink signUpButton mb-0 border-0" value="Zapisz">
+
+
+
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane pt-4" role="tabpanel" id="step23">
+                            <form class="col-12 px-0" id="form2">
+                                <ul class="list-group list-group-flush mb-4">
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h6 class="text-dark mb-1">Email Notification</h6>
+                                                <p class="text-secondary mb-0 small">Default all notification will be sent</p>
+                                            </div>
+                                            <div class="col-2 pl-0 align-self-center text-right">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
+                                                    <label class="custom-control-label" for="customSwitch1"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h6 class="text-dark mb-1">SMS Notification</h6>
+                                                <p class="text-secondary mb-0 small">Receive SMS notification</p>
+                                            </div>
+                                            <div class="col-2 pl-0 align-self-center text-right">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="customSwitch4" checked>
+                                                    <label class="custom-control-label" for="customSwitch4"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h6 class="text-dark mb-1">Profile Avaialability</h6>
+                                                <p class="text-secondary mb-0 small">Everyone can see my profile in search</p>
+                                            </div>
+                                            <div class="col-2 pl-0 align-self-center text-right">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="customSwitch2">
+                                                    <label class="custom-control-label" for="customSwitch2"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h6 class="text-dark mb-1">Sent Request</h6>
+                                                <p class="text-secondary mb-0 small">Everyone can sent me a request</p>
+                                            </div>
+                                            <div class="col-2 pl-0 align-self-center text-right">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="customSwitch3">
+                                                    <label class="custom-control-label" for="customSwitch3"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <div class="list-group-item text-right">
+                                        <input type="submit" class="primaryButton primaryButton--pink signUpButton mb-0 border-0" value="Zapisz">
+
+
+
+                                    </div>
+
+                                </ul>
+                            </form>
+                        </div>
+                        <div class="tab-pane" role="tabpanel" id="step33">
+                            <form class="py-4" id="form3">
+
+                                <div class="row">
+
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group float-label active">
+                                            <input type="text" id="inputPassword" class="form-control">
+                                            <label class="form-control-label">Password</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h6 class="mb-2">Konto premium
+                                        <div class="badge badge-success">Aktywne</div>
+
+                                    </h6>
+                                    <h6 class="small text-secondary">subskrypcja ważna do 12/12/2020</h6>
+                                </div>
+                                <div class="form-group">
+                                    <ul class="mt-3 pl-0">
+                                        <h6>Ostatnie płatności</h6>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <h6 class="small">12/11/2020</h6>
+                                            <h5>30zł</h5>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <h6 class="small">12/10/2020</h6>
+                                            <h5>30zł</h5>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <h6 class="small">12/09/2020</h6>
+                                            <h5>30zł</h5>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <h6 class="small">12/08/2020</h6>
+                                            <h5>30zł</h5>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="text-right col-12">
+                                    <input type="submit" class="primaryButton primaryButton--pink signUpButton mb-0 border-0" value="Zapisz">
+
+
+
+                                </div>
+                            </form>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="no-gutters">
+                <div class="col-auto mx-auto">
+                    <div class="row no-gutters justify-content-center">
+                        <div class="col-auto">
+                            <a href="index.html" class="btn btn-link-default ">
+                                <i class="material-icons">store_mall_directory</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="statistics.html" class="btn btn-link-default">
+                                <i class="material-icons">insert_chart_outline</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="cart.html" class="btn btn-default shadow centerbutton">
+                                <i class="material-icons">local_mall</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="favorite-products.html" class="btn btn-link-default">
+                                <i class="material-icons">favorite</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="profile.html" class="btn btn-link-default active">
+                                <i class="material-icons">account_circle</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+
+    <!-- jquery, popper and bootstrap js -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+
+    <!-- swiper js -->
+    <script src="vendor/swiper/js/swiper.min.js"></script>
+
+
+    <!-- chart js -->
+    <script src="vendor/chartjs/Chart.min.js"></script>
+    <script src="vendor/chartjs/utils.js"></script>
+
+    <!-- chosen multiselect js -->
+    <script src="vendor/chosen_v1.8.7/chosen.jquery.min.js"></script>
+
+    <!-- template custom js -->
+    <script src="js/main.js"></script>
+    <script src="./js/feed.js"></script>
+
+    <script src="./js/validation.js"></script>
+    <!-- page level script -->
+    <script>
+        $(window).on('load', function () {
+
+            /* Swiper*/
+            $(window).on('load', function () { });
+
+            const swiper = new Swiper('.swiper-container', {
+                slidesPerView: 2,
+                spaceBetween: 5,
+                keyboard: {
+                    enabled: true,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+
+            /*display photo and eddit*/
+
+            photoList = document.querySelectorAll('.edit__photoContainer')
+
+            photoList.forEach(photo => {
+                photo.addEventListener('click', function (e) {
+                    $('#fullPhotoIMG').attr('src', $(photo).find('img').attr('src'))
+                    $('#fullPhotoIMG').attr('data-id', $(photo).data('id'))
+                })
+            })
+
+
+
+
+
+            /* chosen select*/
+            $(".chosen").chosen();
+
+            /*Basic info validate*/
+            const form1 = document.getElementById('form1');
+            form1.addEventListener('submit', function (e) {
+                e.preventDefault();
+                let email = $('#inputEmail').val()
+                let name = $('#inputName').val()
+                let location = $('#inputLocation').val()
+                let desc = $('#inputDesc').val()
+                let year = $('#inputYear').val()
+                let month = $('#inputMonth').val()
+                let day = $('#inputDay').val()
+                let validation = true
+                if ($('.validationError')) {
+                    $('.validationError').remove();
+                }
+                if (validate(email, 'email', function () {
+                    /* email validation fail callback*/
+
+                    $('#inputEmail').after("<h6 class='validationError d-blockmt-1 shadow-sm'>Please provide valid e-mail address</h6>");
+                    activateLabels();
+                    return false
+                }) == false) {
+                    validation = false
+                };
+
+                if (validate(name, 'name', function () {
+                    /*password validation fail callback*/
+                    $('#inputName').after("<h6 class='validationError d-blockmt-1 shadow-sm'>Your name must be at least 3 characters long</h6>");
+                    activateLabels();
+                    return false
+                }, { min: 3, max: 50 }) == false) {
+
+                    validation = false
+
+                }
+                if (validate(location, 'name', function () {
+                    /*password validation fail callback*/
+                    $('#inputLocation').after("<h6 class='validationError d-blockmt-1 shadow-sm'>Your Location must be at least 3 characters long</h6>");
+                    activateLabels();
+                    return false
+                }, { min: 3, max: 50 }) == false) {
+
+                    validation = false
+
+                }
+
+
+
+                if (!validation) {
+                    return false
+                }
+                $('#loader').removeClass('d-none')
+                $('#loader').addClass('d-flex')
+
+                fetch('https://reqres.in/api/users', {
+                    method: 'POST',
+                    body: {
+                        name,
+                        email,
+                        year,
+                        month,
+                        day,
+                        desc
+                    }
+                }).then(() => {
+                    /*Success Callback*/
+                    $('#loader').removeClass('d-flex')
+                    $('#loader').addClass('d-none')
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Twoje dane zostały zmienione',
+                        text: 'Profil został zaktualizowany',
+                    })
+                    deactivateLabels();
+                }).catch((error) => {
+                    /*Error message from server*/
+                    alert(error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+
+                })
+
+
+            })
+            /*Notifications submit*/
+            const form2 = document.getElementById('form2');
+            form2.addEventListener('submit', function (e) {
+                e.preventDefault();
+                let switch1 = $('#switch1').is(':checked');
+                let switch2 = $('#switch2').is(':checked');
+                let switch3 = $('#switch3').is(':checked');
+                let switch4 = $('#switch4').is(':checked');
+
+                $('#loader').removeClass('d-none')
+                $('#loader').addClass('d-flex')
+
+                fetch('https://reqres.in/api/users', {
+                    method: 'POST',
+                    body: {
+                        switch1,
+                        switch2,
+                        switch3,
+                        switch4
+                    }
+                }).then(() => {
+                    /*Success Callback*/
+                    $('#loader').removeClass('d-flex')
+                    $('#loader').addClass('d-none')
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Twoje dane zostały zmienione',
+                        text: 'Profil został zaktualizowany',
+                    })
+                    deactivateLabels();
+                }).catch((error) => {
+                    /*Error message from server*/
+                    alert(error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+
+                })
+            })
+
+            const form3 = document.getElementById('form3');
+            form3.addEventListener('submit', function (e) {
+                e.preventDefault();
+                let validation = true;
+                let password = $('#inputPassword').val();
+                if ($('.validationError')) {
+                    $('.validationError').remove();
+                }
+                if (validate(password, 'password', function () {
+                    /*password validation fail callback*/
+                    $('#inputPassword').after("<h6 class='validationError d-blockmt-1 shadow-sm'>Password must be between 5 and 15 character long</h6>");
+                    activateLabels();
+                    return false
+                }, { min: 5, max: 15 }) == false) {
+                    validation = false
+                }
+
+                if (!validation) {
+                    return false
+                }
+                $('#loader').removeClass('d-none')
+                $('#loader').addClass('d-flex')
+
+                fetch('https://reqres.in/api/users', {
+                    method: 'POST',
+                    body: {
+                        password
+                    }
+                }).then(() => {
+                    /*Success Callback*/
+                    $('#loader').removeClass('d-flex')
+                    $('#loader').addClass('d-none')
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Twoje dane zostały zmienione',
+                        text: 'Profil został zaktualizowany',
+                    })
+                    deactivateLabels();
+                }).catch((error) => {
+                    /*Error message from server*/
+                    alert(error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+
+                })
+            })
+            /*Profile photo upload*/
+            const photoUpload = document.getElementById('profilePhotoUpload');
+            const photoFile = document.getElementById('photoFile');
+            const photoCamera = document.getElementById('photoCamera');
+            const profilePreview = document.getElementById('profilePreview')
+            let mode = false
+
+            photoFile.addEventListener('change', function () {
+                profilePreview.src = URL.createObjectURL(photoFile.files[0])
+                mode = 'file'
+
+            })
+            photoCamera.addEventListener('change', function () {
+                profilePreview.src = URL.createObjectURL(photoFile.files[0])
+                mode = 'camera'
+
+            })
+
+
+            photoUpload.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+
+
+
+                if (!mode) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No file uploaded',
+                        text: 'Plese select photo',
+                    })
+                    return false
+                }
+
+                const formData = new FormData();
+                if (mode = 'file') {
+                    formData.append('photo', photoFile.files[0])
+                } else if (mode === 'camera') {
+                    formData.append('photo', photoCamera.files[0])
+                }
+
+                fetch('https://jsonplaceholder.typicode.com/posts', {
+                    method: "post",
+                    body: formData
+                }).then(() => {
+                    /*success callback*/
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Zdjęcie przesłano',
+                        text: 'Twoje zdjęcie profilowe zostało zmienione',
+                    })
+                }).catch((error) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Błąd',
+                        text: error,
+                    })
+                })
+            })
+
+
+            /*Photos upload*/
+            const photosUpload = document.getElementById('photosUpload');
+            const photoFile2 = document.getElementById('photoFile2');
+            const photoCamera2 = document.getElementById('photoCamera2');
+            const photoPreviews = document.getElementById('photoPreviews')
+            
+            function createPreview(source, i){
+                photoPreviews.innerHTML += `<div class='py-3 col-lg-4 col-sm-6 col-12 d-flex flex-column justify-content-center'><figure class='addPhotoPreview justify-content-center d-flex'><div class="badge mt-2 badge-light d-flex position-absolute align-items-center">Prywatne <div class="custom-control ml-2 custom-switch">
+                                                    
+                                                    <input type="checkbox" class="custom-control-input privateInput" id="customSwitch${i}">
+                                                    <label class="custom-control-label" for="customSwitch${i}"></label>
+                                                    
+                                                </div></div><img src='${source}' alt='photo'></figure>  <h6 class="small text-secondary">Dodaj opis</h6><textarea class="form-control bgwhite addPhotoDesc"></textarea>
+                                        </div>`
+            }
+
+            /*display previes*/
+            photoFile2.addEventListener('change', function () {
+                Array.from(photoFile2.files).forEach((file, i) => {
+                    let source = URL.createObjectURL(photoFile2.files[i])
+                    /*appending previevs*/
+                    createPreview(source, i)
+                });
+
+            })
+            photoCamera2.addEventListener('change', function () {
+               
+                    let source = URL.createObjectURL(photoCamera2.files[0])
+                    /*appending previevs*/
+                    createPreview(source, 0)
+                
+
+            })
+
+
+            photoCamera2.addEventListener('change', function () {
+                profilePreview.src = URL.createObjectURL(photoFile.files[0])
+
+            })
+
+            photosUpload.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const formData = new FormData();
+                /*adding descriptions to photos*/
+                Array.from(photoFile2.files).forEach((file, i) => {
+                    let desctiptions = document.querySelectorAll('.addPhotoDesc');
+
+                    Object.defineProperty(photoFile2.files[i], 'desc', {
+                        value: desctiptions[i].value
+                    })
+                    /*setting photos as private*/
+                    let privateCheck = document.querySelectorAll('.privateInput');
+                    Object.defineProperty(photoFile2.files[i], 'private', {
+                        value: privateCheck[i].checked
+                    })
+                })
+                console.log(photoFile2.files)
+                formData.append('photos', photoCamera.files)
+                fetch('https://jsonplaceholder.typicode.com/posts', {
+                    method: "post",
+                    body: formData
+                }).then(() => {
+                    /*success callback*/
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Zdjęcia przesłano',
+                        text: 'Twoje nowe zdjęcia zostały dodane do profilu',
+                    })
+                    $('#closeAddPhotos').click();
+                }).catch((error) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Błąd',
+                        text: error,
+                    })
+                })
+            })
+            /*Deleting photo*/
+            const deleteButton = document.getElementById('deletePhotoButton')
+
+            deleteButton.addEventListener('click', function () {
+                /*Id of deleted photo from data-id attribute*/
+                let deletedPhotoID = $('#fullPhotoIMG').data('id');
+                if (!deletedPhotoID) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Błąd',
+                        text: 'nieznane zdjęcie do usunięcia'
+                    })
+                    return false;
+                }
+
+                $('#loader').removeClass('d-none')
+                $('#loader').addClass('d-flex')
+                fetch('https://jsonplaceholder.typicode.com/posts', {
+                    method: "post",
+                    body: deletedPhotoID
+                }).then(() => {
+                    /*success callback*/
+                    $('#loader').removeClass('d-flex')
+                    $('#loader').addClass('d-none')
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Zdjęcie usunięto',
+                        text: 'Zdjęcie zostało usunięte z profilu',
+                    })
+                    $('#closeFullPhoto').click();
+                    $(`.edit__photoContainer[data-id="${deletedPhotoID}"]`).remove();
+                }).catch((error) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Błąd',
+                        text: error,
+                    })
+                })
+            })
+
+            /*Setting photo as private*/
+            const privacyButton = document.getElementById('changePrivacyButton')
+
+            privacyButton.addEventListener('click', function (e) {
+                e.preventDefault();
+
+
+                let photoID = $('#fullPhotoIMG').data('id');
+
+
+                if (!photoID) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Błąd',
+                        text: 'nieznane zdjęcie'
+                    })
+                    return false
+                }
+
+
+                $('#loader').removeClass('d-none')
+                $('#loader').addClass('d-flex')
+
+                fetch('https://jsonplaceholder.typicode.com/posts', {
+                    method: "post",
+                    body: {
+                        id: photoID,
+                        private: $('#privateSwitch').is(':checked')
+                    }
+                }).then(() => {
+                    /*Success Callback*/
+                    $('#loader').removeClass('d-flex')
+                    $('#loader').addClass('d-none')
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Zapisano',
+                        text: 'Zmieniono ustawienia prywatności',
+                    })
+
+                }).catch((error) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Błąd',
+                        text: error,
+                    })
+                })
+
+
+
+
+            })
+
+            const newPhotoDesc = document.getElementById('newPhotoDesc')
+
+            newPhotoDesc.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                let photoID = $('#fullPhotoIMG').data('id');
+                if (!photoID) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Błąd',
+                        text: 'nieznane zdjęcie'
+                    })
+                    return false
+                }
+
+
+                $('#loader').removeClass('d-none')
+                $('#loader').addClass('d-flex')
+
+                fetch('https://jsonplaceholder.typicode.com/posts', {
+                    method: "post",
+                    body: {
+                        id: photoID,
+                        desc: $('#newPhotoDescInput').val()
+                    }
+                }).then(() => {
+                    /*Success Callback*/
+                    console.log({
+                        id: photoID,
+                        desc: $('#newPhotoDescInput').val()
+                    })
+                    $('#loader').removeClass('d-flex')
+                    $('#loader').addClass('d-none')
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Zapisano',
+                        text: 'Zmieniono opis zdjęcia',
+                    })
+
+                }).catch((error) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Błąd',
+                        text: error,
+                    })
+                })
+            })
+
+
+
+        });
+
+    </script>
+
+</body>
+
+</html>
