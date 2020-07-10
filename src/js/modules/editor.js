@@ -113,19 +113,33 @@ export default class PhotoEditor extends EditorModal {
         method: this.requests.savePhoto.method,
       });
     } catch (error) {
-      // Add popup here
-      alert(error);
+      // Unsuccessful Popup
+      this.showRequestResult({
+        title: "Oops!",
+        text: error.message,
+        icon: "error",
+      });
     }
 
     if (response.success) {
-      // Add popup here
-      alert(response.message);
       // Delete photo container
       this.updateMarkup();
+
+      // Successful Popup
+      this.showRequestResult({
+        title: "Success!",
+        text: response.message,
+        icon: "success",
+      });
+
       this.closeModal();
     } else {
-      // Add unsuccessful popup here
-      alert(response.message);
+      // Unsuccessful Popup
+      this.showRequestResult({
+        title: "Oops!",
+        text: response.message,
+        icon: "error",
+      });
     }
   }
 

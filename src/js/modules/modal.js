@@ -1,7 +1,9 @@
 import ServerRequest from "./requests.js";
+import swalAlert from "./swalAlertMixin.js";
 
-export default class EditorModal extends ServerRequest {
+class EditorModal extends ServerRequest {
   formData = null;
+
   constructor(options) {
     super(options);
     // Making configuration object
@@ -32,6 +34,14 @@ export default class EditorModal extends ServerRequest {
     // Modal
     this.$modal = $(this.selectors.modal);
 
+    // Find modal footer is presented
+    // And hide it
+    if (this.selectors["modal-footer"]) {
+      this.$modalFooter = $(
+        this.$modal.find(this.selectors["modal-footer"])
+      ).hide();
+    }
+
     // Form
     this.$form = this.$modal.find(this.selectors.form);
 
@@ -52,6 +62,8 @@ export default class EditorModal extends ServerRequest {
           // Delete his newly uploaded photo
           this.discardChanges();
         }
+
+        this.$modalFooter.hide();
       });
     }
   }
@@ -85,19 +97,33 @@ export default class EditorModal extends ServerRequest {
           method: this.requests.deletePhoto.method,
         });
       } catch (error) {
-        // Add popup here
-        alert(error);
+        // Unsuccessful Popup
+        this.showRequestResult({
+          title: "Oops!",
+          text: error.message,
+          icon: "error",
+        });
       }
 
       if (response.success) {
-        // Add popup here
-        alert(response.message);
         // Delete photo container
         $(photo).closest(this.selectors.container).remove();
+
+        // Successful Popup
+        this.showRequestResult({
+          title: "Success!",
+          text: response.message,
+          icon: "success",
+        });
+
         this.closeModal();
       } else {
-        // Add unsuccessful popup here
-        alert(response.message);
+        // Unsuccessful Popup
+        this.showRequestResult({
+          title: "Oops!",
+          text: response.message,
+          icon: "error",
+        });
       }
     }
 
@@ -154,3 +180,7 @@ export default class EditorModal extends ServerRequest {
     }
   }
 }
+
+Object.assign(EditorModal.prototype, swalAlert);
+
+export default EditorModal;

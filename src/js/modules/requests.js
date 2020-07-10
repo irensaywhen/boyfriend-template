@@ -5,6 +5,7 @@ export default class ServerRequest {
       this
     );
     this.deletePhotoOnServer = this.deletePhotoOnServer.bind(this);
+    this.getPhotosIds = this.getPhotosIds.bind(this);
 
     // Save passed options
     this.selectors = options.selectors;
@@ -22,27 +23,65 @@ export default class ServerRequest {
     }
   }
 
-  makeRequest({ headers, endpoint, method, body }) {
-    return fetch(endpoint, {
-      method,
-      headers,
-      body,
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          // Add popup here
-          alert("Something went wrong");
-        }
+  makeRequest({ headers, endpoint, method, body = "" }) {
+    if (method === "GET") {
+      return fetch(endpoint, {
+        headers,
       })
-      .then((json) => {
-        return json;
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            // Unsuccessful Popup
+            this.showRequestResult({
+              title: response.status,
+              text: response.statusText,
+              icon: "error",
+            });
+          }
+        })
+        .then((json) => {
+          return json;
+        })
+        .catch((error) => {
+          // Unsuccessful Popup
+          this.showRequestResult({
+            title: "Oops!",
+            text: error.message,
+            icon: "error",
+          });
+        });
+    } else {
+      // If method is not GET
+      return fetch(endpoint, {
+        method,
+        headers,
+        body,
       })
-      .catch((error) => {
-        // Add popup here
-        alert("Error!");
-      });
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            // Unsuccessful Popup
+            this.showRequestResult({
+              title: response.status,
+              text: response.statusText,
+              icon: "error",
+            });
+          }
+        })
+        .then((json) => {
+          return json;
+        })
+        .catch((error) => {
+          // Unsuccessful Popup
+          this.showRequestResult({
+            title: "Oops!",
+            text: error.message,
+            icon: "error",
+          });
+        });
+    }
   }
 
   async deletePhotoOnServer({ id, headers, endpoint, method }) {
@@ -67,6 +106,20 @@ export default class ServerRequest {
       endpoint,
       method,
       body: JSON.stringify({ id, privacy, description }),
+    });
+  }
+
+  async getPhotosIds({ filesAmount, headers, endpoint, method }) {
+    // Add amount of files as a query parameter
+    this.requests.getIds.endpoint.searchParams.set(
+      "amount",
+      String(filesAmount)
+    );
+
+    return await this.makeRequest({
+      headers,
+      endpoint,
+      method,
     });
   }
 }

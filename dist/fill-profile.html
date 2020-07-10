@@ -32,6 +32,9 @@
     <!-- Swiper CSS min-->
     <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" />
 
+    <!--SweetAlert2-->
+    <link href="vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/main.css" />
@@ -1178,6 +1181,7 @@
 
     <!-- swiper js -->
     <script src="vendor/swiper/js/swiper.min.js"></script>
+    <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
 
     <!-- template custom js -->
     <script src="js/main.bundle.js"></script>
@@ -1215,12 +1219,33 @@
           $(this).closest(".notification").removeClass("active");
         });
 
-        // Avatar options
 
-        const avatarOptions = {
+        // In caching elements we'll need to check whether
+        // photos and description attribute is specified
+
+
+
+        const formOptions = {
+          selectors: {
+            forms: ["#profile-information"],
+          },
+          requests: {
+            submit: {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/submit-profile",
+            },
+          },
+        };
+
+        const avatar = new Avatar({
           selectors: {
             elementSelector: ".avatar-image",
             modal: "#upload-avatar",
+            "modal-footer": ".modal-footer",
             input: ".avatar-input",
             preview: "#avatar-preview",
             form: "#avatar-editor",
@@ -1235,11 +1260,9 @@
                 "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar",
             },
           },
-        };
+        };);
 
-        // In caching elements we'll need to check whether
-        // photos and description attribute is specified
-        const photoEditorOptions = {
+        const photoEditor = new PhotoEditor({
           selectors: {
             modal: "#edit-photo",
             form: "#photo-editor",
@@ -1264,12 +1287,12 @@
                 "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/delete-photo",
             },
           },
-        };
+        };);
 
-        // Uploader options
-        const photoUploaderOptions = {
+        const photoUploader = new PhotoUploader({
           selectors: {
             modal: "#add-photos",
+            "modal-footer": ".modal-footer",
             form: "#photo-uploader",
             description: ".new-photo-description",
             input: ".photo-input",
@@ -1295,29 +1318,7 @@
                 "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-photos",
             },
           },
-        };
-
-        const formOptions = {
-          selectors: {
-            forms: ["#profile-information"],
-          },
-          requests: {
-            submit: {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-              endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/submit-profile",
-            },
-          },
-        };
-
-        const avatar = new Avatar(avatarOptions);
-
-        const photoEditor = new PhotoEditor(photoEditorOptions);
-
-        const photoUploader = new PhotoUploader(photoUploaderOptions);
+        });
       });
     </script>
   </body>

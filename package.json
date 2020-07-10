@@ -15,7 +15,8 @@
   "homepage": "https://bitbucket.org/Maciej_Katarzynski/boyfriend#readme",
   "dependencies": {
     "@babel/runtime": "^7.10.4",
-    "node-sass": "^4.14.1"
+    "node-sass": "^4.14.1",
+    "sweetalert2": "^9.15.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.4",

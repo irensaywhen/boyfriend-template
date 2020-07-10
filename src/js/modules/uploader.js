@@ -51,12 +51,6 @@ export default class PhotoUploader extends EditorModal {
     this.$form.submit((event) => {
       event.preventDefault();
 
-      // If user didn't upload new photos
-      if (Object.keys(this.photoData).length === 0) {
-        // Add popup here
-        alert("No photos specified!");
-        return;
-      }
       // Make server request here
       // And update markup
       // After that - clean all the cached data
@@ -83,13 +77,21 @@ export default class PhotoUploader extends EditorModal {
         body: this.formData,
       });
     } catch (error) {
-      // Add popup here
-      alert(error);
+      // Unsuccessful Popup
+      this.showRequestResult({
+        title: "Oops!",
+        text: error.message,
+        icon: "error",
+      });
     }
 
     if (response.success) {
-      // Add popup here
-      alert(response.message);
+      // Successful Popup
+      this.showRequestResult({
+        title: "Success!",
+        text: response.message,
+        icon: "success",
+      });
 
       // Update markup according to photoData object
       for (let id in this.photoData) {
@@ -106,8 +108,12 @@ export default class PhotoUploader extends EditorModal {
 
       this.closeModal();
     } else {
-      // Add unsuccessful popup here
-      alert(response.message);
+      // Unsuccessful Popup
+      this.showRequestResult({
+        title: "Oops!",
+        text: response.message,
+        icon: "error",
+      });
     }
   }
 
@@ -115,28 +121,36 @@ export default class PhotoUploader extends EditorModal {
    * Function retrieving ids according to uploading amount of files.
    * @param {Number} filesAmount - amount of files to get ids for
    */
-  getPhotosIds(filesAmount) {
-    // Add amount of files as a query parameter
-    this.requests.getIds.endpoint.searchParams.set(
-      "amount",
-      String(filesAmount)
-    );
+  async getPhotosIds(filesAmount) {
+    let response;
 
-    // Make request to the server
-    return fetch(this.requests.getIds.endpoint)
-      .then((response) => {
-        if (response.ok) {
-          // Read the array of passed ids as JSON
-          return response.json();
-        } else {
-          throw Error(response.statusText);
-        }
-      })
-      .then((ids) => ids)
-      .catch((error) => {
-        // We'll need to add a popup here
-        alert("Error occured!");
+    try {
+      // Make server request to get the ids
+      response = await super.getPhotosIds({
+        filesAmount,
+        headers: this.requests.getIds.headers,
+        endpoint: this.requests.getIds.endpoint,
+        method: this.requests.getIds.method,
       });
+    } catch (error) {
+      // Unsuccessful Popup
+      this.showRequestResult({
+        title: "Oops!",
+        text: error.message,
+        icon: "error",
+      });
+    }
+
+    if (response.success) {
+      return response.ids;
+    } else {
+      // Unsuccessful Popup
+      this.showRequestResult({
+        title: "Oops!",
+        text: response.message,
+        icon: "error",
+      });
+    }
   }
 
   /**
@@ -153,8 +167,12 @@ export default class PhotoUploader extends EditorModal {
         // Wait until the server provide ids for photos
         ids = await this.getPhotosIds(filesAmount);
       } catch (error) {
-        //Here we'll need to add popup
-        alert("Error with Ids");
+        // Unsuccessful Popup
+        this.showRequestResult({
+          title: "Oops!",
+          text: error.message,
+          icon: "error",
+        });
       }
 
       for (let i = 0; i < filesAmount; i++) {
@@ -178,6 +196,8 @@ export default class PhotoUploader extends EditorModal {
         // Save file
         this.savePhotoInformation({ id: id, file: input.files[i] });
       }
+
+      this.$modalFooter.show(0);
     }
   }
 
@@ -196,10 +216,13 @@ export default class PhotoUploader extends EditorModal {
       this.savePhotoInformation({ id: id, src: src });
     };
 
-    // Handle errors
-    reader.onerror = (event) => {
-      // Add popup here
-      alert("Something went wrong");
+    reader.onerror = function (event) {
+      // Unsuccessful Popup
+      this.showRequestResult({
+        title: this.error.name,
+        text: this.error.message,
+        icon: "error",
+      });
     };
   }
 

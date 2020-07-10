@@ -79,6 +79,8 @@ export default class Avatar extends EditorModal {
       // Show avatar preview
       this.$avatarPreview.attr("src", e.target.result);
 
+      this.$modalFooter.slideDown();
+
       this.newAvatarLink = e.target.result;
     };
 
@@ -91,12 +93,6 @@ export default class Avatar extends EditorModal {
     this.$avatarForm.submit((event) => {
       event.preventDefault();
 
-      // If user didn't select avatar
-      if (!this.avatar) {
-        // Add popup here
-        alert("Please select avatar");
-        return;
-      }
       this.submitAvatar();
     });
   }
@@ -117,9 +113,6 @@ export default class Avatar extends EditorModal {
     }
   }
 
-  /**
-   *
-   */
   async submitAvatar() {
     this.generateFormData();
 
@@ -134,21 +127,34 @@ export default class Avatar extends EditorModal {
         body: this.formData,
       });
     } catch (error) {
-      // Add popup here
-      alert(error);
+      // Unsuccessful Popup
+      this.showRequestResult({
+        title: "Oops!",
+        text: error.message,
+        icon: "error",
+      });
     }
 
     if (response.success) {
-      // Add popup here
-      alert(response.message);
-
       this.uploaded = true;
       this.updateMarkup();
+
+      // Successful Popup
+      this.showRequestResult({
+        title: "Success!",
+        text: response.message,
+        icon: "success",
+      });
+
       this.closeModal();
       this.clean();
     } else {
-      // Add unsuccessful popup here
-      alert(response.message);
+      // Unsuccessful Popup
+      this.showRequestResult({
+        title: "Oops!",
+        text: response.message,
+        icon: "error",
+      });
     }
   }
 
