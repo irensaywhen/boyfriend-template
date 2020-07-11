@@ -685,6 +685,7 @@
                       <div class="form-group float-label">
                         <input type="text" name="name" class="form-control" />
                         <label class="form-control-label">Name</label>
+                        <!--<span class="error">Error! Please fill your name</span>-->
                       </div>
                     </div>
 
@@ -1186,6 +1187,7 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="vendor/popper/popper.min.js"></script>
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
 
     <!-- swiper js -->
     <script src="vendor/swiper/js/swiper.min.js"></script>
@@ -1234,6 +1236,7 @@
           selectors: {
             form: "#profile-information",
             locationInput: ".location",
+            "input-wrapper": ".form-group",
             inputs: ".form-control",
             "location-dropdown": ".location-dropdown",
             "dropdown-toggle": ".dropdown-toggle",
@@ -1246,14 +1249,13 @@
                 "Content-Type": "application/x-www-form-urlencoded",
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/submit-profile",
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/submit-profile-error",
             },
             location: {
               method: "GET",
               headers: {},
               endpoint: "https://nominatim.openstreetmap.org/search",
               searchParams: {
-                //country: "Poland",
                 format: "json",
                 addressdetails: "1",
                 countrycodes: "pl",
@@ -1261,8 +1263,26 @@
               },
             },
           },
-          // Does this form contains location?
           location: true,
+          validatorOptions: {
+            rules: {
+              name: "required",
+              city: "required",
+              day: {
+                required: true,
+                min: 1,
+                max: 31,
+              },
+              month: {
+                required: true,
+                min: 1,
+                max: 12,
+              },
+              year: "required",
+              preference: "required",
+              about: "required",
+            },
+          },
         });
 
         const avatar = new Avatar({

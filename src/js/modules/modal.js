@@ -1,5 +1,4 @@
 import ServerRequest from "./requests.js";
-import swalAlert from "./swalAlertMixin.js";
 
 class EditorModal extends ServerRequest {
   formData = null;
@@ -180,7 +179,5 @@ class EditorModal extends ServerRequest {
     }
   }
 }
-
-Object.assign(EditorModal.prototype, swalAlert);
 
 export default EditorModal;

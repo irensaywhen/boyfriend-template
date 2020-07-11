@@ -1,3 +1,5 @@
+import swalAlert from "./swalAlertMixin.js";
+
 export default class ServerRequest {
   constructor(options) {
     // Bind context
@@ -13,6 +15,8 @@ export default class ServerRequest {
 
     // Transform endpoints into URL Objects
     this.makeURLObjects();
+
+    Object.assign(ServerRequest.prototype, swalAlert);
   }
 
   makeURLObjects() {
