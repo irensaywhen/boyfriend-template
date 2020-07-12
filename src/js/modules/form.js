@@ -14,7 +14,6 @@ export default class Form extends ServerRequest {
     this.collectLocationData = this.collectLocationData.bind(this);
     this.sendFormInformation = this.sendFormInformation.bind(this);
     this.showErrorMessages = this.showErrorMessages.bind(this);
-    this.removeErrorMessages = this.removeErrorMessages.bind(this);
 
     if (options.location) {
       // Add methods to the form object
@@ -24,6 +23,10 @@ export default class Form extends ServerRequest {
 
     this.cacheElements();
     this.setUpEventListeners();
+
+    options.validatorOptions["errorPlacement"] = (error, element) => {
+      element.closest(this.selectors["input-wrapper"]).append(error);
+    };
 
     // Add frontend validation
     this.$form.validate(options.validatorOptions);
@@ -91,6 +94,7 @@ export default class Form extends ServerRequest {
       });
     } finally {
       // Remove error messages
+      this.$form.find(".error").remove();
     }
 
     if (response.success) {
@@ -113,10 +117,7 @@ export default class Form extends ServerRequest {
         $(element)
           .closest(this.selectors["input-wrapper"])
           .append($("<span></span>").addClass("error").text(errors[name]));
-        //$("<span></span>").addClass("error").text(errors[name]);
       }
     });
   }
-
-  removeErrorMessages() {}
 }

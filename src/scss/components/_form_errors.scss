@@ -1,5 +1,6 @@
 .error {
   display: inline-block;
-  color: $main-pink;
+  color: $main-pink !important;
   padding-top: 7px;
+  font-size: 16px !important;
 }

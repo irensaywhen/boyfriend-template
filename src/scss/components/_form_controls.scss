@@ -13,6 +13,10 @@ textarea {
   -ms-box-shadow: none;
 }
 
+.form-control.error {
+  color: #495057 !important;
+}
+
 .form-control::placeholder {
   color: #bbbbbb;
 }
