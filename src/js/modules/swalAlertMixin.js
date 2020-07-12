@@ -8,4 +8,15 @@ export default {
       showCloseButton: true,
     });
   },
+  askUsageApprovement({ title, confirmButtonText, cancelButtonText }) {
+    Swal.fire({
+      title,
+      cancelButtonText,
+      confirmButtonText,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#ff0068",
+      cancelButtonColor: "#d33",
+    });
+  },
 };

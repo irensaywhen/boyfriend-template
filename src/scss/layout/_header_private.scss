@@ -39,12 +39,15 @@
   }
 
   .boost {
-    width: auto;
-  }
-}
+    @include circular-badge(52px);
+    background: #fff;
+    margin: 0 20px;
+    cursor: pointer;
+    position: relative;
 
-.boost {
-  width: 100px;
-  height: 50px;
-  background: red;
+    .svg-wrapper {
+      width: 40px;
+      height: 40px;
+    }
+  }
 }
