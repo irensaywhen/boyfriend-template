@@ -843,6 +843,7 @@
                                   type="checkbox"
                                   class="custom-control-input"
                                   id="email-notifications"
+                                  name="email-notifications"
                                   checked
                                 />
                                 <label
@@ -869,6 +870,7 @@
                                   type="checkbox"
                                   class="custom-control-input"
                                   id="sms-notifications"
+                                  name="sms-notifications"
                                   checked
                                 />
                                 <label
@@ -897,6 +899,7 @@
                                   type="checkbox"
                                   class="custom-control-input"
                                   id="profile-avaialability"
+                                  name="profile-avaialability"
                                 />
                                 <label
                                   class="custom-control-label"
@@ -922,6 +925,7 @@
                                   type="checkbox"
                                   class="custom-control-input"
                                   id="send-request"
+                                  name="send-request"
                                 />
                                 <label
                                   class="custom-control-label"
@@ -957,11 +961,7 @@
               aria-labelledby="account-tab"
             >
               <!--Change password form start-->
-              <form
-                id="change-password"
-                method="POST"
-                action="fill-profile.html"
-              >
+              <form id="change-password" method="POST" action="">
                 <div class="container">
                   <div class="row">
                     <div class="col-12">
@@ -971,13 +971,23 @@
                     </div>
                     <div class="col-12 col-md-6">
                       <div class="form-group float-label">
-                        <input type="password" class="form-control" required />
+                        <input
+                          type="password"
+                          name="new-password"
+                          id="new-password"
+                          class="form-control"
+                        />
                         <label class="form-control-label">New Password</label>
                       </div>
                     </div>
                     <div class="col-12 col-md-6">
                       <div class="form-group float-label">
-                        <input type="password" class="form-control" required />
+                        <input
+                          type="password"
+                          name="repeat-password"
+                          id="repeat-password"
+                          class="form-control"
+                        />
                         <label class="form-control-label"
                           >Repeat Password</label
                         >
@@ -1233,6 +1243,7 @@
         // In caching elements we'll need to check whether
         // photos and description attribute is specified
 
+        // Profile Information Form start
         const profileInformationForm = new Form({
           selectors: {
             form: "#profile-information",
@@ -1247,7 +1258,7 @@
             submit: {
               method: "POST",
               headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/json",
               },
               endpoint:
                 "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/submit-profile",
@@ -1287,6 +1298,65 @@
             },
           },
         });
+        // Profile Information Form end
+
+        // Profile Notifications Form start
+        const profileNotificationsForm = new Form({
+          selectors: {
+            form: "#notifications",
+            "input-wrapper": ".custom-control.custom-switch",
+            inputs: ".custom-control-input",
+          },
+          requests: {
+            submit: {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/submit-notifications",
+            },
+          },
+          location: false,
+          frontendValidation: false,
+        });
+        // Profile notifications form end
+
+        // Change password form start
+        const profileChangePasswordForm = new Form({
+          selectors: {
+            form: "#change-password",
+            "input-wrapper": ".form-group",
+            inputs: ".form-control",
+          },
+          requests: {
+            submit: {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/change-password",
+            },
+          },
+          location: false,
+          frontendValidation: true,
+          cleanFields: true,
+          validatorOptions: {
+            errorElement: "span",
+            rules: {
+              "new-password": {
+                required: true,
+                minlength: 4,
+              },
+              "repeat-password": {
+                required: true,
+                equalTo: "#new-password",
+              },
+            },
+          },
+        });
+        // Change password form end
 
         const avatar = new Avatar({
           selectors: {

@@ -14,6 +14,7 @@ export default class Form extends ServerRequest {
     this.collectLocationData = this.collectLocationData.bind(this);
     this.sendFormInformation = this.sendFormInformation.bind(this);
     this.showErrorMessages = this.showErrorMessages.bind(this);
+    this.collectFormInputs = this.collectFormInputs.bind(this);
 
     if (options.location) {
       // Add methods to the form object
@@ -24,12 +25,24 @@ export default class Form extends ServerRequest {
     this.cacheElements();
     this.setUpEventListeners();
 
-    options.validatorOptions["errorPlacement"] = (error, element) => {
-      element.closest(this.selectors["input-wrapper"]).append(error);
-    };
+    if (options.frontendValidation) {
+      // If this form requires frontend validation
+      this.frontendValidation = true;
 
-    // Add frontend validation
-    this.$form.validate(options.validatorOptions);
+      // Change where error messages occur
+      // This is required for label to work properly when errors are shown
+      options.validatorOptions["errorPlacement"] = (error, element) => {
+        element.closest(this.selectors["input-wrapper"]).append(error);
+      };
+
+      // Add frontend validation
+      this.$form.validate(options.validatorOptions);
+    }
+
+    if (options.cleanFields) {
+      // If form requires to clean fields after successful response
+      this.cleanFields = true;
+    }
   }
 
   cacheElements() {
@@ -45,24 +58,32 @@ export default class Form extends ServerRequest {
   }
 
   setUpEventListeners() {
+    // Form submission
     this.$form.submit((event) => {
       event.preventDefault();
       event.stopPropagation();
 
-      if (this.$form.valid()) {
-        // Collect form inputs
-        this.$inputs.each((index, element) => {
-          let name = element.name;
+      if (!this.frontendValidation) {
+        // If this form doesn't require frontend validation (as with checkboxes)
+        this.collectFormInputs();
+        this.sendFormInformation();
 
-          if (name === "city") {
-            this.collectLocationData(element);
-          } else {
-            this.formData[name] = $(element).val();
-          }
-        });
-        // Send them to the server
+        return;
+      }
+
+      if (this.$form.valid()) {
+        // If the form has frontend validation
+        this.collectFormInputs();
         this.sendFormInformation();
       }
+    });
+
+    // Hiding error message on focus
+    this.$inputs.focus((event) => {
+      $(event.target)
+        .closest(this.selectors["input-wrapper"])
+        .find(".custom-error")
+        .remove();
     });
   }
 
@@ -72,6 +93,22 @@ export default class Form extends ServerRequest {
     for (let property in element.dataset) {
       this.formData["city"][property] = element.dataset[property];
     }
+  }
+
+  collectFormInputs() {
+    // Collect form inputs
+    this.$inputs.each((index, element) => {
+      let name = element.name;
+      let $element = $(element);
+
+      if ($element.is(":checkbox")) {
+        this.formData[name] = $element.is(":checked");
+      } else if (name === "city") {
+        this.collectLocationData(element);
+      } else {
+        this.formData[name] = $element.val();
+      }
+    });
   }
 
   async sendFormInformation() {
@@ -104,7 +141,16 @@ export default class Form extends ServerRequest {
         text: response.message,
         icon: "success",
       });
+
+      // Clean input fields
+      this.$inputs.val("");
     } else {
+      // Unsuccessful Popup
+      this.showRequestResult({
+        title: "Oops!",
+        text: response.message,
+        icon: "error",
+      });
       this.showErrorMessages({ errors: response.errors });
     }
   }
@@ -116,8 +162,15 @@ export default class Form extends ServerRequest {
       if (name in errors) {
         $(element)
           .closest(this.selectors["input-wrapper"])
-          .append($("<span></span>").addClass("error").text(errors[name]));
+          .append(
+            $("<span></span>")
+              .addClass("error")
+              .addClass("custom-error")
+              .text(errors[name])
+          );
       }
     });
   }
+
+  hideErrorMessage() {}
 }
