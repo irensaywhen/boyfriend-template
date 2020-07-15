@@ -37,13 +37,7 @@ body {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   line-height: 22px;
-  -webkit-overflow-scrolling: touch;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none; }
+  -webkit-overflow-scrolling: touch; }
   body .content {
     flex: 1 0 auto; }
   body footer {
@@ -86,7 +80,7 @@ nav {
 .blue-theme .nav-pills .nav-link.active,
 .blue-theme .nav-pills .show > .nav-link,
 .blue-theme .loader-screen {
-  background-color: #4885ff; }
+  background-color: #0c609a; }
 
 .blue-theme .btn-default {
   background-color: #ff0068; }
@@ -123,7 +117,7 @@ input[type="text"],
 .blue-theme .custom-control-input:checked ~ .custom-control-label::before,
 .blue-theme .float-label .form-control:focus,
 .blue-theme .btn-outline-default {
-  border-color: #4885ff; }
+  border-color: #0c609a; }
 
 .blue-theme .filter .form-control:focus,
 .blue-theme .filter .custom-control-input:focus ~ .custom-control-label::before,
@@ -153,7 +147,7 @@ input[type="text"],
 .blue-theme .btn.btn-link-default:hover,
 .blue-theme .btn.btn-link-default:focus,
 .blue-theme .btn.btn-link-default.active {
-  color: #4885ff; }
+  color: #0c609a; }
 
 .blue-theme .bg-warning,
 .blue-theme .badge-warning {
@@ -179,13 +173,13 @@ input[type="text"],
   background: transparent;
   color: #fff; }
   .blue-theme .btn-outline-white:focus, .blue-theme .btn-outline-white:hover {
-    color: #1563ff;
+    color: #08436b;
     background: #fff; }
 
 .blue-theme .blue-link {
   transition: all 0.5s ease-out; }
   .blue-theme .blue-link:focus, .blue-theme .blue-link:hover {
-    color: #7ba7ff !important; }
+    color: #107dc9 !important; }
 
 .blue-theme .page-item .page-link {
   transition: all 0.5s ease-out;
