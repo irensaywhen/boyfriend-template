@@ -1,7 +1,7 @@
 .header {
   width: 100%;
   background: $main-blue !important;
-  height: auto;
+  height: 70px;
   position: fixed;
   padding: env(safe-area-inset-top);
   top: 0;
@@ -39,7 +39,7 @@
   }
 
   .boost {
-    @include circular-badge(52px);
+    @include circular-badge(60px);
     background: #fff;
     margin: 0 20px;
     cursor: pointer;
@@ -47,7 +47,18 @@
 
     .svg-wrapper {
       width: 40px;
-      height: 40px;
+      height: auto;
+    }
+
+    .timer {
+      position: absolute;
+      bottom: -7px;
+      font-size: 12px;
+      width: 75px;
+      line-height: 1.5;
+      background: $main-pink;
+      color: #fff;
+      border-radius: 13px;
     }
   }
 }

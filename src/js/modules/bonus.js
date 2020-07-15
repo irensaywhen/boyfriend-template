@@ -8,9 +8,18 @@ export default class Bonus extends ServerRequest {
     this.cacheElements = this.cacheElements.bind(this);
     this.setUpEventListeners = this.setUpEventListeners.bind(this);
     this.useBonus = this.useBonus.bind(this);
+    this.clickedBonusHandler = this.clickedBonusHandler.bind(this);
 
     // Save redirect address
     this.redirect = options.redirect;
+
+    // Save popup data
+    this.popupData = options.popupData;
+
+    console.log(this.popupData);
+
+    // Reference request information for the popup usage
+    this.popupData.request = this.requests.use;
   }
 
   cacheElements() {
@@ -23,42 +32,37 @@ export default class Bonus extends ServerRequest {
     for (let attribute in dataAttributes) {
       // Save all the data-* attributes
       this[attribute] = dataAttributes[attribute];
-      console.log(this[attribute]);
     }
   }
 
   setUpEventListeners() {
-    this.$bonus.click((event) => {
-      if (this.amount === 0) {
-        // If there are no bonuses available
-        window.location.href = this.redirect;
-      } else {
-        // Add popup here asking whether the user want to use the bonus
-        // And for the button insode the popup, add event listener to use bonus
-        // Use the bonus
-        this.useBonus();
-      }
-    });
+    this.$bonus.click(() => this.clickedBonusHandler());
   }
 
-  async useBonus() {
-    //let response;
-    //
-    //try {
-    //  // Tell server that the user want to use boost
-    //  this.makeRequest({
-    //    headers: this.requests.use.headers,
-    //    method: this.requests.use.method,
-    //    endpoint: this.requests.use.endpoint,
-    //    body: JSON.stringify({ type: this.type }),
-    //  });
-    //} catch (error) {}
-    //
-    //// Activate popup only if the boost
-    //this.bonusUsed(this.popupData.activated);
-    //this.amount = this.amount - 1;
-    //
-    //// Change data-amount attribute
-    //this.$bonus.attr("data-amount", this.amount);
+  /**
+   * Asyncronous event handler for bonus usage
+   */
+  async clickedBonusHandler() {
+    if (this.amount === 0) {
+      // If there are no bonuses available
+      window.location.href = this.redirect;
+    } else {
+      let approved;
+
+      if (this.type === "boost") {
+        let timestamp, expirationTitle, expirationMessage;
+
+        ({ approved, timestamp } = await this.askUsageApprovement(
+          this.popupData
+        ));
+
+        // Save timestamp
+        this.countDownTime = timestamp;
+      }
+
+      if (approved) {
+        this.useBonus();
+      }
+    }
   }
 }

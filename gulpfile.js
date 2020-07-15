@@ -66,6 +66,7 @@ function watch() {
   gulp.watch("src/scss/**/*.scss", styles);
   gulp.watch("src/js/**/*.js", gulp.series(assets, reload));
   gulp.watch("./src/*.html").on("change", gulp.series(copyHTML, reload));
+  gulp.watch("./src/img/*.svg").on("change", gulp.series(copyImages, reload));
 }
 
 exports.assets = assets;

@@ -8,6 +8,7 @@ export default class ServerRequest {
     );
     this.deletePhotoOnServer = this.deletePhotoOnServer.bind(this);
     this.getPhotosIds = this.getPhotosIds.bind(this);
+    this.requestBonusUsage = this.requestBonusUsage.bind(this);
 
     // Save passed options
     this.selectors = options.selectors;
@@ -19,6 +20,9 @@ export default class ServerRequest {
     Object.assign(ServerRequest.prototype, swalAlert);
   }
 
+  /**
+   * Transform endpoints into URL objects
+   */
   makeURLObjects() {
     for (let request in this.requests) {
       this.requests[request].endpoint = new URL(
@@ -27,7 +31,11 @@ export default class ServerRequest {
     }
   }
 
-  makeRequest({ headers, endpoint, method, body = "" }) {
+  /**
+   * Make server request with the passed headers, endpoint, method and body.
+   * Function checks whether the method is GET and if so, sends request without body
+   */
+  makeRequest({ headers, endpoint, method, body }) {
     if (method === "GET") {
       return fetch(endpoint, {
         headers,
@@ -50,7 +58,7 @@ export default class ServerRequest {
         .catch((error) => {
           // Unsuccessful Popup
           this.showRequestResult({
-            title: "Oops!",
+            title: error.name,
             text: error.message,
             icon: "error",
           });
@@ -80,7 +88,7 @@ export default class ServerRequest {
         .catch((error) => {
           // Unsuccessful Popup
           this.showRequestResult({
-            title: "Oops!",
+            title: error.name,
             text: error.message,
             icon: "error",
           });
@@ -125,5 +133,22 @@ export default class ServerRequest {
       endpoint,
       method,
     });
+  }
+
+  requestBonusUsage({ headers, endpoint, method, body }) {
+    return fetch(endpoint, {
+      method,
+      headers,
+      body,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        Swal.showValidationMessage(`Request failed: ${error}`);
+      });
   }
 }

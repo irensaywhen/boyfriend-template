@@ -1,0 +1,47 @@
+@keyframes heartbeat {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    transform: scale3d(1.2, 1.2, 1);
+  }
+
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes moveUp {
+  0% {
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  }
+
+  50% {
+    transform: translate3d(0, -35px, 0) scale3d(1.2, 1.2, 1);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  }
+}
+
+.boost {
+  &:hover .heart {
+    transform-origin: center;
+    animation: heartbeat 1s linear infinite;
+  }
+
+  &:hover .arrow-up {
+    animation: moveUp 1s linear infinite;
+    transform-origin: center;
+  }
+
+  .svg-icon {
+    overflow: visible;
+
+    .st0 {
+      fill: #ee1f61;
+    }
+  }
+}
