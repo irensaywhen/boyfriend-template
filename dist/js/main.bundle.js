@@ -196,6 +196,65 @@ module.exports = _createClass;
 
 /***/ }),
 
+/***/ "../node_modules/@babel/runtime/helpers/defineProperty.js":
+/*!****************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/defineProperty.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime/helpers/get.js":
+/*!*****************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/get.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var superPropBase = __webpack_require__(/*! ./superPropBase */ "../node_modules/@babel/runtime/helpers/superPropBase.js");
+
+function _get(target, property, receiver) {
+  if (typeof Reflect !== "undefined" && Reflect.get) {
+    module.exports = _get = Reflect.get;
+  } else {
+    module.exports = _get = function _get(target, property, receiver) {
+      var base = superPropBase(target, property);
+      if (!base) return;
+      var desc = Object.getOwnPropertyDescriptor(base, property);
+
+      if (desc.get) {
+        return desc.get.call(receiver);
+      }
+
+      return desc.value;
+    };
+  }
+
+  return _get(target, property, receiver || target);
+}
+
+module.exports = _get;
+
+/***/ }),
+
 /***/ "../node_modules/@babel/runtime/helpers/getPrototypeOf.js":
 /*!****************************************************************!*\
   !*** ../node_modules/@babel/runtime/helpers/getPrototypeOf.js ***!
@@ -282,6 +341,28 @@ function _setPrototypeOf(o, p) {
 }
 
 module.exports = _setPrototypeOf;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime/helpers/superPropBase.js":
+/*!***************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/superPropBase.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getPrototypeOf = __webpack_require__(/*! ./getPrototypeOf */ "../node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+
+function _superPropBase(object, property) {
+  while (!Object.prototype.hasOwnProperty.call(object, property)) {
+    object = getPrototypeOf(object);
+    if (object === null) break;
+  }
+
+  return object;
+}
+
+module.exports = _superPropBase;
 
 /***/ }),
 
@@ -1074,8 +1155,14 @@ try {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_form_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/form.js */ "./js/modules/form.js");
+/* harmony import */ var _modules_chained_forms_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/chained-forms.js */ "./js/modules/chained-forms.js");
+/* harmony import */ var _modules_avatar_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/avatar.js */ "./js/modules/avatar.js");
+
+
 
 window["Form"] = _modules_form_js__WEBPACK_IMPORTED_MODULE_0__["default"];
+window["ChainedForms"] = _modules_chained_forms_js__WEBPACK_IMPORTED_MODULE_1__["default"];
+window["Avatar"] = _modules_avatar_js__WEBPACK_IMPORTED_MODULE_2__["default"];
 $(document).ready(function () {
   /* Browser fullscreen experience on double click */
   if (self == top) {
@@ -1183,6 +1270,378 @@ $(window).on("load", function () {
 
 /***/ }),
 
+/***/ "./js/modules/avatar.js":
+/*!******************************!*\
+  !*** ./js/modules/avatar.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Avatar; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "../node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "../node_modules/@babel/runtime/helpers/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "../node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "../node_modules/@babel/runtime/helpers/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/get */ "../node_modules/@babel/runtime/helpers/get.js");
+/* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "../node_modules/@babel/runtime/helpers/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "../node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modal.js */ "./js/modules/modal.js");
+
+
+
+
+
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default()(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+var Avatar = /*#__PURE__*/function (_EditorModal) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default()(Avatar, _EditorModal);
+
+  var _super = _createSuper(Avatar);
+
+  // Currently selected avatar. Data type - blob or file
+  // Generated link pointing to the avatar locally in the browser
+  // Previous avatar link
+
+  /**
+   * Constructor accepts options object which contains:
+   * jQuery Object containing DOM Element for avatar preview,
+   * jQuery objects containing DOM Elements of the avatar input
+   * Server endpoint where to send avatar,
+   * Headers to specify when sending avatar
+   * @param {object} options
+   */
+  function Avatar(options) {
+    var _this;
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(this, Avatar);
+
+    _this = _super.call(this, options);
+
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "avatar", null);
+
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "newAvatarLink", null);
+
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "prevAvatarLink", null);
+
+    _this.configuration.avatar = true; // FormData object containing avatar
+
+    _this.formData = null; // Array containing avatar input elements
+
+    _this.$avatarInputs = null; // Create FileReader instance to handle reading image data
+
+    _this.reader = new FileReader(); // Binding context
+
+    _this.cacheElements = _this.cacheElements.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.setUpEventListeners = _this.setUpEventListeners.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.previewAvatar = _this.previewAvatar.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.submitAvatar = _this.submitAvatar.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.updateMarkup = _this.updateMarkup.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.generateFormData = _this.generateFormData.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this)); // Cache elements according to passed selectors
+
+    _this.cacheElements(); // Setup event listeners
+
+
+    _this.setUpEventListeners();
+
+    return _this;
+  }
+  /**
+   * Function caches elements according to passed options.
+   */
+
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(Avatar, [{
+    key: "cacheElements",
+    value: function cacheElements() {
+      _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(Avatar.prototype), "cacheElements", this).call(this); // Avatar elements in the markup
+
+
+      this.$avatar = $(this.selectors.elementSelector); // Avatar preview
+
+      this.$avatarPreview = this.$modal.find(this.selectors.preview); // Save previous avatar to discard changes if user doesn't submit the form
+
+      this.prevAvatarLink = this.$avatarPreview.attr("src"); // Form
+
+      this.$avatarForm = this.$modal.find(this.selectors.form); // Inputs
+
+      this.$avatarInputs = this.$modal.find(this.selectors.input);
+    }
+    /**
+     * Function setup event listeners on the initialization stage of the object creation
+     */
+
+  }, {
+    key: "setUpEventListeners",
+    value: function setUpEventListeners() {
+      var _this2 = this;
+
+      _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(Avatar.prototype), "setUpEventListeners", this).call(this); // Setup event handler for loading of the image data event
+
+
+      this.reader.onload = function (e) {
+        // Show avatar preview
+        _this2.$avatarPreview.attr("src", e.target.result);
+
+        _this2.$modalFooter.slideDown();
+
+        _this2.newAvatarLink = e.target.result;
+      }; // Listen to changes on the input elements
+
+
+      this.$avatarInputs.change(function (event) {
+        _this2.previewAvatar(event.target);
+      }); // Submit avatar
+
+      this.$avatarForm.submit(function (event) {
+        event.preventDefault();
+
+        _this2.submitAvatar();
+      });
+    }
+    /**
+     * This function is called when the process of avatar preview is occuring.
+     * It accepts the input field from which the avatar is being upload
+     * The function starts loading the image
+     * @param {DOMElement} input
+     */
+
+  }, {
+    key: "previewAvatar",
+    value: function previewAvatar(input) {
+      if (input.files && input.files[0]) {
+        //Save the currently selected avatar
+        this.avatar = input.files[0]; //Start reading the image from the input
+
+        this.reader.readAsDataURL(input.files[0]);
+      }
+    }
+  }, {
+    key: "submitAvatar",
+    value: function () {
+      var _submitAvatar = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.generateFormData();
+                _context.prev = 1;
+                _context.next = 4;
+                return this.makeRequest({
+                  headers: this.requests.saveAvatar.headers,
+                  endpoint: this.requests.saveAvatar.endpoint,
+                  method: this.requests.saveAvatar.method,
+                  body: this.formData
+                });
+
+              case 4:
+                response = _context.sent;
+                _context.next = 10;
+                break;
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](1);
+                // Unsuccessful Popup
+                this.showRequestResult({
+                  title: "Oops!",
+                  text: _context.t0.message,
+                  icon: "error"
+                });
+
+              case 10:
+                if (response.success) {
+                  this.uploaded = true;
+                  this.updateMarkup(); // Successful Popup
+
+                  this.showRequestResult({
+                    title: "Success!",
+                    text: response.message,
+                    icon: "success"
+                  });
+                  this.closeModal();
+                  this.clean();
+                } else {
+                  // Unsuccessful Popup
+                  this.showRequestResult({
+                    title: "Oops!",
+                    text: response.message,
+                    icon: "error"
+                  });
+                }
+
+              case 11:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[1, 7]]);
+      }));
+
+      function submitAvatar() {
+        return _submitAvatar.apply(this, arguments);
+      }
+
+      return submitAvatar;
+    }()
+    /**
+     * The function to perform cleaning object fields after
+     * all the actions with avatar upload are performed
+     */
+
+  }, {
+    key: "clean",
+    value: function clean() {
+      // Delete formData object
+      this.formData = null; // Update previous avatar link
+
+      this.prevAvatarLink = this.$avatarPreview.attr("src"); // Discard new link
+
+      this.newAvatarLink = null; // Return the previous avatar status
+
+      this.uploaded = false;
+    }
+    /**
+     * Function updates the avatar in the editing area and in the menu
+     */
+
+  }, {
+    key: "updateMarkup",
+    value: function updateMarkup() {
+      this.$avatar.attr("src", this.newAvatarLink);
+    }
+    /**
+     * Function delete the newly uploaded avatar
+     * If user didn't submit the form
+     */
+
+  }, {
+    key: "discardChanges",
+    value: function discardChanges() {
+      this.$avatarPreview.attr("src", this.prevAvatarLink);
+    }
+  }]);
+
+  return Avatar;
+}(_modal_js__WEBPACK_IMPORTED_MODULE_10__["default"]);
+
+
+
+/***/ }),
+
+/***/ "./js/modules/chained-forms.js":
+/*!*************************************!*\
+  !*** ./js/modules/chained-forms.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ChainedForms; });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "../node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+//import Form from "./requests.js";
+//import location from "./locationMixin.js";
+var ChainedForms = /*#__PURE__*/function () {
+  function ChainedForms(options) {
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, ChainedForms);
+
+    // Bind context
+    this.cacheElements = this.cacheElements.bind(this);
+    this.setUpEventListeners = this.setUpEventListeners.bind(this);
+    this.showNextForm = this.showNextForm.bind(this);
+    this.showPreviousForm = this.showPreviousForm.bind(this); // Save options
+
+    this.selectors = options.selectors;
+    this.forms = options.forms;
+    this.cacheElements();
+    this.setUpEventListeners(); // Set the initial step
+
+    this.step = 1; // Hide all the forms except the first one
+
+    this.forms.forEach(function (item, index) {
+      if (index !== 0) {
+        item.form.$form.hide();
+      }
+    });
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(ChainedForms, [{
+    key: "cacheElements",
+    value: function cacheElements() {
+      // Forms container
+      this.$container = $(this.selectors.formsContainer);
+      this.$forms = this.$container.find(this.selectors.forms);
+      console.log(this.$forms[0]); // Forward button
+
+      this.$forwardButton = this.$container.find(this.selectors.forward); // Backward button
+
+      this.$backwardButton = this.$container.find(this.selectors.backward);
+    }
+  }, {
+    key: "setUpEventListeners",
+    value: function setUpEventListeners() {
+      var _this = this;
+
+      this.$forwardButton.click(function (event) {
+        event.stopPropagation(); // Check the state of the current form
+
+        console.log(_this.forms[_this.step]);
+        console.log(_this.forms[_this.step].form.submitted); // If it is submitted successfully
+        // Show next step
+        // And update the current step
+
+        var $form = $(event.target).closest(_this.selectors.forms);
+        var currentStep = $form.data("step");
+        console.log(currentStep);
+      });
+    }
+  }, {
+    key: "showNextForm",
+    value: function showNextForm() {}
+  }, {
+    key: "showPreviousForm",
+    value: function showPreviousForm() {}
+  }]);
+
+  return ChainedForms;
+}();
+
+
+
+/***/ }),
+
 /***/ "./js/modules/form.js":
 /*!****************************!*\
   !*** ./js/modules/form.js ***!
@@ -1239,7 +1698,9 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
 
     _this = _super.call(this, options); // Data that will be sent to the server
 
-    _this.formData = {}; // Bind context
+    _this.formData = {}; // Submission marker
+
+    _this.submitted = false; // Bind context
 
     _this.cacheElements = _this.cacheElements.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
     _this.setUpEventListeners = _this.setUpEventListeners.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
@@ -1335,6 +1796,10 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
 
       this.$inputs.focus(function (event) {
         $(event.target).closest(_this2.selectors["input-wrapper"]).find(".custom-error").remove();
+      }); // Mark form as unsibmitted when the user changes the inputs
+
+      this.$inputs.on("change input", function () {
+        return _this2.submitted = false;
       });
     }
   }, {
@@ -1406,6 +1871,9 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
 
               case 12:
                 if (response.success) {
+                  // Mark form as submitted
+                  this.submitted = true;
+
                   if (this.showSuccessPopup) {
                     // Successful Popup
                     this.showRequestResult({
@@ -1666,6 +2134,294 @@ __webpack_require__.r(__webpack_exports__);
     }
   }
 });
+
+/***/ }),
+
+/***/ "./js/modules/modal.js":
+/*!*****************************!*\
+  !*** ./js/modules/modal.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "../node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "../node_modules/@babel/runtime/helpers/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "../node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "../node_modules/@babel/runtime/helpers/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/get */ "../node_modules/@babel/runtime/helpers/get.js");
+/* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "../node_modules/@babel/runtime/helpers/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "../node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./requests.js */ "./js/modules/requests.js");
+
+
+
+
+
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default()(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+var EditorModal = /*#__PURE__*/function (_ServerRequest) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default()(EditorModal, _ServerRequest);
+
+  var _super = _createSuper(EditorModal);
+
+  function EditorModal(options) {
+    var _this;
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(this, EditorModal);
+
+    _this = _super.call(this, options); // Making configuration object
+
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "formData", null);
+
+    _this.configuration = {
+      avatar: false,
+      uploader: false,
+      editor: false
+    };
+
+    if (_this.configuration.avatar || _this.configuration.uploader) {
+      _this.uploaded = false;
+    } // Binding context
+
+
+    _this.cacheElements = _this.cacheElements.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.setUpEventListeners = _this.setUpEventListeners.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.savePhotoInformation = _this.savePhotoInformation.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.generateFormData = _this.generateFormData.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.closeModal = _this.closeModal.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.deletePhoto = _this.deletePhoto.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.makeURLObjects = _this.makeURLObjects.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.clean = _this.clean.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    return _this;
+  }
+  /**
+   * Function caches elements according to passed options.
+   */
+
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(EditorModal, [{
+    key: "cacheElements",
+    value: function cacheElements() {
+      // Modal
+      this.$modal = $(this.selectors.modal); // Find modal footer is presented
+      // And hide it
+
+      if (this.selectors["modal-footer"]) {
+        this.$modalFooter = $(this.$modal.find(this.selectors["modal-footer"])).hide();
+      } // Form
+
+
+      this.$form = this.$modal.find(this.selectors.form); // Closing button
+
+      this.$closeButton = this.$modal.find(".close"); // Deleting button
+
+      if ("deleteButton" in this.selectors) {
+        this.$deleteButton = this.$modal.find(this.selectors.deleteButton);
+      }
+    }
+  }, {
+    key: "setUpEventListeners",
+    value: function setUpEventListeners() {
+      var _this2 = this;
+
+      if (this.configuration.avatar || this.configuration.uploader) {
+        this.$closeButton.click(function (event) {
+          // If user closes modal without submitting changes
+          if (!_this2.uploaded) {
+            // Delete his newly uploaded photo
+            _this2.discardChanges();
+          }
+
+          _this2.$modalFooter.hide();
+        });
+      }
+    }
+    /**
+     * Function to close the modal
+     */
+
+  }, {
+    key: "closeModal",
+    value: function closeModal() {
+      this.$closeButton.click();
+      this.clean();
+    }
+    /**
+     * Function to delete photo
+     * If used in editor, it will delete provided photo
+     * If used in uploader, it will find the photo containing the currently clicked button
+     * and delete the photo container
+     */
+
+  }, {
+    key: "deletePhoto",
+    value: function () {
+      var _deletePhoto = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(event, photo) {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                event.preventDefault();
+
+                if (!this.configuration.editor) {
+                  _context.next = 12;
+                  break;
+                }
+
+                _context.prev = 2;
+                _context.next = 5;
+                return _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(EditorModal.prototype), "deletePhotoOnServer", this).call(this, {
+                  id: photo.dataset.id,
+                  headers: this.requests.deletePhoto.headers,
+                  endpoint: this.requests.deletePhoto.endpoint,
+                  method: this.requests.deletePhoto.method
+                });
+
+              case 5:
+                response = _context.sent;
+                _context.next = 11;
+                break;
+
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](2);
+                // Unsuccessful Popup
+                this.showRequestResult({
+                  title: "Oops!",
+                  text: _context.t0.message,
+                  icon: "error"
+                });
+
+              case 11:
+                if (response.success) {
+                  // Delete photo container
+                  $(photo).closest(this.selectors.container).remove(); // Successful Popup
+
+                  this.showRequestResult({
+                    title: "Success!",
+                    text: response.message,
+                    icon: "success"
+                  });
+                  this.closeModal();
+                } else {
+                  // Unsuccessful Popup
+                  this.showRequestResult({
+                    title: "Oops!",
+                    text: response.message,
+                    icon: "error"
+                  });
+                }
+
+              case 12:
+                if (this.configuration.uploader) {
+                  $(event.target).closest(this.selectors.container).remove();
+                }
+
+              case 13:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[2, 8]]);
+      }));
+
+      function deletePhoto(_x, _x2) {
+        return _deletePhoto.apply(this, arguments);
+      }
+
+      return deletePhoto;
+    }()
+    /**
+     * Function saving information about the photo
+     * @param {object}
+     * @param {object.id} id from the database for particular photo
+     * @param {object.file} file object containing photo
+     * @param {object.src} src for the image preview
+     * @param {object.privacy} privacy input value
+     * @param {object.description} description for the current photo
+     */
+
+  }, {
+    key: "savePhotoInformation",
+    value: function savePhotoInformation(_ref) {
+      var _ref$id = _ref.id,
+          id = _ref$id === void 0 ? null : _ref$id,
+          _ref$file = _ref.file,
+          file = _ref$file === void 0 ? null : _ref$file,
+          _ref$src = _ref.src,
+          src = _ref$src === void 0 ? null : _ref$src,
+          _ref$privacy = _ref.privacy,
+          privacy = _ref$privacy === void 0 ? false : _ref$privacy,
+          _ref$description = _ref.description,
+          description = _ref$description === void 0 ? "" : _ref$description;
+
+      if (file) {
+        this.photoData[id].file = file;
+      }
+
+      if (src) {
+        this.photoData[id].src = src;
+      }
+
+      if (privacy) {
+        this.photoData[id].privacy = JSON.parse(privacy);
+      } else {
+        this.photoData[id].privacy = false;
+      }
+
+      this.photoData[id].description = description;
+    }
+  }, {
+    key: "generateFormData",
+    value: function generateFormData() {
+      this.formData = new FormData();
+
+      if (this.configuration.uploader) {
+        for (var id in this.photoData) {
+          for (var property in this.photoData[id]) {
+            // Don't send src for previews
+            if (property === "src") continue;
+            this.formData.append(property + id, this.photoData[id][property]);
+          }
+        }
+      }
+
+      if (this.configuration.avatar) {
+        this.formData.set("avatar", this.avatar, this.avatar.name);
+      }
+    }
+  }]);
+
+  return EditorModal;
+}(_requests_js__WEBPACK_IMPORTED_MODULE_10__["default"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (EditorModal);
 
 /***/ }),
 

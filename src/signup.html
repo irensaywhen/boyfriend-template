@@ -209,16 +209,20 @@
             <h2 class="text-white">
               <span class="font-weight-light">Sign</span>Up
             </h2>
-            <form>
+            <div id="forms-signup">
               <!--Form step 1 start-->
-              <div class="form-signin shadow" id="signup-1" data-step="1">
+              <form
+                class="form-signin shadow text-left"
+                id="signup-1"
+                data-step="1"
+              >
                 <!--Name-->
                 <div class="form-group float-label">
                   <input
                     type="text"
                     id="login"
                     name="login"
-                    class="form-control"
+                    class="form-control signup-input"
                     autofocus
                   />
                   <label for="login" class="form-control-label">Name</label>
@@ -230,7 +234,7 @@
                     type="email"
                     id="email"
                     name="email"
-                    class="form-control"
+                    class="form-control signup-input"
                   />
                   <label for="email" class="form-control-label"
                     >Email address</label
@@ -243,7 +247,7 @@
                     type="password"
                     id="password"
                     name="password"
-                    class="form-control"
+                    class="form-control signup-input"
                   />
                   <label for="password" class="form-control-label"
                     >Password</label
@@ -252,10 +256,10 @@
 
                 <!--Terms-->
                 <div class="form-group my-4 text-left">
-                  <div class="custom-control custom-checkbox">
+                  <div class="custom-control custom-checkbox form-group">
                     <input
                       type="checkbox"
-                      class="custom-control-input"
+                      class="custom-control-input signup-input"
                       id="terms"
                       name="terms"
                     />
@@ -272,26 +276,30 @@
                 <div class="row">
                   <div class="col-12">
                     <button
-                      type="button"
-                      class="btn btn-lg btn-default btn-rounded shadow"
+                      type="submit"
+                      class="btn btn-lg btn-default btn-rounded shadow forward"
                     >
                       <span>Sign Up</span
                       ><i class="material-icons">arrow_forward</i>
                     </button>
                   </div>
                 </div>
-              </div>
+              </form>
               <!--Form step 1 end-->
 
               <!--Form step 2 start-->
-              <div class="form-signin shadow" id="signup-2" data-step="2">
+              <form
+                class="form-signin shadow text-left"
+                id="signup-2"
+                data-step="2"
+              >
                 <!--Name-->
                 <div class="form-group float-label">
                   <input
                     type="text"
                     id="name"
                     name="name"
-                    class="form-control"
+                    class="form-control signup-input"
                   />
                   <label for="name" class="form-control-label">Name</label>
                 </div>
@@ -302,7 +310,7 @@
                     >Write about yourself</label
                   >
                   <textarea
-                    class="form-control form-control-lg"
+                    class="form-control form-control-lg signup-input"
                     rows="3"
                     id="description"
                     name="description"
@@ -313,30 +321,31 @@
                 <div class="row">
                   <div class="col-6 offset-5 offset-sm-6">
                     <button
-                      type="button"
-                      class="btn btn-lg btn-default btn-rounded shadow"
+                      type="submit"
+                      class="btn btn-lg btn-default btn-rounded shadow forward"
                     >
                       <span>Next</span
                       ><i class="material-icons">arrow_forward</i>
                     </button>
                   </div>
                 </div>
-              </div>
+              </form>
               <!--Form step 2 start-->
 
               <!--Form step 3 start-->
-              <div class="form-wrapper">
-                <div
+              <div class="form-wrapper" id="signup-3-wrapper">
+                <form
                   class="form-signin shadow text-left"
                   id="signup-3"
                   data-step="3"
+                  autocomplete="off"
                 >
                   <!--City input start-->
                   <div class="form-group float-label">
                     <input
                       type="text"
                       name="city"
-                      class="form-control location"
+                      class="form-control location signup-input"
                     />
                     <label class="form-control-label">City</label>
                     <div class="dropdown location-dropdown">
@@ -368,7 +377,7 @@
                             name="day"
                             min="1"
                             max="31"
-                            class="form-control"
+                            class="form-control signup-input"
                           />
                           <label class="form-control-label">Day</label>
                         </div>
@@ -380,7 +389,7 @@
                             name="month"
                             min="1"
                             max="12"
-                            class="form-control"
+                            class="form-control signup-input"
                           />
                           <label class="form-control-label">Month</label>
                         </div>
@@ -390,7 +399,7 @@
                           <input
                             type="number"
                             name="year"
-                            class="form-control"
+                            class="form-control signup-input"
                           />
                           <label class="form-control-label">Year</label>
                         </div>
@@ -408,7 +417,7 @@
                             type="number"
                             name="weight"
                             id="weight"
-                            class="form-control"
+                            class="form-control signup-input"
                           />
                           <label class="form-control-label">Weight</label>
                         </div>
@@ -419,7 +428,7 @@
                             type="number"
                             name="height"
                             id="height"
-                            class="form-control"
+                            class="form-control signup-input"
                           />
                           <label class="form-control-label">Height</label>
                         </div>
@@ -435,7 +444,7 @@
                       >Preference</label
                     >
                     <select
-                      class="form-control preference"
+                      class="form-control preference signup-input"
                       id="preference"
                       name="preference"
                     >
@@ -452,15 +461,15 @@
                   <div class="row">
                     <div class="col-6 offset-5 offset-sm-6">
                       <button
-                        type="button"
-                        class="btn btn-lg btn-default btn-rounded shadow"
+                        type="submit"
+                        class="btn btn-lg btn-default btn-rounded shadow forward"
                       >
                         <span>Next</span
                         ><i class="material-icons">arrow_forward</i>
                       </button>
                     </div>
                   </div>
-                </div>
+                </form>
                 <div
                   class="back blue-link text-white d-flex align-items-center"
                 >
@@ -474,7 +483,7 @@
 
               <!--Form step 4 start-->
               <div class="form-wrapper text-left">
-                <div class="form-signin shadow" id="signup-4" data-step="4">
+                <form class="form-signin shadow" id="signup-4" data-step="4">
                   <!--Profile photo upload start-->
                   <div class="text-center pb-5">
                     <h3 class="section-title">
@@ -510,7 +519,7 @@
                       </button>
                     </div>
                   </div>
-                </div>
+                </form>
                 <div
                   class="back blue-link text-white d-flex align-items-center"
                 >
@@ -521,7 +530,7 @@
                 </div>
               </div>
               <!--Form step 4 end-->
-            </form>
+            </div>
 
             <p class="text-center text-white">
               Already have account?<br />
@@ -610,12 +619,14 @@
           $(this).closest(".notification").removeClass("active");
         });
 
-        /* login form functionality start */
-        const signinFOrm = new Form({
+        /* signup form functionality start */
+
+        // First step
+        const signupFirstStep = new Form({
           selectors: {
-            form: "#form-signin",
+            form: "#signup-1",
             "input-wrapper": ".form-group",
-            inputs: ".signin-input",
+            inputs: ".signup-input",
           },
           requests: {
             submit: {
@@ -624,7 +635,7 @@
                 "Content-Type": "application/json",
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail",
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
             },
           },
           location: false,
@@ -634,6 +645,10 @@
           validatorOptions: {
             errorElement: "span",
             rules: {
+              login: {
+                required: true,
+                minlength: 3,
+              },
               email: {
                 required: true,
                 email: true,
@@ -642,10 +657,153 @@
                 required: true,
                 minlength: 4,
               },
+              terms: "required",
             },
           },
         });
-        /* login form functionality end */
+
+        // Second step
+        const signupSecondStep = new Form({
+          selectors: {
+            form: "#signup-2",
+            "input-wrapper": ".form-group",
+            inputs: ".signup-input",
+          },
+          requests: {
+            submit: {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
+            },
+          },
+          location: false,
+          showSuccessPopup: false,
+          showFailPopup: false,
+          frontendValidation: true,
+          validatorOptions: {
+            errorElement: "span",
+            rules: {
+              name: {
+                required: true,
+                minlength: 3,
+              },
+              description: {
+                required: true,
+                minlength: 10,
+              },
+            },
+          },
+        });
+
+        // Third step
+        const signupThirdStep = new Form({
+          selectors: {
+            form: "#signup-3",
+            "input-wrapper": ".form-group",
+            inputs: ".signup-input",
+            locationInput: ".location",
+            "location-dropdown": ".location-dropdown",
+            "dropdown-toggle": ".dropdown-toggle",
+            "dropdown-menu": ".dropdown-menu",
+          },
+          requests: {
+            submit: {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
+            },
+            location: {
+              method: "GET",
+              headers: {},
+              endpoint: "https://nominatim.openstreetmap.org/search",
+              searchParams: {
+                format: "json",
+                addressdetails: "1",
+                countrycodes: "pl",
+                "accept-language": "pl,en",
+              },
+            },
+          },
+          location: true,
+          showSuccessPopup: false,
+          showFailPopup: false,
+          frontendValidation: true,
+          validatorOptions: {
+            errorElement: "span",
+            rules: {
+              city: {
+                required: true,
+                location: true,
+              },
+              day: {
+                required: true,
+                min: 1,
+                max: 31,
+              },
+              month: {
+                required: true,
+                min: 1,
+                max: 12,
+              },
+              year: "required",
+              weight: "required",
+              height: "required",
+              preference: "required",
+            },
+          },
+        });
+        /* signup form functionality end*/
+
+        /* avatar handling start */
+        const avatar = new Avatar({
+          selectors: {
+            elementSelector: ".avatar-image",
+            modal: "#upload-avatar",
+            "modal-footer": ".modal-footer",
+            input: ".avatar-input",
+            preview: "#avatar-preview",
+            form: "#avatar-editor",
+          },
+          requests: {
+            saveAvatar: {
+              method: "POST",
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar",
+            },
+          },
+        });
+        /* avatar handling end */
+
+        /* forms chainer initialization start */
+        const chainedForms = new ChainedForms({
+          selectors: {
+            formsContainer: "#forms-signup",
+            forms: ".form-signin",
+            forward: ".forward",
+            backward: ".back",
+          },
+          forms: [
+            { element: "#signup-1", form: signupFirstStep },
+            {
+              element: "#signup-2",
+              form: signupSecondStep,
+            },
+            {
+              element: "#signup-3-wrapper",
+              form: signupThirdStep,
+            },
+          ],
+        });
+        /* forms chainer initialization end */
       });
     </script>
   </body>
