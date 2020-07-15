@@ -35,6 +35,15 @@ export default class Form extends ServerRequest {
         element.closest(this.selectors["input-wrapper"]).append(error);
       };
 
+      if (this.location) {
+        // Add custom frontend validation for location field
+        jQuery.validator.addMethod(
+          "location",
+          this.frontendCityValidator,
+          "No such city"
+        );
+      }
+
       // Add frontend validation
       this.$form.validate(options.validatorOptions);
     }

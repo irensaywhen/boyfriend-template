@@ -209,243 +209,111 @@
             <h2 class="text-white">
               <span class="font-weight-light">Sign</span>Up
             </h2>
-
-            <!--Form step 1 start-->
-            <form class="form-signin shadow" id="signup-1" data-step="1">
-              <!--Name-->
-              <div class="form-group float-label active">
-                <input
-                  type="text"
-                  id="login"
-                  name="login"
-                  class="form-control"
-                  autofocus
-                />
-                <label for="login" class="form-control-label">Name</label>
-              </div>
-
-              <!--Email-->
-              <div class="form-group float-label active">
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  class="form-control"
-                />
-                <label for="email" class="form-control-label"
-                  >Email address</label
-                >
-              </div>
-
-              <!--Password-->
-              <div class="form-group float-label">
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  class="form-control"
-                  required
-                />
-                <label for="password" class="form-control-label"
-                  >Password</label
-                >
-              </div>
-
-              <!--Terms-->
-              <div class="form-group my-4 text-left">
-                <div class="custom-control custom-checkbox">
-                  <input
-                    type="checkbox"
-                    class="custom-control-input"
-                    id="terms"
-                    name="terms"
-                  />
-                  <label class="custom-control-label" for="terms"
-                    >I accept
-                    <a href="terms.html" class="blue-link text-underline"
-                      >Terms and Condition</a
-                    ></label
-                  >
-                </div>
-              </div>
-
-              <!--Signup button-->
-              <div class="row">
-                <div class="col-12">
-                  <button
-                    type="submit"
-                    href="login.html"
-                    class="btn btn-lg btn-default btn-rounded shadow"
-                  >
-                    <span>Sign Up</span
-                    ><i class="material-icons">arrow_forward</i>
-                  </button>
-                </div>
-              </div>
-            </form>
-            <!--Form step 1 end-->
-
-            <!--Form step 2 start-->
-            <form class="form-signin shadow" id="signup-2" data-step="2">
-              <!--Name-->
-              <div class="form-group float-label active">
-                <input type="text" id="name" name="name" class="form-control" />
-                <label for="name" class="form-control-label">Name</label>
-              </div>
-
-              <!--Textarea-->
-              <div class="form-group text-left">
-                <label for="description" class="section-subtitle"
-                  >Write about yourself</label
-                >
-                <textarea
-                  class="form-control form-control-lg"
-                  rows="3"
-                  id="description"
-                  name="description"
-                ></textarea>
-              </div>
-
-              <!--Submit button-->
-              <div class="row">
-                <div class="col-6 offset-5 offset-sm-6">
-                  <button
-                    type="submit"
-                    href="login.html"
-                    class="btn btn-lg btn-default btn-rounded shadow"
-                  >
-                    <span>Next</span><i class="material-icons">arrow_forward</i>
-                  </button>
-                </div>
-              </div>
-            </form>
-            <!--Form step 2 start-->
-
-            <!--Form step 3 start-->
-            <div class="form-wrapper">
-              <form
-                class="form-signin shadow text-left"
-                id="signup-3"
-                data-step="3"
-              >
-                <!--City input start-->
+            <form>
+              <!--Form step 1 start-->
+              <div class="form-signin shadow" id="signup-1" data-step="1">
+                <!--Name-->
                 <div class="form-group float-label">
                   <input
                     type="text"
-                    name="city"
-                    class="form-control location"
+                    id="login"
+                    name="login"
+                    class="form-control"
+                    autofocus
                   />
-                  <label class="form-control-label">City</label>
-                  <div class="dropdown location-dropdown">
+                  <label for="login" class="form-control-label">Name</label>
+                </div>
+
+                <!--Email-->
+                <div class="form-group float-label">
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-control"
+                  />
+                  <label for="email" class="form-control-label"
+                    >Email address</label
+                  >
+                </div>
+
+                <!--Password-->
+                <div class="form-group float-label">
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="form-control"
+                  />
+                  <label for="password" class="form-control-label"
+                    >Password</label
+                  >
+                </div>
+
+                <!--Terms-->
+                <div class="form-group my-4 text-left">
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="terms"
+                      name="terms"
+                    />
+                    <label class="custom-control-label" for="terms"
+                      >I accept
+                      <a href="terms.html" class="blue-link text-underline"
+                        >Terms and Condition</a
+                      ></label
+                    >
+                  </div>
+                </div>
+
+                <!--Signup button-->
+                <div class="row">
+                  <div class="col-12">
                     <button
-                      class="btn btn-primary dropdown-toggle"
                       type="button"
-                      id="dropdownMenuButton"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
+                      class="btn btn-lg btn-default btn-rounded shadow"
                     >
-                      Cities dropdown
+                      <span>Sign Up</span
+                      ><i class="material-icons">arrow_forward</i>
                     </button>
-                    <ul class="dropdown-menu"></ul>
                   </div>
                 </div>
-                <!--City input end-->
+              </div>
+              <!--Form step 1 end-->
 
-                <!--Date input start-->
-                <h4 class="section-subtitle">
-                  Date of birth
-                </h4>
-                <div class="container">
-                  <div class="row">
-                    <div class="col-12 col-sm-4 pl-0">
-                      <div class="form-group float-label">
-                        <input
-                          type="number"
-                          name="day"
-                          min="1"
-                          max="31"
-                          class="form-control"
-                        />
-                        <label class="form-control-label">Day</label>
-                      </div>
-                    </div>
-                    <div class="col-12 col-sm-4 pl-0 pl-sm-1">
-                      <div class="form-group float-label">
-                        <input
-                          type="number"
-                          name="month"
-                          min="1"
-                          max="12"
-                          class="form-control"
-                        />
-                        <label class="form-control-label">Month</label>
-                      </div>
-                    </div>
-                    <div class="col-12 col-sm-4 pr-0 pl-0 pl-sm-1">
-                      <div class="form-group float-label">
-                        <input type="number" name="year" class="form-control" />
-                        <label class="form-control-label">Year</label>
-                      </div>
-                    </div>
-                  </div>
+              <!--Form step 2 start-->
+              <div class="form-signin shadow" id="signup-2" data-step="2">
+                <!--Name-->
+                <div class="form-group float-label">
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="form-control"
+                  />
+                  <label for="name" class="form-control-label">Name</label>
                 </div>
-                <!--Date input end-->
 
-                <!--Weight and height start-->
-                <div class="container">
-                  <div class="row">
-                    <div class="col-6 pl-0">
-                      <div class="form-group float-label">
-                        <input
-                          type="number"
-                          name="weight"
-                          id="weight"
-                          class="form-control"
-                        />
-                        <label class="form-control-label">Weight</label>
-                      </div>
-                    </div>
-                    <div class="col-6 pr-0">
-                      <div class="form-group float-label">
-                        <input
-                          type="number"
-                          name="height"
-                          id="height"
-                          class="form-control"
-                        />
-                        <label class="form-control-label">Height</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!--Weight and height end-->
-
-                <!--Preference start-->
-
-                <div class="form-group">
-                  <label for="preference" class="section-subtitle"
-                    >Preference</label
+                <!--Textarea-->
+                <div class="form-group text-left">
+                  <label for="description" class="section-subtitle"
+                    >Write about yourself</label
                   >
-                  <select
-                    class="form-control preference"
-                    id="preference"
-                    name="preference"
-                  >
-                    <option value="" disabled selected hidden
-                      >Choose you preference</option
-                    >
-                    <option value="active">Active</option>
-                    <option value="passive">Passive</option>
-                    <option value="both">Both</option>
-                    <option value="secret">Won't tell</option>
-                  </select>
+                  <textarea
+                    class="form-control form-control-lg"
+                    rows="3"
+                    id="description"
+                    name="description"
+                  ></textarea>
                 </div>
 
+                <!--Submit button-->
                 <div class="row">
                   <div class="col-6 offset-5 offset-sm-6">
                     <button
-                      href="login.html"
+                      type="button"
                       class="btn btn-lg btn-default btn-rounded shadow"
                     >
                       <span>Next</span
@@ -453,64 +321,207 @@
                     </button>
                   </div>
                 </div>
-              </form>
-              <div class="back blue-link text-white d-flex align-items-center">
-                <i class="material-icons">
-                  arrow_back
-                </i>
-                back
               </div>
-            </div>
-            <!--Form step 3 end-->
+              <!--Form step 2 start-->
 
-            <!--Form step 4 start-->
-            <div class="form-wrapper text-left">
-              <form class="form-signin shadow" id="signup-4" data-step="4">
-                <!--Profile photo upload start-->
-                <div class="text-center pb-5">
-                  <h3 class="section-title">
-                    Upload your avatar
-                  </h3>
-                  <div class="figure-profile shadow my-4">
-                    <figure>
-                      <img
-                        src="img/placeholder-avatar.png"
-                        class="avatar-image"
-                        alt="Avatar"
-                      />
-                    </figure>
-                    <div
-                      class="btn btn-dark text-white floating-btn"
-                      data-toggle="modal"
-                      data-target="#upload-avatar"
+              <!--Form step 3 start-->
+              <div class="form-wrapper">
+                <div
+                  class="form-signin shadow text-left"
+                  id="signup-3"
+                  data-step="3"
+                >
+                  <!--City input start-->
+                  <div class="form-group float-label">
+                    <input
+                      type="text"
+                      name="city"
+                      class="form-control location"
+                    />
+                    <label class="form-control-label">City</label>
+                    <div class="dropdown location-dropdown">
+                      <button
+                        class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        Cities dropdown
+                      </button>
+                      <ul class="dropdown-menu"></ul>
+                    </div>
+                  </div>
+                  <!--City input end-->
+
+                  <!--Date input start-->
+                  <h4 class="section-subtitle">
+                    Date of birth
+                  </h4>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-12 col-sm-4 pl-0">
+                        <div class="form-group float-label">
+                          <input
+                            type="number"
+                            name="day"
+                            min="1"
+                            max="31"
+                            class="form-control"
+                          />
+                          <label class="form-control-label">Day</label>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-4 pl-0 pl-sm-1">
+                        <div class="form-group float-label">
+                          <input
+                            type="number"
+                            name="month"
+                            min="1"
+                            max="12"
+                            class="form-control"
+                          />
+                          <label class="form-control-label">Month</label>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-4 pr-0 pl-0 pl-sm-1">
+                        <div class="form-group float-label">
+                          <input
+                            type="number"
+                            name="year"
+                            class="form-control"
+                          />
+                          <label class="form-control-label">Year</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Date input end-->
+
+                  <!--Weight and height start-->
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-6 pl-0">
+                        <div class="form-group float-label">
+                          <input
+                            type="number"
+                            name="weight"
+                            id="weight"
+                            class="form-control"
+                          />
+                          <label class="form-control-label">Weight</label>
+                        </div>
+                      </div>
+                      <div class="col-6 pr-0">
+                        <div class="form-group float-label">
+                          <input
+                            type="number"
+                            name="height"
+                            id="height"
+                            class="form-control"
+                          />
+                          <label class="form-control-label">Height</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Weight and height end-->
+
+                  <!--Preference start-->
+
+                  <div class="form-group">
+                    <label for="preference" class="section-subtitle"
+                      >Preference</label
                     >
-                      <i class="material-icons">camera_alt</i>
+                    <select
+                      class="form-control preference"
+                      id="preference"
+                      name="preference"
+                    >
+                      <option value="" disabled selected hidden
+                        >Choose you preference</option
+                      >
+                      <option value="active">Active</option>
+                      <option value="passive">Passive</option>
+                      <option value="both">Both</option>
+                      <option value="secret">Won't tell</option>
+                    </select>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-6 offset-5 offset-sm-6">
+                      <button
+                        type="button"
+                        class="btn btn-lg btn-default btn-rounded shadow"
+                      >
+                        <span>Next</span
+                        ><i class="material-icons">arrow_forward</i>
+                      </button>
                     </div>
                   </div>
                 </div>
-                <!--Profile photo upload end-->
-                <!--Signup button-->
-                <div class="row">
-                  <div class="col-12">
-                    <button
-                      type="submit"
-                      href="login.html"
-                      class="btn btn-lg btn-default btn-rounded shadow"
-                    >
-                      <span>Submit</span
-                      ><i class="material-icons">arrow_forward</i>
-                    </button>
+                <div
+                  class="back blue-link text-white d-flex align-items-center"
+                >
+                  <i class="material-icons">
+                    arrow_back
+                  </i>
+                  back
+                </div>
+              </div>
+              <!--Form step 3 end-->
+
+              <!--Form step 4 start-->
+              <div class="form-wrapper text-left">
+                <div class="form-signin shadow" id="signup-4" data-step="4">
+                  <!--Profile photo upload start-->
+                  <div class="text-center pb-5">
+                    <h3 class="section-title">
+                      Upload your avatar
+                    </h3>
+                    <div class="figure-profile shadow my-4">
+                      <figure>
+                        <img
+                          src="img/placeholder-avatar.png"
+                          class="avatar-image"
+                          alt="Avatar"
+                        />
+                      </figure>
+                      <div
+                        class="btn btn-dark text-white floating-btn"
+                        data-toggle="modal"
+                        data-target="#upload-avatar"
+                      >
+                        <i class="material-icons">camera_alt</i>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Profile photo upload end-->
+                  <!--Signup button-->
+                  <div class="row">
+                    <div class="col-12">
+                      <button
+                        type="submit"
+                        class="btn btn-lg btn-default btn-rounded shadow"
+                      >
+                        <span>Submit</span
+                        ><i class="material-icons">arrow_forward</i>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </form>
-              <div class="back blue-link text-white d-flex align-items-center">
-                <i class="material-icons">
-                  arrow_back
-                </i>
-                back
+                <div
+                  class="back blue-link text-white d-flex align-items-center"
+                >
+                  <i class="material-icons">
+                    arrow_back
+                  </i>
+                  back
+                </div>
               </div>
-            </div>
-            <!--Form step 4 end-->
+              <!--Form step 4 end-->
+            </form>
 
             <p class="text-center text-white">
               Already have account?<br />

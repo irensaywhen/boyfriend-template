@@ -8,6 +8,7 @@ export default {
     // Bind context
     this.throttleInput = this.throttleInput.bind(this);
     this.displayCities = this.displayCities.bind(this);
+    this.frontendCityValidator = this.frontendCityValidator.bind(this);
 
     // Add default query params
     for (let key in requestInfo.searchParams) {
@@ -41,7 +42,13 @@ export default {
 
   setUpLocationEventListeners() {
     // Listen to typing event
-    this.$locationInput.on("input", (event) => {
+    this.$locationInput.on("input change", (event) => {
+      // Clean previously cached values
+      let customAttributes = event.target.dataset;
+      for (let key in customAttributes) {
+        customAttributes[key] = "";
+      }
+
       // If the user selects the city
       if (this.citySelection) return;
 
@@ -74,6 +81,9 @@ export default {
         .attr("data-lon", dataset.lon)
         .attr("data-name", dataset.name)
         .val(dataset.name);
+
+      console.log(this.$locationInput[0]);
+      this.$locationInput.valid();
 
       this.citySelection = false;
       this.locationInputStarted = false;
@@ -122,6 +132,8 @@ export default {
   },
 
   displayCities(cities) {
+    if (cities.length === 0) return;
+
     cities.forEach((city) => {
       this.$locationDropdownMenu
         .append(
@@ -136,5 +148,18 @@ export default {
     });
 
     this.$locationDropdownToggle.dropdown("toggle");
+  },
+
+  frontendCityValidator(value, element) {
+    console.log(element.dataset);
+    let dataset = element.dataset;
+    console.log("Lattitude: ", dataset.lat);
+    console.log("Longtitude: ", dataset.lon);
+    console.log("Name: ", dataset.name);
+    if (dataset["lat"] && dataset["lon"] && dataset["name"]) {
+      return true;
+    } else {
+      return false;
+    }
   },
 };

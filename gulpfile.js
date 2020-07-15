@@ -6,6 +6,11 @@ const autoprefixer = require("gulp-autoprefixer");
 // Webpack modules
 const webpack = require("webpack");
 const webpackConfig = require("./webpack.config.js");
+const webpackDevMiddleware = require("webpack-dev-middleware");
+const webpackHotMiddleware = require("webpack-hot-middleware");
+
+// Setup bundler
+const bundler = webpack(webpackConfig);
 
 // Other modules
 const browserSync = require("browser-sync").create();
@@ -49,7 +54,16 @@ function copyImages() {
 function serve(done) {
   browserSync.init(
     {
-      server: "./dist",
+      server: {
+        baseDir: "./dist",
+        //middleware: [
+        //  webpackDevMiddleware(bundler, {
+        //    publicPath: webpackConfig.output.publicPath,
+        //    stats: { colors: true },
+        //  }),
+        //  webpackHotMiddleware(bundler),
+        //],
+      },
       port: 8080,
       host: "0.0.0.0",
     },

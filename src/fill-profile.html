@@ -1375,7 +1375,10 @@
             errorElement: "span",
             rules: {
               name: "required",
-              city: "required",
+              city: {
+                required: true,
+                location: true,
+              },
               day: {
                 required: true,
                 min: 1,
