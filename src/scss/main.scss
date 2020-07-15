@@ -1,6 +1,6 @@
 /*Utilities*/
-@import "utilities/helper_classes";
 @import "utilities/variables";
+@import "utilities/helper_classes";
 @import "utilities/mixins";
 @import "utilities/functions";
 
@@ -31,5 +31,6 @@
 @import "pages/front_page";
 @import "pages/single_page";
 @import "pages/fill_profile";
+@import "pages/login_and_register";
 
 @import "utilities/media";
