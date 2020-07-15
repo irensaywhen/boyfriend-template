@@ -32,6 +32,9 @@
     <!-- Swiper CSS -->
     <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" />
 
+    <!--SweetAlert2-->
+    <link href="vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/main.css" />
@@ -86,28 +89,28 @@
               <span class="font-weight-light">Sign</span>
               In
             </h2>
-            <form class="form-signin shadow">
-              <div class="form-group float-label">
+            <form class="form-signin shadow" id="form-signin">
+              <div class="form-group float-label text-left">
                 <input
                   type="email"
-                  id="inputEmail"
-                  class="form-control"
-                  required
+                  id="email"
+                  name="email"
+                  class="form-control signin-input"
                   autofocus
                 />
-                <label for="inputEmail" class="form-control-label"
+                <label for="email" class="form-control-label"
                   >Email address</label
                 >
               </div>
 
-              <div class="form-group float-label">
+              <div class="form-group float-label text-left">
                 <input
                   type="password"
-                  id="inputPassword"
-                  class="form-control"
-                  required
+                  id="password"
+                  name="password"
+                  class="form-control signin-input"
                 />
-                <label for="inputPassword" class="form-control-label"
+                <label for="password" class="form-control-label"
                   >Password</label
                 >
               </div>
@@ -116,8 +119,9 @@
                 <div class="custom-control custom-checkbox">
                   <input
                     type="checkbox"
-                    class="custom-control-input"
+                    class="custom-control-input signin-input"
                     id="rememberme"
+                    name="rememberme"
                   />
                   <label class="custom-control-label" for="rememberme"
                     >Remember Me</label
@@ -127,15 +131,18 @@
 
               <div class="row">
                 <div class="col-auto">
-                  <a
-                    href="index.html"
+                  <button
+                    type="submit"
                     class="btn btn-lg btn-default btn-rounded shadow"
-                    ><span>Sign in</span
-                    ><i class="material-icons">arrow_forward</i></a
                   >
+                    <span>Sign in</span
+                    ><i class="material-icons">arrow_forward</i>
+                  </button>
                 </div>
                 <div class="col align-self-center text-right pl-0">
-                  <a href="forgot-password.html">Forgot Password?</a>
+                  <a href="forgot-password.html" class="blue-link"
+                    >Forgot Password?</a
+                  >
                 </div>
               </div>
             </form>
@@ -202,9 +209,11 @@
     <!-- jquery, popper and bootstrap js -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
 
     <!-- swiper js -->
     <script src="vendor/swiper/js/swiper.min.js"></script>
+    <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
 
     <!-- template custom js -->
     <script src="js/main.bundle.js"></script>
@@ -258,6 +267,43 @@
         $(".closenotification").on("click", function () {
           $(this).closest(".notification").removeClass("active");
         });
+
+        /* login form functionality start */
+        const signinFOrm = new Form({
+          selectors: {
+            form: "#form-signin",
+            "input-wrapper": ".form-group",
+            inputs: ".signin-input",
+          },
+          requests: {
+            submit: {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail",
+            },
+          },
+          location: false,
+          showSuccessPopup: false,
+          showFailPopup: false,
+          frontendValidation: true,
+          validatorOptions: {
+            errorElement: "span",
+            rules: {
+              email: {
+                required: true,
+                email: true,
+              },
+              password: {
+                required: true,
+                minlength: 4,
+              },
+            },
+          },
+        });
+        /* login form functionality end */
       });
     </script>
   </body>

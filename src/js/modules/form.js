@@ -43,6 +43,16 @@ export default class Form extends ServerRequest {
       // If form requires to clean fields after successful response
       this.cleanFields = true;
     }
+
+    if (options.showSuccessPopup) {
+      // Show popups when handling success: true/false from the server response
+      this.showSuccessPopup = true;
+    }
+
+    if (options.showFailPopup) {
+      // Show popups when handling success: true/false from the server response
+      this.showFailPopup = true;
+    }
   }
 
   cacheElements() {
@@ -135,22 +145,28 @@ export default class Form extends ServerRequest {
     }
 
     if (response.success) {
-      // Successful Popup
-      this.showRequestResult({
-        title: "Success!",
-        text: response.message,
-        icon: "success",
-      });
+      if (this.showSuccessPopup) {
+        // Successful Popup
+        this.showRequestResult({
+          title: response.title,
+          text: response.message,
+          icon: "success",
+        });
+      }
 
-      // Clean input fields
-      this.$inputs.val("");
+      if (this.cleanFields) {
+        // Clean input fields
+        this.$inputs.val("");
+      }
     } else {
-      // Unsuccessful Popup
-      this.showRequestResult({
-        title: "Oops!",
-        text: response.message,
-        icon: "error",
-      });
+      if (this.showFailPopup) {
+        // Unsuccessful Popup
+        this.showRequestResult({
+          title: response.title,
+          text: response.message,
+          icon: "error",
+        });
+      }
       this.showErrorMessages({ errors: response.errors });
     }
   }

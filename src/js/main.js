@@ -1,3 +1,6 @@
+import Form from "./modules/form.js";
+window["Form"] = Form;
+
 $(document).ready(function () {
   /* Browser fullscreen experience on double click */
   if (self == top) {
