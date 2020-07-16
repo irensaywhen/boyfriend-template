@@ -2,6 +2,7 @@
 const gulp = require("gulp");
 const sass = require("gulp-sass");
 const autoprefixer = require("gulp-autoprefixer");
+const svgmin = require("gulp-svgmin");
 
 // Webpack modules
 const webpack = require("webpack");
@@ -47,7 +48,16 @@ function copyHTML() {
 }
 
 function copyImages() {
-  return gulp.src("./src/img/*").pipe(gulp.dest("./dist/img"));
+  return gulp
+    .src(["./src/img/*", "!./src/img/*.svg"])
+    .pipe(gulp.dest("./dist/img"));
+}
+
+function copySVG() {
+  return gulp
+    .src("./src/img/*.svg")
+    .pipe(svgmin())
+    .pipe(gulp.dest("./dist/img"));
 }
 
 // Initialize server
@@ -80,7 +90,7 @@ function watch() {
   gulp.watch("src/scss/**/*.scss", styles);
   gulp.watch("src/js/**/*.js", gulp.series(assets, reload));
   gulp.watch("./src/*.html").on("change", gulp.series(copyHTML, reload));
-  gulp.watch("./src/img/*.svg").on("change", gulp.series(copyImages, reload));
+  gulp.watch("./src/img/*.svg").on("change", gulp.series(copySVG, reload));
 }
 
 exports.assets = assets;
@@ -90,6 +100,7 @@ exports.develop = gulp.series(
   assets,
   copyHTML,
   copyImages,
+  copySVG,
   styles,
   serve,
   watch

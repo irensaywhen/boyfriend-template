@@ -103,13 +103,9 @@ export default class Boost extends Bonus {
     let intervalId = setInterval(() => {
       // Get today's date and time
       let now = new Date().getTime();
-      console.log(now);
-      console.log(new Date(this.countDownTime));
 
       // Find the distance between now and the count down date
       let distance = this.countDownTime - now;
-
-      console.log(distance);
 
       // If the count down is finished
       if (distance <= 1000) {

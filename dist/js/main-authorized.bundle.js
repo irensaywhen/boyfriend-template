@@ -1520,12 +1520,9 @@ var Boost = /*#__PURE__*/function (_Bonus) {
 
       var intervalId = setInterval(function () {
         // Get today's date and time
-        var now = new Date().getTime();
-        console.log(now);
-        console.log(new Date(_this2.countDownTime)); // Find the distance between now and the count down date
+        var now = new Date().getTime(); // Find the distance between now and the count down date
 
-        var distance = _this2.countDownTime - now;
-        console.log(distance); // If the count down is finished
+        var distance = _this2.countDownTime - now; // If the count down is finished
 
         if (distance <= 1000) {
           _this2.displayTime(0, 0, 0);
