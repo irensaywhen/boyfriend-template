@@ -82,7 +82,6 @@ export default {
         .attr("data-name", dataset.name)
         .val(dataset.name);
 
-      console.log(this.$locationInput[0]);
       this.$locationInput.valid();
 
       this.citySelection = false;
@@ -108,7 +107,7 @@ export default {
     let newValue = this.$locationInput.val();
 
     if (!(newValue === this.locationInputValue)) {
-      // If the inputed value has been changed during the last 2000ms
+      // If the inputed value has been changed recently
       // Save new value
       this.locationInputValue = newValue;
 
@@ -123,7 +122,7 @@ export default {
       });
 
       // Schedule next check
-      this.locationTimer = setTimeout(this.throttleInput, 2500);
+      this.locationTimer = setTimeout(this.throttleInput, 1500);
 
       this.displayCities(cities);
     } else {
@@ -151,12 +150,11 @@ export default {
   },
 
   frontendCityValidator(value, element) {
-    console.log(element.dataset);
+    // Cache data-* sttributes
     let dataset = element.dataset;
-    console.log("Lattitude: ", dataset.lat);
-    console.log("Longtitude: ", dataset.lon);
-    console.log("Name: ", dataset.name);
+
     if (dataset["lat"] && dataset["lon"] && dataset["name"]) {
+      // If dataset properties are not empty, the element is valid
       return true;
     } else {
       return false;

@@ -115,7 +115,7 @@ export default class PhotoEditor extends EditorModal {
     } catch (error) {
       // Unsuccessful Popup
       this.showRequestResult({
-        title: "Oops!",
+        title: error.name,
         text: error.message,
         icon: "error",
       });
@@ -127,7 +127,7 @@ export default class PhotoEditor extends EditorModal {
 
       // Successful Popup
       this.showRequestResult({
-        title: "Success!",
+        title: response.title,
         text: response.message,
         icon: "success",
       });
@@ -136,7 +136,7 @@ export default class PhotoEditor extends EditorModal {
     } else {
       // Unsuccessful Popup
       this.showRequestResult({
-        title: "Oops!",
+        title: response.title,
         text: response.message,
         icon: "error",
       });

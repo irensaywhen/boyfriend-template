@@ -98,7 +98,7 @@ class EditorModal extends ServerRequest {
       } catch (error) {
         // Unsuccessful Popup
         this.showRequestResult({
-          title: "Oops!",
+          title: error.name,
           text: error.message,
           icon: "error",
         });
@@ -110,7 +110,7 @@ class EditorModal extends ServerRequest {
 
         // Successful Popup
         this.showRequestResult({
-          title: "Success!",
+          title: response.title,
           text: response.message,
           icon: "success",
         });
@@ -119,7 +119,7 @@ class EditorModal extends ServerRequest {
       } else {
         // Unsuccessful Popup
         this.showRequestResult({
-          title: "Oops!",
+          title: response.title,
           text: response.message,
           icon: "error",
         });

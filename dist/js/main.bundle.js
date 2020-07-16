@@ -1469,7 +1469,7 @@ var Avatar = /*#__PURE__*/function (_EditorModal) {
                 _context.t0 = _context["catch"](1);
                 // Unsuccessful Popup
                 this.showRequestResult({
-                  title: "Oops!",
+                  title: _context.t0.name,
                   text: _context.t0.message,
                   icon: "error"
                 });
@@ -1480,7 +1480,7 @@ var Avatar = /*#__PURE__*/function (_EditorModal) {
                   this.updateMarkup(); // Successful Popup
 
                   this.showRequestResult({
-                    title: "Success!",
+                    title: response.title,
                     text: response.message,
                     icon: "success"
                   });
@@ -1489,7 +1489,7 @@ var Avatar = /*#__PURE__*/function (_EditorModal) {
                 } else {
                   // Unsuccessful Popup
                   this.showRequestResult({
-                    title: "Oops!",
+                    title: response.title,
                     text: response.message,
                     icon: "error"
                   });
@@ -1579,19 +1579,11 @@ var ChainedForms = /*#__PURE__*/function () {
 
     // Bind context
     this.cacheElements = this.cacheElements.bind(this);
-    this.setUpEventListeners = this.setUpEventListeners.bind(this);
-    this.showNextForm = this.showNextForm.bind(this);
-    this.showPreviousForm = this.showPreviousForm.bind(this); // Save options
+    this.setUpEventListeners = this.setUpEventListeners.bind(this); // Save options
 
     this.selectors = options.selectors;
-    this.forms = options.forms;
     this.cacheElements();
-    this.setUpEventListeners(); // Hide all the forms except the first one
-    //this.forms.forEach((item, index) => {
-    //  if (index !== 0) {
-    //    item.form.$form.hide();
-    //  }
-    //});
+    this.setUpEventListeners();
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(ChainedForms, [{
@@ -1617,13 +1609,15 @@ var ChainedForms = /*#__PURE__*/function () {
     value: function setUpEventListeners() {
       var _this2 = this;
 
+      // Show next form when the current is submitted
       this.$forms.on("submitted", function (event) {
         var target = event.target;
         var step = Number(target.dataset.step) + 1;
         $(target).closest(_this2.selectors.wrapper).fadeOut(400, function () {
           $(_this2.$forms.get(step)).closest(_this2.selectors.wrapper).fadeIn(400);
         });
-      });
+      }); // Show previous form when the "back" button is clicked"
+
       this.$backwardButton.click(function (event) {
         // Here something is not working
         event.stopPropagation();
@@ -1636,12 +1630,6 @@ var ChainedForms = /*#__PURE__*/function () {
         });
       });
     }
-  }, {
-    key: "showNextForm",
-    value: function showNextForm() {}
-  }, {
-    key: "showPreviousForm",
-    value: function showPreviousForm() {}
   }]);
 
   return ChainedForms;
@@ -1717,7 +1705,7 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
     _this.collectFormInputs = _this.collectFormInputs.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
 
     if (options.location) {
-      // Add methods to the form object
+      // Add location methods to the form object
       Object.assign(Form.prototype, _locationMixin_js__WEBPACK_IMPORTED_MODULE_9__["default"]);
       _this.location = true;
     }
@@ -1744,21 +1732,14 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
       _this.$form.validate(options.validatorOptions);
     }
 
-    if (options.cleanFields) {
-      // If form requires to clean fields after successful response
-      _this.cleanFields = true;
-    }
+    _this.redirectOnSubmit = options.redirectOnSubmit ? true : false;
+    _this.generateSubmitEvent = options.generateSubmitEvent ? true : false; // Clean fields after submission?
 
-    if (options.showSuccessPopup) {
-      // Show popups when handling success: true/false from the server response
-      _this.showSuccessPopup = true;
-    }
+    _this.cleanFields = options.cleanFields ? true : false; // Show popup after submission with successful result?
 
-    if (options.showFailPopup) {
-      // Show popups when handling success: true/false from the server response
-      _this.showFailPopup = true;
-    }
+    _this.showSuccessPopup = options.showSuccessPopup ? true : false; // Show popup after submission with failed result?
 
+    _this.showFailPopup = options.showFailPopup ? true : false;
     return _this;
   }
 
@@ -1861,7 +1842,7 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
                 _context.t0 = _context["catch"](0);
                 // Unsuccessful Popup
                 this.showRequestResult({
-                  title: "Oops!",
+                  title: _context.t0.name,
                   text: _context.t0.message,
                   icon: "error"
                 });
@@ -1874,9 +1855,12 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
 
               case 12:
                 if (response.success) {
-                  // Make custom event for form submission
-                  customSubmittedEvent = new CustomEvent("submitted");
-                  this.$form[0].dispatchEvent(customSubmittedEvent);
+                  if (this.generateSubmitEvent) {
+                    // Make custom event for form submission
+                    customSubmittedEvent = new CustomEvent("submitted"); // Dispatch custom event
+
+                    this.$form[0].dispatchEvent(customSubmittedEvent);
+                  }
 
                   if (this.showSuccessPopup) {
                     // Successful Popup
@@ -1890,6 +1874,11 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
                   if (this.cleanFields) {
                     // Clean input fields
                     this.$inputs.val("");
+                  }
+
+                  if (this.redirectOnSubmit) {
+                    // Redirection with simulating HTTP request
+                    window.location.replace(response.redirect);
                   }
                 } else {
                   if (this.showFailPopup) {
@@ -2024,8 +2013,6 @@ __webpack_require__.r(__webpack_exports__);
 
       _this.$locationInput.attr("data-lat", dataset.lat).attr("data-lon", dataset.lon).attr("data-name", dataset.name).val(dataset.name);
 
-      console.log(_this.$locationInput[0]);
-
       _this.$locationInput.valid();
 
       _this.citySelection = false;
@@ -2081,7 +2068,7 @@ __webpack_require__.r(__webpack_exports__);
                 break;
               }
 
-              // If the inputed value has been changed during the last 2000ms
+              // If the inputed value has been changed recently
               // Save new value
               _this3.locationInputValue = newValue; // Adjust searchParams
 
@@ -2097,7 +2084,7 @@ __webpack_require__.r(__webpack_exports__);
             case 7:
               cities = _context2.sent;
               // Schedule next check
-              _this3.locationTimer = setTimeout(_this3.throttleInput, 2500);
+              _this3.locationTimer = setTimeout(_this3.throttleInput, 1500);
 
               _this3.displayCities(cities);
 
@@ -2125,13 +2112,11 @@ __webpack_require__.r(__webpack_exports__);
     this.$locationDropdownToggle.dropdown("toggle");
   },
   frontendCityValidator: function frontendCityValidator(value, element) {
-    console.log(element.dataset);
+    // Cache data-* sttributes
     var dataset = element.dataset;
-    console.log("Lattitude: ", dataset.lat);
-    console.log("Longtitude: ", dataset.lon);
-    console.log("Name: ", dataset.name);
 
     if (dataset["lat"] && dataset["lon"] && dataset["name"]) {
+      // If dataset properties are not empty, the element is valid
       return true;
     } else {
       return false;
@@ -2317,7 +2302,7 @@ var EditorModal = /*#__PURE__*/function (_ServerRequest) {
                 _context.t0 = _context["catch"](2);
                 // Unsuccessful Popup
                 this.showRequestResult({
-                  title: "Oops!",
+                  title: _context.t0.name,
                   text: _context.t0.message,
                   icon: "error"
                 });
@@ -2328,7 +2313,7 @@ var EditorModal = /*#__PURE__*/function (_ServerRequest) {
                   $(photo).closest(this.selectors.container).remove(); // Successful Popup
 
                   this.showRequestResult({
-                    title: "Success!",
+                    title: response.title,
                     text: response.message,
                     icon: "success"
                   });
@@ -2336,7 +2321,7 @@ var EditorModal = /*#__PURE__*/function (_ServerRequest) {
                 } else {
                   // Unsuccessful Popup
                   this.showRequestResult({
-                    title: "Oops!",
+                    title: response.title,
                     text: response.message,
                     icon: "error"
                   });

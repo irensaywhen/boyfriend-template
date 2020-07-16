@@ -17,7 +17,7 @@ export default class Form extends ServerRequest {
     this.collectFormInputs = this.collectFormInputs.bind(this);
 
     if (options.location) {
-      // Add methods to the form object
+      // Add location methods to the form object
       Object.assign(Form.prototype, location);
       this.location = true;
     }
@@ -48,20 +48,17 @@ export default class Form extends ServerRequest {
       this.$form.validate(options.validatorOptions);
     }
 
-    if (options.cleanFields) {
-      // If form requires to clean fields after successful response
-      this.cleanFields = true;
-    }
+    this.redirectOnSubmit = options.redirectOnSubmit ? true : false;
+    this.generateSubmitEvent = options.generateSubmitEvent ? true : false;
 
-    if (options.showSuccessPopup) {
-      // Show popups when handling success: true/false from the server response
-      this.showSuccessPopup = true;
-    }
+    // Clean fields after submission?
+    this.cleanFields = options.cleanFields ? true : false;
 
-    if (options.showFailPopup) {
-      // Show popups when handling success: true/false from the server response
-      this.showFailPopup = true;
-    }
+    // Show popup after submission with successful result?
+    this.showSuccessPopup = options.showSuccessPopup ? true : false;
+
+    // Show popup after submission with failed result?
+    this.showFailPopup = options.showFailPopup ? true : false;
   }
 
   cacheElements() {
@@ -144,7 +141,7 @@ export default class Form extends ServerRequest {
     } catch (error) {
       // Unsuccessful Popup
       this.showRequestResult({
-        title: "Oops!",
+        title: error.name,
         text: error.message,
         icon: "error",
       });
@@ -154,9 +151,13 @@ export default class Form extends ServerRequest {
     }
 
     if (response.success) {
-      // Make custom event for form submission
-      let customSubmittedEvent = new CustomEvent("submitted");
-      this.$form[0].dispatchEvent(customSubmittedEvent);
+      if (this.generateSubmitEvent) {
+        // Make custom event for form submission
+        let customSubmittedEvent = new CustomEvent("submitted");
+
+        // Dispatch custom event
+        this.$form[0].dispatchEvent(customSubmittedEvent);
+      }
 
       if (this.showSuccessPopup) {
         // Successful Popup
@@ -170,6 +171,11 @@ export default class Form extends ServerRequest {
       if (this.cleanFields) {
         // Clean input fields
         this.$inputs.val("");
+      }
+
+      if (this.redirectOnSubmit) {
+        // Redirection with simulating HTTP request
+        window.location.replace(response.redirect);
       }
     } else {
       if (this.showFailPopup) {

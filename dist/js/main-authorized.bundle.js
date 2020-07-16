@@ -1628,7 +1628,7 @@ var PhotoEditor = /*#__PURE__*/function (_EditorModal) {
                 _context.t0 = _context["catch"](2);
                 // Unsuccessful Popup
                 this.showRequestResult({
-                  title: "Oops!",
+                  title: _context.t0.name,
                   text: _context.t0.message,
                   icon: "error"
                 });
@@ -1639,7 +1639,7 @@ var PhotoEditor = /*#__PURE__*/function (_EditorModal) {
                   this.updateMarkup(); // Successful Popup
 
                   this.showRequestResult({
-                    title: "Success!",
+                    title: response.title,
                     text: response.message,
                     icon: "success"
                   });
@@ -1647,7 +1647,7 @@ var PhotoEditor = /*#__PURE__*/function (_EditorModal) {
                 } else {
                   // Unsuccessful Popup
                   this.showRequestResult({
-                    title: "Oops!",
+                    title: response.title,
                     text: response.message,
                     icon: "error"
                   });
@@ -1893,7 +1893,7 @@ var EditorModal = /*#__PURE__*/function (_ServerRequest) {
                 _context.t0 = _context["catch"](2);
                 // Unsuccessful Popup
                 this.showRequestResult({
-                  title: "Oops!",
+                  title: _context.t0.name,
                   text: _context.t0.message,
                   icon: "error"
                 });
@@ -1904,7 +1904,7 @@ var EditorModal = /*#__PURE__*/function (_ServerRequest) {
                   $(photo).closest(this.selectors.container).remove(); // Successful Popup
 
                   this.showRequestResult({
-                    title: "Success!",
+                    title: response.title,
                     text: response.message,
                     icon: "success"
                   });
@@ -1912,7 +1912,7 @@ var EditorModal = /*#__PURE__*/function (_ServerRequest) {
                 } else {
                   // Unsuccessful Popup
                   this.showRequestResult({
-                    title: "Oops!",
+                    title: response.title,
                     text: response.message,
                     icon: "error"
                   });

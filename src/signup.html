@@ -487,7 +487,7 @@
 
               <!--Form step 4 start-->
               <div class="form-wrapper text-left">
-                <form class="form-signin shadow" id="signup-4" data-step="3">
+                <div class="form-signin shadow" id="signup-4" data-step="3">
                   <!--Profile photo upload start-->
                   <div class="text-center pb-5">
                     <h3 class="section-title">
@@ -512,18 +512,19 @@
                   </div>
                   <!--Profile photo upload end-->
                   <!--Signup button-->
-                  <div class="row">
+                  <div class="row text-center">
                     <div class="col-12">
-                      <button
-                        type="submit"
+                      <a
+                        href="#"
+                        id="continue"
                         class="btn btn-lg btn-default btn-rounded shadow"
                       >
-                        <span>Submit</span
+                        <span>Continue</span
                         ><i class="material-icons">arrow_forward</i>
-                      </button>
+                      </a>
                     </div>
                   </div>
-                </form>
+                </div>
                 <div
                   class="back blue-link text-white d-flex align-items-center"
                 >
@@ -536,7 +537,7 @@
               <!--Form step 4 end-->
             </div>
 
-            <p class="text-center text-white">
+            <p class="text-center text-white pt-4">
               Already have account?<br />
               <a href="login.html" class="blue-link text-underline">Sign In</a>
               here.
@@ -646,6 +647,7 @@
           showSuccessPopup: false,
           showFailPopup: false,
           frontendValidation: true,
+          generateSubmitEvent: true,
           validatorOptions: {
             errorElement: "span",
             rules: {
@@ -687,6 +689,7 @@
           showSuccessPopup: false,
           showFailPopup: false,
           frontendValidation: true,
+          generateSubmitEvent: true,
           validatorOptions: {
             errorElement: "span",
             rules: {
@@ -738,6 +741,7 @@
           showSuccessPopup: false,
           showFailPopup: false,
           frontendValidation: true,
+          generateSubmitEvent: true,
           validatorOptions: {
             errorElement: "span",
             rules: {
@@ -796,19 +800,13 @@
             backward: ".back",
             wrapper: ".form-wrapper",
           },
-          forms: [
-            { element: "#signup-1", form: signupFirstStep },
-            {
-              element: "#signup-2",
-              form: signupSecondStep,
-            },
-            {
-              element: "#signup-3-wrapper",
-              form: signupThirdStep,
-            },
-          ],
         });
         /* forms chainer initialization end */
+
+        $("#continue").click((event) => {
+          event.preventDefault();
+          window.location.replace("./profile.html");
+        });
       });
     </script>
   </body>

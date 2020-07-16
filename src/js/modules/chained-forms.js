@@ -6,22 +6,12 @@ export default class ChainedForms {
     // Bind context
     this.cacheElements = this.cacheElements.bind(this);
     this.setUpEventListeners = this.setUpEventListeners.bind(this);
-    this.showNextForm = this.showNextForm.bind(this);
-    this.showPreviousForm = this.showPreviousForm.bind(this);
 
     // Save options
     this.selectors = options.selectors;
-    this.forms = options.forms;
 
     this.cacheElements();
     this.setUpEventListeners();
-
-    // Hide all the forms except the first one
-    //this.forms.forEach((item, index) => {
-    //  if (index !== 0) {
-    //    item.form.$form.hide();
-    //  }
-    //});
   }
 
   cacheElements() {
@@ -45,6 +35,7 @@ export default class ChainedForms {
   }
 
   setUpEventListeners() {
+    // Show next form when the current is submitted
     this.$forms.on("submitted", (event) => {
       let target = event.target;
 
@@ -57,6 +48,7 @@ export default class ChainedForms {
         });
     });
 
+    // Show previous form when the "back" button is clicked"
     this.$backwardButton.click((event) => {
       // Here something is not working
       event.stopPropagation();
@@ -76,8 +68,4 @@ export default class ChainedForms {
       });
     });
   }
-
-  showNextForm() {}
-
-  showPreviousForm() {}
 }

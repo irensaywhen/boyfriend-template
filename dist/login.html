@@ -130,7 +130,7 @@
               </div>
 
               <div class="row">
-                <div class="col-auto">
+                <div class="col-12">
                   <button
                     type="submit"
                     class="btn btn-lg btn-default btn-rounded shadow"
@@ -139,7 +139,7 @@
                     ><i class="material-icons">arrow_forward</i>
                   </button>
                 </div>
-                <div class="col align-self-center text-right pl-0">
+                <div class="col-12 align-self-center text-center pt-2">
                   <a href="forgot-password.html" class="blue-link"
                     >Forgot Password?</a
                   >
@@ -246,13 +246,14 @@
                 "Content-Type": "application/json",
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail",
             },
           },
           location: false,
           showSuccessPopup: false,
           showFailPopup: false,
           frontendValidation: true,
+          redirectOnSubmit: true,
           validatorOptions: {
             errorElement: "span",
             rules: {
