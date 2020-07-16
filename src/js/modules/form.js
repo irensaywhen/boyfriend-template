@@ -8,9 +8,6 @@ export default class Form extends ServerRequest {
     // Data that will be sent to the server
     this.formData = {};
 
-    // Submission marker
-    this.submitted = false;
-
     // Bind context
     this.cacheElements = this.cacheElements.bind(this);
     this.setUpEventListeners = this.setUpEventListeners.bind(this);
@@ -107,9 +104,6 @@ export default class Form extends ServerRequest {
         .find(".custom-error")
         .remove();
     });
-
-    // Mark form as unsibmitted when the user changes the inputs
-    this.$inputs.on("change input", () => (this.submitted = false));
   }
 
   collectLocationData(element) {
@@ -160,8 +154,9 @@ export default class Form extends ServerRequest {
     }
 
     if (response.success) {
-      // Mark form as submitted
-      this.submitted = true;
+      // Make custom event for form submission
+      let customSubmittedEvent = new CustomEvent("submitted");
+      this.$form[0].dispatchEvent(customSubmittedEvent);
 
       if (this.showSuccessPopup) {
         // Successful Popup

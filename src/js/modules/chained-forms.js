@@ -16,23 +16,26 @@ export default class ChainedForms {
     this.cacheElements();
     this.setUpEventListeners();
 
-    // Set the initial step
-    this.step = 1;
-
     // Hide all the forms except the first one
-    this.forms.forEach((item, index) => {
-      if (index !== 0) {
-        item.form.$form.hide();
-      }
-    });
+    //this.forms.forEach((item, index) => {
+    //  if (index !== 0) {
+    //    item.form.$form.hide();
+    //  }
+    //});
   }
 
   cacheElements() {
     // Forms container
     this.$container = $(this.selectors.formsContainer);
 
-    this.$forms = this.$container.find(this.selectors.forms);
-    console.log(this.$forms[0]);
+    // Forms to chain
+    this.$forms = this.$container
+      .find(this.selectors.forms)
+      .each((index, element) => {
+        if (index !== 0) {
+          $(element).closest(this.selectors.wrapper).fadeOut().hide();
+        }
+      });
 
     // Forward button
     this.$forwardButton = this.$container.find(this.selectors.forward);
@@ -42,21 +45,35 @@ export default class ChainedForms {
   }
 
   setUpEventListeners() {
-    this.$forwardButton.click((event) => {
+    this.$forms.on("submitted", (event) => {
+      let target = event.target;
+
+      let step = Number(target.dataset.step) + 1;
+
+      $(target)
+        .closest(this.selectors.wrapper)
+        .fadeOut(400, () => {
+          $(this.$forms.get(step)).closest(this.selectors.wrapper).fadeIn(400);
+        });
+    });
+
+    this.$backwardButton.click((event) => {
+      // Here something is not working
       event.stopPropagation();
 
-      // Check the state of the current form
-      console.log(this.forms[this.step]);
-      console.log(this.forms[this.step].form.submitted);
-      // If it is submitted successfully
-      // Show next step
-      // And update the current step
+      let $form = $(event.target)
+        .closest(this.selectors.wrapper)
+        .find(this.selectors.forms);
 
-      let $form = $(event.target).closest(this.selectors.forms);
+      let previousStep = Number($form.data("step")) - 1;
 
-      let currentStep = $form.data("step");
-
-      console.log(currentStep);
+      // Hide the form wrapper
+      $form.closest(this.selectors.wrapper).fadeOut(400, () => {
+        // Show the form wrapper of the previous form
+        $(this.$forms.get(previousStep))
+          .closest(this.selectors.wrapper)
+          .fadeIn(400);
+      });
     });
   }
 
