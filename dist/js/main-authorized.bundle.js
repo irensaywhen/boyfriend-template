@@ -1225,12 +1225,10 @@ var Bonus = /*#__PURE__*/function (_ServerRequest) {
     _this.cacheElements = _this.cacheElements.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
     _this.setUpEventListeners = _this.setUpEventListeners.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
     _this.useBonus = _this.useBonus.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
-    _this.clickedBonusHandler = _this.clickedBonusHandler.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this)); // Save redirect address
+    _this.startUsingBonus = _this.startUsingBonus.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.prepareBonusUsage = _this.prepareBonusUsage.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this)); // Save popup data
 
-    _this.redirect = options.redirect; // Save popup data
-
-    _this.popupData = options.popupData;
-    console.log(_this.popupData); // Reference request information for the popup usage
+    _this.popupData = options.popupData; // Reference request information for the popup usage
 
     _this.popupData.request = _this.requests.use;
     return _this;
@@ -1240,12 +1238,11 @@ var Bonus = /*#__PURE__*/function (_ServerRequest) {
     key: "cacheElements",
     value: function cacheElements() {
       // Save bonus element
-      this.$bonus = $(this.selectors.bonus); // Save amount of bonuses available
+      this.$bonus = $(this.selectors.bonus); // Save the bonus' data-* attributes
 
-      var dataAttributes = this.$bonus[0].dataset;
+      var dataAttributes = this.$bonus.data();
 
       for (var attribute in dataAttributes) {
-        // Save all the data-* attributes
         this[attribute] = dataAttributes[attribute];
       }
     }
@@ -1255,7 +1252,7 @@ var Bonus = /*#__PURE__*/function (_ServerRequest) {
       var _this2 = this;
 
       this.$bonus.click(function () {
-        return _this2.clickedBonusHandler();
+        return _this2.startUsingBonus();
       });
     }
     /**
@@ -1263,43 +1260,45 @@ var Bonus = /*#__PURE__*/function (_ServerRequest) {
      */
 
   }, {
-    key: "clickedBonusHandler",
+    key: "startUsingBonus",
     value: function () {
-      var _clickedBonusHandler = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var approved, timestamp, expirationTitle, expirationMessage, _yield$this$askUsageA;
-
+      var _startUsingBonus = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var approved;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(this.amount === 0)) {
+                if (!(this.activated && !this.finished)) {
                   _context.next = 4;
                   break;
                 }
 
+                return _context.abrupt("return");
+
+              case 4:
+                if (!(this.amount === 0)) {
+                  _context.next = 8;
+                  break;
+                }
+
                 // If there are no bonuses available
+                // Redirect
                 window.location.href = this.redirect;
                 _context.next = 12;
                 break;
 
-              case 4:
-                if (!(this.type === "boost")) {
-                  _context.next = 11;
-                  break;
-                }
+              case 8:
+                _context.next = 10;
+                return this.prepareBonusUsage();
 
-                _context.next = 7;
-                return this.askUsageApprovement(this.popupData);
+              case 10:
+                approved = _context.sent;
 
-              case 7:
-                _yield$this$askUsageA = _context.sent;
-                approved = _yield$this$askUsageA.approved;
-                timestamp = _yield$this$askUsageA.timestamp;
-                // Save timestamp
-                this.countDownTime = timestamp;
-
-              case 11:
                 if (approved) {
+                  this.amount = --this.amount; //Update data-amount attribute of the bonus
+
+                  this.$bonus.attr("data-amount", this.amount); // Start bonus usage
+
                   this.useBonus();
                 }
 
@@ -1311,11 +1310,11 @@ var Bonus = /*#__PURE__*/function (_ServerRequest) {
         }, _callee, this);
       }));
 
-      function clickedBonusHandler() {
-        return _clickedBonusHandler.apply(this, arguments);
+      function startUsingBonus() {
+        return _startUsingBonus.apply(this, arguments);
       }
 
-      return clickedBonusHandler;
+      return startUsingBonus;
     }()
   }]);
 
@@ -1336,19 +1335,25 @@ var Bonus = /*#__PURE__*/function (_ServerRequest) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Boost; });
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "../node_modules/@babel/runtime/helpers/classCallCheck.js");
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js");
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/get */ "../node_modules/@babel/runtime/helpers/get.js");
-/* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "../node_modules/@babel/runtime/helpers/inherits.js");
-/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
-/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "../node_modules/@babel/runtime/helpers/getPrototypeOf.js");
-/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _bonus_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./bonus.js */ "./js/modules/bonus.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "../node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "../node_modules/@babel/runtime/helpers/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "../node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "../node_modules/@babel/runtime/helpers/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/get */ "../node_modules/@babel/runtime/helpers/get.js");
+/* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "../node_modules/@babel/runtime/helpers/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "../node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _bonus_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./bonus.js */ "./js/modules/bonus.js");
 
 
 
@@ -1356,24 +1361,32 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default()(this, result); }; }
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default()(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 
 
 var Boost = /*#__PURE__*/function (_Bonus) {
-  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default()(Boost, _Bonus);
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default()(Boost, _Bonus);
 
   var _super = _createSuper(Boost);
 
   function Boost(options) {
     var _this;
 
-    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Boost);
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(this, Boost);
 
     _this = _super.call(this, options);
-    _this.type = "boost";
+    _this.type = "boost"; // Bind context
+
+    _this.displayTime = _this.displayTime.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this)); // Save initial state of the boost
+
+    _this.activated = false;
+    _this.finished = false;
 
     _this.cacheElements();
 
@@ -1382,10 +1395,10 @@ var Boost = /*#__PURE__*/function (_Bonus) {
     return _this;
   }
 
-  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Boost, [{
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(Boost, [{
     key: "cacheElements",
     value: function cacheElements() {
-      _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(Boost.prototype), "cacheElements", this).call(this); // Timer and elements to display time
+      _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(Boost.prototype), "cacheElements", this).call(this); // Timer and elements to display time
 
 
       this.$timer = $(this.selectors.timer.element);
@@ -1393,20 +1406,113 @@ var Boost = /*#__PURE__*/function (_Bonus) {
       this.$minutes = this.$timer.find(this.selectors.timer.minutes);
       this.$seconds = this.$timer.find(this.selectors.timer.seconds); // Hide timer after caching
 
-      this.$timer.hide();
+      this.$timer.fadeOut(0); //Create expiration popup based on the generic popup
+
+      this.expirationPopupData = Object.assign({}, this.popupData);
     }
   }, {
     key: "setUpEventListeners",
     value: function setUpEventListeners() {
-      _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(Boost.prototype), "setUpEventListeners", this).call(this);
+      _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(Boost.prototype), "setUpEventListeners", this).call(this);
     }
   }, {
     key: "useBonus",
     value: function useBonus() {
-      this.startTimer(); // Activate timer
+      // Change boost state
+      this.activated = true;
+      this.finished = false; // Start timer
 
-      this.$timer.show(400);
+      this.startTimer();
     }
+  }, {
+    key: "prepareBonusUsage",
+    value: function () {
+      var _prepareBonusUsage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var approved, timestamp, expirationTitle, expirationMessage, _yield$this$askUsageA, _yield$this$askUsageA2;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(!this.activated && !this.finished)) {
+                  _context.next = 10;
+                  break;
+                }
+
+                _context.next = 3;
+                return this.askUsageApprovement(this.popupData);
+
+              case 3:
+                _yield$this$askUsageA = _context.sent;
+                approved = _yield$this$askUsageA.approved;
+                timestamp = _yield$this$askUsageA.timestamp;
+                expirationTitle = _yield$this$askUsageA.expirationTitle;
+                expirationMessage = _yield$this$askUsageA.expirationMessage;
+                _context.next = 19;
+                break;
+
+              case 10:
+                if (!(this.activated && this.finished)) {
+                  _context.next = 19;
+                  break;
+                }
+
+                _context.next = 13;
+                return this.askUsageApprovement(this.expirationPopupData);
+
+              case 13:
+                _yield$this$askUsageA2 = _context.sent;
+                approved = _yield$this$askUsageA2.approved;
+                timestamp = _yield$this$askUsageA2.timestamp;
+                expirationTitle = _yield$this$askUsageA2.expirationTitle;
+                expirationMessage = _yield$this$askUsageA2.expirationMessage;
+
+                if (!approved) {
+                  // If the user don't want to use boost again
+                  // Hide the timer
+                  this.$timer.fadeOut(400);
+                }
+
+              case 19:
+                if (approved) {
+                  // If the boost usage was approved by the server
+                  // Save timestamp
+                  this.countDownTime = timestamp;
+
+                  if (expirationTitle) {
+                    // Change the title if provided
+                    // For asking about futher usage
+                    this.expirationPopupData.title = expirationTitle;
+                  }
+
+                  if (expirationMessage) {
+                    // Change the message if provided
+                    // For asking about futher usage
+                    this.expirationPopupData.text = expirationMessage;
+                  }
+                } else {
+                  // If the boost usage wasn't approved by the server
+                  // Discard boost state
+                  this.activated = false;
+                  this.finished = false;
+                }
+
+                return _context.abrupt("return", approved);
+
+              case 21:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function prepareBonusUsage() {
+        return _prepareBonusUsage.apply(this, arguments);
+      }
+
+      return prepareBonusUsage;
+    }()
   }, {
     key: "startTimer",
     value: function startTimer() {
@@ -1414,32 +1520,57 @@ var Boost = /*#__PURE__*/function (_Bonus) {
 
       var intervalId = setInterval(function () {
         // Get today's date and time
-        var now = new Date().getTime(); // Find the distance between now and the count down date
+        var now = new Date().getTime();
+        console.log(now);
+        console.log(new Date(_this2.countDownTime)); // Find the distance between now and the count down date
 
-        var distance = _this2.countDownTime - now; // Time calculations for hours, minutes and seconds
+        var distance = _this2.countDownTime - now;
+        console.log(distance); // If the count down is finished
+
+        if (distance <= 1000) {
+          _this2.displayTime(0, 0, 0);
+
+          clearInterval(intervalId); // Change the state of the bonus
+
+          _this2.activated = true;
+          _this2.finished = true; // Clear timestamp
+
+          _this2.timestamp = null; // Ask user to use more
+
+          _this2.$bonus.click();
+        } // Time calculations for hours, minutes and seconds
+
 
         var hours = Math.floor(distance % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
         var minutes = Math.floor(distance % (1000 * 60 * 60) / (1000 * 60));
-        var seconds = Math.floor(distance % (1000 * 60) / 1000); // Display results
+        var seconds = Math.floor(distance % (1000 * 60) / 1000);
 
-        _this2.$hours.text(hours);
+        _this2.displayTime(hours, minutes, seconds);
 
-        _this2.$minutes.text(minutes);
-
-        _this2.$seconds.text(seconds); // If the count down is finished
-
-
-        if (distance < 0) {
-          clearInterval(intervalId); // Clear timestamp
-
-          _this2.timestamp = null;
-        }
+        _this2.$timer.fadeIn(400);
       }, 1000);
+    }
+  }, {
+    key: "displayTime",
+    value: function displayTime(hours, minutes, seconds) {
+      // Add zeros for better displaying
+      if (minutes < 10) {
+        minutes = "0" + String(minutes);
+      }
+
+      if (seconds < 10) {
+        seconds = "0" + String(seconds);
+      } // Display results
+
+
+      this.$hours.text(hours);
+      this.$minutes.text(minutes);
+      this.$seconds.text(seconds);
     }
   }]);
 
   return Boost;
-}(_bonus_js__WEBPACK_IMPORTED_MODULE_6__["default"]);
+}(_bonus_js__WEBPACK_IMPORTED_MODULE_9__["default"]);
 
 
 
@@ -2320,20 +2451,23 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     var title = _ref3.title,
+        _ref3$text = _ref3.text,
+        text = _ref3$text === void 0 ? "" : _ref3$text,
         confirmButtonText = _ref3.confirmButtonText,
         cancelButtonText = _ref3.cancelButtonText,
         imageUrl = _ref3.imageUrl,
-        ImageAlt = _ref3.ImageAlt,
+        imageAlt = _ref3.imageAlt,
         request = _ref3.request;
     return Swal.fire({
       title: title,
+      text: text,
       cancelButtonText: cancelButtonText,
       confirmButtonText: confirmButtonText,
       showCancelButton: true,
       confirmButtonColor: "#ff0068",
-      cancelButtonColor: "#d33",
+      cancelButtonColor: "#bbb",
       imageUrl: imageUrl,
-      ImageAlt: ImageAlt,
+      imageAlt: imageAlt,
       imageWidth: "150px",
       imageHeight: "150px",
       showLoaderOnConfirm: true,
@@ -2356,16 +2490,7 @@ __webpack_require__.r(__webpack_exports__);
             title: json.title,
             text: json.message,
             icon: "success"
-          }); // Usage is approved
-
-
-          if (_this.type === "boost") {
-            // If bonus type is boost
-            return {
-              approved: true,
-              timestamp: json.timestamp
-            };
-          }
+          });
         } else {
           // If the server restricted bonus usage
           // Show success about error
@@ -2373,17 +2498,24 @@ __webpack_require__.r(__webpack_exports__);
             title: json.title,
             text: json.message,
             icon: "error"
-          }); // Usage is not approved
+          });
+        } // Maybe change to switch statement when other bonuses will be added
 
 
-          if (_this.type === "boost") {
-            // If bonus type is boost
-            return {
-              approved: false,
-              timestamp: null
-            };
-          }
+        if (_this.type === "boost") {
+          return {
+            approved: json.success,
+            title: json.title,
+            message: json.message,
+            timestamp: json.timestamp,
+            expirationTitle: json.expirationTitle,
+            expirationMessage: json.expirationMessage
+          };
         }
+      } else {
+        return {
+          approved: false
+        };
       }
     });
   }

@@ -35,21 +35,23 @@ export default {
    */
   askUsageApprovement({
     title,
+    text = "",
     confirmButtonText,
     cancelButtonText,
     imageUrl,
-    ImageAlt,
+    imageAlt,
     request,
   }) {
     return Swal.fire({
       title,
+      text,
       cancelButtonText,
       confirmButtonText,
       showCancelButton: true,
       confirmButtonColor: "#ff0068",
-      cancelButtonColor: "#d33",
+      cancelButtonColor: "#bbb",
       imageUrl,
-      ImageAlt,
+      imageAlt,
       imageWidth: "150px",
       imageHeight: "150px",
       showLoaderOnConfirm: true,
@@ -69,12 +71,6 @@ export default {
             text: json.message,
             icon: "success",
           });
-
-          // Usage is approved
-          if (this.type === "boost") {
-            // If bonus type is boost
-            return { approved: true, timestamp: json.timestamp };
-          }
         } else {
           // If the server restricted bonus usage
           // Show success about error
@@ -83,13 +79,21 @@ export default {
             text: json.message,
             icon: "error",
           });
-
-          // Usage is not approved
-          if (this.type === "boost") {
-            // If bonus type is boost
-            return { approved: false, timestamp: null };
-          }
         }
+
+        // Maybe change to switch statement when other bonuses will be added
+        if (this.type === "boost") {
+          return {
+            approved: json.success,
+            title: json.title,
+            message: json.message,
+            timestamp: json.timestamp,
+            expirationTitle: json.expirationTitle,
+            expirationMessage: json.expirationMessage,
+          };
+        }
+      } else {
+        return { approved: false };
       }
     });
   },

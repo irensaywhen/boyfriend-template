@@ -1571,8 +1571,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//import Form from "./requests.js";
-//import location from "./locationMixin.js";
 var ChainedForms = /*#__PURE__*/function () {
   function ChainedForms(options) {
     _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, ChainedForms);
@@ -2729,20 +2727,23 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     var title = _ref3.title,
+        _ref3$text = _ref3.text,
+        text = _ref3$text === void 0 ? "" : _ref3$text,
         confirmButtonText = _ref3.confirmButtonText,
         cancelButtonText = _ref3.cancelButtonText,
         imageUrl = _ref3.imageUrl,
-        ImageAlt = _ref3.ImageAlt,
+        imageAlt = _ref3.imageAlt,
         request = _ref3.request;
     return Swal.fire({
       title: title,
+      text: text,
       cancelButtonText: cancelButtonText,
       confirmButtonText: confirmButtonText,
       showCancelButton: true,
       confirmButtonColor: "#ff0068",
-      cancelButtonColor: "#d33",
+      cancelButtonColor: "#bbb",
       imageUrl: imageUrl,
-      ImageAlt: ImageAlt,
+      imageAlt: imageAlt,
       imageWidth: "150px",
       imageHeight: "150px",
       showLoaderOnConfirm: true,
@@ -2765,16 +2766,7 @@ __webpack_require__.r(__webpack_exports__);
             title: json.title,
             text: json.message,
             icon: "success"
-          }); // Usage is approved
-
-
-          if (_this.type === "boost") {
-            // If bonus type is boost
-            return {
-              approved: true,
-              timestamp: json.timestamp
-            };
-          }
+          });
         } else {
           // If the server restricted bonus usage
           // Show success about error
@@ -2782,17 +2774,24 @@ __webpack_require__.r(__webpack_exports__);
             title: json.title,
             text: json.message,
             icon: "error"
-          }); // Usage is not approved
+          });
+        } // Maybe change to switch statement when other bonuses will be added
 
 
-          if (_this.type === "boost") {
-            // If bonus type is boost
-            return {
-              approved: false,
-              timestamp: null
-            };
-          }
+        if (_this.type === "boost") {
+          return {
+            approved: json.success,
+            title: json.title,
+            message: json.message,
+            timestamp: json.timestamp,
+            expirationTitle: json.expirationTitle,
+            expirationMessage: json.expirationMessage
+          };
         }
+      } else {
+        return {
+          approved: false
+        };
       }
     });
   }
