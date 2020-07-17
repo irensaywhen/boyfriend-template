@@ -1,8 +1,37 @@
 .profile-list {
   .search-form {
+    border: 1px solid $label-border;
+    background: #fff;
+
+    .form-area-sm {
+      @include screen-sm {
+        border-right: 1px solid $label-border;
+      }
+    }
+
+    .form-area-lg {
+      @include screen-lg {
+        border-right: 1px solid $label-border;
+      }
+    }
+
     .group-label {
       @include fluid-type(320px, 1200px, 16px, 18px);
       font-weight: 400;
+      padding-bottom: 10px;
+    }
+
+    /* slider styles */
+    .noUi-connect {
+      background: $main-pink;
+    }
+
+    .noUi-handle {
+      outline: none;
+    }
+
+    .noUi-target {
+      background: $main-background-color;
     }
   }
 }

@@ -1,7 +1,7 @@
 .profile-list {
   padding: 120px 0 50px;
 
-  /* Title */
+  /* Page title */
   h2 {
     @include fluid-type(320px, 1200px, 25px, 32px);
     padding: 50px 15px 30px 30px;
@@ -23,14 +23,14 @@
     }
   }
 
-  /* Users's profiles */
+  /* Premium */
   .column {
     max-width: 300px;
 
-    .boosted {
+    .premium {
       position: relative !important;
 
-      .boost {
+      .badge {
         position: absolute !important;
         top: -10px;
         right: 10px;

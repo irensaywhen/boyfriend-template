@@ -32,6 +32,9 @@
     <!-- Swiper CSS min-->
     <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" />
 
+    <!-- nouislider CSS -->
+    <link href="vendor/nouislider/nouislider.min.css" rel="stylesheet" />
+
     <!--SweetAlert2-->
     <link href="vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
 
@@ -263,40 +266,50 @@
         <div class="ad"></div>
 
         <div class="row">
-          <div class="col-12 col-md-8 offset-md-2">
-            <div class="search-form">
+          <div class="col-12">
+            <div class="search-form p-4 my-5">
               <div class="container-fluid">
                 <div class="row">
                   <!--Form area - age start-->
-                  <div class="col-12 col-sm-6 col-lg-3">
+                  <div class="col-12 col-sm-6 col-lg-3 form-area-sm">
                     <h3 class="group-label">Age:</h3>
-                    <div class="form-group">
-                      <label for="age-from">from:</label>
-                      <select class="form-control" id="age-from">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="age-from">to:</label>
-                      <select class="form-control" id="age-from">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
+                    <div class="container-fluid px-0">
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label class="small" for="age-from">from:</label>
+                            <select class="form-control" id="age-from">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label class="small" for="age-from">to:</label>
+                            <select class="form-control" id="age-from">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <!--Form area - age end-->
 
                   <!--Form area - preference start-->
-                  <div class="col-12 col-sm-6 col-lg-3">
+                  <div
+                    class="col-12 col-sm-6 col-lg-3 form-area-lg pt-4 pt-sm-0"
+                  >
                     <h3 class="group-label">Preference:</h3>
-                    <div class="custom-control custom-checkbox">
+                    <div class="custom-control custom-checkbox pb-2">
                       <input
                         type="checkbox"
                         class="custom-control-input"
@@ -307,7 +320,7 @@
                         >Active</label
                       >
                     </div>
-                    <div class="custom-control custom-checkbox">
+                    <div class="custom-control custom-checkbox pb-2">
                       <input
                         type="checkbox"
                         class="custom-control-input"
@@ -333,11 +346,102 @@
                   <!--Form area - preference end-->
 
                   <!--Form area - city start-->
-                  <div class="col-12 col-sm-6 col-lg-3"></div>
+                  <div
+                    class="col-12 col-sm-6 col-lg-3 form-area-sm pt-4 pt-lg-0"
+                  >
+                    <!--City input start-->
+                    <div class="form-group">
+                      <label for="city">City</label>
+                      <input
+                        type="text"
+                        class="form-control location"
+                        id="city"
+                        name="city"
+                      />
+                      <div class="dropdown location-dropdown">
+                        <button
+                          class="btn btn-primary dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          Cities dropdown
+                        </button>
+                        <ul class="dropdown-menu"></ul>
+                      </div>
+                    </div>
+                    <!--City input end-->
+
+                    <!--Distance input start-->
+                    <div class="form-group">
+                      <label class="form-control-lable">
+                        Distance
+                      </label>
+                      <br />
+                      <div id="rangeslider" class="mt-2"></div>
+                    </div>
+                    <div class="form-group float-label pt-0">
+                      <div class="row">
+                        <div class="col">
+                          <input
+                            type="number"
+                            min="0"
+                            max="500"
+                            value="100"
+                            step="1"
+                            id="input-select"
+                            class="form-control"
+                            name="distance-from"
+                          />
+                        </div>
+                        <div class="col-auto pt-2">to</div>
+                        <div class="col">
+                          <input
+                            type="number"
+                            min="0"
+                            max="500"
+                            value="100"
+                            step="1"
+                            id="input-number"
+                            class="form-control"
+                            name="distance-to"
+                          />
+                        </div>
+                        <div class="col-auto pt-2">km</div>
+                      </div>
+                    </div>
+                    <!--Distance input end-->
+                  </div>
                   <!--Form area - city end-->
 
                   <!--Form area - miscellaneous start-->
-                  <div class="col-12 col-sm-6 col-lg-3"></div>
+                  <div class="col-12 col-sm-6 col-lg-3 pt-4 pt-lg-0">
+                    <h3 class="group-label">Account information:</h3>
+                    <div class="custom-control custom-checkbox pb-2">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="online"
+                        name="online"
+                      />
+                      <label class="custom-control-label" for="online"
+                        >Online now</label
+                      >
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="images"
+                        name="images"
+                      />
+                      <label class="custom-control-label" for="images"
+                        >Only with images</label
+                      >
+                    </div>
+                  </div>
                   <!--Form area - miscellaneous end-->
                 </div>
               </div>
@@ -349,11 +453,11 @@
             class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
           >
             <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image boosted">
+              <figure class="profile-image">
                 <img src="img/photo1.jpg" alt="" class="" />
               </figure>
-              <div class="card-body pt-0 boosted">
-                <span class="badge badge-primary mb-1 boost">Premium</span>
+              <div class="card-body pt-0 premium">
+                <span class="badge badge-primary mb-1">Premium</span>
                 <h3 class="name online d-inline-block mb-0">
                   <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
                     >Michail, 27
@@ -604,6 +708,9 @@
     <script src="vendor/swiper/js/swiper.min.js"></script>
     <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
 
+    <!-- nouislider js -->
+    <script src="vendor/nouislider/nouislider.min.js"></script>
+
     <!-- template custom js -->
     <script src="js/main.bundle.js"></script>
     <script src="js/main-authorized.bundle.js"></script>
@@ -619,6 +726,36 @@
         }, 500);
         $(".closenotification").on("click", function () {
           $(this).closest(".notification").removeClass("active");
+        });
+
+        /* range picker for filter */
+        var html5Slider = document.getElementById("rangeslider");
+        noUiSlider.create(html5Slider, {
+          start: [0, 100],
+          connect: true,
+          range: {
+            min: 0,
+            max: 500,
+          },
+        });
+
+        var inputNumber = document.getElementById("input-number");
+        var select = document.getElementById("input-select");
+
+        html5Slider.noUiSlider.on("update", function (values, handle) {
+          var value = values[handle];
+
+          if (handle) {
+            inputNumber.value = value;
+          } else {
+            select.value = Math.round(value);
+          }
+        });
+        select.addEventListener("change", function () {
+          html5Slider.noUiSlider.set([this.value, null]);
+        });
+        inputNumber.addEventListener("change", function () {
+          html5Slider.noUiSlider.set([null, this.value]);
         });
 
         /* Boost initialization */
