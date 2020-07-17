@@ -14,6 +14,8 @@
 @mixin circular-badge($diameter) {
   width: $diameter;
   height: $diameter;
+  min-width: $diameter;
+  min-height: $diameter;
   line-height: $diameter;
   vertical-align: middle;
   border-radius: 50%;
