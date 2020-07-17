@@ -1,0 +1,12 @@
+.ad {
+  width: 253px;
+  height: 60px;
+  background: #fff;
+  border: 1px solid $bootstrap-secondary;
+  margin: 0 auto;
+
+  @include screen-sm {
+    width: 475px;
+    height: 59px;
+  }
+}

@@ -1,8 +1,24 @@
 .profile-list {
-  padding-top: 150px;
+  padding: 120px 0 50px;
 
   h2 {
+    @include fluid-type(320px, 1200px, 25px, 32px);
+    padding: 50px 15px 30px;
+  }
+
+  .no-premium {
+    background: $orange;
+    border-radius: 15px;
     padding: 30px 15px;
+
+    .icon {
+      width: 100%;
+      font-size: 130px;
+    }
+
+    .title {
+      @include fluid-type(320px, 1200px, 21px, 28px);
+    }
   }
 
   .column {
