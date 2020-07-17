@@ -1,11 +1,13 @@
 .profile-list {
   padding: 120px 0 50px;
 
+  /* Title */
   h2 {
     @include fluid-type(320px, 1200px, 25px, 32px);
     padding: 50px 15px 30px 30px;
   }
 
+  /* No premium pages */
   .no-premium {
     background: $orange;
     border-radius: 15px;
@@ -21,6 +23,7 @@
     }
   }
 
+  /* Users's profiles */
   .column {
     max-width: 300px;
 

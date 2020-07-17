@@ -1,0 +1,8 @@
+.profile-list {
+  .search-form {
+    .group-label {
+      @include fluid-type(320px, 1200px, 16px, 18px);
+      font-weight: 400;
+    }
+  }
+}
