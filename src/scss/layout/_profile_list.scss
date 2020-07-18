@@ -6,21 +6,6 @@
     padding: 50px 15px 30px 30px;
   }
 
-  .no-premium {
-    background: $orange;
-    border-radius: 15px;
-    padding: 30px 15px;
-
-    .icon {
-      width: 100%;
-      font-size: 130px;
-    }
-
-    .title {
-      @include fluid-type(320px, 1200px, 21px, 28px);
-    }
-  }
-
   .column {
     max-width: 300px;
 
