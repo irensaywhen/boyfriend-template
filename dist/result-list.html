@@ -267,7 +267,12 @@
 
         <div class="row">
           <div class="col-12">
-            <div class="search-form p-4 my-5">
+            <!--Profile search form start-->
+            <form
+              class="search-form p-4 my-5"
+              id="profile-search"
+              autocomplete="off"
+            >
               <div class="container-fluid">
                 <div class="row">
                   <!--Form area - age start-->
@@ -278,24 +283,18 @@
                         <div class="col-6">
                           <div class="form-group">
                             <label class="small" for="age-from">from:</label>
-                            <select class="form-control" id="age-from">
-                              <option>1</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                              <option>5</option>
+                            <select
+                              class="form-control search-field age-select"
+                            >
                             </select>
                           </div>
                         </div>
                         <div class="col-6">
                           <div class="form-group">
                             <label class="small" for="age-from">to:</label>
-                            <select class="form-control" id="age-from">
-                              <option>1</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                              <option>5</option>
+                            <select
+                              class="form-control search-field age-select"
+                            >
                             </select>
                           </div>
                         </div>
@@ -309,10 +308,12 @@
                     class="col-12 col-sm-6 col-lg-3 form-area-lg pt-4 pt-sm-0"
                   >
                     <h3 class="group-label">Preference:</h3>
-                    <div class="custom-control custom-checkbox pb-2">
+
+                    <!--Active-->
+                    <div class="custom-control custom-checkbox pb-2 form-group">
                       <input
                         type="checkbox"
-                        class="custom-control-input"
+                        class="custom-control-input search-field"
                         id="active"
                         name="active"
                       />
@@ -320,10 +321,12 @@
                         >Active</label
                       >
                     </div>
-                    <div class="custom-control custom-checkbox pb-2">
+
+                    <!--Passive-->
+                    <div class="custom-control custom-checkbox pb-2 form-group">
                       <input
                         type="checkbox"
-                        class="custom-control-input"
+                        class="custom-control-input search-field"
                         id="passive"
                         name="passive"
                       />
@@ -331,10 +334,12 @@
                         >Passive</label
                       >
                     </div>
-                    <div class="custom-control custom-checkbox">
+
+                    <!--Both-->
+                    <div class="custom-control custom-checkbox form-group">
                       <input
                         type="checkbox"
-                        class="custom-control-input"
+                        class="custom-control-input search-field"
                         id="both"
                         name="both"
                       />
@@ -354,7 +359,7 @@
                       <label for="city">City</label>
                       <input
                         type="text"
-                        class="form-control location"
+                        class="form-control location search-field"
                         id="city"
                         name="city"
                       />
@@ -392,7 +397,7 @@
                             value="100"
                             step="1"
                             id="input-select"
-                            class="form-control"
+                            class="form-control search-field"
                             name="distance-from"
                           />
                         </div>
@@ -405,7 +410,7 @@
                             value="100"
                             step="1"
                             id="input-number"
-                            class="form-control"
+                            class="form-control search-field"
                             name="distance-to"
                           />
                         </div>
@@ -419,10 +424,12 @@
                   <!--Form area - miscellaneous start-->
                   <div class="col-12 col-sm-6 col-lg-3 pt-4 pt-lg-0">
                     <h3 class="group-label">Account information:</h3>
-                    <div class="custom-control custom-checkbox pb-2">
+
+                    <!--Online now-->
+                    <div class="custom-control custom-checkbox pb-2 form-group">
                       <input
                         type="checkbox"
-                        class="custom-control-input"
+                        class="custom-control-input search-field"
                         id="online"
                         name="online"
                       />
@@ -430,10 +437,12 @@
                         >Online now</label
                       >
                     </div>
-                    <div class="custom-control custom-checkbox">
+
+                    <!--Only with images-->
+                    <div class="custom-control custom-checkbox form-group">
                       <input
                         type="checkbox"
-                        class="custom-control-input"
+                        class="custom-control-input search-field"
                         id="images"
                         name="images"
                       />
@@ -445,7 +454,8 @@
                   <!--Form area - miscellaneous end-->
                 </div>
               </div>
-            </div>
+            </form>
+            <!--Profile search form end-->
           </div>
         </div>
         <div class="row">
@@ -785,6 +795,57 @@
             cancelButtonText: "No",
             imageUrl: "img/boost.svg",
             imageAlt: "Boost icon",
+          },
+        });
+
+        /* Form initialization */
+        const searchProfilesForm = new SearchProfilesForm({
+          selectors: {
+            form: "#profile-search",
+            locationInput: ".location",
+            "input-wrapper": ".form-group",
+            inputs: ".search-field",
+            "location-dropdown": ".location-dropdown",
+            "dropdown-toggle": ".dropdown-toggle",
+            "dropdown-menu": ".dropdown-menu",
+            age: ".age-select",
+          },
+          requests: {
+            submit: {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/submit-profile",
+            },
+            location: {
+              method: "GET",
+              headers: {},
+              endpoint: "https://nominatim.openstreetmap.org/search",
+              searchParams: {
+                format: "json",
+                addressdetails: "1",
+                countrycodes: "pl",
+                "accept-language": "pl,en",
+              },
+            },
+          },
+          searchFormOptions: {
+            ageFrom: 18,
+            ageTo: 40,
+          },
+          location: true,
+          showSuccessPopup: false,
+          showFailPopup: false,
+          frontendValidation: true,
+          validatorOptions: {
+            errorElement: "span",
+            rules: {
+              city: {
+                location: true,
+              },
+            },
           },
         });
       });

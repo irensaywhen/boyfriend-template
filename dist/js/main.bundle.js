@@ -1760,6 +1760,7 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
 
       // Form submission
       this.$form.submit(function (event) {
+        alert("Submitting!");
         event.preventDefault();
         event.stopPropagation();
 

@@ -1,69 +1,61 @@
 .profile-list {
   padding: 120px 0 50px;
 
-  /* Page title */
   h2 {
     @include fluid-type(320px, 1200px, 25px, 32px);
     padding: 50px 15px 30px 30px;
   }
 
-  /* No premium pages */
-  .no-premium {
-    background: $orange;
-    border-radius: 15px;
-    padding: 30px 15px;
-
-    .icon {
-      width: 100%;
-      font-size: 130px;
-    }
-
-    .title {
-      @include fluid-type(320px, 1200px, 21px, 28px);
-    }
-  }
-
-  /* Premium */
   .column {
     max-width: 300px;
 
-    .premium {
-      position: relative !important;
-
-      .badge {
-        position: absolute !important;
-        top: -10px;
-        right: 10px;
-        background: #fff;
-        text-align: center;
-      }
+    .card {
+      max-height: 300px;
+      min-height: 300px;
     }
 
+    .card-footer {
+      padding: 0 0 15px 0;
+      background: #fff;
+    }
+
+    /* Profile image styles */
     .profile-image {
       width: 100%;
       height: auto;
       max-height: 150px;
       overflow: hidden;
       border-radius: 15px;
+      margin-bottom: 0;
 
       img {
         max-width: 100%;
         max-height: 100%;
       }
+
+      &.premium {
+        position: relative !important;
+
+        .badge {
+          position: absolute !important;
+          top: 10px;
+          right: 10px;
+          background: #fff;
+          text-align: center;
+        }
+      }
     }
 
+    /* Online status */
     .name.online {
       position: relative;
 
-      &:after {
-        content: "";
+      .badge {
+        font-size: 12px;
         position: absolute;
-        width: 10px;
-        height: 10px;
-        background: $success-green;
-        top: 0;
-        right: -15px;
-        border-radius: 50%;
+        top: -5px;
+        right: -58px;
+        left: auto;
       }
     }
   }

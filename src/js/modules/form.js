@@ -76,6 +76,7 @@ export default class Form extends ServerRequest {
   setUpEventListeners() {
     // Form submission
     this.$form.submit((event) => {
+      alert("Submitting!");
       event.preventDefault();
       event.stopPropagation();
 
