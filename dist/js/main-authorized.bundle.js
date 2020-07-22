@@ -1158,6 +1158,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_editor_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/editor.js */ "./js/modules/editor.js");
 /* harmony import */ var _modules_boost_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/boost.js */ "./js/modules/boost.js");
 /* harmony import */ var _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/search-profiles-form.js */ "./js/modules/search-profiles-form.js");
+/* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/buyPremiumForm.js */ "./js/modules/buyPremiumForm.js");
+
 
 
 
@@ -1166,6 +1168,7 @@ window["PhotoUploader"] = _modules_uploader_js__WEBPACK_IMPORTED_MODULE_0__["def
 window["PhotoEditor"] = _modules_editor_js__WEBPACK_IMPORTED_MODULE_1__["default"];
 window["Boost"] = _modules_boost_js__WEBPACK_IMPORTED_MODULE_2__["default"];
 window["SearchProfilesForm"] = _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_3__["default"];
+window["BuyPremiumForm"] = _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__["default"];
 
 /***/ }),
 
@@ -1569,6 +1572,56 @@ var Boost = /*#__PURE__*/function (_Bonus) {
 
   return Boost;
 }(_bonus_js__WEBPACK_IMPORTED_MODULE_9__["default"]);
+
+
+
+/***/ }),
+
+/***/ "./js/modules/buyPremiumForm.js":
+/*!**************************************!*\
+  !*** ./js/modules/buyPremiumForm.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return BuyPremiumForm; });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "../node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "../node_modules/@babel/runtime/helpers/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "../node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./form.js */ "./js/modules/form.js");
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+var BuyPremiumForm = /*#__PURE__*/function (_Form) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default()(BuyPremiumForm, _Form);
+
+  var _super = _createSuper(BuyPremiumForm);
+
+  function BuyPremiumForm() {
+    var _this;
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, BuyPremiumForm);
+
+    return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(_this);
+  }
+
+  return BuyPremiumForm;
+}(_form_js__WEBPACK_IMPORTED_MODULE_4__["default"]);
 
 
 
