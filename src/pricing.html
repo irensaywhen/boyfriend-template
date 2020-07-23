@@ -29,9 +29,6 @@
       rel="stylesheet"
     />
 
-    <!-- Swiper CSS min-->
-    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" />
-
     <!--SweetAlert2-->
     <link href="vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
 
@@ -697,6 +694,17 @@
         <!--Bank transfer end-->
 
         <!--Payment selection end-->
+
+        <!--Card payment input start-->
+
+        <div class="row card">
+          <div class="col-12">
+            <h2 class="h3 mx-3 text-center text-sm-left pb-4">
+              Fill your card information
+            </h2>
+          </div>
+        </div>
+        <!--Card payment input end-->
       </div>
 
       <!-- footer -->
@@ -767,9 +775,14 @@
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
     <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
 
-    <!-- swiper js -->
-    <script src="vendor/swiper/js/swiper.min.js"></script>
-    <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
+    <!--Sweetalert-->
+    <script
+      type="text/javascript"
+      src="vendor/sweetalert2/sweetalert2.min.js"
+    ></script>
+
+    <!--Creditly-->
+    <script type="text/javascript" src="vendor/creditly/creditly.js"></script>
 
     <!-- template custom js -->
     <script src="js/main.bundle.js"></script>
@@ -787,6 +800,13 @@
         $(".closenotification").on("click", function () {
           $(this).closest(".notification").removeClass("active");
         });
+
+        var creditly = Creditly.initialize(
+          ".creditly-wrapper .expiration-month-and-year",
+          ".creditly-wrapper .credit-card-number",
+          ".creditly-wrapper .security-code",
+          ".creditly-wrapper .card-type"
+        );
 
         /* Boost initialization */
         const boost = new Boost({
