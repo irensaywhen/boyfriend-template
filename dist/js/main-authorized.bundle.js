@@ -1612,12 +1612,10 @@ var BuyPremiumForm = /*#__PURE__*/function (_Form) {
 
   var _super = _createSuper(BuyPremiumForm);
 
-  function BuyPremiumForm() {
-    var _this;
-
+  function BuyPremiumForm(options) {
     _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, BuyPremiumForm);
 
-    return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(_this);
+    return _super.call(this, options);
   }
 
   return BuyPremiumForm;

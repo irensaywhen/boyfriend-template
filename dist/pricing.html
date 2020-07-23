@@ -300,7 +300,7 @@
                       type="radio"
                       name="plan"
                       id="oneMonth"
-                      class="position-absolute d-none plan-input"
+                      class="position-absolute d-none plan-input buy-premium-input"
                     />
                     <label
                       for="oneMonth"
@@ -334,7 +334,7 @@
                       type="radio"
                       name="plan"
                       id="threeMonths"
-                      class="position-absolute d-none plan-input"
+                      class="position-absolute d-none plan-input buy-premium-input"
                     />
                     <label
                       for="threeMonths"
@@ -368,7 +368,7 @@
                       type="radio"
                       name="plan"
                       id="sixMonths"
-                      class="position-absolute d-none plan-input"
+                      class="position-absolute d-none plan-input buy-premium-input"
                     />
                     <label
                       for="sixMonths"
@@ -402,7 +402,7 @@
                       type="radio"
                       name="plan"
                       id="twelveMonths"
-                      class="position-absolute d-none plan-input"
+                      class="position-absolute d-none plan-input buy-premium-input"
                     />
                     <label
                       for="twelveMonths"
@@ -472,7 +472,7 @@
                       <div
                         class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
                       >
-                        <div class="input-group input-group-sm">
+                        <div class="input-group input-group-sm form-group">
                           <div class="input-group-prepend">
                             <button
                               class="btn btn-light-grey px-1"
@@ -483,8 +483,7 @@
                           </div>
                           <input
                             type="text"
-                            class="form-control w-35"
-                            placeholder=""
+                            class="form-control w-35 buy-premium-input"
                             value="0"
                           />
                           <div class="input-group-append">
@@ -536,7 +535,7 @@
                       <div
                         class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
                       >
-                        <div class="input-group input-group-sm">
+                        <div class="input-group input-group-sm form-group">
                           <div class="input-group-prepend">
                             <button
                               class="btn btn-light-grey px-1"
@@ -547,8 +546,7 @@
                           </div>
                           <input
                             type="text"
-                            class="form-control w-35"
-                            placeholder=""
+                            class="form-control w-35 buy-premium-input"
                             value="0"
                           />
                           <div class="input-group-append">
@@ -600,7 +598,7 @@
                       <div
                         class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
                       >
-                        <div class="input-group input-group-sm">
+                        <div class="input-group input-group-sm form-group">
                           <div class="input-group-prepend">
                             <button
                               class="btn btn-light-grey px-1"
@@ -611,8 +609,7 @@
                           </div>
                           <input
                             type="text"
-                            class="form-control w-35"
-                            placeholder=""
+                            class="form-control w-35 buy-premium-input"
                             value="0"
                           />
                           <div class="input-group-append">
@@ -950,6 +947,29 @@
             imageUrl: "img/boost.svg",
             imageAlt: "Boost icon",
           },
+        });
+
+        /* Buy premium form initialization */
+        const buyPremiumForm = new BuyPremiumForm({
+          selectors: {
+            form: "#buy-premium",
+            "input-wrapper": ".form-group",
+            inputs: ".buy-premium-input",
+          },
+          requests: {
+            submit: {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
+            },
+          },
+          location: false,
+          showSuccessPopup: true,
+          showFailPopup: false,
+          frontendValidation: false,
         });
       });
     </script>
