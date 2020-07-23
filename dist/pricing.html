@@ -259,344 +259,445 @@
       </div>
       <!-- header ends -->
 
-      <!--Form for selecting plans and presents start-->
-      <form class="container buy-premium-form" id="buy-premium">
+      <div class="container checkout">
         <div class="row">
           <div class="col-12 col-sm-6 offset-sm-6 col-md-4 offset-md-8 price">
             <span>Price:</span><strong>36.99 zł</strong><small>total</small>
           </div>
         </div>
-        <div class="row my-3 text-center">
-          <div class="col-12 col-sm-6 col-lg-3">
-            <div class="card mb-4 shadow-sm border-0">
-              <div class="card-header">
-                <h4 class="my-0 font-weight-normal">1 month</h4>
-              </div>
-              <div class="card-body">
-                <h3 class="card-title pricing-card-title">
-                  14.99 zł <small class="text-muted">/ mo</small>
-                </h3>
-                <ul class="list-unstyled mt-3 mb-4">
-                  <li>10 users included</li>
-                  <li>2 GB of storage</li>
-                  <li>Email support</li>
-                  <li>Help center access</li>
-                </ul>
-                <!--Plan's input start-->
-                <div class="form-group position-relative">
-                  <input
-                    type="radio"
-                    name="plan"
-                    id="oneMonth"
-                    class="position-absolute d-none plan-input"
-                  />
-                  <label
-                    for="oneMonth"
-                    class="mb-2 btn btn-outline-primary btn-rounded btn-block plan-label"
-                  >
-                    Select plan</label
-                  >
-                </div>
-                <!--Plan's input end-->
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-6 col-lg-3">
-            <div class="card mb-4 shadow-sm border-0">
-              <div class="card-header">
-                <h4 class="my-0 font-weight-normal">3 months</h4>
-              </div>
-              <div class="card-body">
-                <h3 class="card-title pricing-card-title">
-                  14.99 zł <small class="text-muted">/ mo</small>
-                </h3>
-                <ul class="list-unstyled mt-3 mb-4">
-                  <li>20 users included</li>
-                  <li>10 GB of storage</li>
-                  <li>Priority email support</li>
-                  <li>Help center access</li>
-                </ul>
-                <!--Plan's input start-->
-                <div class="form-group position-relative">
-                  <input
-                    type="radio"
-                    name="plan"
-                    id="threeMonths"
-                    class="position-absolute d-none plan-input"
-                  />
-                  <label
-                    for="threeMonths"
-                    class="mb-2 btn btn-outline-primary btn-rounded btn-block plan-label"
-                  >
-                    Select plan</label
-                  >
-                </div>
-                <!--Plan's input end-->
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-6 col-lg-3">
-            <div class="card mb-4 shadow-sm border-0">
-              <div class="card-header">
-                <h4 class="my-0 font-weight-normal">6 months</h4>
-              </div>
-              <div class="card-body">
-                <h3 class="card-title pricing-card-title">
-                  14.99 zł <small class="text-muted">/ mo</small>
-                </h3>
-                <ul class="list-unstyled mt-3 mb-4">
-                  <li>30 users included</li>
-                  <li>15 GB of storage</li>
-                  <li>Phone and email support</li>
-                  <li>Help center access</li>
-                </ul>
-                <!--Plan's input start-->
-                <div class="form-group position-relative">
-                  <input
-                    type="radio"
-                    name="plan"
-                    id="sixMonths"
-                    class="position-absolute d-none plan-input"
-                  />
-                  <label
-                    for="sixMonths"
-                    class="mb-2 btn btn-outline-primary btn-rounded btn-block plan-label"
-                  >
-                    Select plan</label
-                  >
-                </div>
-                <!--Plan's input end-->
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-6 col-lg-3">
-            <div class="card mb-4 shadow-sm border-0">
-              <div class="card-header">
-                <h4 class="my-0 font-weight-normal">12 months</h4>
-              </div>
-              <div class="card-body">
-                <h3 class="card-title pricing-card-title">
-                  14.99 zł <small class="text-muted">/ mo</small>
-                </h3>
-                <ul class="list-unstyled mt-3 mb-4">
-                  <li>30 users included</li>
-                  <li>15 GB of storage</li>
-                  <li>Phone and email support</li>
-                  <li>Help center access</li>
-                </ul>
-                <!--Plan's input start-->
-                <div class="form-group position-relative">
-                  <input
-                    type="radio"
-                    name="plan"
-                    id="twelveMonths"
-                    class="position-absolute d-none plan-input"
-                  />
-                  <label
-                    for="twelveMonths"
-                    class="mb-2 btn btn-outline-primary btn-rounded btn-block plan-label"
-                  >
-                    Select plan</label
-                  >
-                </div>
-                <!--Plan's input end-->
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!--Bonuses selection start-->
+        <!--Form for selecting plans and presents start-->
+        <form id="buy-premium">
+          <div class="row my-3 text-center">
+            <div class="col-12 col-sm-6 col-lg-3">
+              <div class="card mb-4 shadow-sm border-0">
+                <div class="card-header">
+                  <h4 class="my-0 font-weight-normal">1 month</h4>
+                </div>
+                <div class="card-body">
+                  <h3 class="card-title pricing-card-title">
+                    14.99 zł <small class="text-muted">/ mo</small>
+                  </h3>
+                  <ul class="list-unstyled mt-3 mb-4">
+                    <li>10 users included</li>
+                    <li>2 GB of storage</li>
+                    <li>Email support</li>
+                    <li>Help center access</li>
+                  </ul>
+                  <!--Plan's input start-->
+                  <div class="form-group position-relative">
+                    <input
+                      type="radio"
+                      name="plan"
+                      id="oneMonth"
+                      class="position-absolute d-none plan-input"
+                    />
+                    <label
+                      for="oneMonth"
+                      class="mb-2 btn btn-outline-primary btn-rounded btn-block plan-label"
+                    >
+                      Select plan</label
+                    >
+                  </div>
+                  <!--Plan's input end-->
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+              <div class="card mb-4 shadow-sm border-0">
+                <div class="card-header">
+                  <h4 class="my-0 font-weight-normal">3 months</h4>
+                </div>
+                <div class="card-body">
+                  <h3 class="card-title pricing-card-title">
+                    14.99 zł <small class="text-muted">/ mo</small>
+                  </h3>
+                  <ul class="list-unstyled mt-3 mb-4">
+                    <li>20 users included</li>
+                    <li>10 GB of storage</li>
+                    <li>Priority email support</li>
+                    <li>Help center access</li>
+                  </ul>
+                  <!--Plan's input start-->
+                  <div class="form-group position-relative">
+                    <input
+                      type="radio"
+                      name="plan"
+                      id="threeMonths"
+                      class="position-absolute d-none plan-input"
+                    />
+                    <label
+                      for="threeMonths"
+                      class="mb-2 btn btn-outline-primary btn-rounded btn-block plan-label"
+                    >
+                      Select plan</label
+                    >
+                  </div>
+                  <!--Plan's input end-->
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+              <div class="card mb-4 shadow-sm border-0">
+                <div class="card-header">
+                  <h4 class="my-0 font-weight-normal">6 months</h4>
+                </div>
+                <div class="card-body">
+                  <h3 class="card-title pricing-card-title">
+                    14.99 zł <small class="text-muted">/ mo</small>
+                  </h3>
+                  <ul class="list-unstyled mt-3 mb-4">
+                    <li>30 users included</li>
+                    <li>15 GB of storage</li>
+                    <li>Phone and email support</li>
+                    <li>Help center access</li>
+                  </ul>
+                  <!--Plan's input start-->
+                  <div class="form-group position-relative">
+                    <input
+                      type="radio"
+                      name="plan"
+                      id="sixMonths"
+                      class="position-absolute d-none plan-input"
+                    />
+                    <label
+                      for="sixMonths"
+                      class="mb-2 btn btn-outline-primary btn-rounded btn-block plan-label"
+                    >
+                      Select plan</label
+                    >
+                  </div>
+                  <!--Plan's input end-->
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+              <div class="card mb-4 shadow-sm border-0">
+                <div class="card-header">
+                  <h4 class="my-0 font-weight-normal">12 months</h4>
+                </div>
+                <div class="card-body">
+                  <h3 class="card-title pricing-card-title">
+                    14.99 zł <small class="text-muted">/ mo</small>
+                  </h3>
+                  <ul class="list-unstyled mt-3 mb-4">
+                    <li>30 users included</li>
+                    <li>15 GB of storage</li>
+                    <li>Phone and email support</li>
+                    <li>Help center access</li>
+                  </ul>
+                  <!--Plan's input start-->
+                  <div class="form-group position-relative">
+                    <input
+                      type="radio"
+                      name="plan"
+                      id="twelveMonths"
+                      class="position-absolute d-none plan-input"
+                    />
+                    <label
+                      for="twelveMonths"
+                      class="mb-2 btn btn-outline-primary btn-rounded btn-block plan-label"
+                    >
+                      Select plan</label
+                    >
+                  </div>
+                  <!--Plan's input end-->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Bonuses selection start-->
+          <div class="row">
+            <div class="col text-center text-md-left pb-5">
+              <!--Toggle button start-->
+              <button
+                class="btn btn-lg btn-default mb-2 collapsed"
+                type="button"
+                data-toggle="collapse"
+                data-target="#bonuses"
+                aria-expanded="false"
+                aria-controls="bonuses"
+              >
+                <i class="material-icons"> card_giftcard </i>
+                <span class="align-middle">Select bonuses</span>
+                <i class="fa fa-chevron-down"></i>
+              </button>
+              <!--Toggle button end-->
+
+              <!--Bonuses container start-->
+              <div class="collapse pt-4" id="bonuses">
+                <ul class="list-group list-group-flush mb-4">
+                  <!--Superlike start-->
+                  <li class="list-group-item pb-5 pb-md-3">
+                    <div class="row">
+                      <div class="col-12 col-md-2 align-self-center">
+                        <figure class="product-image h-auto">
+                          <img src="img/superlike.svg" alt="" class="vm" />
+                        </figure>
+                      </div>
+                      <div
+                        class="col-12 col-md-7 pl-md-4 text-center text-md-left"
+                      >
+                        <h3 class="text-dark mb-1 h4 d-block">
+                          Super Like
+                        </h3>
+
+                        <div
+                          class="text-secondary font-weight-normal mb-0 pt-1"
+                        >
+                          Price: <span class="text-success">10 zł</span>
+                        </div>
+
+                        <p class="text-secondary pb-2 pb-md-0 pt-2">
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Facilis dolorem iure ullam repudiandae velit!
+                          Rem, reprehenderit! Eos, libero aut? Reiciendis, non
+                          illo culpa iusto numquam laborum adipisci illum ab
+                          excepturi?
+                        </p>
+                      </div>
+
+                      <!--Amount input start-->
+                      <div
+                        class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
+                      >
+                        <div class="input-group input-group-sm">
+                          <div class="input-group-prepend">
+                            <button
+                              class="btn btn-light-grey px-1"
+                              type="button"
+                            >
+                              <i class="material-icons">remove</i>
+                            </button>
+                          </div>
+                          <input
+                            type="text"
+                            class="form-control w-35"
+                            placeholder=""
+                            value="0"
+                          />
+                          <div class="input-group-append">
+                            <button
+                              class="btn btn-light-grey px-1"
+                              type="button"
+                            >
+                              <i class="material-icons">add</i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <!--Amount input end-->
+                    </div>
+                  </li>
+                  <!--Superlike end-->
+
+                  <!--Boost start-->
+                  <li class="list-group-item pb-5 pb-md-3">
+                    <div class="row">
+                      <div class="col-12 col-md-2 align-self-center">
+                        <figure class="product-image h-auto">
+                          <img src="img/boost-static.svg" alt="" class="vm" />
+                        </figure>
+                      </div>
+                      <div
+                        class="col-12 col-md-7 pl-md-4 text-center text-md-left"
+                      >
+                        <h3 class="text-dark mb-1 h4 d-block">
+                          Boost
+                        </h3>
+
+                        <div
+                          class="text-secondary font-weight-normal mb-0 pt-1"
+                        >
+                          Price: <span class="text-success">15 zł</span>
+                        </div>
+
+                        <p class="text-secondary pb-2 pb-md-0 pt-2">
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Facilis dolorem iure ullam repudiandae velit!
+                          Rem, reprehenderit! Eos, libero aut? Reiciendis, non
+                          illo culpa iusto numquam laborum adipisci illum ab
+                          excepturi?
+                        </p>
+                      </div>
+
+                      <!--Amount input start-->
+                      <div
+                        class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
+                      >
+                        <div class="input-group input-group-sm">
+                          <div class="input-group-prepend">
+                            <button
+                              class="btn btn-light-grey px-1"
+                              type="button"
+                            >
+                              <i class="material-icons">remove</i>
+                            </button>
+                          </div>
+                          <input
+                            type="text"
+                            class="form-control w-35"
+                            placeholder=""
+                            value="0"
+                          />
+                          <div class="input-group-append">
+                            <button
+                              class="btn btn-light-grey px-1"
+                              type="button"
+                            >
+                              <i class="material-icons">add</i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <!--Amount input end-->
+                    </div>
+                  </li>
+                  <!--Boost end-->
+
+                  <!--Photo cart start-->
+                  <li class="list-group-item pb-5 pb-md-3">
+                    <div class="row">
+                      <div class="col-12 col-md-2 align-self-center">
+                        <figure class="product-image h-auto">
+                          <img src="img/photo.svg" alt="" class="vm" />
+                        </figure>
+                      </div>
+                      <div
+                        class="col-12 col-md-7 pl-md-4 text-center text-md-left"
+                      >
+                        <h3 class="text-dark mb-1 h4 d-block">
+                          Super Like
+                        </h3>
+
+                        <div
+                          class="text-secondary font-weight-normal mb-0 pt-1"
+                        >
+                          Price: <span class="text-success">12 zł</span>
+                        </div>
+
+                        <p class="text-secondary pb-2 pb-md-0 pt-2">
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Facilis dolorem iure ullam repudiandae velit!
+                          Rem, reprehenderit! Eos, libero aut? Reiciendis, non
+                          illo culpa iusto numquam laborum adipisci illum ab
+                          excepturi?
+                        </p>
+                      </div>
+
+                      <!--Amount input start-->
+                      <div
+                        class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
+                      >
+                        <div class="input-group input-group-sm">
+                          <div class="input-group-prepend">
+                            <button
+                              class="btn btn-light-grey px-1"
+                              type="button"
+                            >
+                              <i class="material-icons">remove</i>
+                            </button>
+                          </div>
+                          <input
+                            type="text"
+                            class="form-control w-35"
+                            placeholder=""
+                            value="0"
+                          />
+                          <div class="input-group-append">
+                            <button
+                              class="btn btn-light-grey px-1"
+                              type="button"
+                            >
+                              <i class="material-icons">add</i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <!--Amount input end-->
+                    </div>
+                  </li>
+                  <!--Photo cart end-->
+                </ul>
+              </div>
+              <!--Bonus container end-->
+            </div>
+          </div>
+          <!--Bonuses selection end-->
+
+          <!--Button for total price start-->
+          <div class="row">
+            <div class="col-12">
+              <button
+                type="button"
+                class="mb-2 btn btn-lg btn-block btn-outline-primary"
+              >
+                Primary
+              </button>
+            </div>
+          </div>
+          <!--Button for total price end-->
+        </form>
+        <!--Form for selecting plans and presents end-->
+
+        <!--Payment selection start-->
         <div class="row">
-          <div class="col text-center text-md-left pb-5">
-            <!--Toggle button start-->
-            <button
-              class="btn btn-lg btn-default mb-2 collapsed"
-              type="button"
-              data-toggle="collapse"
-              data-target="#bonuses"
-              aria-expanded="false"
-              aria-controls="bonuses"
-            >
-              <i class="material-icons"> card_giftcard </i>
-              <span class="align-middle">Buy bonuses</span>
-            </button>
-            <!--Toggle button end-->
-
-            <!--Bonuses container start-->
-            <div class="collapse pt-4" id="bonuses">
-              <ul class="list-group list-group-flush mb-4">
-                <!--Superlike start-->
-                <li class="list-group-item pb-5 pb-md-3">
-                  <div class="row">
-                    <div class="col-12 col-md-2 align-self-center">
-                      <figure class="product-image h-auto">
-                        <img src="img/superlike.svg" alt="" class="vm" />
-                      </figure>
-                    </div>
-                    <div
-                      class="col-12 col-md-7 pl-md-4 text-center text-md-left"
-                    >
-                      <h3 class="text-dark mb-1 h4 d-block">
-                        Super Like
-                      </h3>
-
-                      <div class="text-secondary font-weight-normal mb-0 pt-1">
-                        Price: <span class="text-success">10 zł</span>
-                      </div>
-
-                      <p class="text-secondary pb-2 pb-md-0 pt-2">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Facilis dolorem iure ullam repudiandae velit! Rem,
-                        reprehenderit! Eos, libero aut? Reiciendis, non illo
-                        culpa iusto numquam laborum adipisci illum ab excepturi?
-                      </p>
-                    </div>
-
-                    <!--Amount input start-->
-                    <div
-                      class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
-                    >
-                      <div class="input-group input-group-sm">
-                        <div class="input-group-prepend">
-                          <button class="btn btn-light-grey px-1" type="button">
-                            <i class="material-icons">remove</i>
-                          </button>
-                        </div>
-                        <input
-                          type="text"
-                          class="form-control w-35"
-                          placeholder=""
-                          value="0"
-                        />
-                        <div class="input-group-append">
-                          <button class="btn btn-light-grey px-1" type="button">
-                            <i class="material-icons">add</i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <!--Amount input end-->
-                  </div>
-                </li>
-                <!--Superlike end-->
-
-                <!--Boost start-->
-                <li class="list-group-item pb-5 pb-md-3">
-                  <div class="row">
-                    <div class="col-12 col-md-2 align-self-center">
-                      <figure class="product-image h-auto">
-                        <img src="img/boost-static.svg" alt="" class="vm" />
-                      </figure>
-                    </div>
-                    <div
-                      class="col-12 col-md-7 pl-md-4 text-center text-md-left"
-                    >
-                      <h3 class="text-dark mb-1 h4 d-block">
-                        Boost
-                      </h3>
-
-                      <div class="text-secondary font-weight-normal mb-0 pt-1">
-                        Price: <span class="text-success">15 zł</span>
-                      </div>
-
-                      <p class="text-secondary pb-2 pb-md-0 pt-2">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Facilis dolorem iure ullam repudiandae velit! Rem,
-                        reprehenderit! Eos, libero aut? Reiciendis, non illo
-                        culpa iusto numquam laborum adipisci illum ab excepturi?
-                      </p>
-                    </div>
-
-                    <!--Amount input start-->
-                    <div
-                      class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
-                    >
-                      <div class="input-group input-group-sm">
-                        <div class="input-group-prepend">
-                          <button class="btn btn-light-grey px-1" type="button">
-                            <i class="material-icons">remove</i>
-                          </button>
-                        </div>
-                        <input
-                          type="text"
-                          class="form-control w-35"
-                          placeholder=""
-                          value="0"
-                        />
-                        <div class="input-group-append">
-                          <button class="btn btn-light-grey px-1" type="button">
-                            <i class="material-icons">add</i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <!--Amount input end-->
-                  </div>
-                </li>
-                <!--Boost end-->
-
-                <!--Photo cart start-->
-                <li class="list-group-item pb-5 pb-md-3">
-                  <div class="row">
-                    <div class="col-12 col-md-2 align-self-center">
-                      <figure class="product-image h-auto">
-                        <img src="img/photo.svg" alt="" class="vm" />
-                      </figure>
-                    </div>
-                    <div
-                      class="col-12 col-md-7 pl-md-4 text-center text-md-left"
-                    >
-                      <h3 class="text-dark mb-1 h4 d-block">
-                        Super Like
-                      </h3>
-
-                      <div class="text-secondary font-weight-normal mb-0 pt-1">
-                        Price: <span class="text-success">12 zł</span>
-                      </div>
-
-                      <p class="text-secondary pb-2 pb-md-0 pt-2">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Facilis dolorem iure ullam repudiandae velit! Rem,
-                        reprehenderit! Eos, libero aut? Reiciendis, non illo
-                        culpa iusto numquam laborum adipisci illum ab excepturi?
-                      </p>
-                    </div>
-
-                    <!--Amount input start-->
-                    <div
-                      class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
-                    >
-                      <div class="input-group input-group-sm">
-                        <div class="input-group-prepend">
-                          <button class="btn btn-light-grey px-1" type="button">
-                            <i class="material-icons">remove</i>
-                          </button>
-                        </div>
-                        <input
-                          type="text"
-                          class="form-control w-35"
-                          placeholder=""
-                          value="0"
-                        />
-                        <div class="input-group-append">
-                          <button class="btn btn-light-grey px-1" type="button">
-                            <i class="material-icons">add</i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <!--Amount input end-->
-                  </div>
-                </li>
-                <!--Photo cart end-->
-              </ul>
-            </div>
-            <!--Bonus container end-->
+          <div class="col-12">
+            <h2 class="h3 mx-3 text-center text-sm-left pb-4">
+              Choose payment method:
+            </h2>
           </div>
         </div>
-        <!--Bonuses selection end-->
-      </form>
-      <!--Form for selecting plans and presents end-->
+
+        <!--Card payment start-->
+        <div class="row payment bg-white shadow rounded py-4 mx-3 mb-5">
+          <div class="col-12 col-sm-4 col-md-2 d-none d-sm-block text-center">
+            <span class="material-icons align-middle">
+              payment
+            </span>
+          </div>
+          <div
+            class="col-12 col-sm-7 d-flex flex-column justify-content-center align-items-center align-items-sm-start"
+          >
+            <h3 class="title">
+              Card payment - <span class="text-success">20% off</span>
+            </h3>
+            <div class="price font-weight-normal mb-0 pt-1">
+              <span class="small text-secondary">total:</span>
+              <span class="text-success">12 zł</span>&nbsp;
+              <del class="text-secondary price-previous small">20 zł</del>
+            </div>
+            <p class="text-secondary small pt-3">
+              subscription
+            </p>
+          </div>
+        </div>
+        <!--Card payment end-->
+
+        <!--Bank transfer start-->
+        <div class="row payment bg-white shadow rounded py-4 mx-3">
+          <div class="col-12 col-sm-4 col-md-2 d-none d-sm-block text-center">
+            <span class="material-icons">
+              account_balance
+            </span>
+          </div>
+          <div
+            class="col-12 col-sm-7 d-flex flex-column justify-content-center align-items-center align-items-sm-start"
+          >
+            <h3 class="title">
+              Bank transfer
+            </h3>
+            <div class="price font-weight-normal mb-0 pt-1">
+              <span class="small text-secondary">total:</span>
+              <span class="text-secondary">20 zł</span>
+            </div>
+          </div>
+        </div>
+        <!--Bank transfer end-->
+
+        <!--Payment selection end-->
+      </div>
 
       <!-- footer -->
       <footer class="footer">

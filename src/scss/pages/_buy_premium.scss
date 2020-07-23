@@ -1,7 +1,29 @@
-.buy-premium-form {
+.checkout {
   padding-top: 100px;
+  padding-bottom: 100px;
 
   .bonus-amount {
     max-width: 150px;
+  }
+
+  .payment {
+    @include ease-out;
+    transform: translate3d(0, 0, 0);
+    cursor: pointer;
+
+    &:hover {
+      transform: translate3d(0, -10px, 0);
+    }
+    .title {
+      font-size: 18px;
+    }
+    .material-icons {
+      font-size: 80px;
+      color: $main-blue;
+    }
+
+    .price {
+      font-size: 20px;
+    }
   }
 }
