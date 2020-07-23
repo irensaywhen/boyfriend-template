@@ -565,7 +565,7 @@
                         class="col-12 col-md-7 pl-md-4 text-center text-md-left"
                       >
                         <h3 class="text-dark mb-1 h4 d-block">
-                          Super Like
+                          Photo Card
                         </h3>
 
                         <div
@@ -697,13 +697,105 @@
 
         <!--Card payment input start-->
 
-        <div class="row card">
-          <div class="col-12">
-            <h2 class="h3 mx-3 text-center text-sm-left pb-4">
+        <form
+          class="row credit-card mx-auto bg-white shadow rounded my-4 py-5 px-3 px-sm-5"
+          id="credit-card"
+        >
+          <div class="col-12 text-center">
+            <h2 class="h3 mx-3 py-4">
               Fill your card information
             </h2>
           </div>
-        </div>
+          <div class="col-12 card-wrapper pb-4"></div>
+          <!--Card number start-->
+          <div class="col-12 col-sm-6 col-lg-4 offset-lg-2">
+            <div class="form-group">
+              <label for="number">Card number</label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                name="number"
+                id="number"
+                placeholder="•••• •••• •••• ••••"
+              />
+            </div>
+          </div>
+          <!--Card number end-->
+
+          <!--Card expiration start-->
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="form-group">
+              <label for="expiry">Expiration date</label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                name="expiry"
+                id="expiry"
+                placeholder="MM/YY"
+              />
+            </div>
+          </div>
+          <!--Card expiration end-->
+
+          <!--Full name start-->
+          <div class="col-12 col-sm-6 col-lg-4 offset-lg-2">
+            <div class="form-group">
+              <label for="name">Full name</label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                name="name"
+                id="name"
+                placeholder="Full Name"
+              />
+            </div>
+          </div>
+          <!--Full name end-->
+
+          <!--CVC start-->
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="form-group">
+              <label for="cvc">CVC Code</label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                name="cvc"
+                id="cvc"
+                placeholder="CVC"
+              />
+            </div>
+          </div>
+          <!--CVC end-->
+
+          <!--Terms of service start-->
+          <div class="col-12 offset-lg-2">
+            <div class="custom-control custom-checkbox">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="customCheck2"
+              />
+              <label class="custom-control-label" for="customCheck2"
+                >I accept
+                <a href="terms.html" class="blue-link text-underline"
+                  >terms and conditions</a
+                ></label
+              >
+            </div>
+          </div>
+          <!--Terms of service end-->
+
+          <!--Submission button start-->
+          <div class="col-12 col-lg-8 offset-lg-2 py-4">
+            <button type="submit" class="mb-2 btn btn-block btn-default submit">
+              Pay: <span class="total-price">14.99 zł</span> / month
+            </button>
+            <p class="text-center small text-secondary">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </p>
+          </div>
+          <!--Submission button end-->
+        </form>
         <!--Card payment input end-->
       </div>
 
@@ -782,7 +874,7 @@
     ></script>
 
     <!--Creditly-->
-    <script type="text/javascript" src="vendor/creditly/creditly.js"></script>
+    <script type="text/javascript" src="vendor/card/card.js"></script>
 
     <!-- template custom js -->
     <script src="js/main.bundle.js"></script>
@@ -801,12 +893,12 @@
           $(this).closest(".notification").removeClass("active");
         });
 
-        var creditly = Creditly.initialize(
-          ".creditly-wrapper .expiration-month-and-year",
-          ".creditly-wrapper .credit-card-number",
-          ".creditly-wrapper .security-code",
-          ".creditly-wrapper .card-type"
-        );
+        /* Credit card initialization */
+        var card = new Card({
+          form: "#credit-card",
+          container: ".card-wrapper",
+          debug: true,
+        });
 
         /* Boost initialization */
         const boost = new Boost({

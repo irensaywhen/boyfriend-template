@@ -6,6 +6,11 @@
     max-width: 150px;
   }
 
+  .submit {
+    text-transform: none !important;
+  }
+
+  /* Payment way selection */
   .payment {
     @include ease-out;
     transform: translate3d(0, 0, 0);
@@ -25,6 +30,11 @@
     .price {
       font-size: 20px;
     }
+  }
+
+  /* Credit card styles */
+  .credit-card {
+    max-width: 720px;
   }
 }
 
