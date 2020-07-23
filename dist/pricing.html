@@ -599,7 +599,8 @@
                         class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
                       >
                         <div class="input-group input-group-sm form-group">
-                          <div class="input-group-prepend">
+                          <!--Substration button-->
+                          <div class="input-group-prepend bonus-control">
                             <button
                               class="btn btn-light-grey px-1"
                               type="button"
@@ -612,7 +613,9 @@
                             class="form-control w-35 buy-premium-input"
                             value="0"
                           />
-                          <div class="input-group-append">
+
+                          <!--Addition button-->
+                          <div class="input-group-append bonus-control">
                             <button
                               class="btn btn-light-grey px-1"
                               type="button"
@@ -955,6 +958,7 @@
             form: "#buy-premium",
             "input-wrapper": ".form-group",
             inputs: ".buy-premium-input",
+            "bonus-inputs": ".input-group",
           },
           requests: {
             submit: {
