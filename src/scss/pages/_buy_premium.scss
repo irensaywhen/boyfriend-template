@@ -10,6 +10,16 @@
     text-transform: none !important;
   }
 
+  /* Price badge */
+
+  .price-badge {
+    max-width: 240px;
+
+    .icon {
+      font-size: 48px;
+    }
+  }
+
   /* Payment way selection */
   .payment {
     @include ease-out;
