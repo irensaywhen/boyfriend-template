@@ -405,8 +405,10 @@
           </div>
         </div>
 
+        <!--Bonuses selection start-->
         <div class="row">
-          <div class="col">
+          <div class="col text-center text-md-left pb-5">
+            <!--Toggle button start-->
             <button
               class="btn btn-lg btn-default mb-2 collapsed"
               type="button"
@@ -418,172 +420,181 @@
               <i class="material-icons"> card_giftcard </i>
               <span class="align-middle">Buy bonuses</span>
             </button>
-            <div class="collapse container" id="bonuses">
-              <div class="row">
-                <div class="col-12 px-0">
-                  <ul class="list-group list-group-flush mb-4">
-                    <li class="list-group-item">
-                      <div class="row">
-                        <div class="col-auto align-self-center">
-                          <button class="btn btn-sm btn-link p-0 float-right">
-                            <i class="material-icons">remove_circle</i>
+            <!--Toggle button end-->
+
+            <!--Bonuses container start-->
+            <div class="collapse pt-4" id="bonuses">
+              <ul class="list-group list-group-flush mb-4">
+                <!--Superlike start-->
+                <li class="list-group-item pb-5 pb-md-3">
+                  <div class="row">
+                    <div class="col-12 col-md-2 align-self-center">
+                      <figure class="product-image h-auto">
+                        <img src="img/superlike.svg" alt="" class="vm" />
+                      </figure>
+                    </div>
+                    <div
+                      class="col-12 col-md-7 pl-md-4 text-center text-md-left"
+                    >
+                      <h3 class="text-dark mb-1 h4 d-block">
+                        Super Like
+                      </h3>
+
+                      <div class="text-secondary font-weight-normal mb-0 pt-1">
+                        Price: <span class="text-success">10 zł</span>
+                      </div>
+
+                      <p class="text-secondary pb-2 pb-md-0 pt-2">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Facilis dolorem iure ullam repudiandae velit! Rem,
+                        reprehenderit! Eos, libero aut? Reiciendis, non illo
+                        culpa iusto numquam laborum adipisci illum ab excepturi?
+                      </p>
+                    </div>
+
+                    <!--Amount input start-->
+                    <div
+                      class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
+                    >
+                      <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                          <button class="btn btn-light-grey px-1" type="button">
+                            <i class="material-icons">remove</i>
                           </button>
                         </div>
-                        <div class="col-2 pl-0 align-self-center">
-                          <figure class="product-image h-auto">
-                            <img src="img/apple.png" alt="" class="vm" />
-                          </figure>
-                        </div>
-                        <div class="col px-0">
-                          <a href="#" class="text-dark mb-1 h6 d-block"
-                            >Red Apple
-                          </a>
-                          <h5 class="text-success font-weight-normal mb-0">
-                            $ 120<sup>.00</sup>
-                          </h5>
-                          <p class="text-secondary small text-mute mb-0">
-                            1.0 kg
-                            <span class="text-success ml-2">10% off</span>
-                          </p>
-                        </div>
-                        <div class="col-auto align-self-center">
-                          <div class="input-group input-group-sm">
-                            <div class="input-group-prepend">
-                              <button
-                                class="btn btn-light-grey px-1"
-                                type="button"
-                              >
-                                <i class="material-icons">remove</i>
-                              </button>
-                            </div>
-                            <input
-                              type="text"
-                              class="form-control w-35"
-                              placeholder=""
-                              value="1"
-                            />
-                            <div class="input-group-append">
-                              <button
-                                class="btn btn-light-grey px-1"
-                                type="button"
-                              >
-                                <i class="material-icons">add</i>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="list-group-item">
-                      <div class="row">
-                        <div class="col-auto align-self-center">
-                          <button class="btn btn-sm btn-link p-0 float-right">
-                            <i class="material-icons">remove_circle</i>
+                        <input
+                          type="text"
+                          class="form-control w-35"
+                          placeholder=""
+                          value="0"
+                        />
+                        <div class="input-group-append">
+                          <button class="btn btn-light-grey px-1" type="button">
+                            <i class="material-icons">add</i>
                           </button>
                         </div>
-                        <div class="col-2 pl-0 align-self-center">
-                          <figure class="product-image h-auto">
-                            <img src="img/grapes2.png" alt="" class="vm" />
-                          </figure>
-                        </div>
-                        <div class="col px-0">
-                          <a href="#" class="text-dark mb-1 h6 d-block"
-                            >Green Grapes
-                          </a>
-                          <h5 class="text-success font-weight-normal mb-0">
-                            $ 120<sup>.00</sup>
-                          </h5>
-                          <p class="text-secondary small text-mute mb-0">
-                            1.0 kg
-                            <span class="text-success ml-2">10% off</span>
-                          </p>
-                        </div>
-                        <div class="col-auto align-self-center">
-                          <div class="input-group input-group-sm">
-                            <div class="input-group-prepend">
-                              <button
-                                class="btn btn-light-grey px-1"
-                                type="button"
-                              >
-                                <i class="material-icons">remove</i>
-                              </button>
-                            </div>
-                            <input
-                              type="text"
-                              class="form-control w-35"
-                              placeholder=""
-                              value="1"
-                            />
-                            <div class="input-group-append">
-                              <button
-                                class="btn btn-light-grey px-1"
-                                type="button"
-                              >
-                                <i class="material-icons">add</i>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
                       </div>
-                    </li>
-                    <li class="list-group-item">
-                      <div class="row">
-                        <div class="col-auto align-self-center">
-                          <button class="btn btn-sm btn-link p-0 float-right">
-                            <i class="material-icons">remove_circle</i>
+                    </div>
+                    <!--Amount input end-->
+                  </div>
+                </li>
+                <!--Superlike end-->
+
+                <!--Boost start-->
+                <li class="list-group-item pb-5 pb-md-3">
+                  <div class="row">
+                    <div class="col-12 col-md-2 align-self-center">
+                      <figure class="product-image h-auto">
+                        <img src="img/boost-static.svg" alt="" class="vm" />
+                      </figure>
+                    </div>
+                    <div
+                      class="col-12 col-md-7 pl-md-4 text-center text-md-left"
+                    >
+                      <h3 class="text-dark mb-1 h4 d-block">
+                        Boost
+                      </h3>
+
+                      <div class="text-secondary font-weight-normal mb-0 pt-1">
+                        Price: <span class="text-success">15 zł</span>
+                      </div>
+
+                      <p class="text-secondary pb-2 pb-md-0 pt-2">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Facilis dolorem iure ullam repudiandae velit! Rem,
+                        reprehenderit! Eos, libero aut? Reiciendis, non illo
+                        culpa iusto numquam laborum adipisci illum ab excepturi?
+                      </p>
+                    </div>
+
+                    <!--Amount input start-->
+                    <div
+                      class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
+                    >
+                      <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                          <button class="btn btn-light-grey px-1" type="button">
+                            <i class="material-icons">remove</i>
                           </button>
                         </div>
-                        <div class="col-2 pl-0 align-self-center">
-                          <figure class="product-image h-auto">
-                            <img src="img/orange-2.png" alt="" class="vm" />
-                          </figure>
-                        </div>
-                        <div class="col px-0">
-                          <a href="#" class="text-dark mb-1 h6 d-block"
-                            >Orange</a
-                          >
-                          <h5 class="text-success font-weight-normal mb-0">
-                            $ 120<sup>.00</sup>
-                          </h5>
-                          <p class="text-secondary small text-mute mb-0">
-                            1.0 kg
-                            <span class="text-success ml-2">10% off</span>
-                          </p>
-                        </div>
-                        <div class="col-auto align-self-center">
-                          <div class="input-group input-group-sm">
-                            <div class="input-group-prepend">
-                              <button
-                                class="btn btn-light-grey px-1"
-                                type="button"
-                              >
-                                <i class="material-icons">remove</i>
-                              </button>
-                            </div>
-                            <input
-                              type="text"
-                              class="form-control w-35"
-                              placeholder=""
-                              value="1"
-                            />
-                            <div class="input-group-append">
-                              <button
-                                class="btn btn-light-grey px-1"
-                                type="button"
-                              >
-                                <i class="material-icons">add</i>
-                              </button>
-                            </div>
-                          </div>
+                        <input
+                          type="text"
+                          class="form-control w-35"
+                          placeholder=""
+                          value="0"
+                        />
+                        <div class="input-group-append">
+                          <button class="btn btn-light-grey px-1" type="button">
+                            <i class="material-icons">add</i>
+                          </button>
                         </div>
                       </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+                    </div>
+                    <!--Amount input end-->
+                  </div>
+                </li>
+                <!--Boost end-->
+
+                <!--Photo cart start-->
+                <li class="list-group-item pb-5 pb-md-3">
+                  <div class="row">
+                    <div class="col-12 col-md-2 align-self-center">
+                      <figure class="product-image h-auto">
+                        <img src="img/photo.svg" alt="" class="vm" />
+                      </figure>
+                    </div>
+                    <div
+                      class="col-12 col-md-7 pl-md-4 text-center text-md-left"
+                    >
+                      <h3 class="text-dark mb-1 h4 d-block">
+                        Super Like
+                      </h3>
+
+                      <div class="text-secondary font-weight-normal mb-0 pt-1">
+                        Price: <span class="text-success">12 zł</span>
+                      </div>
+
+                      <p class="text-secondary pb-2 pb-md-0 pt-2">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Facilis dolorem iure ullam repudiandae velit! Rem,
+                        reprehenderit! Eos, libero aut? Reiciendis, non illo
+                        culpa iusto numquam laborum adipisci illum ab excepturi?
+                      </p>
+                    </div>
+
+                    <!--Amount input start-->
+                    <div
+                      class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
+                    >
+                      <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                          <button class="btn btn-light-grey px-1" type="button">
+                            <i class="material-icons">remove</i>
+                          </button>
+                        </div>
+                        <input
+                          type="text"
+                          class="form-control w-35"
+                          placeholder=""
+                          value="0"
+                        />
+                        <div class="input-group-append">
+                          <button class="btn btn-light-grey px-1" type="button">
+                            <i class="material-icons">add</i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!--Amount input end-->
+                  </div>
+                </li>
+                <!--Photo cart end-->
+              </ul>
             </div>
+            <!--Bonus container end-->
           </div>
         </div>
+        <!--Bonuses selection end-->
       </form>
       <!--Form for selecting plans and presents end-->
 
