@@ -257,6 +257,7 @@
       <!-- header ends -->
 
       <div class="container checkout">
+        <!--Upper price badge start-->
         <div class="row">
           <div class="col-12 col-sm-6 col-lg-4 offset-sm-6 offset-lg-8">
             <div
@@ -273,6 +274,7 @@
             </div>
           </div>
         </div>
+        <!--Upper price badge end-->
 
         <!--Form for selecting plans and presents start-->
         <form id="buy-premium">
@@ -636,13 +638,19 @@
 
           <!--Button for total price start-->
           <div class="row">
-            <div class="col-12">
-              <button
-                type="button"
-                class="mb-2 btn btn-lg btn-block btn-outline-primary"
-              >
-                Primary
-              </button>
+            <div class="col-12 plan-and-bonuses-checkout">
+              <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-body text-center">
+                  <p class="text-secondary my-1">Total amount to pay:</p>
+                  <div class="h3 mb-4">$400.00</div>
+                  <button
+                    type="submit"
+                    class="mb-2 mx-auto btn btn-block btn-lg btn-rounded btn-default"
+                  >
+                    Checkout <i class="material-icons">arrow_forward</i>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
           <!--Button for total price end-->
@@ -659,7 +667,7 @@
         </div>
 
         <!--Card payment start-->
-        <div class="row payment bg-white shadow rounded py-4 mx-3 mb-5">
+        <div class="row payment bg-white shadow-sm rounded py-4 mx-3 mb-5">
           <div class="col-12 col-sm-4 col-md-2 d-none d-sm-block text-center">
             <span class="material-icons align-middle">
               payment
@@ -684,7 +692,7 @@
         <!--Card payment end-->
 
         <!--Bank transfer start-->
-        <div class="row payment bg-white shadow rounded py-4 mx-3">
+        <div class="row payment bg-white shadow-sm rounded py-4 mx-3">
           <div class="col-12 col-sm-4 col-md-2 d-none d-sm-block text-center">
             <span class="material-icons">
               account_balance
@@ -709,7 +717,7 @@
         <!--Card payment input start-->
 
         <form
-          class="row credit-card mx-auto bg-white shadow rounded my-4 py-5 px-3 px-sm-5"
+          class="row credit-card mx-auto bg-white shadow-sm rounded my-4 py-5 px-3 px-sm-5"
           id="credit-card"
         >
           <div class="col-12 text-center">
@@ -798,7 +806,10 @@
 
           <!--Submission button start-->
           <div class="col-12 col-lg-8 offset-lg-2 py-4">
-            <button type="submit" class="mb-2 btn btn-block btn-default submit">
+            <button
+              type="submit"
+              class="mb-2 btn btn-block btn-rounded btn-default submit"
+            >
               Pay: <span class="total-price">14.99 zł</span> / month
             </button>
             <p class="text-center small text-secondary">
