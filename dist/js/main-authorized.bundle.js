@@ -2418,7 +2418,9 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
 
                   if (this.redirectOnSubmit) {
                     // Redirection with simulating HTTP request
-                    window.location.replace(response.redirect);
+                    setTimeout(function () {
+                      window.location.replace(response.redirect);
+                    }, 1000);
                   }
                 } else {
                   if (this.showFailPopup) {
@@ -2966,7 +2968,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  creditCardNumberValidation: function creditCardNumberValidation(value, element) {
+  creditCardNumberValidation: function creditCardNumberValidation(value) {
     // remove all non digit characters
     value = value.replace(/\D/g, "");
     var sum = 0;
@@ -2985,20 +2987,52 @@ __webpack_require__.r(__webpack_exports__);
 
     return sum % 10 == 0;
   },
-  creditCardExpirationValidation: function creditCardExpirationValidation(value, element) {
+  creditCardExpirationValidation: function creditCardExpirationValidation(value) {
+    var countDigits = function countDigits(year) {
+      var count = 0;
+      if (year >= 1) ++count;
+
+      while (year / 10 >= 1) {
+        year /= 10;
+        ++count;
+      }
+
+      return count;
+    };
+
     value = String(value);
     var now = new Date();
     var currentMonth = now.getMonth() + 1;
-    var currentYear = now.getFullYear() - 2000; // Retrieve month and year
+    var currentYear = now.getFullYear(); // Retrieve month and year
 
     var _value$match = value.match(/\d+/g),
         _value$match2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_value$match, 2),
         month = _value$match2[0],
-        year = _value$match2[1]; // Get rid of leading zero
+        year = _value$match2[1]; //Get rid of leading zero
 
 
     month = parseInt(month, 10);
     year = parseInt(year, 10);
+    var yearDigits = countDigits(year);
+
+    switch (yearDigits) {
+      case 4:
+        break;
+
+      case 2:
+        currentYear -= 2000;
+        break;
+
+      default:
+        return false;
+    }
+
+    console.log("currentYear === year:");
+    console.log(currentYear === year);
+    console.log("currentMonth < month");
+    console.log(currentMonth < month);
+    console.log("currentYear > year");
+    console.log(currentYear > year);
     return currentYear === year ? currentMonth < month ? true : false : currentYear > year ? false : true;
   }
 });

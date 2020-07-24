@@ -199,7 +199,9 @@ export default class Form extends ServerRequest {
 
       if (this.redirectOnSubmit) {
         // Redirection with simulating HTTP request
-        window.location.replace(response.redirect);
+        setTimeout(() => {
+          window.location.replace(response.redirect);
+        }, 1000);
       }
     } else {
       if (this.showFailPopup) {
