@@ -6,14 +6,19 @@ export default class BuyPremiumForm extends Form {
 
     // Binding context
     this.setPrice = this.setPrice.bind(this);
+
+    this.$checkout.fadeOut(0);
   }
 
   cacheElements() {
     super.cacheElements();
 
+    // Price containers
     this.$priceContainer = $(this.selectors.price);
-
     this.$discountContainer = $(this.selectors["card-payment-price"]);
+
+    // Checkout area
+    this.$checkout = this.$form.find(this.selectors.checkout);
   }
 
   setUpEventListeners() {
@@ -78,9 +83,13 @@ export default class BuyPremiumForm extends Form {
     }
 
     if (response.success) {
+      let total = response["total"];
+
       // Show price
-      this.$priceContainer.text(response["total"]);
+      this.$priceContainer.text(total);
       this.$discountContainer.text(response["discount"]);
+
+      total > 0 ? this.$checkout.fadeIn(400) : this.$checkout.fadeOut(400);
     } else {
       if (this.showFailPopup) {
         // Unsuccessful Popup

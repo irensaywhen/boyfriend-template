@@ -139,6 +139,7 @@ export default class ServerRequest {
     for (let name in this.formData) {
       endpoint.searchParams.set(name, this.formData[name]);
     }
+
     return await this.makeRequest({ headers, endpoint, method });
   }
 

@@ -1635,16 +1635,22 @@ var BuyPremiumForm = /*#__PURE__*/function (_Form) {
     _this = _super.call(this, options); // Binding context
 
     _this.setPrice = _this.setPrice.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+
+    _this.$checkout.fadeOut(0);
+
     return _this;
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(BuyPremiumForm, [{
     key: "cacheElements",
     value: function cacheElements() {
-      _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(BuyPremiumForm.prototype), "cacheElements", this).call(this);
+      _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(BuyPremiumForm.prototype), "cacheElements", this).call(this); // Price containers
+
 
       this.$priceContainer = $(this.selectors.price);
-      this.$discountContainer = $(this.selectors["card-payment-price"]);
+      this.$discountContainer = $(this.selectors["card-payment-price"]); // Checkout area
+
+      this.$checkout = this.$form.find(this.selectors.checkout);
     }
   }, {
     key: "setUpEventListeners",
@@ -1684,7 +1690,7 @@ var BuyPremiumForm = /*#__PURE__*/function (_Form) {
     key: "setPrice",
     value: function () {
       var _setPrice = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
+        var response, total;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -1714,9 +1720,11 @@ var BuyPremiumForm = /*#__PURE__*/function (_Form) {
 
               case 9:
                 if (response.success) {
-                  // Show price
-                  this.$priceContainer.text(response["total"]);
+                  total = response["total"]; // Show price
+
+                  this.$priceContainer.text(total);
                   this.$discountContainer.text(response["discount"]);
+                  total > 0 ? this.$checkout.fadeIn(400) : this.$checkout.fadeOut(400);
                 } else {
                   if (this.showFailPopup) {
                     // Unsuccessful Popup

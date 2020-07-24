@@ -663,8 +663,8 @@
           <!--Bonuses selection end-->
 
           <!--Button for total price start-->
-          <div class="row">
-            <div class="col-12 plan-and-bonuses-checkout">
+          <div class="row plan-and-bonuses-checkout">
+            <div class="col-12">
               <div class="card mb-4 border-0 shadow-sm">
                 <div class="card-body text-center">
                   <p class="text-secondary my-1">Total amount to pay:</p>
@@ -673,7 +673,7 @@
                     <span>zł</span>
                   </div>
                   <button
-                    type="submit"
+                    type="button"
                     class="mb-2 mx-auto btn btn-block btn-lg btn-rounded btn-default"
                   >
                     Checkout <i class="material-icons">arrow_forward</i>
@@ -999,16 +999,9 @@
             "add-bonus-input-className": "input-group-append",
             price: ".total-price",
             "card-payment-price": ".discount-price",
+            checkout: ".plan-and-bonuses-checkout",
           },
           requests: {
-            submit: {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
-            },
             price: {
               method: "GET",
               headers: {
