@@ -76,7 +76,6 @@ export default class Form extends ServerRequest {
   setUpEventListeners() {
     // Form submission
     this.$form.submit((event) => {
-      alert("Submitting!");
       event.preventDefault();
       event.stopPropagation();
 
@@ -120,10 +119,16 @@ export default class Form extends ServerRequest {
 
       if ($element.is(":checkbox")) {
         this.formData[name] = $element.is(":checked");
+      } else if ($element.is(":radio")) {
+        this.formData[name] = $("input[name=" + name + "]:checked").val();
       } else if (name === "city") {
         this.collectLocationData(element);
       } else {
-        this.formData[name] = $element.val();
+        let value = $element.val();
+        let numericValue = Number(value);
+
+        // Perform type conversion if the value is a number
+        this.formData[name] = numericValue.isNaN ? value : numericValue;
       }
     });
   }
@@ -189,6 +194,8 @@ export default class Form extends ServerRequest {
       }
       this.showErrorMessages({ errors: response.errors });
     }
+
+    this.formData = {};
   }
 
   showErrorMessages({ errors }) {

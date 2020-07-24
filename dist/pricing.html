@@ -267,7 +267,8 @@
               <div class="d-inline-flex flex-column pl-4">
                 <p class="mb-0">
                   <span>Price:</span>
-                  <strong class="total-price text-success">36.99 zł</strong>
+                  <strong class="total-price text-success">0 </strong>
+                  <span class="text-success">zł</span>
                 </p>
                 <small class="d-block text-secondary">total</small>
               </div>
@@ -300,6 +301,7 @@
                       type="radio"
                       name="plan"
                       id="oneMonth"
+                      value="oneMonth"
                       class="position-absolute d-none plan-input buy-premium-input"
                     />
                     <label
@@ -334,6 +336,7 @@
                       type="radio"
                       name="plan"
                       id="threeMonths"
+                      value="threeMonths"
                       class="position-absolute d-none plan-input buy-premium-input"
                     />
                     <label
@@ -368,6 +371,7 @@
                       type="radio"
                       name="plan"
                       id="sixMonths"
+                      value="sixMonths"
                       class="position-absolute d-none plan-input buy-premium-input"
                     />
                     <label
@@ -402,6 +406,7 @@
                       type="radio"
                       name="plan"
                       id="twelveMonths"
+                      value="twelveMonths"
                       class="position-absolute d-none plan-input buy-premium-input"
                     />
                     <label
@@ -456,7 +461,8 @@
                         <div
                           class="text-secondary font-weight-normal mb-0 pt-1"
                         >
-                          Price: <span class="text-success">10 zł</span>
+                          Price: <span class="text-success">10 </span>
+                          <span class="text-success">zł</span>
                         </div>
 
                         <p class="text-secondary pb-2 pb-md-0 pt-2">
@@ -473,7 +479,8 @@
                         class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
                       >
                         <div class="input-group input-group-sm form-group">
-                          <div class="input-group-prepend">
+                          <!--Substration button-->
+                          <div class="input-group-prepend bonus-control">
                             <button
                               class="btn btn-light-grey px-1"
                               type="button"
@@ -481,12 +488,18 @@
                               <i class="material-icons">remove</i>
                             </button>
                           </div>
+
+                          <!--Input-->
                           <input
                             type="text"
+                            name="super-like"
+                            id="super-like"
                             class="form-control w-35 buy-premium-input"
                             value="0"
                           />
-                          <div class="input-group-append">
+
+                          <!--Addition button-->
+                          <div class="input-group-append bonus-control">
                             <button
                               class="btn btn-light-grey px-1"
                               type="button"
@@ -519,7 +532,8 @@
                         <div
                           class="text-secondary font-weight-normal mb-0 pt-1"
                         >
-                          Price: <span class="text-success">15 zł</span>
+                          Price: <span class="text-success">15 </span>
+                          <span class="text-success">zł</span>
                         </div>
 
                         <p class="text-secondary pb-2 pb-md-0 pt-2">
@@ -536,7 +550,8 @@
                         class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
                       >
                         <div class="input-group input-group-sm form-group">
-                          <div class="input-group-prepend">
+                          <!--Substration button-->
+                          <div class="input-group-prepend bonus-control">
                             <button
                               class="btn btn-light-grey px-1"
                               type="button"
@@ -544,12 +559,18 @@
                               <i class="material-icons">remove</i>
                             </button>
                           </div>
+
+                          <!--Input-->
                           <input
                             type="text"
+                            name="boost"
+                            id="boost"
                             class="form-control w-35 buy-premium-input"
                             value="0"
                           />
-                          <div class="input-group-append">
+
+                          <!--Addition button-->
+                          <div class="input-group-append bonus-control">
                             <button
                               class="btn btn-light-grey px-1"
                               type="button"
@@ -582,7 +603,8 @@
                         <div
                           class="text-secondary font-weight-normal mb-0 pt-1"
                         >
-                          Price: <span class="text-success">12 zł</span>
+                          Price: <span class="text-success">12 </span>
+                          <span class="text-success">zł</span>
                         </div>
 
                         <p class="text-secondary pb-2 pb-md-0 pt-2">
@@ -608,8 +630,12 @@
                               <i class="material-icons">remove</i>
                             </button>
                           </div>
+
+                          <!--Input-->
                           <input
                             type="text"
+                            name="photo-card"
+                            id="photo-card"
                             class="form-control w-35 buy-premium-input"
                             value="0"
                           />
@@ -642,7 +668,10 @@
               <div class="card mb-4 border-0 shadow-sm">
                 <div class="card-body text-center">
                   <p class="text-secondary my-1">Total amount to pay:</p>
-                  <div class="h3 mb-4">$400.00</div>
+                  <div class="h3 mb-4">
+                    <span class="total-price">0 </span>
+                    <span>zł</span>
+                  </div>
                   <button
                     type="submit"
                     class="mb-2 mx-auto btn btn-block btn-lg btn-rounded btn-default"
@@ -681,8 +710,12 @@
             </h3>
             <div class="price font-weight-normal mb-0 pt-1">
               <span class="small text-secondary">total:</span>
-              <span class="text-success">12 zł</span>&nbsp;
-              <del class="text-secondary price-previous small">20 zł</del>
+              <span class="text-success discount-price">0 </span>
+              <span class="text-success">zł</span>
+              &nbsp;
+              <del class="text-secondary total-price small">
+                <span class="total-price">0 </span>zł
+              </del>
             </div>
             <p class="text-secondary small pt-3">
               subscription
@@ -706,7 +739,8 @@
             </h3>
             <div class="price font-weight-normal mb-0 pt-1">
               <span class="small text-secondary">total:</span>
-              <span class="text-secondary">20 zł</span>
+              <span class="text-secondary total-price">0 </span>
+              <span class="text-secondary">zł</span>
             </div>
           </div>
         </div>
@@ -810,7 +844,7 @@
               type="submit"
               class="mb-2 btn btn-block btn-rounded btn-default submit"
             >
-              Pay: <span class="total-price">14.99 zł</span> / month
+              Pay: <span class="total-price">0 </span>zł / month
             </button>
             <p class="text-center small text-secondary">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -958,7 +992,13 @@
             form: "#buy-premium",
             "input-wrapper": ".form-group",
             inputs: ".buy-premium-input",
+            // Wrapper of the bonus input
             "bonus-inputs": ".input-group",
+            // + and - buttons to add/remove bonuses
+            "bonus-control": ".bonus-control",
+            "add-bonus-input-className": "input-group-append",
+            price: ".total-price",
+            "card-payment-price": ".discount-price",
           },
           requests: {
             submit: {
@@ -968,6 +1008,14 @@
               },
               endpoint:
                 "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
+            },
+            price: {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/price",
             },
           },
           location: false,

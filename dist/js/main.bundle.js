@@ -1760,7 +1760,6 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
 
       // Form submission
       this.$form.submit(function (event) {
-        alert("Submitting!");
         event.preventDefault();
         event.stopPropagation();
 
@@ -1806,10 +1805,15 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
 
         if ($element.is(":checkbox")) {
           _this3.formData[name] = $element.is(":checked");
+        } else if ($element.is(":radio")) {
+          _this3.formData[name] = $("input[name=" + name + "]:checked").val();
         } else if (name === "city") {
           _this3.collectLocationData(element);
         } else {
-          _this3.formData[name] = $element.val();
+          var value = $element.val();
+          var numericValue = Number(value); // Perform type conversion if the value is a number
+
+          _this3.formData[name] = numericValue.isNaN ? value : numericValue;
         }
       });
     }
@@ -1894,7 +1898,9 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
                   });
                 }
 
-              case 13:
+                this.formData = {};
+
+              case 14:
               case "end":
                 return _context.stop();
             }

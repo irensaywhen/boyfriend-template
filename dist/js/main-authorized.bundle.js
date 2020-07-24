@@ -1629,11 +1629,33 @@ var BuyPremiumForm = /*#__PURE__*/function (_Form) {
     value: function setUpEventListeners() {
       var _this = this;
 
-      _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(BuyPremiumForm.prototype), "setUpEventListeners", this).call(this);
+      _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(BuyPremiumForm.prototype), "setUpEventListeners", this).call(this); // Additiong and removing bonuses
+
 
       this.$form.find(this.selectors["bonus-inputs"]).on("click", function (event) {
-        console.log(event.target);
-        console.log($(event.target).closest(_this.selectors["bonus-control"]));
+        var $target = $(event.target);
+        var $buttonWrapper = $target.closest(_this.selectors["bonus-control"]);
+        if ($buttonWrapper.length === 0) return; // Figure out what operation to perform
+
+        var operation = $buttonWrapper.hasClass(_this.selectors["add-bonus-input-className"]) ? "add" : "remove"; // Find closest input group containing current button
+
+        var $input = $target.closest(_this.selectors["bonus-inputs"]).find(_this.selectors.inputs); // Current input value
+
+        var value = parseInt($input.val());
+
+        if (operation === "add") {
+          $input.val(++value);
+        } else {
+          $input.val(--value < 0 ? 0 : value);
+        }
+
+        $input.trigger("input");
+      }); // Setting price
+
+      this.$inputs.on("input", function (event) {
+        _this.collectFormInputs();
+
+        console.log(_this.formData);
       });
     }
   }]);
@@ -2040,7 +2062,6 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
 
       // Form submission
       this.$form.submit(function (event) {
-        alert("Submitting!");
         event.preventDefault();
         event.stopPropagation();
 
@@ -2086,10 +2107,15 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
 
         if ($element.is(":checkbox")) {
           _this3.formData[name] = $element.is(":checked");
+        } else if ($element.is(":radio")) {
+          _this3.formData[name] = $("input[name=" + name + "]:checked").val();
         } else if (name === "city") {
           _this3.collectLocationData(element);
         } else {
-          _this3.formData[name] = $element.val();
+          var value = $element.val();
+          var numericValue = Number(value); // Perform type conversion if the value is a number
+
+          _this3.formData[name] = numericValue.isNaN ? value : numericValue;
         }
       });
     }
@@ -2174,7 +2200,9 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
                   });
                 }
 
-              case 13:
+                this.formData = {};
+
+              case 14:
               case "end":
                 return _context.stop();
             }
