@@ -86,6 +86,42 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "../node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
+/*!******************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime/helpers/arrayWithHoles.js":
+/*!****************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+module.exports = _arrayWithHoles;
+
+/***/ }),
+
 /***/ "../node_modules/@babel/runtime/helpers/assertThisInitialized.js":
 /*!***********************************************************************!*\
   !*** ../node_modules/@babel/runtime/helpers/assertThisInitialized.js ***!
@@ -301,6 +337,59 @@ module.exports = _inherits;
 
 /***/ }),
 
+/***/ "../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":
+/*!**********************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArrayLimit(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+module.exports = _iterableToArrayLimit;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime/helpers/nonIterableRest.js":
+/*!*****************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/nonIterableRest.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableRest;
+
+/***/ }),
+
 /***/ "../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js":
 /*!***************************************************************************!*\
   !*** ../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js ***!
@@ -341,6 +430,29 @@ function _setPrototypeOf(o, p) {
 }
 
 module.exports = _setPrototypeOf;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime/helpers/slicedToArray.js":
+/*!***************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/slicedToArray.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles */ "../node_modules/@babel/runtime/helpers/arrayWithHoles.js");
+
+var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit */ "../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js");
+
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray */ "../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+
+var nonIterableRest = __webpack_require__(/*! ./nonIterableRest */ "../node_modules/@babel/runtime/helpers/nonIterableRest.js");
+
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+
+module.exports = _slicedToArray;
 
 /***/ }),
 
@@ -390,6 +502,28 @@ function _typeof(obj) {
 }
 
 module.exports = _typeof;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
+/*!****************************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray */ "../node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
 
 /***/ }),
 
@@ -1665,6 +1799,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./requests.js */ "./js/modules/requests.js");
 /* harmony import */ var _locationMixin_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./locationMixin.js */ "./js/modules/locationMixin.js");
+/* harmony import */ var _paymentMixin_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./paymentMixin.js */ "./js/modules/paymentMixin.js");
 
 
 
@@ -1677,6 +1812,7 @@ __webpack_require__.r(__webpack_exports__);
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default()(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
 
 
 
@@ -1711,6 +1847,13 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
     _this.cacheElements();
 
     _this.setUpEventListeners();
+
+    if (options.payment) {
+      Object.assign(Form.prototype, _paymentMixin_js__WEBPACK_IMPORTED_MODULE_10__["default"]);
+      _this.payment = true;
+      jQuery.validator.addMethod("expiration", _this.creditCardExpirationValidation, "Expiration date is passed");
+      jQuery.validator.addMethod("cardNumber", _this.creditCardNumberValidation, "Card number is invalid");
+    }
 
     if (options.frontendValidation) {
       // If this form requires frontend validation
@@ -1928,9 +2071,6 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
         }
       });
     }
-  }, {
-    key: "hideErrorMessage",
-    value: function hideErrorMessage() {}
   }]);
 
   return Form;
@@ -2416,6 +2556,58 @@ var EditorModal = /*#__PURE__*/function (_ServerRequest) {
 }(_requests_js__WEBPACK_IMPORTED_MODULE_10__["default"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (EditorModal);
+
+/***/ }),
+
+/***/ "./js/modules/paymentMixin.js":
+/*!************************************!*\
+  !*** ./js/modules/paymentMixin.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "../node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  creditCardNumberValidation: function creditCardNumberValidation(value, element) {
+    // remove all non digit characters
+    value = value.replace(/\D/g, "");
+    var sum = 0;
+    var shouldDouble = false; // loop through values starting at the rightmost side
+
+    for (var i = value.length - 1; i >= 0; i--) {
+      var digit = parseInt(value.charAt(i));
+
+      if (shouldDouble) {
+        if ((digit *= 2) > 9) digit -= 9;
+      }
+
+      sum += digit;
+      shouldDouble = !shouldDouble;
+    }
+
+    return sum % 10 == 0;
+  },
+  creditCardExpirationValidation: function creditCardExpirationValidation(value, element) {
+    value = String(value);
+    var now = new Date();
+    var currentMonth = now.getMonth() + 1;
+    var currentYear = now.getFullYear() - 2000; // Retrieve month and year
+
+    var _value$match = value.match(/\d+/g),
+        _value$match2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_value$match, 2),
+        month = _value$match2[0],
+        year = _value$match2[1]; // Get rid of leading zero
+
+
+    month = parseInt(month, 10);
+    year = parseInt(year, 10);
+    return currentYear === year ? currentMonth < month ? true : false : currentYear > year ? false : true;
+  }
+});
 
 /***/ }),
 

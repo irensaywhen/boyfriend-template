@@ -1,5 +1,6 @@
 import ServerRequest from "./requests.js";
 import location from "./locationMixin.js";
+import payment from "./paymentMixin.js";
 
 export default class Form extends ServerRequest {
   constructor(options) {
@@ -24,6 +25,23 @@ export default class Form extends ServerRequest {
 
     this.cacheElements();
     this.setUpEventListeners();
+
+    if (options.payment) {
+      Object.assign(Form.prototype, payment);
+      this.payment = true;
+
+      jQuery.validator.addMethod(
+        "expiration",
+        this.creditCardExpirationValidation,
+        "Expiration date is passed"
+      );
+
+      jQuery.validator.addMethod(
+        "cardNumber",
+        this.creditCardNumberValidation,
+        "Card number is invalid"
+      );
+    }
 
     if (options.frontendValidation) {
       // If this form requires frontend validation
@@ -214,6 +232,4 @@ export default class Form extends ServerRequest {
       }
     });
   }
-
-  hideErrorMessage() {}
 }

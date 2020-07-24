@@ -784,7 +784,7 @@
               <label for="number">Card number</label>
               <input
                 type="text"
-                class="form-control form-control-sm"
+                class="form-control form-control-sm payment-input"
                 name="number"
                 id="number"
                 placeholder="•••• •••• •••• ••••"
@@ -799,7 +799,7 @@
               <label for="expiry">Expiration date</label>
               <input
                 type="text"
-                class="form-control form-control-sm"
+                class="form-control form-control-sm payment-input"
                 name="expiry"
                 id="expiry"
                 placeholder="MM/YY"
@@ -814,7 +814,7 @@
               <label for="name">Full name</label>
               <input
                 type="text"
-                class="form-control form-control-sm"
+                class="form-control form-control-sm payment-input"
                 name="name"
                 id="name"
                 placeholder="Full Name"
@@ -829,7 +829,7 @@
               <label for="cvc">CVC Code</label>
               <input
                 type="text"
-                class="form-control form-control-sm"
+                class="form-control form-control-sm payment-input"
                 name="cvc"
                 id="cvc"
                 placeholder="CVC"
@@ -840,13 +840,14 @@
 
           <!--Terms of service start-->
           <div class="col-12 offset-lg-2">
-            <div class="custom-control custom-checkbox">
+            <div class="custom-control custom-checkbox form-group">
               <input
                 type="checkbox"
-                class="custom-control-input"
-                id="customCheck2"
+                class="custom-control-input payment-input"
+                id="terms"
+                name="terms"
               />
-              <label class="custom-control-label" for="customCheck2"
+              <label class="custom-control-label" for="terms"
                 >I accept
                 <a href="terms.html" class="blue-link text-underline"
                   >terms and conditions</a
@@ -1038,6 +1039,52 @@
         /* Bank transfer handling */
         $("#bank-transfer").click(function () {
           $(this).find("#bank-transfer-form").submit();
+        });
+
+        /* Payment with credit card form initialization */
+        const paymentForm = new Form({
+          selectors: {
+            form: "#credit-card",
+            "input-wrapper": ".form-group",
+            inputs: ".payment-input",
+          },
+          requests: {
+            submit: {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/submit-profile",
+            },
+          },
+          location: false,
+          showSuccessPopup: false,
+          showFailPopup: false,
+          payment: true,
+          frontendValidation: true,
+          validatorOptions: {
+            errorElement: "span",
+            rules: {
+              terms: "required",
+              name: {
+                required: true,
+                minlength: 5,
+              },
+              cvc: {
+                required: true,
+                minlength: 3,
+              },
+              expiry: {
+                required: true,
+                expiration: true,
+              },
+              number: {
+                required: true,
+                cardNumber: true,
+              },
+            },
+          },
         });
       });
     </script>
