@@ -725,7 +725,10 @@
         <!--Card payment end-->
 
         <!--Bank transfer start-->
-        <div class="row payment bg-white shadow-sm rounded py-4 mx-3">
+        <div
+          class="row payment bg-white shadow-sm rounded py-4 mx-3"
+          id="bank-transfer"
+        >
           <div class="col-12 col-sm-4 col-md-2 d-none d-sm-block text-center">
             <span class="material-icons">
               account_balance
@@ -742,6 +745,21 @@
               <span class="text-secondary total-price">0 </span>
               <span class="text-secondary">zł</span>
             </div>
+
+            <!--Hidden form for bank transfer start-->
+            <form
+              action="https://pay.cashbill.pl/form/pay.php"
+              id="bank-transfer-form"
+              method="POST"
+              target="_blank"
+            >
+              <input type="hidden" name="service" value="{$service}" />
+              <input type="hidden" name="amount" value="{$amount}" />
+              <input type="hidden" name="desc" value="{$desc}" />
+              <input type="hidden" name="userdata" value="{$userdata}" />
+              <input type="hidden" name="sign" value="{$sign}" />
+            </form>
+            <!--Hidden form for bank transfer end-->
           </div>
         </div>
         <!--Bank transfer end-->
@@ -1015,6 +1033,11 @@
           showSuccessPopup: true,
           showFailPopup: false,
           frontendValidation: false,
+        });
+
+        /* Bank transfer handling */
+        $("#bank-transfer").click(function () {
+          $(this).find("#bank-transfer-form").submit();
         });
       });
     </script>
