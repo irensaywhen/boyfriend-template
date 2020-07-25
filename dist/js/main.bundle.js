@@ -1571,8 +1571,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//import Form from "./requests.js";
-//import location from "./locationMixin.js";
 var ChainedForms = /*#__PURE__*/function () {
   function ChainedForms(options) {
     _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, ChainedForms);
@@ -1598,12 +1596,11 @@ var ChainedForms = /*#__PURE__*/function () {
         if (index !== 0) {
           $(element).closest(_this.selectors.wrapper).fadeOut().hide();
         }
-      });
-      console.log(this.$forms); // Forward button
+      }); // Forward button
 
-      this.$forwardButton = this.$container.find(this.selectors.forward); // Backward button
+      this.$forwardButton = this.selectors.forward ? this.$container.find(this.selectors.forward) : null; // Backward button
 
-      this.$backwardButton = this.$container.find(this.selectors.backward);
+      this.$backwardButton = this.selectors.backward ? this.$container.find(this.selectors.backward) : null;
     }
   }, {
     key: "setUpEventListeners",
@@ -1613,23 +1610,41 @@ var ChainedForms = /*#__PURE__*/function () {
       // Show next form when the current is submitted
       this.$forms.on("submitted", function (event) {
         var target = event.target;
-        var step = Number(target.dataset.step) + 1;
+        var step = target.dataset.step;
+        ++step;
+        if (step === _this2.$forms.length) return;
         $(target).closest(_this2.selectors.wrapper).fadeOut(400, function () {
           $(_this2.$forms.get(step)).closest(_this2.selectors.wrapper).fadeIn(400);
         });
-      }); // Show previous form when the "back" button is clicked"
-
-      this.$backwardButton.click(function (event) {
-        // Here something is not working
-        event.stopPropagation();
-        var $form = $(event.target).closest(_this2.selectors.wrapper).find(_this2.selectors.forms);
-        var previousStep = Number($form.data("step")) - 1; // Hide the form wrapper
-
-        $form.closest(_this2.selectors.wrapper).fadeOut(400, function () {
-          // Show the form wrapper of the previous form
-          $(_this2.$forms.get(previousStep)).closest(_this2.selectors.wrapper).fadeIn(400);
-        });
       });
+
+      if (this.selectors.backward) {
+        // Show previous form when the "back" button is clicked"
+        this.$backwardButton.click(function (event) {
+          // Here something is not working
+          event.stopPropagation();
+          var $form = $(event.target).closest(_this2.selectors.wrapper).find(_this2.selectors.forms);
+          var previousStep = Number($form.data("step")) - 1; // Hide the form wrapper
+
+          $form.closest(_this2.selectors.wrapper).fadeOut(400, function () {
+            // Show the form wrapper of the previous form
+            $(_this2.$forms.get(previousStep)).closest(_this2.selectors.wrapper).fadeIn(400);
+          });
+        });
+      }
+
+      if (this.selectors.forward) {
+        this.$forwardButton.click(function (event) {
+          event.stopPropagation();
+          var $form = $(event.target).closest(_this2.selectors.wrapper).find(_this2.selectors.forms);
+          var nextStep = Number($form.data("step")) + 1; // Hide the form wrapper
+
+          $form.closest(_this2.selectors.wrapper).fadeOut(400, function () {
+            // Show the form wrapper of the previous form
+            $(_this2.$forms.get(nextStep)).closest(_this2.selectors.wrapper).fadeIn(400);
+          });
+        });
+      }
     }
   }]);
 

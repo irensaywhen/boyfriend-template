@@ -1,6 +1,3 @@
-//import Form from "./requests.js";
-//import location from "./locationMixin.js";
-
 export default class ChainedForms {
   constructor(options) {
     // Bind context
@@ -27,20 +24,26 @@ export default class ChainedForms {
         }
       });
 
-    console.log(this.$forms);
     // Forward button
-    this.$forwardButton = this.$container.find(this.selectors.forward);
+    this.$forwardButton = this.selectors.forward
+      ? this.$container.find(this.selectors.forward)
+      : null;
 
     // Backward button
-    this.$backwardButton = this.$container.find(this.selectors.backward);
+    this.$backwardButton = this.selectors.backward
+      ? this.$container.find(this.selectors.backward)
+      : null;
   }
 
   setUpEventListeners() {
     // Show next form when the current is submitted
     this.$forms.on("submitted", (event) => {
       let target = event.target;
+      let step = target.dataset.step;
 
-      let step = Number(target.dataset.step) + 1;
+      ++step;
+
+      if (step === this.$forms.length) return;
 
       $(target)
         .closest(this.selectors.wrapper)
@@ -49,24 +52,46 @@ export default class ChainedForms {
         });
     });
 
-    // Show previous form when the "back" button is clicked"
-    this.$backwardButton.click((event) => {
-      // Here something is not working
-      event.stopPropagation();
+    if (this.selectors.backward) {
+      // Show previous form when the "back" button is clicked"
+      this.$backwardButton.click((event) => {
+        // Here something is not working
+        event.stopPropagation();
 
-      let $form = $(event.target)
-        .closest(this.selectors.wrapper)
-        .find(this.selectors.forms);
-
-      let previousStep = Number($form.data("step")) - 1;
-
-      // Hide the form wrapper
-      $form.closest(this.selectors.wrapper).fadeOut(400, () => {
-        // Show the form wrapper of the previous form
-        $(this.$forms.get(previousStep))
+        let $form = $(event.target)
           .closest(this.selectors.wrapper)
-          .fadeIn(400);
+          .find(this.selectors.forms);
+
+        let previousStep = Number($form.data("step")) - 1;
+
+        // Hide the form wrapper
+        $form.closest(this.selectors.wrapper).fadeOut(400, () => {
+          // Show the form wrapper of the previous form
+          $(this.$forms.get(previousStep))
+            .closest(this.selectors.wrapper)
+            .fadeIn(400);
+        });
       });
-    });
+    }
+
+    if (this.selectors.forward) {
+      this.$forwardButton.click((event) => {
+        event.stopPropagation();
+
+        let $form = $(event.target)
+          .closest(this.selectors.wrapper)
+          .find(this.selectors.forms);
+
+        let nextStep = Number($form.data("step")) + 1;
+
+        // Hide the form wrapper
+        $form.closest(this.selectors.wrapper).fadeOut(400, () => {
+          // Show the form wrapper of the previous form
+          $(this.$forms.get(nextStep))
+            .closest(this.selectors.wrapper)
+            .fadeIn(400);
+        });
+      });
+    }
   }
 }
