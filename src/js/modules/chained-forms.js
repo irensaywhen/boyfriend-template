@@ -27,6 +27,7 @@ export default class ChainedForms {
         }
       });
 
+    console.log(this.$forms);
     // Forward button
     this.$forwardButton = this.$container.find(this.selectors.forward);
 

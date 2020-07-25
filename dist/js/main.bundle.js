@@ -1598,7 +1598,8 @@ var ChainedForms = /*#__PURE__*/function () {
         if (index !== 0) {
           $(element).closest(_this.selectors.wrapper).fadeOut().hide();
         }
-      }); // Forward button
+      });
+      console.log(this.$forms); // Forward button
 
       this.$forwardButton = this.$container.find(this.selectors.forward); // Backward button
 
