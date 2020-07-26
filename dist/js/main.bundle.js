@@ -1939,9 +1939,6 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
         }
       });
     }
-  }, {
-    key: "hideErrorMessage",
-    value: function hideErrorMessage() {}
   }]);
 
   return Form;

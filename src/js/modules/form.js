@@ -186,6 +186,7 @@ export default class Form extends ServerRequest {
           icon: "error",
         });
       }
+
       this.showErrorMessages({ errors: response.errors });
     }
   }
@@ -206,6 +207,4 @@ export default class Form extends ServerRequest {
       }
     });
   }
-
-  hideErrorMessage() {}
 }
