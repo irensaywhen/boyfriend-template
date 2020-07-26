@@ -1,0 +1,40 @@
+.chat-list {
+  margin-top: 15px;
+  .message {
+    /* All the messages' styles */
+    .avatar {
+      @include circular-badge(80px);
+      @include screen-sm {
+        @include circular-badge(110px);
+      }
+      @include screen-md {
+        @include circular-badge(150px);
+      }
+
+      img {
+        @include image;
+      }
+    }
+
+    .name {
+      @include fluid-type($screen-xs, $screen-xl, 16px, 20px);
+    }
+
+    .text {
+      @include fluid-type($screen-xs, $screen-xl, 14px, 16px);
+    }
+
+    /* New messages styles */
+    &.new {
+      .name {
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+      }
+
+      .text {
+        font-weight: 600;
+      }
+    }
+  }
+}
