@@ -123,7 +123,7 @@
     </div>
     <!-- sidebar ends -->
 
-    <div class="wrapper wrapper-padding">
+    <div class="wrapper wrapper-padding-top wrapper-padding-bottom">
       <!-- header -->
       <div class="private-header d-flex align-items-center">
         <div class="container-fluid">
@@ -258,7 +258,7 @@
       <!-- header ends -->
 
       <!--Profile start-->
-      <div class="container-md px-0 bg-white profile">
+      <div class="container-md px-0 bg-white profile pt-2 pb-4">
         <div class="row">
           <!--Profile avatar-->
           <div class="col-12 col-sm-6 col-md-5">
@@ -271,41 +271,71 @@
           <div class="col-12 col-sm-6 col-md-7">
             <div class="container">
               <div class="row">
+                <!--Name-->
                 <div class="col-12">
                   <h2 class="name pl-3">
-                    David
+                    Davidoff
                   </h2>
                 </div>
+
                 <div class="col-12">
-                  <div class="pl-3 mb-3">
+                  <!--City-->
+                  <div class="pl-3 mb-3 city font-weight-lighter">
                     Krakow
                   </div>
+
+                  <!--User information-->
                   <ul
                     class="information d-flex justify-content-between pl-0 text-center"
                   >
-                    <li class="border-right border-secondary px-3">21 years</li>
-                    <li class="border-right border-secondary px-3">177 sm</li>
-                    <li class="px-3">75 kg</li>
+                    <li
+                      class="border-right font-weight-lighter px-3 d-flex flex-column"
+                    >
+                      <span class="text-black-50 label">age:</span>
+                      <span class="data">21 years</span>
+                    </li>
+                    <li
+                      class="border-right font-weight-lighter px-3 d-flex flex-column"
+                    >
+                      <span class="text-black-50 label">height:</span>
+                      <span class="data">170 sm</span>
+                    </li>
+                    <li
+                      class="border-right font-weight-lighter px-3 d-flex flex-column"
+                    >
+                      <span class="text-black-50 label">weight:</span>
+                      <span class="data">80 kg</span>
+                    </li>
                   </ul>
                 </div>
-                <div class="col-4 col-md-6 px-0 text-center">
-                  <div class="superlike action mx-2 py-2">
+
+                <!--Activities-->
+                <div class="col-4 col-md-6 px-0 text-white">
+                  <div
+                    class="superlike action mx-2 py-1 d-flex flex-column align-items-center"
+                  >
                     <img src="img/polygon.svg" alt="" />
-                    <span class="d-none">Send superlike</span>
+                    <span>Send</span>
+                    <span>superlike</span>
                   </div>
                 </div>
-                <div class="col-4 col-md-6 px-0">
-                  <div class="bonus action mx-2 py-2">
+                <div class="col-4 col-md-6 px-0 text-white">
+                  <div
+                    class="bonus action mx-2 py-1 d-flex flex-column align-items-center"
+                  >
                     <img src="img/gift.svg" alt="" />
-                    <span class="d-none">Send bonus</span>
+                    <span>Give</span>
+                    <span>present</span>
                   </div>
                 </div>
-                <div class="col-4 col-md-12 px-0">
-                  <a href="chat.html" class="chat action mx-2 py-2">
+                <div class="col-4 col-md-12 px-0 text-white">
+                  <a
+                    href="chat.html"
+                    class="chat action mx-2 py-1 d-flex flex-column align-items-center"
+                  >
                     <img src="img/mail.svg" alt="" />
-                    <span class="d-none">
-                      Start chat
-                    </span>
+                    <span>Start</span>
+                    <span>chat</span>
                   </a>
                 </div>
               </div>
@@ -313,12 +343,128 @@
           </div>
 
           <!--User's photos-->
-          <div class="col-12 col-sm-6 col-md-5">
-            User's photos
+          <div class="col-12 col-sm-6 col-md-5 my-3">
+            <div
+              data-pagination='{"el": ".swiper-pagination", "clickable": true}'
+              data-navigation='{"nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev"}'
+              data-space-between="0"
+              class="swiper-container swiper-profile-photos mx-2"
+            >
+              <div class="swiper-pagination"></div>
+              <div class="swiper-wrapper" id="photos-container">
+                <div class="swiper-slide gallery-slide">
+                  <img
+                    src="./img/photo1.jpg"
+                    class="gallery-photo"
+                    data-toggle="modal"
+                    data-target="#edit-photo"
+                    data-id="1"
+                    data-description="Lorem ipsum"
+                    data-privacy="true"
+                    alt="photo 1"
+                  />
+                </div>
+                <div class="swiper-slide gallery-slide">
+                  <img
+                    src="./img/photo2.jpg"
+                    class="gallery-photo"
+                    data-toggle="modal"
+                    data-target="#edit-photo"
+                    data-id="2"
+                    data-description="Lorem ipsum dolor sit amet"
+                    data-privacy="false"
+                    alt="photo 2"
+                  />
+                </div>
+                <div class="swiper-slide gallery-slide">
+                  <img
+                    src="./img/photo1.jpg"
+                    class="gallery-photo"
+                    data-toggle="modal"
+                    data-target="#edit-photo"
+                    data-id="3"
+                    data-description="This is another photo description"
+                    data-privacy="false"
+                    alt="photo 1"
+                  />
+                </div>
+                <div class="swiper-slide gallery-slide">
+                  <img
+                    src="./img/photo2.jpg"
+                    class="gallery-photo"
+                    data-toggle="modal"
+                    data-target="#edit-photo"
+                    data-id="4"
+                    data-description=""
+                    data-privacy="true"
+                    alt="photo 2"
+                  />
+                </div>
+                <div class="swiper-slide gallery-slide">
+                  <img
+                    src="./img/photo1.jpg"
+                    class="gallery-photo"
+                    data-toggle="modal"
+                    data-target="#edit-photo"
+                    data-id="5"
+                    data-description=""
+                    data-privacy="false"
+                    alt="photo 1"
+                  />
+                </div>
+                <div class="swiper-slide gallery-slide">
+                  <img
+                    src="./img/photo2.jpg"
+                    class="gallery-photo"
+                    data-toggle="modal"
+                    data-target="#edit-photo"
+                    data-id="4"
+                    data-description="Description"
+                    data-privacy="true"
+                    alt="photo 2"
+                  />
+                </div>
+              </div>
+              <div class="swiper-button-prev swiper-button-white"></div>
+              <div class="swiper-button-next swiper-button-white"></div>
+            </div>
           </div>
           <!--Ad-->
-          <div class="col-12 col-sm-6 col-md-7">
-            Ad
+          <div class="col-12 col-sm-6 col-md-7 pb-3">
+            <div class="ad"></div>
+          </div>
+
+          <!--Profile description-->
+          <div class="col-12">
+            <h3 class="pl-2 about">
+              About me:
+            </h3>
+            <p class="px-2 font-weight-lighter description">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Laudantium aperiam unde sapiente, nesciunt, voluptas perspiciatis
+              vero eaque, facere aliquid sit autem? Nulla inventore architecto
+              minus labore. Autem laudantium maiores deleniti? Lorem ipsum dolor
+              sit amet consectetur adipisicing elit. Laudantium aperiam unde
+              sapiente, nesciunt, voluptas perspiciatis vero eaque, facere
+              aliquid sit autem? Nulla inventore architecto minus labore. Autem
+              laudantium maiores deleniti?
+            </p>
+          </div>
+
+          <!--Ad-->
+          <div class="col-12 py-3">
+            <div class="ad"></div>
+          </div>
+
+          <!--Send message-->
+          <div class="col-12">
+            <a
+              href="chat.html"
+              class="chat action mx-2 py-1 text-white text-center d-flex justify-content-center align-items-center"
+            >
+              <img src="img/mail.svg" alt="" />
+              <span class="pl-3">Start chat</span>
+            </a>
           </div>
         </div>
       </div>
@@ -390,6 +536,9 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
 
+    <!--Swiper-->
+    <script src="vendor/swiper/js/swiper.min.js"></script>
+
     <!--Sweetalert2-->
     <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
 
@@ -408,6 +557,25 @@
         }, 500);
         $(".closenotification").on("click", function () {
           $(this).closest(".notification").removeClass("active");
+        });
+
+        /* Gallery initialization */
+        const swiper = new Swiper(".swiper-container", {
+          slidesPerView: 2,
+          autoHeight: true,
+          observer: true,
+          spaceBetween: 5,
+          keyboard: {
+            enabled: true,
+          },
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
         });
 
         /* Boost initialization */

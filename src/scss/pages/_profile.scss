@@ -23,18 +23,40 @@
   }
 
   .name {
-    @include fluid-type($screen-xs, $screen-xl, 24px, 30px);
+    @include fluid-type($screen-xs, $screen-xl, 24px, 32px);
     font-weight: 500;
+  }
+
+  .about {
+    @include fluid-type($screen-xs, $screen-xl, 22px, 30px);
+    font-weight: 500;
+  }
+
+  .description {
+    @include fluid-type($screen-xs, $screen-xl, 15px, 18px);
+  }
+
+  .city {
+    @include fluid-type($screen-xs, $screen-xl, 16px, 20px);
   }
 
   .information {
     list-style: none;
+
+    .label {
+      font-size: 14px;
+    }
+
+    .data {
+      @include fluid-type($screen-xs, $screen-xl, 15px, 18px);
+    }
   }
 
   .action {
     border-radius: 5px;
-    margin: 0 7.5px;
-    text-align: center;
+    @include fluid-type($screen-xs, $screen-xl, 12.8px, 18px);
+    line-height: 1.3;
+
     img {
       width: 30px;
       height: auto;
