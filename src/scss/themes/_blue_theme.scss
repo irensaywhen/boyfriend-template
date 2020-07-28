@@ -204,6 +204,7 @@
   /*Link effects*/
   .blue-link {
     @include ease-out;
+    cursor: pointer;
 
     &:focus,
     &:hover {
