@@ -1,5 +1,9 @@
 .chat-list {
+  position: relative;
   margin-top: 15px;
+  overflow-y: auto;
+  height: 80vh;
+  max-height: 80vh;
   .message {
     /* All the messages' styles */
     .avatar {
@@ -22,6 +26,7 @@
 
     .text {
       @include fluid-type($screen-xs, $screen-xl, 14px, 16px);
+      max-width: calc(100% - 34px);
     }
 
     /* New messages styles */
@@ -33,6 +38,10 @@
       }
 
       .text {
+        font-weight: 600;
+      }
+
+      .date {
         font-weight: 600;
       }
     }

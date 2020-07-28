@@ -1293,6 +1293,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_boost_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/boost.js */ "./js/modules/boost.js");
 /* harmony import */ var _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/search-profiles-form.js */ "./js/modules/search-profiles-form.js");
 /* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/buyPremiumForm.js */ "./js/modules/buyPremiumForm.js");
+/* harmony import */ var _modules_chatList_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/chatList.js */ "./js/modules/chatList.js");
+
 
 
 
@@ -1303,6 +1305,7 @@ window["PhotoEditor"] = _modules_editor_js__WEBPACK_IMPORTED_MODULE_1__["default
 window["Boost"] = _modules_boost_js__WEBPACK_IMPORTED_MODULE_2__["default"];
 window["SearchProfilesForm"] = _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_3__["default"];
 window["BuyPremiumForm"] = _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__["default"];
+window["ChatList"] = _modules_chatList_js__WEBPACK_IMPORTED_MODULE_5__["default"];
 
 /***/ }),
 
@@ -1888,6 +1891,233 @@ var BuyPremiumForm = /*#__PURE__*/function (_Form) {
 
   return BuyPremiumForm;
 }(_form_js__WEBPACK_IMPORTED_MODULE_9__["default"]);
+
+
+
+/***/ }),
+
+/***/ "./js/modules/chatList.js":
+/*!********************************!*\
+  !*** ./js/modules/chatList.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ChatList; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "../node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "../node_modules/@babel/runtime/helpers/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "../node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "../node_modules/@babel/runtime/helpers/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "../node_modules/@babel/runtime/helpers/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "../node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./requests.js */ "./js/modules/requests.js");
+
+
+
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default()(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+var ChatList = /*#__PURE__*/function (_ServerRequest) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default()(ChatList, _ServerRequest);
+
+  var _super = _createSuper(ChatList);
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4___default()(ChatList, [{
+    key: "observerOptions",
+    get: function get() {
+      return this._observerOptions;
+    },
+    set: function set(options) {
+      if (!this._observerOptions) {
+        this._observerOptions = options;
+      } else {
+        return;
+      }
+    }
+  }]);
+
+  function ChatList(options) {
+    var _this;
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(this, ChatList);
+
+    _this = _super.call(this, options); // Binding context
+
+    _this.observeLastMessage = _this.observeLastMessage.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3___default()(_this));
+    _this.getMessages = _this.getMessages.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3___default()(_this));
+    _this.showNewMessages = _this.showNewMessages.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3___default()(_this));
+    _this.displayMessages = _this.displayMessages.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3___default()(_this)); // Set amount of messages for the request
+
+    _this.requests.messages.endpoint.searchParams.set("amount", String(options.messagesAmount)); // Initialization call to the functions
+
+
+    _this.cacheElements();
+
+    _this.setUpEventListeners();
+
+    _this.observeLastMessage();
+
+    return _this;
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4___default()(ChatList, [{
+    key: "cacheElements",
+    value: function cacheElements() {
+      this.$chatList = $(this.selectors.chatList);
+      console.log(this.$chatList); // Messages
+
+      this.$messages = this.$chatList.find(this.selectors.message);
+      this.lastMessage = this.$messages.last()[0]; // Set observer options
+
+      this.observerOptions = {
+        root: this.$chatList[0],
+        rootMargin: "0px",
+        threshold: 0
+      };
+    }
+  }, {
+    key: "setUpEventListeners",
+    value: function setUpEventListeners() {
+      var chatList = document.getElementById("chat-list");
+      chatList.addEventListener("scroll", function (event) {
+        var target = event.target;
+      }, {
+        passive: true
+      });
+    }
+  }, {
+    key: "observeLastMessage",
+    value: function observeLastMessage() {
+      var _this2 = this;
+
+      this.observer = this.observer || new IntersectionObserver(function (entries, observer) {
+        // Save the last message
+        var element = entries[0];
+        if (!element.isIntersecting) return;
+        setTimeout(_this2.showNewMessages, 0);
+      });
+      this.observer.observe(this.lastMessage);
+    }
+  }, {
+    key: "showNewMessages",
+    value: function () {
+      var _showNewMessages = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var messages;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.getMessages();
+
+              case 2:
+                messages = _context.sent;
+                console.log(messages);
+                this.displayMessages(messages);
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function showNewMessages() {
+        return _showNewMessages.apply(this, arguments);
+      }
+
+      return showNewMessages;
+    }()
+  }, {
+    key: "getMessages",
+    value: function () {
+      var _getMessages = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var request;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                request = this.requests.messages;
+                _context2.next = 3;
+                return this.makeRequest({
+                  headers: request.headers,
+                  endpoint: request.endpoint,
+                  method: request.method
+                });
+
+              case 3:
+                return _context2.abrupt("return", _context2.sent);
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function getMessages() {
+        return _getMessages.apply(this, arguments);
+      }
+
+      return getMessages;
+    }()
+  }, {
+    key: "displayMessages",
+    value: function displayMessages(messages) {
+      messages.forEach(function (message) {//let $message = $("<div></div>")
+        //  .addClass(
+        //    "message new border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+        //  )
+        //  // Avatar
+        //  .append(
+        //    $("<figure></figure>")
+        //      .addClass("avatar")
+        //      .append($("<img>").attr("src", message.src).attr("alt", ""))
+        //  )
+        //  .append(
+        //    $("<div></div>")
+        //      .addClass("pl-1 pl-sm-3")
+        //      // Name and date
+        //      .append(
+        //        $("<div></div>")
+        //          .addClass("d-flex justify-content-between")
+        //          .append(
+        //            $("<h3></h3>")
+        //              .addClass("name")
+        //              .append($("<span></span>").text(message.name))
+        //
+        //          )
+        //      )
+        //  );
+      });
+    }
+  }]);
+
+  return ChatList;
+}(_requests_js__WEBPACK_IMPORTED_MODULE_8__["default"]);
 
 
 
