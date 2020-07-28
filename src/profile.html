@@ -273,36 +273,30 @@
               <div class="row">
                 <!--Name-->
                 <div class="col-12">
-                  <h2 class="name pl-3">
+                  <h2 class="name">
                     Davidoff
                   </h2>
                 </div>
 
                 <div class="col-12">
                   <!--City-->
-                  <div class="pl-3 mb-3 city font-weight-lighter">
+                  <div class="mb-3 city font-weight-lighter">
                     Krakow
                   </div>
 
                   <!--User information-->
                   <ul
-                    class="information d-flex justify-content-between pl-0 text-center"
+                    class="information pl-0 text-center d-flex justify-content-between"
                   >
-                    <li
-                      class="border-right font-weight-lighter px-3 d-flex flex-column"
-                    >
+                    <li class="font-weight-lighter d-flex flex-column">
                       <span class="text-black-50 label">age:</span>
                       <span class="data">21 years</span>
                     </li>
-                    <li
-                      class="border-right font-weight-lighter px-3 d-flex flex-column"
-                    >
+                    <li class="font-weight-lighter d-flex flex-column">
                       <span class="text-black-50 label">height:</span>
                       <span class="data">170 sm</span>
                     </li>
-                    <li
-                      class="border-right font-weight-lighter px-3 d-flex flex-column"
-                    >
+                    <li class="font-weight-lighter d-flex flex-column">
                       <span class="text-black-50 label">weight:</span>
                       <span class="data">80 kg</span>
                     </li>
@@ -310,31 +304,31 @@
                 </div>
 
                 <!--Activities-->
-                <div class="col-4 col-md-6 px-0 text-white">
+                <div class="col-4 col-sm-12 col-md-6 px-0 text-white">
                   <div
-                    class="superlike action mx-2 py-1 d-flex flex-column align-items-center"
+                    class="superlike action mx-2 py-1 d-flex flex-column flex-sm-row justify-content-sm-left justify-content-md-center pl-sm-2 pl-md-0 align-items-center mt-sm-2"
                   >
                     <img src="img/polygon.svg" alt="" />
-                    <span>Send</span>
+                    <span class="pl-sm-3 pr-sm-1">Send</span>
                     <span>superlike</span>
                   </div>
                 </div>
-                <div class="col-4 col-md-6 px-0 text-white">
+                <div class="col-4 col-sm-12 col-md-6 px-0 text-white">
                   <div
-                    class="bonus action mx-2 py-1 d-flex flex-column align-items-center"
+                    class="bonus action mx-2 py-1 d-flex flex-column flex-sm-row justify-content-sm-left justify-content-md-center pl-sm-2 pl-md-0 align-items-center mt-sm-2"
                   >
                     <img src="img/gift.svg" alt="" />
-                    <span>Give</span>
+                    <span class="pl-sm-3 pr-sm-1">Give</span>
                     <span>present</span>
                   </div>
                 </div>
-                <div class="col-4 col-md-12 px-0 text-white">
+                <div class="col-4 col-sm-12 px-0 text-white">
                   <a
                     href="chat.html"
-                    class="chat action mx-2 py-1 d-flex flex-column align-items-center"
+                    class="chat action mx-2 py-1 d-flex flex-column flex-sm-row justify-content-sm-left justify-content-md-center pl-sm-2 pl-md-0 align-items-center mt-sm-2"
                   >
                     <img src="img/mail.svg" alt="" />
-                    <span>Start</span>
+                    <span class="pl-sm-3 pr-sm-1">Start</span>
                     <span>chat</span>
                   </a>
                 </div>
@@ -352,6 +346,7 @@
             >
               <div class="swiper-pagination"></div>
               <div class="swiper-wrapper" id="photos-container">
+                <!--Public photo-->
                 <div class="swiper-slide gallery-slide">
                   <img
                     src="./img/photo1.jpg"
@@ -360,22 +355,19 @@
                     data-target="#edit-photo"
                     data-id="1"
                     data-description="Lorem ipsum"
-                    data-privacy="true"
+                    data-privacy="false"
                     alt="photo 1"
                   />
                 </div>
+
+                <!--Private photo-->
                 <div class="swiper-slide gallery-slide">
-                  <img
-                    src="./img/photo2.jpg"
-                    class="gallery-photo"
-                    data-toggle="modal"
-                    data-target="#edit-photo"
-                    data-id="2"
-                    data-description="Lorem ipsum dolor sit amet"
-                    data-privacy="false"
-                    alt="photo 2"
-                  />
+                  <figure class="private bg-dark p-4">
+                    <img src="img/lock.svg" alt="Private photo" />
+                  </figure>
                 </div>
+
+                <!--Public photo-->
                 <div class="swiper-slide gallery-slide">
                   <img
                     src="./img/photo1.jpg"
@@ -388,6 +380,8 @@
                     alt="photo 1"
                   />
                 </div>
+
+                <!--Public photo-->
                 <div class="swiper-slide gallery-slide">
                   <img
                     src="./img/photo2.jpg"
@@ -396,10 +390,12 @@
                     data-target="#edit-photo"
                     data-id="4"
                     data-description=""
-                    data-privacy="true"
+                    data-privacy="false"
                     alt="photo 2"
                   />
                 </div>
+
+                <!--Public photo-->
                 <div class="swiper-slide gallery-slide">
                   <img
                     src="./img/photo1.jpg"
@@ -412,6 +408,8 @@
                     alt="photo 1"
                   />
                 </div>
+
+                <!--Public photo-->
                 <div class="swiper-slide gallery-slide">
                   <img
                     src="./img/photo2.jpg"
@@ -420,7 +418,7 @@
                     data-target="#edit-photo"
                     data-id="4"
                     data-description="Description"
-                    data-privacy="true"
+                    data-privacy="false"
                     alt="photo 2"
                   />
                 </div>
@@ -431,15 +429,15 @@
           </div>
           <!--Ad-->
           <div class="col-12 col-sm-6 col-md-7 pb-3">
-            <div class="ad"></div>
+            <div class="ad small"></div>
           </div>
 
           <!--Profile description-->
           <div class="col-12">
-            <h3 class="pl-2 about">
+            <h3 class="pl-2 about pt-3">
               About me:
             </h3>
-            <p class="px-2 font-weight-lighter description">
+            <p class="px-2 pb-3 font-weight-lighter description">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Laudantium aperiam unde sapiente, nesciunt, voluptas perspiciatis
               vero eaque, facere aliquid sit autem? Nulla inventore architecto

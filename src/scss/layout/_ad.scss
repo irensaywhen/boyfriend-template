@@ -8,5 +8,10 @@
   @include screen-sm {
     width: 475px;
     height: 59px;
+
+    &.small {
+      width: 253px;
+      height: 60px;
+    }
   }
 }
