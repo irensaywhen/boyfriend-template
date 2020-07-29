@@ -14,8 +14,14 @@ export default class BuyPremiumForm extends Form {
     super.cacheElements();
 
     // Price containers
-    this.$priceContainer = $(this.selectors.price);
-    this.$discountContainer = $(this.selectors["card-payment-price"]);
+    this.$cardPriceContainer = $(this.selectors["card-total-price"]);
+    this.$cardDiscountContainer = $(this.selectors["card-discount-price"]);
+    this.$priceContainer = $(this.selectors["total-price"]);
+    this.$previousPrice = $(this.selectors["previous-price"]);
+
+    this.$previousPriceContainer = this.$previousPrice
+      .closest("del")
+      .fadeOut(0);
 
     // Checkout area
     this.$checkout = this.$form.find(this.selectors.checkout);
@@ -83,13 +89,30 @@ export default class BuyPremiumForm extends Form {
     }
 
     if (response.success) {
-      let total = response["total"];
+      let {
+        initialCardPrice,
+        discountCardPrice,
+        hasPromo,
+        totalPrice,
+        totalDiscountPrice,
+      } = response;
 
-      // Show price
-      this.$priceContainer.text(total);
-      this.$discountContainer.text(response["discount"]);
+      totalPrice > 0 ? this.$checkout.fadeIn(400) : this.$checkout.fadeOut(400);
 
-      total > 0 ? this.$checkout.fadeIn(400) : this.$checkout.fadeOut(400);
+      // Handle promotion price
+      if (hasPromo) {
+        this.$priceContainer.text(totalDiscountPrice);
+        this.$previousPrice.text(totalPrice);
+        this.$previousPriceContainer.fadeIn(400);
+      } else {
+        this.$priceContainer.text(totalPrice);
+        this.$previousPrice.text(0);
+        this.$previousPriceContainer.fadeOut(400);
+      }
+
+      // Handle card payment price
+      this.$cardPriceContainer.text(initialCardPrice);
+      this.$cardDiscountContainer.text(discountCardPrice);
     } else {
       if (this.showFailPopup) {
         // Unsuccessful Popup

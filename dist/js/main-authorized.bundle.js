@@ -1781,8 +1781,11 @@ var BuyPremiumForm = /*#__PURE__*/function (_Form) {
       _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(BuyPremiumForm.prototype), "cacheElements", this).call(this); // Price containers
 
 
-      this.$priceContainer = $(this.selectors.price);
-      this.$discountContainer = $(this.selectors["card-payment-price"]); // Checkout area
+      this.$cardPriceContainer = $(this.selectors["card-total-price"]);
+      this.$cardDiscountContainer = $(this.selectors["card-discount-price"]);
+      this.$priceContainer = $(this.selectors["total-price"]);
+      this.$previousPrice = $(this.selectors["previous-price"]);
+      this.$previousPriceContainer = this.$previousPrice.closest("del").fadeOut(0); // Checkout area
 
       this.$checkout = this.$form.find(this.selectors.checkout);
     }
@@ -1824,7 +1827,8 @@ var BuyPremiumForm = /*#__PURE__*/function (_Form) {
     key: "setPrice",
     value: function () {
       var _setPrice = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response, total;
+        var response, _response, initialCardPrice, discountCardPrice, hasPromo, totalPrice, totalDiscountPrice;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -1854,11 +1858,22 @@ var BuyPremiumForm = /*#__PURE__*/function (_Form) {
 
               case 9:
                 if (response.success) {
-                  total = response["total"]; // Show price
+                  _response = response, initialCardPrice = _response.initialCardPrice, discountCardPrice = _response.discountCardPrice, hasPromo = _response.hasPromo, totalPrice = _response.totalPrice, totalDiscountPrice = _response.totalDiscountPrice;
+                  totalPrice > 0 ? this.$checkout.fadeIn(400) : this.$checkout.fadeOut(400); // Handle promotion price
 
-                  this.$priceContainer.text(total);
-                  this.$discountContainer.text(response["discount"]);
-                  total > 0 ? this.$checkout.fadeIn(400) : this.$checkout.fadeOut(400);
+                  if (hasPromo) {
+                    this.$priceContainer.text(totalDiscountPrice);
+                    this.$previousPrice.text(totalPrice);
+                    this.$previousPriceContainer.fadeIn(400);
+                  } else {
+                    this.$priceContainer.text(totalPrice);
+                    this.$previousPrice.text(0);
+                    this.$previousPriceContainer.fadeOut(400);
+                  } // Handle card payment price
+
+
+                  this.$cardPriceContainer.text(initialCardPrice);
+                  this.$cardDiscountContainer.text(discountCardPrice);
                 } else {
                   if (this.showFailPopup) {
                     // Unsuccessful Popup
