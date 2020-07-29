@@ -345,13 +345,16 @@
                   autocomplete="off"
                 >
                   <!--City input start-->
-                  <div class="form-group float-label">
+                  <div class="form-group float-label position-relative">
                     <input
                       type="text"
                       name="city"
                       class="form-control location signup-input"
                     />
                     <label class="form-control-label">City</label>
+                    <div class="spinner-border city-loader" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
                     <div class="dropdown location-dropdown">
                       <button
                         class="btn btn-primary dropdown-toggle"
@@ -715,6 +718,7 @@
             "location-dropdown": ".location-dropdown",
             "dropdown-toggle": ".dropdown-toggle",
             "dropdown-menu": ".dropdown-menu",
+            locationLoadingIndicator: ".city-loader",
           },
           requests: {
             submit: {
