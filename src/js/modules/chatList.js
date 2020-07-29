@@ -76,6 +76,15 @@ export default class ChatList extends ServerRequest {
 
   async showNewMessages() {
     let messages = await this.getMessages();
+
+    // Sort messages based on timestamp
+    messages.sort((firstMessage, secondMessage) => {
+      firstMessage.timestamp < secondMessage.timestamp
+        ? 1
+        : firstMessage.timestamp > secondMessage.timestamp
+        ? -1
+        : 0;
+    });
     console.log(messages);
     this.displayMessages(messages);
   }
@@ -92,31 +101,50 @@ export default class ChatList extends ServerRequest {
 
   displayMessages(messages) {
     messages.forEach((message) => {
-      //let $message = $("<div></div>")
-      //  .addClass(
-      //    "message new border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
-      //  )
-      //  // Avatar
-      //  .append(
-      //    $("<figure></figure>")
-      //      .addClass("avatar")
-      //      .append($("<img>").attr("src", message.src).attr("alt", ""))
-      //  )
-      //  .append(
-      //    $("<div></div>")
-      //      .addClass("pl-1 pl-sm-3")
-      //      // Name and date
-      //      .append(
-      //        $("<div></div>")
-      //          .addClass("d-flex justify-content-between")
-      //          .append(
-      //            $("<h3></h3>")
-      //              .addClass("name")
-      //              .append($("<span></span>").text(message.name))
-      //
-      //          )
-      //      )
-      //  );
+      let $messageContainer = $("<div></div>").addClass(
+        "message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+      );
+
+      let $name = $("<h3></h3>")
+        .addClass("name")
+        .append($("<span></span>").text(message["userName"]));
+
+      if (message["unread"]) {
+        // Username with badge
+        $name.append(
+          $("<span></span>")
+            .addClass("badge badge-info ml-2")
+            .text(message["amount"])
+        );
+
+        $messageContainer.addClass("unread");
+      }
+
+      // Building the entire message
+      $messageContainer
+        .append(
+          $("<figure></figure>")
+            .addClass("avatar")
+            .append($("<img>").attr("src", message["avatar"]).attr("alt", ""))
+        )
+        .append(
+          $("<div></div>")
+            .addClass("pl-1 pl-sm-3 w-100")
+            .append(
+              $("<div></div>")
+                .addClass("d-flex justify-content-between")
+                .append($name)
+                .append(
+                  $("<time></time>")
+                    .addClass("date small text-secondary")
+                    .text(message["timestamp"])
+                )
+            )
+            .append(
+              $("<p></p>").addClass("text text-secondary").text(message["text"])
+            )
+        )
+        .appendTo(this.$chatList);
     });
   }
 }

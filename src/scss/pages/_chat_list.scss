@@ -7,6 +7,8 @@
   .message {
     /* All the messages' styles */
     .avatar {
+      margin: 0;
+
       @include circular-badge(80px);
       @include screen-sm {
         @include circular-badge(110px);
@@ -30,7 +32,7 @@
     }
 
     /* New messages styles */
-    &.new {
+    &.unread {
       .name {
         font-weight: 700;
         display: flex;
