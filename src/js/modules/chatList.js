@@ -1,4 +1,6 @@
 import ServerRequest from "./requests.js";
+import moment from "moment";
+console.log(moment().format());
 
 export default class ChatList extends ServerRequest {
   get observerOptions() {
@@ -20,6 +22,7 @@ export default class ChatList extends ServerRequest {
     this.getMessages = this.getMessages.bind(this);
     this.showNewMessages = this.showNewMessages.bind(this);
     this.displayMessages = this.displayMessages.bind(this);
+    this.formatTime = this.formatTime.bind(this);
 
     // Set amount of messages for the request
     this.requests.messages.endpoint.searchParams.set(
@@ -60,6 +63,25 @@ export default class ChatList extends ServerRequest {
     );
   }
 
+  formatTime(timestamp) {
+    let now = new Date().getTime();
+
+    let distance = now - timestamp;
+    let hours = distance / (1000 * 60 * 60);
+
+    let messageTime = new Date(timestamp);
+
+    if (hours < 24) {
+      let hours = messageTime.getHours();
+      let minutes = messageTime.getMinutes();
+      console.log(hours, minutes);
+    } else {
+      let month = messageTime.getMonth();
+      let day = messageTime.getDate();
+      console.log(month, day);
+    }
+  }
+
   observeLastMessage() {
     this.observer =
       this.observer ||
@@ -85,6 +107,7 @@ export default class ChatList extends ServerRequest {
         ? -1
         : 0;
     });
+
     console.log(messages);
     this.displayMessages(messages);
   }
@@ -101,6 +124,8 @@ export default class ChatList extends ServerRequest {
 
   displayMessages(messages) {
     messages.forEach((message) => {
+      message["timestamp"] = this.formatTime(parseInt(message["timestamp"]));
+
       let $messageContainer = $("<div></div>").addClass(
         "message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
       );
