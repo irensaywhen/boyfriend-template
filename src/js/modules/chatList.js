@@ -1,6 +1,7 @@
 import ServerRequest from "./requests.js";
 import moment from "moment";
-console.log(moment().format());
+// Adding localization
+moment.locale("pl");
 
 export default class ChatList extends ServerRequest {
   get observerOptions() {
@@ -18,6 +19,7 @@ export default class ChatList extends ServerRequest {
     super(options);
 
     // Binding context
+    this.cacheMessages = this.cacheMessages.bind(this);
     this.observeLastMessage = this.observeLastMessage.bind(this);
     this.getMessages = this.getMessages.bind(this);
     this.showNewMessages = this.showNewMessages.bind(this);
@@ -37,11 +39,8 @@ export default class ChatList extends ServerRequest {
   }
   cacheElements() {
     this.$chatList = $(this.selectors.chatList);
-    console.log(this.$chatList);
 
-    // Messages
-    this.$messages = this.$chatList.find(this.selectors.message);
-    this.lastMessage = this.$messages.last()[0];
+    this.cacheMessages();
 
     // Set observer options
     this.observerOptions = {
@@ -63,29 +62,25 @@ export default class ChatList extends ServerRequest {
     );
   }
 
+  cacheMessages() {
+    this.$messages = this.$chatList.find(this.selectors.message);
+    this.lastMessage = this.$messages.last()[0];
+  }
+
   formatTime(timestamp) {
-    let now = new Date().getTime();
+    let now = moment().format("x");
 
-    let distance = now - timestamp;
-    let hours = distance / (1000 * 60 * 60);
+    let duration = Math.round(moment.duration(now - timestamp).asHours());
 
-    let messageTime = new Date(timestamp);
-
-    if (hours < 24) {
-      let hours = messageTime.getHours();
-      let minutes = messageTime.getMinutes();
-      console.log(hours, minutes);
-    } else {
-      let month = messageTime.getMonth();
-      let day = messageTime.getDate();
-      console.log(month, day);
-    }
+    return duration < 24
+      ? moment(timestamp).format("HH:mm")
+      : moment(timestamp).format("DD MMM");
   }
 
   observeLastMessage() {
     this.observer =
       this.observer ||
-      new IntersectionObserver((entries, observer) => {
+      new IntersectionObserver((entries) => {
         // Save the last message
         let element = entries[0];
         if (!element.isIntersecting) return;
@@ -101,15 +96,26 @@ export default class ChatList extends ServerRequest {
 
     // Sort messages based on timestamp
     messages.sort((firstMessage, secondMessage) => {
-      firstMessage.timestamp < secondMessage.timestamp
+      return firstMessage.timestamp < secondMessage.timestamp
         ? 1
         : firstMessage.timestamp > secondMessage.timestamp
         ? -1
         : 0;
     });
 
-    console.log(messages);
+    // Show newly retrieved messages
     this.displayMessages(messages);
+
+    // Recache messages
+    this.cacheMessages();
+
+    // Watch for visibility of the last message
+    this.observeLastMessage();
+
+    let messageHeight = this.$messages.first().outerHeight();
+    this.$chatList.animate({
+      scrollTop: "+=" + messageHeight,
+    });
   }
 
   async getMessages() {
@@ -124,7 +130,7 @@ export default class ChatList extends ServerRequest {
 
   displayMessages(messages) {
     messages.forEach((message) => {
-      message["timestamp"] = this.formatTime(parseInt(message["timestamp"]));
+      let date = this.formatTime(parseInt(message.timestamp));
 
       let $messageContainer = $("<div></div>").addClass(
         "message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
@@ -162,7 +168,7 @@ export default class ChatList extends ServerRequest {
                 .append(
                   $("<time></time>")
                     .addClass("date small text-secondary")
-                    .text(message["timestamp"])
+                    .text(date)
                 )
             )
             .append(

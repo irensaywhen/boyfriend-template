@@ -7834,8 +7834,9 @@ function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflec
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 
+ // Adding localization
 
-console.log(moment__WEBPACK_IMPORTED_MODULE_9___default()().format());
+moment__WEBPACK_IMPORTED_MODULE_9___default.a.locale("pl");
 
 var ChatList = /*#__PURE__*/function (_ServerRequest) {
   _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default()(ChatList, _ServerRequest);
@@ -7863,6 +7864,7 @@ var ChatList = /*#__PURE__*/function (_ServerRequest) {
 
     _this = _super.call(this, options); // Binding context
 
+    _this.cacheMessages = _this.cacheMessages.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3___default()(_this));
     _this.observeLastMessage = _this.observeLastMessage.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3___default()(_this));
     _this.getMessages = _this.getMessages.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3___default()(_this));
     _this.showNewMessages = _this.showNewMessages.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3___default()(_this));
@@ -7885,10 +7887,7 @@ var ChatList = /*#__PURE__*/function (_ServerRequest) {
     key: "cacheElements",
     value: function cacheElements() {
       this.$chatList = $(this.selectors.chatList);
-      console.log(this.$chatList); // Messages
-
-      this.$messages = this.$chatList.find(this.selectors.message);
-      this.lastMessage = this.$messages.last()[0]; // Set observer options
+      this.cacheMessages(); // Set observer options
 
       this.observerOptions = {
         root: this.$chatList[0],
@@ -7907,30 +7906,24 @@ var ChatList = /*#__PURE__*/function (_ServerRequest) {
       });
     }
   }, {
+    key: "cacheMessages",
+    value: function cacheMessages() {
+      this.$messages = this.$chatList.find(this.selectors.message);
+      this.lastMessage = this.$messages.last()[0];
+    }
+  }, {
     key: "formatTime",
     value: function formatTime(timestamp) {
-      var now = new Date().getTime();
-      var distance = now - timestamp;
-      var hours = distance / (1000 * 60 * 60);
-      var messageTime = new Date(timestamp);
-
-      if (hours < 24) {
-        var _hours = messageTime.getHours();
-
-        var minutes = messageTime.getMinutes();
-        console.log(_hours, minutes);
-      } else {
-        var month = messageTime.getMonth();
-        var day = messageTime.getDate();
-        console.log(month, day);
-      }
+      var now = moment__WEBPACK_IMPORTED_MODULE_9___default()().format("x");
+      var duration = Math.round(moment__WEBPACK_IMPORTED_MODULE_9___default.a.duration(now - timestamp).asHours());
+      return duration < 24 ? moment__WEBPACK_IMPORTED_MODULE_9___default()(timestamp).format("HH:mm") : moment__WEBPACK_IMPORTED_MODULE_9___default()(timestamp).format("DD MMM");
     }
   }, {
     key: "observeLastMessage",
     value: function observeLastMessage() {
       var _this2 = this;
 
-      this.observer = this.observer || new IntersectionObserver(function (entries, observer) {
+      this.observer = this.observer || new IntersectionObserver(function (entries) {
         // Save the last message
         var element = entries[0];
         if (!element.isIntersecting) return;
@@ -7942,7 +7935,7 @@ var ChatList = /*#__PURE__*/function (_ServerRequest) {
     key: "showNewMessages",
     value: function () {
       var _showNewMessages = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var messages;
+        var messages, messageHeight;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -7954,12 +7947,20 @@ var ChatList = /*#__PURE__*/function (_ServerRequest) {
                 messages = _context.sent;
                 // Sort messages based on timestamp
                 messages.sort(function (firstMessage, secondMessage) {
-                  firstMessage.timestamp < secondMessage.timestamp ? 1 : firstMessage.timestamp > secondMessage.timestamp ? -1 : 0;
-                });
-                console.log(messages);
-                this.displayMessages(messages);
+                  return firstMessage.timestamp < secondMessage.timestamp ? 1 : firstMessage.timestamp > secondMessage.timestamp ? -1 : 0;
+                }); // Show newly retrieved messages
 
-              case 6:
+                this.displayMessages(messages); // Recache messages
+
+                this.cacheMessages(); // Watch for visibility of the last message
+
+                this.observeLastMessage();
+                messageHeight = this.$messages.first().outerHeight();
+                this.$chatList.animate({
+                  scrollTop: "+=" + messageHeight
+                });
+
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -8013,7 +8014,8 @@ var ChatList = /*#__PURE__*/function (_ServerRequest) {
       var _this3 = this;
 
       messages.forEach(function (message) {
-        message["timestamp"] = _this3.formatTime(parseInt(message["timestamp"]));
+        var date = _this3.formatTime(parseInt(message.timestamp));
+
         var $messageContainer = $("<div></div>").addClass("message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3");
         var $name = $("<h3></h3>").addClass("name").append($("<span></span>").text(message["userName"]));
 
@@ -8024,7 +8026,7 @@ var ChatList = /*#__PURE__*/function (_ServerRequest) {
         } // Building the entire message
 
 
-        $messageContainer.append($("<figure></figure>").addClass("avatar").append($("<img>").attr("src", message["avatar"]).attr("alt", ""))).append($("<div></div>").addClass("pl-1 pl-sm-3 w-100").append($("<div></div>").addClass("d-flex justify-content-between").append($name).append($("<time></time>").addClass("date small text-secondary").text(message["timestamp"]))).append($("<p></p>").addClass("text text-secondary").text(message["text"]))).appendTo(_this3.$chatList);
+        $messageContainer.append($("<figure></figure>").addClass("avatar").append($("<img>").attr("src", message["avatar"]).attr("alt", ""))).append($("<div></div>").addClass("pl-1 pl-sm-3 w-100").append($("<div></div>").addClass("d-flex justify-content-between").append($name).append($("<time></time>").addClass("date small text-secondary").text(date))).append($("<p></p>").addClass("text text-secondary").text(message["text"]))).appendTo(_this3.$chatList);
       });
     }
   }]);
