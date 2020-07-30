@@ -156,7 +156,7 @@
       }
 
       .close {
-        @include modal-close(10px, 10px);
+        @include modal-close(-20px, 10px);
       }
     }
 
