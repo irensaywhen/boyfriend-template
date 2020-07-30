@@ -165,6 +165,17 @@
     }
   }
 
+  .present {
+    figure {
+      img {
+        max-width: 100px;
+      }
+    }
+    .amount {
+      max-width: 150px;
+    }
+  }
+
   .photo {
     position: relative;
     width: 100%;
