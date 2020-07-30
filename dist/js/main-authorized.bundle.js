@@ -7950,7 +7950,9 @@ var ChatList = /*#__PURE__*/function (_ServerRequest) {
                   return firstMessage.timestamp < secondMessage.timestamp ? 1 : firstMessage.timestamp > secondMessage.timestamp ? -1 : 0;
                 }); // Show newly retrieved messages
 
-                this.displayMessages(messages); // Recache messages
+                this.displayMessages(messages); // Stop observing the last message
+
+                this.observer.unobserve(this.lastMessage); // Recache messages
 
                 this.cacheMessages(); // Watch for visibility of the last message
 
@@ -7960,7 +7962,7 @@ var ChatList = /*#__PURE__*/function (_ServerRequest) {
                   scrollTop: "+=" + messageHeight
                 });
 
-              case 9:
+              case 10:
               case "end":
                 return _context.stop();
             }

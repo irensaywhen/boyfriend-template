@@ -106,6 +106,9 @@ export default class ChatList extends ServerRequest {
     // Show newly retrieved messages
     this.displayMessages(messages);
 
+    // Stop observing the last message
+    this.observer.unobserve(this.lastMessage);
+
     // Recache messages
     this.cacheMessages();
 
