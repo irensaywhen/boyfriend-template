@@ -56,6 +56,91 @@
     </div>
     <!--Loader end-->
 
+    <!--Modals start-->
+    <div class="profile-modals">
+      <!--Avatar modal start-->
+      <div
+        class="modal fade"
+        id="avatarModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="avatarModal"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog modal-dialog-centered modal-lg"
+          role="document"
+        >
+          <div class="modal-content">
+            <div class="modal-body">
+              <!--Avatar photo-->
+              <figure class="photo avatar mx-auto">
+                <img src="img/profile.jpg" alt="Profile photo" />
+                <!--Closing button-->
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Avatar Modal end-->
+
+      <!--Gallery modal start-->
+      <div
+        class="modal fade"
+        id="userPhoto"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="avatarModal"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog modal-dialog-centered modal-lg"
+          role="document"
+        >
+          <div class="modal-content">
+            <div class="modal-body">
+              <!--User photo-->
+              <figure class="photo mx-auto">
+                <i class="fas fa-chevron-left arrow"></i>
+                <img src="img/profile.jpg" alt="Profile photo" />
+                <i class="fas fa-chevron-right arrow"></i>
+                <!--Closing button-->
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </figure>
+            </div>
+            <div class="modal-footer">
+              <!--Photo description start-->
+              <p class="text-center">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Necessitatibus quis id, exercitationem quidem explicabo dicta
+                commodi reprehenderit numquam praesentium doloremque
+                consequuntur provident quibusdam maiores ipsum beatae earum
+                aliquid cum voluptate!
+              </p>
+              <!--Photo description end-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Gallery modal end-->
+    </div>
+    <!--Modals end-->
+
     <!-- sidebar -->
     <div class="sidebar">
       <div class="text-center">
@@ -258,13 +343,19 @@
       <!-- header ends -->
 
       <!--Profile start-->
-      <div class="container-md bg-white profile pt-2 pb-4">
+      <div class="container-md bg-white profile pt-2 pt-sm-5 pb-4">
         <div class="row">
           <!--Profile avatar-->
           <div class="col-12 col-sm-6 col-md-5">
-            <figure class="profile-avatar mx-auto">
-              <img src="img/profile.jpg" alt="Profile photo" />
-            </figure>
+            <div class="d-flex align-items-end h-100">
+              <figure
+                class="profile-avatar mx-auto"
+                data-toggle="modal"
+                data-target="#avatarModal"
+              >
+                <img src="img/profile.jpg" alt="Profile photo" />
+              </figure>
+            </div>
           </div>
 
           <!--Name, info and communication-->
@@ -273,14 +364,16 @@
               <div class="row">
                 <!--Name-->
                 <div class="col-12">
-                  <h2 class="name">
+                  <h2 class="name text-center text-sm-left pt-3 pt-sm-0">
                     Davidoff
                   </h2>
                 </div>
 
                 <div class="col-12">
                   <!--City-->
-                  <div class="mb-3 city font-weight-lighter">
+                  <div
+                    class="mb-3 city font-weight-lighter text-center text-sm-left"
+                  >
                     Krakow
                   </div>
 
@@ -303,8 +396,8 @@
                   </ul>
                 </div>
 
-                <!--Activities-->
-                <div class="col-4 col-sm-12 col-md-6 px-0 text-white">
+                <!--Actions start-->
+                <div class="col-4 col-sm-12 col-md-6 px-0 pt-md-3 text-white">
                   <div
                     class="superlike action mx-2 py-1 d-flex flex-column flex-sm-row justify-content-sm-left justify-content-md-center pl-sm-2 pl-md-0 align-items-center mt-sm-2"
                   >
@@ -313,7 +406,7 @@
                     <span>superlike</span>
                   </div>
                 </div>
-                <div class="col-4 col-sm-12 col-md-6 px-0 text-white">
+                <div class="col-4 col-sm-12 col-md-6 px-0 pt-md-3 text-white">
                   <div
                     class="bonus action mx-2 py-1 d-flex flex-column flex-sm-row justify-content-sm-left justify-content-md-center pl-sm-2 pl-md-0 align-items-center mt-sm-2"
                   >
@@ -332,12 +425,13 @@
                     <span>chat</span>
                   </a>
                 </div>
+                <!--Actions end-->
               </div>
             </div>
           </div>
 
           <!--User's photos-->
-          <div class="col-12 col-sm-6 col-md-5 my-3">
+          <div class="col-12 col-sm-6 col-md-5 mt-3">
             <div
               data-pagination='{"el": ".swiper-pagination", "clickable": true}'
               data-navigation='{"nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev"}'
@@ -352,7 +446,7 @@
                     src="./img/photo1.jpg"
                     class="gallery-photo"
                     data-toggle="modal"
-                    data-target="#edit-photo"
+                    data-target="#userPhoto"
                     data-id="1"
                     data-description="Lorem ipsum"
                     data-privacy="false"
@@ -363,7 +457,14 @@
                 <!--Private photo-->
                 <div class="swiper-slide gallery-slide">
                   <figure class="private bg-dark p-4">
-                    <img src="img/lock.svg" alt="Private photo" />
+                    <img
+                      src="img/lock.svg"
+                      alt="Private photo"
+                      data-toggle="modal"
+                      data-target="#userPhoto"
+                      data-id="1"
+                      data-privacy="true"
+                    />
                   </figure>
                 </div>
 
@@ -373,12 +474,26 @@
                     src="./img/photo1.jpg"
                     class="gallery-photo"
                     data-toggle="modal"
-                    data-target="#edit-photo"
+                    data-target="#userPhoto"
                     data-id="3"
                     data-description="This is another photo description"
                     data-privacy="false"
                     alt="photo 1"
                   />
+                </div>
+
+                <!--Private photo-->
+                <div class="swiper-slide gallery-slide">
+                  <figure class="private bg-dark p-4">
+                    <img
+                      src="img/lock.svg"
+                      alt="Private photo"
+                      data-toggle="modal"
+                      data-target="#userPhoto"
+                      data-id="2"
+                      data-privacy="true"
+                    />
+                  </figure>
                 </div>
 
                 <!--Public photo-->
@@ -387,7 +502,7 @@
                     src="./img/photo2.jpg"
                     class="gallery-photo"
                     data-toggle="modal"
-                    data-target="#edit-photo"
+                    data-target="#userPhoto"
                     data-id="4"
                     data-description=""
                     data-privacy="false"
@@ -401,7 +516,7 @@
                     src="./img/photo1.jpg"
                     class="gallery-photo"
                     data-toggle="modal"
-                    data-target="#edit-photo"
+                    data-target="#userPhoto"
                     data-id="5"
                     data-description=""
                     data-privacy="false"
@@ -415,7 +530,7 @@
                     src="./img/photo2.jpg"
                     class="gallery-photo"
                     data-toggle="modal"
-                    data-target="#edit-photo"
+                    data-target="#userPhoto"
                     data-id="4"
                     data-description="Description"
                     data-privacy="false"
@@ -428,7 +543,7 @@
             </div>
           </div>
           <!--Ad-->
-          <div class="col-12 col-sm-6 col-md-7 pb-3">
+          <div class="col-12 col-sm-6 col-md-7 mt-sm-3">
             <div class="ad small"></div>
           </div>
 
@@ -458,11 +573,22 @@
           <div class="col-12">
             <a
               href="chat.html"
-              class="chat action mx-2 py-1 text-white text-center d-flex justify-content-center align-items-center"
+              class="chat action mb-3 py-1 text-white text-center d-flex justify-content-center align-items-center"
             >
               <img src="img/mail.svg" alt="" />
               <span class="pl-3">Start chat</span>
             </a>
+          </div>
+
+          <!--Complain button-->
+          <div class="col-12 col-sm-4 offset-sm-8 text-right mb-3">
+            <button
+              type="button"
+              class="mb-2 btn btn-outline-secondary complain"
+            >
+              <i class="fas fa-exclamation-triangle"></i>
+              Complain
+            </button>
           </div>
         </div>
       </div>
