@@ -152,7 +152,13 @@
       position: relative;
 
       img {
-        max-width: 150px;
+        max-width: 100px;
+      }
+
+      @include screen-sm {
+        img {
+          max-width: 150px;
+        }
       }
 
       .close {
