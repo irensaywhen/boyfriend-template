@@ -47,6 +47,12 @@
   .name {
     @include fluid-type($screen-xs, $screen-xl, 24px, 32px);
     font-weight: 500;
+    margin: 0;
+  }
+
+  .heart {
+    width: 30px;
+    height: auto;
   }
 
   .about {
