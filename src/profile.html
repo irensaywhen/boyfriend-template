@@ -60,7 +60,7 @@
     <div class="profile-modals">
       <!--Avatar modal start-->
       <div
-        class="modal fade"
+        class="modal fade photo-modal"
         id="avatarModal"
         tabindex="-1"
         role="dialog"
@@ -94,7 +94,7 @@
 
       <!--Gallery modal start-->
       <div
-        class="modal fade"
+        class="modal fade photo-modal"
         id="userPhoto"
         tabindex="-1"
         role="dialog"
@@ -125,7 +125,7 @@
             </div>
             <div class="modal-footer">
               <!--Photo description start-->
-              <p class="text-center">
+              <p class="text-center" id="photo-description">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Necessitatibus quis id, exercitationem quidem explicabo dicta
                 commodi reprehenderit numquam praesentium doloremque
@@ -138,6 +138,61 @@
         </div>
       </div>
       <!--Gallery modal end-->
+
+      <!--Complain modal start-->
+      <div
+        class="modal fade complaint-modal"
+        id="complainModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="complainModal"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog modal-dialog-centered modal-lg"
+          role="document"
+        >
+          <div class="modal-content">
+            <div class="modal-body">
+              <form action="" id="complaint-form">
+                <!--Closing button-->
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+
+                <label
+                  for="complaint"
+                  class="h3 d-block font-weight-lighter text-center pt-4 pb-2"
+                >
+                  <i class="fas fa-exclamation-triangle"></i>
+                  Complain about user
+                </label>
+                <p class="small text-secondary text-center">
+                  Please, provide some information about your complaint
+                </p>
+                <textarea
+                  class="form-control"
+                  id="complaint"
+                  name="complaint"
+                  rows="4"
+                ></textarea>
+                <button
+                  type="submit"
+                  class="my-4 mx-auto btn btn-default btn-block"
+                >
+                  Send complaint
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Complain modal end-->
     </div>
     <!--Modals end-->
 
@@ -585,6 +640,8 @@
             <button
               type="button"
               class="mb-2 btn btn-outline-secondary complain"
+              data-toggle="modal"
+              data-target="#complainModal"
             >
               <i class="fas fa-exclamation-triangle"></i>
               Complain
@@ -731,6 +788,16 @@
             imageAlt: "Boost icon",
           },
         });
+
+        /* Gallery */
+        //const gallery = new Gallery({
+        //  selectors: {
+        //    modal: "#userPhoto",
+        //    image: ".photo img",
+        //    description: "#photo-description"
+        //  },
+        //  requests: {},
+        //});
       });
     </script>
   </body>
