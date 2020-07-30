@@ -141,7 +141,7 @@
 
       <!--Complain modal start-->
       <div
-        class="modal fade complaint-modal"
+        class="modal fade"
         id="complainModal"
         tabindex="-1"
         role="dialog"
@@ -170,7 +170,7 @@
                   class="h3 d-block font-weight-lighter text-center pt-4 pb-2"
                 >
                   <i class="fas fa-exclamation-triangle"></i>
-                  Complain about user
+                  Complain about the user
                 </label>
                 <p class="small text-secondary text-center">
                   Please, provide some information about your complaint
@@ -183,7 +183,7 @@
                 ></textarea>
                 <button
                   type="submit"
-                  class="my-4 mx-auto btn btn-default btn-block"
+                  class="my-4 mx-auto btn btn-default btn-block modal-button"
                 >
                   Send complaint
                 </button>
@@ -193,6 +193,48 @@
         </div>
       </div>
       <!--Complain modal end-->
+
+      <!--Superlike modal start-->
+      <div
+        class="modal fade superlike"
+        id="superlikeModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="superlikeModalLabel"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog modal-dialog-centered modal-lg"
+          role="document"
+        >
+          <div class="modal-content">
+            <div class="modal-body">
+              <figure class="text-center my-4">
+                <img src="img/superlike.svg" alt="" />
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </figure>
+              <div class="amount mx-auto">
+                <span class="text-secondary">Amount available:</span>
+                <span class="text-success font-weight-bold">2</span>
+              </div>
+              <button
+                type="submit"
+                class="my-4 mx-auto btn btn-default btn-block modal-button"
+              >
+                Send superlike
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Superlike modal end-->
     </div>
     <!--Modals end-->
 
@@ -455,6 +497,8 @@
                 <div class="col-4 col-sm-12 col-md-6 px-0 pt-md-3 text-white">
                   <div
                     class="superlike action mx-2 py-1 d-flex flex-column flex-sm-row justify-content-sm-left justify-content-md-center pl-sm-2 pl-md-0 align-items-center mt-sm-2"
+                    data-toggle="modal"
+                    data-target="#superlikeModal"
                   >
                     <img src="img/polygon.svg" alt="" />
                     <span class="pl-sm-3 pr-sm-1">Send</span>

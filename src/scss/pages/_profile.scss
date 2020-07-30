@@ -143,9 +143,25 @@
     }
   }
 
-  .complaint-modal {
-    .btn {
-      max-width: 400px;
+  .modal-button {
+    max-width: 300px;
+  }
+
+  .superlike {
+    figure {
+      position: relative;
+
+      img {
+        max-width: 150px;
+      }
+
+      .close {
+        @include modal-close(10px, 10px);
+      }
+    }
+
+    .amount {
+      max-width: 150px;
     }
   }
 
@@ -174,9 +190,7 @@
 
     /* Modal closing button */
     .close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
+      @include modal-close(10px, 10px);
     }
 
     /* Arrow for gallery manipulations */
