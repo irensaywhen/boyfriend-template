@@ -1,0 +1,41 @@
+/*Utilities*/
+@import "utilities/variables";
+@import "utilities/helper_classes";
+@import "utilities/mixins";
+@import "utilities/functions";
+
+/*Components*/
+@import "components/buttons";
+@import "components/form_controls";
+@import "components/form_errors";
+@import "components/svg_icons";
+
+/*Themes*/
+@import "themes/main_theme";
+@import "themes/blue_theme";
+
+/*Layout*/
+@import "layout/header_public";
+@import "layout/header_private";
+@import "layout/footer_private";
+@import "layout/footer_public";
+@import "layout/sidebar";
+@import "layout/loader";
+@import "layout/articles";
+@import "layout/breadcrumbs";
+@import "layout/menu_notification";
+@import "layout/upload_photo";
+@import "layout/modal";
+@import "layout/user_info";
+@import "layout/ad";
+@import "layout/profile_list";
+
+/*Pages*/
+@import "pages/front_page";
+@import "pages/single_page";
+@import "pages/fill_profile";
+@import "pages/login_and_register";
+@import "pages/result_list";
+@import "pages/buy_premium";
+
+@import "utilities/media";

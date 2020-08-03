@@ -1,0 +1,20 @@
+/*---Fonts and Text---*/
+
+/*--Adjust font size--*/
+
+@function increase-font-size($current-size, $addition) {
+  $font-size: $current-size + $addition;
+  @return $font-size;
+}
+
+@function decrease-font-size($current-size, $addition) {
+  $font-size: $current-size - $addition;
+  @return $font-size;
+}
+
+/*--Make unit unitless--*/
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+/*Card height*/

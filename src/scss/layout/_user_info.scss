@@ -1,0 +1,36 @@
+/* location input */
+.location-dropdown {
+  position: relative;
+
+  .dropdown-toggle {
+    position: absolute;
+    visibility: hidden;
+  }
+
+  .dropdown-menu {
+    transform: translate3d(0, 0, 0) !important;
+    max-width: 300px;
+    max-height: 300px;
+    overflow: scroll;
+
+    .dropdown-item {
+      display: block;
+      max-width: 100%;
+      width: 100%;
+      white-space: normal;
+    }
+  }
+}
+
+.section-title {
+  font-size: decrease-font-size($h3, 4px);
+}
+
+.section-subtitle {
+  font-size: decrease-font-size($h3, 5px);
+  font-weight: 500;
+}
+
+.preference {
+  min-width: 220px;
+}

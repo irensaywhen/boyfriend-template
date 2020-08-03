@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en" class="blue-theme">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no"
+    />
+    <meta name="description" content="Boyfriend template" />
+    <meta name="author" content="Maxartkiller" />
+
+    <title>Front Page</title>
+
+    <!-- Material design icons CSS -->
+    <link rel="stylesheet" href="vendor/materializeicon/material-icons.css" />
+
+    <!-- Roboto fonts CSS -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--Fontawesome-->
+    <link rel="stylesheet" href="fontawesome/css/all.min.css" />
+
+    <!-- Bootstrap core CSS -->
+    <link
+      href="vendor/bootstrap-4.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Swiper CSS -->
+    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" />
+
+    <!--SweetAlert2-->
+    <link href="vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body class="d-flex flex-column">
+    <div class="content">
+      <!--Loader start-->
+      <div class="row no-gutters vh-100 loader-screen">
+        <div class="col align-self-center text-white text-center">
+          <img src="img/logo.png" alt="logo" />
+          <h1><span class="font-weight-light">Boy</span>friend</h1>
+          <div class="laoderhorizontal">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+      <!--Loader end-->
+
+      <!--Modal for uploading avatar start-->
+      <div
+        class="modal fade upload-avatar"
+        id="upload-avatar"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="uploadAvatarModal"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog modal-dialog-centered modal-lg"
+          role="document"
+        >
+          <div class="modal-content">
+            <form action="" id="avatar-editor">
+              <!--Modal header start-->
+              <div class="modal-header">
+                <h3 class="title">
+                  Upload your avatar:
+                </h3>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <!--Modal header end-->
+              <!--Modal body start-->
+              <div class="modal-body">
+                <!--Current avatar and preview-->
+                <div class="text-center">
+                  <div class="figure-profile shadow my-4">
+                    <figure>
+                      <img
+                        src="img/placeholder-avatar.png"
+                        id="avatar-preview"
+                        alt="Avatar Placeholder"
+                      />
+                    </figure>
+                  </div>
+                </div>
+
+                <!--Avatar Upload-->
+                <ul class="pl-1">
+                  <!--Avatar upload from the computer-->
+                  <li class="position-relative">
+                    <label
+                      for="avatar-file-input"
+                      class="upload-photo-label text-center"
+                    >
+                      <img src="img/upload.svg" alt="Upload photo" />
+                    </label>
+                    <input
+                      type="file"
+                      id="avatar-file-input"
+                      name="avatar-file-input"
+                      class="invisible position-absolute avatar-input"
+                      accept="image/*"
+                    />
+                    <p class="d-inline-block pl-3">
+                      Upload your avatar from your computer
+                    </p>
+                  </li>
+
+                  <!--Capturing avatar from device-->
+                  <li class="position-relative d-lg-none">
+                    <label
+                      for="make-avatar"
+                      class="upload-photo-label text-center"
+                    >
+                      <i class="fas fa-camera-retro"></i>
+                    </label>
+                    <input
+                      type="file"
+                      id="make-avatar"
+                      name="make-avatar"
+                      class="invisible position-absolute avatar-input"
+                      accept="image/*"
+                      capture
+                    />
+                    <p class="d-inline-block pl-3">
+                      Make photo from your camera
+                    </p>
+                  </li>
+                </ul>
+
+                <!--Avatar requirements-->
+                <div class="avatar-requirements border-top">
+                  <h4 class="section-title pt-3">
+                    Avatar requirements
+                  </h4>
+                  <ul class="pl-1">
+                    <li>Rozmiar: 500x500px</li>
+                    <li>Dostępne rozszerzenia</li>
+                    <li>Lorem ipsum</li>
+                  </ul>
+                </div>
+              </div>
+              <!--Modal body end-->
+              <!--Modal footer start-->
+              <div class="modal-footer">
+                <div class="px-0 py-3 text-center w-100">
+                  <button
+                    type="submit"
+                    class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
+                  >
+                    <span>Submit</span
+                    ><i class="material-icons">arrow_forward</i>
+                  </button>
+                </div>
+              </div>
+              <!--Modal footer end-->
+            </form>
+          </div>
+        </div>
+      </div>
+      <!--Modal for uploading avatar end-->
+
+      <!--Header start-->
+      <header class="public-header w-100 pb-4">
+        <div class="container-lg">
+          <div class="row no-gutters pb-3">
+            <div class="col-md-5 col-12 text-center my-3">
+              <a href="./index.html">
+                <img src="./img/logo.png" alt="logo" />
+              </a>
+            </div>
+            <div
+              class="col-md-7 col-12 d-flex align-items-center justify-content-center justify-content-xs-between justify-content-md-end"
+            >
+              <a href="register.html" class="mx-3 btn btn-lg btn-default">
+                Zarejestruj
+              </a>
+              <a href="login.html" class="btn btn-lg btn-outline-white mx-3">
+                Zaloguj
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!--Header end-->
+
+      <!--Login section start-->
+      <section class="container">
+        <div class="row no-gutters vh-100 proh bg-template">
+          <div class="col align-self-center px-3 text-center">
+            <h2 class="text-white">
+              <span class="font-weight-light">Sign</span>Up
+            </h2>
+            <div id="forms-signup">
+              <!--Form step 1 start-->
+              <div class="form-wrapper">
+                <form
+                  class="form-signin shadow text-left"
+                  id="signup-1"
+                  data-step="0"
+                >
+                  <!--Name-->
+                  <div class="form-group float-label">
+                    <input
+                      type="text"
+                      id="login"
+                      name="login"
+                      class="form-control signup-input"
+                      autofocus
+                    />
+                    <label for="login" class="form-control-label">Name</label>
+                  </div>
+
+                  <!--Email-->
+                  <div class="form-group float-label">
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      class="form-control signup-input"
+                    />
+                    <label for="email" class="form-control-label"
+                      >Email address</label
+                    >
+                  </div>
+
+                  <!--Password-->
+                  <div class="form-group float-label">
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      class="form-control signup-input"
+                    />
+                    <label for="password" class="form-control-label"
+                      >Password</label
+                    >
+                  </div>
+
+                  <!--Terms-->
+                  <div class="form-group my-4 text-left">
+                    <div class="custom-control custom-checkbox form-group">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input signup-input"
+                        id="terms"
+                        name="terms"
+                      />
+                      <label class="custom-control-label" for="terms"
+                        >I accept
+                        <a href="terms.html" class="blue-link text-underline"
+                          >Terms and Condition</a
+                        ></label
+                      >
+                    </div>
+                  </div>
+
+                  <!--Signup button-->
+                  <div class="row">
+                    <div class="col-12">
+                      <button
+                        type="submit"
+                        class="btn btn-lg btn-default btn-rounded shadow"
+                      >
+                        <span>Sign Up</span
+                        ><i class="material-icons">arrow_forward</i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!--Form step 1 end-->
+
+              <!--Form step 2 start-->
+              <div class="form-wrapper">
+                <form
+                  class="form-signin shadow text-left"
+                  id="signup-2"
+                  data-step="1"
+                >
+                  <!--Name-->
+                  <div class="form-group float-label">
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      class="form-control signup-input"
+                    />
+                    <label for="name" class="form-control-label">Name</label>
+                  </div>
+
+                  <!--Textarea-->
+                  <div class="form-group text-left">
+                    <label for="description" class="section-subtitle"
+                      >Write about yourself</label
+                    >
+                    <textarea
+                      class="form-control form-control-lg signup-input"
+                      rows="3"
+                      id="description"
+                      name="description"
+                    ></textarea>
+                  </div>
+
+                  <!--Submit button-->
+                  <div class="row">
+                    <div class="col-6 offset-5 offset-sm-6">
+                      <button
+                        type="submit"
+                        class="btn btn-lg btn-default btn-rounded shadow"
+                      >
+                        <span>Next</span
+                        ><i class="material-icons">arrow_forward</i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!--Form step 2 start-->
+
+              <!--Form step 3 start-->
+              <div class="form-wrapper" id="signup-3-wrapper">
+                <form
+                  class="form-signin shadow text-left"
+                  id="signup-3"
+                  data-step="2"
+                  autocomplete="off"
+                >
+                  <!--City input start-->
+                  <div class="form-group float-label">
+                    <input
+                      type="text"
+                      name="city"
+                      class="form-control location signup-input"
+                    />
+                    <label class="form-control-label">City</label>
+                    <div class="dropdown location-dropdown">
+                      <button
+                        class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        Cities dropdown
+                      </button>
+                      <ul class="dropdown-menu"></ul>
+                    </div>
+                  </div>
+                  <!--City input end-->
+
+                  <!--Date input start-->
+                  <h4 class="section-subtitle">
+                    Date of birth
+                  </h4>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-12 col-sm-4 pl-0">
+                        <div class="form-group float-label">
+                          <input
+                            type="number"
+                            name="day"
+                            min="1"
+                            max="31"
+                            class="form-control signup-input"
+                          />
+                          <label class="form-control-label">Day</label>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-4 pl-0 pl-sm-1">
+                        <div class="form-group float-label">
+                          <input
+                            type="number"
+                            name="month"
+                            min="1"
+                            max="12"
+                            class="form-control signup-input"
+                          />
+                          <label class="form-control-label">Month</label>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-4 pr-0 pl-0 pl-sm-1">
+                        <div class="form-group float-label">
+                          <input
+                            type="number"
+                            name="year"
+                            class="form-control signup-input"
+                          />
+                          <label class="form-control-label">Year</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Date input end-->
+
+                  <!--Weight and height start-->
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-6 pl-0">
+                        <div class="form-group float-label">
+                          <input
+                            type="number"
+                            name="weight"
+                            id="weight"
+                            class="form-control signup-input"
+                          />
+                          <label class="form-control-label">Weight</label>
+                        </div>
+                      </div>
+                      <div class="col-6 pr-0">
+                        <div class="form-group float-label">
+                          <input
+                            type="number"
+                            name="height"
+                            id="height"
+                            class="form-control signup-input"
+                          />
+                          <label class="form-control-label">Height</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Weight and height end-->
+
+                  <!--Preference start-->
+
+                  <div class="form-group">
+                    <label for="preference" class="section-subtitle"
+                      >Preference</label
+                    >
+                    <select
+                      class="form-control preference signup-input"
+                      id="preference"
+                      name="preference"
+                    >
+                      <option value="" disabled selected hidden
+                        >Choose you preference</option
+                      >
+                      <option value="active">Active</option>
+                      <option value="passive">Passive</option>
+                      <option value="both">Both</option>
+                      <option value="secret">Won't tell</option>
+                    </select>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-6 offset-5 offset-sm-6">
+                      <button
+                        type="submit"
+                        class="btn btn-lg btn-default btn-rounded shadow"
+                      >
+                        <span>Next</span
+                        ><i class="material-icons">arrow_forward</i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                <div
+                  class="back blue-link text-white d-flex align-items-center"
+                >
+                  <i class="material-icons">
+                    arrow_back
+                  </i>
+                  back
+                </div>
+              </div>
+              <!--Form step 3 end-->
+
+              <!--Form step 4 start-->
+              <div class="form-wrapper text-left">
+                <div class="form-signin shadow" id="signup-4" data-step="3">
+                  <!--Profile photo upload start-->
+                  <div class="text-center pb-5">
+                    <h3 class="section-title">
+                      Upload your avatar
+                    </h3>
+                    <div class="figure-profile shadow my-4">
+                      <figure>
+                        <img
+                          src="img/placeholder-avatar.png"
+                          class="avatar-image"
+                          alt="Avatar"
+                        />
+                      </figure>
+                      <div
+                        class="btn btn-dark text-white floating-btn"
+                        data-toggle="modal"
+                        data-target="#upload-avatar"
+                      >
+                        <i class="material-icons">camera_alt</i>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Profile photo upload end-->
+                  <!--Signup button-->
+                  <div class="row text-center">
+                    <div class="col-12">
+                      <a
+                        href="#"
+                        id="continue"
+                        class="btn btn-lg btn-default btn-rounded shadow"
+                      >
+                        <span>Continue</span
+                        ><i class="material-icons">arrow_forward</i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="back blue-link text-white d-flex align-items-center"
+                >
+                  <i class="material-icons">
+                    arrow_back
+                  </i>
+                  back
+                </div>
+              </div>
+              <!--Form step 4 end-->
+            </div>
+
+            <p class="text-center text-white pt-4">
+              Already have account?<br />
+              <a href="login.html" class="blue-link text-underline">Sign In</a>
+              here.
+            </p>
+          </div>
+        </div>
+      </section>
+      <!--Login section end-->
+    </div>
+
+    <!--Footer start-->
+    <footer
+      class="public-footer px-3 py-3 bg-light border-top border-light shadow-lg d-flex flex-column flex-md-row justify-content-center justify-content-md-between align-items-center"
+    >
+      <h2 class="d-flex align-items-center">
+        <a href="index.html" class="text-dark">Boyfriend.pl</a>
+      </h2>
+      <nav class="pt-2 pt-md-0 text-center">
+        <ul
+          class="p-0 m-0 d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center"
+        >
+          <li class="px-3 py-2 py-sm-0">
+            <a href="index.html" class="text-dark">Home</a>
+          </li>
+          <li class="px-3 py-2 py-sm-0">
+            <a href="login.html" class="text-dark">Logowanie</a>
+          </li>
+          <li class="px-3 py-2 py-sm-0">
+            <a href="register.html" class="text-dark">Regestracja</a>
+          </li>
+          <li class="px-3 py-2 py-sm-0">
+            <a href="terms.html" class="text-dark">Polityka</a>
+          </li>
+        </ul>
+      </nav>
+    </footer>
+    <!--Footer end-->
+
+    <!-- notification -->
+    <div class="notification bg-white shadow border-primary">
+      <div class="row">
+        <div class="col-auto align-self-center pr-0">
+          <i class="material-icons text-primary md-36">fullscreen</i>
+        </div>
+        <div class="col">
+          <h6>Viewing in Phone?</h6>
+          <p class="mb-0 text-secondary">
+            Double tap to enter into fullscreen mode for each page.
+          </p>
+        </div>
+        <div class="col-auto align-self-center pl-0">
+          <button class="btn btn-link closenotification">
+            <i class="material-icons text-secondary text-mute md-18">close</i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- notification ends -->
+
+    <!-- jquery, popper and bootstrap js -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
+
+    <!-- swiper js -->
+    <script src="vendor/swiper/js/swiper.min.js"></script>
+    <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
+
+    <!-- template custom js -->
+    <script src="js/main.bundle.js"></script>
+
+    <!-- page level script -->
+    <script>
+      $(window).on("load", function () {
+        /* notification view and hide */
+        setTimeout(function () {
+          $(".notification").addClass("active");
+          setTimeout(function () {
+            $(".notification").removeClass("active");
+          }, 3500);
+        }, 500);
+        $(".closenotification").on("click", function () {
+          $(this).closest(".notification").removeClass("active");
+        });
+
+        /* signup form functionality start */
+
+        // First step
+        const signupFirstStep = new Form({
+          selectors: {
+            form: "#signup-1",
+            "input-wrapper": ".form-group",
+            inputs: ".signup-input",
+          },
+          requests: {
+            submit: {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
+            },
+          },
+          location: false,
+          showSuccessPopup: false,
+          showFailPopup: false,
+          frontendValidation: true,
+          generateSubmitEvent: true,
+          validatorOptions: {
+            errorElement: "span",
+            rules: {
+              login: {
+                required: true,
+                minlength: 3,
+              },
+              email: {
+                required: true,
+                email: true,
+              },
+              password: {
+                required: true,
+                minlength: 4,
+              },
+              terms: "required",
+            },
+          },
+        });
+
+        // Second step
+        const signupSecondStep = new Form({
+          selectors: {
+            form: "#signup-2",
+            "input-wrapper": ".form-group",
+            inputs: ".signup-input",
+          },
+          requests: {
+            submit: {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
+            },
+          },
+          location: false,
+          showSuccessPopup: false,
+          showFailPopup: false,
+          frontendValidation: true,
+          generateSubmitEvent: true,
+          validatorOptions: {
+            errorElement: "span",
+            rules: {
+              name: {
+                required: true,
+                minlength: 3,
+              },
+              description: {
+                required: true,
+                minlength: 10,
+              },
+            },
+          },
+        });
+
+        // Third step
+        const signupThirdStep = new Form({
+          selectors: {
+            form: "#signup-3",
+            "input-wrapper": ".form-group",
+            inputs: ".signup-input",
+            locationInput: ".location",
+            "location-dropdown": ".location-dropdown",
+            "dropdown-toggle": ".dropdown-toggle",
+            "dropdown-menu": ".dropdown-menu",
+          },
+          requests: {
+            submit: {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
+            },
+            location: {
+              method: "GET",
+              headers: {},
+              endpoint: "https://nominatim.openstreetmap.org/search",
+              searchParams: {
+                format: "json",
+                addressdetails: "1",
+                countrycodes: "pl",
+                "accept-language": "pl,en",
+              },
+            },
+          },
+          location: true,
+          showSuccessPopup: false,
+          showFailPopup: false,
+          frontendValidation: true,
+          generateSubmitEvent: true,
+          validatorOptions: {
+            errorElement: "span",
+            rules: {
+              city: {
+                required: true,
+                location: true,
+              },
+              day: {
+                required: true,
+                min: 1,
+                max: 31,
+              },
+              month: {
+                required: true,
+                min: 1,
+                max: 12,
+              },
+              year: "required",
+              weight: "required",
+              height: "required",
+              preference: "required",
+            },
+          },
+        });
+        /* signup form functionality end*/
+
+        /* avatar handling start */
+        const avatar = new Avatar({
+          selectors: {
+            elementSelector: ".avatar-image",
+            modal: "#upload-avatar",
+            "modal-footer": ".modal-footer",
+            input: ".avatar-input",
+            preview: "#avatar-preview",
+            form: "#avatar-editor",
+          },
+          requests: {
+            saveAvatar: {
+              method: "POST",
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+              endpoint:
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar",
+            },
+          },
+        });
+        /* avatar handling end */
+
+        /* forms chainer initialization start */
+        const chainedForms = new ChainedForms({
+          selectors: {
+            formsContainer: "#forms-signup",
+            forms: ".form-signin",
+            backward: ".back",
+            wrapper: ".form-wrapper",
+          },
+        });
+        /* forms chainer initialization end */
+
+        $("#continue").click((event) => {
+          event.preventDefault();
+          window.location.replace("./profile.html");
+        });
+      });
+    </script>
+  </body>
+</html>

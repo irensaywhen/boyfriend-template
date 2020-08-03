@@ -1,0 +1,11 @@
+.modal {
+  z-index: 600;
+
+  .close {
+    outline: none;
+  }
+
+  .title {
+    font-size: decrease-font-size($h3, 4px);
+  }
+}

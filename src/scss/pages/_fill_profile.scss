@@ -1,0 +1,248 @@
+.account,
+.profile,
+.modal {
+  .tab-title {
+    font-size: decrease-font-size($h2, 6px);
+    font-weight: 400;
+  }
+
+  .tab-description {
+    font-weight: 300;
+  }
+
+  /* Profile tab */
+  .swiper-profile-photos {
+    height: 300px;
+
+    .swiper-slide {
+      img {
+        @include image;
+      }
+    }
+  }
+
+  .upload {
+    background: $main-background-color;
+
+    img {
+      width: 50%;
+      height: 50%;
+    }
+  }
+
+  .premium {
+    background: lighten($main-background-color, 5);
+    border-radius: 15px;
+    border: 1px solid $bootstrap-secondary;
+    max-width: 270px;
+
+    .active {
+      font-size: decrease-font-size($h3, 3px);
+      max-width: 120px;
+    }
+  }
+
+  .preference,
+  .about {
+    label {
+      padding-bottom: 15px;
+    }
+  }
+
+  .extra {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+
+    img {
+      @include image;
+    }
+
+    .amount {
+      @include circular-badge(23px);
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      font-size: $badge-size;
+      font-weight: bold;
+      color: #fff;
+    }
+  }
+}
+
+/* Modals */
+
+.modal {
+  .modal-lg {
+    max-width: 600px !important;
+  }
+
+  .modal-xl {
+    max-width: 950px !important;
+  }
+
+  .modal-body {
+    .photo-description {
+      figure {
+        width: 100%;
+        max-width: 100%;
+        position: relative;
+        text-align: center !important;
+
+        img {
+          @include image;
+        }
+
+        .privacy {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          min-width: 100px;
+          height: 30px;
+
+          h4 {
+            font-size: $paragraph-size;
+          }
+        }
+
+        .delete {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          min-width: 80px;
+          height: 30px;
+          border: none;
+          outline: none;
+        }
+      }
+
+      p {
+        font-weight: 300;
+        font-size: $paragraph-size;
+      }
+    }
+  }
+}
+
+/* Avatar upload */
+.upload-avatar {
+  ul {
+    list-style: none;
+  }
+
+  .upload-photo-label {
+    @include circular-badge(100px);
+    background: $main-background-color;
+    font-size: 53px;
+    cursor: pointer;
+
+    img {
+      width: 70px;
+      height: auto;
+    }
+  }
+
+  .avatar-requirements {
+    li {
+      font-weight: 300;
+      font-size: $paragraph-size;
+    }
+  }
+}
+
+/* Table */
+.account-table {
+  border-collapse: collapse;
+  max-width: 700px;
+
+  th {
+    background: $main-background-color;
+    font-weight: bold;
+  }
+
+  td,
+  th {
+    padding: 6px;
+    border: 1px solid $bootstrap-secondary;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .account-table {
+    display: block;
+    text-align: left !important;
+
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+      display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead {
+      tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+    }
+
+    tr {
+      position: relative;
+      margin-bottom: 20px;
+
+      &:nth-of-type(even) {
+        background: lighten($main-background-color, 3);
+
+        td {
+          border-bottom: 2px solid #fff;
+        }
+      }
+
+      &:nth-of-type(odd) {
+        td {
+          border-bottom: 1px solid lighten($bootstrap-secondary, 35);
+        }
+      }
+
+      td {
+        /* Behave  like a "row" */
+        border: none;
+        position: relative;
+        padding-left: 50%;
+
+        &:before {
+          /* Now like a table header */
+          position: absolute;
+          /* Top/left values mimic padding */
+          top: 6px;
+          left: 6px;
+          width: 45%;
+          padding-right: 10px;
+          white-space: nowrap;
+        }
+
+        /* Label data */
+
+        &:nth-of-type(1):before {
+          content: "Name";
+        }
+
+        &:nth-of-type(2):before {
+          content: "Price";
+        }
+
+        &:nth-of-type(3):before {
+          content: "Date";
+        }
+
+        &:nth-of-type(4):before {
+          content: "Invoice";
+        }
+      }
+    }
+  }
+}

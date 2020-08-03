@@ -1,0 +1,65 @@
+article {
+  .header {
+    display: grid;
+    grid-gap: 3px;
+    grid-template-areas:
+      "title"
+      "subtitle"
+      "date"
+      "social";
+    grid-template-columns: 1fr;
+
+    h1 {
+      grid-area: title;
+    }
+
+    h2 {
+      grid-area: subtitle;
+      font-size: decrease-font-size($h2, 10);
+    }
+
+    .social {
+      grid-area: social;
+      font-size: $h2;
+
+      a {
+        color: #000;
+      }
+    }
+
+    time {
+      grid-area: date;
+    }
+  }
+}
+
+@include screen-sm {
+  article {
+    .header {
+      grid-template-areas:
+        "title social"
+        "subtitle empty"
+        "date empty";
+      grid-template-columns: 2fr 1fr;
+
+      .social {
+      }
+    }
+  }
+}
+
+@include screen-md {
+  article {
+    .header {
+      grid-template-areas:
+        "title social"
+        "subtitle date";
+
+      grid-gap: 0;
+
+      time {
+        justify-self: end;
+      }
+    }
+  }
+}
