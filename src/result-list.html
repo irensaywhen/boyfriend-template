@@ -29,9 +29,6 @@
       rel="stylesheet"
     />
 
-    <!-- Swiper CSS min-->
-    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" />
-
     <!-- nouislider CSS -->
     <link href="vendor/nouislider/nouislider.min.css" rel="stylesheet" />
 
@@ -285,6 +282,8 @@
                             <label class="small" for="age-from">from:</label>
                             <select
                               class="form-control search-field age-select"
+                              name="age-from"
+                              id="age-from"
                             >
                             </select>
                           </div>
@@ -294,6 +293,8 @@
                             <label class="small" for="age-from">to:</label>
                             <select
                               class="form-control search-field age-select"
+                              name="age-to"
+                              id="age-to"
                             >
                             </select>
                           </div>
@@ -392,12 +393,8 @@
                         <div class="col">
                           <input
                             type="number"
-                            min="0"
-                            max="500"
-                            value="100"
-                            step="1"
                             id="input-select"
-                            class="form-control search-field"
+                            class="form-control search-field distance-from"
                             name="distance-from"
                           />
                         </div>
@@ -405,12 +402,8 @@
                         <div class="col">
                           <input
                             type="number"
-                            min="0"
-                            max="500"
-                            value="100"
-                            step="1"
                             id="input-number"
-                            class="form-control search-field"
+                            class="form-control search-field distance-to"
                             name="distance-to"
                           />
                         </div>
@@ -459,155 +452,111 @@
           </div>
         </div>
         <div class="row">
+          <!--Online and premium user-->
           <div
             class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
           >
             <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
-              </figure>
-              <div class="card-body pt-0 premium">
+              <figure class="profile-image premium card-img-top">
                 <span class="badge badge-primary mb-1">Premium</span>
-                <h3 class="name online d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
+                <img src="img/photo1.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <!--<span class="badge badge-primary mb-1">Premium</span>-->
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name online text-dark mb-1 mt-2 h6 d-inline-block"
                     >Michail, 27
+                    <span class="badge badge-success mb-1 small">online</span>
                   </a>
                 </h3>
                 <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
                 <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
+                  <a href="profile.html" class="btn btn-default">
                     View Profile
                   </a>
                 </div>
               </div>
             </div>
           </div>
+
+          <!--Premium user-->
           <div
             class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
           >
             <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
+              <figure class="profile-image premium card-img-top">
+                <span class="badge badge-primary mb-1">Premium</span>
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
               </figure>
-              <div class="card-body pt-0">
-                <h3 class="name online d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
-                    >Michail, 27
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a href="#" class="name text-dark mb-1 mt-2 h6 d-inline-block"
+                    >Lukasz, 27
                   </a>
                 </h3>
                 <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
                 <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
+                  <a href="profile.html" class="btn btn-default">
                     View Profile
                   </a>
                 </div>
               </div>
             </div>
           </div>
+
+          <!--Online user-->
           <div
             class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
           >
             <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image boosted">
-                <img src="img/photo1.jpg" alt="" class="" />
+              <figure class="profile-image card-img-top">
+                <img src="img/photo1.jpg" alt="" class="card-img-top" />
               </figure>
-              <div class="card-body pt-0">
-                <h3 class="name d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name online text-dark mb-1 mt-2 h6 d-inline-block"
                     >Michail, 27
+                    <span class="badge badge-success mb-1 small">online</span>
                   </a>
                 </h3>
                 <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
                 <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
+                  <a href="profile.html" class="btn btn-default">
                     View Profile
                   </a>
                 </div>
               </div>
             </div>
           </div>
+          <!--Just user-->
           <div
             class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
           >
             <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
               </figure>
-              <div class="card-body pt-0">
-                <h3 class="name d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
-                    >Michail, 27
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a href="#" class="name text-dark mb-1 mt-2 h6 d-inline-block"
+                    >Lukasz, 27
                   </a>
                 </h3>
                 <p class="text-secondary small mb-2">Wroclaw</p>
-                <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
-                    View Profile
-                  </a>
-                </div>
               </div>
-            </div>
-          </div>
-          <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
-          >
-            <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
-              </figure>
-              <div class="card-body pt-0">
-                <h3 class="name d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
-                    >Michail, 27
-                  </a>
-                </h3>
-                <p class="text-secondary small mb-2">Wroclaw</p>
+              <div class="card-footer">
                 <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
-                    View Profile
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
-          >
-            <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
-              </figure>
-              <div class="card-body pt-0">
-                <h3 class="name d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
-                    >Michail, 27
-                  </a>
-                </h3>
-                <p class="text-secondary small mb-2">Wroclaw</p>
-                <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
-                    View Profile
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
-          >
-            <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
-              </figure>
-              <div class="card-body pt-0">
-                <h3 class="name d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
-                    >Michail, 27
-                  </a>
-                </h3>
-                <p class="text-secondary small mb-2">Wroclaw</p>
-                <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
+                  <a href="profile.html" class="btn btn-default">
                     View Profile
                   </a>
                 </div>
@@ -714,8 +663,7 @@
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
     <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
 
-    <!-- swiper js -->
-    <script src="vendor/swiper/js/swiper.min.js"></script>
+    <!--Sweetalert-->
     <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
 
     <!-- nouislider js -->
@@ -761,6 +709,7 @@
             select.value = Math.round(value);
           }
         });
+
         select.addEventListener("change", function () {
           html5Slider.noUiSlider.set([this.value, null]);
         });
@@ -809,6 +758,8 @@
             "dropdown-toggle": ".dropdown-toggle",
             "dropdown-menu": ".dropdown-menu",
             age: ".age-select",
+            distanceFrom: "#input-select",
+            distanceTo: "#input-number",
           },
           requests: {
             submit: {
@@ -831,6 +782,7 @@
               },
             },
           },
+          slider: html5Slider,
           searchFormOptions: {
             ageFrom: 18,
             ageTo: 40,

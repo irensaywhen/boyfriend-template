@@ -1921,6 +1921,7 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
       this.$form.submit(function (event) {
         event.preventDefault();
         event.stopPropagation();
+        console.log("Submitted!");
 
         if (!_this2.frontendValidation) {
           // If this form doesn't require frontend validation (as with checkboxes)
@@ -1975,6 +1976,7 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
           _this3.formData[name] = numericValue.isNaN ? value : numericValue;
         }
       });
+      console.log(this.formData);
     }
   }, {
     key: "sendFormInformation",
@@ -2184,6 +2186,7 @@ __webpack_require__.r(__webpack_exports__);
 
       _this.$locationDropdownMenu.empty();
     });
+    console.log(this.$locationInput);
   },
   getCities: function getCities(_ref) {
     var _this2 = this;

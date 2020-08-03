@@ -2299,6 +2299,7 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
       this.$form.submit(function (event) {
         event.preventDefault();
         event.stopPropagation();
+        console.log("Submitted!");
 
         if (!_this2.frontendValidation) {
           // If this form doesn't require frontend validation (as with checkboxes)
@@ -2353,6 +2354,7 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
           _this3.formData[name] = numericValue.isNaN ? value : numericValue;
         }
       });
+      console.log(this.formData);
     }
   }, {
     key: "sendFormInformation",
@@ -2562,6 +2564,7 @@ __webpack_require__.r(__webpack_exports__);
 
       _this.$locationDropdownMenu.empty();
     });
+    console.log(this.$locationInput);
   },
   getCities: function getCities(_ref) {
     var _this2 = this;
@@ -3393,9 +3396,13 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
     _this = _super.call(this, options); //Binding context
 
     _this.generateAgeRange = _this.generateAgeRange.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
+    _this.initializeSlider = _this.initializeSlider.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
     _this.searchFormOptions = options.searchFormOptions;
+    _this.slider = options.slider;
 
     _this.generateAgeRange();
+
+    _this.initializeSlider();
 
     return _this;
   }
@@ -3403,14 +3410,22 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(SearchProfilesForm, [{
     key: "setUpEventListeners",
     value: function setUpEventListeners() {
-      var _this2 = this;
-
       _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(SearchProfilesForm.prototype), "setUpEventListeners", this).call(this);
 
       this.$inputs.on("input", function (event) {
-        event.stopPropagation();
+        console.log("Inputed"); //this.collectFormInputs();
+      });
+    }
+  }, {
+    key: "initializeSlider",
+    value: function initializeSlider() {
+      var _this2 = this;
 
-        _this2.$form.submit();
+      // THink whether you need to save it
+      this.$distanceFrom = this.$form.find(this.selectors["distanceFrom"]);
+      this.$distanceTo = this.$form.find(this.selectors["distanceTo"]);
+      this.slider["noUiSlider"].on("set", function () {
+        _this2.$inputs.first().trigger("input");
       });
     }
   }, {

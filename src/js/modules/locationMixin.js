@@ -90,6 +90,7 @@ export default {
 
       this.$locationDropdownMenu.empty();
     });
+    console.log(this.$locationInput);
   },
 
   async getCities({ headers, endpoint, method }) {
