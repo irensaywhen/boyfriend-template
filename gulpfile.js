@@ -60,6 +60,10 @@ function copySVG() {
     .pipe(gulp.dest("./dist/img"));
 }
 
+function copyVendor() {
+  return gulp.src("./src/vendor/**/*").pipe(gulp.dest("./dist/vendor"));
+}
+
 // Initialize server
 function serve(done) {
   browserSync.init(
@@ -91,6 +95,7 @@ function watch() {
   gulp.watch("src/js/**/*.js", gulp.series(assets, reload));
   gulp.watch("./src/*.html").on("change", gulp.series(copyHTML, reload));
   gulp.watch("./src/img/*.svg").on("change", gulp.series(copySVG, reload));
+  gulp.watch("./src/vendor/**/*").on("change", gulp.series(copyVendor, reload));
 }
 
 exports.assets = assets;
@@ -101,6 +106,7 @@ exports.develop = gulp.series(
   copyHTML,
   copyImages,
   copySVG,
+  copyVendor,
   styles,
   serve,
   watch

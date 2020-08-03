@@ -183,6 +183,24 @@
     }
   }
 
+  .btn-outline-primary {
+    border: 1px solid $main-pink;
+    color: $main-pink;
+    background: transparent;
+  }
+
+  .btn-outline-primary:focus,
+  .btn-outline-primary:active,
+  .btn-outline-primary:hover {
+    color: #fff;
+    background: $main-pink !important;
+  }
+
+  .plan-input:checked ~ .plan-label {
+    color: #fff;
+    background: $main-pink !important;
+  }
+
   /*Link effects*/
   .blue-link {
     @include ease-out;

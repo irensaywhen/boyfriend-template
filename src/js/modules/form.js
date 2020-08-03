@@ -1,5 +1,6 @@
 import ServerRequest from "./requests.js";
 import location from "./locationMixin.js";
+import payment from "./paymentMixin.js";
 
 export default class Form extends ServerRequest {
   constructor(options) {
@@ -24,6 +25,23 @@ export default class Form extends ServerRequest {
 
     this.cacheElements();
     this.setUpEventListeners();
+
+    if (options.payment) {
+      Object.assign(Form.prototype, payment);
+      this.payment = true;
+
+      jQuery.validator.addMethod(
+        "expiration",
+        this.creditCardExpirationValidation,
+        "Expiration date is passed"
+      );
+
+      jQuery.validator.addMethod(
+        "cardNumber",
+        this.creditCardNumberValidation,
+        "Card number is invalid"
+      );
+    }
 
     if (options.frontendValidation) {
       // If this form requires frontend validation
@@ -119,10 +137,16 @@ export default class Form extends ServerRequest {
 
       if ($element.is(":checkbox")) {
         this.formData[name] = $element.is(":checked");
+      } else if ($element.is(":radio")) {
+        this.formData[name] = $("input[name=" + name + "]:checked").val();
       } else if (name === "city") {
         this.collectLocationData(element);
       } else {
-        this.formData[name] = $element.val();
+        let value = $element.val();
+        let numericValue = Number(value);
+
+        // Perform type conversion if the value is a number
+        this.formData[name] = numericValue.isNaN ? value : numericValue;
       }
     });
   }
@@ -175,7 +199,9 @@ export default class Form extends ServerRequest {
 
       if (this.redirectOnSubmit) {
         // Redirection with simulating HTTP request
-        window.location.replace(response.redirect);
+        setTimeout(() => {
+          window.location.replace(response.redirect);
+        }, 1000);
       }
     } else {
       if (this.showFailPopup) {
@@ -188,6 +214,8 @@ export default class Form extends ServerRequest {
       }
       this.showErrorMessages({ errors: response.errors });
     }
+
+    this.formData = {};
   }
 
   showErrorMessages({ errors }) {
@@ -206,6 +234,4 @@ export default class Form extends ServerRequest {
       }
     });
   }
-
-  hideErrorMessage() {}
 }

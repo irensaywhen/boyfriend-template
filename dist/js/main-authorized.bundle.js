@@ -86,6 +86,42 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "../node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
+/*!******************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime/helpers/arrayWithHoles.js":
+/*!****************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+module.exports = _arrayWithHoles;
+
+/***/ }),
+
 /***/ "../node_modules/@babel/runtime/helpers/assertThisInitialized.js":
 /*!***********************************************************************!*\
   !*** ../node_modules/@babel/runtime/helpers/assertThisInitialized.js ***!
@@ -301,6 +337,59 @@ module.exports = _inherits;
 
 /***/ }),
 
+/***/ "../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":
+/*!**********************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArrayLimit(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+module.exports = _iterableToArrayLimit;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime/helpers/nonIterableRest.js":
+/*!*****************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/nonIterableRest.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableRest;
+
+/***/ }),
+
 /***/ "../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js":
 /*!***************************************************************************!*\
   !*** ../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js ***!
@@ -341,6 +430,29 @@ function _setPrototypeOf(o, p) {
 }
 
 module.exports = _setPrototypeOf;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime/helpers/slicedToArray.js":
+/*!***************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/slicedToArray.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles */ "../node_modules/@babel/runtime/helpers/arrayWithHoles.js");
+
+var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit */ "../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js");
+
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray */ "../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+
+var nonIterableRest = __webpack_require__(/*! ./nonIterableRest */ "../node_modules/@babel/runtime/helpers/nonIterableRest.js");
+
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+
+module.exports = _slicedToArray;
 
 /***/ }),
 
@@ -390,6 +502,28 @@ function _typeof(obj) {
 }
 
 module.exports = _typeof;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
+/*!****************************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray */ "../node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
 
 /***/ }),
 
@@ -1157,14 +1291,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_uploader_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/uploader.js */ "./js/modules/uploader.js");
 /* harmony import */ var _modules_editor_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/editor.js */ "./js/modules/editor.js");
 /* harmony import */ var _modules_boost_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/boost.js */ "./js/modules/boost.js");
+/* harmony import */ var _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/search-profiles-form.js */ "./js/modules/search-profiles-form.js");
+/* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/buyPremiumForm.js */ "./js/modules/buyPremiumForm.js");
 
- //import Form from "./modules/form.js";
+
+
 
 
 window["PhotoUploader"] = _modules_uploader_js__WEBPACK_IMPORTED_MODULE_0__["default"];
-window["PhotoEditor"] = _modules_editor_js__WEBPACK_IMPORTED_MODULE_1__["default"]; //window["Form"] = Form;
-
+window["PhotoEditor"] = _modules_editor_js__WEBPACK_IMPORTED_MODULE_1__["default"];
 window["Boost"] = _modules_boost_js__WEBPACK_IMPORTED_MODULE_2__["default"];
+window["SearchProfilesForm"] = _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_3__["default"];
+window["BuyPremiumForm"] = _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__["default"];
 
 /***/ }),
 
@@ -1573,6 +1711,188 @@ var Boost = /*#__PURE__*/function (_Bonus) {
 
 /***/ }),
 
+/***/ "./js/modules/buyPremiumForm.js":
+/*!**************************************!*\
+  !*** ./js/modules/buyPremiumForm.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return BuyPremiumForm; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "../node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "../node_modules/@babel/runtime/helpers/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "../node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "../node_modules/@babel/runtime/helpers/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/get */ "../node_modules/@babel/runtime/helpers/get.js");
+/* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "../node_modules/@babel/runtime/helpers/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "../node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./form.js */ "./js/modules/form.js");
+
+
+
+
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default()(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+var BuyPremiumForm = /*#__PURE__*/function (_Form) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default()(BuyPremiumForm, _Form);
+
+  var _super = _createSuper(BuyPremiumForm);
+
+  function BuyPremiumForm(options) {
+    var _this;
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(this, BuyPremiumForm);
+
+    _this = _super.call(this, options); // Binding context
+
+    _this.setPrice = _this.setPrice.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+
+    _this.$checkout.fadeOut(0);
+
+    return _this;
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(BuyPremiumForm, [{
+    key: "cacheElements",
+    value: function cacheElements() {
+      _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(BuyPremiumForm.prototype), "cacheElements", this).call(this); // Price containers
+
+
+      this.$priceContainer = $(this.selectors.price);
+      this.$discountContainer = $(this.selectors["card-payment-price"]); // Checkout area
+
+      this.$checkout = this.$form.find(this.selectors.checkout);
+    }
+  }, {
+    key: "setUpEventListeners",
+    value: function setUpEventListeners() {
+      var _this2 = this;
+
+      _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(BuyPremiumForm.prototype), "setUpEventListeners", this).call(this); // Additiong and removing bonuses
+
+
+      this.$form.find(this.selectors["bonus-inputs"]).on("click", function (event) {
+        var $target = $(event.target);
+        var $buttonWrapper = $target.closest(_this2.selectors["bonus-control"]);
+        if ($buttonWrapper.length === 0) return; // Figure out what operation to perform
+
+        var operation = $buttonWrapper.hasClass(_this2.selectors["add-bonus-input-className"]) ? "add" : "remove"; // Find closest input group containing current button
+
+        var $input = $target.closest(_this2.selectors["bonus-inputs"]).find(_this2.selectors.inputs); // Current input value
+
+        var value = parseInt($input.val());
+
+        if (operation === "add") {
+          $input.val(++value);
+        } else {
+          $input.val(--value < 0 ? 0 : value);
+        }
+
+        $input.trigger("input");
+      }); // Setting price
+
+      this.$inputs.on("input", function (event) {
+        _this2.collectFormInputs();
+
+        _this2.setPrice();
+      });
+    }
+  }, {
+    key: "setPrice",
+    value: function () {
+      var _setPrice = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var response, total;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return this.getPrice({
+                  headers: this.requests.price.headers,
+                  endpoint: this.requests.price.endpoint,
+                  method: this.requests.price.method
+                });
+
+              case 3:
+                response = _context.sent;
+                _context.next = 9;
+                break;
+
+              case 6:
+                _context.prev = 6;
+                _context.t0 = _context["catch"](0);
+                // Unsuccessful Popup
+                this.showRequestResult({
+                  title: _context.t0.name,
+                  text: _context.t0.message,
+                  icon: "error"
+                });
+
+              case 9:
+                if (response.success) {
+                  total = response["total"]; // Show price
+
+                  this.$priceContainer.text(total);
+                  this.$discountContainer.text(response["discount"]);
+                  total > 0 ? this.$checkout.fadeIn(400) : this.$checkout.fadeOut(400);
+                } else {
+                  if (this.showFailPopup) {
+                    // Unsuccessful Popup
+                    this.showRequestResult({
+                      title: response.title,
+                      text: response.message,
+                      icon: "error"
+                    });
+                  }
+                }
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[0, 6]]);
+      }));
+
+      function setPrice() {
+        return _setPrice.apply(this, arguments);
+      }
+
+      return setPrice;
+    }()
+  }]);
+
+  return BuyPremiumForm;
+}(_form_js__WEBPACK_IMPORTED_MODULE_9__["default"]);
+
+
+
+/***/ }),
+
 /***/ "./js/modules/editor.js":
 /*!******************************!*\
   !*** ./js/modules/editor.js ***!
@@ -1842,6 +2162,508 @@ var PhotoEditor = /*#__PURE__*/function (_EditorModal) {
 }(_modal_js__WEBPACK_IMPORTED_MODULE_10__["default"]);
 
 
+
+/***/ }),
+
+/***/ "./js/modules/form.js":
+/*!****************************!*\
+  !*** ./js/modules/form.js ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Form; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "../node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "../node_modules/@babel/runtime/helpers/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "../node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "../node_modules/@babel/runtime/helpers/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "../node_modules/@babel/runtime/helpers/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "../node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./requests.js */ "./js/modules/requests.js");
+/* harmony import */ var _locationMixin_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./locationMixin.js */ "./js/modules/locationMixin.js");
+/* harmony import */ var _paymentMixin_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./paymentMixin.js */ "./js/modules/paymentMixin.js");
+
+
+
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default()(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+
+
+var Form = /*#__PURE__*/function (_ServerRequest) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default()(Form, _ServerRequest);
+
+  var _super = _createSuper(Form);
+
+  function Form(options) {
+    var _this;
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(this, Form);
+
+    _this = _super.call(this, options); // Data that will be sent to the server
+
+    _this.formData = {}; // Bind context
+
+    _this.cacheElements = _this.cacheElements.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.setUpEventListeners = _this.setUpEventListeners.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.collectLocationData = _this.collectLocationData.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.sendFormInformation = _this.sendFormInformation.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.showErrorMessages = _this.showErrorMessages.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.collectFormInputs = _this.collectFormInputs.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+
+    if (options.location) {
+      // Add location methods to the form object
+      Object.assign(Form.prototype, _locationMixin_js__WEBPACK_IMPORTED_MODULE_9__["default"]);
+      _this.location = true;
+    }
+
+    _this.cacheElements();
+
+    _this.setUpEventListeners();
+
+    if (options.payment) {
+      Object.assign(Form.prototype, _paymentMixin_js__WEBPACK_IMPORTED_MODULE_10__["default"]);
+      _this.payment = true;
+      jQuery.validator.addMethod("expiration", _this.creditCardExpirationValidation, "Expiration date is passed");
+      jQuery.validator.addMethod("cardNumber", _this.creditCardNumberValidation, "Card number is invalid");
+    }
+
+    if (options.frontendValidation) {
+      // If this form requires frontend validation
+      _this.frontendValidation = true; // Change where error messages occur
+      // This is required for label to work properly when errors are shown
+
+      options.validatorOptions["errorPlacement"] = function (error, element) {
+        element.closest(_this.selectors["input-wrapper"]).append(error);
+      };
+
+      if (_this.location) {
+        // Add custom frontend validation for location field
+        jQuery.validator.addMethod("location", _this.frontendCityValidator, "No such city");
+      } // Add frontend validation
+
+
+      _this.$form.validate(options.validatorOptions);
+    }
+
+    _this.redirectOnSubmit = options.redirectOnSubmit ? true : false;
+    _this.generateSubmitEvent = options.generateSubmitEvent ? true : false; // Clean fields after submission?
+
+    _this.cleanFields = options.cleanFields ? true : false; // Show popup after submission with successful result?
+
+    _this.showSuccessPopup = options.showSuccessPopup ? true : false; // Show popup after submission with failed result?
+
+    _this.showFailPopup = options.showFailPopup ? true : false;
+    return _this;
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(Form, [{
+    key: "cacheElements",
+    value: function cacheElements() {
+      // Form
+      this.$form = $(this.selectors.form); // Input fields
+
+      this.$inputs = this.$form.find(this.selectors.inputs);
+
+      if (this.location) {
+        this.initializeLocationInput();
+      }
+    }
+  }, {
+    key: "setUpEventListeners",
+    value: function setUpEventListeners() {
+      var _this2 = this;
+
+      // Form submission
+      this.$form.submit(function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (!_this2.frontendValidation) {
+          // If this form doesn't require frontend validation (as with checkboxes)
+          _this2.collectFormInputs();
+
+          _this2.sendFormInformation();
+
+          return;
+        }
+
+        if (_this2.$form.valid()) {
+          // If the form has frontend validation
+          _this2.collectFormInputs();
+
+          _this2.sendFormInformation();
+        }
+      }); // Hiding error message on focus
+
+      this.$inputs.focus(function (event) {
+        $(event.target).closest(_this2.selectors["input-wrapper"]).find(".custom-error").remove();
+      });
+    }
+  }, {
+    key: "collectLocationData",
+    value: function collectLocationData(element) {
+      this.formData["city"] = {};
+
+      for (var property in element.dataset) {
+        this.formData["city"][property] = element.dataset[property];
+      }
+    }
+  }, {
+    key: "collectFormInputs",
+    value: function collectFormInputs() {
+      var _this3 = this;
+
+      // Collect form inputs
+      this.$inputs.each(function (index, element) {
+        var name = element.name;
+        var $element = $(element);
+
+        if ($element.is(":checkbox")) {
+          _this3.formData[name] = $element.is(":checked");
+        } else if ($element.is(":radio")) {
+          _this3.formData[name] = $("input[name=" + name + "]:checked").val();
+        } else if (name === "city") {
+          _this3.collectLocationData(element);
+        } else {
+          var value = $element.val();
+          var numericValue = Number(value); // Perform type conversion if the value is a number
+
+          _this3.formData[name] = numericValue.isNaN ? value : numericValue;
+        }
+      });
+    }
+  }, {
+    key: "sendFormInformation",
+    value: function () {
+      var _sendFormInformation = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var response, customSubmittedEvent;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return this.makeRequest({
+                  headers: this.requests.submit.headers,
+                  endpoint: this.requests.submit.endpoint,
+                  method: this.requests.submit.method,
+                  body: JSON.stringify(this.formData)
+                });
+
+              case 3:
+                response = _context.sent;
+                _context.next = 9;
+                break;
+
+              case 6:
+                _context.prev = 6;
+                _context.t0 = _context["catch"](0);
+                // Unsuccessful Popup
+                this.showRequestResult({
+                  title: _context.t0.name,
+                  text: _context.t0.message,
+                  icon: "error"
+                });
+
+              case 9:
+                _context.prev = 9;
+                // Remove error messages
+                this.$form.find(".error").remove();
+                return _context.finish(9);
+
+              case 12:
+                if (response.success) {
+                  if (this.generateSubmitEvent) {
+                    // Make custom event for form submission
+                    customSubmittedEvent = new CustomEvent("submitted"); // Dispatch custom event
+
+                    this.$form[0].dispatchEvent(customSubmittedEvent);
+                  }
+
+                  if (this.showSuccessPopup) {
+                    // Successful Popup
+                    this.showRequestResult({
+                      title: response.title,
+                      text: response.message,
+                      icon: "success"
+                    });
+                  }
+
+                  if (this.cleanFields) {
+                    // Clean input fields
+                    this.$inputs.val("");
+                  }
+
+                  if (this.redirectOnSubmit) {
+                    // Redirection with simulating HTTP request
+                    setTimeout(function () {
+                      window.location.replace(response.redirect);
+                    }, 1000);
+                  }
+                } else {
+                  if (this.showFailPopup) {
+                    // Unsuccessful Popup
+                    this.showRequestResult({
+                      title: response.title,
+                      text: response.message,
+                      icon: "error"
+                    });
+                  }
+
+                  this.showErrorMessages({
+                    errors: response.errors
+                  });
+                }
+
+                this.formData = {};
+
+              case 14:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[0, 6, 9, 12]]);
+      }));
+
+      function sendFormInformation() {
+        return _sendFormInformation.apply(this, arguments);
+      }
+
+      return sendFormInformation;
+    }()
+  }, {
+    key: "showErrorMessages",
+    value: function showErrorMessages(_ref) {
+      var _this4 = this;
+
+      var errors = _ref.errors;
+      this.$inputs.each(function (index, element) {
+        var name = element.name;
+
+        if (name in errors) {
+          $(element).closest(_this4.selectors["input-wrapper"]).append($("<span></span>").addClass("error").addClass("custom-error").text(errors[name]));
+        }
+      });
+    }
+  }]);
+
+  return Form;
+}(_requests_js__WEBPACK_IMPORTED_MODULE_8__["default"]);
+
+
+
+/***/ }),
+
+/***/ "./js/modules/locationMixin.js":
+/*!*************************************!*\
+  !*** ./js/modules/locationMixin.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "../node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "../node_modules/@babel/runtime/helpers/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  locationInputStarted: false,
+  locationInputValue: null,
+  initializeLocationInput: function initializeLocationInput() {
+    var requestInfo = this.requests.location; // Bind context
+
+    this.throttleInput = this.throttleInput.bind(this);
+    this.displayCities = this.displayCities.bind(this);
+    this.frontendCityValidator = this.frontendCityValidator.bind(this); // Add default query params
+
+    for (var key in requestInfo.searchParams) {
+      requestInfo.endpoint.searchParams.set(key, requestInfo.searchParams[key]);
+    }
+    /* Elements caching and event listeners initialization */
+
+
+    this.cacheLocationElements();
+    this.setUpLocationEventListeners();
+  },
+  cacheLocationElements: function cacheLocationElements() {
+    // Cache input element
+    this.$locationInput = this.$form.find(this.selectors.locationInput); // location dropdown wrapper
+
+    this.$locationDropdownWrapper = this.$form.find(this.selectors["location-dropdown"]); // Dropdown toggle
+
+    this.$locationDropdownToggle = this.$locationDropdownWrapper.find(this.selectors["dropdown-toggle"]); // Dropdown menu
+
+    this.$locationDropdownMenu = this.$locationDropdownWrapper.find(this.selectors["dropdown-menu"]);
+  },
+  setUpLocationEventListeners: function setUpLocationEventListeners() {
+    var _this = this;
+
+    // Listen to typing event
+    this.$locationInput.on("input change", function (event) {
+      // Clean previously cached values
+      var customAttributes = event.target.dataset;
+
+      for (var key in customAttributes) {
+        customAttributes[key] = "";
+      } // If the user selects the city
+
+
+      if (_this.citySelection) return;
+
+      if (!_this.locationInputStarted) {
+        // If input hasn't started yet
+        _this.locationInputStarted = true; // Save the value
+
+        _this.locationInputValue = _this.$locationInput.val(); // Schedule next check
+
+        _this.locationTimer = setTimeout(_this.throttleInput, 1500);
+      }
+    }); // Handle city selection from dropdown
+
+    this.$locationDropdownMenu.click(function (event) {
+      var target = event.target;
+      if (target.tagName !== "LI") return;
+      var dataset = target.dataset;
+      _this.citySelection = true;
+      clearTimeout(_this.locationTimer); // Save attributes from selected city
+
+      _this.$locationInput.attr("data-lat", dataset.lat).attr("data-lon", dataset.lon).attr("data-name", dataset.name).val(dataset.name);
+
+      _this.$locationInput.valid();
+
+      _this.citySelection = false;
+      _this.locationInputStarted = false;
+      _this.newValue = null;
+
+      _this.$locationDropdownMenu.empty();
+    });
+  },
+  getCities: function getCities(_ref) {
+    var _this2 = this;
+
+    return _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var headers, endpoint, method;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              headers = _ref.headers, endpoint = _ref.endpoint, method = _ref.method;
+              _context.next = 3;
+              return _this2.makeRequest({
+                headers: headers,
+                endpoint: endpoint,
+                method: method
+              });
+
+            case 3:
+              return _context.abrupt("return", _context.sent);
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  throttleInput: function throttleInput() {
+    var _this3 = this;
+
+    return _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var requestInfo, newValue, cities;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              // Cache request information
+              requestInfo = _this3.requests.location;
+              newValue = _this3.$locationInput.val();
+
+              if (newValue === _this3.locationInputValue) {
+                _context2.next = 12;
+                break;
+              }
+
+              // If the inputed value has been changed recently
+              // Save new value
+              _this3.locationInputValue = newValue; // Adjust searchParams
+
+              requestInfo.endpoint.searchParams.set("city", _this3.locationInputValue); // Make request
+
+              _context2.next = 7;
+              return _this3.getCities({
+                headers: requestInfo.headers,
+                endpoint: requestInfo.endpoint,
+                method: requestInfo.method
+              });
+
+            case 7:
+              cities = _context2.sent;
+              // Schedule next check
+              _this3.locationTimer = setTimeout(_this3.throttleInput, 1500);
+
+              _this3.displayCities(cities);
+
+              _context2.next = 13;
+              break;
+
+            case 12:
+              _this3.locationInputStarted = false;
+
+            case 13:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
+  displayCities: function displayCities(cities) {
+    var _this4 = this;
+
+    if (cities.length === 0) return;
+    cities.forEach(function (city) {
+      _this4.$locationDropdownMenu.append($("<li></li>").addClass("dropdown-item").attr("data-lat", city.lat).attr("data-lon", city.lon).attr("data-name", city["display_name"]).text(city["display_name"])).append($("<li></li>").addClass("dropdown-divider"));
+    });
+    this.$locationDropdownToggle.dropdown("toggle");
+  },
+  frontendCityValidator: function frontendCityValidator(value, element) {
+    // Cache data-* sttributes
+    var dataset = element.dataset;
+
+    if (dataset["lat"] && dataset["lon"] && dataset["name"]) {
+      // If dataset properties are not empty, the element is valid
+      return true;
+    } else {
+      return false;
+    }
+  }
+});
 
 /***/ }),
 
@@ -2133,6 +2955,90 @@ var EditorModal = /*#__PURE__*/function (_ServerRequest) {
 
 /***/ }),
 
+/***/ "./js/modules/paymentMixin.js":
+/*!************************************!*\
+  !*** ./js/modules/paymentMixin.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "../node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  creditCardNumberValidation: function creditCardNumberValidation(value) {
+    // remove all non digit characters
+    value = value.replace(/\D/g, "");
+    var sum = 0;
+    var shouldDouble = false; // loop through values starting at the rightmost side
+
+    for (var i = value.length - 1; i >= 0; i--) {
+      var digit = parseInt(value.charAt(i));
+
+      if (shouldDouble) {
+        if ((digit *= 2) > 9) digit -= 9;
+      }
+
+      sum += digit;
+      shouldDouble = !shouldDouble;
+    }
+
+    return sum % 10 == 0;
+  },
+  creditCardExpirationValidation: function creditCardExpirationValidation(value) {
+    var countDigits = function countDigits(year) {
+      var count = 0;
+      if (year >= 1) ++count;
+
+      while (year / 10 >= 1) {
+        year /= 10;
+        ++count;
+      }
+
+      return count;
+    };
+
+    value = String(value);
+    var now = new Date();
+    var currentMonth = now.getMonth() + 1;
+    var currentYear = now.getFullYear(); // Retrieve month and year
+
+    var _value$match = value.match(/\d+/g),
+        _value$match2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_value$match, 2),
+        month = _value$match2[0],
+        year = _value$match2[1]; //Get rid of leading zero
+
+
+    month = parseInt(month, 10);
+    year = parseInt(year, 10);
+    var yearDigits = countDigits(year);
+
+    switch (yearDigits) {
+      case 4:
+        break;
+
+      case 2:
+        currentYear -= 2000;
+        break;
+
+      default:
+        return false;
+    }
+
+    console.log("currentYear === year:");
+    console.log(currentYear === year);
+    console.log("currentMonth < month");
+    console.log(currentMonth < month);
+    console.log("currentYear > year");
+    console.log(currentYear > year);
+    return currentYear === year ? currentMonth < month ? true : false : currentYear > year ? false : true;
+  }
+});
+
+/***/ }),
+
 /***/ "./js/modules/requests.js":
 /*!********************************!*\
   !*** ./js/modules/requests.js ***!
@@ -2367,12 +3273,51 @@ var ServerRequest = /*#__PURE__*/function () {
       return getPhotosIds;
     }()
   }, {
+    key: "getPrice",
+    value: function () {
+      var _getPrice = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref5) {
+        var headers, endpoint, method, name;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                headers = _ref5.headers, endpoint = _ref5.endpoint, method = _ref5.method;
+
+                for (name in this.formData) {
+                  endpoint.searchParams.set(name, this.formData[name]);
+                }
+
+                _context4.next = 4;
+                return this.makeRequest({
+                  headers: headers,
+                  endpoint: endpoint,
+                  method: method
+                });
+
+              case 4:
+                return _context4.abrupt("return", _context4.sent);
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function getPrice(_x4) {
+        return _getPrice.apply(this, arguments);
+      }
+
+      return getPrice;
+    }()
+  }, {
     key: "requestBonusUsage",
-    value: function requestBonusUsage(_ref5) {
-      var headers = _ref5.headers,
-          endpoint = _ref5.endpoint,
-          method = _ref5.method,
-          body = _ref5.body;
+    value: function requestBonusUsage(_ref6) {
+      var headers = _ref6.headers,
+          endpoint = _ref6.endpoint,
+          method = _ref6.method,
+          body = _ref6.body;
       return fetch(endpoint, {
         method: method,
         headers: headers,
@@ -2391,6 +3336,99 @@ var ServerRequest = /*#__PURE__*/function () {
 
   return ServerRequest;
 }();
+
+
+
+/***/ }),
+
+/***/ "./js/modules/search-profiles-form.js":
+/*!********************************************!*\
+  !*** ./js/modules/search-profiles-form.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return SearchProfilesForm; });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "../node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "../node_modules/@babel/runtime/helpers/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/get */ "../node_modules/@babel/runtime/helpers/get.js");
+/* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "../node_modules/@babel/runtime/helpers/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "../node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./form.js */ "./js/modules/form.js");
+
+
+
+
+
+
+
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default()(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+var SearchProfilesForm = /*#__PURE__*/function (_Form) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(SearchProfilesForm, _Form);
+
+  var _super = _createSuper(SearchProfilesForm);
+
+  function SearchProfilesForm(options) {
+    var _this;
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, SearchProfilesForm);
+
+    _this = _super.call(this, options); //Binding context
+
+    _this.generateAgeRange = _this.generateAgeRange.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
+    _this.searchFormOptions = options.searchFormOptions;
+
+    _this.generateAgeRange();
+
+    return _this;
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(SearchProfilesForm, [{
+    key: "setUpEventListeners",
+    value: function setUpEventListeners() {
+      var _this2 = this;
+
+      _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(SearchProfilesForm.prototype), "setUpEventListeners", this).call(this);
+
+      this.$inputs.on("input", function (event) {
+        event.stopPropagation();
+
+        _this2.$form.submit();
+      });
+    }
+  }, {
+    key: "generateAgeRange",
+    value: function generateAgeRange() {
+      // Cache range
+      var ageFrom = this.searchFormOptions.ageFrom;
+      var ageTo = this.searchFormOptions.ageTo;
+      var $ageInputs = this.$form.find(this.selectors.age);
+
+      for (var i = ageFrom; i <= ageTo; i++) {
+        $("<option></option>").attr("value", i).text(i).appendTo($ageInputs);
+      }
+    }
+  }]);
+
+  return SearchProfilesForm;
+}(_form_js__WEBPACK_IMPORTED_MODULE_7__["default"]);
 
 
 

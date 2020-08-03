@@ -86,6 +86,42 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "../node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
+/*!******************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime/helpers/arrayWithHoles.js":
+/*!****************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+module.exports = _arrayWithHoles;
+
+/***/ }),
+
 /***/ "../node_modules/@babel/runtime/helpers/assertThisInitialized.js":
 /*!***********************************************************************!*\
   !*** ../node_modules/@babel/runtime/helpers/assertThisInitialized.js ***!
@@ -301,6 +337,59 @@ module.exports = _inherits;
 
 /***/ }),
 
+/***/ "../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":
+/*!**********************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArrayLimit(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+module.exports = _iterableToArrayLimit;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime/helpers/nonIterableRest.js":
+/*!*****************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/nonIterableRest.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableRest;
+
+/***/ }),
+
 /***/ "../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js":
 /*!***************************************************************************!*\
   !*** ../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js ***!
@@ -341,6 +430,29 @@ function _setPrototypeOf(o, p) {
 }
 
 module.exports = _setPrototypeOf;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime/helpers/slicedToArray.js":
+/*!***************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/slicedToArray.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles */ "../node_modules/@babel/runtime/helpers/arrayWithHoles.js");
+
+var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit */ "../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js");
+
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray */ "../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+
+var nonIterableRest = __webpack_require__(/*! ./nonIterableRest */ "../node_modules/@babel/runtime/helpers/nonIterableRest.js");
+
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+
+module.exports = _slicedToArray;
 
 /***/ }),
 
@@ -390,6 +502,28 @@ function _typeof(obj) {
 }
 
 module.exports = _typeof;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
+/*!****************************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray */ "../node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
 
 /***/ }),
 
@@ -1598,9 +1732,9 @@ var ChainedForms = /*#__PURE__*/function () {
         }
       }); // Forward button
 
-      this.$forwardButton = this.$container.find(this.selectors.forward); // Backward button
+      this.$forwardButton = this.selectors.forward ? this.$container.find(this.selectors.forward) : null; // Backward button
 
-      this.$backwardButton = this.$container.find(this.selectors.backward);
+      this.$backwardButton = this.selectors.backward ? this.$container.find(this.selectors.backward) : null;
     }
   }, {
     key: "setUpEventListeners",
@@ -1614,19 +1748,35 @@ var ChainedForms = /*#__PURE__*/function () {
         $(target).closest(_this2.selectors.wrapper).fadeOut(400, function () {
           $(_this2.$forms.get(step)).closest(_this2.selectors.wrapper).fadeIn(400);
         });
-      }); // Show previous form when the "back" button is clicked"
-
-      this.$backwardButton.click(function (event) {
-        // Here something is not working
-        event.stopPropagation();
-        var $form = $(event.target).closest(_this2.selectors.wrapper).find(_this2.selectors.forms);
-        var previousStep = Number($form.data("step")) - 1; // Hide the form wrapper
-
-        $form.closest(_this2.selectors.wrapper).fadeOut(400, function () {
-          // Show the form wrapper of the previous form
-          $(_this2.$forms.get(previousStep)).closest(_this2.selectors.wrapper).fadeIn(400);
-        });
       });
+
+      if (this.selectors.backward) {
+        // Show previous form when the "back" button is clicked"
+        this.$backwardButton.click(function (event) {
+          // Here something is not working
+          event.stopPropagation();
+          var $form = $(event.target).closest(_this2.selectors.wrapper).find(_this2.selectors.forms);
+          var previousStep = Number($form.data("step")) - 1; // Hide the form wrapper
+
+          $form.closest(_this2.selectors.wrapper).fadeOut(400, function () {
+            // Show the form wrapper of the previous form
+            $(_this2.$forms.get(previousStep)).closest(_this2.selectors.wrapper).fadeIn(400);
+          });
+        });
+      }
+
+      if (this.selectors.forward) {
+        this.$forwardButton.click(function (event) {
+          event.stopPropagation();
+          var $form = $(event.target).closest(_this2.selectors.wrapper).find(_this2.selectors.forms);
+          var nextStep = Number($form.data("step")) + 1; // Hide the form wrapper
+
+          $form.closest(_this2.selectors.wrapper).fadeOut(400, function () {
+            // Show the form wrapper of the previous form
+            $(_this2.$forms.get(nextStep)).closest(_this2.selectors.wrapper).fadeIn(400);
+          });
+        });
+      }
     }
   }]);
 
@@ -1665,6 +1815,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./requests.js */ "./js/modules/requests.js");
 /* harmony import */ var _locationMixin_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./locationMixin.js */ "./js/modules/locationMixin.js");
+/* harmony import */ var _paymentMixin_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./paymentMixin.js */ "./js/modules/paymentMixin.js");
 
 
 
@@ -1677,6 +1828,7 @@ __webpack_require__.r(__webpack_exports__);
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default()(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
 
 
 
@@ -1711,6 +1863,13 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
     _this.cacheElements();
 
     _this.setUpEventListeners();
+
+    if (options.payment) {
+      Object.assign(Form.prototype, _paymentMixin_js__WEBPACK_IMPORTED_MODULE_10__["default"]);
+      _this.payment = true;
+      jQuery.validator.addMethod("expiration", _this.creditCardExpirationValidation, "Expiration date is passed");
+      jQuery.validator.addMethod("cardNumber", _this.creditCardNumberValidation, "Card number is invalid");
+    }
 
     if (options.frontendValidation) {
       // If this form requires frontend validation
@@ -1805,10 +1964,15 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
 
         if ($element.is(":checkbox")) {
           _this3.formData[name] = $element.is(":checked");
+        } else if ($element.is(":radio")) {
+          _this3.formData[name] = $("input[name=" + name + "]:checked").val();
         } else if (name === "city") {
           _this3.collectLocationData(element);
         } else {
-          _this3.formData[name] = $element.val();
+          var value = $element.val();
+          var numericValue = Number(value); // Perform type conversion if the value is a number
+
+          _this3.formData[name] = numericValue.isNaN ? value : numericValue;
         }
       });
     }
@@ -1876,7 +2040,9 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
 
                   if (this.redirectOnSubmit) {
                     // Redirection with simulating HTTP request
-                    window.location.replace(response.redirect);
+                    setTimeout(function () {
+                      window.location.replace(response.redirect);
+                    }, 1000);
                   }
                 } else {
                   if (this.showFailPopup) {
@@ -1893,7 +2059,9 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
                   });
                 }
 
-              case 13:
+                this.formData = {};
+
+              case 14:
               case "end":
                 return _context.stop();
             }
@@ -1921,9 +2089,6 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
         }
       });
     }
-  }, {
-    key: "hideErrorMessage",
-    value: function hideErrorMessage() {}
   }]);
 
   return Form;
@@ -2412,6 +2577,90 @@ var EditorModal = /*#__PURE__*/function (_ServerRequest) {
 
 /***/ }),
 
+/***/ "./js/modules/paymentMixin.js":
+/*!************************************!*\
+  !*** ./js/modules/paymentMixin.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "../node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  creditCardNumberValidation: function creditCardNumberValidation(value) {
+    // remove all non digit characters
+    value = value.replace(/\D/g, "");
+    var sum = 0;
+    var shouldDouble = false; // loop through values starting at the rightmost side
+
+    for (var i = value.length - 1; i >= 0; i--) {
+      var digit = parseInt(value.charAt(i));
+
+      if (shouldDouble) {
+        if ((digit *= 2) > 9) digit -= 9;
+      }
+
+      sum += digit;
+      shouldDouble = !shouldDouble;
+    }
+
+    return sum % 10 == 0;
+  },
+  creditCardExpirationValidation: function creditCardExpirationValidation(value) {
+    var countDigits = function countDigits(year) {
+      var count = 0;
+      if (year >= 1) ++count;
+
+      while (year / 10 >= 1) {
+        year /= 10;
+        ++count;
+      }
+
+      return count;
+    };
+
+    value = String(value);
+    var now = new Date();
+    var currentMonth = now.getMonth() + 1;
+    var currentYear = now.getFullYear(); // Retrieve month and year
+
+    var _value$match = value.match(/\d+/g),
+        _value$match2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_value$match, 2),
+        month = _value$match2[0],
+        year = _value$match2[1]; //Get rid of leading zero
+
+
+    month = parseInt(month, 10);
+    year = parseInt(year, 10);
+    var yearDigits = countDigits(year);
+
+    switch (yearDigits) {
+      case 4:
+        break;
+
+      case 2:
+        currentYear -= 2000;
+        break;
+
+      default:
+        return false;
+    }
+
+    console.log("currentYear === year:");
+    console.log(currentYear === year);
+    console.log("currentMonth < month");
+    console.log(currentMonth < month);
+    console.log("currentYear > year");
+    console.log(currentYear > year);
+    return currentYear === year ? currentMonth < month ? true : false : currentYear > year ? false : true;
+  }
+});
+
+/***/ }),
+
 /***/ "./js/modules/requests.js":
 /*!********************************!*\
   !*** ./js/modules/requests.js ***!
@@ -2646,12 +2895,51 @@ var ServerRequest = /*#__PURE__*/function () {
       return getPhotosIds;
     }()
   }, {
+    key: "getPrice",
+    value: function () {
+      var _getPrice = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref5) {
+        var headers, endpoint, method, name;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                headers = _ref5.headers, endpoint = _ref5.endpoint, method = _ref5.method;
+
+                for (name in this.formData) {
+                  endpoint.searchParams.set(name, this.formData[name]);
+                }
+
+                _context4.next = 4;
+                return this.makeRequest({
+                  headers: headers,
+                  endpoint: endpoint,
+                  method: method
+                });
+
+              case 4:
+                return _context4.abrupt("return", _context4.sent);
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function getPrice(_x4) {
+        return _getPrice.apply(this, arguments);
+      }
+
+      return getPrice;
+    }()
+  }, {
     key: "requestBonusUsage",
-    value: function requestBonusUsage(_ref5) {
-      var headers = _ref5.headers,
-          endpoint = _ref5.endpoint,
-          method = _ref5.method,
-          body = _ref5.body;
+    value: function requestBonusUsage(_ref6) {
+      var headers = _ref6.headers,
+          endpoint = _ref6.endpoint,
+          method = _ref6.method,
+          body = _ref6.body;
       return fetch(endpoint, {
         method: method,
         headers: headers,
