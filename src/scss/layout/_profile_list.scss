@@ -3,9 +3,10 @@
 
   h2 {
     @include fluid-type(320px, 1200px, 25px, 32px);
-    padding: 50px 15px 30px 30px;
+    padding: 50px 0 30px;
   }
 
+  /* Profiles layout */
   .column {
     max-width: 300px;
 
@@ -56,6 +57,17 @@
         top: -5px;
         right: -58px;
         left: auto;
+      }
+    }
+  }
+
+  .no-premium {
+    figure {
+      width: 100%;
+      margin: 0;
+
+      img {
+        @include image;
       }
     }
   }
