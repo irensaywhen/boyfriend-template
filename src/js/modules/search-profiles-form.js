@@ -117,16 +117,17 @@ export default class SearchProfilesForm extends Form {
       );
 
     if (premium.status) {
-      let $badge = $("<span></span>")
-        .addClass("badge badge-primary mb-1")
-        .text(premium.text || "Premium")
-        .appendTo($cardImage);
+      $cardImage.addClass("premium").append(
+        $("<span></span>")
+          .addClass("badge badge-primary mb-1")
+          .text(premium.text || "Premium")
+      );
     }
 
     let $cardBody = $("<div></div>").addClass("card-body");
 
     let $userName = $("<h3></h3>")
-      .addClass("mb-0 name online")
+      .addClass("mb-0")
       .append(
         $("<a></a>")
           .addClass(
@@ -137,10 +138,11 @@ export default class SearchProfilesForm extends Form {
       );
 
     if (online.status) {
-      let $badge = $("<span></span>")
-        .addClass("badge badge-success mb-1 small")
-        .text(online.text || "online")
-        .appendTo($userName);
+      $userName.addClass("name online").append(
+        $("<span></span>")
+          .addClass("badge badge-success mb-1 small")
+          .text(online.text || "online")
+      );
     }
 
     let $city = $("<p>")

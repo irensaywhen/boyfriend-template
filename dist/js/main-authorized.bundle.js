@@ -3508,14 +3508,14 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
       var $cardImage = $("<figure></figure>").addClass("profile-image card-img-top").append($("<img>").addClass("card-img-top").attr("src", avatar.src).attr("alt", avatar.alt));
 
       if (premium.status) {
-        var $badge = $("<span></span>").addClass("badge badge-primary mb-1").text(premium.text || "Premium").appendTo($cardImage);
+        $cardImage.addClass("premium").append($("<span></span>").addClass("badge badge-primary mb-1").text(premium.text || "Premium"));
       }
 
       var $cardBody = $("<div></div>").addClass("card-body");
-      var $userName = $("<h3></h3>").addClass("mb-0 name online").append($("<a></a>").addClass("text-dark mb-1 mt-2 mr-2 h6 d-inline-block text-capitalize").attr("href", profile.url).text(profile.name));
+      var $userName = $("<h3></h3>").addClass("mb-0").append($("<a></a>").addClass("text-dark mb-1 mt-2 mr-2 h6 d-inline-block text-capitalize").attr("href", profile.url).text(profile.name));
 
       if (online.status) {
-        var _$badge = $("<span></span>").addClass("badge badge-success mb-1 small").text(online.text || "online").appendTo($userName);
+        $userName.addClass("name online").append($("<span></span>").addClass("badge badge-success mb-1 small").text(online.text || "online"));
       }
 
       var $city = $("<p>").addClass("text-secondary small mb-2").text(profile.city);
