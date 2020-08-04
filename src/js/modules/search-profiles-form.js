@@ -7,6 +7,7 @@ export default class SearchProfilesForm extends Form {
     //Binding context
     this.generateAgeRange = this.generateAgeRange.bind(this);
     this.initializeSlider = this.initializeSlider.bind(this);
+    this.showProfile = this.showProfile.bind(this);
 
     this.searchFormOptions = options.searchFormOptions;
 
@@ -20,10 +21,35 @@ export default class SearchProfilesForm extends Form {
     super.cacheElements();
 
     this.$formLoadingIndicator = $(
-      options.selectors["formLoadingIndicator"]
+      this.selectors["formLoadingIndicator"]
     ).fadeOut(0);
 
     this.$profilesContainer = $(this.selectors["profilesContainer"]);
+
+    let profileExample = {
+      premium: {
+        status: true,
+        text: "Premium",
+      },
+      online: {
+        status: true,
+        text: "online",
+      },
+      avatar: {
+        src: "img/photo2.jpg",
+        alt: "Avatar photo",
+      },
+      profile: {
+        url: "profile.html",
+        buttonText: "View Profile",
+        city: "Krakow",
+        name: "david, 27",
+      },
+    };
+
+    let $profile = this.showProfile(profileExample);
+
+    this.$profilesContainer.append($profile);
   }
 
   setUpEventListeners() {
@@ -71,12 +97,15 @@ export default class SearchProfilesForm extends Form {
   }
 
   showProfile(profileParameters) {
-    let { premium, online, profileUrl, avatar, user } = profileParameters;
+    let { premium, online, avatar, profile } = profileParameters;
 
-    let $profileContainer = $("<div>/<div>")
+    let $col = $("<div></div>")
       .addClass("col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2")
-      .addClass("column mx-auto mx-sm-0")
-      .append($("<div></div>").addClass("card shadow-sm border-0 mb-4"));
+      .addClass("column mx-auto mx-sm-0");
+
+    let $profileContainer = $("<div></div>").addClass(
+      "card shadow-sm border-0 mb-4"
+    );
 
     let $cardImage = $("<figure></figure>")
       .addClass("profile-image card-img-top")
@@ -90,12 +119,52 @@ export default class SearchProfilesForm extends Form {
     if (premium.status) {
       let $badge = $("<span></span>")
         .addClass("badge badge-primary mb-1")
-        .text(premium.text)
+        .text(premium.text || "Premium")
         .appendTo($cardImage);
     }
 
     let $cardBody = $("<div></div>").addClass("card-body");
 
-    let $userName = $("<h3></h3>").addClass("mb-0");
+    let $userName = $("<h3></h3>")
+      .addClass("mb-0 name online")
+      .append(
+        $("<a></a>")
+          .addClass(
+            "text-dark mb-1 mt-2 mr-2 h6 d-inline-block text-capitalize"
+          )
+          .attr("href", profile.url)
+          .text(profile.name)
+      );
+
+    if (online.status) {
+      let $badge = $("<span></span>")
+        .addClass("badge badge-success mb-1 small")
+        .text(online.text || "online")
+        .appendTo($userName);
+    }
+
+    let $city = $("<p>")
+      .addClass("text-secondary small mb-2")
+      .text(profile.city);
+
+    $cardBody.append($userName).append($city);
+
+    let $cardFooter = $("<div></div>")
+      .addClass("card-footer")
+      .append(
+        $("<div></div>")
+          .addClass("text-center mt-2")
+          .append(
+            $("<a></a>")
+              .addClass("btn btn-default")
+              .attr("href", profile.url)
+              .text(profile.buttonText)
+          )
+      );
+
+    // Everything together
+    return $col.append(
+      $profileContainer.append($cardImage).append($cardBody).append($cardFooter)
+    );
   }
 }

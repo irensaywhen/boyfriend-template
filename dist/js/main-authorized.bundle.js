@@ -3407,6 +3407,7 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
 
     _this.generateAgeRange = _this.generateAgeRange.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
     _this.initializeSlider = _this.initializeSlider.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
+    _this.showProfile = _this.showProfile.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
     _this.searchFormOptions = options.searchFormOptions;
     _this.slider = options.slider;
 
@@ -3422,8 +3423,30 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
     value: function cacheElements() {
       _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(SearchProfilesForm.prototype), "cacheElements", this).call(this);
 
-      this.$formLoadingIndicator = $(options.selectors["formLoadingIndicator"]).fadeOut(0);
+      this.$formLoadingIndicator = $(this.selectors["formLoadingIndicator"]).fadeOut(0);
       this.$profilesContainer = $(this.selectors["profilesContainer"]);
+      var profileExample = {
+        premium: {
+          status: true,
+          text: "Premium"
+        },
+        online: {
+          status: true,
+          text: "online"
+        },
+        avatar: {
+          src: "img/photo2.jpg",
+          alt: "Avatar photo"
+        },
+        profile: {
+          url: "profile.html",
+          buttonText: "View Profile",
+          city: "Krakow",
+          name: "david, 27"
+        }
+      };
+      var $profile = this.showProfile(profileExample);
+      this.$profilesContainer.append($profile);
     }
   }, {
     key: "setUpEventListeners",
@@ -3478,18 +3501,28 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
     value: function showProfile(profileParameters) {
       var premium = profileParameters.premium,
           online = profileParameters.online,
-          profileUrl = profileParameters.profileUrl,
           avatar = profileParameters.avatar,
-          user = profileParameters.user;
-      var $profileContainer = $("<div>/<div>").addClass("col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2").addClass("column mx-auto mx-sm-0").append($("<div></div>").addClass("card shadow-sm border-0 mb-4"));
+          profile = profileParameters.profile;
+      var $col = $("<div></div>").addClass("col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2").addClass("column mx-auto mx-sm-0");
+      var $profileContainer = $("<div></div>").addClass("card shadow-sm border-0 mb-4");
       var $cardImage = $("<figure></figure>").addClass("profile-image card-img-top").append($("<img>").addClass("card-img-top").attr("src", avatar.src).attr("alt", avatar.alt));
 
       if (premium.status) {
-        var $badge = $("<span></span>").addClass("badge badge-primary mb-1").text(premium.text).appendTo($cardImage);
+        var $badge = $("<span></span>").addClass("badge badge-primary mb-1").text(premium.text || "Premium").appendTo($cardImage);
       }
 
       var $cardBody = $("<div></div>").addClass("card-body");
-      var $userName = $("<h3></h3>").addClass("mb-0");
+      var $userName = $("<h3></h3>").addClass("mb-0 name online").append($("<a></a>").addClass("text-dark mb-1 mt-2 mr-2 h6 d-inline-block text-capitalize").attr("href", profile.url).text(profile.name));
+
+      if (online.status) {
+        var _$badge = $("<span></span>").addClass("badge badge-success mb-1 small").text(online.text || "online").appendTo($userName);
+      }
+
+      var $city = $("<p>").addClass("text-secondary small mb-2").text(profile.city);
+      $cardBody.append($userName).append($city);
+      var $cardFooter = $("<div></div>").addClass("card-footer").append($("<div></div>").addClass("text-center mt-2").append($("<a></a>").addClass("btn btn-default").attr("href", profile.url).text(profile.buttonText))); // Everything together
+
+      return $col.append($profileContainer.append($cardImage).append($cardBody).append($cardFooter));
     }
   }]);
 
