@@ -16,6 +16,16 @@ export default class SearchProfilesForm extends Form {
     this.initializeSlider();
   }
 
+  cacheElements() {
+    super.cacheElements();
+
+    this.$formLoadingIndicator = $(
+      options.selectors["formLoadingIndicator"]
+    ).fadeOut(0);
+
+    this.$profilesContainer = $(this.selectors["profilesContainer"]);
+  }
+
   setUpEventListeners() {
     super.setUpEventListeners();
 
@@ -29,7 +39,6 @@ export default class SearchProfilesForm extends Form {
 
       this.collectFormInputs();
       console.log(this.formData);
-      //console.log(this.formData);
     });
 
     this.$locationInput.on("citySelected", () => {
@@ -59,5 +68,34 @@ export default class SearchProfilesForm extends Form {
     for (let i = ageFrom; i <= ageTo; i++) {
       $("<option></option>").attr("value", i).text(i).appendTo($ageInputs);
     }
+  }
+
+  showProfile(profileParameters) {
+    let { premium, online, profileUrl, avatar, user } = profileParameters;
+
+    let $profileContainer = $("<div>/<div>")
+      .addClass("col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2")
+      .addClass("column mx-auto mx-sm-0")
+      .append($("<div></div>").addClass("card shadow-sm border-0 mb-4"));
+
+    let $cardImage = $("<figure></figure>")
+      .addClass("profile-image card-img-top")
+      .append(
+        $("<img>")
+          .addClass("card-img-top")
+          .attr("src", avatar.src)
+          .attr("alt", avatar.alt)
+      );
+
+    if (premium.status) {
+      let $badge = $("<span></span>")
+        .addClass("badge badge-primary mb-1")
+        .text(premium.text)
+        .appendTo($cardImage);
+    }
+
+    let $cardBody = $("<div></div>").addClass("card-body");
+
+    let $userName = $("<h3></h3>").addClass("mb-0");
   }
 }

@@ -608,7 +608,7 @@
 
       <!-- footer -->
       <footer class="footer">
-        <div class="loader">
+        <div class="loader" id="loader">
           <div class="bar"></div>
         </div>
         <div class="row no-gutters">
@@ -775,6 +775,8 @@
             distanceFrom: "#input-select",
             distanceTo: "#input-number",
             locationLoadingIndicator: ".city-loader",
+            formLoadingIndicator: "#loader",
+            profilesContainer: "#profiles-container",
           },
           requests: {
             submit: {

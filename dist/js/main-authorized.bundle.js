@@ -3418,6 +3418,14 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(SearchProfilesForm, [{
+    key: "cacheElements",
+    value: function cacheElements() {
+      _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(SearchProfilesForm.prototype), "cacheElements", this).call(this);
+
+      this.$formLoadingIndicator = $(options.selectors["formLoadingIndicator"]).fadeOut(0);
+      this.$profilesContainer = $(this.selectors["profilesContainer"]);
+    }
+  }, {
     key: "setUpEventListeners",
     value: function setUpEventListeners() {
       var _this2 = this;
@@ -3431,7 +3439,7 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
 
         _this2.collectFormInputs();
 
-        console.log(_this2.formData); //console.log(this.formData);
+        console.log(_this2.formData);
       });
       this.$locationInput.on("citySelected", function () {
         console.log("City selected");
@@ -3464,6 +3472,24 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
       for (var i = ageFrom; i <= ageTo; i++) {
         $("<option></option>").attr("value", i).text(i).appendTo($ageInputs);
       }
+    }
+  }, {
+    key: "showProfile",
+    value: function showProfile(profileParameters) {
+      var premium = profileParameters.premium,
+          online = profileParameters.online,
+          profileUrl = profileParameters.profileUrl,
+          avatar = profileParameters.avatar,
+          user = profileParameters.user;
+      var $profileContainer = $("<div>/<div>").addClass("col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2").addClass("column mx-auto mx-sm-0").append($("<div></div>").addClass("card shadow-sm border-0 mb-4"));
+      var $cardImage = $("<figure></figure>").addClass("profile-image card-img-top").append($("<img>").addClass("card-img-top").attr("src", avatar.src).attr("alt", avatar.alt));
+
+      if (premium.status) {
+        var $badge = $("<span></span>").addClass("badge badge-primary mb-1").text(premium.text).appendTo($cardImage);
+      }
+
+      var $cardBody = $("<div></div>").addClass("card-body");
+      var $userName = $("<h3></h3>").addClass("mb-0");
     }
   }]);
 

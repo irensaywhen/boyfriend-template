@@ -47,16 +47,13 @@
       }
     }
 
-    /* Online status */
     .name.online {
-      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
 
       .badge {
         font-size: 12px;
-        position: absolute;
-        top: -5px;
-        right: -58px;
-        left: auto;
       }
     }
   }
