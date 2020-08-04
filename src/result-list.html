@@ -356,7 +356,7 @@
                     class="col-12 col-sm-6 col-lg-3 form-area-sm pt-4 pt-lg-0"
                   >
                     <!--City input start-->
-                    <div class="form-group">
+                    <div class="form-group position-relative">
                       <label for="city">City</label>
                       <input
                         type="text"
@@ -364,6 +364,9 @@
                         id="city"
                         name="city"
                       />
+                      <div class="spinner-border city-loader" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
                       <div class="dropdown location-dropdown">
                         <button
                           class="btn btn-primary dropdown-toggle"
@@ -760,6 +763,7 @@
             age: ".age-select",
             distanceFrom: "#input-select",
             distanceTo: "#input-number",
+            locationLoadingIndicator: ".city-loader",
           },
           requests: {
             submit: {
