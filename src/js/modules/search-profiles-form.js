@@ -19,10 +19,23 @@ export default class SearchProfilesForm extends Form {
   setUpEventListeners() {
     super.setUpEventListeners();
 
-    this.$inputs.on("input", (event) => {
-      console.log("Inputed");
+    this.$form.on("input", (event) => {
+      let target = event.target;
 
-      //this.collectFormInputs();
+      if (target.name === "city") return;
+      console.log("Inputed!");
+
+      //console.log("Inputed");
+
+      this.collectFormInputs();
+      console.log(this.formData);
+      //console.log(this.formData);
+    });
+
+    this.$locationInput.on("citySelected", () => {
+      console.log("City selected");
+      this.collectFormInputs();
+      console.log(this.formData);
     });
   }
 
@@ -31,7 +44,7 @@ export default class SearchProfilesForm extends Form {
     this.$distanceFrom = this.$form.find(this.selectors["distanceFrom"]);
     this.$distanceTo = this.$form.find(this.selectors["distanceTo"]);
 
-    this.slider["noUiSlider"].on("set", () => {
+    this.slider["noUiSlider"].on("end", () => {
       this.$inputs.first().trigger("input");
     });
   }

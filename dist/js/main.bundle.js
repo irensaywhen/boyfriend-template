@@ -1976,7 +1976,6 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
           _this3.formData[name] = numericValue.isNaN ? value : numericValue;
         }
       });
-      console.log(this.formData);
     }
   }, {
     key: "sendFormInformation",
@@ -2155,12 +2154,14 @@ __webpack_require__.r(__webpack_exports__);
       for (var key in customAttributes) {
         customAttributes[key] = "";
       } // If the user selects the city
+      // from dropdown
 
 
       if (_this.citySelection) return;
 
       if (!_this.locationInputStarted) {
         // If input hasn't started yet
+        // Indicate that input started
         _this.locationInputStarted = true; // Save the value
 
         _this.locationInputValue = _this.$locationInput.val(); // Schedule next check
@@ -2178,15 +2179,16 @@ __webpack_require__.r(__webpack_exports__);
 
       _this.$locationInput.attr("data-lat", dataset.lat).attr("data-lon", dataset.lon).attr("data-name", dataset.name).val(dataset.name);
 
-      _this.$locationInput.valid();
-
       _this.citySelection = false;
       _this.locationInputStarted = false;
       _this.newValue = null;
 
       _this.$locationDropdownMenu.empty();
+
+      if (_this.$locationInput.valid()) {
+        _this.$locationInput.trigger("citySelected");
+      }
     });
-    console.log(this.$locationInput);
   },
   getCities: function getCities(_ref) {
     var _this2 = this;
@@ -2258,6 +2260,7 @@ __webpack_require__.r(__webpack_exports__);
               break;
 
             case 12:
+              // If the location hasn't changed recently
               _this3.locationInputStarted = false;
 
             case 13:

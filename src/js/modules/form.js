@@ -150,8 +150,6 @@ export default class Form extends ServerRequest {
         this.formData[name] = numericValue.isNaN ? value : numericValue;
       }
     });
-
-    console.log(this.formData);
   }
 
   async sendFormInformation() {

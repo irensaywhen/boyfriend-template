@@ -2354,7 +2354,6 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
           _this3.formData[name] = numericValue.isNaN ? value : numericValue;
         }
       });
-      console.log(this.formData);
     }
   }, {
     key: "sendFormInformation",
@@ -2533,12 +2532,14 @@ __webpack_require__.r(__webpack_exports__);
       for (var key in customAttributes) {
         customAttributes[key] = "";
       } // If the user selects the city
+      // from dropdown
 
 
       if (_this.citySelection) return;
 
       if (!_this.locationInputStarted) {
         // If input hasn't started yet
+        // Indicate that input started
         _this.locationInputStarted = true; // Save the value
 
         _this.locationInputValue = _this.$locationInput.val(); // Schedule next check
@@ -2556,15 +2557,16 @@ __webpack_require__.r(__webpack_exports__);
 
       _this.$locationInput.attr("data-lat", dataset.lat).attr("data-lon", dataset.lon).attr("data-name", dataset.name).val(dataset.name);
 
-      _this.$locationInput.valid();
-
       _this.citySelection = false;
       _this.locationInputStarted = false;
       _this.newValue = null;
 
       _this.$locationDropdownMenu.empty();
+
+      if (_this.$locationInput.valid()) {
+        _this.$locationInput.trigger("citySelected");
+      }
     });
-    console.log(this.$locationInput);
   },
   getCities: function getCities(_ref) {
     var _this2 = this;
@@ -2636,6 +2638,7 @@ __webpack_require__.r(__webpack_exports__);
               break;
 
             case 12:
+              // If the location hasn't changed recently
               _this3.locationInputStarted = false;
 
             case 13:
@@ -3410,22 +3413,37 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(SearchProfilesForm, [{
     key: "setUpEventListeners",
     value: function setUpEventListeners() {
+      var _this2 = this;
+
       _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(SearchProfilesForm.prototype), "setUpEventListeners", this).call(this);
 
-      this.$inputs.on("input", function (event) {
-        console.log("Inputed"); //this.collectFormInputs();
+      this.$form.on("input", function (event) {
+        var target = event.target;
+        if (target.name === "city") return;
+        console.log("Inputed!"); //console.log("Inputed");
+
+        _this2.collectFormInputs();
+
+        console.log(_this2.formData); //console.log(this.formData);
+      });
+      this.$locationInput.on("citySelected", function () {
+        console.log("City selected");
+
+        _this2.collectFormInputs();
+
+        console.log(_this2.formData);
       });
     }
   }, {
     key: "initializeSlider",
     value: function initializeSlider() {
-      var _this2 = this;
+      var _this3 = this;
 
       // THink whether you need to save it
       this.$distanceFrom = this.$form.find(this.selectors["distanceFrom"]);
       this.$distanceTo = this.$form.find(this.selectors["distanceTo"]);
-      this.slider["noUiSlider"].on("set", function () {
-        _this2.$inputs.first().trigger("input");
+      this.slider["noUiSlider"].on("end", function () {
+        _this3.$inputs.first().trigger("input");
       });
     }
   }, {

@@ -50,10 +50,12 @@ export default {
       }
 
       // If the user selects the city
+      // from dropdown
       if (this.citySelection) return;
 
       if (!this.locationInputStarted) {
         // If input hasn't started yet
+        // Indicate that input started
         this.locationInputStarted = true;
 
         // Save the value
@@ -82,15 +84,16 @@ export default {
         .attr("data-name", dataset.name)
         .val(dataset.name);
 
-      this.$locationInput.valid();
-
       this.citySelection = false;
       this.locationInputStarted = false;
       this.newValue = null;
 
       this.$locationDropdownMenu.empty();
+
+      if (this.$locationInput.valid()) {
+        this.$locationInput.trigger("citySelected");
+      }
     });
-    console.log(this.$locationInput);
   },
 
   async getCities({ headers, endpoint, method }) {
@@ -127,6 +130,7 @@ export default {
 
       this.displayCities(cities);
     } else {
+      // If the location hasn't changed recently
       this.locationInputStarted = false;
     }
   },
