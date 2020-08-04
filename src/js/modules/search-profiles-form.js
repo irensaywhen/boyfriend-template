@@ -8,6 +8,7 @@ export default class SearchProfilesForm extends Form {
     this.generateAgeRange = this.generateAgeRange.bind(this);
     this.initializeSlider = this.initializeSlider.bind(this);
     this.showProfile = this.showProfile.bind(this);
+    this.makeProfilesRequest = this.makeProfilesRequest.bind(this);
 
     this.searchFormOptions = options.searchFormOptions;
 
@@ -25,31 +26,6 @@ export default class SearchProfilesForm extends Form {
     ).fadeOut(0);
 
     this.$profilesContainer = $(this.selectors["profilesContainer"]);
-
-    let profileExample = {
-      premium: {
-        status: true,
-        text: "Premium",
-      },
-      online: {
-        status: true,
-        text: "online",
-      },
-      avatar: {
-        src: "img/photo2.jpg",
-        alt: "Avatar photo",
-      },
-      profile: {
-        url: "profile.html",
-        buttonText: "View Profile",
-        city: "Krakow",
-        name: "david, 27",
-      },
-    };
-
-    let $profile = this.showProfile(profileExample);
-
-    this.$profilesContainer.append($profile);
   }
 
   setUpEventListeners() {
@@ -59,20 +35,83 @@ export default class SearchProfilesForm extends Form {
       let target = event.target;
 
       if (target.name === "city") return;
-      console.log("Inputed!");
-
-      //console.log("Inputed");
-
-      this.collectFormInputs();
-      console.log(this.formData);
+      this.$form.trigger("inputFinished");
     });
 
     this.$locationInput.on("citySelected", () => {
-      console.log("City selected");
+      this.$form.trigger("inputFinished");
+    });
+
+    this.$form.on("inputFinished", (event) => {
+      // Show loading indicator
+      this.$formLoadingIndicator.fadeIn(200);
+
       this.collectFormInputs();
-      console.log(this.formData);
+
+      let request = this.requests.profiles;
+
+      this.makeRequest({
+        method: request.method,
+        headers: request.headers,
+        endpoint: request.endpoint,
+        body: JSON.stringify(this.formData),
+      }).then((response) => {
+        // Hide loading indicator
+        this.$formLoadingIndicator.fadeOut(200);
+
+        if (!response.success) {
+          console.log("Response unsuccessful. Do sth here");
+          return;
+        }
+
+        let profiles = response.profiles;
+
+        // Sort profiles
+        // Firstly show premium and online users,
+        // then premium users,
+        // then online users
+        // then other users
+
+        // Sort out all the premium users to be at the beginning
+        profiles.sort((user1, user2) => {
+          return user1.premium.status
+            ? user1.online.status
+              ? user2.premium.status
+                ? user2.online.status
+                  ? 0
+                  : -1
+                : -1
+              : user2.premium.status
+              ? user2.online.status
+                ? 1
+                : 0
+              : -1
+            : user2.premium.status
+            ? 1
+            : user1.online.status
+            ? user2.online.status
+              ? 0
+              : -1
+            : user2.online.status
+            ? 1
+            : 0;
+        });
+
+        console.log(profiles);
+      });
     });
   }
+
+  //initializePagination() {
+  //  this.$profilesContainer.pagination({
+  //    dataSource: [1, 2, 3],
+  //    callback: function (data, pagination) {
+  //      // template method of yourself
+  //      console.log(data);
+  //    },
+  //  });
+  //  this.$profilesContainer.pagination("destroy");
+  //}
 
   initializeSlider() {
     // THink whether you need to save it
@@ -83,6 +122,8 @@ export default class SearchProfilesForm extends Form {
       this.$inputs.first().trigger("input");
     });
   }
+
+  async makeProfilesRequest() {}
 
   generateAgeRange() {
     // Cache range
