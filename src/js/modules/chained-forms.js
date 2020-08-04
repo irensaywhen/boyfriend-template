@@ -39,8 +39,11 @@ export default class ChainedForms {
     // Show next form when the current is submitted
     this.$forms.on("submitted", (event) => {
       let target = event.target;
+      let step = target.dataset.step;
 
-      let step = Number(target.dataset.step) + 1;
+      ++step;
+
+      if (step === this.$forms.length) return;
 
       $(target)
         .closest(this.selectors.wrapper)

@@ -174,7 +174,6 @@ export default class Form extends ServerRequest {
       // Remove error messages
       this.$form.find(".error").remove();
     }
-
     if (response.success) {
       if (this.generateSubmitEvent) {
         // Make custom event for form submission
@@ -213,6 +212,7 @@ export default class Form extends ServerRequest {
           icon: "error",
         });
       }
+
       this.showErrorMessages({ errors: response.errors });
     }
 

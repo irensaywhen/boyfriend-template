@@ -24,6 +24,11 @@ export default {
     // Cache input element
     this.$locationInput = this.$form.find(this.selectors.locationInput);
 
+    // Loading indicator
+    this.$loadingIndicator = this.$form
+      .find(this.selectors.locationLoadingIndicator)
+      .fadeOut(0);
+
     // location dropdown wrapper
     this.$locationDropdownWrapper = this.$form.find(
       this.selectors["location-dropdown"]
@@ -118,6 +123,8 @@ export default {
       // Adjust searchParams
       requestInfo.endpoint.searchParams.set("city", this.locationInputValue);
 
+      this.$loadingIndicator.fadeIn(150);
+
       // Make request
       let cities = await this.getCities({
         headers: requestInfo.headers,
@@ -127,6 +134,8 @@ export default {
 
       // Schedule next check
       this.locationTimer = setTimeout(this.throttleInput, 1500);
+
+      this.$loadingIndicator.fadeOut(150);
 
       this.displayCities(cities);
     } else {
