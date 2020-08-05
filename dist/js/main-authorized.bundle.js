@@ -3482,9 +3482,8 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
     _this.generateAgeRange = _this.generateAgeRange.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
     _this.initializeSlider = _this.initializeSlider.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
     _this.createProfileView = _this.createProfileView.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
-    _this.createProfileViews = _this.createProfileViews.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this)); //this.initializePagination = this.initializePagination.bind(this);
-    //this.destroyPagination = this.destroyPagination.bind(this);
-
+    _this.createProfileViews = _this.createProfileViews.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
+    _this.createNoResultsBadge = _this.createNoResultsBadge.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
     _this.searchFormOptions = options["searchFormOptions"];
     _this.slider = options["slider"];
     _this.pagination = new _pagination_js__WEBPACK_IMPORTED_MODULE_8__["default"](options.pagination);
@@ -3504,7 +3503,7 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
       // THink whether you need to save it
       this.$distanceFrom = this.$form.find(this.selectors["distanceFrom"]);
       this.$distanceTo = this.$form.find(this.selectors["distanceTo"]);
-      this.slider["noUiSlider"].on("end", function () {
+      this.slider["noUiSlider"].on("change", function () {
         _this2.$inputs.first().trigger("input");
       });
     }
@@ -3550,7 +3549,10 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
           body: JSON.stringify(_this3.formData)
         }).then(function (response) {
           if (!response.success) {
-            console.log("Response unsuccessful. Do sth here");
+            _this3.createNoResultsBadge(response);
+
+            _this3.$formLoadingIndicator.fadeOut(200);
+
             return;
           }
 
@@ -3573,6 +3575,9 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
       profiles.sort(function (user1, user2) {
         return user1.premium.status ? user1.online.status ? user2.premium.status ? user2.online.status ? 0 : -1 : -1 : user2.premium.status ? user2.online.status ? 1 : 0 : -1 : user2.premium.status ? 1 : user1.online.status ? user2.online.status ? 0 : -1 : user2.online.status ? 1 : 0;
       });
+      $("html, body").animate({
+        scrollTop: this.pagination.$container.offset().top
+      }, 1100);
       profiles.forEach(function (profile) {
         _this4.createProfileView(profile).appendTo(_this4.pagination.$container);
       });
@@ -3616,6 +3621,18 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
       var $cardFooter = $("<div></div>").addClass("card-footer").append($("<div></div>").addClass("text-center mt-2").append($("<a></a>").addClass("btn btn-default").attr("href", profile.url).text(profile.buttonText))); // Everything together
 
       return $col.append($profileContainer.append($cardImage).append($cardBody).append($cardFooter));
+    }
+  }, {
+    key: "createNoResultsBadge",
+    value: function createNoResultsBadge(content) {
+      var title = content.title,
+          message = content.message;
+      $("<div></div>").addClass("col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3").append($("<div></div>").addClass("no-results shadow-sm bg-white rounded text-center px-3 py-5").append($("<i></i>").addClass("fas fa-heart-broken")).append($("<h2></h2>").addClass("title").text(title)).append($("<p></p>").addClass("text-secondary").text(message))).css("opacity", "0").appendTo(this.pagination.$container).animate({
+        opacity: 1
+      }, 800);
+      $("html, body").animate({
+        scrollTop: this.pagination.$container.offset().top
+      }, 1100);
     }
   }]);
 

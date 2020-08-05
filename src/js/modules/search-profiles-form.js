@@ -10,8 +10,7 @@ export default class SearchProfilesForm extends Form {
     this.initializeSlider = this.initializeSlider.bind(this);
     this.createProfileView = this.createProfileView.bind(this);
     this.createProfileViews = this.createProfileViews.bind(this);
-    //this.initializePagination = this.initializePagination.bind(this);
-    //this.destroyPagination = this.destroyPagination.bind(this);
+    this.createNoResultsBadge = this.createNoResultsBadge.bind(this);
 
     this.searchFormOptions = options["searchFormOptions"];
 
@@ -28,7 +27,7 @@ export default class SearchProfilesForm extends Form {
     this.$distanceFrom = this.$form.find(this.selectors["distanceFrom"]);
     this.$distanceTo = this.$form.find(this.selectors["distanceTo"]);
 
-    this.slider["noUiSlider"].on("end", () => {
+    this.slider["noUiSlider"].on("change", () => {
       this.$inputs.first().trigger("input");
     });
   }
@@ -75,7 +74,9 @@ export default class SearchProfilesForm extends Form {
         body: JSON.stringify(this.formData),
       }).then((response) => {
         if (!response.success) {
-          console.log("Response unsuccessful. Do sth here");
+          this.createNoResultsBadge(response);
+
+          this.$formLoadingIndicator.fadeOut(200);
           return;
         }
 
@@ -116,7 +117,12 @@ export default class SearchProfilesForm extends Form {
         ? 1
         : 0;
     });
-
+    $("html, body").animate(
+      {
+        scrollTop: this.pagination.$container.offset().top,
+      },
+      1100
+    );
     profiles.forEach((profile) => {
       this.createProfileView(profile).appendTo(this.pagination.$container);
     });
@@ -205,6 +211,36 @@ export default class SearchProfilesForm extends Form {
     // Everything together
     return $col.append(
       $profileContainer.append($cardImage).append($cardBody).append($cardFooter)
+    );
+  }
+
+  createNoResultsBadge(content) {
+    let { title, message } = content;
+
+    $("<div></div>")
+      .addClass("col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3")
+      .append(
+        $("<div></div>")
+          .addClass(
+            "no-results shadow-sm bg-white rounded text-center px-3 py-5"
+          )
+          .append($("<i></i>").addClass("fas fa-heart-broken"))
+          .append($("<h2></h2>").addClass("title").text(title))
+          .append($("<p></p>").addClass("text-secondary").text(message))
+      )
+      .css("opacity", "0")
+      .appendTo(this.pagination.$container)
+      .animate(
+        {
+          opacity: 1,
+        },
+        800
+      );
+    $("html, body").animate(
+      {
+        scrollTop: this.pagination.$container.offset().top,
+      },
+      1100
     );
   }
 }
