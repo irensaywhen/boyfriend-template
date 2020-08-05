@@ -7,8 +7,8 @@ export default class SearchProfilesForm extends Form {
     //Binding context
     this.generateAgeRange = this.generateAgeRange.bind(this);
     this.initializeSlider = this.initializeSlider.bind(this);
-    this.showProfile = this.showProfile.bind(this);
-    this.makeProfilesRequest = this.makeProfilesRequest.bind(this);
+    this.createProfileView = this.createProfileView.bind(this);
+    this.createProfileViews = this.createProfileViews.bind(this);
 
     this.searchFormOptions = options.searchFormOptions;
 
@@ -16,6 +16,16 @@ export default class SearchProfilesForm extends Form {
 
     this.generateAgeRange();
     this.initializeSlider();
+  }
+
+  initializeSlider() {
+    // THink whether you need to save it
+    this.$distanceFrom = this.$form.find(this.selectors["distanceFrom"]);
+    this.$distanceTo = this.$form.find(this.selectors["distanceTo"]);
+
+    this.slider["noUiSlider"].on("end", () => {
+      this.$inputs.first().trigger("input");
+    });
   }
 
   cacheElements() {
@@ -26,6 +36,7 @@ export default class SearchProfilesForm extends Form {
     ).fadeOut(0);
 
     this.$profilesContainer = $(this.selectors["profilesContainer"]);
+    this.$paginationContainer = $(this.selectors["paginationContainer"]);
   }
 
   setUpEventListeners() {
@@ -66,64 +77,57 @@ export default class SearchProfilesForm extends Form {
 
         let profiles = response.profiles;
 
-        // Sort profiles
-        // Firstly show premium and online users,
-        // then premium users,
-        // then online users
-        // then other users
-
-        // Sort out all the premium users to be at the beginning
-        profiles.sort((user1, user2) => {
-          return user1.premium.status
-            ? user1.online.status
-              ? user2.premium.status
-                ? user2.online.status
-                  ? 0
-                  : -1
-                : -1
-              : user2.premium.status
-              ? user2.online.status
-                ? 1
-                : 0
-              : -1
-            : user2.premium.status
-            ? 1
-            : user1.online.status
-            ? user2.online.status
-              ? 0
-              : -1
-            : user2.online.status
-            ? 1
-            : 0;
-        });
-
-        console.log(profiles);
+        this.createProfileViews(profiles);
       });
     });
   }
 
-  //initializePagination() {
-  //  this.$profilesContainer.pagination({
-  //    dataSource: [1, 2, 3],
-  //    callback: function (data, pagination) {
-  //      // template method of yourself
-  //      console.log(data);
-  //    },
-  //  });
-  //  this.$profilesContainer.pagination("destroy");
-  //}
-
-  initializeSlider() {
-    // THink whether you need to save it
-    this.$distanceFrom = this.$form.find(this.selectors["distanceFrom"]);
-    this.$distanceTo = this.$form.find(this.selectors["distanceTo"]);
-
-    this.slider["noUiSlider"].on("end", () => {
-      this.$inputs.first().trigger("input");
+  createProfileViews(profiles) {
+    // Sort out all the premium users to be at the beginning
+    profiles.sort((user1, user2) => {
+      return user1.premium.status
+        ? user1.online.status
+          ? user2.premium.status
+            ? user2.online.status
+              ? 0
+              : -1
+            : -1
+          : user2.premium.status
+          ? user2.online.status
+            ? 1
+            : 0
+          : -1
+        : user2.premium.status
+        ? 1
+        : user1.online.status
+        ? user2.online.status
+          ? 0
+          : -1
+        : user2.online.status
+        ? 1
+        : 0;
     });
-  }
 
-  async makeProfilesRequest() {}
+    // Initialize pagination
+    //this.$paginationContainer.pagination({
+    //  dataSource: profiles,
+    //  pageSize: 3,
+    //  hideWhenLessThanOnePage: true,
+    //  inlineStyle: false,
+    //  callback: (data, pagination) => {
+    //    // template method of yourself
+    //    console.log(data);
+    //    let $row = $("<div></div>").addClass("row");
+    //
+    //    data.forEach((profileParams) => {
+    //      let $profile = this.createProfileView(profileParams);
+    //      $row.append($profile);
+    //    });
+    //
+    //    this.$profilesContainer.append($row);
+    //  },
+    //});
+  }
 
   generateAgeRange() {
     // Cache range
@@ -137,7 +141,7 @@ export default class SearchProfilesForm extends Form {
     }
   }
 
-  showProfile(profileParameters) {
+  createProfileView(profileParameters) {
     let { premium, online, avatar, profile } = profileParameters;
 
     let $col = $("<div></div>")
