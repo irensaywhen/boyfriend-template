@@ -2968,6 +2968,78 @@ var EditorModal = /*#__PURE__*/function (_ServerRequest) {
 
 /***/ }),
 
+/***/ "./js/modules/pagination.js":
+/*!**********************************!*\
+  !*** ./js/modules/pagination.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Pagination; });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "../node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var Pagination = /*#__PURE__*/function () {
+  function Pagination(config) {
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Pagination);
+
+    var selectors = config.selectors;
+    this.options = config.options;
+    this.$container = $(selectors.container);
+    this.$pagination = $(selectors.pagination);
+    this._init = false;
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Pagination, [{
+    key: "init",
+    value: function init() {
+      if (!this._init) {
+        this.$pagination.jPages(this.options);
+      }
+    }
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      if (this._init) {
+        this.$pagination.jPages("destroy");
+      }
+    } // Preventing resetting containers after initialization
+
+  }, {
+    key: "$container",
+    get: function get() {
+      return this._$container;
+    },
+    set: function set($container) {
+      if (!this._$container) {
+        this._$container = $container;
+      }
+    }
+  }, {
+    key: "$pagination",
+    get: function get() {
+      return this._$pagination;
+    },
+    set: function set($container) {
+      if (!this._$pagination) {
+        this._$pagination = $container;
+      }
+    }
+  }]);
+
+  return Pagination;
+}();
+
+
+
+/***/ }),
+
 /***/ "./js/modules/paymentMixin.js":
 /*!************************************!*\
   !*** ./js/modules/paymentMixin.js ***!
@@ -3379,6 +3451,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "../node_modules/@babel/runtime/helpers/getPrototypeOf.js");
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./form.js */ "./js/modules/form.js");
+/* harmony import */ var _pagination_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pagination.js */ "./js/modules/pagination.js");
 
 
 
@@ -3390,6 +3463,7 @@ __webpack_require__.r(__webpack_exports__);
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default()(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
 
 
 
@@ -3408,9 +3482,12 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
     _this.generateAgeRange = _this.generateAgeRange.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
     _this.initializeSlider = _this.initializeSlider.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
     _this.createProfileView = _this.createProfileView.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
-    _this.createProfileViews = _this.createProfileViews.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
-    _this.searchFormOptions = options.searchFormOptions;
-    _this.slider = options.slider;
+    _this.createProfileViews = _this.createProfileViews.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this)); //this.initializePagination = this.initializePagination.bind(this);
+    //this.destroyPagination = this.destroyPagination.bind(this);
+
+    _this.searchFormOptions = options["searchFormOptions"];
+    _this.slider = options["slider"];
+    _this.pagination = new _pagination_js__WEBPACK_IMPORTED_MODULE_8__["default"](options.pagination);
 
     _this.generateAgeRange();
 
@@ -3437,8 +3514,6 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
       _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(SearchProfilesForm.prototype), "cacheElements", this).call(this);
 
       this.$formLoadingIndicator = $(this.selectors["formLoadingIndicator"]).fadeOut(0);
-      this.$profilesContainer = $(this.selectors["profilesContainer"]);
-      this.$paginationContainer = $(this.selectors["paginationContainer"]);
     }
   }, {
     key: "setUpEventListeners",
@@ -3460,6 +3535,10 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
         // Show loading indicator
         _this3.$formLoadingIndicator.fadeIn(200);
 
+        var pagination = _this3.pagination;
+        pagination.$container.empty();
+        pagination.destroy();
+
         _this3.collectFormInputs();
 
         var request = _this3.requests.profiles;
@@ -3470,9 +3549,6 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
           endpoint: request.endpoint,
           body: JSON.stringify(_this3.formData)
         }).then(function (response) {
-          // Hide loading indicator
-          _this3.$formLoadingIndicator.fadeOut(200);
-
           if (!response.success) {
             console.log("Response unsuccessful. Do sth here");
             return;
@@ -3481,34 +3557,25 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
           var profiles = response.profiles;
 
           _this3.createProfileViews(profiles);
+
+          pagination.init(); // Hide loading indicator
+
+          _this3.$formLoadingIndicator.fadeOut(200);
         });
       });
     }
   }, {
     key: "createProfileViews",
     value: function createProfileViews(profiles) {
+      var _this4 = this;
+
       // Sort out all the premium users to be at the beginning
       profiles.sort(function (user1, user2) {
         return user1.premium.status ? user1.online.status ? user2.premium.status ? user2.online.status ? 0 : -1 : -1 : user2.premium.status ? user2.online.status ? 1 : 0 : -1 : user2.premium.status ? 1 : user1.online.status ? user2.online.status ? 0 : -1 : user2.online.status ? 1 : 0;
-      }); // Initialize pagination
-      //this.$paginationContainer.pagination({
-      //  dataSource: profiles,
-      //  pageSize: 3,
-      //  hideWhenLessThanOnePage: true,
-      //  inlineStyle: false,
-      //  callback: (data, pagination) => {
-      //    // template method of yourself
-      //    console.log(data);
-      //    let $row = $("<div></div>").addClass("row");
-      //
-      //    data.forEach((profileParams) => {
-      //      let $profile = this.createProfileView(profileParams);
-      //      $row.append($profile);
-      //    });
-      //
-      //    this.$profilesContainer.append($row);
-      //  },
-      //});
+      });
+      profiles.forEach(function (profile) {
+        _this4.createProfileView(profile).appendTo(_this4.pagination.$container);
+      });
     }
   }, {
     key: "generateAgeRange",

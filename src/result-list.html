@@ -454,8 +454,11 @@
             <!--Profile search form end-->
           </div>
         </div>
-        <div id="profiles-container"></div>
-        <div id="pagination-container"></div>
+        <div id="profiles-container" class="row"></div>
+        <div
+          id="pagination-container"
+          class="pagination d-flex justify-content-center"
+        ></div>
       </div>
       <!--Profiles end-->
 
@@ -530,11 +533,11 @@
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
     <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
 
+    <!--jPages-->
+    <script src="vendor/jPages/jPages.min.js"></script>
+
     <!--Sweetalert-->
     <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
-
-    <!--Pagination.js-->
-    <!--<script src="vendor/pagination/pagination.min.js"></script>-->
 
     <!-- nouislider js -->
     <script src="vendor/nouislider/nouislider.min.js"></script>
@@ -555,6 +558,15 @@
         $(".closenotification").on("click", function () {
           $(this).closest(".notification").removeClass("active");
         });
+
+        /*pagination container*/
+        //$("#pagination-container").jPages({
+        //  containerID: "profiles-container",
+        //  perPage: 1,
+        //  previous: "«",
+        //  next: "»",
+        //  scrollBrowse: true,
+        //});
 
         /* range picker for filter */
         var html5Slider = document.getElementById("rangeslider");
@@ -632,8 +644,6 @@
             distanceTo: "#input-number",
             locationLoadingIndicator: ".city-loader",
             formLoadingIndicator: "#loader",
-            profilesContainer: "#profiles-container",
-            paginationContainer: "#pagination-container",
           },
           requests: {
             profiles: {
@@ -660,6 +670,18 @@
           searchFormOptions: {
             ageFrom: 18,
             ageTo: 40,
+          },
+          pagination: {
+            options: {
+              containerID: "profiles-container",
+              perPage: 2,
+              previous: "«",
+              next: "»",
+            },
+            selectors: {
+              container: "#profiles-container",
+              pagination: "#pagination-container",
+            },
           },
           location: true,
           showSuccessPopup: false,

@@ -1,4 +1,5 @@
 import Form from "./form.js";
+import Pagination from "./pagination.js";
 
 export default class SearchProfilesForm extends Form {
   constructor(options) {
@@ -9,10 +10,14 @@ export default class SearchProfilesForm extends Form {
     this.initializeSlider = this.initializeSlider.bind(this);
     this.createProfileView = this.createProfileView.bind(this);
     this.createProfileViews = this.createProfileViews.bind(this);
+    //this.initializePagination = this.initializePagination.bind(this);
+    //this.destroyPagination = this.destroyPagination.bind(this);
 
-    this.searchFormOptions = options.searchFormOptions;
+    this.searchFormOptions = options["searchFormOptions"];
 
-    this.slider = options.slider;
+    this.slider = options["slider"];
+
+    this.pagination = new Pagination(options.pagination);
 
     this.generateAgeRange();
     this.initializeSlider();
@@ -34,9 +39,6 @@ export default class SearchProfilesForm extends Form {
     this.$formLoadingIndicator = $(
       this.selectors["formLoadingIndicator"]
     ).fadeOut(0);
-
-    this.$profilesContainer = $(this.selectors["profilesContainer"]);
-    this.$paginationContainer = $(this.selectors["paginationContainer"]);
   }
 
   setUpEventListeners() {
@@ -57,6 +59,11 @@ export default class SearchProfilesForm extends Form {
       // Show loading indicator
       this.$formLoadingIndicator.fadeIn(200);
 
+      let pagination = this.pagination;
+
+      pagination.$container.empty();
+      pagination.destroy();
+
       this.collectFormInputs();
 
       let request = this.requests.profiles;
@@ -67,9 +74,6 @@ export default class SearchProfilesForm extends Form {
         endpoint: request.endpoint,
         body: JSON.stringify(this.formData),
       }).then((response) => {
-        // Hide loading indicator
-        this.$formLoadingIndicator.fadeOut(200);
-
         if (!response.success) {
           console.log("Response unsuccessful. Do sth here");
           return;
@@ -78,6 +82,11 @@ export default class SearchProfilesForm extends Form {
         let profiles = response.profiles;
 
         this.createProfileViews(profiles);
+
+        pagination.init();
+
+        // Hide loading indicator
+        this.$formLoadingIndicator.fadeOut(200);
       });
     });
   }
@@ -108,25 +117,9 @@ export default class SearchProfilesForm extends Form {
         : 0;
     });
 
-    // Initialize pagination
-    //this.$paginationContainer.pagination({
-    //  dataSource: profiles,
-    //  pageSize: 3,
-    //  hideWhenLessThanOnePage: true,
-    //  inlineStyle: false,
-    //  callback: (data, pagination) => {
-    //    // template method of yourself
-    //    console.log(data);
-    //    let $row = $("<div></div>").addClass("row");
-    //
-    //    data.forEach((profileParams) => {
-    //      let $profile = this.createProfileView(profileParams);
-    //      $row.append($profile);
-    //    });
-    //
-    //    this.$profilesContainer.append($row);
-    //  },
-    //});
+    profiles.forEach((profile) => {
+      this.createProfileView(profile).appendTo(this.pagination.$container);
+    });
   }
 
   generateAgeRange() {
