@@ -670,7 +670,7 @@
                 "Content-Type": "application/json",
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-empty",
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles",
             },
             location: {
               method: "GET",
@@ -692,13 +692,20 @@
           pagination: {
             options: {
               containerID: "profiles-container",
-              perPage: 10,
+              // For small screens
+              perPage: 4,
               previous: "«",
               next: "»",
             },
             selectors: {
               container: "#profiles-container",
               pagination: "#pagination-container",
+            },
+            breakpoints: {
+              "576": 8,
+              "768": 16,
+              "992": 32,
+              "1200": 64,
             },
           },
           location: true,

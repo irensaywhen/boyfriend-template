@@ -2477,6 +2477,37 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
 
 /***/ }),
 
+/***/ "./js/modules/helper.js":
+/*!******************************!*\
+  !*** ./js/modules/helper.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ((function () {
+  return {
+    getScrollBarWidth: function getScrollBarWidth() {
+      var $outer = $("<div>").css({
+        visibility: "hidden",
+        width: 100,
+        overflow: "scroll"
+      }).appendTo("body"),
+          widthWithScroll = $("<div>").css({
+        width: "100%"
+      }).appendTo($outer).outerWidth();
+      $outer.remove();
+      return 100 - widthWithScroll;
+    },
+    getViewportWidth: function getViewportWidth() {
+      return $(window).width() + this.getScrollBarWidth();
+    }
+  };
+})());
+
+/***/ }),
+
 /***/ "./js/modules/locationMixin.js":
 /*!*************************************!*\
   !*** ./js/modules/locationMixin.js ***!
@@ -2982,18 +3013,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js");
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helper.js */ "./js/modules/helper.js");
+
 
 
 
 var Pagination = /*#__PURE__*/function () {
   function Pagination(config) {
+    var _this = this;
+
     _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Pagination);
 
     var selectors = config.selectors;
     this.options = config.options;
     this.$container = $(selectors.container);
     this.$pagination = $(selectors.pagination);
+    this.breakpointsConfig = config.breakpoints;
+    var breakpoints = Object.keys(config.breakpoints);
+    this.breakpoints = breakpoints.map(function (breakpoint) {
+      return parseInt(breakpoint);
+    });
     this._init = false;
+    $(window).resize(function () {
+      var viewportWidth = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportWidth();
+      if (!_this.breakpoints.includes(viewportWidth)) return;
+      console.log("Came across bootstrap breakpoint!");
+      console.log(_this._init);
+      if (!_this._init) return;
+
+      _this.$pagination.destroy();
+
+      _this.$pagination.init();
+    });
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Pagination, [{
@@ -3001,6 +3052,9 @@ var Pagination = /*#__PURE__*/function () {
     value: function init() {
       if (!this._init) {
         this.$pagination.jPages(this.options);
+        console.log("Initializing!");
+        this.viewportWidth = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportWidth();
+        this._init = true;
       }
     }
   }, {
@@ -3008,6 +3062,7 @@ var Pagination = /*#__PURE__*/function () {
     value: function destroy() {
       if (this._init) {
         this.$pagination.jPages("destroy");
+        this._init = false;
       }
     } // Preventing resetting containers after initialization
 
@@ -3029,6 +3084,16 @@ var Pagination = /*#__PURE__*/function () {
     set: function set($container) {
       if (!this._$pagination) {
         this._$pagination = $container;
+      }
+    }
+  }, {
+    key: "breakpoints",
+    get: function get() {
+      return this._breakpoints;
+    },
+    set: function set(breakpoints) {
+      if (!this.breakpoints) {
+        this._breakpoints = breakpoints;
       }
     }
   }]);
