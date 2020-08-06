@@ -1293,6 +1293,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_boost_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/boost.js */ "./js/modules/boost.js");
 /* harmony import */ var _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/search-profiles-form.js */ "./js/modules/search-profiles-form.js");
 /* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/buyPremiumForm.js */ "./js/modules/buyPremiumForm.js");
+/* harmony import */ var _modules_pagination_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/pagination.js */ "./js/modules/pagination.js");
+
 
 
 
@@ -1303,6 +1305,18 @@ window["PhotoEditor"] = _modules_editor_js__WEBPACK_IMPORTED_MODULE_1__["default
 window["Boost"] = _modules_boost_js__WEBPACK_IMPORTED_MODULE_2__["default"];
 window["SearchProfilesForm"] = _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_3__["default"];
 window["BuyPremiumForm"] = _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__["default"];
+window["Pagination"] = _modules_pagination_js__WEBPACK_IMPORTED_MODULE_5__["default"];
+
+/***/ }),
+
+/***/ "./js/modules/ad.js":
+/*!**************************!*\
+  !*** ./js/modules/ad.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
 
 /***/ }),
 
@@ -3030,6 +3044,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js");
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helper.js */ "./js/modules/helper.js");
+/* harmony import */ var _ad_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ad.js */ "./js/modules/ad.js");
+/* harmony import */ var _ad_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_ad_js__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
@@ -3044,11 +3061,9 @@ var Pagination = /*#__PURE__*/function () {
     this.$container = $(selectors.container);
     this.$pagination = $(selectors.pagination); // Options for the plugin
 
-    this.options = config.options; // Configuration for breakpoints
+    this.pluginOptions = config.pluginOptions; // Configuration for breakpoints
 
-    this.perPageConfig = config.perPageConfig; //let breakpoints = Object.keys(config.breakpoints);
-    //this.breakpoints = breakpoints.map((breakpoint) => parseInt(breakpoint));
-
+    this.perPageConfig = config.perPageConfig;
     this._init = false;
     $(window).resize(function () {
       var viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportRange();
@@ -3058,6 +3073,16 @@ var Pagination = /*#__PURE__*/function () {
 
       _this.init();
     });
+    $(document).on("searchForm:beforeRequest", function () {
+      _this.$container.empty();
+
+      _this.destroy();
+    });
+    $(document).on("searchForm:afterSuccessfulRequest", function () {
+      _this.init();
+    }); // For debugging
+
+    this.init();
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Pagination, [{
@@ -3065,8 +3090,8 @@ var Pagination = /*#__PURE__*/function () {
     value: function init() {
       if (this._init) return;
       this._viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportRange();
-      this.options.perPage = this.perPageConfig[this._viewportRange];
-      this.$pagination.jPages(this.options);
+      this.pluginOptions.perPage = this.perPageConfig[this._viewportRange];
+      this.$pagination.jPages(this.pluginOptions);
       this._init = true;
     }
   }, {
@@ -3566,7 +3591,6 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
     _this.createNoResultsBadge = _this.createNoResultsBadge.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
     _this.searchFormOptions = options["searchFormOptions"];
     _this.slider = options["slider"];
-    _this.pagination = new _pagination_js__WEBPACK_IMPORTED_MODULE_8__["default"](options.pagination);
 
     _this.generateAgeRange();
 
@@ -3614,9 +3638,7 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
         // Show loading indicator
         _this3.$formLoadingIndicator.fadeIn(200);
 
-        var pagination = _this3.pagination;
-        pagination.$container.empty();
-        pagination.destroy();
+        $(document).trigger("searchForm:beforeRequest");
 
         _this3.collectFormInputs();
 
@@ -3640,7 +3662,7 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
 
           _this3.createProfileViews(profiles);
 
-          pagination.init(); // Hide loading indicator
+          $(document).trigger("searchForm:afterSuccessfulRequest"); // Hide loading indicator
 
           _this3.$formLoadingIndicator.fadeOut(200);
         });

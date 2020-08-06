@@ -1,4 +1,5 @@
 import helper from "./helper.js";
+import Ad from "./ad.js";
 
 export default class Pagination {
   constructor(config) {
@@ -8,13 +9,10 @@ export default class Pagination {
     this.$pagination = $(selectors.pagination);
 
     // Options for the plugin
-    this.options = config.options;
+    this.pluginOptions = config.pluginOptions;
 
     // Configuration for breakpoints
     this.perPageConfig = config.perPageConfig;
-
-    //let breakpoints = Object.keys(config.breakpoints);
-    //this.breakpoints = breakpoints.map((breakpoint) => parseInt(breakpoint));
 
     this._init = false;
 
@@ -26,6 +24,18 @@ export default class Pagination {
       this.destroy();
       this.init();
     });
+
+    $(document).on("searchForm:beforeRequest", () => {
+      this.$container.empty();
+      this.destroy();
+    });
+
+    $(document).on("searchForm:afterSuccessfulRequest", () => {
+      this.init();
+    });
+
+    // For debugging
+    this.init();
   }
 
   init() {
@@ -33,9 +43,9 @@ export default class Pagination {
 
     this._viewportRange = helper.getViewportRange();
 
-    this.options.perPage = this.perPageConfig[this._viewportRange];
+    this.pluginOptions.perPage = this.perPageConfig[this._viewportRange];
 
-    this.$pagination.jPages(this.options);
+    this.$pagination.jPages(this.pluginOptions);
 
     this._init = true;
   }

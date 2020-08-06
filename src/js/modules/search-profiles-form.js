@@ -16,8 +16,6 @@ export default class SearchProfilesForm extends Form {
 
     this.slider = options["slider"];
 
-    this.pagination = new Pagination(options.pagination);
-
     this.generateAgeRange();
     this.initializeSlider();
   }
@@ -58,10 +56,7 @@ export default class SearchProfilesForm extends Form {
       // Show loading indicator
       this.$formLoadingIndicator.fadeIn(200);
 
-      let pagination = this.pagination;
-
-      pagination.$container.empty();
-      pagination.destroy();
+      $(document).trigger("searchForm:beforeRequest");
 
       this.collectFormInputs();
 
@@ -84,7 +79,7 @@ export default class SearchProfilesForm extends Form {
 
         this.createProfileViews(profiles);
 
-        pagination.init();
+        $(document).trigger("searchForm:afterSuccessfulRequest");
 
         // Hide loading indicator
         this.$formLoadingIndicator.fadeOut(200);
