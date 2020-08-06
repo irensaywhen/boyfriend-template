@@ -2506,7 +2506,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     getViewportRange: function getViewportRange() {
       var viewportWidth = this.getViewportWidth();
-      console.log(viewportWidth);
 
       if (breakpoints[0] <= viewportWidth && viewportWidth < breakpoints[1]) {
         return "xs";
@@ -3571,10 +3570,7 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
 
     _this.generateAgeRange();
 
-    _this.initializeSlider(); // Initialize pagination for debugging
-
-
-    _this.pagination.init();
+    _this.initializeSlider();
 
     return _this;
   }

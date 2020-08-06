@@ -20,9 +20,6 @@ export default class SearchProfilesForm extends Form {
 
     this.generateAgeRange();
     this.initializeSlider();
-
-    // Initialize pagination for debugging
-    this.pagination.init();
   }
 
   initializeSlider() {

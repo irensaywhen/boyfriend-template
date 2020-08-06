@@ -20,7 +20,6 @@ export default (function () {
 
     getViewportRange() {
       let viewportWidth = this.getViewportWidth();
-      console.log(viewportWidth);
 
       if (breakpoints[0] <= viewportWidth && viewportWidth < breakpoints[1]) {
         return "xs";
