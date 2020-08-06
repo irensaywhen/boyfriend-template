@@ -1,4 +1,6 @@
 export default (function () {
+  const breakpoints = [320, 576, 768, 992, 1200];
+
   return {
     getScrollBarWidth() {
       var $outer = $("<div>")
@@ -14,6 +16,32 @@ export default (function () {
 
     getViewportWidth() {
       return $(window).width() + this.getScrollBarWidth();
+    },
+
+    getViewportRange() {
+      let viewportWidth = this.getViewportWidth();
+      console.log(viewportWidth);
+
+      if (breakpoints[0] <= viewportWidth && viewportWidth < breakpoints[1]) {
+        return "xs";
+      } else if (
+        breakpoints[1] <= viewportWidth &&
+        viewportWidth < breakpoints[2]
+      ) {
+        return "sm";
+      } else if (
+        breakpoints[2] <= viewportWidth &&
+        viewportWidth < breakpoints[3]
+      ) {
+        return "md";
+      } else if (
+        breakpoints[3] <= viewportWidth &&
+        viewportWidth < breakpoints[4]
+      ) {
+        return "lg";
+      } else if (breakpoints[4] <= viewportWidth) {
+        return "xl";
+      }
     },
   };
 })();

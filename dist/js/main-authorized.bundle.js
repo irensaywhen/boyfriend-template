@@ -2487,6 +2487,7 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ((function () {
+  var breakpoints = [320, 576, 768, 992, 1200];
   return {
     getScrollBarWidth: function getScrollBarWidth() {
       var $outer = $("<div>").css({
@@ -2502,6 +2503,22 @@ __webpack_require__.r(__webpack_exports__);
     },
     getViewportWidth: function getViewportWidth() {
       return $(window).width() + this.getScrollBarWidth();
+    },
+    getViewportRange: function getViewportRange() {
+      var viewportWidth = this.getViewportWidth();
+      console.log(viewportWidth);
+
+      if (breakpoints[0] <= viewportWidth && viewportWidth < breakpoints[1]) {
+        return "xs";
+      } else if (breakpoints[1] <= viewportWidth && viewportWidth < breakpoints[2]) {
+        return "sm";
+      } else if (breakpoints[2] <= viewportWidth && viewportWidth < breakpoints[3]) {
+        return "md";
+      } else if (breakpoints[3] <= viewportWidth && viewportWidth < breakpoints[4]) {
+        return "lg";
+      } else if (breakpoints[4] <= viewportWidth) {
+        return "xl";
+      }
     }
   };
 })());
@@ -3025,37 +3042,33 @@ var Pagination = /*#__PURE__*/function () {
     _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Pagination);
 
     var selectors = config.selectors;
-    this.options = config.options;
     this.$container = $(selectors.container);
-    this.$pagination = $(selectors.pagination);
-    this.breakpointsConfig = config.breakpoints;
-    var breakpoints = Object.keys(config.breakpoints);
-    this.breakpoints = breakpoints.map(function (breakpoint) {
-      return parseInt(breakpoint);
-    });
+    this.$pagination = $(selectors.pagination); // Options for the plugin
+
+    this.options = config.options; // Configuration for breakpoints
+
+    this.perPageConfig = config.perPageConfig; //let breakpoints = Object.keys(config.breakpoints);
+    //this.breakpoints = breakpoints.map((breakpoint) => parseInt(breakpoint));
+
     this._init = false;
     $(window).resize(function () {
-      var viewportWidth = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportWidth();
-      if (!_this.breakpoints.includes(viewportWidth)) return;
-      console.log("Came across bootstrap breakpoint!");
-      console.log(_this._init);
-      if (!_this._init) return;
+      var viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportRange();
+      if (!(viewportRange !== _this._viewportRange) || !_this._init) return;
 
-      _this.$pagination.destroy();
+      _this.destroy();
 
-      _this.$pagination.init();
+      _this.init();
     });
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Pagination, [{
     key: "init",
     value: function init() {
-      if (!this._init) {
-        this.$pagination.jPages(this.options);
-        console.log("Initializing!");
-        this.viewportWidth = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportWidth();
-        this._init = true;
-      }
+      if (this._init) return;
+      this._viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportRange();
+      this.options.perPage = this.perPageConfig[this._viewportRange];
+      this.$pagination.jPages(this.options);
+      this._init = true;
     }
   }, {
     key: "destroy",
@@ -3065,6 +3078,7 @@ var Pagination = /*#__PURE__*/function () {
         this._init = false;
       }
     } // Preventing resetting containers after initialization
+    // Items container
 
   }, {
     key: "$container",
@@ -3075,7 +3089,8 @@ var Pagination = /*#__PURE__*/function () {
       if (!this._$container) {
         this._$container = $container;
       }
-    }
+    } // Pagination container
+
   }, {
     key: "$pagination",
     get: function get() {
@@ -3085,7 +3100,8 @@ var Pagination = /*#__PURE__*/function () {
       if (!this._$pagination) {
         this._$pagination = $container;
       }
-    }
+    } // Breakpoints
+
   }, {
     key: "breakpoints",
     get: function get() {
@@ -3555,7 +3571,10 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
 
     _this.generateAgeRange();
 
-    _this.initializeSlider();
+    _this.initializeSlider(); // Initialize pagination for debugging
+
+
+    _this.pagination.init();
 
     return _this;
   }

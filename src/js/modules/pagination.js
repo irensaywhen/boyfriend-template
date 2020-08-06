@@ -3,41 +3,41 @@ import helper from "./helper.js";
 export default class Pagination {
   constructor(config) {
     let selectors = config.selectors;
-    this.options = config.options;
 
     this.$container = $(selectors.container);
     this.$pagination = $(selectors.pagination);
-    this.breakpointsConfig = config.breakpoints;
 
-    let breakpoints = Object.keys(config.breakpoints);
-    this.breakpoints = breakpoints.map((breakpoint) => parseInt(breakpoint));
+    // Options for the plugin
+    this.options = config.options;
+
+    // Configuration for breakpoints
+    this.perPageConfig = config.perPageConfig;
+
+    //let breakpoints = Object.keys(config.breakpoints);
+    //this.breakpoints = breakpoints.map((breakpoint) => parseInt(breakpoint));
 
     this._init = false;
 
     $(window).resize(() => {
-      let viewportWidth = helper.getViewportWidth();
+      let viewportRange = helper.getViewportRange();
 
-      if (!this.breakpoints.includes(viewportWidth)) return;
+      if (!(viewportRange !== this._viewportRange) || !this._init) return;
 
-      console.log("Came across bootstrap breakpoint!");
-      console.log(this._init);
-
-      if (!this._init) return;
-
-      this.$pagination.destroy();
-      this.$pagination.init();
+      this.destroy();
+      this.init();
     });
   }
 
   init() {
-    if (!this._init) {
-      this.$pagination.jPages(this.options);
-      console.log("Initializing!");
+    if (this._init) return;
 
-      this.viewportWidth = helper.getViewportWidth();
+    this._viewportRange = helper.getViewportRange();
 
-      this._init = true;
-    }
+    this.options.perPage = this.perPageConfig[this._viewportRange];
+
+    this.$pagination.jPages(this.options);
+
+    this._init = true;
   }
 
   destroy() {
@@ -48,26 +48,28 @@ export default class Pagination {
   }
 
   // Preventing resetting containers after initialization
+
+  // Items container
   get $container() {
     return this._$container;
   }
-
   set $container($container) {
     if (!this._$container) {
       this._$container = $container;
     }
   }
 
+  // Pagination container
   get $pagination() {
     return this._$pagination;
   }
-
   set $pagination($container) {
     if (!this._$pagination) {
       this._$pagination = $container;
     }
   }
 
+  // Breakpoints
   get breakpoints() {
     return this._breakpoints;
   }
