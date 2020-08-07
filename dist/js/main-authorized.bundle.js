@@ -1354,9 +1354,10 @@ var Ad = /*#__PURE__*/function () {
       _this._insertAd();
     });
     $document.on("pagination:afterDestroy", function () {
-      // Find ads inside the pagination container
+      console.log("pagination:afterDestroy"); // Find ads inside the pagination container
       // And remove it
-      _this._removeAd(); // Then - insert ads again
+
+      _this._removeAds(); // Then - insert ads again
 
 
       _this._insertAd();
@@ -1382,15 +1383,16 @@ var Ad = /*#__PURE__*/function () {
           element = this.elementInsertAfter["element"],
           htmlClass = this.elementInsertAfter["class"];
       var formula = String(2 * place) + "n" + "+" + String(place);
-      var profile = this.$profilesContainer.find("".concat(element, ".").concat(htmlClass, ":nth-of-type(").concat(formula, ")")).css("background", "red").after(this.$adWrapper.clone().append(this.$ad.clone()));
+      this.$profilesContainer.find("".concat(element, ".").concat(htmlClass, ":nth-of-type(").concat(formula, ")")).css("background", "red").after(this.$adWrapper.clone().append(this.$ad.clone()));
       this.$profilesContainer.trigger("ad:afterInsert");
     }
   }, {
-    key: "_removeAd",
-    value: function _removeAd() {
-      var ads = this.$profilesContainer.find("[data-type='".concat(this.type, "']")); //.remove();
+    key: "_removeAds",
+    value: function _removeAds() {
+      var ads = this.$profilesContainer.find("[data-type='".concat(this.type, "']")).remove(); //.remove();
 
       console.log(ads);
+      console.log("ads removed");
     } // Getters and setters
     // Ads container
 
@@ -3168,9 +3170,10 @@ var Pagination = /*#__PURE__*/function () {
       var viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportRange();
       if (!(viewportRange !== _this._viewportRange) || !_this._init) return;
 
-      _this.destroy(); // Do it after ads insertion
-      //this.init();
+      _this.destroy();
 
+      console.log("Pagination is initialized: ".concat(_this._init)); // Do it after ads insertion
+      //this.init();
     });
     var $document = $(document);
     $document.on("searchForm:beforeRequest", function () {
@@ -3179,6 +3182,8 @@ var Pagination = /*#__PURE__*/function () {
       _this.destroy();
     });
     $document.on("ad:afterInsert", function () {
+      console.log("ad:afterInsert");
+
       _this.init();
     });
   }
@@ -3187,6 +3192,7 @@ var Pagination = /*#__PURE__*/function () {
     key: "init",
     value: function init() {
       if (this._init) return;
+      console.log("Initializing pagination!");
       this.$pagination.trigger("pagination:beforeInit");
       this._viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportRange();
       this.pluginOptions.perPage = this.perPageConfig[this._viewportRange];

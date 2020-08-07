@@ -21,6 +21,7 @@ export default class Pagination {
       if (!(viewportRange !== this._viewportRange) || !this._init) return;
 
       this.destroy();
+      console.log(`Pagination is initialized: ${this._init}`);
 
       // Do it after ads insertion
       //this.init();
@@ -34,12 +35,14 @@ export default class Pagination {
     });
 
     $document.on("ad:afterInsert", () => {
+      console.log("ad:afterInsert");
       this.init();
     });
   }
 
   init() {
     if (this._init) return;
+    console.log("Initializing pagination!");
 
     this.$pagination.trigger("pagination:beforeInit");
 

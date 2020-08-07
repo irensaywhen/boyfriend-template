@@ -22,9 +22,10 @@ export default class Ad {
     });
 
     $document.on("pagination:afterDestroy", () => {
+      console.log("pagination:afterDestroy");
       // Find ads inside the pagination container
       // And remove it
-      this._removeAd();
+      this._removeAds();
       // Then - insert ads again
       this._insertAd();
     });
@@ -46,18 +47,21 @@ export default class Ad {
 
     let formula = String(2 * place) + "n" + "+" + String(place);
 
-    let profile = this.$profilesContainer
+    this.$profilesContainer
       .find(`${element}.${htmlClass}:nth-of-type(${formula})`)
       .css("background", "red")
       .after(this.$adWrapper.clone().append(this.$ad.clone()));
 
     this.$profilesContainer.trigger("ad:afterInsert");
   }
-  _removeAd() {
-    let ads = this.$profilesContainer.find(`[data-type='${this.type}']`);
+  _removeAds() {
+    let ads = this.$profilesContainer
+      .find(`[data-type='${this.type}']`)
+      .remove();
     //.remove();
 
     console.log(ads);
+    console.log("ads removed");
   }
 
   // Getters and setters
