@@ -1,5 +1,4 @@
 import helper from "./helper.js";
-import Ad from "./ad.js";
 
 export default class Pagination {
   constructor(config) {
@@ -22,30 +21,34 @@ export default class Pagination {
       if (!(viewportRange !== this._viewportRange) || !this._init) return;
 
       this.destroy();
-      this.init();
+
+      // Do it after ads insertion
+      //this.init();
     });
 
-    $(document).on("searchForm:beforeRequest", () => {
+    let $document = $(document);
+
+    $document.on("searchForm:beforeRequest", () => {
       this.$container.empty();
       this.destroy();
     });
 
-    $(document).on("searchForm:afterSuccessfulRequest", () => {
+    $document.on("ad:afterInsert", () => {
       this.init();
     });
-
-    // For debugging
-    this.init();
   }
 
   init() {
     if (this._init) return;
 
-    this._viewportRange = helper.getViewportRange();
+    this.$pagination.trigger("pagination:beforeInit");
 
+    this._viewportRange = helper.getViewportRange();
     this.pluginOptions.perPage = this.perPageConfig[this._viewportRange];
 
     this.$pagination.jPages(this.pluginOptions);
+
+    this.$pagination.trigger("pagination:afterInit");
 
     this._init = true;
   }
@@ -53,6 +56,9 @@ export default class Pagination {
   destroy() {
     if (this._init) {
       this.$pagination.jPages("destroy");
+
+      this.$pagination.trigger("pagination:afterDestroy");
+
       this._init = false;
     }
   }

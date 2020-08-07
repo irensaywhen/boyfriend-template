@@ -21,7 +21,7 @@ export default (function () {
     getViewportRange() {
       let viewportWidth = this.getViewportWidth();
 
-      if (breakpoints[0] <= viewportWidth && viewportWidth < breakpoints[1]) {
+      if (viewportWidth && viewportWidth < breakpoints[1]) {
         return "xs";
       } else if (
         breakpoints[1] <= viewportWidth &&

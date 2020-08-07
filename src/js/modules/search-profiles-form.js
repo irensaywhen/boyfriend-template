@@ -13,6 +13,7 @@ export default class SearchProfilesForm extends Form {
     this.createNoResultsBadge = this.createNoResultsBadge.bind(this);
 
     this.searchFormOptions = options["searchFormOptions"];
+    this.$resultsContainer = $(this.selectors["resultsContainer"]);
 
     this.slider = options["slider"];
 
@@ -22,8 +23,8 @@ export default class SearchProfilesForm extends Form {
 
   initializeSlider() {
     // THink whether you need to save it
-    this.$distanceFrom = this.$form.find(this.selectors["distanceFrom"]);
-    this.$distanceTo = this.$form.find(this.selectors["distanceTo"]);
+    //this.$distanceFrom = this.$form.find(this.selectors["distanceFrom"]);
+    //this.$distanceTo = this.$form.find(this.selectors["distanceTo"]);
 
     this.slider["noUiSlider"].on("change", () => {
       this.$inputs.first().trigger("input");
@@ -56,8 +57,6 @@ export default class SearchProfilesForm extends Form {
       // Show loading indicator
       this.$formLoadingIndicator.fadeIn(200);
 
-      $(document).trigger("searchForm:beforeRequest");
-
       this.collectFormInputs();
 
       let request = this.requests.profiles;
@@ -79,7 +78,7 @@ export default class SearchProfilesForm extends Form {
 
         this.createProfileViews(profiles);
 
-        $(document).trigger("searchForm:afterSuccessfulRequest");
+        this.$form.trigger("searchForm:afterSuccessfulRequest", response);
 
         // Hide loading indicator
         this.$formLoadingIndicator.fadeOut(200);
@@ -112,14 +111,14 @@ export default class SearchProfilesForm extends Form {
         ? 1
         : 0;
     });
-    $("html, body").animate(
-      {
-        scrollTop: this.pagination.$container.offset().top,
-      },
-      1100
-    );
+    //$("html, body").animate(
+    //  {
+    //    scrollTop: this.pagination.$container.offset().top,
+    //  },
+    //  1100
+    //);
     profiles.forEach((profile) => {
-      this.createProfileView(profile).appendTo(this.pagination.$container);
+      this.createProfileView(profile).appendTo(this.$resultsContainer);
     });
   }
 
@@ -140,7 +139,7 @@ export default class SearchProfilesForm extends Form {
 
     let $col = $("<div></div>")
       .addClass("col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2")
-      .addClass("column mx-auto mx-sm-0");
+      .addClass("column mx-auto mx-sm-0 search-result");
 
     let $profileContainer = $("<div></div>").addClass(
       "card shadow-sm border-0 mb-4"

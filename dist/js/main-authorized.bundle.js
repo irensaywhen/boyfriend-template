@@ -1294,6 +1294,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/search-profiles-form.js */ "./js/modules/search-profiles-form.js");
 /* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/buyPremiumForm.js */ "./js/modules/buyPremiumForm.js");
 /* harmony import */ var _modules_pagination_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/pagination.js */ "./js/modules/pagination.js");
+/* harmony import */ var _modules_ad_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/ad.js */ "./js/modules/ad.js");
+
 
 
 
@@ -1306,6 +1308,7 @@ window["Boost"] = _modules_boost_js__WEBPACK_IMPORTED_MODULE_2__["default"];
 window["SearchProfilesForm"] = _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_3__["default"];
 window["BuyPremiumForm"] = _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__["default"];
 window["Pagination"] = _modules_pagination_js__WEBPACK_IMPORTED_MODULE_5__["default"];
+window["Ad"] = _modules_ad_js__WEBPACK_IMPORTED_MODULE_6__["default"];
 
 /***/ }),
 
@@ -1313,8 +1316,107 @@ window["Pagination"] = _modules_pagination_js__WEBPACK_IMPORTED_MODULE_5__["defa
 /*!**************************!*\
   !*** ./js/modules/ad.js ***!
   \**************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Ad; });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "../node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helper.js */ "./js/modules/helper.js");
+
+
+
+
+var Ad = /*#__PURE__*/function () {
+  function Ad(options) {
+    var _this = this;
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Ad);
+
+    // For debugging
+    // This information will be recieved through request
+    this.type = "default";
+    this.selectors = options["selectors"];
+    this.placementConfig = options["placementConfig"];
+    this.elementInsertAfter = options["elementInsertAfter"];
+    this.$adContainer = $(this["selectors"]["container"]);
+    this.$profilesContainer = $(this["selectors"]["profilesContainer"]);
+    var $document = $(document);
+    $document.on("searchForm:afterSuccessfulRequest", function (event, data) {
+      _this._getAd();
+
+      _this._makeAdWrapper();
+
+      _this._insertAd();
+    });
+    $document.on("pagination:afterDestroy", function () {
+      // Find ads inside the pagination container
+      // And remove it
+      _this._removeAd(); // Then - insert ads again
+
+
+      _this._insertAd();
+    });
+    $document.on("pagination:afterInit", function () {});
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Ad, [{
+    key: "_getAd",
+    value: function _getAd() {
+      this.$ad = this.$adContainer.find("[data-type='".concat(this.type, "']")).clone();
+    }
+  }, {
+    key: "_makeAdWrapper",
+    value: function _makeAdWrapper() {
+      this.$adWrapper = $("<div></div>").addClass("col-12 mt-4 mb-5");
+    }
+  }, {
+    key: "_insertAd",
+    value: function _insertAd() {
+      var viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportRange(),
+          place = this.placementConfig[viewportRange],
+          element = this.elementInsertAfter["element"],
+          htmlClass = this.elementInsertAfter["class"];
+      var formula = String(2 * place) + "n" + "+" + String(place);
+      var profile = this.$profilesContainer.find("".concat(element, ".").concat(htmlClass, ":nth-of-type(").concat(formula, ")")).css("background", "red").after(this.$adWrapper.clone().append(this.$ad.clone()));
+      this.$profilesContainer.trigger("ad:afterInsert");
+    }
+  }, {
+    key: "_removeAd",
+    value: function _removeAd() {
+      var ads = this.$profilesContainer.find("[data-type='".concat(this.type, "']")); //.remove();
+
+      console.log(ads);
+    } // Getters and setters
+    // Ads container
+
+  }, {
+    key: "$adContainer",
+    set: function set($element) {
+      if (this._adContainer) return;
+      this._adContainer = $element;
+    },
+    get: function get() {
+      return this._adContainer;
+    } // Profiles container
+
+  }, {
+    key: "$profilesContainer",
+    set: function set($element) {
+      if (this._profilesContainer) return;
+      this._profilesContainer = $element;
+    },
+    get: function get() {
+      return this._profilesContainer;
+    }
+  }]);
+
+  return Ad;
+}();
 
 
 
@@ -2521,7 +2623,7 @@ __webpack_require__.r(__webpack_exports__);
     getViewportRange: function getViewportRange() {
       var viewportWidth = this.getViewportWidth();
 
-      if (breakpoints[0] <= viewportWidth && viewportWidth < breakpoints[1]) {
+      if (viewportWidth && viewportWidth < breakpoints[1]) {
         return "xs";
       } else if (breakpoints[1] <= viewportWidth && viewportWidth < breakpoints[2]) {
         return "sm";
@@ -3044,9 +3146,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js");
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helper.js */ "./js/modules/helper.js");
-/* harmony import */ var _ad_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ad.js */ "./js/modules/ad.js");
-/* harmony import */ var _ad_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_ad_js__WEBPACK_IMPORTED_MODULE_3__);
-
 
 
 
@@ -3069,29 +3168,30 @@ var Pagination = /*#__PURE__*/function () {
       var viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportRange();
       if (!(viewportRange !== _this._viewportRange) || !_this._init) return;
 
-      _this.destroy();
+      _this.destroy(); // Do it after ads insertion
+      //this.init();
 
-      _this.init();
     });
-    $(document).on("searchForm:beforeRequest", function () {
+    var $document = $(document);
+    $document.on("searchForm:beforeRequest", function () {
       _this.$container.empty();
 
       _this.destroy();
     });
-    $(document).on("searchForm:afterSuccessfulRequest", function () {
+    $document.on("ad:afterInsert", function () {
       _this.init();
-    }); // For debugging
-
-    this.init();
+    });
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Pagination, [{
     key: "init",
     value: function init() {
       if (this._init) return;
+      this.$pagination.trigger("pagination:beforeInit");
       this._viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportRange();
       this.pluginOptions.perPage = this.perPageConfig[this._viewportRange];
       this.$pagination.jPages(this.pluginOptions);
+      this.$pagination.trigger("pagination:afterInit");
       this._init = true;
     }
   }, {
@@ -3099,6 +3199,7 @@ var Pagination = /*#__PURE__*/function () {
     value: function destroy() {
       if (this._init) {
         this.$pagination.jPages("destroy");
+        this.$pagination.trigger("pagination:afterDestroy");
         this._init = false;
       }
     } // Preventing resetting containers after initialization
@@ -3590,6 +3691,7 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
     _this.createProfileViews = _this.createProfileViews.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
     _this.createNoResultsBadge = _this.createNoResultsBadge.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
     _this.searchFormOptions = options["searchFormOptions"];
+    _this.$resultsContainer = $(_this.selectors["resultsContainer"]);
     _this.slider = options["slider"];
 
     _this.generateAgeRange();
@@ -3605,8 +3707,8 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
       var _this2 = this;
 
       // THink whether you need to save it
-      this.$distanceFrom = this.$form.find(this.selectors["distanceFrom"]);
-      this.$distanceTo = this.$form.find(this.selectors["distanceTo"]);
+      //this.$distanceFrom = this.$form.find(this.selectors["distanceFrom"]);
+      //this.$distanceTo = this.$form.find(this.selectors["distanceTo"]);
       this.slider["noUiSlider"].on("change", function () {
         _this2.$inputs.first().trigger("input");
       });
@@ -3638,8 +3740,6 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
         // Show loading indicator
         _this3.$formLoadingIndicator.fadeIn(200);
 
-        $(document).trigger("searchForm:beforeRequest");
-
         _this3.collectFormInputs();
 
         var request = _this3.requests.profiles;
@@ -3662,7 +3762,8 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
 
           _this3.createProfileViews(profiles);
 
-          $(document).trigger("searchForm:afterSuccessfulRequest"); // Hide loading indicator
+          _this3.$form.trigger("searchForm:afterSuccessfulRequest", response); // Hide loading indicator
+
 
           _this3.$formLoadingIndicator.fadeOut(200);
         });
@@ -3676,12 +3777,15 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
       // Sort out all the premium users to be at the beginning
       profiles.sort(function (user1, user2) {
         return user1.premium.status ? user1.online.status ? user2.premium.status ? user2.online.status ? 0 : -1 : -1 : user2.premium.status ? user2.online.status ? 1 : 0 : -1 : user2.premium.status ? 1 : user1.online.status ? user2.online.status ? 0 : -1 : user2.online.status ? 1 : 0;
-      });
-      $("html, body").animate({
-        scrollTop: this.pagination.$container.offset().top
-      }, 1100);
+      }); //$("html, body").animate(
+      //  {
+      //    scrollTop: this.pagination.$container.offset().top,
+      //  },
+      //  1100
+      //);
+
       profiles.forEach(function (profile) {
-        _this4.createProfileView(profile).appendTo(_this4.pagination.$container);
+        _this4.createProfileView(profile).appendTo(_this4.$resultsContainer);
       });
     }
   }, {
@@ -3703,7 +3807,7 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
           online = profileParameters.online,
           avatar = profileParameters.avatar,
           profile = profileParameters.profile;
-      var $col = $("<div></div>").addClass("col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2").addClass("column mx-auto mx-sm-0");
+      var $col = $("<div></div>").addClass("col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2").addClass("column mx-auto mx-sm-0 search-result");
       var $profileContainer = $("<div></div>").addClass("card shadow-sm border-0 mb-4");
       var $cardImage = $("<figure></figure>").addClass("profile-image card-img-top").append($("<img>").addClass("card-img-top").attr("src", avatar.src).attr("alt", avatar.alt));
 
