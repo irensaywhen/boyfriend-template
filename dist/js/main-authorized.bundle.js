@@ -1355,30 +1355,36 @@ var Ad = /*#__PURE__*/function () {
     var $document = $(document); //$document.on("searchForm:beforeRequest", () => {
     //  this._inserted = false;
     //});
+    //$document.on("searchForm:afterSuccessfulRequest", (event, data) => {
+    //  // Here profiles are already displayed
+    //  //if (!this.initialRequest) {
+    //  console.log("After successful request");
+    //  this._getAd();
+    //  this._makeAdWrapper();
+    //  this._insertAd();
+    //  // }
+    //});
+    //$document.on("pagination:beforeDestroy", () => {
+    //  // Find ads inside the pagination container
+    //  // And remove it
+    //  this._removeAds();
+    //  // Then - insert ads again
+    //  //this._insertAd();
+    //});
+    //$document.on("pagination:afterDestroy", () => {
+    //  console.log("pagination:afterDestroy");
+    //  this._insertAd();
+    //});
 
-    $document.on("searchForm:afterSuccessfulRequest", function (event, data) {
-      // Here profiles are already displayed
-      //if (!this.initialRequest) {
-      console.log("After successful request");
-
+    $document.on("pagination:beforeInit", function () {
       _this._getAd();
 
       _this._makeAdWrapper();
 
-      _this._insertAd(); // }
-
-    });
-    $document.on("pagination:beforeDestroy", function () {
-      // Find ads inside the pagination container
-      // And remove it
-      _this._removeAds(); // Then - insert ads again
-      //this._insertAd();
-
-    });
-    $document.on("pagination:afterDestroy", function () {
-      console.log("pagination:afterDestroy");
-
       _this._insertAd();
+    });
+    $document.on("pagination:beforeDestroyAfterResize", function () {
+      _this._removeAds();
     });
   }
 
@@ -3191,7 +3197,11 @@ var Pagination = /*#__PURE__*/function () {
       if (viewportRange === _this._viewportRange && _this._init) return;
       console.log("Destroying pagination on resize...");
 
-      _this.destroy();
+      _this.destroy({
+        resized: true
+      });
+
+      _this.init();
 
       console.log("Pagination is initialized: ".concat(_this._init));
     });
@@ -3201,14 +3211,15 @@ var Pagination = /*#__PURE__*/function () {
 
       _this.$container.empty();
 
-      _this.destroy();
+      _this.destroy({
+        resized: false
+      });
     });
-    $document.on("ad:afterInsert", function () {
-      console.log("ad:afterInsert");
-
+    $document.on("searchForm:afterSuccessfulRequest", function () {
       _this.init();
-    }); //$document.on("pagination:afterDestroy", () => {
-    //  console.log("inside pagination: pagination:afterDestroy");
+    }); //$document.on("ad:afterInsert", () => {
+    //  console.log("ad:afterInsert");
+    //  this.init();
     //});
   }
 
@@ -3229,12 +3240,23 @@ var Pagination = /*#__PURE__*/function () {
     }
   }, {
     key: "destroy",
-    value: function destroy() {
+    value: function destroy(options) {
       if (this._init) {
-        this.$pagination.trigger("pagination:beforeDestroy");
+        // Save passed parameters
+        var resized = options.resized;
+
+        if (resized) {
+          // Trigger event if the destroyment was initiated due to resizement
+          this.$pagination.trigger("pagination:beforeDestroyAfterResize");
+        }
+
         this.$pagination.jPages("destroy");
         this._init = false;
-        $(document).trigger("pagination:afterDestroy");
+
+        if (resized) {
+          // Trigger event if the destroyment was initiated due to resizement
+          this.$pagination.trigger("pagination:afterDestroyAfterResize");
+        }
       }
     } // Preventing resetting containers after initialization
     // Items container

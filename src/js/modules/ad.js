@@ -24,27 +24,37 @@ export default class Ad {
     //  this._inserted = false;
     //});
 
-    $document.on("searchForm:afterSuccessfulRequest", (event, data) => {
-      // Here profiles are already displayed
-      //if (!this.initialRequest) {
-      console.log("After successful request");
+    //$document.on("searchForm:afterSuccessfulRequest", (event, data) => {
+    //  // Here profiles are already displayed
+    //  //if (!this.initialRequest) {
+    //  console.log("After successful request");
+    //  this._getAd();
+    //  this._makeAdWrapper();
+    //  this._insertAd();
+    //  // }
+    //});
+
+    //$document.on("pagination:beforeDestroy", () => {
+    //  // Find ads inside the pagination container
+    //  // And remove it
+    //  this._removeAds();
+    //  // Then - insert ads again
+    //  //this._insertAd();
+    //});
+
+    //$document.on("pagination:afterDestroy", () => {
+    //  console.log("pagination:afterDestroy");
+    //  this._insertAd();
+    //});
+
+    $document.on("pagination:beforeInit", () => {
       this._getAd();
       this._makeAdWrapper();
       this._insertAd();
-      // }
     });
 
-    $document.on("pagination:beforeDestroy", () => {
-      // Find ads inside the pagination container
-      // And remove it
+    $document.on("pagination:beforeDestroyAfterResize", () => {
       this._removeAds();
-      // Then - insert ads again
-      //this._insertAd();
-    });
-
-    $document.on("pagination:afterDestroy", () => {
-      console.log("pagination:afterDestroy");
-      this._insertAd();
     });
   }
 

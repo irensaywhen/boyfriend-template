@@ -20,7 +20,8 @@ export default class Pagination {
 
       if (viewportRange === this._viewportRange && this._init) return;
       console.log("Destroying pagination on resize...");
-      this.destroy();
+      this.destroy({ resized: true });
+      this.init();
       console.log(`Pagination is initialized: ${this._init}`);
     });
 
@@ -29,16 +30,16 @@ export default class Pagination {
     $document.on("searchForm:beforeRequest", () => {
       console.log("searchForm:beforeRequest");
       this.$container.empty();
-      this.destroy();
+      this.destroy({ resized: false });
     });
 
-    $document.on("ad:afterInsert", () => {
-      console.log("ad:afterInsert");
+    $document.on("searchForm:afterSuccessfulRequest", () => {
       this.init();
     });
 
-    //$document.on("pagination:afterDestroy", () => {
-    //  console.log("inside pagination: pagination:afterDestroy");
+    //$document.on("ad:afterInsert", () => {
+    //  console.log("ad:afterInsert");
+    //  this.init();
     //});
   }
 
@@ -61,14 +62,23 @@ export default class Pagination {
     this._init = true;
   }
 
-  destroy() {
+  destroy(options) {
     if (this._init) {
-      this.$pagination.trigger("pagination:beforeDestroy");
+      // Save passed parameters
+      let { resized } = options;
+
+      if (resized) {
+        // Trigger event if the destroyment was initiated due to resizement
+        this.$pagination.trigger("pagination:beforeDestroyAfterResize");
+      }
 
       this.$pagination.jPages("destroy");
       this._init = false;
 
-      $(document).trigger("pagination:afterDestroy");
+      if (resized) {
+        // Trigger event if the destroyment was initiated due to resizement
+        this.$pagination.trigger("pagination:afterDestroyAfterResize");
+      }
     }
   }
 
