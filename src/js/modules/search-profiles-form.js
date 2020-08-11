@@ -61,6 +61,9 @@ export default class SearchProfilesForm extends Form {
 
       let request = this.requests.profiles;
 
+      console.log("searchForm:beforeRequest");
+      this.$form.trigger("searchForm:beforeRequest");
+
       this.makeRequest({
         method: request.method,
         headers: request.headers,

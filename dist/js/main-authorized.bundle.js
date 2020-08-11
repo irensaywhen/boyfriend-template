@@ -1326,7 +1326,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js");
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helper.js */ "./js/modules/helper.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helper.js */ "./js/modules/helper.js");
+
 
 
 
@@ -1337,60 +1340,77 @@ var Ad = /*#__PURE__*/function () {
 
     _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Ad);
 
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(this, "initialRequest", false);
+
     // For debugging
     // This information will be recieved through request
-    this.type = "default";
+    this.type = "default"; // Setup internal name for ad wrapper
+
+    this.adWrapperClass = "pagination-wrapper";
     this.selectors = options["selectors"];
     this.placementConfig = options["placementConfig"];
     this.elementInsertAfter = options["elementInsertAfter"];
     this.$adContainer = $(this["selectors"]["container"]);
-    this.$profilesContainer = $(this["selectors"]["profilesContainer"]);
-    var $document = $(document);
+    this.$profilesContainer = $(this.selectors["profilesContainer"]);
+    var $document = $(document); //$document.on("searchForm:beforeRequest", () => {
+    //  this._inserted = false;
+    //});
+
     $document.on("searchForm:afterSuccessfulRequest", function (event, data) {
+      // Here profiles are already displayed
+      //if (!this.initialRequest) {
+      console.log("After successful request");
+
       _this._getAd();
 
       _this._makeAdWrapper();
 
-      _this._insertAd();
+      _this._insertAd(); // }
+
+    });
+    $document.on("pagination:beforeDestroy", function () {
+      // Find ads inside the pagination container
+      // And remove it
+      _this._removeAds(); // Then - insert ads again
+      //this._insertAd();
+
     });
     $document.on("pagination:afterDestroy", function () {
-      console.log("pagination:afterDestroy"); // Find ads inside the pagination container
-      // And remove it
-
-      _this._removeAds(); // Then - insert ads again
-
+      console.log("pagination:afterDestroy");
 
       _this._insertAd();
     });
-    $document.on("pagination:afterInit", function () {});
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Ad, [{
     key: "_getAd",
     value: function _getAd() {
       this.$ad = this.$adContainer.find("[data-type='".concat(this.type, "']")).clone();
+      console.log("Getting ad");
     }
   }, {
     key: "_makeAdWrapper",
     value: function _makeAdWrapper() {
-      this.$adWrapper = $("<div></div>").addClass("col-12 mt-4 mb-5");
+      this.$adWrapper = $("<div></div>").addClass("col-12 mt-4 mb-5").addClass(this.adWrapperClass);
+      console.log("Making ad wrapper");
     }
   }, {
     key: "_insertAd",
     value: function _insertAd() {
-      var viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportRange(),
+      var viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_3__["default"].getViewportRange(),
           place = this.placementConfig[viewportRange],
           element = this.elementInsertAfter["element"],
           htmlClass = this.elementInsertAfter["class"];
       var formula = String(2 * place) + "n" + "+" + String(place);
       this.$profilesContainer.find("".concat(element, ".").concat(htmlClass, ":nth-of-type(").concat(formula, ")")).css("background", "red").after(this.$adWrapper.clone().append(this.$ad.clone()));
+      console.log("Inserting ad"); //this._inserted = true;
+
       this.$profilesContainer.trigger("ad:afterInsert");
     }
   }, {
     key: "_removeAds",
     value: function _removeAds() {
-      var ads = this.$profilesContainer.find("[data-type='".concat(this.type, "']")).remove(); //.remove();
-
+      var ads = this.$profilesContainer.find(this.selectors["genericClass"]).closest("." + this.adWrapperClass).remove();
       console.log(ads);
       console.log("ads removed");
     } // Getters and setters
@@ -3162,21 +3182,23 @@ var Pagination = /*#__PURE__*/function () {
     this.$container = $(selectors.container);
     this.$pagination = $(selectors.pagination); // Options for the plugin
 
-    this.pluginOptions = config.pluginOptions; // Configuration for breakpoints
+    this.pluginOptions = config["pluginOptions"]; // Configuration for breakpoints
 
-    this.perPageConfig = config.perPageConfig;
+    this.perPageConfig = config["perPageConfig"];
     this._init = false;
     $(window).resize(function () {
       var viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportRange();
-      if (!(viewportRange !== _this._viewportRange) || !_this._init) return;
+      if (viewportRange === _this._viewportRange && _this._init) return;
+      console.log("Destroying pagination on resize...");
 
       _this.destroy();
 
-      console.log("Pagination is initialized: ".concat(_this._init)); // Do it after ads insertion
-      //this.init();
+      console.log("Pagination is initialized: ".concat(_this._init));
     });
     var $document = $(document);
     $document.on("searchForm:beforeRequest", function () {
+      console.log("searchForm:beforeRequest");
+
       _this.$container.empty();
 
       _this.destroy();
@@ -3185,17 +3207,22 @@ var Pagination = /*#__PURE__*/function () {
       console.log("ad:afterInsert");
 
       _this.init();
-    });
+    }); //$document.on("pagination:afterDestroy", () => {
+    //  console.log("inside pagination: pagination:afterDestroy");
+    //});
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Pagination, [{
     key: "init",
     value: function init() {
+      console.log("Entered init function...");
+      console.log(this._init);
       if (this._init) return;
       console.log("Initializing pagination!");
       this.$pagination.trigger("pagination:beforeInit");
       this._viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportRange();
-      this.pluginOptions.perPage = this.perPageConfig[this._viewportRange];
+      console.log("Current viewportRange is ".concat(this._viewportRange));
+      this.pluginOptions["perPage"] = this.perPageConfig[this._viewportRange];
       this.$pagination.jPages(this.pluginOptions);
       this.$pagination.trigger("pagination:afterInit");
       this._init = true;
@@ -3204,9 +3231,10 @@ var Pagination = /*#__PURE__*/function () {
     key: "destroy",
     value: function destroy() {
       if (this._init) {
+        this.$pagination.trigger("pagination:beforeDestroy");
         this.$pagination.jPages("destroy");
-        this.$pagination.trigger("pagination:afterDestroy");
         this._init = false;
+        $(document).trigger("pagination:afterDestroy");
       }
     } // Preventing resetting containers after initialization
     // Items container
@@ -3749,6 +3777,9 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
         _this3.collectFormInputs();
 
         var request = _this3.requests.profiles;
+        console.log("searchForm:beforeRequest");
+
+        _this3.$form.trigger("searchForm:beforeRequest");
 
         _this3.makeRequest({
           method: request.method,

@@ -8,28 +8,26 @@ export default class Pagination {
     this.$pagination = $(selectors.pagination);
 
     // Options for the plugin
-    this.pluginOptions = config.pluginOptions;
+    this.pluginOptions = config["pluginOptions"];
 
     // Configuration for breakpoints
-    this.perPageConfig = config.perPageConfig;
+    this.perPageConfig = config["perPageConfig"];
 
     this._init = false;
 
     $(window).resize(() => {
       let viewportRange = helper.getViewportRange();
 
-      if (!(viewportRange !== this._viewportRange) || !this._init) return;
-
+      if (viewportRange === this._viewportRange && this._init) return;
+      console.log("Destroying pagination on resize...");
       this.destroy();
       console.log(`Pagination is initialized: ${this._init}`);
-
-      // Do it after ads insertion
-      //this.init();
     });
 
     let $document = $(document);
 
     $document.on("searchForm:beforeRequest", () => {
+      console.log("searchForm:beforeRequest");
       this.$container.empty();
       this.destroy();
     });
@@ -38,16 +36,23 @@ export default class Pagination {
       console.log("ad:afterInsert");
       this.init();
     });
+
+    //$document.on("pagination:afterDestroy", () => {
+    //  console.log("inside pagination: pagination:afterDestroy");
+    //});
   }
 
   init() {
+    console.log("Entered init function...");
+    console.log(this._init);
     if (this._init) return;
     console.log("Initializing pagination!");
 
     this.$pagination.trigger("pagination:beforeInit");
 
     this._viewportRange = helper.getViewportRange();
-    this.pluginOptions.perPage = this.perPageConfig[this._viewportRange];
+    console.log(`Current viewportRange is ${this._viewportRange}`);
+    this.pluginOptions["perPage"] = this.perPageConfig[this._viewportRange];
 
     this.$pagination.jPages(this.pluginOptions);
 
@@ -58,11 +63,12 @@ export default class Pagination {
 
   destroy() {
     if (this._init) {
+      this.$pagination.trigger("pagination:beforeDestroy");
+
       this.$pagination.jPages("destroy");
-
-      this.$pagination.trigger("pagination:afterDestroy");
-
       this._init = false;
+
+      $(document).trigger("pagination:afterDestroy");
     }
   }
 
