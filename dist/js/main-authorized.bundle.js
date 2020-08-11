@@ -1344,38 +1344,14 @@ var Ad = /*#__PURE__*/function () {
 
     // For debugging
     // This information will be recieved through request
-    //this.type = "default";
     // Setup internal name for ad wrapper
     this.adWrapperClass = "pagination-wrapper";
     this.selectors = options["selectors"];
     this.placementConfig = options["placementConfig"];
     this.elementInsertAfter = options["elementInsertAfter"];
-    this.$adContainer = $(this["selectors"]["container"]);
+    this.$adContainer = $(this["selectors"]["container"]).fadeOut(0);
     this.$profilesContainer = $(this.selectors["profilesContainer"]);
-    var $document = $(document); //$document.on("searchForm:beforeRequest", () => {
-    //  this._inserted = false;
-    //});
-    //$document.on("searchForm:afterSuccessfulRequest", (event, data) => {
-    //  // Here profiles are already displayed
-    //  //if (!this.initialRequest) {
-    //  console.log("After successful request");
-    //  this._getAd();
-    //  this._makeAdWrapper();
-    //  this._insertAd();
-    //  // }
-    //});
-    //$document.on("pagination:beforeDestroy", () => {
-    //  // Find ads inside the pagination container
-    //  // And remove it
-    //  this._removeAds();
-    //  // Then - insert ads again
-    //  //this._insertAd();
-    //});
-    //$document.on("pagination:afterDestroy", () => {
-    //  console.log("pagination:afterDestroy");
-    //  this._insertAd();
-    //});
-
+    var $document = $(document);
     $document.on("pagination:beforeInit", function (event, data) {
       console.log("Data is ".concat(data));
 
@@ -3221,10 +3197,7 @@ var Pagination = /*#__PURE__*/function () {
     });
     $document.on("searchForm:afterSuccessfulRequest", function (event, data) {
       _this.init(data);
-    }); //$document.on("ad:afterInsert", () => {
-    //  console.log("ad:afterInsert");
-    //  this.init();
-    //});
+    });
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Pagination, [{

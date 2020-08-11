@@ -1,3 +1,4 @@
+/* Default ad styles */
 .default-content {
   width: 253px;
   height: 60px;
@@ -8,5 +9,17 @@
   @include screen-sm {
     width: 475px;
     height: 59px;
+  }
+}
+
+/* Custom ad styles */
+.custom-content {
+  figure {
+    width: 25%;
+    max-width: 175px;
+
+    img {
+      @include image;
+    }
   }
 }

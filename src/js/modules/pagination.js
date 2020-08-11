@@ -36,11 +36,6 @@ export default class Pagination {
     $document.on("searchForm:afterSuccessfulRequest", (event, data) => {
       this.init(data);
     });
-
-    //$document.on("ad:afterInsert", () => {
-    //  console.log("ad:afterInsert");
-    //  this.init();
-    //});
   }
 
   init(data) {
