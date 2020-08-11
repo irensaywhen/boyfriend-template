@@ -96,6 +96,7 @@ export default class Form extends ServerRequest {
     this.$form.submit((event) => {
       event.preventDefault();
       event.stopPropagation();
+      console.log("Submitted!");
 
       if (!this.frontendValidation) {
         // If this form doesn't require frontend validation (as with checkboxes)
@@ -173,7 +174,6 @@ export default class Form extends ServerRequest {
       // Remove error messages
       this.$form.find(".error").remove();
     }
-
     if (response.success) {
       if (this.generateSubmitEvent) {
         // Make custom event for form submission
@@ -212,6 +212,7 @@ export default class Form extends ServerRequest {
           icon: "error",
         });
       }
+
       this.showErrorMessages({ errors: response.errors });
     }
 

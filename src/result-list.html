@@ -29,9 +29,6 @@
       rel="stylesheet"
     />
 
-    <!-- Swiper CSS min-->
-    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" />
-
     <!-- nouislider CSS -->
     <link href="vendor/nouislider/nouislider.min.css" rel="stylesheet" />
 
@@ -263,17 +260,39 @@
       <!--Profiles start-->
       <div class="container profile-list">
         <!-- Ad -->
-        <div class="ad"></div>
+        <div class="row">
+          <div class="col-12 mt-4">
+            <div
+              class="content custom-content d-sm-flex justify-content-between justify-content-md-around justify-content-lg-evenly align-items-center text-center text-sm-left py-4 px-3"
+              style="background: #ffc400; color: #fff;"
+              data-type="custom"
+            >
+              <div class="description">
+                <h2 class="text-uppercase mb-3 p-0">
+                  20% OFF Season Sale
+                </h2>
+                <p class="mb-3">
+                  Use Coupan Code
+                  <span style="color: #000;">DFR0020</span>
+                </p>
+                <p>Get the all new fresh bananas at very low price</p>
+              </div>
+              <figure class="d-none d-sm-block">
+                <img src="img/banana.png" alt="" />
+              </figure>
+            </div>
+          </div>
+        </div>
 
         <div class="row">
           <div class="col-12">
             <!--Profile search form start-->
             <form
-              class="search-form p-4 my-5"
+              class="search-form my-5"
               id="profile-search"
               autocomplete="off"
             >
-              <div class="container-fluid">
+              <div class="container-fluid p-4">
                 <div class="row">
                   <!--Form area - age start-->
                   <div class="col-12 col-sm-6 col-lg-3 form-area-sm">
@@ -285,6 +304,8 @@
                             <label class="small" for="age-from">from:</label>
                             <select
                               class="form-control search-field age-select"
+                              name="age-from"
+                              id="age-from"
                             >
                             </select>
                           </div>
@@ -294,6 +315,8 @@
                             <label class="small" for="age-from">to:</label>
                             <select
                               class="form-control search-field age-select"
+                              name="age-to"
+                              id="age-to"
                             >
                             </select>
                           </div>
@@ -355,7 +378,7 @@
                     class="col-12 col-sm-6 col-lg-3 form-area-sm pt-4 pt-lg-0"
                   >
                     <!--City input start-->
-                    <div class="form-group">
+                    <div class="form-group position-relative">
                       <label for="city">City</label>
                       <input
                         type="text"
@@ -363,6 +386,9 @@
                         id="city"
                         name="city"
                       />
+                      <div class="spinner-border city-loader" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
                       <div class="dropdown location-dropdown">
                         <button
                           class="btn btn-primary dropdown-toggle"
@@ -392,12 +418,8 @@
                         <div class="col">
                           <input
                             type="number"
-                            min="0"
-                            max="500"
-                            value="100"
-                            step="1"
                             id="input-select"
-                            class="form-control search-field"
+                            class="form-control search-field distance-from"
                             name="distance-from"
                           />
                         </div>
@@ -405,12 +427,8 @@
                         <div class="col">
                           <input
                             type="number"
-                            min="0"
-                            max="500"
-                            value="100"
-                            step="1"
                             id="input-number"
-                            class="form-control search-field"
+                            class="form-control search-field distance-to"
                             name="distance-to"
                           />
                         </div>
@@ -458,197 +476,56 @@
             <!--Profile search form end-->
           </div>
         </div>
+        <div id="profiles-container" class="row"></div>
+        <div
+          id="pagination-container"
+          class="pagination d-flex justify-content-center"
+        ></div>
+
+        <div class="row" id="content-container">
+          <!--Default-->
+          <div class="col-12 mt-4 mb-5">
+            <div class="content default-content" data-type="default"></div>
+          </div>
+
+          <!--Custom-->
+          <div class="col-12 mt-4 mb-5">
+            <div
+              class="content custom-content d-sm-flex justify-content-between justify-content-md-around justify-content-lg-evenly align-items-center text-center text-sm-left py-4 px-3"
+              style="background: #ffc400; color: #fff;"
+              data-type="custom"
+            >
+              <div class="description">
+                <h2 class="text-uppercase mb-3 p-0">
+                  20% OFF Season Sale
+                </h2>
+                <p class="mb-3">
+                  Use Coupan Code
+                  <span style="color: #000;">DFR0020</span>
+                </p>
+                <p>Get the all new fresh bananas at very low price</p>
+              </div>
+              <figure class="d-none d-sm-block">
+                <img src="img/banana.png" alt="" />
+              </figure>
+            </div>
+          </div>
+        </div>
+
         <div class="row">
-          <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
-          >
-            <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
-              </figure>
-              <div class="card-body pt-0 premium">
-                <span class="badge badge-primary mb-1">Premium</span>
-                <h3 class="name online d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
-                    >Michail, 27
-                  </a>
-                </h3>
-                <p class="text-secondary small mb-2">Wroclaw</p>
-                <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
-                    View Profile
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
-          >
-            <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
-              </figure>
-              <div class="card-body pt-0">
-                <h3 class="name online d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
-                    >Michail, 27
-                  </a>
-                </h3>
-                <p class="text-secondary small mb-2">Wroclaw</p>
-                <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
-                    View Profile
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
-          >
-            <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image boosted">
-                <img src="img/photo1.jpg" alt="" class="" />
-              </figure>
-              <div class="card-body pt-0">
-                <h3 class="name d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
-                    >Michail, 27
-                  </a>
-                </h3>
-                <p class="text-secondary small mb-2">Wroclaw</p>
-                <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
-                    View Profile
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
-          >
-            <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
-              </figure>
-              <div class="card-body pt-0">
-                <h3 class="name d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
-                    >Michail, 27
-                  </a>
-                </h3>
-                <p class="text-secondary small mb-2">Wroclaw</p>
-                <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
-                    View Profile
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
-          >
-            <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
-              </figure>
-              <div class="card-body pt-0">
-                <h3 class="name d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
-                    >Michail, 27
-                  </a>
-                </h3>
-                <p class="text-secondary small mb-2">Wroclaw</p>
-                <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
-                    View Profile
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
-          >
-            <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
-              </figure>
-              <div class="card-body pt-0">
-                <h3 class="name d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
-                    >Michail, 27
-                  </a>
-                </h3>
-                <p class="text-secondary small mb-2">Wroclaw</p>
-                <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
-                    View Profile
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
-          >
-            <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
-              </figure>
-              <div class="card-body pt-0">
-                <h3 class="name d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
-                    >Michail, 27
-                  </a>
-                </h3>
-                <p class="text-secondary small mb-2">Wroclaw</p>
-                <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
-                    View Profile
-                  </a>
-                </div>
-              </div>
-            </div>
+          <div class="col-12 mt-5 mb-3">
+            <div class="content default-content" data-type="default"></div>
           </div>
         </div>
       </div>
       <!--Profiles end-->
 
-      <!--Pagination start-->
-      <nav class="d-flex justify-content-center my-3">
-        <ul class="pagination w-auto">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">«</span>
-              <span class="sr-only">Previous</span>
-            </a>
-          </li>
-          <li class="page-item active">
-            <a class="page-link" href="#">1</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">2</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">3</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">»</span>
-              <span class="sr-only">Next</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!--Pagination end-->
-
       <!-- footer -->
       <footer class="footer">
-        <div class="no-gutters">
+        <div class="loader" id="loader">
+          <div class="bar"></div>
+        </div>
+        <div class="row no-gutters">
           <div class="col-auto mx-auto">
             <div class="row no-gutters justify-content-center">
               <div class="col-auto">
@@ -714,8 +591,10 @@
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
     <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
 
-    <!-- swiper js -->
-    <script src="vendor/swiper/js/swiper.min.js"></script>
+    <!--jPages-->
+    <script src="vendor/jPages/jPages.min.js"></script>
+
+    <!--Sweetalert-->
     <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
 
     <!-- nouislider js -->
@@ -761,6 +640,7 @@
             select.value = Math.round(value);
           }
         });
+
         select.addEventListener("change", function () {
           html5Slider.noUiSlider.set([this.value, null]);
         });
@@ -798,6 +678,48 @@
           },
         });
 
+        /* Advertisement initialization */
+        const ad = new Ad({
+          selectors: {
+            container: "#content-container",
+            profilesContainer: "#profiles-container",
+            genericClass: ".content",
+          },
+          placementConfig: {
+            xs: 1,
+            sm: 4,
+            md: 3,
+            lg: 4,
+            xl: 6,
+          },
+          elementInsertAfter: {
+            element: "div",
+            class: "search-result",
+          },
+        });
+
+        /*Pagination initialization*/
+        const pagination = new Pagination({
+          pluginOptions: {
+            containerID: "profiles-container",
+            minHeight: false,
+            perPage: 10,
+            previous: "«",
+            next: "»",
+          },
+          selectors: {
+            container: "#profiles-container",
+            pagination: "#pagination-container",
+          },
+          perPageConfig: {
+            xs: 3,
+            sm: 9,
+            md: 7,
+            lg: 9,
+            xl: 13,
+          },
+        });
+
         /* Form initialization */
         const searchProfilesForm = new SearchProfilesForm({
           selectors: {
@@ -809,15 +731,18 @@
             "dropdown-toggle": ".dropdown-toggle",
             "dropdown-menu": ".dropdown-menu",
             age: ".age-select",
+            locationLoadingIndicator: ".city-loader",
+            formLoadingIndicator: "#loader",
+            resultsContainer: "#profiles-container",
           },
           requests: {
-            submit: {
+            profiles: {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/submit-profile",
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-default",
             },
             location: {
               method: "GET",
@@ -831,6 +756,7 @@
               },
             },
           },
+          slider: html5Slider,
           searchFormOptions: {
             ageFrom: 18,
             ageTo: 40,

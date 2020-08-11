@@ -24,6 +24,11 @@ export default {
     // Cache input element
     this.$locationInput = this.$form.find(this.selectors.locationInput);
 
+    // Loading indicator
+    this.$loadingIndicator = this.$form
+      .find(this.selectors.locationLoadingIndicator)
+      .fadeOut(0);
+
     // location dropdown wrapper
     this.$locationDropdownWrapper = this.$form.find(
       this.selectors["location-dropdown"]
@@ -50,10 +55,12 @@ export default {
       }
 
       // If the user selects the city
+      // from dropdown
       if (this.citySelection) return;
 
       if (!this.locationInputStarted) {
         // If input hasn't started yet
+        // Indicate that input started
         this.locationInputStarted = true;
 
         // Save the value
@@ -82,13 +89,15 @@ export default {
         .attr("data-name", dataset.name)
         .val(dataset.name);
 
-      this.$locationInput.valid();
-
       this.citySelection = false;
       this.locationInputStarted = false;
       this.newValue = null;
 
       this.$locationDropdownMenu.empty();
+
+      if (this.$locationInput.valid()) {
+        this.$locationInput.trigger("citySelected");
+      }
     });
   },
 
@@ -114,6 +123,8 @@ export default {
       // Adjust searchParams
       requestInfo.endpoint.searchParams.set("city", this.locationInputValue);
 
+      this.$loadingIndicator.fadeIn(150);
+
       // Make request
       let cities = await this.getCities({
         headers: requestInfo.headers,
@@ -124,8 +135,11 @@ export default {
       // Schedule next check
       this.locationTimer = setTimeout(this.throttleInput, 1500);
 
+      this.$loadingIndicator.fadeOut(150);
+
       this.displayCities(cities);
     } else {
+      // If the location hasn't changed recently
       this.locationInputStarted = false;
     }
   },

@@ -225,4 +225,35 @@
       background: $main-pink;
     }
   }
+  .profile-list {
+    .pagination {
+      a {
+        @include pagination-link;
+
+        &.jp-current,
+        &:active,
+        &:focus,
+        &:hover {
+          background: $main-pink;
+          color: #fff;
+          border-color: #fff;
+        }
+
+        &.jp-disabled {
+          color: $bootstrap-secondary;
+          background: #fff;
+          cursor: not-allowed;
+        }
+
+        &:last-of-type {
+          border-right: 1px solid #dee2e6;
+        }
+      }
+
+      span {
+        @include pagination-link;
+        cursor: auto;
+      }
+    }
+  }
 }

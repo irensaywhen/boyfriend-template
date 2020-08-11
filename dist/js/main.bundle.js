@@ -1744,7 +1744,9 @@ var ChainedForms = /*#__PURE__*/function () {
       // Show next form when the current is submitted
       this.$forms.on("submitted", function (event) {
         var target = event.target;
-        var step = Number(target.dataset.step) + 1;
+        var step = target.dataset.step;
+        ++step;
+        if (step === _this2.$forms.length) return;
         $(target).closest(_this2.selectors.wrapper).fadeOut(400, function () {
           $(_this2.$forms.get(step)).closest(_this2.selectors.wrapper).fadeIn(400);
         });
@@ -1921,6 +1923,7 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
       this.$form.submit(function (event) {
         event.preventDefault();
         event.stopPropagation();
+        console.log("Submitted!");
 
         if (!_this2.frontendValidation) {
           // If this form doesn't require frontend validation (as with checkboxes)
@@ -2134,7 +2137,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   cacheLocationElements: function cacheLocationElements() {
     // Cache input element
-    this.$locationInput = this.$form.find(this.selectors.locationInput); // location dropdown wrapper
+    this.$locationInput = this.$form.find(this.selectors.locationInput); // Loading indicator
+
+    this.$loadingIndicator = this.$form.find(this.selectors.locationLoadingIndicator).fadeOut(0); // location dropdown wrapper
 
     this.$locationDropdownWrapper = this.$form.find(this.selectors["location-dropdown"]); // Dropdown toggle
 
@@ -2153,12 +2158,14 @@ __webpack_require__.r(__webpack_exports__);
       for (var key in customAttributes) {
         customAttributes[key] = "";
       } // If the user selects the city
+      // from dropdown
 
 
       if (_this.citySelection) return;
 
       if (!_this.locationInputStarted) {
         // If input hasn't started yet
+        // Indicate that input started
         _this.locationInputStarted = true; // Save the value
 
         _this.locationInputValue = _this.$locationInput.val(); // Schedule next check
@@ -2176,13 +2183,15 @@ __webpack_require__.r(__webpack_exports__);
 
       _this.$locationInput.attr("data-lat", dataset.lat).attr("data-lon", dataset.lon).attr("data-name", dataset.name).val(dataset.name);
 
-      _this.$locationInput.valid();
-
       _this.citySelection = false;
       _this.locationInputStarted = false;
       _this.newValue = null;
 
       _this.$locationDropdownMenu.empty();
+
+      if (_this.$locationInput.valid()) {
+        _this.$locationInput.trigger("citySelected");
+      }
     });
   },
   getCities: function getCities(_ref) {
@@ -2227,7 +2236,7 @@ __webpack_require__.r(__webpack_exports__);
               newValue = _this3.$locationInput.val();
 
               if (newValue === _this3.locationInputValue) {
-                _context2.next = 12;
+                _context2.next = 14;
                 break;
               }
 
@@ -2235,29 +2244,35 @@ __webpack_require__.r(__webpack_exports__);
               // Save new value
               _this3.locationInputValue = newValue; // Adjust searchParams
 
-              requestInfo.endpoint.searchParams.set("city", _this3.locationInputValue); // Make request
+              requestInfo.endpoint.searchParams.set("city", _this3.locationInputValue);
 
-              _context2.next = 7;
+              _this3.$loadingIndicator.fadeIn(150); // Make request
+
+
+              _context2.next = 8;
               return _this3.getCities({
                 headers: requestInfo.headers,
                 endpoint: requestInfo.endpoint,
                 method: requestInfo.method
               });
 
-            case 7:
+            case 8:
               cities = _context2.sent;
               // Schedule next check
               _this3.locationTimer = setTimeout(_this3.throttleInput, 1500);
 
+              _this3.$loadingIndicator.fadeOut(150);
+
               _this3.displayCities(cities);
 
-              _context2.next = 13;
+              _context2.next = 15;
               break;
 
-            case 12:
+            case 14:
+              // If the location hasn't changed recently
               _this3.locationInputStarted = false;
 
-            case 13:
+            case 15:
             case "end":
               return _context2.stop();
           }

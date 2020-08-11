@@ -35,6 +35,9 @@
     <!--SweetAlert2-->
     <link href="vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
 
+    <!--Pagination-->
+    <link rel="stylesheet" href="vendor/pagination/pagination.css" />
+
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/main.css" />
@@ -260,10 +263,10 @@
       <!--Profiles start-->
       <div class="container profile-list">
         <!-- Ad -->
-        <div class="ad"></div>
+        <div class="default-content"></div>
 
         <div class="row">
-          <h2 class="text-center pl-3">
+          <h2 class="text-center w-100 text-sm-left pl-3">
             Who likes you
           </h2>
         </div>
@@ -274,18 +277,17 @@
           >
             <div class="card shadow-sm border-0 mb-4">
               <figure class="profile-image premium card-img-top">
-                <span class="badge badge-primary mb-1">Premium</span>
                 <img src="img/photo1.jpg" alt="" class="card-img-top" />
+                <span class="badge badge-primary mb-1">Premium</span>
               </figure>
               <div class="card-body">
-                <!--<span class="badge badge-primary mb-1">Premium</span>-->
-                <h3 class="mb-0">
+                <h3 class="mb-0 name online">
                   <a
                     href="#"
-                    class="name online text-dark mb-1 mt-2 h6 d-inline-block"
-                    >Michail, 27
-                    <span class="badge badge-success mb-1 small">online</span>
+                    class="text-dark mb-1 mt-2 mr-2 h6 d-inline-block text-capitalize"
+                    >michail, 27
                   </a>
+                  <span class="badge badge-success mb-1 small">online</span>
                 </h3>
                 <p class="text-secondary small mb-2">Wroclaw</p>
               </div>
@@ -310,7 +312,9 @@
               </figure>
               <div class="card-body">
                 <h3 class="mb-0">
-                  <a href="#" class="name text-dark mb-1 mt-2 h6 d-inline-block"
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
                     >Lukasz, 27
                   </a>
                 </h3>
@@ -335,36 +339,38 @@
                 <img src="img/photo1.jpg" alt="" class="card-img-top" />
               </figure>
               <div class="card-body">
+                <h3 class="mb-0 name online">
+                  <a
+                    href="#"
+                    class="text-dark mb-1 mt-2 mr-2 h6 d-inline-block text-capitalize"
+                    >Michail, 27
+                  </a>
+                  <span class="badge badge-success mb-1 small">online</span>
+                </h3>
+                <p class="text-secondary small mb-2 text-capitalize">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
                 <h3 class="mb-0">
                   <a
                     href="#"
-                    class="name online text-dark mb-1 mt-2 h6 d-inline-block"
-                    >Michail, 27
-                    <span class="badge badge-success mb-1 small">online</span>
-                  </a>
-                </h3>
-                <p class="text-secondary small mb-2">Wroclaw</p>
-              </div>
-              <div class="card-footer">
-                <div class="text-center mt-2">
-                  <a href="profile.html" class="btn btn-default">
-                    View Profile
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!--Just user-->
-          <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
-          >
-            <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image card-img-top">
-                <img src="img/photo2.jpg" alt="" class="card-img-top" />
-              </figure>
-              <div class="card-body">
-                <h3 class="mb-0">
-                  <a href="#" class="name text-dark mb-1 mt-2 h6 d-inline-block"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
                     >Lukasz, 27
                   </a>
                 </h3>
@@ -389,7 +395,9 @@
               </figure>
               <div class="card-body">
                 <h3 class="mb-0">
-                  <a href="#" class="name text-dark mb-1 mt-2 h6 d-inline-block"
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
                     >Lukasz, 27
                   </a>
                 </h3>
@@ -414,7 +422,9 @@
               </figure>
               <div class="card-body">
                 <h3 class="mb-0">
-                  <a href="#" class="name text-dark mb-1 mt-2 h6 d-inline-block"
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
                     >Lukasz, 27
                   </a>
                 </h3>
@@ -439,7 +449,9 @@
               </figure>
               <div class="card-body">
                 <h3 class="mb-0">
-                  <a href="#" class="name text-dark mb-1 mt-2 h6 d-inline-block"
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
                     >Lukasz, 27
                   </a>
                 </h3>

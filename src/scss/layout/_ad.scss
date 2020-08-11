@@ -1,4 +1,5 @@
-.ad {
+/* Default ad styles */
+.default-content {
   width: 253px;
   height: 60px;
   background: #fff;
@@ -12,6 +13,18 @@
     &.small {
       width: 253px;
       height: 60px;
+    }
+  }
+}
+
+/* Custom ad styles */
+.custom-content {
+  figure {
+    width: 25%;
+    max-width: 175px;
+
+    img {
+      @include image;
     }
   }
 }

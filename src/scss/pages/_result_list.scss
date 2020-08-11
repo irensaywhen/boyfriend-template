@@ -3,6 +3,14 @@
     border: 1px solid $label-border;
     background: #fff;
 
+    /* Spinner for city input */
+    .city-loader {
+      position: absolute;
+      top: 49%;
+      right: 3px;
+      color: $primary-blue;
+    }
+
     .form-area-sm {
       @include screen-sm {
         border-right: 1px solid $label-border;
