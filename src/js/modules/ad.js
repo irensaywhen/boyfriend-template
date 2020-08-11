@@ -6,7 +6,7 @@ export default class Ad {
   constructor(options) {
     // For debugging
     // This information will be recieved through request
-    this.type = "default";
+    //this.type = "default";
 
     // Setup internal name for ad wrapper
     this.adWrapperClass = "pagination-wrapper";
@@ -47,9 +47,12 @@ export default class Ad {
     //  this._insertAd();
     //});
 
-    $document.on("pagination:beforeInit", () => {
-      this._getAd();
-      this._makeAdWrapper();
+    $document.on("pagination:beforeInit", (event, data) => {
+      console.log(`Data is ${data}`);
+      if (data) {
+        this._getAd(data["advertisementType"]);
+        this._makeAdWrapper();
+      }
       this._insertAd();
     });
 
@@ -58,8 +61,8 @@ export default class Ad {
     });
   }
 
-  _getAd() {
-    this.$ad = this.$adContainer.find(`[data-type='${this.type}']`).clone();
+  _getAd(type) {
+    this.$ad = this.$adContainer.find(`[data-type='${type}']`).clone();
     console.log("Getting ad");
   }
   _makeAdWrapper() {

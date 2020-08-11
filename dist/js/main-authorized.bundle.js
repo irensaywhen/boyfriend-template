@@ -1344,8 +1344,8 @@ var Ad = /*#__PURE__*/function () {
 
     // For debugging
     // This information will be recieved through request
-    this.type = "default"; // Setup internal name for ad wrapper
-
+    //this.type = "default";
+    // Setup internal name for ad wrapper
     this.adWrapperClass = "pagination-wrapper";
     this.selectors = options["selectors"];
     this.placementConfig = options["placementConfig"];
@@ -1376,10 +1376,14 @@ var Ad = /*#__PURE__*/function () {
     //  this._insertAd();
     //});
 
-    $document.on("pagination:beforeInit", function () {
-      _this._getAd();
+    $document.on("pagination:beforeInit", function (event, data) {
+      console.log("Data is ".concat(data));
 
-      _this._makeAdWrapper();
+      if (data) {
+        _this._getAd(data["advertisementType"]);
+
+        _this._makeAdWrapper();
+      }
 
       _this._insertAd();
     });
@@ -1390,8 +1394,8 @@ var Ad = /*#__PURE__*/function () {
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Ad, [{
     key: "_getAd",
-    value: function _getAd() {
-      this.$ad = this.$adContainer.find("[data-type='".concat(this.type, "']")).clone();
+    value: function _getAd(type) {
+      this.$ad = this.$adContainer.find("[data-type='".concat(type, "']")).clone();
       console.log("Getting ad");
     }
   }, {
@@ -3215,8 +3219,8 @@ var Pagination = /*#__PURE__*/function () {
         resized: false
       });
     });
-    $document.on("searchForm:afterSuccessfulRequest", function () {
-      _this.init();
+    $document.on("searchForm:afterSuccessfulRequest", function (event, data) {
+      _this.init(data);
     }); //$document.on("ad:afterInsert", () => {
     //  console.log("ad:afterInsert");
     //  this.init();
@@ -3225,12 +3229,12 @@ var Pagination = /*#__PURE__*/function () {
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Pagination, [{
     key: "init",
-    value: function init() {
+    value: function init(data) {
       console.log("Entered init function...");
       console.log(this._init);
       if (this._init) return;
       console.log("Initializing pagination!");
-      this.$pagination.trigger("pagination:beforeInit");
+      this.$pagination.trigger("pagination:beforeInit", data);
       this._viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportRange();
       console.log("Current viewportRange is ".concat(this._viewportRange));
       this.pluginOptions["perPage"] = this.perPageConfig[this._viewportRange];

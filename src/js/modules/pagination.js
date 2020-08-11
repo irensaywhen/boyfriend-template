@@ -33,8 +33,8 @@ export default class Pagination {
       this.destroy({ resized: false });
     });
 
-    $document.on("searchForm:afterSuccessfulRequest", () => {
-      this.init();
+    $document.on("searchForm:afterSuccessfulRequest", (event, data) => {
+      this.init(data);
     });
 
     //$document.on("ad:afterInsert", () => {
@@ -43,13 +43,13 @@ export default class Pagination {
     //});
   }
 
-  init() {
+  init(data) {
     console.log("Entered init function...");
     console.log(this._init);
     if (this._init) return;
     console.log("Initializing pagination!");
 
-    this.$pagination.trigger("pagination:beforeInit");
+    this.$pagination.trigger("pagination:beforeInit", data);
 
     this._viewportRange = helper.getViewportRange();
     console.log(`Current viewportRange is ${this._viewportRange}`);
