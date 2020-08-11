@@ -1,12 +1,7 @@
 import helper from "./helper.js";
 
 export default class Ad {
-  initialRequest = false;
-
   constructor(options) {
-    // For debugging
-    // This information will be recieved through request
-
     // Setup internal name for ad wrapper
     this.adWrapperClass = "pagination-wrapper";
 
@@ -20,11 +15,13 @@ export default class Ad {
     let $document = $(document);
 
     $document.on("pagination:beforeInit", (event, data) => {
-      console.log(`Data is ${data}`);
       if (data) {
+        // If pagination is initiated after request
+        // Get ad with the passed advertisement type
         this._getAd(data["advertisementType"]);
         this._makeAdWrapper();
       }
+
       this._insertAd();
     });
 
@@ -35,14 +32,14 @@ export default class Ad {
 
   _getAd(type) {
     this.$ad = this.$adContainer.find(`[data-type='${type}']`).clone();
-    console.log("Getting ad");
   }
+
   _makeAdWrapper() {
     this.$adWrapper = $("<div></div>")
       .addClass("col-12 mt-4 mb-5")
       .addClass(this.adWrapperClass);
-    console.log("Making ad wrapper");
   }
+
   _insertAd() {
     let viewportRange = helper.getViewportRange(),
       place = this.placementConfig[viewportRange],
@@ -53,21 +50,16 @@ export default class Ad {
 
     this.$profilesContainer
       .find(`${element}.${htmlClass}:nth-of-type(${formula})`)
-      .css("background", "red")
       .after(this.$adWrapper.clone().append(this.$ad.clone()));
 
-    console.log("Inserting ad");
-    //this._inserted = true;
     this.$profilesContainer.trigger("ad:afterInsert");
   }
+
   _removeAds() {
     let ads = this.$profilesContainer
       .find(this.selectors["genericClass"])
       .closest("." + this.adWrapperClass)
       .remove();
-
-    console.log(ads);
-    console.log("ads removed");
   }
 
   // Getters and setters

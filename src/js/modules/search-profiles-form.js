@@ -61,7 +61,6 @@ export default class SearchProfilesForm extends Form {
 
       let request = this.requests.profiles;
 
-      console.log("searchForm:beforeRequest");
       this.$form.trigger("searchForm:beforeRequest");
 
       this.makeRequest({
@@ -69,23 +68,32 @@ export default class SearchProfilesForm extends Form {
         headers: request.headers,
         endpoint: request.endpoint,
         body: JSON.stringify(this.formData),
-      }).then((response) => {
-        if (!response.success) {
-          this.createNoResultsBadge(response);
+      })
+        .then((response) => {
+          if (!response.success) {
+            this.createNoResultsBadge(response);
 
+            // Hide loading indicator
+            this.$formLoadingIndicator.fadeOut(200);
+            return;
+          }
+
+          let profiles = response.profiles;
+
+          this.createProfileViews(profiles);
+
+          this.$form.trigger("searchForm:afterSuccessfulRequest", response);
+
+          // Hide loading indicator
           this.$formLoadingIndicator.fadeOut(200);
-          return;
-        }
-
-        let profiles = response.profiles;
-
-        this.createProfileViews(profiles);
-
-        this.$form.trigger("searchForm:afterSuccessfulRequest", response);
-
-        // Hide loading indicator
-        this.$formLoadingIndicator.fadeOut(200);
-      });
+        })
+        .catch((error) => {
+          this.showRequestResult({
+            title: error.name,
+            text: error.message,
+            icon: "error",
+          });
+        });
     });
   }
 

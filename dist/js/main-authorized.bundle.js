@@ -1326,10 +1326,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js");
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helper.js */ "./js/modules/helper.js");
-
+/* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helper.js */ "./js/modules/helper.js");
 
 
 
@@ -1340,10 +1337,6 @@ var Ad = /*#__PURE__*/function () {
 
     _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Ad);
 
-    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(this, "initialRequest", false);
-
-    // For debugging
-    // This information will be recieved through request
     // Setup internal name for ad wrapper
     this.adWrapperClass = "pagination-wrapper";
     this.selectors = options["selectors"];
@@ -1353,9 +1346,9 @@ var Ad = /*#__PURE__*/function () {
     this.$profilesContainer = $(this.selectors["profilesContainer"]);
     var $document = $(document);
     $document.on("pagination:beforeInit", function (event, data) {
-      console.log("Data is ".concat(data));
-
       if (data) {
+        // If pagination is initiated after request
+        // Get ad with the passed advertisement type
         _this._getAd(data["advertisementType"]);
 
         _this._makeAdWrapper();
@@ -1372,33 +1365,27 @@ var Ad = /*#__PURE__*/function () {
     key: "_getAd",
     value: function _getAd(type) {
       this.$ad = this.$adContainer.find("[data-type='".concat(type, "']")).clone();
-      console.log("Getting ad");
     }
   }, {
     key: "_makeAdWrapper",
     value: function _makeAdWrapper() {
       this.$adWrapper = $("<div></div>").addClass("col-12 mt-4 mb-5").addClass(this.adWrapperClass);
-      console.log("Making ad wrapper");
     }
   }, {
     key: "_insertAd",
     value: function _insertAd() {
-      var viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_3__["default"].getViewportRange(),
+      var viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportRange(),
           place = this.placementConfig[viewportRange],
           element = this.elementInsertAfter["element"],
           htmlClass = this.elementInsertAfter["class"];
       var formula = String(2 * place) + "n" + "+" + String(place);
-      this.$profilesContainer.find("".concat(element, ".").concat(htmlClass, ":nth-of-type(").concat(formula, ")")).css("background", "red").after(this.$adWrapper.clone().append(this.$ad.clone()));
-      console.log("Inserting ad"); //this._inserted = true;
-
+      this.$profilesContainer.find("".concat(element, ".").concat(htmlClass, ":nth-of-type(").concat(formula, ")")).after(this.$adWrapper.clone().append(this.$ad.clone()));
       this.$profilesContainer.trigger("ad:afterInsert");
     }
   }, {
     key: "_removeAds",
     value: function _removeAds() {
       var ads = this.$profilesContainer.find(this.selectors["genericClass"]).closest("." + this.adWrapperClass).remove();
-      console.log(ads);
-      console.log("ads removed");
     } // Getters and setters
     // Ads container
 
@@ -3153,7 +3140,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js");
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helper.js */ "./js/modules/helper.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helper.js */ "./js/modules/helper.js");
+
 
 
 
@@ -3164,6 +3154,8 @@ var Pagination = /*#__PURE__*/function () {
 
     _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Pagination);
 
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(this, "_profilesShown", false);
+
     var selectors = config.selectors;
     this.$container = $(selectors.container);
     this.$pagination = $(selectors.pagination); // Options for the plugin
@@ -3173,29 +3165,30 @@ var Pagination = /*#__PURE__*/function () {
     this.perPageConfig = config["perPageConfig"];
     this._init = false;
     $(window).resize(function () {
-      var viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportRange();
-      if (viewportRange === _this._viewportRange && _this._init) return;
-      console.log("Destroying pagination on resize...");
+      var viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_3__["default"].getViewportRange(); // If there is no any profiles yet
+
+      if (!_this._profilesShown) return;
+      if (viewportRange === _this._viewportRange && _this._init) return; // Indicate that destroyment was caused by resize
 
       _this.destroy({
         resized: true
       });
 
       _this.init();
-
-      console.log("Pagination is initialized: ".concat(_this._init));
     });
     var $document = $(document);
     $document.on("searchForm:beforeRequest", function () {
-      console.log("searchForm:beforeRequest");
+      // Delete previous results
+      _this.$container.empty(); // Indicate that destroyment wasn't caused by resize
 
-      _this.$container.empty();
 
       _this.destroy({
         resized: false
       });
     });
     $document.on("searchForm:afterSuccessfulRequest", function (event, data) {
+      _this._profilesShown = true;
+
       _this.init(data);
     });
   }
@@ -3203,14 +3196,14 @@ var Pagination = /*#__PURE__*/function () {
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Pagination, [{
     key: "init",
     value: function init(data) {
-      console.log("Entered init function...");
-      console.log(this._init);
+      // Do not initialize pagination if it is already initiated
       if (this._init) return;
-      console.log("Initializing pagination!");
-      this.$pagination.trigger("pagination:beforeInit", data);
-      this._viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_2__["default"].getViewportRange();
-      console.log("Current viewportRange is ".concat(this._viewportRange));
-      this.pluginOptions["perPage"] = this.perPageConfig[this._viewportRange];
+      this.$pagination.trigger("pagination:beforeInit", data); // Save current viewport range
+
+      this._viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_3__["default"].getViewportRange(); // Pass current viewport range to plugin options
+
+      this.pluginOptions["perPage"] = this.perPageConfig[this._viewportRange]; // Initiate plugin
+
       this.$pagination.jPages(this.pluginOptions);
       this.$pagination.trigger("pagination:afterInit");
       this._init = true;
@@ -3223,15 +3216,16 @@ var Pagination = /*#__PURE__*/function () {
         var resized = options.resized;
 
         if (resized) {
-          // Trigger event if the destroyment was initiated due to resizement
+          // Trigger event if the destroyment was initiated by resizement
           this.$pagination.trigger("pagination:beforeDestroyAfterResize");
-        }
+        } // destroy plugin instance
+
 
         this.$pagination.jPages("destroy");
         this._init = false;
 
         if (resized) {
-          // Trigger event if the destroyment was initiated due to resizement
+          // Trigger event if the destroyment was initiated by resizement
           this.$pagination.trigger("pagination:afterDestroyAfterResize");
         }
       }
@@ -3776,7 +3770,6 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
         _this3.collectFormInputs();
 
         var request = _this3.requests.profiles;
-        console.log("searchForm:beforeRequest");
 
         _this3.$form.trigger("searchForm:beforeRequest");
 
@@ -3787,7 +3780,8 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
           body: JSON.stringify(_this3.formData)
         }).then(function (response) {
           if (!response.success) {
-            _this3.createNoResultsBadge(response);
+            _this3.createNoResultsBadge(response); // Hide loading indicator
+
 
             _this3.$formLoadingIndicator.fadeOut(200);
 
@@ -3802,6 +3796,12 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
 
 
           _this3.$formLoadingIndicator.fadeOut(200);
+        })["catch"](function (error) {
+          _this3.showRequestResult({
+            title: error.name,
+            text: error.message,
+            icon: "error"
+          });
         });
       });
     }
