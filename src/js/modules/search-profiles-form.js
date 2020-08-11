@@ -1,5 +1,5 @@
 import Form from "./form.js";
-import Pagination from "./pagination.js";
+import helper from "./helper.js";
 
 export default class SearchProfilesForm extends Form {
   constructor(options) {
@@ -22,10 +22,6 @@ export default class SearchProfilesForm extends Form {
   }
 
   initializeSlider() {
-    // THink whether you need to save it
-    //this.$distanceFrom = this.$form.find(this.selectors["distanceFrom"]);
-    //this.$distanceTo = this.$form.find(this.selectors["distanceTo"]);
-
     this.slider["noUiSlider"].on("change", () => {
       this.$inputs.first().trigger("input");
     });
@@ -122,12 +118,13 @@ export default class SearchProfilesForm extends Form {
         ? 1
         : 0;
     });
-    //$("html, body").animate(
-    //  {
-    //    scrollTop: this.pagination.$container.offset().top,
-    //  },
-    //  1100
-    //);
+    $("html, body").animate(
+      {
+        scrollTop:
+          this.$resultsContainer.offset().top - 2 * helper.getHeaderHeight(),
+      },
+      1100
+    );
     profiles.forEach((profile) => {
       this.createProfileView(profile).appendTo(this.$resultsContainer);
     });
@@ -234,7 +231,7 @@ export default class SearchProfilesForm extends Form {
           .append($("<p></p>").addClass("text-secondary").text(message))
       )
       .css("opacity", "0")
-      .appendTo(this.pagination.$container)
+      .appendTo(this.$resultsContainer)
       .animate(
         {
           opacity: 1,
@@ -243,7 +240,8 @@ export default class SearchProfilesForm extends Form {
       );
     $("html, body").animate(
       {
-        scrollTop: this.pagination.$container.offset().top,
+        scrollTop:
+          this.$resultsContainer.offset().top - helper.getHeaderHeight(),
       },
       1100
     );

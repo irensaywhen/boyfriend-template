@@ -261,7 +261,7 @@
       <div class="container profile-list">
         <!-- Ad -->
         <div class="row">
-          <div class="col-12 mt-4 mb-5">
+          <div class="col-12 mt-4">
             <div
               class="content custom-content d-sm-flex justify-content-between justify-content-md-around justify-content-lg-evenly align-items-center text-center text-sm-left py-4 px-3"
               style="background: #ffc400; color: #fff;"
@@ -513,7 +513,7 @@
         </div>
 
         <div class="row">
-          <div class="col-12 mt-4 mb-5">
+          <div class="col-12 mt-5 mb-3">
             <div class="content default-content" data-type="default"></div>
           </div>
         </div>
@@ -731,8 +731,6 @@
             "dropdown-toggle": ".dropdown-toggle",
             "dropdown-menu": ".dropdown-menu",
             age: ".age-select",
-            distanceFrom: "#input-select",
-            distanceTo: "#input-number",
             locationLoadingIndicator: ".city-loader",
             formLoadingIndicator: "#loader",
             resultsContainer: "#profiles-container",
@@ -744,7 +742,7 @@
                 "Content-Type": "application/json",
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles",
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-default",
             },
             location: {
               method: "GET",
@@ -763,25 +761,6 @@
             ageFrom: 18,
             ageTo: 40,
           },
-          //pagination: {
-          //  options: {
-          //    containerID: "profiles-container",
-          //    perPage: 10,
-          //    previous: "«",
-          //    next: "»",
-          //  },
-          //  selectors: {
-          //    container: "#profiles-container",
-          //    pagination: "#pagination-container",
-          //  },
-          //  perPageConfig: {
-          //    xs: 5,
-          //    sm: 9,
-          //    md: 13,
-          //    lg: 35,
-          //    xl: 38,
-          //  },
-          //},
           location: true,
           showSuccessPopup: false,
           showFailPopup: false,

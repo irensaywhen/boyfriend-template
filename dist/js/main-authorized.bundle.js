@@ -2629,6 +2629,10 @@ __webpack_require__.r(__webpack_exports__);
       } else if (breakpoints[4] <= viewportWidth) {
         return "xl";
       }
+    },
+    getHeaderHeight: function getHeaderHeight() {
+      var headerSelector = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ".private-header";
+      return $(headerSelector).outerHeight();
     }
   };
 })());
@@ -3684,7 +3688,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "../node_modules/@babel/runtime/helpers/getPrototypeOf.js");
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./form.js */ "./js/modules/form.js");
-/* harmony import */ var _pagination_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pagination.js */ "./js/modules/pagination.js");
+/* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./helper.js */ "./js/modules/helper.js");
 
 
 
@@ -3733,9 +3737,6 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
     value: function initializeSlider() {
       var _this2 = this;
 
-      // THink whether you need to save it
-      //this.$distanceFrom = this.$form.find(this.selectors["distanceFrom"]);
-      //this.$distanceTo = this.$form.find(this.selectors["distanceTo"]);
       this.slider["noUiSlider"].on("change", function () {
         _this2.$inputs.first().trigger("input");
       });
@@ -3813,13 +3814,10 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
       // Sort out all the premium users to be at the beginning
       profiles.sort(function (user1, user2) {
         return user1.premium.status ? user1.online.status ? user2.premium.status ? user2.online.status ? 0 : -1 : -1 : user2.premium.status ? user2.online.status ? 1 : 0 : -1 : user2.premium.status ? 1 : user1.online.status ? user2.online.status ? 0 : -1 : user2.online.status ? 1 : 0;
-      }); //$("html, body").animate(
-      //  {
-      //    scrollTop: this.pagination.$container.offset().top,
-      //  },
-      //  1100
-      //);
-
+      });
+      $("html, body").animate({
+        scrollTop: this.$resultsContainer.offset().top - 2 * _helper_js__WEBPACK_IMPORTED_MODULE_8__["default"].getHeaderHeight()
+      }, 1100);
       profiles.forEach(function (profile) {
         _this4.createProfileView(profile).appendTo(_this4.$resultsContainer);
       });
@@ -3869,11 +3867,11 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
     value: function createNoResultsBadge(content) {
       var title = content.title,
           message = content.message;
-      $("<div></div>").addClass("col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3").append($("<div></div>").addClass("no-results shadow-sm bg-white rounded text-center px-3 py-5").append($("<i></i>").addClass("fas fa-heart-broken")).append($("<h2></h2>").addClass("title").text(title)).append($("<p></p>").addClass("text-secondary").text(message))).css("opacity", "0").appendTo(this.pagination.$container).animate({
+      $("<div></div>").addClass("col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3").append($("<div></div>").addClass("no-results shadow-sm bg-white rounded text-center px-3 py-5").append($("<i></i>").addClass("fas fa-heart-broken")).append($("<h2></h2>").addClass("title").text(title)).append($("<p></p>").addClass("text-secondary").text(message))).css("opacity", "0").appendTo(this.$resultsContainer).animate({
         opacity: 1
       }, 800);
       $("html, body").animate({
-        scrollTop: this.pagination.$container.offset().top
+        scrollTop: this.$resultsContainer.offset().top - _helper_js__WEBPACK_IMPORTED_MODULE_8__["default"].getHeaderHeight()
       }, 1100);
     }
   }]);

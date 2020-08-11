@@ -42,5 +42,9 @@ export default (function () {
         return "xl";
       }
     },
+
+    getHeaderHeight(headerSelector = ".private-header") {
+      return $(headerSelector).outerHeight();
+    },
   };
 })();
