@@ -52,6 +52,41 @@ export default class Gallery extends ServerRequest {
 
       this._changePhoto(target, false);
     });
+
+    // Touch support for mobile devices
+    this._addTouchSupport();
+  }
+
+  _addTouchSupport() {
+    let clientXStart, clientXEnd, distance;
+
+    this.$modalImage.on("touchstart", (event) => {
+      // Save coordinates of the initial touch point
+      clientXStart = event.touches[0].clientX;
+    });
+
+    this.$modalImage.on("touchmove", (event) => {
+      // Save coordinates while touch point is moving
+      clientXEnd = event.touches[0].clientX;
+    });
+
+    this.$modalImage.on("touchend", () => {
+      distance = clientXStart - clientXEnd;
+
+      if (distance > this.touchTrottle) {
+        // Don't swipe to the right if this is the last photo
+        if (this.order === this.$slides.length) return;
+
+        ++this.order;
+      } else if (distance < -this.touchTrottle) {
+        // Don't swipe to the left if this is the last photo
+        if (this.order === 0) return;
+
+        --this.order;
+      }
+
+      this._showNewPhoto();
+    });
   }
 
   _generateModal(target, animation) {
@@ -112,13 +147,6 @@ export default class Gallery extends ServerRequest {
     this.order === this.$slides.length
       ? this._hideNextArrow()
       : this._showNextArrow();
-
-    // Toggle button visibility
-    //if (privacy) {
-    //  this.$modalPermissionButton.removeClass("d-none");
-    //} else {
-    //  this.$modalPermissionButton.addClass("d-none");
-    //}
   }
 
   // Manipulating photos
@@ -158,5 +186,8 @@ export default class Gallery extends ServerRequest {
     this.$modalNextArrow.show();
   }
 
-  _swipePhoto() {}
+  // Getters and setters
+  get touchTrottle() {
+    return 50;
+  }
 }

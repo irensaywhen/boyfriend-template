@@ -8826,12 +8826,44 @@ var Gallery = /*#__PURE__*/function (_ServerRequest) {
         if (!$(target).hasClass(_this2.galleryConfig.arrowClass) && target.tagName !== "IMG") return;
 
         _this2._changePhoto(target, false);
+      }); // Touch support for mobile devices
+
+      this._addTouchSupport();
+    }
+  }, {
+    key: "_addTouchSupport",
+    value: function _addTouchSupport() {
+      var _this3 = this;
+
+      var clientXStart, clientXEnd, distance;
+      this.$modalImage.on("touchstart", function (event) {
+        // Save coordinates of the initial touch point
+        clientXStart = event.touches[0].clientX;
+      });
+      this.$modalImage.on("touchmove", function (event) {
+        // Save coordinates while touch point is moving
+        clientXEnd = event.touches[0].clientX;
+      });
+      this.$modalImage.on("touchend", function () {
+        distance = clientXStart - clientXEnd;
+
+        if (distance > _this3.touchTrottle) {
+          // Don't swipe to the right if this is the last photo
+          if (_this3.order === _this3.$slides.length) return;
+          ++_this3.order;
+        } else if (distance < -_this3.touchTrottle) {
+          // Don't swipe to the left if this is the last photo
+          if (_this3.order === 0) return;
+          --_this3.order;
+        }
+
+        _this3._showNewPhoto();
       });
     }
   }, {
     key: "_generateModal",
     value: function _generateModal(target, animation) {
-      var _this3 = this;
+      var _this4 = this;
 
       var _target$dataset = target.dataset,
           description = _target$dataset.description,
@@ -8847,9 +8879,9 @@ var Gallery = /*#__PURE__*/function (_ServerRequest) {
           duration: 400,
           queue: false,
           complete: function complete() {
-            _this3.$modalImage.attr("src", src);
+            _this4.$modalImage.attr("src", src);
 
-            _this3.$modalImage.fadeIn(400);
+            _this4.$modalImage.fadeIn(400);
           }
         }); // Animate description
 
@@ -8857,9 +8889,9 @@ var Gallery = /*#__PURE__*/function (_ServerRequest) {
           duration: 400,
           queue: false,
           complete: function complete() {
-            _this3.$modalDescription.text(description);
+            _this4.$modalDescription.text(description);
 
-            _this3.$modalDescription.fadeIn(400);
+            _this4.$modalDescription.fadeIn(400);
           }
         }); // Animate showing/hiding of privacy button
 
@@ -8885,12 +8917,7 @@ var Gallery = /*#__PURE__*/function (_ServerRequest) {
       this.id = id; // Handle arrow hiding on first/last photos
 
       this.order === 0 ? this._hidePrevArrow() : this._showPrevArrow();
-      this.order === this.$slides.length ? this._hideNextArrow() : this._showNextArrow(); // Toggle button visibility
-      //if (privacy) {
-      //  this.$modalPermissionButton.removeClass("d-none");
-      //} else {
-      //  this.$modalPermissionButton.addClass("d-none");
-      //}
+      this.order === this.$slides.length ? this._hideNextArrow() : this._showNextArrow();
     } // Manipulating photos
 
   }, {
@@ -8936,10 +8963,13 @@ var Gallery = /*#__PURE__*/function (_ServerRequest) {
     key: "_showNextArrow",
     value: function _showNextArrow() {
       this.$modalNextArrow.show();
-    }
+    } // Getters and setters
+
   }, {
-    key: "_swipePhoto",
-    value: function _swipePhoto() {}
+    key: "touchTrottle",
+    get: function get() {
+      return 50;
+    }
   }]);
 
   return Gallery;
