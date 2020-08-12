@@ -6,6 +6,7 @@ import BuyPremiumForm from "./modules/buyPremiumForm.js";
 import ChatList from "./modules/chatList.js";
 import Pagination from "./modules/pagination.js";
 import Ad from "./modules/ad.js";
+import Gallery from "./modules/gallery.js";
 
 window["PhotoUploader"] = PhotoUploader;
 window["PhotoEditor"] = PhotoEditor;
@@ -15,3 +16,4 @@ window["BuyPremiumForm"] = BuyPremiumForm;
 window["ChatList"] = ChatList;
 window["Pagination"] = Pagination;
 window["Ad"] = Ad;
+window["Gallery"] = Gallery;

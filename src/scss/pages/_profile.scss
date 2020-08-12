@@ -222,8 +222,11 @@
       @include ease-out;
       cursor: pointer;
       position: absolute;
-      top: 50%;
-      opacity: 0.5;
+      top: calc(50% - 100px);
+      height: 200px;
+      line-height: 200px;
+      vertical-align: middle;
+      opacity: 0;
 
       &:hover {
         color: #000;

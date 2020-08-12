@@ -110,7 +110,11 @@
               <!--User photo-->
               <figure class="photo mx-auto">
                 <i class="fas fa-chevron-left arrow"></i>
-                <img src="img/profile.jpg" alt="Profile photo" />
+                <img
+                  src="img/profile.jpg"
+                  class="modal-image"
+                  alt="Profile photo"
+                />
                 <i class="fas fa-chevron-right arrow"></i>
                 <!--Closing button-->
                 <button
@@ -125,14 +129,13 @@
             </div>
             <div class="modal-footer">
               <!--Photo description start-->
-              <p class="text-center" id="photo-description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Necessitatibus quis id, exercitationem quidem explicabo dicta
-                commodi reprehenderit numquam praesentium doloremque
-                consequuntur provident quibusdam maiores ipsum beatae earum
-                aliquid cum voluptate!
-              </p>
+              <p class="text-center d-block w-100" id="photo-description"></p>
               <!--Photo description end-->
+              <div class="text-center w-100" id="btn-permission">
+                <button type="button" class="mb-2 btn btn-default">
+                  Ask permission to gain access
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -628,6 +631,7 @@
                     data-id="1"
                     data-description="Lorem ipsum"
                     data-privacy="false"
+                    data-order="1"
                     alt="photo 1"
                   />
                 </div>
@@ -637,11 +641,14 @@
                   <figure class="private bg-dark p-4">
                     <img
                       src="img/lock.svg"
+                      class="gallery-photo"
                       alt="Private photo"
                       data-toggle="modal"
                       data-target="#userPhoto"
-                      data-id="1"
+                      data-id="10"
+                      data-description="This photo is private. Please, ask for permission to gain access"
                       data-privacy="true"
+                      data-order="2"
                     />
                   </figure>
                 </div>
@@ -656,6 +663,7 @@
                     data-id="3"
                     data-description="This is another photo description"
                     data-privacy="false"
+                    data-order="3"
                     alt="photo 1"
                   />
                 </div>
@@ -665,11 +673,14 @@
                   <figure class="private bg-dark p-4">
                     <img
                       src="img/lock.svg"
+                      class="gallery-photo"
                       alt="Private photo"
                       data-toggle="modal"
                       data-target="#userPhoto"
                       data-id="2"
+                      data-description="This photo is private. Please, ask for permission to gain access"
                       data-privacy="true"
+                      data-order="4"
                     />
                   </figure>
                 </div>
@@ -684,6 +695,7 @@
                     data-id="4"
                     data-description=""
                     data-privacy="false"
+                    data-order="5"
                     alt="photo 2"
                   />
                 </div>
@@ -698,6 +710,7 @@
                     data-id="5"
                     data-description=""
                     data-privacy="false"
+                    data-order="6"
                     alt="photo 1"
                   />
                 </div>
@@ -709,9 +722,10 @@
                     class="gallery-photo"
                     data-toggle="modal"
                     data-target="#userPhoto"
-                    data-id="4"
+                    data-id="9"
                     data-description="Description"
                     data-privacy="false"
+                    data-order="7"
                     alt="photo 2"
                   />
                 </div>
@@ -913,14 +927,19 @@
         });
 
         /* Gallery */
-        //const gallery = new Gallery({
-        //  selectors: {
-        //    modal: "#userPhoto",
-        //    image: ".photo img",
-        //    description: "#photo-description"
-        //  },
-        //  requests: {},
-        //});
+        const gallery = new Gallery({
+          selectors: {
+            gallery: "#photos-container",
+            photoContainer: ".gallery-slide",
+            modal: "#userPhoto",
+            modalImage: ".modal-image",
+            modalPermissionButton: "#btn-permission",
+            modalDescription: "#photo-description",
+            gallerySlide: ".gallery-slide",
+            description: "#photo-description",
+          },
+          requests: {},
+        });
       });
     </script>
   </body>

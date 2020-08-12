@@ -2711,8 +2711,8 @@ var ServerRequest = /*#__PURE__*/function () {
     this.getPhotosIds = this.getPhotosIds.bind(this);
     this.requestBonusUsage = this.requestBonusUsage.bind(this); // Save passed options
 
-    this.selectors = options.selectors;
-    this.requests = options.requests; // Transform endpoints into URL Objects
+    this.selectors = options["selectors"];
+    this.requests = options["requests"]; // Transform endpoints into URL Objects
 
     this.makeURLObjects();
     Object.assign(ServerRequest.prototype, _swalAlertMixin_js__WEBPACK_IMPORTED_MODULE_4__["default"]);
