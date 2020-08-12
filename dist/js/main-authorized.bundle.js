@@ -8781,7 +8781,9 @@ var Gallery = /*#__PURE__*/function (_ServerRequest) {
 
     _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Gallery);
 
-    _this = _super.call(this, options);
+    _this = _super.call(this, options); // Bind context
+
+    _this.galleryConfig = options["galleryManipulation"];
 
     _this._cacheElements();
 
@@ -8793,25 +8795,37 @@ var Gallery = /*#__PURE__*/function (_ServerRequest) {
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Gallery, [{
     key: "_cacheElements",
     value: function _cacheElements() {
-      this.$gallery = $(this.selectors["gallery"]);
-      this.$slides = this.$gallery.find(this.selectors["photoContainer"]);
-      this.$photos = this.$gallery.find(this.selectors["gallerySlide"]); // Elements inside modal
+      // Swiper slider
+      this.$gallery = $(this.selectors.gallery);
+      this.$slides = this.$gallery.find(this.selectors.photoContainer);
+      this.$photos = this.$gallery.find(this.selectors.gallerySlide); // Elements inside modal
 
-      this.$modal = $(this.selectors["modal"]);
-      this.$modalImage = this.$modal.find(this.selectors["modalImage"]);
-      this.$modalDescription = this.$modal.find(this.selectors["modalDescription"]);
-      this.$modalPermissionButton = this.$modal.find(this.selectors["modalPermissionButton"]);
+      this.$modal = $(this.selectors.modal);
+      this.$modalImage = this.$modal.find(this.selectors.modalImage);
+      this.$modalDescription = this.$modal.find(this.selectors.modalDescription);
+      this.$modalPermissionButton = this.$modal.find(this.selectors.modalPermissionButton);
+      this.$modalPrevArrow = this.$modal.find(this.selectors.prevArrow);
+      this.$modalNextArrow = this.$modal.find(this.selectors.nextArrow);
     }
   }, {
     key: "_setUpEventListeners",
     value: function _setUpEventListeners() {
       var _this2 = this;
 
+      // Adjust modal based on the clicked photo
       this.$gallery.click(function (event) {
         var target = event.target;
         if (target.tagName !== "IMG") return;
 
         _this2._generateModal(target);
+      }); // Add gallery behavior to modal
+
+      this.$modal.click(function (event) {
+        // Show next photo when the photo is typed
+        var target = event.target;
+        if (!$(target).hasClass(_this2.galleryConfig.arrowClass) && target.tagName !== "IMG") return;
+
+        _this2._changePhoto(target);
       });
     }
   }, {
@@ -8820,21 +8834,74 @@ var Gallery = /*#__PURE__*/function (_ServerRequest) {
       var _target$dataset = target.dataset,
           description = _target$dataset.description,
           privacy = _target$dataset.privacy,
-          order = _target$dataset.order;
+          order = _target$dataset.order,
+          id = _target$dataset.id;
       var src = target.src;
       privacy = privacy === "true" ? true : false; // Add photo and description
 
       this.$modalImage.attr("src", src);
-      this.$modalDescription.text(description); // Save the order of the current image
+      this.$modalDescription.text(description); // Save the order and the id of the current image
 
-      this.order = order; // Toggle button visibility
+      this.order = parseInt(order);
+      this.id = id; // Handle arrow hiding on first/last photos
+
+      this.order === 0 ? this._hidePrevArrow() : this._showPrevArrow();
+      this.order === this.$slides.length ? this._hideNextArrow() : this._showNextArrow(); // Toggle button visibility
 
       if (privacy) {
         this.$modalPermissionButton.removeClass("d-none");
       } else {
         this.$modalPermissionButton.addClass("d-none");
       }
+    } // Manipulating photos
+
+  }, {
+    key: "_changePhoto",
+    value: function _changePhoto(target) {
+      var config = this.galleryConfig;
+
+      if (target.tagName === "IMG" || $(target).hasClass(config.nextClass)) {
+        this._showNextPhoto();
+      }
+
+      if ($(target).hasClass(config.prevClass)) {
+        this._showPrevPhoto();
+      }
     }
+  }, {
+    key: "_showNextPhoto",
+    value: function _showNextPhoto() {
+      console.log("Showing next photo....");
+    }
+  }, {
+    key: "_showPrevPhoto",
+    value: function _showPrevPhoto() {
+      console.log("Showing prev photo....");
+    } // Hiding and showing arrows
+
+  }, {
+    key: "_hidePrevArrow",
+    value: function _hidePrevArrow() {
+      this.$modalPrevArrow.hide();
+    }
+  }, {
+    key: "_showPrevArrow",
+    value: function _showPrevArrow() {
+      this.$modalPrevArrow.show();
+    }
+  }, {
+    key: "_hideNextArrow",
+    value: function _hideNextArrow() {
+      this.$modalNextArrow.hide();
+    }
+  }, {
+    key: "_showNextArrow",
+    value: function _showNextArrow() {
+      this.$modalNextArrow.show();
+    }
+  }, {
+    key: "_swipePhoto",
+    value: function _swipePhoto() {}
   }]);
 
   return Gallery;

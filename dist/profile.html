@@ -109,13 +109,13 @@
             <div class="modal-body">
               <!--User photo-->
               <figure class="photo mx-auto">
-                <i class="fas fa-chevron-left arrow"></i>
+                <i class="fas fa-chevron-left arrow prev"></i>
                 <img
                   src="img/profile.jpg"
                   class="modal-image"
                   alt="Profile photo"
                 />
-                <i class="fas fa-chevron-right arrow"></i>
+                <i class="fas fa-chevron-right arrow next"></i>
                 <!--Closing button-->
                 <button
                   type="button"
@@ -631,7 +631,7 @@
                     data-id="1"
                     data-description="Lorem ipsum"
                     data-privacy="false"
-                    data-order="1"
+                    data-order="0"
                     alt="photo 1"
                   />
                 </div>
@@ -648,7 +648,7 @@
                       data-id="10"
                       data-description="This photo is private. Please, ask for permission to gain access"
                       data-privacy="true"
-                      data-order="2"
+                      data-order="1"
                     />
                   </figure>
                 </div>
@@ -663,7 +663,7 @@
                     data-id="3"
                     data-description="This is another photo description"
                     data-privacy="false"
-                    data-order="3"
+                    data-order="2"
                     alt="photo 1"
                   />
                 </div>
@@ -680,7 +680,7 @@
                       data-id="2"
                       data-description="This photo is private. Please, ask for permission to gain access"
                       data-privacy="true"
-                      data-order="4"
+                      data-order="3"
                     />
                   </figure>
                 </div>
@@ -695,7 +695,7 @@
                     data-id="4"
                     data-description=""
                     data-privacy="false"
-                    data-order="5"
+                    data-order="4"
                     alt="photo 2"
                   />
                 </div>
@@ -710,7 +710,7 @@
                     data-id="5"
                     data-description=""
                     data-privacy="false"
-                    data-order="6"
+                    data-order="5"
                     alt="photo 1"
                   />
                 </div>
@@ -725,7 +725,7 @@
                     data-id="9"
                     data-description="Description"
                     data-privacy="false"
-                    data-order="7"
+                    data-order="6"
                     alt="photo 2"
                   />
                 </div>
@@ -932,11 +932,18 @@
             gallery: "#photos-container",
             photoContainer: ".gallery-slide",
             modal: "#userPhoto",
+            prevArrow: ".prev",
+            nextArrow: ".next",
             modalImage: ".modal-image",
             modalPermissionButton: "#btn-permission",
             modalDescription: "#photo-description",
             gallerySlide: ".gallery-slide",
             description: "#photo-description",
+          },
+          galleryManipulation: {
+            arrowClass: "arrow",
+            nextClass: "next",
+            prevClass: "prev",
           },
           requests: {},
         });
