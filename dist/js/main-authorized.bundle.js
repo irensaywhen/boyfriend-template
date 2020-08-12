@@ -8803,7 +8803,7 @@ var Gallery = /*#__PURE__*/function (_ServerRequest) {
       this.$modal = $(this.selectors.modal);
       this.$modalImage = this.$modal.find(this.selectors.modalImage);
       this.$modalDescription = this.$modal.find(this.selectors.modalDescription);
-      this.$modalPermissionButton = this.$modal.find(this.selectors.modalPermissionButton);
+      this.$modalPermissionButton = this.$modal.find(this.selectors.modalPermissionButton).fadeOut(0);
       this.$modalPrevArrow = this.$modal.find(this.selectors.prevArrow);
       this.$modalNextArrow = this.$modal.find(this.selectors.nextArrow);
     }
@@ -8825,34 +8825,72 @@ var Gallery = /*#__PURE__*/function (_ServerRequest) {
         var target = event.target;
         if (!$(target).hasClass(_this2.galleryConfig.arrowClass) && target.tagName !== "IMG") return;
 
-        _this2._changePhoto(target);
+        _this2._changePhoto(target, false);
       });
     }
   }, {
     key: "_generateModal",
-    value: function _generateModal(target) {
+    value: function _generateModal(target, animation) {
+      var _this3 = this;
+
       var _target$dataset = target.dataset,
           description = _target$dataset.description,
           privacy = _target$dataset.privacy,
           order = _target$dataset.order,
           id = _target$dataset.id;
       var src = target.src;
-      privacy = privacy === "true" ? true : false; // Add photo and description
+      privacy = privacy === "true" ? true : false; // Add photo or change it
 
-      this.$modalImage.attr("src", src);
-      this.$modalDescription.text(description); // Save the order and the id of the current image
+      if (animation) {
+        // Animate image
+        this.$modalImage.fadeOut({
+          duration: 400,
+          queue: false,
+          complete: function complete() {
+            _this3.$modalImage.attr("src", src);
+
+            _this3.$modalImage.fadeIn(400);
+          }
+        }); // Animate description
+
+        this.$modalDescription.fadeOut({
+          duration: 400,
+          queue: false,
+          complete: function complete() {
+            _this3.$modalDescription.text(description);
+
+            _this3.$modalDescription.fadeIn(400);
+          }
+        }); // Animate showing/hiding of privacy button
+
+        if (privacy) {
+          this.$modalPermissionButton.fadeIn({
+            duration: 400,
+            queue: false
+          });
+        } else {
+          this.$modalPermissionButton.fadeOut({
+            duration: 400,
+            queue: false
+          });
+        }
+      } else {
+        this.$modalImage.attr("src", src);
+        this.$modalDescription.text(description);
+        privacy ? this.$modalPermissionButton.fadeIn(0) : this.$modalPermissionButton.fadeOut(0);
+      } // Save the order and the id of the current image
+
 
       this.order = parseInt(order);
       this.id = id; // Handle arrow hiding on first/last photos
 
       this.order === 0 ? this._hidePrevArrow() : this._showPrevArrow();
       this.order === this.$slides.length ? this._hideNextArrow() : this._showNextArrow(); // Toggle button visibility
-
-      if (privacy) {
-        this.$modalPermissionButton.removeClass("d-none");
-      } else {
-        this.$modalPermissionButton.addClass("d-none");
-      }
+      //if (privacy) {
+      //  this.$modalPermissionButton.removeClass("d-none");
+      //} else {
+      //  this.$modalPermissionButton.addClass("d-none");
+      //}
     } // Manipulating photos
 
   }, {
@@ -8861,22 +8899,22 @@ var Gallery = /*#__PURE__*/function (_ServerRequest) {
       var config = this.galleryConfig;
 
       if (target.tagName === "IMG" || $(target).hasClass(config.nextClass)) {
-        this._showNextPhoto();
+        ++this.order;
       }
 
       if ($(target).hasClass(config.prevClass)) {
-        this._showPrevPhoto();
+        --this.order;
       }
+
+      this._showNewPhoto();
     }
   }, {
-    key: "_showNextPhoto",
-    value: function _showNextPhoto() {
-      console.log("Showing next photo....");
-    }
-  }, {
-    key: "_showPrevPhoto",
-    value: function _showPrevPhoto() {
-      console.log("Showing prev photo....");
+    key: "_showNewPhoto",
+    value: function _showNewPhoto() {
+      // Find image
+      var $img = this.$gallery.find("img[data-order=\"".concat(this.order, "\"]")); // Show it in modal
+
+      this._generateModal($img[0], true);
     } // Hiding and showing arrows
 
   }, {

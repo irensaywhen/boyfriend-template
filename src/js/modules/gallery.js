@@ -22,9 +22,9 @@ export default class Gallery extends ServerRequest {
     this.$modal = $(this.selectors.modal);
     this.$modalImage = this.$modal.find(this.selectors.modalImage);
     this.$modalDescription = this.$modal.find(this.selectors.modalDescription);
-    this.$modalPermissionButton = this.$modal.find(
-      this.selectors.modalPermissionButton
-    );
+    this.$modalPermissionButton = this.$modal
+      .find(this.selectors.modalPermissionButton)
+      .fadeOut(0);
     this.$modalPrevArrow = this.$modal.find(this.selectors.prevArrow);
     this.$modalNextArrow = this.$modal.find(this.selectors.nextArrow);
   }
@@ -50,19 +50,58 @@ export default class Gallery extends ServerRequest {
       )
         return;
 
-      this._changePhoto(target);
+      this._changePhoto(target, false);
     });
   }
 
-  _generateModal(target) {
+  _generateModal(target, animation) {
     let { description, privacy, order, id } = target.dataset;
     let src = target.src;
 
     privacy = privacy === "true" ? true : false;
 
-    // Add photo and description
-    this.$modalImage.attr("src", src);
-    this.$modalDescription.text(description);
+    // Add photo or change it
+    if (animation) {
+      // Animate image
+      this.$modalImage.fadeOut({
+        duration: 400,
+        queue: false,
+        complete: () => {
+          this.$modalImage.attr("src", src);
+          this.$modalImage.fadeIn(400);
+        },
+      });
+
+      // Animate description
+      this.$modalDescription.fadeOut({
+        duration: 400,
+        queue: false,
+        complete: () => {
+          this.$modalDescription.text(description);
+          this.$modalDescription.fadeIn(400);
+        },
+      });
+
+      // Animate showing/hiding of privacy button
+      if (privacy) {
+        this.$modalPermissionButton.fadeIn({
+          duration: 400,
+          queue: false,
+        });
+      } else {
+        this.$modalPermissionButton.fadeOut({
+          duration: 400,
+          queue: false,
+        });
+      }
+    } else {
+      this.$modalImage.attr("src", src);
+      this.$modalDescription.text(description);
+
+      privacy
+        ? this.$modalPermissionButton.fadeIn(0)
+        : this.$modalPermissionButton.fadeOut(0);
+    }
 
     // Save the order and the id of the current image
     this.order = parseInt(order);
@@ -75,11 +114,11 @@ export default class Gallery extends ServerRequest {
       : this._showNextArrow();
 
     // Toggle button visibility
-    if (privacy) {
-      this.$modalPermissionButton.removeClass("d-none");
-    } else {
-      this.$modalPermissionButton.addClass("d-none");
-    }
+    //if (privacy) {
+    //  this.$modalPermissionButton.removeClass("d-none");
+    //} else {
+    //  this.$modalPermissionButton.addClass("d-none");
+    //}
   }
 
   // Manipulating photos
@@ -87,18 +126,22 @@ export default class Gallery extends ServerRequest {
     let config = this.galleryConfig;
 
     if (target.tagName === "IMG" || $(target).hasClass(config.nextClass)) {
-      this._showNextPhoto();
+      ++this.order;
     }
 
     if ($(target).hasClass(config.prevClass)) {
-      this._showPrevPhoto();
+      --this.order;
     }
+
+    this._showNewPhoto();
   }
-  _showNextPhoto() {
-    console.log("Showing next photo....");
-  }
-  _showPrevPhoto() {
-    console.log("Showing prev photo....");
+
+  _showNewPhoto() {
+    // Find image
+    let $img = this.$gallery.find(`img[data-order="${this.order}"]`);
+
+    // Show it in modal
+    this._generateModal($img[0], true);
   }
 
   // Hiding and showing arrows
