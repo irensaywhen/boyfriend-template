@@ -1225,12 +1225,13 @@ article .header time {
 .profile-modals .gallery-modal .photo .arrow {
   transition: all 0.5s ease-out;
   cursor: pointer;
-  position: absolute;
-  top: calc(50% - 100px);
+  position: fixed;
+  z-index: 2000;
+  top: calc(50vh - 100px);
   height: 200px;
   line-height: 200px;
   vertical-align: middle;
-  opacity: 0;
+  opacity: 1;
 }
 .profile-modals .gallery-modal .photo .arrow {
   font-size: 28px;
@@ -1250,10 +1251,10 @@ article .header time {
   opacity: 0.6;
 }
 .profile-modals .gallery-modal .photo .arrow.fa-chevron-left {
-  left: 5px;
+  left: 13px;
 }
 .profile-modals .gallery-modal .photo .arrow.fa-chevron-right {
-  right: 5px;
+  right: 13px;
 }
 .profile-modals .gallery-modal .photo img {
   max-width: 100%;
@@ -1263,6 +1264,7 @@ article .header time {
 .profile-modals .gallery-modal .description {
   color: #fff;
   font-weight: 300;
+  max-width: 450px;
 }
 .profile-modals .gallery-modal .description {
   font-size: 14px;

@@ -45,12 +45,13 @@
         @include fluid-type($screen-xs, $screen-xl, 28px, 36px);
         @include ease-out;
         cursor: pointer;
-        position: absolute;
-        top: calc(50% - 100px);
+        position: fixed;
+        z-index: 2000;
+        top: calc(50vh - 100px);
         height: 200px;
         line-height: 200px;
         vertical-align: middle;
-        opacity: 0;
+        opacity: 1;
 
         &:hover {
           color: #fff;
@@ -58,11 +59,11 @@
         }
 
         &.fa-chevron-left {
-          left: 5px;
+          left: 13px;
         }
 
         &.fa-chevron-right {
-          right: 5px;
+          right: 13px;
         }
       }
 
@@ -78,6 +79,7 @@
       @include fluid-type($screen-xs, $screen-xl, 14px, 16px);
       color: #fff;
       font-weight: 300;
+      max-width: 450px;
     }
   }
 }
