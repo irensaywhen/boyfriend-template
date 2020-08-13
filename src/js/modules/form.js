@@ -1,6 +1,6 @@
-import ServerRequest from "./requests.js";
-import location from "./locationMixin.js";
-import payment from "./paymentMixin.js";
+import ServerRequest from './requests.js';
+import location from './locationMixin.js';
+import payment from './paymentMixin.js';
 
 export default class Form extends ServerRequest {
   constructor(options) {
@@ -31,15 +31,15 @@ export default class Form extends ServerRequest {
       this.payment = true;
 
       jQuery.validator.addMethod(
-        "expiration",
+        'expiration',
         this.creditCardExpirationValidation,
-        "Expiration date is passed"
+        'Expiration date is passed'
       );
 
       jQuery.validator.addMethod(
-        "cardNumber",
+        'cardNumber',
         this.creditCardNumberValidation,
-        "Card number is invalid"
+        'Card number is invalid'
       );
     }
 
@@ -49,16 +49,16 @@ export default class Form extends ServerRequest {
 
       // Change where error messages occur
       // This is required for label to work properly when errors are shown
-      options.validatorOptions["errorPlacement"] = (error, element) => {
-        element.closest(this.selectors["input-wrapper"]).append(error);
+      options.validatorOptions['errorPlacement'] = (error, element) => {
+        element.closest(this.selectors['input-wrapper']).append(error);
       };
 
       if (this.location) {
         // Add custom frontend validation for location field
         jQuery.validator.addMethod(
-          "location",
+          'location',
           this.frontendCityValidator,
-          "No such city"
+          'No such city'
         );
       }
 
@@ -93,10 +93,10 @@ export default class Form extends ServerRequest {
 
   setUpEventListeners() {
     // Form submission
-    this.$form.submit((event) => {
+    this.$form.submit(event => {
       event.preventDefault();
       event.stopPropagation();
-      console.log("Submitted!");
+      console.log('Submitted!');
 
       if (!this.frontendValidation) {
         // If this form doesn't require frontend validation (as with checkboxes)
@@ -114,19 +114,19 @@ export default class Form extends ServerRequest {
     });
 
     // Hiding error message on focus
-    this.$inputs.focus((event) => {
+    this.$inputs.focus(event => {
       $(event.target)
-        .closest(this.selectors["input-wrapper"])
-        .find(".custom-error")
+        .closest(this.selectors['input-wrapper'])
+        .find('.custom-error')
         .remove();
     });
   }
 
   collectLocationData(element) {
-    this.formData["city"] = {};
+    this.formData['city'] = {};
 
     for (let property in element.dataset) {
-      this.formData["city"][property] = element.dataset[property];
+      this.formData['city'][property] = element.dataset[property];
     }
   }
 
@@ -136,11 +136,11 @@ export default class Form extends ServerRequest {
       let name = element.name;
       let $element = $(element);
 
-      if ($element.is(":checkbox")) {
-        this.formData[name] = $element.is(":checked");
-      } else if ($element.is(":radio")) {
-        this.formData[name] = $("input[name=" + name + "]:checked").val();
-      } else if (name === "city") {
+      if ($element.is(':checkbox')) {
+        this.formData[name] = $element.is(':checked');
+      } else if ($element.is(':radio')) {
+        this.formData[name] = $('input[name=' + name + ']:checked').val();
+      } else if (name === 'city') {
         this.collectLocationData(element);
       } else {
         let value = $element.val();
@@ -168,16 +168,16 @@ export default class Form extends ServerRequest {
       this.showRequestResult({
         title: error.name,
         text: error.message,
-        icon: "error",
+        icon: 'error',
       });
     } finally {
       // Remove error messages
-      this.$form.find(".error").remove();
+      this.$form.find('.error').remove();
     }
     if (response.success) {
       if (this.generateSubmitEvent) {
         // Make custom event for form submission
-        let customSubmittedEvent = new CustomEvent("submitted");
+        let customSubmittedEvent = new CustomEvent('submitted');
 
         // Dispatch custom event
         this.$form[0].dispatchEvent(customSubmittedEvent);
@@ -188,13 +188,13 @@ export default class Form extends ServerRequest {
         this.showRequestResult({
           title: response.title,
           text: response.message,
-          icon: "success",
+          icon: 'success',
         });
       }
 
       if (this.cleanFields) {
         // Clean input fields
-        this.$inputs.val("");
+        this.$inputs.val('');
       }
 
       if (this.redirectOnSubmit) {
@@ -209,7 +209,7 @@ export default class Form extends ServerRequest {
         this.showRequestResult({
           title: response.title,
           text: response.message,
-          icon: "error",
+          icon: 'error',
         });
       }
 
@@ -225,11 +225,11 @@ export default class Form extends ServerRequest {
 
       if (name in errors) {
         $(element)
-          .closest(this.selectors["input-wrapper"])
+          .closest(this.selectors['input-wrapper'])
           .append(
-            $("<span></span>")
-              .addClass("error")
-              .addClass("custom-error")
+            $('<span></span>')
+              .addClass('error')
+              .addClass('custom-error')
               .text(errors[name])
           );
       }

@@ -1,4 +1,4 @@
-import helper from "./helper.js";
+import helper from './helper.js';
 
 export default class Pagination {
   _profilesShown = false;
@@ -10,10 +10,10 @@ export default class Pagination {
     this.$pagination = $(selectors.pagination);
 
     // Options for the plugin
-    this.pluginOptions = config["pluginOptions"];
+    this.pluginOptions = config['pluginOptions'];
 
     // Configuration for breakpoints
-    this.perPageConfig = config["perPageConfig"];
+    this.perPageConfig = config['perPageConfig'];
 
     this._init = false;
 
@@ -33,7 +33,7 @@ export default class Pagination {
 
     let $document = $(document);
 
-    $document.on("searchForm:beforeRequest", () => {
+    $document.on('searchForm:beforeRequest', () => {
       // Delete previous results
       this.$container.empty();
 
@@ -41,7 +41,7 @@ export default class Pagination {
       this.destroy({ resized: false });
     });
 
-    $document.on("searchForm:afterSuccessfulRequest", (event, data) => {
+    $document.on('searchForm:afterSuccessfulRequest', (event, data) => {
       this._profilesShown = true;
       this.init(data);
     });
@@ -51,18 +51,18 @@ export default class Pagination {
     // Do not initialize pagination if it is already initiated
     if (this._init) return;
 
-    this.$pagination.trigger("pagination:beforeInit", data);
+    this.$pagination.trigger('pagination:beforeInit', data);
 
     // Save current viewport range
     this._viewportRange = helper.getViewportRange();
 
     // Pass current viewport range to plugin options
-    this.pluginOptions["perPage"] = this.perPageConfig[this._viewportRange];
+    this.pluginOptions['perPage'] = this.perPageConfig[this._viewportRange];
 
     // Initiate plugin
     this.$pagination.jPages(this.pluginOptions);
 
-    this.$pagination.trigger("pagination:afterInit");
+    this.$pagination.trigger('pagination:afterInit');
 
     this._init = true;
   }
@@ -74,16 +74,16 @@ export default class Pagination {
 
       if (resized) {
         // Trigger event if the destroyment was initiated by resizement
-        this.$pagination.trigger("pagination:beforeDestroyAfterResize");
+        this.$pagination.trigger('pagination:beforeDestroyAfterResize');
       }
 
       // destroy plugin instance
-      this.$pagination.jPages("destroy");
+      this.$pagination.jPages('destroy');
       this._init = false;
 
       if (resized) {
         // Trigger event if the destroyment was initiated by resizement
-        this.$pagination.trigger("pagination:afterDestroyAfterResize");
+        this.$pagination.trigger('pagination:afterDestroyAfterResize');
       }
     }
   }

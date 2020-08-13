@@ -83,7 +83,7 @@
     @for $i from 1 through 2 {
       li:nth-of-type(#{$i}) {
         &:after {
-          content: "";
+          content: '';
           position: absolute;
           top: calc(50% - 10px);
           right: 0;

@@ -1,47 +1,47 @@
 /*Utilities*/
-@import "utilities/variables";
-@import "utilities/helper_classes";
-@import "utilities/mixins";
-@import "utilities/functions";
+@import 'utilities/variables';
+@import 'utilities/helper_classes';
+@import 'utilities/mixins';
+@import 'utilities/functions';
 
 /*Components*/
-@import "components/buttons";
-@import "components/form_controls";
-@import "components/form_errors";
-@import "components/svg_icons";
-@import "components/user_photos";
-@import "components/loader_indicator";
-@import "components/horizontal_loader";
+@import 'components/buttons';
+@import 'components/form_controls';
+@import 'components/form_errors';
+@import 'components/svg_icons';
+@import 'components/user_photos';
+@import 'components/loader_indicator';
+@import 'components/horizontal_loader';
 
 /*Themes*/
-@import "themes/main_theme";
-@import "themes/blue_theme";
+@import 'themes/main_theme';
+@import 'themes/blue_theme';
 
 /*Layout*/
-@import "layout/header_public";
-@import "layout/header_private";
-@import "layout/footer_private";
-@import "layout/footer_public";
-@import "layout/sidebar";
-@import "layout/loader";
-@import "layout/articles";
-@import "layout/breadcrumbs";
-@import "layout/menu_notification";
-@import "layout/upload_photo";
-@import "layout/modal";
-@import "layout/user_info";
-@import "layout/ad";
-@import "layout/profile_list";
-@import "layout/gallery";
+@import 'layout/header_public';
+@import 'layout/header_private';
+@import 'layout/footer_private';
+@import 'layout/footer_public';
+@import 'layout/sidebar';
+@import 'layout/loader';
+@import 'layout/articles';
+@import 'layout/breadcrumbs';
+@import 'layout/menu_notification';
+@import 'layout/upload_photo';
+@import 'layout/modal';
+@import 'layout/user_info';
+@import 'layout/ad';
+@import 'layout/profile_list';
+@import 'layout/gallery';
 
 /*Pages*/
-@import "pages/front_page";
-@import "pages/single_page";
-@import "pages/fill_profile";
-@import "pages/login_and_register";
-@import "pages/result_list";
-@import "pages/buy_premium";
-@import "pages/chat_list";
-@import "pages/profile";
+@import 'pages/front_page';
+@import 'pages/single_page';
+@import 'pages/fill_profile';
+@import 'pages/login_and_register';
+@import 'pages/result_list';
+@import 'pages/buy_premium';
+@import 'pages/chat_list';
+@import 'pages/profile';
 
-@import "utilities/media";
+@import 'utilities/media';

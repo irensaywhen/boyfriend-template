@@ -1,4 +1,4 @@
-import ServerRequest from "./requests.js";
+import ServerRequest from './requests.js';
 
 export default class Bonus extends ServerRequest {
   constructor(options) {
@@ -53,7 +53,7 @@ export default class Bonus extends ServerRequest {
         this.amount = --this.amount;
 
         //Update data-amount attribute of the bonus
-        this.$bonus.attr("data-amount", this.amount);
+        this.$bonus.attr('data-amount', this.amount);
 
         // Start bonus usage
         this.useBonus();

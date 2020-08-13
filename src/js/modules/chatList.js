@@ -1,7 +1,7 @@
-import ServerRequest from "./requests.js";
-import moment from "moment";
+import ServerRequest from './requests.js';
+import moment from 'moment';
 // Adding localization
-moment.locale("pl");
+moment.locale('pl');
 
 export default class ChatList extends ServerRequest {
   get observerOptions() {
@@ -28,7 +28,7 @@ export default class ChatList extends ServerRequest {
 
     // Set amount of messages for the request
     this.requests.messages.endpoint.searchParams.set(
-      "amount",
+      'amount',
       String(options.messagesAmount)
     );
 
@@ -45,17 +45,17 @@ export default class ChatList extends ServerRequest {
     // Set observer options
     this.observerOptions = {
       root: this.$chatList[0],
-      rootMargin: "0px",
+      rootMargin: '0px',
       threshold: 0,
     };
   }
 
   setUpEventListeners() {
-    let chatList = document.getElementById("chat-list");
+    let chatList = document.getElementById('chat-list');
 
     chatList.addEventListener(
-      "scroll",
-      (event) => {
+      'scroll',
+      event => {
         let target = event.target;
       },
       { passive: true }
@@ -68,19 +68,19 @@ export default class ChatList extends ServerRequest {
   }
 
   formatTime(timestamp) {
-    let now = moment().format("x");
+    let now = moment().format('x');
 
     let duration = Math.round(moment.duration(now - timestamp).asHours());
 
     return duration < 24
-      ? moment(timestamp).format("HH:mm")
-      : moment(timestamp).format("DD MMM");
+      ? moment(timestamp).format('HH:mm')
+      : moment(timestamp).format('DD MMM');
   }
 
   observeLastMessage() {
     this.observer =
       this.observer ||
-      new IntersectionObserver((entries) => {
+      new IntersectionObserver(entries => {
         // Save the last message
         let element = entries[0];
         if (!element.isIntersecting) return;
@@ -117,7 +117,7 @@ export default class ChatList extends ServerRequest {
 
     let messageHeight = this.$messages.first().outerHeight();
     this.$chatList.animate({
-      scrollTop: "+=" + messageHeight,
+      scrollTop: '+=' + messageHeight,
     });
   }
 
@@ -132,50 +132,50 @@ export default class ChatList extends ServerRequest {
   }
 
   displayMessages(messages) {
-    messages.forEach((message) => {
+    messages.forEach(message => {
       let date = this.formatTime(parseInt(message.timestamp));
 
-      let $messageContainer = $("<div></div>").addClass(
-        "message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+      let $messageContainer = $('<div></div>').addClass(
+        'message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3'
       );
 
-      let $name = $("<h3></h3>")
-        .addClass("name")
-        .append($("<span></span>").text(message["userName"]));
+      let $name = $('<h3></h3>')
+        .addClass('name')
+        .append($('<span></span>').text(message['userName']));
 
-      if (message["unread"]) {
+      if (message['unread']) {
         // Username with badge
         $name.append(
-          $("<span></span>")
-            .addClass("badge badge-info ml-2")
-            .text(message["amount"])
+          $('<span></span>')
+            .addClass('badge badge-info ml-2')
+            .text(message['amount'])
         );
 
-        $messageContainer.addClass("unread");
+        $messageContainer.addClass('unread');
       }
 
       // Building the entire message
       $messageContainer
         .append(
-          $("<figure></figure>")
-            .addClass("avatar")
-            .append($("<img>").attr("src", message["avatar"]).attr("alt", ""))
+          $('<figure></figure>')
+            .addClass('avatar')
+            .append($('<img>').attr('src', message['avatar']).attr('alt', ''))
         )
         .append(
-          $("<div></div>")
-            .addClass("pl-1 pl-sm-3 w-100")
+          $('<div></div>')
+            .addClass('pl-1 pl-sm-3 w-100')
             .append(
-              $("<div></div>")
-                .addClass("d-flex justify-content-between")
+              $('<div></div>')
+                .addClass('d-flex justify-content-between')
                 .append($name)
                 .append(
-                  $("<time></time>")
-                    .addClass("date small text-secondary")
+                  $('<time></time>')
+                    .addClass('date small text-secondary')
                     .text(date)
                 )
             )
             .append(
-              $("<p></p>").addClass("text text-secondary").text(message["text"])
+              $('<p></p>').addClass('text text-secondary').text(message['text'])
             )
         )
         .appendTo(this.$chatList);

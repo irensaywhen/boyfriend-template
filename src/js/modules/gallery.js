@@ -1,4 +1,5 @@
-import ServerRequest from "./requests.js";
+import ServerRequest from './requests.js';
+import HttpError from './httpError.js';
 
 export default class Gallery extends ServerRequest {
   constructor(options) {
@@ -6,7 +7,7 @@ export default class Gallery extends ServerRequest {
 
     // Bind context
 
-    this.galleryConfig = options["galleryManipulation"];
+    this.galleryConfig = options['galleryManipulation'];
 
     this._cacheElements();
     this._setUpEventListeners();
@@ -31,26 +32,32 @@ export default class Gallery extends ServerRequest {
 
   _setUpEventListeners() {
     // Adjust modal based on the clicked photo
-    this.$gallery.click((event) => {
+    this.$gallery.click(event => {
       let target = event.target;
 
-      if (target.tagName !== "IMG") return;
+      if (target.tagName !== 'IMG') return;
 
       this._generateModal(target);
     });
 
     // Add gallery behavior to modal
-    this.$modal.click((event) => {
+    this.$modal.click(event => {
       // Show next photo when the photo is typed
       let target = event.target;
 
       if (
         !$(target).hasClass(this.galleryConfig.arrowClass) &&
-        target.tagName !== "IMG"
+        target.tagName !== 'IMG'
       )
         return;
 
       this._changePhoto(target, false);
+    });
+
+    this.$modalPermissionButton.find('button').click(event => {
+      event.preventDefault();
+
+      this._askPermission();
     });
 
     // Touch support for mobile devices
@@ -60,17 +67,17 @@ export default class Gallery extends ServerRequest {
   _addTouchSupport() {
     let clientXStart, clientXEnd, distance;
 
-    this.$modalImage.on("touchstart", (event) => {
+    this.$modalImage.on('touchstart', event => {
       // Save coordinates of the initial touch point
       clientXStart = event.touches[0].clientX;
     });
 
-    this.$modalImage.on("touchmove", (event) => {
+    this.$modalImage.on('touchmove', event => {
       // Save coordinates while touch point is moving
       clientXEnd = event.touches[0].clientX;
     });
 
-    this.$modalImage.on("touchend", () => {
+    this.$modalImage.on('touchend', () => {
       distance = clientXStart - clientXEnd;
 
       if (distance > this.touchTrottle) {
@@ -89,11 +96,47 @@ export default class Gallery extends ServerRequest {
     });
   }
 
+  _askPermission() {
+    let request = this.requests.permission;
+    console.log(request);
+
+    this.makeRequest({
+      headers: request.headers,
+      endpoint: request.endpoint,
+      method: request.method,
+    })
+      .then(response => {
+        console.log(response);
+        if (response.success) {
+          this.showRequestResult({
+            title: response.title,
+            text: response.message,
+            icon: 'success',
+          });
+        } else {
+          this.showRequestResult({
+            title: response.title,
+            text: response.message,
+            icon: 'error',
+          });
+        }
+      })
+
+      .catch(error => {
+        // Show error popup here
+        this.showRequestResult({
+          title: error.name,
+          text: error.message,
+          icon: 'error',
+        });
+      });
+  }
+
   _generateModal(target, animation) {
     let { description, privacy, order, id } = target.dataset;
     let src = target.src;
 
-    privacy = privacy === "true" ? true : false;
+    privacy = privacy === 'true' ? true : false;
 
     // Add photo or change it
     if (animation) {
@@ -102,7 +145,7 @@ export default class Gallery extends ServerRequest {
         duration: 400,
         queue: false,
         complete: () => {
-          this.$modalImage.attr("src", src);
+          this.$modalImage.attr('src', src);
           this.$modalImage.fadeIn(400);
         },
       });
@@ -130,7 +173,7 @@ export default class Gallery extends ServerRequest {
         });
       }
     } else {
-      this.$modalImage.attr("src", src);
+      this.$modalImage.attr('src', src);
       this.$modalDescription.text(description);
 
       privacy
@@ -153,7 +196,7 @@ export default class Gallery extends ServerRequest {
   _changePhoto(target) {
     let config = this.galleryConfig;
 
-    if (target.tagName === "IMG" || $(target).hasClass(config.nextClass)) {
+    if (target.tagName === 'IMG' || $(target).hasClass(config.nextClass)) {
       ++this.order;
     }
 

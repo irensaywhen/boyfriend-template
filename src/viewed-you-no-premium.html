@@ -382,45 +382,45 @@
     <script src="js/main-authorized.bundle.js"></script>
 
     <script>
-      $(window).on("load", function () {
+      $(window).on('load', function () {
         /* notification view and hide */
         setTimeout(function () {
-          $(".notification").addClass("active");
+          $('.notification').addClass('active');
           setTimeout(function () {
-            $(".notification").removeClass("active");
+            $('.notification').removeClass('active');
           }, 3500);
         }, 500);
-        $(".closenotification").on("click", function () {
-          $(this).closest(".notification").removeClass("active");
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
 
         /* Boost initialization */
         const boost = new Boost({
           selectors: {
-            bonus: ".boost",
+            bonus: '.boost',
             timer: {
-              element: ".timer",
-              hours: ".hours",
-              minutes: ".minutes",
-              seconds: ".seconds",
+              element: '.timer',
+              hours: '.hours',
+              minutes: '.minutes',
+              seconds: '.seconds',
             },
           },
           requests: {
             use: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus',
             },
           },
           popupData: {
-            title: "Do you want to use boost?",
-            confirmButtonText: "Yes!",
-            cancelButtonText: "No",
-            imageUrl: "img/boost.svg",
-            imageAlt: "Boost icon",
+            title: 'Do you want to use boost?',
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No',
+            imageUrl: 'img/boost.svg',
+            imageAlt: 'Boost icon',
           },
         });
       });

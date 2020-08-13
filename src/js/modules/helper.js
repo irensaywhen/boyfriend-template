@@ -3,11 +3,11 @@ export default (function () {
 
   return {
     getScrollBarWidth() {
-      var $outer = $("<div>")
-          .css({ visibility: "hidden", width: 100, overflow: "scroll" })
-          .appendTo("body"),
-        widthWithScroll = $("<div>")
-          .css({ width: "100%" })
+      var $outer = $('<div>')
+          .css({ visibility: 'hidden', width: 100, overflow: 'scroll' })
+          .appendTo('body'),
+        widthWithScroll = $('<div>')
+          .css({ width: '100%' })
           .appendTo($outer)
           .outerWidth();
       $outer.remove();
@@ -22,28 +22,28 @@ export default (function () {
       let viewportWidth = this.getViewportWidth();
 
       if (viewportWidth && viewportWidth < breakpoints[1]) {
-        return "xs";
+        return 'xs';
       } else if (
         breakpoints[1] <= viewportWidth &&
         viewportWidth < breakpoints[2]
       ) {
-        return "sm";
+        return 'sm';
       } else if (
         breakpoints[2] <= viewportWidth &&
         viewportWidth < breakpoints[3]
       ) {
-        return "md";
+        return 'md';
       } else if (
         breakpoints[3] <= viewportWidth &&
         viewportWidth < breakpoints[4]
       ) {
-        return "lg";
+        return 'lg';
       } else if (breakpoints[4] <= viewportWidth) {
-        return "xl";
+        return 'xl';
       }
     },
 
-    getHeaderHeight(headerSelector = ".private-header") {
+    getHeaderHeight(headerSelector = '.private-header') {
       return $(headerSelector).outerHeight();
     },
   };

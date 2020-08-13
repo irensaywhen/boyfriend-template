@@ -969,86 +969,86 @@
     <script src="js/main-authorized.bundle.js"></script>
 
     <script>
-      $(window).on("load", function () {
+      $(window).on('load', function () {
         /* notification view and hide */
         setTimeout(function () {
-          $(".notification").addClass("active");
+          $('.notification').addClass('active');
           setTimeout(function () {
-            $(".notification").removeClass("active");
+            $('.notification').removeClass('active');
           }, 3500);
         }, 500);
-        $(".closenotification").on("click", function () {
-          $(this).closest(".notification").removeClass("active");
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
 
         /* Credit card initialization */
         var card = new Card({
-          form: "#credit-card",
-          container: ".card-wrapper",
+          form: '#credit-card',
+          container: '.card-wrapper',
           debug: true,
         });
 
         /* Boost initialization */
         const boost = new Boost({
           selectors: {
-            bonus: ".boost",
+            bonus: '.boost',
             timer: {
-              element: ".timer",
-              hours: ".hours",
-              minutes: ".minutes",
-              seconds: ".seconds",
+              element: '.timer',
+              hours: '.hours',
+              minutes: '.minutes',
+              seconds: '.seconds',
             },
           },
           requests: {
             use: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus',
             },
           },
           popupData: {
-            title: "Do you want to use boost?",
-            confirmButtonText: "Yes!",
-            cancelButtonText: "No",
-            imageUrl: "img/boost.svg",
-            imageAlt: "Boost icon",
+            title: 'Do you want to use boost?',
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No',
+            imageUrl: 'img/boost.svg',
+            imageAlt: 'Boost icon',
           },
         });
 
         /* Buy premium form initialization */
         const buyPremiumForm = new BuyPremiumForm({
           selectors: {
-            form: "#buy-premium",
-            "input-wrapper": ".form-group",
-            inputs: ".buy-premium-input",
+            form: '#buy-premium',
+            'input-wrapper': '.form-group',
+            inputs: '.buy-premium-input',
             // Wrapper of the bonus input
-            "bonus-inputs": ".input-group",
+            'bonus-inputs': '.input-group',
             // + and - buttons to add/remove bonuses
-            "bonus-control": ".bonus-control",
-            "add-bonus-input-className": "input-group-append",
-            price: ".total-price",
-            "card-payment-price": ".discount-price",
-            checkout: ".plan-and-bonuses-checkout",
+            'bonus-control': '.bonus-control',
+            'add-bonus-input-className': 'input-group-append',
+            price: '.total-price',
+            'card-payment-price': '.discount-price',
+            checkout: '.plan-and-bonuses-checkout',
           },
           requests: {
             price: {
-              method: "GET",
+              method: 'GET',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/price",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/price',
             },
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/price",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/price',
             },
           },
           location: false,
@@ -1059,25 +1059,25 @@
         });
 
         /* Bank transfer handling */
-        $("#bank-transfer").click(function () {
-          $(this).find("#bank-transfer-form").submit();
+        $('#bank-transfer').click(function () {
+          $(this).find('#bank-transfer-form').submit();
         });
 
         /* Payment with credit card form initialization */
         const paymentForm = new Form({
           selectors: {
-            form: "#credit-card",
-            "input-wrapper": ".form-group",
-            inputs: ".payment-input",
+            form: '#credit-card',
+            'input-wrapper': '.form-group',
+            inputs: '.payment-input',
           },
           requests: {
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/card",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/card',
             },
           },
           location: false,
@@ -1087,9 +1087,9 @@
           frontendValidation: true,
           redirectOnSubmit: true,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
-              terms: "required",
+              terms: 'required',
               name: {
                 required: true,
                 minlength: 5,
@@ -1113,10 +1113,10 @@
         /* forms chainer initialization */
         const chainedForms = new ChainedForms({
           selectors: {
-            formsContainer: "#checkout",
-            forms: ".buy-premium-step",
-            forward: ".forward",
-            wrapper: ".form-wrapper",
+            formsContainer: '#checkout',
+            forms: '.buy-premium-step',
+            forward: '.forward',
+            wrapper: '.form-wrapper',
           },
         });
       });

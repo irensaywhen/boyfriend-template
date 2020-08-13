@@ -37,7 +37,7 @@ export default class ChainedForms {
 
   setUpEventListeners() {
     // Show next form when the current is submitted
-    this.$forms.on("submitted", (event) => {
+    this.$forms.on('submitted', event => {
       let target = event.target;
       let step = target.dataset.step;
 
@@ -54,7 +54,7 @@ export default class ChainedForms {
 
     if (this.selectors.backward) {
       // Show previous form when the "back" button is clicked"
-      this.$backwardButton.click((event) => {
+      this.$backwardButton.click(event => {
         // Here something is not working
         event.stopPropagation();
 
@@ -62,7 +62,7 @@ export default class ChainedForms {
           .closest(this.selectors.wrapper)
           .find(this.selectors.forms);
 
-        let previousStep = Number($form.data("step")) - 1;
+        let previousStep = Number($form.data('step')) - 1;
 
         // Hide the form wrapper
         $form.closest(this.selectors.wrapper).fadeOut(400, () => {
@@ -75,14 +75,14 @@ export default class ChainedForms {
     }
 
     if (this.selectors.forward) {
-      this.$forwardButton.click((event) => {
+      this.$forwardButton.click(event => {
         event.stopPropagation();
 
         let $form = $(event.target)
           .closest(this.selectors.wrapper)
           .find(this.selectors.forms);
 
-        let nextStep = Number($form.data("step")) + 1;
+        let nextStep = Number($form.data('step')) + 1;
 
         // Hide the form wrapper
         $form.closest(this.selectors.wrapper).fadeOut(400, () => {

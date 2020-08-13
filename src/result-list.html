@@ -605,20 +605,20 @@
     <script src="js/main-authorized.bundle.js"></script>
 
     <script>
-      $(window).on("load", function () {
+      $(window).on('load', function () {
         /* notification view and hide */
         setTimeout(function () {
-          $(".notification").addClass("active");
+          $('.notification').addClass('active');
           setTimeout(function () {
-            $(".notification").removeClass("active");
+            $('.notification').removeClass('active');
           }, 3500);
         }, 500);
-        $(".closenotification").on("click", function () {
-          $(this).closest(".notification").removeClass("active");
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
 
         /* range picker for filter */
-        var html5Slider = document.getElementById("rangeslider");
+        var html5Slider = document.getElementById('rangeslider');
         noUiSlider.create(html5Slider, {
           start: [0, 100],
           connect: true,
@@ -628,10 +628,10 @@
           },
         });
 
-        var inputNumber = document.getElementById("input-number");
-        var select = document.getElementById("input-select");
+        var inputNumber = document.getElementById('input-number');
+        var select = document.getElementById('input-select');
 
-        html5Slider.noUiSlider.on("update", function (values, handle) {
+        html5Slider.noUiSlider.on('update', function (values, handle) {
           var value = values[handle];
 
           if (handle) {
@@ -641,49 +641,49 @@
           }
         });
 
-        select.addEventListener("change", function () {
+        select.addEventListener('change', function () {
           html5Slider.noUiSlider.set([this.value, null]);
         });
-        inputNumber.addEventListener("change", function () {
+        inputNumber.addEventListener('change', function () {
           html5Slider.noUiSlider.set([null, this.value]);
         });
 
         /* Boost initialization */
         const boost = new Boost({
           selectors: {
-            bonus: ".boost",
+            bonus: '.boost',
             timer: {
-              element: ".timer",
-              hours: ".hours",
-              minutes: ".minutes",
-              seconds: ".seconds",
+              element: '.timer',
+              hours: '.hours',
+              minutes: '.minutes',
+              seconds: '.seconds',
             },
           },
           requests: {
             use: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus',
             },
           },
           popupData: {
-            title: "Do you want to use boost?",
-            confirmButtonText: "Yes!",
-            cancelButtonText: "No",
-            imageUrl: "img/boost.svg",
-            imageAlt: "Boost icon",
+            title: 'Do you want to use boost?',
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No',
+            imageUrl: 'img/boost.svg',
+            imageAlt: 'Boost icon',
           },
         });
 
         /* Advertisement initialization */
         const ad = new Ad({
           selectors: {
-            container: "#content-container",
-            profilesContainer: "#profiles-container",
-            genericClass: ".content",
+            container: '#content-container',
+            profilesContainer: '#profiles-container',
+            genericClass: '.content',
           },
           placementConfig: {
             xs: 1,
@@ -693,23 +693,23 @@
             xl: 6,
           },
           elementInsertAfter: {
-            element: "div",
-            class: "search-result",
+            element: 'div',
+            class: 'search-result',
           },
         });
 
         /*Pagination initialization*/
         const pagination = new Pagination({
           pluginOptions: {
-            containerID: "profiles-container",
+            containerID: 'profiles-container',
             minHeight: false,
             perPage: 10,
-            previous: "«",
-            next: "»",
+            previous: '«',
+            next: '»',
           },
           selectors: {
-            container: "#profiles-container",
-            pagination: "#pagination-container",
+            container: '#profiles-container',
+            pagination: '#pagination-container',
           },
           perPageConfig: {
             xs: 3,
@@ -723,36 +723,36 @@
         /* Form initialization */
         const searchProfilesForm = new SearchProfilesForm({
           selectors: {
-            form: "#profile-search",
-            locationInput: ".location",
-            "input-wrapper": ".form-group",
-            inputs: ".search-field",
-            "location-dropdown": ".location-dropdown",
-            "dropdown-toggle": ".dropdown-toggle",
-            "dropdown-menu": ".dropdown-menu",
-            age: ".age-select",
-            locationLoadingIndicator: ".city-loader",
-            formLoadingIndicator: "#loader",
-            resultsContainer: "#profiles-container",
+            form: '#profile-search',
+            locationInput: '.location',
+            'input-wrapper': '.form-group',
+            inputs: '.search-field',
+            'location-dropdown': '.location-dropdown',
+            'dropdown-toggle': '.dropdown-toggle',
+            'dropdown-menu': '.dropdown-menu',
+            age: '.age-select',
+            locationLoadingIndicator: '.city-loader',
+            formLoadingIndicator: '#loader',
+            resultsContainer: '#profiles-container',
           },
           requests: {
             profiles: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-default",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-default',
             },
             location: {
-              method: "GET",
+              method: 'GET',
               headers: {},
-              endpoint: "https://nominatim.openstreetmap.org/search",
+              endpoint: 'https://nominatim.openstreetmap.org/search',
               searchParams: {
-                format: "json",
-                addressdetails: "1",
-                countrycodes: "pl",
-                "accept-language": "pl,en",
+                format: 'json',
+                addressdetails: '1',
+                countrycodes: 'pl',
+                'accept-language': 'pl,en',
               },
             },
           },
@@ -766,7 +766,7 @@
           showFailPopup: false,
           frontendValidation: true,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
               city: {
                 location: true,
