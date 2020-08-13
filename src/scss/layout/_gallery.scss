@@ -1,0 +1,83 @@
+.gallery {
+  .modal-backdrop.show {
+    opacity: 0.95 !important;
+  }
+}
+
+.profile-modals {
+  /* Gallery modal */
+  .gallery-modal {
+    background: transparent;
+
+    /* Additional styles for private photos */
+    &.private {
+      .description {
+        text-align: center;
+      }
+
+      .photo {
+        img {
+          max-width: 175px;
+        }
+      }
+    }
+
+    /* Modal closing button */
+    .close {
+      @include modal-close(10px, 10px);
+      text-shadow: unset;
+    }
+
+    .modal-content {
+      background: transparent;
+    }
+
+    /* photo area */
+    .photo {
+      border-radius: $photo-modal-radius;
+      margin: 0;
+      position: relative;
+      background: transparent;
+      text-align: center;
+
+      /* Arrow for gallery manipulations */
+      .arrow {
+        @include fluid-type($screen-xs, $screen-xl, 28px, 36px);
+        @include ease-out;
+        cursor: pointer;
+        position: absolute;
+        top: calc(50% - 100px);
+        height: 200px;
+        line-height: 200px;
+        vertical-align: middle;
+        opacity: 0;
+
+        &:hover {
+          color: #fff;
+          opacity: 0.6;
+        }
+
+        &.fa-chevron-left {
+          left: 5px;
+        }
+
+        &.fa-chevron-right {
+          right: 5px;
+        }
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: $photo-modal-radius;
+      }
+    }
+
+    /* photo description area */
+    .description {
+      @include fluid-type($screen-xs, $screen-xl, 14px, 16px);
+      color: #fff;
+      font-weight: 300;
+    }
+  }
+}

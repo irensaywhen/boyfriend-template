@@ -10291,12 +10291,21 @@
                 value: function _setUpEventListeners() {
                   var _this2 = this;
 
-                  // Adjust modal based on the clicked photo
+                  //Caching
+                  var $body = $('body'); // Adjust modal based on the clicked photo
+
                   this.$gallery.click(function (event) {
                     var target = event.target;
                     if (target.tagName !== 'IMG') return;
 
                     _this2._generateModal(target);
+                  }); // Adjust background opacity for gallery modal
+
+                  this.$modal.on('show.bs.modal', function () {
+                    $body.addClass('gallery');
+                  });
+                  this.$modal.on('hidden.bs.modal', function () {
+                    $body.removeClass('gallery');
                   }); // Add gallery behavior to modal
 
                   this.$modal.click(function (event) {
@@ -10365,15 +10374,15 @@
                     method: request.method,
                   })
                     .then(function (response) {
-                      console.log(response);
-
                       if (response.success) {
+                        // Show popup about sucessfully sent request
                         _this4.showRequestResult({
                           title: response.title,
                           text: response.message,
                           icon: 'success',
                         });
                       } else {
+                        // Show popup about unsucessfully sent request
                         _this4.showRequestResult({
                           title: response.title,
                           text: response.message,
@@ -10394,56 +10403,17 @@
               {
                 key: '_generateModal',
                 value: function _generateModal(target, animation) {
-                  var _this5 = this;
-
                   var _target$dataset = target.dataset,
-                    description = _target$dataset.description,
-                    privacy = _target$dataset.privacy,
                     order = _target$dataset.order,
                     id = _target$dataset.id;
-                  var src = target.src;
-                  privacy = privacy === 'true' ? true : false; // Add photo or change it
 
                   if (animation) {
-                    // Animate image
-                    this.$modalImage.fadeOut({
-                      duration: 400,
-                      queue: false,
-                      complete: function complete() {
-                        _this5.$modalImage.attr('src', src);
-
-                        _this5.$modalImage.fadeIn(400);
-                      },
-                    }); // Animate description
-
-                    this.$modalDescription.fadeOut({
-                      duration: 400,
-                      queue: false,
-                      complete: function complete() {
-                        _this5.$modalDescription.text(description);
-
-                        _this5.$modalDescription.fadeIn(400);
-                      },
-                    }); // Animate showing/hiding of privacy button
-
-                    if (privacy) {
-                      this.$modalPermissionButton.fadeIn({
-                        duration: 400,
-                        queue: false,
-                      });
-                    } else {
-                      this.$modalPermissionButton.fadeOut({
-                        duration: 400,
-                        queue: false,
-                      });
-                    }
+                    // Animate appearance of the modal content
+                    this._animateModalContent(target);
                   } else {
-                    this.$modalImage.attr('src', src);
-                    this.$modalDescription.text(description);
-                    privacy
-                      ? this.$modalPermissionButton.fadeIn(0)
-                      : this.$modalPermissionButton.fadeOut(0);
-                  } // Save the order and the id of the current image
+                    // Show modal content without animation
+                    this._showModalContent(target);
+                  }
 
                   this.order = parseInt(order);
                   this.id = id; // Handle arrow hiding on first/last photos
@@ -10454,6 +10424,105 @@
                   this.order === this.$slides.length
                     ? this._hideNextArrow()
                     : this._showNextArrow();
+                },
+              },
+              {
+                key: '_animateModalContent',
+                value: function _animateModalContent(target) {
+                  var _this5 = this;
+
+                  var _this$_getPhotoInfo = this._getPhotoInfo(target),
+                    description = _this$_getPhotoInfo.description,
+                    privacy = _this$_getPhotoInfo.privacy,
+                    src = _this$_getPhotoInfo.src; // Animate photo disappearance
+
+                  this.$modalImage.fadeOut({
+                    duration: 400,
+                    queue: false,
+                    complete: function complete() {
+                      // Change src attribute of the photo
+                      _this5.$modalImage.attr('src', src); // Animate photo appearance
+
+                      _this5.$modalImage.fadeIn({
+                        duration: 400,
+                        queue: false,
+                      });
+
+                      if (privacy) {
+                        // Animate button appearance
+                        _this5.$modalPermissionButton.fadeIn({
+                          duration: 400,
+                          queue: false,
+                        });
+                      }
+                    },
+                  }); // Animate photo description disappearance
+
+                  this.$modalDescription.fadeOut({
+                    duration: 400,
+                    queue: false,
+                    complete: function complete() {
+                      // Change description
+                      _this5.$modalDescription.text(description); // Align description text
+
+                      _this5._alignDescriptionText(privacy); // Animate photo description appearance
+
+                      _this5.$modalDescription.fadeIn({
+                        duration: 400,
+                        queue: false,
+                      });
+                    },
+                  });
+
+                  if (!privacy) {
+                    // Animate button disappearance
+                    this.$modalPermissionButton.fadeOut({
+                      duration: 400,
+                      queue: false,
+                    });
+                  }
+                },
+              },
+              {
+                key: '_showModalContent',
+                value: function _showModalContent(target) {
+                  var _this$_getPhotoInfo2 = this._getPhotoInfo(target),
+                    description = _this$_getPhotoInfo2.description,
+                    privacy = _this$_getPhotoInfo2.privacy,
+                    src = _this$_getPhotoInfo2.src;
+
+                  this.$modalImage.attr('src', src);
+                  this.$modalDescription.text(description);
+
+                  this._alignDescriptionText(privacy);
+
+                  privacy
+                    ? this.$modalPermissionButton.fadeIn(0)
+                    : this.$modalPermissionButton.fadeOut(0);
+                },
+              },
+              {
+                key: '_getPhotoInfo',
+                value: function _getPhotoInfo(target) {
+                  var _target$dataset2 = target.dataset,
+                    description = _target$dataset2.description,
+                    privacy = _target$dataset2.privacy;
+                  var src = target.src; // Convert privacy into boolean
+
+                  privacy = privacy === 'true' ? true : false;
+                  return {
+                    description: description,
+                    privacy: privacy,
+                    src: src,
+                  };
+                },
+              },
+              {
+                key: '_alignDescriptionText',
+                value: function _alignDescriptionText(privacy) {
+                  privacy
+                    ? this.$modal.addClass('private')
+                    : this.$modal.removeClass('private');
                 }, // Manipulating photos
               },
               {

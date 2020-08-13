@@ -31,6 +31,9 @@ export default class Gallery extends ServerRequest {
   }
 
   _setUpEventListeners() {
+    //Caching
+    const $body = $('body');
+
     // Adjust modal based on the clicked photo
     this.$gallery.click(event => {
       let target = event.target;
@@ -38,6 +41,15 @@ export default class Gallery extends ServerRequest {
       if (target.tagName !== 'IMG') return;
 
       this._generateModal(target);
+    });
+
+    // Adjust background opacity for gallery modal
+    this.$modal.on('show.bs.modal', () => {
+      $body.addClass('gallery');
+    });
+
+    this.$modal.on('hidden.bs.modal', () => {
+      $body.removeClass('gallery');
     });
 
     // Add gallery behavior to modal
@@ -106,14 +118,15 @@ export default class Gallery extends ServerRequest {
       method: request.method,
     })
       .then(response => {
-        console.log(response);
         if (response.success) {
+          // Show popup about sucessfully sent request
           this.showRequestResult({
             title: response.title,
             text: response.message,
             icon: 'success',
           });
         } else {
+          // Show popup about unsucessfully sent request
           this.showRequestResult({
             title: response.title,
             text: response.message,
@@ -121,7 +134,6 @@ export default class Gallery extends ServerRequest {
           });
         }
       })
-
       .catch(error => {
         // Show error popup here
         this.showRequestResult({
@@ -133,55 +145,16 @@ export default class Gallery extends ServerRequest {
   }
 
   _generateModal(target, animation) {
-    let { description, privacy, order, id } = target.dataset;
-    let src = target.src;
+    let { order, id } = target.dataset;
 
-    privacy = privacy === 'true' ? true : false;
-
-    // Add photo or change it
     if (animation) {
-      // Animate image
-      this.$modalImage.fadeOut({
-        duration: 400,
-        queue: false,
-        complete: () => {
-          this.$modalImage.attr('src', src);
-          this.$modalImage.fadeIn(400);
-        },
-      });
-
-      // Animate description
-      this.$modalDescription.fadeOut({
-        duration: 400,
-        queue: false,
-        complete: () => {
-          this.$modalDescription.text(description);
-          this.$modalDescription.fadeIn(400);
-        },
-      });
-
-      // Animate showing/hiding of privacy button
-      if (privacy) {
-        this.$modalPermissionButton.fadeIn({
-          duration: 400,
-          queue: false,
-        });
-      } else {
-        this.$modalPermissionButton.fadeOut({
-          duration: 400,
-          queue: false,
-        });
-      }
+      // Animate appearance of the modal content
+      this._animateModalContent(target);
     } else {
-      this.$modalImage.attr('src', src);
-      this.$modalDescription.text(description);
-
-      privacy
-        ? this.$modalPermissionButton.fadeIn(0)
-        : this.$modalPermissionButton.fadeOut(0);
+      // Show modal content without animation
+      this._showModalContent(target);
     }
 
-    // Save the order and the id of the current image
     this.order = parseInt(order);
     this.id = id;
 
@@ -190,6 +163,89 @@ export default class Gallery extends ServerRequest {
     this.order === this.$slides.length
       ? this._hideNextArrow()
       : this._showNextArrow();
+  }
+
+  _animateModalContent(target) {
+    let { description, privacy, src } = this._getPhotoInfo(target);
+
+    // Animate photo disappearance
+    this.$modalImage.fadeOut({
+      duration: 400,
+      queue: false,
+      complete: () => {
+        // Change src attribute of the photo
+        this.$modalImage.attr('src', src);
+
+        // Animate photo appearance
+        this.$modalImage.fadeIn({
+          duration: 400,
+          queue: false,
+        });
+
+        if (privacy) {
+          // Animate button appearance
+          this.$modalPermissionButton.fadeIn({
+            duration: 400,
+            queue: false,
+          });
+        }
+      },
+    });
+
+    // Animate photo description disappearance
+    this.$modalDescription.fadeOut({
+      duration: 400,
+      queue: false,
+      complete: () => {
+        // Change description
+        this.$modalDescription.text(description);
+
+        // Align description text
+        this._alignDescriptionText(privacy);
+
+        // Animate photo description appearance
+        this.$modalDescription.fadeIn({
+          duration: 400,
+          queue: false,
+        });
+      },
+    });
+
+    if (!privacy) {
+      // Animate button disappearance
+      this.$modalPermissionButton.fadeOut({
+        duration: 400,
+        queue: false,
+      });
+    }
+  }
+
+  _showModalContent(target) {
+    let { description, privacy, src } = this._getPhotoInfo(target);
+
+    this.$modalImage.attr('src', src);
+    this.$modalDescription.text(description);
+    this._alignDescriptionText(privacy);
+
+    privacy
+      ? this.$modalPermissionButton.fadeIn(0)
+      : this.$modalPermissionButton.fadeOut(0);
+  }
+
+  _getPhotoInfo(target) {
+    let { description, privacy } = target.dataset;
+    let src = target.src;
+
+    // Convert privacy into boolean
+    privacy = privacy === 'true' ? true : false;
+
+    return { description, privacy, src };
+  }
+
+  _alignDescriptionText(privacy) {
+    privacy
+      ? this.$modal.addClass('private')
+      : this.$modal.removeClass('private');
   }
 
   // Manipulating photos

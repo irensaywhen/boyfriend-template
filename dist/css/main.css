@@ -1194,6 +1194,89 @@ article .header time {
     font-size: 28px;
   }
 }
+.gallery .modal-backdrop.show {
+  opacity: 0.95 !important;
+}
+.profile-modals .gallery-modal {
+  background: transparent;
+}
+.profile-modals .gallery-modal.private .description {
+  text-align: center;
+}
+.profile-modals .gallery-modal.private .photo img {
+  max-width: 175px;
+}
+.profile-modals .gallery-modal .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  text-shadow: unset;
+}
+.profile-modals .gallery-modal .modal-content {
+  background: transparent;
+}
+.profile-modals .gallery-modal .photo {
+  border-radius: 5px;
+  margin: 0;
+  position: relative;
+  background: transparent;
+  text-align: center;
+}
+.profile-modals .gallery-modal .photo .arrow {
+  transition: all 0.5s ease-out;
+  cursor: pointer;
+  position: absolute;
+  top: calc(50% - 100px);
+  height: 200px;
+  line-height: 200px;
+  vertical-align: middle;
+  opacity: 0;
+}
+.profile-modals .gallery-modal .photo .arrow {
+  font-size: 28px;
+}
+@media screen and (min-width: 320px) {
+  .profile-modals .gallery-modal .photo .arrow {
+    font-size: calc(28px + 8 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .profile-modals .gallery-modal .photo .arrow {
+    font-size: 36px;
+  }
+}
+.profile-modals .gallery-modal .photo .arrow:hover {
+  color: #fff;
+  opacity: 0.6;
+}
+.profile-modals .gallery-modal .photo .arrow.fa-chevron-left {
+  left: 5px;
+}
+.profile-modals .gallery-modal .photo .arrow.fa-chevron-right {
+  right: 5px;
+}
+.profile-modals .gallery-modal .photo img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+.profile-modals .gallery-modal .description {
+  color: #fff;
+  font-weight: 300;
+}
+.profile-modals .gallery-modal .description {
+  font-size: 14px;
+}
+@media screen and (min-width: 320px) {
+  .profile-modals .gallery-modal .description {
+    font-size: calc(14px + 2 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .profile-modals .gallery-modal .description {
+    font-size: 16px;
+  }
+}
 .top-section {
   background-image: url('../img/main-bg.jpg');
   background-size: cover;
@@ -1834,8 +1917,43 @@ article .header time {
 .profile .chat:hover {
   background: #cc0053;
 }
-.profile-modals .photo-modal .modal-body {
+.profile-modals .modal-content {
+  border-radius: 5px !important;
+}
+.profile-modals .modal-body {
   padding: 0;
+}
+.profile-modals .photo-modal .photo {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  background-color: #fff;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+}
+.profile-modals .photo-modal .photo.avatar {
+  border-radius: 15px;
+}
+.profile-modals .photo-modal .photo img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  line-height: 200px;
+  vertical-align: middle;
+}
+.profile-modals .photo-modal .photo .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.profile-modals .photo-modal .photo p {
+  font-weight: 300;
+  font-size: 14px;
 }
 .profile-modals .modal-button {
   max-width: 300px;
@@ -1864,71 +1982,6 @@ article .header time {
 }
 .profile-modals .present .amount {
   max-width: 150px;
-}
-.profile-modals .photo {
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  background-color: #fff;
-  overflow: hidden;
-  text-align: center;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 0;
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15px;
-}
-.profile-modals .photo.avatar {
-  border-radius: 15px;
-}
-.profile-modals .photo img {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  line-height: 200px;
-  vertical-align: middle;
-}
-.profile-modals .photo .close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-.profile-modals .photo .arrow {
-  transition: all 0.5s ease-out;
-  cursor: pointer;
-  position: absolute;
-  top: calc(50% - 100px);
-  height: 200px;
-  line-height: 200px;
-  vertical-align: middle;
-  opacity: 0;
-}
-.profile-modals .photo .arrow {
-  font-size: 28px;
-}
-@media screen and (min-width: 320px) {
-  .profile-modals .photo .arrow {
-    font-size: calc(28px + 8 * ((100vw - 320px) / 880));
-  }
-}
-@media screen and (min-width: 1200px) {
-  .profile-modals .photo .arrow {
-    font-size: 36px;
-  }
-}
-.profile-modals .photo .arrow:hover {
-  color: #000;
-  opacity: 0.8;
-}
-.profile-modals .photo .arrow.fa-chevron-left {
-  left: 5px;
-}
-.profile-modals .photo .arrow.fa-chevron-right {
-  right: 5px;
-}
-.profile-modals .photo p {
-  font-weight: 300;
-  font-size: 14px;
 }
 
 /*# sourceMappingURL=main.css.map */

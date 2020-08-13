@@ -94,48 +94,64 @@
 
       <!--Gallery modal start-->
       <div
-        class="modal fade photo-modal"
+        class="modal fade gallery-modal"
         id="userPhoto"
         tabindex="-1"
         role="dialog"
-        aria-labelledby="avatarModal"
+        aria-labelledby="galleryModal"
         aria-hidden="true"
       >
         <div
-          class="modal-dialog modal-dialog-centered modal-lg"
+          class="modal-dialog modal-dialog-centered modal-xl"
           role="document"
         >
           <div class="modal-content">
-            <div class="modal-body">
-              <!--User photo-->
-              <figure class="photo mx-auto">
-                <i class="fas fa-chevron-left arrow prev"></i>
-                <img
-                  src="img/profile.jpg"
-                  class="modal-image"
-                  alt="Profile photo"
-                />
-                <i class="fas fa-chevron-right arrow next"></i>
-                <!--Closing button-->
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </figure>
-            </div>
-            <div class="modal-footer">
-              <!--Photo description start-->
-              <p class="text-center d-block w-100" id="photo-description"></p>
-              <!--Photo description end-->
-              <div class="text-center w-100" id="btn-permission">
-                <button type="button" class="mb-2 btn btn-default">
-                  Ask permission to gain access
-                </button>
+            <div class="modal-body position-relative">
+              <div class="container-fluid p-0">
+                <div class="row no-gutters">
+                  <div class="col-12">
+                    <!--User photo start-->
+                    <figure class="photo">
+                      <i class="fas fa-chevron-left arrow prev"></i>
+                      <img
+                        src="img/profile.jpg"
+                        class="modal-image"
+                        alt="Profile photo"
+                      />
+                      <i class="fas fa-chevron-right arrow next"></i>
+                    </figure>
+                    <!--User photo end-->
+                  </div>
+                  <div class="col-12">
+                    <!--Description and button start-->
+                    <div class="h-auto description">
+                      <!--Photo description-->
+                      <p
+                        class="d-block w-100 pt-4 pb-3 px-2 mb-0"
+                        id="photo-description"
+                      ></p>
+
+                      <!--Request button-->
+                      <div class="text-center w-100" id="btn-permission">
+                        <button type="button" class="mb-4 btn btn-default">
+                          Ask permission to gain access
+                        </button>
+                      </div>
+                    </div>
+                    <!--Description and button end-->
+                  </div>
+                </div>
               </div>
+
+              <!--Closing button-->
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
           </div>
         </div>
@@ -629,7 +645,7 @@
                     data-toggle="modal"
                     data-target="#userPhoto"
                     data-id="1"
-                    data-description="Lorem ipsum"
+                    data-description="Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum"
                     data-privacy="false"
                     data-order="0"
                     alt="photo 1"
@@ -661,7 +677,7 @@
                     data-toggle="modal"
                     data-target="#userPhoto"
                     data-id="3"
-                    data-description="This is another photo description"
+                    data-description=""
                     data-privacy="false"
                     data-order="2"
                     alt="photo 1"

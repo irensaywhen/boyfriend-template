@@ -143,9 +143,47 @@
 
 /* Profile modals */
 .profile-modals {
+  .modal-content {
+    border-radius: $photo-modal-radius !important;
+  }
+  .modal-body {
+    padding: 0;
+  }
+
+  /* Avatar modal */
   .photo-modal {
-    .modal-body {
-      padding: 0;
+    .photo {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      background-color: #fff;
+      overflow: hidden;
+      text-align: center;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 0;
+      border-top-right-radius: 15px;
+      border-top-left-radius: 15px;
+
+      &.avatar {
+        border-radius: 15px;
+      }
+
+      img {
+        @include image;
+        line-height: 200px;
+        vertical-align: middle;
+      }
+
+      /* Modal closing button */
+      .close {
+        @include modal-close(10px, 10px);
+      }
+
+      p {
+        font-weight: 300;
+        font-size: $paragraph-size;
+      }
     }
   }
 
@@ -153,6 +191,7 @@
     max-width: 300px;
   }
 
+  /* Superlike */
   .superlike {
     figure {
       position: relative;
@@ -177,6 +216,7 @@
     }
   }
 
+  /* Present */
   .present {
     figure {
       img {
@@ -185,66 +225,6 @@
     }
     .amount {
       max-width: 150px;
-    }
-  }
-
-  .photo {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    background-color: #fff;
-    overflow: hidden;
-    text-align: center;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 0;
-    border-top-right-radius: 15px;
-    border-top-left-radius: 15px;
-
-    &.avatar {
-      border-radius: 15px;
-    }
-
-    img {
-      @include image;
-      line-height: 200px;
-      vertical-align: middle;
-    }
-
-    /* Modal closing button */
-    .close {
-      @include modal-close(10px, 10px);
-    }
-
-    /* Arrow for gallery manipulations */
-    .arrow {
-      @include fluid-type($screen-xs, $screen-xl, 28px, 36px);
-      @include ease-out;
-      cursor: pointer;
-      position: absolute;
-      top: calc(50% - 100px);
-      height: 200px;
-      line-height: 200px;
-      vertical-align: middle;
-      opacity: 0;
-
-      &:hover {
-        color: #000;
-        opacity: 0.8;
-      }
-
-      &.fa-chevron-left {
-        left: 5px;
-      }
-
-      &.fa-chevron-right {
-        right: 5px;
-      }
-    }
-
-    p {
-      font-weight: 300;
-      font-size: $paragraph-size;
     }
   }
 }
