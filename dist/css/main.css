@@ -1351,6 +1351,9 @@ article .header time {
 .chat .chat-header .chat-present {
   min-width: 25px;
 }
+.chat .chat-header .user-info {
+  height: 60px;
+}
 .chat .chat-content {
   height: calc(100vh - 137px);
 }
