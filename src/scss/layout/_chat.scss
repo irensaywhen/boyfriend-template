@@ -1,21 +1,14 @@
 .chat {
   height: calc(100vh - 60px);
+  max-width: 500px;
+  background: #fff;
 
   .chat-header {
     background: #fff;
     height: 77px;
 
     .profile-avatar {
-      @include avatar(200px, 200px, true);
-
-      @include screen-sm {
-        max-width: 100%;
-        border-radius: unset;
-      }
-
-      @include screen-md {
-        max-width: 250px;
-      }
+      @include avatar(77px, 77px, true);
     }
 
     .chat-present {
@@ -27,6 +20,32 @@
     height: calc(100vh - 137px);
 
     .chat-body {
+    }
+
+    /* General message*/
+    .message-general {
+      border-radius: 15px;
+      max-width: 85%;
+
+      .time {
+        position: absolute;
+        font-size: 12px;
+        bottom: 10px;
+        right: 10px;
+      }
+
+      .text {
+        max-width: 95%;
+      }
+
+      &.mine {
+        background: lighten($light-blue, 7);
+        align-self: flex-end;
+      }
+
+      &.alien {
+        background: lighten($bootstrap-secondary, 45);
+      }
     }
 
     .send-message {

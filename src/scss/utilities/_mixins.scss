@@ -42,6 +42,7 @@
 
 /* Avatar */
 @mixin avatar($max-width, $line-height, $pointer: false) {
+  display: block;
   width: 100%;
   max-width: $max-width;
   height: auto;

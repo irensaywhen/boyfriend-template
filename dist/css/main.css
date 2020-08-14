@@ -1320,14 +1320,17 @@ article .header time {
 }
 .chat {
   height: calc(100vh - 60px);
+  max-width: 500px;
+  background: #fff;
 }
 .chat .chat-header {
   background: #fff;
   height: 77px;
 }
 .chat .chat-header .profile-avatar {
+  display: block;
   width: 100%;
-  max-width: 200px;
+  max-width: 77px;
   height: auto;
   border-radius: 50%;
   background-color: #fff;
@@ -1342,25 +1345,34 @@ article .header time {
   width: 100%;
   max-width: 100%;
   height: auto;
-  line-height: 200px;
+  line-height: 77px;
   vertical-align: middle;
-}
-@media (min-width: 576px) {
-  .chat .chat-header .profile-avatar {
-    max-width: 100%;
-    border-radius: unset;
-  }
-}
-@media (min-width: 768px) {
-  .chat .chat-header .profile-avatar {
-    max-width: 250px;
-  }
 }
 .chat .chat-header .chat-present {
   min-width: 25px;
 }
 .chat .chat-content {
   height: calc(100vh - 137px);
+}
+.chat .chat-content .message-general {
+  border-radius: 15px;
+  max-width: 85%;
+}
+.chat .chat-content .message-general .time {
+  position: absolute;
+  font-size: 12px;
+  bottom: 10px;
+  right: 10px;
+}
+.chat .chat-content .message-general .text {
+  max-width: 95%;
+}
+.chat .chat-content .message-general.mine {
+  background: #ecf2ff;
+  align-self: flex-end;
+}
+.chat .chat-content .message-general.alien {
+  background: #e6e7e9;
 }
 .chat .chat-content .send-message .send {
   transition: all 0.5s ease-out;
@@ -1827,6 +1839,7 @@ article .header time {
   }
 }
 .profile .profile-avatar {
+  display: block;
   width: 100%;
   max-width: 200px;
   height: auto;
