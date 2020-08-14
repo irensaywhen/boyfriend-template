@@ -14,20 +14,25 @@ export default class Gallery extends ServerRequest {
   }
 
   _cacheElements() {
+    let selectors = this.selectors;
     // Swiper slider
-    this.$gallery = $(this.selectors.gallery);
-    this.$slides = this.$gallery.find(this.selectors.photoContainer);
-    this.$photos = this.$gallery.find(this.selectors.gallerySlide);
+    this.$gallery = $(selectors.gallery);
+    this.$slides = this.$gallery.find(selectors.photoContainer);
+    this.$photos = this.$gallery.find(selectors.gallerySlide);
 
     // Elements inside modal
-    this.$modal = $(this.selectors.modal);
-    this.$modalImage = this.$modal.find(this.selectors.modalImage);
-    this.$modalDescription = this.$modal.find(this.selectors.modalDescription);
+    this.$modal = $(selectors.modal);
+    this.$modalImage = this.$modal.find(selectors.modalImage);
+    this.$modalDescription = this.$modal.find(selectors.modalDescription);
     this.$modalPermissionButton = this.$modal
-      .find(this.selectors.modalPermissionButton)
+      .find(selectors.modalPermissionButton)
       .fadeOut(0);
-    this.$modalPrevArrow = this.$modal.find(this.selectors.prevArrow);
-    this.$modalNextArrow = this.$modal.find(this.selectors.nextArrow);
+    this.$modalPrevArrow = this.$modal.find(selectors.prevArrow);
+    this.$modalNextArrow = this.$modal.find(selectors.nextArrow);
+
+    this.$animateOnShown = this.$modal
+      .find(selectors.animateOnShown)
+      .css('opacity', '0');
   }
 
   _setUpEventListeners() {
@@ -48,6 +53,11 @@ export default class Gallery extends ServerRequest {
       $body.addClass('gallery');
     });
 
+    this.$modal.on('shown.bs.modal', () => {
+      //this.$modalNextArrow.animate('opacity', 1);
+      this.$animateOnShown.css('opacity', 1);
+    });
+
     this.$modal.on('hidden.bs.modal', () => {
       $body.removeClass('gallery');
     });
@@ -63,9 +73,21 @@ export default class Gallery extends ServerRequest {
       )
         return;
 
-      this._changePhoto(target, false);
+      let config = this.galleryConfig;
+
+      // Change order
+      if (target.tagName === 'IMG' || $(target).hasClass(config.nextClass)) {
+        ++this.order;
+      }
+
+      if ($(target).hasClass(config.prevClass)) {
+        --this.order;
+      }
+
+      this._updateGallery();
     });
 
+    // Send permission request to the server
     this.$modalPermissionButton.find('button').click(event => {
       event.preventDefault();
 
@@ -74,6 +96,21 @@ export default class Gallery extends ServerRequest {
 
     // Touch support for mobile devices
     this._addTouchSupport();
+
+    this.$modal.on('keydown', event => {
+      let key = event.key;
+
+      if (key !== 'ArrowRight' && key !== 'ArrowLeft') return;
+
+      // Change order
+      if (key === 'ArrowRight') {
+        ++this.order;
+      } else {
+        --this.order;
+      }
+
+      this._updateGallery();
+    });
   }
 
   _addTouchSupport() {
@@ -92,6 +129,7 @@ export default class Gallery extends ServerRequest {
     this.$modalImage.on('touchend', () => {
       distance = clientXStart - clientXEnd;
 
+      // Change order
       if (distance > this.touchTrottle) {
         // Don't swipe to the right if this is the last photo
         if (this.order === this.$slides.length) return;
@@ -104,13 +142,22 @@ export default class Gallery extends ServerRequest {
         --this.order;
       }
 
-      this._showNewPhoto();
+      this._updateGallery();
     });
+  }
+
+  _addKeyboardSupport() {}
+
+  _updateGallery() {
+    let newImage = this._getImage();
+    this._generateModal(newImage, true);
   }
 
   _askPermission() {
     let request = this.requests.permission;
-    console.log(request);
+
+    // Add currentle selected photo id to the request
+    request.endpoint.searchParams.set('id', this.id);
 
     this.makeRequest({
       headers: request.headers,
@@ -155,6 +202,8 @@ export default class Gallery extends ServerRequest {
       this._showModalContent(target);
     }
 
+    this.$modal.focus();
+
     this.order = parseInt(order);
     this.id = id;
 
@@ -198,10 +247,7 @@ export default class Gallery extends ServerRequest {
       queue: false,
       complete: () => {
         // Change description
-        this.$modalDescription.text(description);
-
-        // Align description text
-        this._alignDescriptionText(privacy);
+        this._changeDescription(description, privacy);
 
         // Animate photo description appearance
         this.$modalDescription.fadeIn({
@@ -224,12 +270,17 @@ export default class Gallery extends ServerRequest {
     let { description, privacy, src } = this._getPhotoInfo(target);
 
     this.$modalImage.attr('src', src);
-    this.$modalDescription.text(description);
-    this._alignDescriptionText(privacy);
+
+    this._changeDescription(description, privacy);
 
     privacy
       ? this.$modalPermissionButton.fadeIn(0)
       : this.$modalPermissionButton.fadeOut(0);
+  }
+
+  _changeDescription(description, privacy) {
+    this.$modalDescription.text(description);
+    this._alignDescriptionText(privacy);
   }
 
   _getPhotoInfo(target) {
@@ -248,27 +299,9 @@ export default class Gallery extends ServerRequest {
       : this.$modal.removeClass('private');
   }
 
-  // Manipulating photos
-  _changePhoto(target) {
-    let config = this.galleryConfig;
-
-    if (target.tagName === 'IMG' || $(target).hasClass(config.nextClass)) {
-      ++this.order;
-    }
-
-    if ($(target).hasClass(config.prevClass)) {
-      --this.order;
-    }
-
-    this._showNewPhoto();
-  }
-
-  _showNewPhoto() {
+  _getImage() {
     // Find image
-    let $img = this.$gallery.find(`img[data-order="${this.order}"]`);
-
-    // Show it in modal
-    this._generateModal($img[0], true);
+    return this.$gallery.find(`img[data-order="${this.order}"]`)[0];
   }
 
   // Hiding and showing arrows

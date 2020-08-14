@@ -24,8 +24,17 @@
 
     /* Modal closing button */
     .close {
-      @include modal-close(10px, 10px);
+      @include modal-close(20px, 20px);
+      @include fluid-type($screen-xs, $screen-xl, 28px, 36px);
+      @include ease-out;
+      color: $bootstrap-secondary;
+      opacity: 0.5;
+      position: fixed;
       text-shadow: unset;
+
+      &:hover {
+        color: lighten($bootstrap-secondary, 20);
+      }
     }
 
     .modal-content {
@@ -54,7 +63,7 @@
         opacity: 1;
 
         &:hover {
-          color: #fff;
+          color: lighten($bootstrap-secondary, 20);
           opacity: 0.6;
         }
 
@@ -79,6 +88,7 @@
       @include fluid-type($screen-xs, $screen-xl, 14px, 16px);
       color: #fff;
       font-weight: 300;
+      text-align: left;
       max-width: 450px;
     }
   }

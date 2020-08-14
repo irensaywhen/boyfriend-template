@@ -102,49 +102,45 @@
         aria-hidden="true"
       >
         <div
-          class="modal-dialog modal-dialog-centered modal-xl"
+          class="modal-dialog modal-dialog-centered modal-lg"
           role="document"
         >
           <div class="modal-content">
             <div class="modal-body position-relative">
-              <div class="container-fluid p-0">
-                <div class="row no-gutters">
-                  <div class="col-12">
-                    <!--User photo start-->
-                    <figure class="photo">
-                      <i class="fas fa-chevron-left arrow prev"></i>
-                      <img
-                        src="img/profile.jpg"
-                        class="modal-image"
-                        alt="Profile photo"
-                      />
-                      <i class="fas fa-chevron-right arrow next"></i>
-                      <!--Description and button start-->
-                      <div class="h-auto description mx-auto">
-                        <!--Photo description-->
-                        <p
-                          class="d-block w-100 pt-4 pb-3 px-2 mb-0"
-                          id="photo-description"
-                        ></p>
+              <!--User photo start-->
+              <figure class="photo">
+                <i class="fas fa-chevron-left arrow prev animate"></i>
+                <img
+                  src="img/profile.jpg"
+                  class="modal-image"
+                  alt="Profile photo"
+                  tabindex="-1"
+                />
+                <i class="fas fa-chevron-right arrow next animate"></i>
+              </figure>
+              <!--User photo end-->
 
-                        <!--Request button-->
-                        <div class="text-center w-100" id="btn-permission">
-                          <button type="button" class="mb-4 btn btn-default">
-                            Ask permission to gain access
-                          </button>
-                        </div>
-                      </div>
-                      <!--Description and button end-->
-                    </figure>
-                    <!--User photo end-->
-                  </div>
+              <!--Description and button start-->
+              <div class="h-auto description mx-auto">
+                <!--Photo description-->
+                <p
+                  class="d-block w-100 pt-4 pb-3 px-2 mb-0"
+                  id="photo-description"
+                ></p>
+
+                <!--Request button-->
+                <div class="text-center w-100" id="btn-permission">
+                  <button type="button" class="mb-4 btn btn-default">
+                    Ask permission to gain access
+                  </button>
                 </div>
               </div>
+              <!--Description and button end-->
 
               <!--Closing button-->
               <button
                 type="button"
-                class="close"
+                class="close animate"
                 data-dismiss="modal"
                 aria-label="Close"
               >
@@ -953,6 +949,7 @@
             modalDescription: '#photo-description',
             gallerySlide: '.gallery-slide',
             description: '#photo-description',
+            animateOnShown: '.animate',
           },
           galleryManipulation: {
             arrowClass: 'arrow',

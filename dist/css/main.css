@@ -1208,9 +1208,29 @@ article .header time {
 }
 .profile-modals .gallery-modal .close {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 20px;
+  right: 20px;
+  transition: all 0.5s ease-out;
+  color: #6c757d;
+  opacity: 0.5;
+  position: fixed;
   text-shadow: unset;
+}
+.profile-modals .gallery-modal .close {
+  font-size: 28px;
+}
+@media screen and (min-width: 320px) {
+  .profile-modals .gallery-modal .close {
+    font-size: calc(28px + 8 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .profile-modals .gallery-modal .close {
+    font-size: 36px;
+  }
+}
+.profile-modals .gallery-modal .close:hover {
+  color: #a1a8ae;
 }
 .profile-modals .gallery-modal .modal-content {
   background: transparent;
@@ -1247,7 +1267,7 @@ article .header time {
   }
 }
 .profile-modals .gallery-modal .photo .arrow:hover {
-  color: #fff;
+  color: #a1a8ae;
   opacity: 0.6;
 }
 .profile-modals .gallery-modal .photo .arrow.fa-chevron-left {
@@ -1264,6 +1284,7 @@ article .header time {
 .profile-modals .gallery-modal .description {
   color: #fff;
   font-weight: 300;
+  text-align: left;
   max-width: 450px;
 }
 .profile-modals .gallery-modal .description {
