@@ -1,0 +1,22 @@
+.chat {
+  .header {
+    background: #fff;
+
+    .profile-avatar {
+      @include avatar(200px, 200px, true);
+
+      @include screen-sm {
+        max-width: 100%;
+        border-radius: unset;
+      }
+
+      @include screen-md {
+        max-width: 250px;
+      }
+    }
+
+    .present {
+      min-width: 25px;
+    }
+  }
+}

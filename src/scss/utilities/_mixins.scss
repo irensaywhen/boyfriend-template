@@ -21,11 +21,13 @@
   border-radius: 50%;
 }
 
+/* Closing modal cross*/
 @mixin modal-close($top, $right) {
   position: absolute;
   top: $top;
   right: $right;
 }
+
 /* small pagination link */
 @mixin pagination-link {
   @include ease-out;
@@ -36,6 +38,32 @@
   border-right: none;
   color: $main-pink;
   cursor: pointer;
+}
+
+/* Avatar */
+@mixin avatar($max-width, $line-height, $pointer: false) {
+  width: 100%;
+  max-width: $max-width;
+  height: auto;
+  border-radius: 50%;
+  background-color: #fff;
+  overflow: hidden;
+  border: 3px solid #fff;
+  text-align: center;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
+
+  @if $pointer {
+    cursor: pointer;
+  } @else {
+    cursor: auto;
+  }
+
+  img {
+    @include image;
+    line-height: $line-height;
+    vertical-align: middle;
+  }
 }
 
 /*Responsize font size*/

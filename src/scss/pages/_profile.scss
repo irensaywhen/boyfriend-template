@@ -6,17 +6,7 @@
   }
   /* Avatar */
   .profile-avatar {
-    width: 100%;
-    max-width: 200px;
-    height: auto;
-    border-radius: 50%;
-    background-color: #fff;
-    overflow: hidden;
-    border: 3px solid #fff;
-    text-align: center;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 0;
-    cursor: pointer;
+    @include avatar(200px, 200px, true);
 
     @include screen-sm {
       max-width: 100%;
@@ -25,12 +15,6 @@
 
     @include screen-md {
       max-width: 250px;
-    }
-
-    img {
-      @include image;
-      line-height: 200px;
-      vertical-align: middle;
     }
   }
 

@@ -1300,6 +1300,43 @@ article .header time {
     font-size: 16px;
   }
 }
+.chat .header {
+  background: #fff;
+}
+.chat .header .profile-avatar {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 50%;
+  background-color: #fff;
+  overflow: hidden;
+  border: 3px solid #fff;
+  text-align: center;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
+  cursor: pointer;
+}
+.chat .header .profile-avatar img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  line-height: 200px;
+  vertical-align: middle;
+}
+@media (min-width: 576px) {
+  .chat .header .profile-avatar {
+    max-width: 100%;
+    border-radius: unset;
+  }
+}
+@media (min-width: 768px) {
+  .chat .header .profile-avatar {
+    max-width: 250px;
+  }
+}
+.chat .header .present {
+  min-width: 25px;
+}
 .top-section {
   background-image: url('../img/main-bg.jpg');
   background-size: cover;
@@ -1766,6 +1803,13 @@ article .header time {
   margin-bottom: 0;
   cursor: pointer;
 }
+.profile .profile-avatar img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  line-height: 200px;
+  vertical-align: middle;
+}
 @media (min-width: 576px) {
   .profile .profile-avatar {
     max-width: 100%;
@@ -1776,13 +1820,6 @@ article .header time {
   .profile .profile-avatar {
     max-width: 250px;
   }
-}
-.profile .profile-avatar img {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  line-height: 200px;
-  vertical-align: middle;
 }
 .profile .private {
   width: 100%;
