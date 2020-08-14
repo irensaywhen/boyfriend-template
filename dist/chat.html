@@ -58,7 +58,7 @@
       <!--Chat start-->
       <section class="container chat">
         <!--Chat header start-->
-        <div class="row header shadow-sm">
+        <div class="row chat-header shadow-sm">
           <!--Backward arrow start-->
           <div class="col-4">
             <div class="d-flex align-items-center h-100">
@@ -86,7 +86,7 @@
                 type="button"
                 class="btn btn-default btn-lg d-flex align-items-center justify-content-center"
               >
-                <img src="img/gift.svg" class="present" alt="" />
+                <img src="img/gift.svg" class="chat-present" alt="" />
                 <span class="d-none">Send present</span>
               </button>
             </div>
@@ -95,17 +95,30 @@
         </div>
         <!--Chat header end-->
 
-        <!--Chat body start-->
-        <div class="row body">
-          <div class="col-12"></div>
-        </div>
-        <!--Chat body end-->
+        <div class="row chat-content">
+          <!--Chat body start-->
+          <div class="col-12 chat-body align-self-start">
+            Body
+          </div>
+          <!--Chat body end-->
 
-        <!--Chat footer - area for messages start-->
-        <div class="row footer">
-          <div class="col-12"></div>
+          <!--Send message start-->
+          <div class="col-12 send-message align-self-end px-2">
+            <form action="" id="message">
+              <div class="form-group mb-3 position-relative">
+                <textarea
+                  class="form-control form-control-sm"
+                  placeholder="Message"
+                  rows="2"
+                ></textarea>
+                <i class="material-icons send d-none">
+                  send
+                </i>
+              </div>
+            </form>
+          </div>
+          <!--Send message end-->
         </div>
-        <!--Chat footer - area for messages end-->
       </section>
       <!--Chat end-->
     </div>

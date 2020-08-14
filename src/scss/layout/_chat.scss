@@ -1,6 +1,9 @@
 .chat {
-  .header {
+  height: calc(100vh - 60px);
+
+  .chat-header {
     background: #fff;
+    height: 77px;
 
     .profile-avatar {
       @include avatar(200px, 200px, true);
@@ -15,8 +18,30 @@
       }
     }
 
-    .present {
+    .chat-present {
       min-width: 25px;
+    }
+  }
+
+  .chat-content {
+    height: calc(100vh - 137px);
+
+    .chat-body {
+    }
+
+    .send-message {
+      .send {
+        @include ease-out;
+        position: absolute;
+        font-size: 28px;
+        color: $main-blue;
+        right: 5px;
+        top: 10px;
+
+        &:hover {
+          color: $primary-blue;
+        }
+      }
     }
   }
 }

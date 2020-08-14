@@ -1318,10 +1318,14 @@ article .header time {
     font-size: 16px;
   }
 }
-.chat .header {
-  background: #fff;
+.chat {
+  height: calc(100vh - 60px);
 }
-.chat .header .profile-avatar {
+.chat .chat-header {
+  background: #fff;
+  height: 77px;
+}
+.chat .chat-header .profile-avatar {
   width: 100%;
   max-width: 200px;
   height: auto;
@@ -1334,7 +1338,7 @@ article .header time {
   margin-bottom: 0;
   cursor: pointer;
 }
-.chat .header .profile-avatar img {
+.chat .chat-header .profile-avatar img {
   width: 100%;
   max-width: 100%;
   height: auto;
@@ -1342,18 +1346,32 @@ article .header time {
   vertical-align: middle;
 }
 @media (min-width: 576px) {
-  .chat .header .profile-avatar {
+  .chat .chat-header .profile-avatar {
     max-width: 100%;
     border-radius: unset;
   }
 }
 @media (min-width: 768px) {
-  .chat .header .profile-avatar {
+  .chat .chat-header .profile-avatar {
     max-width: 250px;
   }
 }
-.chat .header .present {
+.chat .chat-header .chat-present {
   min-width: 25px;
+}
+.chat .chat-content {
+  height: calc(100vh - 137px);
+}
+.chat .chat-content .send-message .send {
+  transition: all 0.5s ease-out;
+  position: absolute;
+  font-size: 28px;
+  color: #0c609a;
+  right: 5px;
+  top: 10px;
+}
+.chat .chat-content .send-message .send:hover {
+  color: #3fa7ff;
 }
 .top-section {
   background-image: url('../img/main-bg.jpg');
