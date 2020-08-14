@@ -565,7 +565,6 @@ nav ul {
   padding: 0;
   text-align: center;
   display: block;
-  vertical-align: middle;
 }
 .footer .btn i {
   width: 22px;
@@ -600,6 +599,25 @@ nav ul {
   width: auto;
 }
 .footer .centerbutton .badge-circle {
+  position: absolute;
+  bottom: -11px;
+  font-size: 12px;
+}
+.footer.chat-footer {
+  box-shadow: unset;
+  border-top: 1px solid #e6e7e9;
+}
+.footer.chat-footer .centerbutton {
+  height: 48px;
+  width: 48px;
+  border-radius: 30px;
+  margin: 2.5px 15px;
+}
+.footer.chat-footer .centerbutton .icon {
+  font-size: 22px;
+  width: auto;
+}
+.footer.chat-footer .centerbutton .badge-circle {
   position: absolute;
   bottom: -11px;
   font-size: 12px;
