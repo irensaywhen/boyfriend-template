@@ -74,22 +74,31 @@
   &.chat-footer {
     box-shadow: unset;
     border-top: 1px solid lighten($bootstrap-secondary, 45);
+    height: 45px;
+
+    .btn {
+      width: 45px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
     .centerbutton {
-      height: 48px;
-      width: 48px;
-      border-radius: 30px;
+      height: 35px;
+      width: 35px;
+      border-radius: 50%;
       margin: 2.5px 15px;
 
       .icon {
-        font-size: decrease-font-size($icon-size, 2px);
+        font-size: decrease-font-size($icon-size, 5px);
         width: auto;
       }
 
-      .badge-circle {
+      .badge-circle-sm {
         position: absolute;
-        bottom: -11px;
-        font-size: 12px;
+        bottom: -5px;
+        font-size: 10px;
       }
     }
   }

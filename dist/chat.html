@@ -194,7 +194,38 @@
                 </span>
               </div>
               <!--Other user message end-->
+
               <!--General messages end-->
+
+              <!--Special messages start-->
+
+              <!--Superlike messages start-->
+
+              <!--My message start-->
+              <div
+                class="message-superlike mine position-relative px-3 py-2 mt-3 shadow"
+              >
+                <figure class="text-center">
+                  <img src="img/superlike.svg" alt="superlike" />
+                  <figcaption class="text-center">
+                    You just sent a superlike to the user! Amazing!
+                  </figcaption>
+                </figure>
+                <span class="meta d-inline-flex align-item-center">
+                  <i class="material-icons d-inline-block pr-1">
+                    visibility
+                  </i>
+                  <time>13:55</time>
+                </span>
+              </div>
+              <!--My message end-->
+
+              <!--Other user message start-->
+              <!--Other user message end-->
+
+              <!--Superlike messages end-->
+
+              <!--Special messages end-->
             </div>
           </div>
           <!--Chat body end-->
@@ -202,15 +233,17 @@
           <!--Send message start-->
           <div class="col-12 send-message align-self-end px-2">
             <form action="" id="message">
-              <div class="form-group mb-3 position-relative">
+              <div class="form-group m-0 position-relative">
                 <textarea
                   class="form-control form-control-sm"
                   placeholder="Message"
-                  rows="2"
+                  rows="1"
                 ></textarea>
-                <i class="material-icons send d-none">
-                  send
-                </i>
+                <div class="send d-flex align-items-center">
+                  <i class="material-icons">
+                    send
+                  </i>
+                </div>
               </div>
             </form>
           </div>
@@ -247,7 +280,7 @@
                 class="btn btn-default shadow centerbutton d-flex justify-content-center align-items-center position-relative"
               >
                 <i class="far fa-envelope icon"></i>
-                <span class="badge-circle badge-primary mb-1">3</span>
+                <span class="badge-circle-sm badge-primary">3</span>
               </a>
             </div>
 

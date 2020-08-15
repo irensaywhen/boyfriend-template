@@ -1,5 +1,5 @@
 .chat {
-  height: calc(100vh - 60px);
+  height: calc(100% - 60px);
   max-width: 500px;
   background: #fff;
 
@@ -24,15 +24,15 @@
 
   /*Chat content start*/
   .chat-content {
-    height: calc(100vh - 137px);
+    height: calc(100% - 137px);
 
     .chat-body {
     }
 
-    /* General message*/
+    /* General message start*/
     .message-general {
-      border-radius: 15px;
-      max-width: 85%;
+      border-radius: $message-border-radius;
+      max-width: $max-message-width;
 
       .meta {
         position: absolute;
@@ -59,15 +59,49 @@
         background: lighten($bootstrap-secondary, 45);
       }
     }
+    /* General message end*/
+
+    /* Superlike message start*/
+    .message-superlike {
+      max-width: $max-message-width;
+      width: $message-width;
+      background: #fff;
+      align-self: center;
+      border-radius: $message-border-radius;
+
+      figure {
+        width: 90%;
+
+        img {
+          @include image;
+        }
+      }
+    }
+    /* Superlike message end*/
 
     .send-message {
+      position: fixed;
+      bottom: 60px;
+      background: #fff;
+      border-top: 1px solid $label-border;
+
+      textarea {
+        border: none;
+        /*height: 50px;*/
+        min-height: 30px;
+        max-height: 80px;
+        width: 90%;
+        line-height: 1.25;
+      }
+
       .send {
         @include ease-out;
-        position: absolute;
         font-size: 28px;
         color: $main-blue;
-        right: 5px;
-        top: 10px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
 
         &:hover {
           color: $primary-blue;

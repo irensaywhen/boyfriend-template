@@ -43,3 +43,7 @@ nav {
 .badge-circle {
   @include circular-badge(22px);
 }
+
+.badge-circle-sm {
+  @include circular-badge(17px);
+}
