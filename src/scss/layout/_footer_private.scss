@@ -74,10 +74,10 @@
   &.chat-footer {
     box-shadow: unset;
     border-top: 1px solid lighten($bootstrap-secondary, 45);
-    height: 45px;
+    height: $chat-footer-height;
 
     .btn {
-      width: 45px;
+      width: $chat-footer-height;
       height: 40px;
       display: flex;
       align-items: center;
