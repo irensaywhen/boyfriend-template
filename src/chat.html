@@ -87,13 +87,67 @@
 
           <!--Button for presents start-->
           <div class="col px-0 pr-1">
-            <div class="d-flex align-items-center justify-content-end h-100">
+            <div
+              class="d-flex align-items-center justify-content-end h-100 dropdown"
+            >
+              <!--Dropdown toggle-->
               <button
                 type="button"
-                class="btn btn-default btn-lg d-flex align-items-center justify-content-center"
+                class="btn btn-default btn-lg d-flex align-items-center justify-content-center dropdown-toggle"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
               >
                 <img src="img/gift.svg" class="chat-present" alt="" />
               </button>
+
+              <!--Dropdown items-->
+              <ul
+                class="dropdown-menu dropdown-menu-right dropdown-menu-sm-left"
+                aria-labelledby="dropdownMenu"
+              >
+                <li class="dropdown-item d-inline-flex align-items-center">
+                  <img
+                    src="img/superlike.svg"
+                    class="present"
+                    alt="superlike"
+                  />
+                  <div class="pl-3">
+                    <h3 class="h5">
+                      Superlike
+                    </h3>
+                    <h4 class="small text-muted">
+                      Available: <span class="text-success">2</span>
+                    </h4>
+                  </div>
+                </li>
+                <li class="dropdown-divider"></li>
+                <li class="dropdown-item d-inline-flex align-items-center">
+                  <img src="img/photo.svg" class="present" alt="superlike" />
+                  <div class="pl-3">
+                    <h3 class="h5">
+                      Photo
+                    </h3>
+                    <h4 class="small text-muted">
+                      Available: <span class="text-danger">0</span>
+                    </h4>
+                  </div>
+                </li>
+                <li class="dropdown-divider"></li>
+                <li class="dropdown-item d-inline-flex align-items-center">
+                  <img src="img/premium.svg" class="present" alt="superlike" />
+                  <div class="pl-3 mw-100 w-100 info">
+                    <h3 class="h5 title mb-1">
+                      Buy premium
+                    </h3>
+                    <p class="small text-muted subtitle m-0">
+                      You will recieve <span class="text-success">50%</span> of
+                      the premium time
+                    </p>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
           <!--Button for presents end-->
@@ -116,7 +170,12 @@
                   incidunt veritatis assumenda ut! Voluptate natus veritatis
                   sequi inventore incidunt ipsum laborum non aspernatur!
                 </p>
-                <time class="time">13:55</time>
+                <span class="meta d-inline-flex align-item-center">
+                  <i class="material-icons d-inline-block pr-1">
+                    visibility
+                  </i>
+                  <time>13:55</time>
+                </span>
               </div>
               <!--My message end-->
 
@@ -130,7 +189,9 @@
                   incidunt veritatis assumenda ut! Voluptate natus veritatis
                   sequi inventore incidunt ipsum laborum non aspernatur!
                 </p>
-                <time class="time">13:55</time>
+                <span class="meta d-inline-flex align-item-center">
+                  <time class="time">13:55</time>
+                </span>
               </div>
               <!--Other user message end-->
               <!--General messages end-->
@@ -232,6 +293,7 @@
 
     <!-- jquery, popper and bootstrap js -->
     <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
 
     <!--Sweetalert2-->

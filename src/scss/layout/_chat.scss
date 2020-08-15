@@ -3,6 +3,7 @@
   max-width: 500px;
   background: #fff;
 
+  /*Chat header start*/
   .chat-header {
     background: #fff;
     height: 77px;
@@ -19,7 +20,9 @@
       height: 60px;
     }
   }
+  /*Chat header end*/
 
+  /*Chat content start*/
   .chat-content {
     height: calc(100vh - 137px);
 
@@ -31,11 +34,16 @@
       border-radius: 15px;
       max-width: 85%;
 
-      .time {
+      .meta {
         position: absolute;
         font-size: 12px;
         bottom: 10px;
         right: 10px;
+        color: $bootstrap-secondary;
+
+        .material-icons {
+          font-size: 22px;
+        }
       }
 
       .text {
@@ -67,4 +75,5 @@
       }
     }
   }
+  /*Chat content end*/
 }
