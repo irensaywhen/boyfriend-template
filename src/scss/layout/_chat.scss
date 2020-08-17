@@ -109,6 +109,7 @@
       @include screen-lg {
         max-width: $chat-width-lg - 2px;
         min-height: $chat-message-height-lg;
+        bottom: $chat-footer-height-lg;
       }
 
       .message {

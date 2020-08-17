@@ -1,5 +1,5 @@
 /*default footer styles*/
-@mixin footer {
+@mixin footer($shadow: true) {
   @include ease-out;
   width: 100%;
   height: auto;
@@ -9,7 +9,10 @@
   left: 0;
   z-index: 9;
   background: #ffffff;
-  box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.1);
+
+  @if $shadow {
+    box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.1);
+  }
 }
 
 /*Default buttons in footer*/

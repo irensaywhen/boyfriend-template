@@ -52,6 +52,7 @@ $chat-centerbutton-height-lg: 50px;
 /*chat*/
 $chat-header-height: 77px;
 $chat-footer-height: 45px;
+$chat-footer-height-lg: 60px;
 $chat-message-height: 40px;
 $chat-message-height-lg: 60px;
 $chat-width: 500px;
@@ -61,4 +62,4 @@ $message-width: 85%;
 $message-border-radius: 15px;
 
 $chat-bottom-spacing: $chat-footer-height + $chat-message-height + 25px;
-$chat-bottom-spacing-lg: $chat-footer-height + $chat-message-height-lg + 40px;
+$chat-bottom-spacing-lg: $chat-footer-height-lg + $chat-message-height-lg + 40px;

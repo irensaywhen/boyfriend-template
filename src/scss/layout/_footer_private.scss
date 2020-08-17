@@ -47,7 +47,7 @@
     }
 
     @include screen-lg {
-      @include footer;
+      @include footer(false);
 
       .icon {
         font-size: decrease-font-size($icon-size, 2px);

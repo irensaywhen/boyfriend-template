@@ -665,7 +665,6 @@ nav ul {
     left: 0;
     z-index: 9;
     background: #ffffff;
-    box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.1);
   }
   .footer.chat-footer .icon {
     font-size: 22px;
@@ -1458,7 +1457,7 @@ article .header time {
 @media (min-width: 992px) {
   .chat .chat-content {
     max-width: 800px;
-    padding-bottom: 145px;
+    padding-bottom: 160px;
   }
 }
 .chat .chat-content .message-general {
@@ -1513,6 +1512,7 @@ article .header time {
   .chat .chat-content .send-message {
     max-width: 798px;
     min-height: 60px;
+    bottom: 60px;
   }
 }
 .chat .chat-content .send-message .message {
