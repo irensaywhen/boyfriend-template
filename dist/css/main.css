@@ -253,6 +253,32 @@ select.form-control optgroup {
 .chat .dropdown-divider {
   margin: 0;
 }
+.message {
+  border-radius: 30px;
+  max-width: 450px;
+}
+@media (min-width: 576px) {
+  .message {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  }
+}
+.message .meta {
+  position: absolute;
+  font-size: 12px;
+  bottom: -25px;
+  right: 20px;
+  color: #6c757d;
+}
+.message .meta i {
+  display: inline-block;
+  height: 14px;
+  font-size: 14px;
+  padding-right: 3px;
+  color: #15d36c;
+}
+.message .text {
+  max-width: 95%;
+}
 html {
   height: 100%;
 }
@@ -1448,7 +1474,7 @@ article .header time {
 }
 .chat .chat-content {
   padding-top: 77px;
-  padding-bottom: 110px;
+  padding-bottom: 175px;
   background: #fff;
   max-width: 576px;
   min-height: 100vh;
@@ -1470,32 +1496,6 @@ article .header time {
     padding-bottom: 160px;
   }
 }
-.chat .chat-content .message-general {
-  border-radius: 30px;
-  max-width: 450px;
-}
-@media (min-width: 576px) {
-  .chat .chat-content .message-general {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-  }
-}
-.chat .chat-content .message-general .meta {
-  position: absolute;
-  font-size: 12px;
-  bottom: -25px;
-  right: 20px;
-  color: #6c757d;
-}
-.chat .chat-content .message-general .meta i {
-  display: inline-block;
-  height: 14px;
-  font-size: 14px;
-  padding-right: 3px;
-  color: #15d36c;
-}
-.chat .chat-content .message-general .text {
-  max-width: 95%;
-}
 .chat .chat-content .message-general.mine {
   background: #fff;
   align-self: flex-end;
@@ -1505,27 +1505,44 @@ article .header time {
   background: linear-gradient(to right, #ff2980, #ff0068);
   color: #fff;
 }
-.chat .chat-content .message-superlike {
-  max-width: 270px;
-  width: 85%;
+.chat .chat-content .message-superlike .icon {
+  width: 76px;
+  height: 76px;
+  min-width: 76px;
+  min-height: 76px;
+  line-height: 76px;
+  vertical-align: middle;
+  border-radius: 50%;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  top: -38px;
   background: #fff;
-  align-self: center;
-  border-radius: 30px;
+  position: absolute;
 }
-.chat .chat-content .message-superlike figure img {
+.chat .chat-content .message-superlike .icon img {
   width: 100%;
   max-width: 100%;
   height: auto;
-  display: inline-block;
-  max-width: 112px;
+  max-width: 50px;
 }
-.chat .chat-content .message-superlike .meta {
-  font-size: 12px;
+.chat .chat-content .message-superlike.mine {
+  margin-right: 23px;
+  background: #fff;
+  align-self: flex-end;
 }
-.chat .chat-content .message-superlike .meta i {
-  font-size: 14px;
-  padding-right: 3px;
-  color: #15d36c;
+.chat .chat-content .message-superlike.mine .icon {
+  right: -38px;
+}
+.chat .chat-content .message-superlike.alien {
+  margin-left: 23px;
+  align-self: flex-start;
+  background: linear-gradient(to right, #ff2980, #ff0068);
+  color: #fff;
+}
+.chat .chat-content .message-superlike.alien .icon {
+  left: -38px;
+}
+.chat .chat-content .message-superlike.alien .text {
+  padding-left: 26px;
 }
 .chat .chat-content .send-message {
   position: fixed;
@@ -1543,14 +1560,14 @@ article .header time {
     bottom: 60px;
   }
 }
-.chat .chat-content .send-message .message {
+.chat .chat-content .send-message .message-textarea {
   border: none;
   outline: 0px;
   line-height: 1.25;
   background: #fff;
 }
 @media (min-width: 992px) {
-  .chat .chat-content .send-message .message {
+  .chat .chat-content .send-message .message-textarea {
     padding: 10px 15px;
   }
 }

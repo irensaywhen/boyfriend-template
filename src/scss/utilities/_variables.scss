@@ -62,8 +62,8 @@ $max-message-width: 85%;
 $message-width: 85%;
 $message-border-radius: 30px;
 
-$chat-bottom-spacing: $chat-footer-height + $chat-message-height + 25px;
+$chat-bottom-spacing: $chat-footer-height + $chat-message-height + 90px;
 $chat-bottom-spacing-lg: $chat-footer-height-lg + $chat-message-height-lg + 40px;
 
 /*special message types*/
-$superlike-message-max-width: 270px;
+$icon-width: 76px;

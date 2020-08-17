@@ -53,30 +53,6 @@
 
     /* General message start*/
     .message-general {
-      @include bs-sm-shadow;
-      border-radius: $message-border-radius;
-      max-width: $chat-message-max-width;
-
-      .meta {
-        position: absolute;
-        font-size: 12px;
-        bottom: -25px;
-        right: 20px;
-        color: $bootstrap-secondary;
-
-        i {
-          display: inline-block;
-          height: 14px;
-          font-size: 14px;
-          padding-right: 3px;
-          color: $success-green;
-        }
-      }
-
-      .text {
-        max-width: 95%;
-      }
-
       &.mine {
         background: #fff;
         align-self: flex-end;
@@ -95,7 +71,7 @@
     /* General message end*/
 
     /* Superlike message start*/
-    .message-superlike {
+    /*.message-superlike {
       max-width: $superlike-message-max-width;
       width: $message-width;
       background: #fff;
@@ -119,6 +95,49 @@
           color: $success-green;
         }
       }
+    }*/
+
+    .message-superlike {
+      .icon {
+        @include circular-badge($icon-width);
+        @include bs-shadow-sm;
+        top: -$icon-width / 2;
+        background: #fff;
+        position: absolute;
+
+        img {
+          @include image;
+          max-width: 50px;
+        }
+      }
+      &.mine {
+        margin-right: $icon-width / 2 - 15px;
+        background: #fff;
+        align-self: flex-end;
+
+        .icon {
+          right: -$icon-width / 2;
+        }
+      }
+
+      &.alien {
+        margin-left: $icon-width / 2 - 15px;
+        align-self: flex-start;
+        background: linear-gradient(
+          to right,
+          lighten($main-pink, 8),
+          $main-pink
+        );
+        color: #fff;
+
+        .icon {
+          left: -$icon-width / 2;
+        }
+
+        .text {
+          padding-left: $icon-width / 2 - 12px;
+        }
+      }
     }
     /* Superlike message end*/
 
@@ -138,7 +157,7 @@
         bottom: $chat-footer-height-lg;
       }
 
-      .message {
+      .message-textarea {
         border: none;
         outline: 0px;
         line-height: 1.25;

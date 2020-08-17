@@ -181,7 +181,7 @@
 
               <!--My message start-->
               <div
-                class="message-general mine position-relative px-3 py-2 mt-5 shadow"
+                class="message message-general mine position-relative px-3 py-2 mt-5 shadow"
               >
                 <p class="text mb-0">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -195,7 +195,7 @@
 
               <!--Other user message start-->
               <div
-                class="message-general alien position-relative px-3 py-2 mt-5 shadow"
+                class="message message-general alien position-relative px-3 py-2 mt-5 shadow"
               >
                 <p class="text mb-0">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -211,7 +211,7 @@
 
               <!--My message start-->
               <div
-                class="message-general mine position-relative px-3 py-2 mt-5 shadow"
+                class="message message-general mine position-relative px-3 py-2 mt-5 shadow"
               >
                 <p class="text mb-0">
                   Hello. How're you doing?
@@ -225,7 +225,7 @@
 
               <!--Other user message start-->
               <div
-                class="message-general alien position-relative px-3 py-2 mt-5 shadow"
+                class="message message-general alien position-relative px-3 py-2 mt-5 shadow"
               >
                 <p class="text mb-0">
                   Fine, thanks. Great to hear from you!
@@ -244,14 +244,16 @@
 
               <!--My message start-->
               <div
-                class="message-superlike mine position-relative px-3 py-2 mt-5 shadow"
+                class="message message-superlike mine position-relative px-3 py-2 mt-5 shadow"
               >
-                <figure class="text-center pt-3">
+                <figure
+                  class="icon d-flex align-items-center justify-content-center"
+                >
                   <img src="img/superlike.svg" alt="superlike" />
-                  <figcaption class="text-center pt-2">
-                    You just sent a superlike to the Lukasz! Amazing!
-                  </figcaption>
                 </figure>
+                <p class="text mb-0">
+                  You just sent a superlike to Lukasz!
+                </p>
                 <span
                   class="meta d-flex w-100 align-items-center justify-content-end"
                 >
@@ -262,6 +264,23 @@
               <!--My message end-->
 
               <!--Other user message start-->
+              <div
+                class="message message-superlike alien position-relative px-3 py-2 mt-5 shadow"
+              >
+                <figure
+                  class="icon d-flex align-items-center justify-content-center"
+                >
+                  <img src="img/superlike.svg" alt="superlike" />
+                </figure>
+                <p class="text mb-0">
+                  Lukasz just sent you a superlike!
+                </p>
+                <span
+                  class="meta d-flex w-100 align-items-center justify-content-end"
+                >
+                  <time>13:55</time>
+                </span>
+              </div>
               <!--Other user message end-->
 
               <!--Superlike messages end-->
@@ -279,7 +298,7 @@
                 <div class="col-11">
                   <div class="form-group m-0 pt-1">
                     <textarea
-                      class="form-control form-control-sm message"
+                      class="form-control form-control-sm message-textarea"
                       rows="2"
                       placeholder="Message"
                     ></textarea>
