@@ -1381,6 +1381,11 @@ article .header time {
 .chat .chat-header .chat-header_content {
   max-width: 500px;
 }
+@media (min-width: 992px) {
+  .chat .chat-header .chat-header_content {
+    max-width: 800px;
+  }
+}
 .chat .chat-header .profile-avatar {
   display: block;
   width: 100%;
@@ -1411,10 +1416,16 @@ article .header time {
 .chat .chat-content {
   padding-top: 77px;
   padding-bottom: 110px;
-  max-width: 500px;
   border-left: 1px solid #ced4da;
   border-right: 1px solid #ced4da;
   background: #fff;
+  max-width: 500px;
+}
+@media (min-width: 992px) {
+  .chat .chat-content {
+    max-width: 800px;
+    padding-bottom: 145px;
+  }
 }
 .chat .chat-content .message-general {
   border-radius: 15px;
@@ -1461,14 +1472,25 @@ article .header time {
   background: #fff;
   border-top: 1px solid #ced4da;
   min-height: 40px;
-  max-width: 498px;
   line-height: 1.25;
+  max-width: 498px;
+}
+@media (min-width: 992px) {
+  .chat .chat-content .send-message {
+    max-width: 798px;
+    min-height: 60px;
+  }
 }
 .chat .chat-content .send-message .message {
   border: none;
   outline: 0px;
   line-height: 1.25;
   background: #fff;
+}
+@media (min-width: 992px) {
+  .chat .chat-content .send-message .message {
+    padding: 10px 15px;
+  }
 }
 .chat .chat-content .send-message .send {
   transition: all 0.5s ease-out;
@@ -1477,6 +1499,14 @@ article .header time {
   color: #ff0068;
   cursor: pointer;
   font-size: 20px;
+}
+@media (min-width: 992px) {
+  .chat .chat-content .send-message .send {
+    width: auto;
+  }
+  .chat .chat-content .send-message .send .material-icons {
+    font-size: 29px;
+  }
 }
 .chat .chat-content .send-message .send:hover {
   color: #dd015b;
