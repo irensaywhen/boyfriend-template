@@ -1368,13 +1368,18 @@ article .header time {
   }
 }
 .chat {
-  height: calc(100% - 60px);
+  height: calc(100% - $chat-footer-height);
   max-width: 500px;
   background: #fff;
 }
 .chat .chat-header {
   background: #fff;
   height: 77px;
+  width: 100%;
+  max-width: 498px;
+  position: fixed;
+  top: 0;
+  z-index: 2000;
 }
 .chat .chat-header .profile-avatar {
   display: block;
@@ -1404,7 +1409,8 @@ article .header time {
   height: 60px;
 }
 .chat .chat-content {
-  height: calc(100% - 137px);
+  padding-top: 77px;
+  padding-bottom: 110px;
 }
 .chat .chat-content .message-general {
   border-radius: 15px;
@@ -1451,11 +1457,8 @@ article .header time {
   background: #fff;
   border-top: 1px solid #ced4da;
   min-height: 40px;
+  max-width: 498px;
   line-height: 1.25;
-}
-.chat .chat-content .send-message .container-fluid,
-.chat .chat-content .send-message .row {
-  min-height: 40px;
 }
 .chat .chat-content .send-message .message {
   border: none;

@@ -1,15 +1,20 @@
 .chat {
-  height: calc(100% - 60px);
+  height: calc(100% - $chat-footer-height);
   max-width: 500px;
   background: #fff;
 
   /*Chat header start*/
   .chat-header {
     background: #fff;
-    height: 77px;
+    height: $chat-header-height;
+    width: 100%;
+    max-width: $chat-width;
+    position: fixed;
+    top: 0;
+    z-index: 2000;
 
     .profile-avatar {
-      @include avatar(77px, 77px, true);
+      @include avatar($chat-header-height, $chat-header-height, true);
     }
 
     .chat-present {
@@ -24,10 +29,8 @@
 
   /*Chat content start*/
   .chat-content {
-    height: calc(100% - 137px);
-
-    .chat-body {
-    }
+    padding-top: $chat-header-height;
+    padding-bottom: $chat-footer-height + $chat-message-height + 25px;
 
     /* General message start*/
     .message-general {
@@ -79,18 +82,15 @@
     }
     /* Superlike message end*/
 
+    /*send message area start*/
     .send-message {
       position: fixed;
       bottom: $chat-footer-height;
       background: #fff;
       border-top: 1px solid $label-border;
-      min-height: 40px;
+      min-height: $chat-message-height;
+      max-width: $chat-width;
       line-height: 1.25;
-
-      .container-fluid,
-      .row {
-        min-height: 40px;
-      }
 
       .message {
         border: none;
@@ -118,6 +118,7 @@
         }
       }
     }
+    /*send message area end*/
   }
   /*Chat content end*/
 }
