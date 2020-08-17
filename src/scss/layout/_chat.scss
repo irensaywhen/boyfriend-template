@@ -70,34 +70,9 @@
     }
     /* General message end*/
 
-    /* Superlike message start*/
-    /*.message-superlike {
-      max-width: $superlike-message-max-width;
-      width: $message-width;
-      background: #fff;
-      align-self: center;
-      border-radius: $message-border-radius;
-
-      figure {
-        img {
-          @include image;
-          display: inline-block;
-          max-width: 112px;
-        }
-      }
-
-      .meta {
-        font-size: 12px;
-
-        i {
-          font-size: 14px;
-          padding-right: 3px;
-          color: $success-green;
-        }
-      }
-    }*/
-
-    .message-superlike {
+    /*superlike message start*/
+    .message-special {
+      font-style: italic;
       .icon {
         @include circular-badge($icon-width);
         @include bs-shadow-sm;
@@ -110,6 +85,7 @@
           max-width: 50px;
         }
       }
+
       &.mine {
         margin-right: $icon-width / 2 - 15px;
         background: #fff;
@@ -138,8 +114,35 @@
           padding-left: $icon-width / 2 - 12px;
         }
       }
+
+      &.message-photocard {
+        background: #fff;
+        color: #000;
+
+        .photo {
+          width: 100%;
+          padding-top: 1rem;
+          font-style: normal;
+          border-radius: $message-border-radius;
+          cursor: pointer;
+
+          img {
+            @include image;
+            max-width: $photo-max-width;
+            border-radius: $message-border-radius;
+          }
+
+          figcaption {
+            max-width: 90%;
+          }
+        }
+      }
     }
     /* Superlike message end*/
+
+    /*photo message start*/
+
+    /*photo message end*/
 
     /*send message area start*/
     .send-message {

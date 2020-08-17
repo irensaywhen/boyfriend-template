@@ -1505,7 +1505,10 @@ article .header time {
   background: linear-gradient(to right, #ff2980, #ff0068);
   color: #fff;
 }
-.chat .chat-content .message-superlike .icon {
+.chat .chat-content .message-special {
+  font-style: italic;
+}
+.chat .chat-content .message-special .icon {
   width: 76px;
   height: 76px;
   min-width: 76px;
@@ -1518,31 +1521,52 @@ article .header time {
   background: #fff;
   position: absolute;
 }
-.chat .chat-content .message-superlike .icon img {
+.chat .chat-content .message-special .icon img {
   width: 100%;
   max-width: 100%;
   height: auto;
   max-width: 50px;
 }
-.chat .chat-content .message-superlike.mine {
+.chat .chat-content .message-special.mine {
   margin-right: 23px;
   background: #fff;
   align-self: flex-end;
 }
-.chat .chat-content .message-superlike.mine .icon {
+.chat .chat-content .message-special.mine .icon {
   right: -38px;
 }
-.chat .chat-content .message-superlike.alien {
+.chat .chat-content .message-special.alien {
   margin-left: 23px;
   align-self: flex-start;
   background: linear-gradient(to right, #ff2980, #ff0068);
   color: #fff;
 }
-.chat .chat-content .message-superlike.alien .icon {
+.chat .chat-content .message-special.alien .icon {
   left: -38px;
 }
-.chat .chat-content .message-superlike.alien .text {
+.chat .chat-content .message-special.alien .text {
   padding-left: 26px;
+}
+.chat .chat-content .message-special.message-photocard {
+  background: #fff;
+  color: #000;
+}
+.chat .chat-content .message-special.message-photocard .photo {
+  width: 100%;
+  padding-top: 1rem;
+  font-style: normal;
+  border-radius: 30px;
+  cursor: pointer;
+}
+.chat .chat-content .message-special.message-photocard .photo img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-width: 300px;
+  border-radius: 30px;
+}
+.chat .chat-content .message-special.message-photocard .photo figcaption {
+  max-width: 90%;
 }
 .chat .chat-content .send-message {
   position: fixed;
