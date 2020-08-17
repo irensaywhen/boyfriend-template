@@ -34,12 +34,16 @@
 
   /*Chat content start*/
   .chat-content {
+    @include bs-sm-shadow;
     padding-top: $chat-header-height;
     padding-bottom: $chat-bottom-spacing;
-    border-left: 1px solid $label-border;
-    border-right: 1px solid $label-border;
     background: #fff;
     max-width: $chat-width;
+
+    @include screen-sm {
+      border-left: 1px solid $label-border;
+      border-right: 1px solid $label-border;
+    }
 
     @include screen-lg {
       max-width: $chat-width-lg;
@@ -104,7 +108,7 @@
       border-top: 1px solid $label-border;
       min-height: $chat-message-height;
       line-height: 1.25;
-      max-width: $chat-width - 2px;
+      max-width: $chat-width - 4px;
 
       @include screen-lg {
         max-width: $chat-width-lg - 2px;

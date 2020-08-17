@@ -1412,7 +1412,7 @@ article .header time {
   z-index: 2000;
 }
 .chat .chat-header .chat-header_content {
-  max-width: 500px;
+  max-width: 576px;
 }
 @media (min-width: 992px) {
   .chat .chat-header .chat-header_content {
@@ -1449,10 +1449,19 @@ article .header time {
 .chat .chat-content {
   padding-top: 77px;
   padding-bottom: 110px;
-  border-left: 1px solid #ced4da;
-  border-right: 1px solid #ced4da;
   background: #fff;
-  max-width: 500px;
+  max-width: 576px;
+}
+@media (min-width: 576px) {
+  .chat .chat-content {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  }
+}
+@media (min-width: 576px) {
+  .chat .chat-content {
+    border-left: 1px solid #ced4da;
+    border-right: 1px solid #ced4da;
+  }
 }
 @media (min-width: 992px) {
   .chat .chat-content {
@@ -1506,7 +1515,7 @@ article .header time {
   border-top: 1px solid #ced4da;
   min-height: 40px;
   line-height: 1.25;
-  max-width: 498px;
+  max-width: 572px;
 }
 @media (min-width: 992px) {
   .chat .chat-content .send-message {
