@@ -73,6 +73,7 @@
     /*superlike message start*/
     .message-special {
       font-style: italic;
+
       .icon {
         @include circular-badge($icon-width);
         @include bs-shadow-sm;
@@ -99,12 +100,8 @@
       &.alien {
         margin-left: $icon-width / 2 - 15px;
         align-self: flex-start;
-        background: linear-gradient(
-          to right,
-          lighten($main-pink, 8),
-          $main-pink
-        );
-        color: #fff;
+        background: #fff;
+        color: #000;
 
         .icon {
           left: -$icon-width / 2;
@@ -115,26 +112,22 @@
         }
       }
 
-      &.message-photocard {
-        background: #fff;
-        color: #000;
+      .photo {
+        width: 100%;
+        padding-top: 1rem;
+        font-style: normal;
+        border-radius: $message-border-radius;
+        cursor: pointer;
+        text-align: center;
 
-        .photo {
-          width: 100%;
-          padding-top: 1rem;
-          font-style: normal;
+        img {
+          @include image;
+          max-width: $photo-max-width;
           border-radius: $message-border-radius;
-          cursor: pointer;
+        }
 
-          img {
-            @include image;
-            max-width: $photo-max-width;
-            border-radius: $message-border-radius;
-          }
-
-          figcaption {
-            max-width: 90%;
-          }
+        figcaption {
+          max-width: $photo-max-width;
         }
       }
     }

@@ -1538,8 +1538,8 @@ article .header time {
 .chat .chat-content .message-special.alien {
   margin-left: 23px;
   align-self: flex-start;
-  background: linear-gradient(to right, #ff2980, #ff0068);
-  color: #fff;
+  background: #fff;
+  color: #000;
 }
 .chat .chat-content .message-special.alien .icon {
   left: -38px;
@@ -1547,26 +1547,23 @@ article .header time {
 .chat .chat-content .message-special.alien .text {
   padding-left: 26px;
 }
-.chat .chat-content .message-special.message-photocard {
-  background: #fff;
-  color: #000;
-}
-.chat .chat-content .message-special.message-photocard .photo {
+.chat .chat-content .message-special .photo {
   width: 100%;
   padding-top: 1rem;
   font-style: normal;
   border-radius: 30px;
   cursor: pointer;
+  text-align: center;
 }
-.chat .chat-content .message-special.message-photocard .photo img {
+.chat .chat-content .message-special .photo img {
   width: 100%;
   max-width: 100%;
   height: auto;
   max-width: 300px;
   border-radius: 30px;
 }
-.chat .chat-content .message-special.message-photocard .photo figcaption {
-  max-width: 90%;
+.chat .chat-content .message-special .photo figcaption {
+  max-width: 300px;
 }
 .chat .chat-content .send-message {
   position: fixed;
