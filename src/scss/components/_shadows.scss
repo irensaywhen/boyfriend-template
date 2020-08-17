@@ -2,6 +2,10 @@
 
 /*small bootstrap shadow*/
 @mixin bs-sm-shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+@mixin bs-sm-shadow-sm {
   @include screen-sm {
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
   }
@@ -26,6 +30,10 @@
 }
 
 /*default bootstrap shadow*/
+
+@mixin bs-shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
 
 @mixin bs-sm-shadow {
   @include screen-sm {
@@ -53,6 +61,10 @@
 
 /*large bootstrap shadow*/
 
+@mixin bs-shadow-lg {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
 @mixin bs-sm-shadow-lg {
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
 }
@@ -70,6 +82,10 @@
 }
 
 /*get rid of bootstrap shadow*/
+
+@mixin bs-shadow-none {
+  box-shadow: none !important;
+}
 
 @mixin bs-sm-shadow-none {
   @include screen-sm {

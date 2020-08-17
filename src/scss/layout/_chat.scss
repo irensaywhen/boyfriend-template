@@ -1,5 +1,5 @@
 .chat {
-  height: calc(100% - $chat-footer-height);
+  min-height: 100vh;
 
   /*Chat header start*/
   .chat-header {
@@ -39,6 +39,7 @@
     padding-bottom: $chat-bottom-spacing;
     background: #fff;
     max-width: $chat-width;
+    min-height: 100vh;
 
     @include screen-sm {
       border-left: 1px solid $label-border;
@@ -52,8 +53,10 @@
 
     /* General message start*/
     .message-general {
+      @include bs-sm-shadow;
       border-radius: $message-border-radius;
-      max-width: $max-message-width;
+      /*width: $message-width;*/
+      max-width: $chat-message-max-width;
 
       .meta {
         position: absolute;
@@ -72,12 +75,22 @@
       }
 
       &.mine {
-        background: lighten($light-blue, 7);
+        background: #fff;
         align-self: flex-end;
       }
 
       &.alien {
-        background: lighten($bootstrap-secondary, 45);
+        align-self: flex-start;
+        background: linear-gradient(
+          to right,
+          lighten($main-pink, 8),
+          $main-pink
+        );
+        color: #fff;
+
+        .meta {
+          color: #fff;
+        }
       }
     }
     /* General message end*/
