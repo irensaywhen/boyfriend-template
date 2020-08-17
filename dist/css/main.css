@@ -1482,12 +1482,16 @@ article .header time {
 .chat .chat-content .message-general .meta {
   position: absolute;
   font-size: 12px;
-  bottom: 10px;
-  right: 10px;
+  bottom: -25px;
+  right: 20px;
   color: #6c757d;
 }
-.chat .chat-content .message-general .meta .material-icons {
-  font-size: 22px;
+.chat .chat-content .message-general .meta i {
+  display: inline-block;
+  height: 14px;
+  font-size: 14px;
+  padding-right: 3px;
+  color: #15d36c;
 }
 .chat .chat-content .message-general .text {
   max-width: 95%;
@@ -1501,23 +1505,27 @@ article .header time {
   background: linear-gradient(to right, #ff2980, #ff0068);
   color: #fff;
 }
-.chat .chat-content .message-general.alien .meta {
-  color: #fff;
-}
 .chat .chat-content .message-superlike {
-  max-width: 85%;
+  max-width: 270px;
   width: 85%;
   background: #fff;
   align-self: center;
   border-radius: 30px;
 }
-.chat .chat-content .message-superlike figure {
-  width: 90%;
-}
 .chat .chat-content .message-superlike figure img {
   width: 100%;
   max-width: 100%;
   height: auto;
+  display: inline-block;
+  max-width: 112px;
+}
+.chat .chat-content .message-superlike .meta {
+  font-size: 12px;
+}
+.chat .chat-content .message-superlike .meta i {
+  font-size: 14px;
+  padding-right: 3px;
+  color: #15d36c;
 }
 .chat .chat-content .send-message {
   position: fixed;

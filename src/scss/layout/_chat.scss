@@ -55,18 +55,21 @@
     .message-general {
       @include bs-sm-shadow;
       border-radius: $message-border-radius;
-      /*width: $message-width;*/
       max-width: $chat-message-max-width;
 
       .meta {
         position: absolute;
         font-size: 12px;
-        bottom: 10px;
-        right: 10px;
+        bottom: -25px;
+        right: 20px;
         color: $bootstrap-secondary;
 
-        .material-icons {
-          font-size: 22px;
+        i {
+          display: inline-block;
+          height: 14px;
+          font-size: 14px;
+          padding-right: 3px;
+          color: $success-green;
         }
       }
 
@@ -87,27 +90,33 @@
           $main-pink
         );
         color: #fff;
-
-        .meta {
-          color: #fff;
-        }
       }
     }
     /* General message end*/
 
     /* Superlike message start*/
     .message-superlike {
-      max-width: $max-message-width;
+      max-width: $superlike-message-max-width;
       width: $message-width;
       background: #fff;
       align-self: center;
       border-radius: $message-border-radius;
 
       figure {
-        width: 90%;
-
         img {
           @include image;
+          display: inline-block;
+          max-width: 112px;
+        }
+      }
+
+      .meta {
+        font-size: 12px;
+
+        i {
+          font-size: 14px;
+          padding-right: 3px;
+          color: $success-green;
         }
       }
     }
