@@ -1,17 +1,19 @@
 .chat {
   height: calc(100% - $chat-footer-height);
-  max-width: 500px;
-  background: #fff;
 
   /*Chat header start*/
   .chat-header {
     background: #fff;
     height: $chat-header-height;
     width: 100%;
-    max-width: $chat-width;
+    /*max-width: $chat-width;*/
     position: fixed;
     top: 0;
     z-index: 2000;
+
+    .chat-header_content {
+      max-width: $chat-width;
+    }
 
     .profile-avatar {
       @include avatar($chat-header-height, $chat-header-height, true);
@@ -31,6 +33,10 @@
   .chat-content {
     padding-top: $chat-header-height;
     padding-bottom: $chat-footer-height + $chat-message-height + 25px;
+    max-width: $chat-width;
+    border-left: 1px solid $label-border;
+    border-right: 1px solid $label-border;
+    background: #fff;
 
     /* General message start*/
     .message-general {
@@ -89,7 +95,7 @@
       background: #fff;
       border-top: 1px solid $label-border;
       min-height: $chat-message-height;
-      max-width: $chat-width;
+      max-width: $chat-width - 2px;
       line-height: 1.25;
 
       .message {
@@ -105,7 +111,6 @@
         height: 100%;
         color: $main-pink;
         cursor: pointer;
-        border-radius: 40%;
         font-size: 20px;
 
         &:hover {

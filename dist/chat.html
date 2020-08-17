@@ -56,105 +56,120 @@
     <!--Content start-->
     <div class="wrapper p-0">
       <!--Chat start-->
-      <section class="container chat mx-auto border-left border-right shadow">
+      <section
+        class="container-fluid chat mx-auto border-left border-right shadow"
+      >
         <!--Chat header start-->
         <div class="row chat-header shadow-sm justify-content-between">
-          <!--Backward arrow start-->
-          <div class="col-1 pr-0">
-            <div class="d-flex align-items-center h-100">
-              <a href="chat-list.html" class="blue-link">
-                <i class="fas fa-arrow-left"></i>
-              </a>
+          <div class="container">
+            <div class="row chat-header_content mx-auto">
+              <!--Backward arrow start-->
+              <div class="col-1 pr-0">
+                <div class="d-flex align-items-center h-100">
+                  <a href="chat-list.html" class="blue-link">
+                    <i class="fas fa-arrow-left"></i>
+                  </a>
+                </div>
+              </div>
+              <!--Backward arrow end-->
+
+              <!--Avatar start-->
+              <div class="col">
+                <figure class="d-inline-flex align-items-center mb-0">
+                  <a href="profile.html" class="profile-avatar">
+                    <img src="img/profile.jpg" alt="" />
+                  </a>
+                  <figcaption
+                    class="pl-2 d-inline-flex flex-column justify-content-around user-info"
+                  >
+                    <a href="profile.html">Lukasz</a>
+                    <span class="badge badge-success mb-1">Online</span>
+                  </figcaption>
+                </figure>
+              </div>
+              <!--Avatar end-->
+
+              <!--Button for presents start-->
+              <div class="col px-0 pr-1">
+                <div
+                  class="d-flex align-items-center justify-content-end h-100 dropdown"
+                >
+                  <!--Dropdown toggle-->
+                  <button
+                    type="button"
+                    class="btn btn-default btn-lg d-flex align-items-center justify-content-center dropdown-toggle"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <img src="img/gift.svg" class="chat-present" alt="" />
+                  </button>
+
+                  <!--Dropdown items-->
+                  <ul
+                    class="dropdown-menu dropdown-menu-right dropdown-menu-sm-left"
+                    aria-labelledby="dropdownMenu"
+                  >
+                    <li class="dropdown-item d-inline-flex align-items-center">
+                      <img
+                        src="img/superlike.svg"
+                        class="present"
+                        alt="superlike"
+                      />
+                      <div class="pl-3">
+                        <h3 class="h5">
+                          Superlike
+                        </h3>
+                        <h4 class="small text-muted">
+                          Available: <span class="text-success">2</span>
+                        </h4>
+                      </div>
+                    </li>
+                    <li class="dropdown-divider"></li>
+                    <li class="dropdown-item d-inline-flex align-items-center">
+                      <img
+                        src="img/photo.svg"
+                        class="present"
+                        alt="superlike"
+                      />
+                      <div class="pl-3">
+                        <h3 class="h5">
+                          Photo
+                        </h3>
+                        <h4 class="small text-muted">
+                          Available: <span class="text-danger">0</span>
+                        </h4>
+                      </div>
+                    </li>
+                    <li class="dropdown-divider"></li>
+                    <li class="dropdown-item d-inline-flex align-items-center">
+                      <img
+                        src="img/premium.svg"
+                        class="present"
+                        alt="superlike"
+                      />
+                      <div class="pl-3 mw-100 w-100 info">
+                        <h3 class="h5 title mb-1">
+                          Buy premium
+                        </h3>
+                        <p class="small text-muted subtitle m-0">
+                          You will recieve
+                          <span class="text-success">50%</span> of the premium
+                          time
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!--Button for presents end-->
             </div>
           </div>
-          <!--Backward arrow end-->
-
-          <!--Avatar start-->
-          <div class="col">
-            <figure class="d-inline-flex align-items-center mb-0">
-              <a href="profile.html" class="profile-avatar">
-                <img src="img/profile.jpg" alt="" />
-              </a>
-              <figcaption
-                class="pl-2 d-inline-flex flex-column justify-content-around user-info"
-              >
-                <a href="profile.html">Lukasz</a>
-                <span class="badge badge-success mb-1">Online</span>
-              </figcaption>
-            </figure>
-          </div>
-          <!--Avatar end-->
-
-          <!--Button for presents start-->
-          <div class="col px-0 pr-1">
-            <div
-              class="d-flex align-items-center justify-content-end h-100 dropdown"
-            >
-              <!--Dropdown toggle-->
-              <button
-                type="button"
-                class="btn btn-default btn-lg d-flex align-items-center justify-content-center dropdown-toggle"
-                id="dropdownMenuButton"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <img src="img/gift.svg" class="chat-present" alt="" />
-              </button>
-
-              <!--Dropdown items-->
-              <ul
-                class="dropdown-menu dropdown-menu-right dropdown-menu-sm-left"
-                aria-labelledby="dropdownMenu"
-              >
-                <li class="dropdown-item d-inline-flex align-items-center">
-                  <img
-                    src="img/superlike.svg"
-                    class="present"
-                    alt="superlike"
-                  />
-                  <div class="pl-3">
-                    <h3 class="h5">
-                      Superlike
-                    </h3>
-                    <h4 class="small text-muted">
-                      Available: <span class="text-success">2</span>
-                    </h4>
-                  </div>
-                </li>
-                <li class="dropdown-divider"></li>
-                <li class="dropdown-item d-inline-flex align-items-center">
-                  <img src="img/photo.svg" class="present" alt="superlike" />
-                  <div class="pl-3">
-                    <h3 class="h5">
-                      Photo
-                    </h3>
-                    <h4 class="small text-muted">
-                      Available: <span class="text-danger">0</span>
-                    </h4>
-                  </div>
-                </li>
-                <li class="dropdown-divider"></li>
-                <li class="dropdown-item d-inline-flex align-items-center">
-                  <img src="img/premium.svg" class="present" alt="superlike" />
-                  <div class="pl-3 mw-100 w-100 info">
-                    <h3 class="h5 title mb-1">
-                      Buy premium
-                    </h3>
-                    <p class="small text-muted subtitle m-0">
-                      You will recieve <span class="text-success">50%</span> of
-                      the premium time
-                    </p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <!--Button for presents end-->
         </div>
         <!--Chat header end-->
 
-        <div class="row chat-content">
+        <div class="row chat-content mx-auto shadow">
           <!--Chat body start-->
           <div class="col-12 align-self-start">
             <div class="d-flex flex-column">
@@ -231,7 +246,7 @@
           <!--Chat body end-->
 
           <!--Send message start-->
-          <div class="col-12 send-message shadow-lg align-self-end px-2">
+          <div class="col-12 send-message shadow-lg align-self-end">
             <div class="container-fluid px-0">
               <div class="row no-gutters">
                 <div class="col-11">

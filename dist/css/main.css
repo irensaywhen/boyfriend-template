@@ -1369,17 +1369,17 @@ article .header time {
 }
 .chat {
   height: calc(100% - $chat-footer-height);
-  max-width: 500px;
-  background: #fff;
 }
 .chat .chat-header {
   background: #fff;
   height: 77px;
   width: 100%;
-  max-width: 498px;
   position: fixed;
   top: 0;
   z-index: 2000;
+}
+.chat .chat-header .chat-header_content {
+  max-width: 500px;
 }
 .chat .chat-header .profile-avatar {
   display: block;
@@ -1411,6 +1411,10 @@ article .header time {
 .chat .chat-content {
   padding-top: 77px;
   padding-bottom: 110px;
+  max-width: 500px;
+  border-left: 1px solid #ced4da;
+  border-right: 1px solid #ced4da;
+  background: #fff;
 }
 .chat .chat-content .message-general {
   border-radius: 15px;
@@ -1472,7 +1476,6 @@ article .header time {
   height: 100%;
   color: #ff0068;
   cursor: pointer;
-  border-radius: 40%;
   font-size: 20px;
 }
 .chat .chat-content .send-message .send:hover {
