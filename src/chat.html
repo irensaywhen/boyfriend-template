@@ -559,32 +559,34 @@
           <!--Send message start-->
           <div class="col-12 send-message align-self-end">
             <div class="container-fluid mb-4 px-0">
-              <div class="row no-gutters">
-                <!--Message textarea start-->
-                <div class="col-11">
-                  <div class="form-group m-0 pt-1">
-                    <textarea
-                      class="form-control form-control-sm message-textarea"
-                      rows="2"
-                      placeholder="Message"
-                    ></textarea>
+              <form action="" id="send-message-form">
+                <div class="row no-gutters">
+                  <!--Message textarea start-->
+                  <div class="col-11">
+                    <div class="form-group m-0 pt-1">
+                      <textarea
+                        class="form-control form-control-sm message-textarea"
+                        rows="2"
+                        placeholder="Message"
+                      ></textarea>
+                    </div>
                   </div>
-                </div>
-                <!--Message textarea end-->
+                  <!--Message textarea end-->
 
-                <!--Send message button start-->
-                <div class="col-1 bg-white">
-                  <div
-                    class="send align-items-end align-items-lg-center justify-content-lg-center pb-2 pb-lg-0 animate__animated animate__zoomIn"
-                    id="send"
-                  >
-                    <i class="material-icons">
-                      send
-                    </i>
+                  <!--Send message button start-->
+                  <div class="col-1 bg-white">
+                    <div
+                      class="send align-items-end align-items-lg-center justify-content-lg-center pb-2 pb-lg-0 animate__animated animate__zoomIn"
+                      id="send"
+                    >
+                      <i class="material-icons">
+                        send
+                      </i>
+                    </div>
                   </div>
+                  <!--Send message button end-->
                 </div>
-                <!--Send message button end-->
-              </div>
+              </form>
             </div>
           </div>
           <!--Send message end-->
@@ -593,6 +595,41 @@
       <!--Chat end-->
     </div>
     <!--Content end-->
+
+    <!--Message templates start-->
+
+    <!--Time template start-->
+    <template id="template-time">
+      <span class="meta d-inline-flex align-items-center">
+        <time>13:55</time>
+      </span>
+    </template>
+    <!--Time template end-->
+
+    <!--Visibility template start-->
+    <template id="template-visibility">
+      <i class="fas fa-check-circle"></i>
+    </template>
+    <!--Visibility template end-->
+
+    <!--General messages start-->
+    <template id="template-generalMessage">
+      <!--My message start-->
+      <div
+        class="message message-general mine position-relative px-3 py-2 mt-5 shadow"
+      >
+        <p class="text mb-0"></p>
+        <span class="meta d-inline-flex align-items-center">
+          <i class="fas fa-check-circle"></i>
+          <time>13:55</time>
+        </span>
+      </div>
+      <!--My message end-->
+    </template>
+
+    <!--General messages end-->
+
+    <!--Message templates end-->
 
     <!-- footer -->
     <footer class="footer chat-footer">
@@ -696,11 +733,18 @@
             enlargePhoto: '.enlarge',
             chat: '#chat',
             sendButton: '#send',
+            sendMessageForm: '#send-message-form',
+            message: '.message-textarea',
           },
           requests: {},
           classNames: {
             enlargePhoto: 'enlarge',
             message: 'message-textarea',
+          },
+          templates: {
+            time: '#template-time',
+            visibility: '#template-visibility',
+            generalMessage: '#template-generalMessage',
           },
         });
 

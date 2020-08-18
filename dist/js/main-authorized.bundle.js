@@ -8930,7 +8930,10 @@
             _this.debug = options.debug || false;
             if (!_this.debug) _this.selectors = options.selectors; // Save class names
 
-            _this.classNames = options.classNames;
+            _this.classNames = options.classNames; // Save templates selectors
+
+            _this.templates = options.templates;
+            console.log(_this.templates);
 
             _this._cacheElements();
 
@@ -8950,7 +8953,12 @@
                   this.$sendButton = this.$chat
                     .find(selectors.sendButton)
                     .fadeOut(0);
-                  console.log(this.$sendButton);
+                  this.$sendMessageForm = this.$chat.find(
+                    selectors.sendMessageForm
+                  );
+                  this.$sendMessageTextarea = this.$chat.find(
+                    selectors.message
+                  );
                 },
               },
               {
@@ -8967,8 +8975,30 @@
                       ? _this2.$sendButton.fadeIn()
                       : _this2.$sendButton.fadeOut(300);
                   });
-                  $document.click(function (event) {});
+                  this.$sendMessageForm.submit(function (event) {
+                    event.preventDefault();
+
+                    var messageText = _this2._getMessageText();
+                  });
                 },
+              },
+              {
+                key: '_getMessageText',
+                value: function _getMessageText() {
+                  return this.$sendMessageTextarea.val();
+                },
+              },
+              {
+                key: '_displayMessage',
+                value: function _displayMessage(data, type) {},
+              },
+              {
+                key: '_displayGeneralMessage',
+                value: function _displayGeneralMessage() {},
+              },
+              {
+                key: '_changeMessageStatus',
+                value: function _changeMessageStatus() {},
               },
             ]
           );
