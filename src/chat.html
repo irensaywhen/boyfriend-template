@@ -389,14 +389,14 @@
               <!--Sponsor premium messages end-->
 
               <!--Photo access request messages start-->
-              <!--My message start-->
+              <!--I asked about permission message start-->
               <div
                 class="message message-special mine position-relative px-3 py-2 mt-5 shadow"
               >
                 <figure
                   class="icon d-flex align-items-center justify-content-center"
                 >
-                  <img src="img/crop.svg" alt="photo icon" />
+                  <img src="img/lock-icon.svg" alt="photo icon" />
                 </figure>
                 <p class="text mb-0">
                   You asked Lukasz to show his private photo
@@ -408,11 +408,11 @@
                   <time>13:55</time>
                 </span>
               </div>
-              <!--My message end-->
+              <!--I asked about permission message end-->
 
-              <!--Other user message start-->
+              <!--Other user sent a request message start-->
               <div
-                class="message message-special mine position-relative px-3 py-2 mt-5 shadow"
+                class="message message-special alien position-relative px-3 py-2 mt-5 shadow"
               >
                 <figure
                   class="icon d-flex align-items-center justify-content-center"
@@ -420,13 +420,19 @@
                   <img src="img/crop.svg" alt="photo icon" />
                 </figure>
                 <p class="text mb-0">
-                  Do you want to show your private photo?
+                  You've just been asked about permission to show your private
+                  photo
                 </p>
                 <figure class="photo">
                   <img src="img/photo1.jpg" alt="Photo 1" />
-                  <figcaption class="pt-2 pl-2">
-                    <button type="button" class="mb-2 btn btn-default">
-                      Primary
+                  <figcaption
+                    class="pt-2 d-inline-flex justify-content-center flex-wrap"
+                  >
+                    <button type="button" class="btn btn-success mr-2">
+                      Allow
+                    </button>
+                    <button type="button" class="btn btn-outline-primary">
+                      Deny
                     </button>
                   </figcaption>
                 </figure>
@@ -436,7 +442,53 @@
                   <time>13:55</time>
                 </span>
               </div>
-              <!--Other user message end-->
+              <!--Other user sent a request message end-->
+
+              <!--Other user gave you acceess to photo message start-->
+              <div
+                class="message message-special alien position-relative px-3 py-2 mt-5 shadow"
+              >
+                <figure
+                  class="icon d-flex align-items-center justify-content-center"
+                >
+                  <img src="img/crop.svg" alt="photo icon" />
+                </figure>
+                <p class="text mb-0">
+                  Lukasz allowed you to see his private photo!
+                </p>
+                <figure class="photo">
+                  <img src="img/photo1.jpg" alt="Photo 1" />
+                  <figcaption class="pt-2 pl-2">
+                    This is the description of my photo
+                  </figcaption>
+                </figure>
+                <span
+                  class="meta d-flex w-100 align-items-center justify-content-end"
+                >
+                  <time>13:55</time>
+                </span>
+              </div>
+              <!--Other user gave you acceess to photo message end-->
+
+              <!--Other user hasn't give you the access to his photo start-->
+              <div
+                class="message message-special alien position-relative px-3 py-2 mt-5 shadow"
+              >
+                <figure
+                  class="icon d-flex align-items-center justify-content-center"
+                >
+                  <img src="img/lock-icon.svg" alt="photo icon" />
+                </figure>
+                <p class="text mb-0">
+                  Lukasz hasn't given you the access... Sorry!
+                </p>
+                <span
+                  class="meta d-flex w-100 align-items-center justify-content-end"
+                >
+                  <time>13:55</time>
+                </span>
+              </div>
+              <!--Other user hasn't give you the access to his photo end-->
               <!--Photo access request messages end-->
 
               <!--Special messages end-->

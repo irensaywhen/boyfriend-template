@@ -189,11 +189,18 @@
     background: transparent;
   }
 
-  .btn-outline-primary:focus,
-  .btn-outline-primary:active,
   .btn-outline-primary:hover {
     color: #fff;
     background: $main-pink !important;
+  }
+
+  .btn-success {
+    @include ease-out;
+    background: $success-green;
+
+    &:hover {
+      background: darken($success-green, 5);
+    }
   }
 
   .plan-input:checked ~ .plan-label {

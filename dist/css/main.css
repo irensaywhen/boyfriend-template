@@ -465,11 +465,16 @@ nav ul {
   color: #ff0068;
   background: transparent;
 }
-.blue-theme .btn-outline-primary:focus,
-.blue-theme .btn-outline-primary:active,
 .blue-theme .btn-outline-primary:hover {
   color: #fff;
   background: #ff0068 !important;
+}
+.blue-theme .btn-success {
+  transition: all 0.5s ease-out;
+  background: #15d36c;
+}
+.blue-theme .btn-success:hover {
+  background: #13bc60;
 }
 .blue-theme .plan-input:checked ~ .plan-label {
   color: #fff;
