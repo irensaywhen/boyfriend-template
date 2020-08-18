@@ -1,5 +1,6 @@
 import ServerRequest from './requests.js';
 import HttpError from './httpError.js';
+import preparePhotoModal from './preparePhotoModal.js';
 
 export default class Gallery extends ServerRequest {
   constructor(options) {
@@ -21,7 +22,9 @@ export default class Gallery extends ServerRequest {
     this.$photos = this.$gallery.find(selectors.gallerySlide);
 
     // Elements inside modal
-    this.$modal = $(selectors.modal);
+    let { modal, animateOnShown } = selectors;
+
+    this.$modal = $(modal);
     this.$modalImage = this.$modal.find(selectors.modalImage);
     this.$modalDescription = this.$modal.find(selectors.modalDescription);
     this.$modalPermissionButton = this.$modal
@@ -30,9 +33,8 @@ export default class Gallery extends ServerRequest {
     this.$modalPrevArrow = this.$modal.find(selectors.prevArrow);
     this.$modalNextArrow = this.$modal.find(selectors.nextArrow);
 
-    this.$animateOnShown = this.$modal
-      .find(selectors.animateOnShown)
-      .css('opacity', '0');
+    // Initialize modal preparation
+    preparePhotoModal({ modal, animateOnShown }).init();
   }
 
   _setUpEventListeners() {
@@ -46,20 +48,6 @@ export default class Gallery extends ServerRequest {
       if (target.tagName !== 'IMG') return;
 
       this._generateModal(target);
-    });
-
-    // Adjust background opacity for gallery modal
-    this.$modal.on('show.bs.modal', () => {
-      $body.addClass('gallery');
-    });
-
-    this.$modal.on('shown.bs.modal', () => {
-      //this.$modalNextArrow.animate('opacity', 1);
-      this.$animateOnShown.css('opacity', 1);
-    });
-
-    this.$modal.on('hidden.bs.modal', () => {
-      $body.removeClass('gallery');
     });
 
     // Add gallery behavior to modal

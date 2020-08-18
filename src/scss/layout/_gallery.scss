@@ -27,8 +27,7 @@
       @include modal-close(20px, 20px);
       @include fluid-type($screen-xs, $screen-xl, 28px, 36px);
       @include ease-out;
-      color: $bootstrap-secondary;
-      opacity: 0.5;
+      color: darken($bootstrap-secondary, 10);
       position: fixed;
       text-shadow: unset;
 

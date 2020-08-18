@@ -1342,8 +1342,7 @@ article .header time {
   top: 20px;
   right: 20px;
   transition: all 0.5s ease-out;
-  color: #6c757d;
-  opacity: 0.5;
+  color: #545b62;
   position: fixed;
   text-shadow: unset;
 }

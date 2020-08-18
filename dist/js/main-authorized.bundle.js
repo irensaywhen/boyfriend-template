@@ -9841,6 +9841,9 @@
         /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
+        /* harmony import */ var _preparePhotoModal_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! ./preparePhotoModal.js */ './js/modules/preparePhotoModal.js'
+        );
 
         var EnlargePhoto = /*#__PURE__*/ (function () {
           function EnlargePhoto(options) {
@@ -9855,7 +9858,17 @@
             this.exit = options.animationClasses.exit;
             this.enlargeClass = options.enlargeClass || 'enlarge';
             this.selectors = options.selectors;
-            this.$modal = $(options.selectors.modal);
+            var _options$selectors = options.selectors,
+              modal = _options$selectors.modal,
+              animateOnShown = _options$selectors.animateOnShown;
+            this.$modal = $(modal); // Initialize module preparation
+
+            Object(
+              _preparePhotoModal_js__WEBPACK_IMPORTED_MODULE_2__['default']
+            )({
+              modal: modal,
+              animateOnShown: animateOnShown,
+            }).init();
             $(document).click(function (event) {
               event.preventDefault();
               var $target = $(event.target);
@@ -10399,6 +10412,9 @@
         /* harmony import */ var _httpError_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./httpError.js */ './js/modules/httpError.js'
         );
+        /* harmony import */ var _preparePhotoModal_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+          /*! ./preparePhotoModal.js */ './js/modules/preparePhotoModal.js'
+        );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -10476,7 +10492,9 @@
                   this.$slides = this.$gallery.find(selectors.photoContainer);
                   this.$photos = this.$gallery.find(selectors.gallerySlide); // Elements inside modal
 
-                  this.$modal = $(selectors.modal);
+                  var modal = selectors.modal,
+                    animateOnShown = selectors.animateOnShown;
+                  this.$modal = $(modal);
                   this.$modalImage = this.$modal.find(selectors.modalImage);
                   this.$modalDescription = this.$modal.find(
                     selectors.modalDescription
@@ -10485,10 +10503,16 @@
                     .find(selectors.modalPermissionButton)
                     .fadeOut(0);
                   this.$modalPrevArrow = this.$modal.find(selectors.prevArrow);
-                  this.$modalNextArrow = this.$modal.find(selectors.nextArrow);
-                  this.$animateOnShown = this.$modal
-                    .find(selectors.animateOnShown)
-                    .css('opacity', '0');
+                  this.$modalNextArrow = this.$modal.find(selectors.nextArrow); // Initialize modal preparation
+
+                  Object(
+                    _preparePhotoModal_js__WEBPACK_IMPORTED_MODULE_7__[
+                      'default'
+                    ]
+                  )({
+                    modal: modal,
+                    animateOnShown: animateOnShown,
+                  }).init();
                 },
               },
               {
@@ -10504,17 +10528,6 @@
                     if (target.tagName !== 'IMG') return;
 
                     _this2._generateModal(target);
-                  }); // Adjust background opacity for gallery modal
-
-                  this.$modal.on('show.bs.modal', function () {
-                    $body.addClass('gallery');
-                  });
-                  this.$modal.on('shown.bs.modal', function () {
-                    //this.$modalNextArrow.animate('opacity', 1);
-                    _this2.$animateOnShown.css('opacity', 1);
-                  });
-                  this.$modal.on('hidden.bs.modal', function () {
-                    $body.removeClass('gallery');
                   }); // Add gallery behavior to modal
 
                   this.$modal.click(function (event) {
@@ -11982,6 +11995,67 @@
               : true;
           },
         };
+
+        /***/
+      },
+
+    /***/ './js/modules/preparePhotoModal.js':
+      /*!*****************************************!*\
+  !*** ./js/modules/preparePhotoModal.js ***!
+  \*****************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return preparePhotoModal;
+          }
+        );
+        function preparePhotoModal(_ref) {
+          var modal = _ref.modal,
+            animateOnShown = _ref.animateOnShown;
+          var $body = $('body');
+          var $modal = $(modal);
+          var $animateOnShown = $modal.find(animateOnShown).fadeOut(0);
+          var shown = false;
+          console.log($animateOnShown);
+
+          function _setUpEventListeners() {
+            // Here you can prepare modal
+            // Adjust background opacity for gallery modal
+            $modal.on('show.bs.modal', function () {
+              $body.addClass('gallery');
+            });
+            $modal.on('shown.bs.modal', function () {
+              $animateOnShown.fadeIn(200, function () {
+                shown = true;
+              });
+            });
+            $modal.on('hide.bs.modal', function (event) {
+              if (shown) event.preventDefault();
+              $animateOnShown.fadeOut(100, function () {
+                shown = false;
+                $modal.modal('hide');
+              });
+            });
+            $modal.on('hidden.bs.modal', function () {
+              $body.removeClass('gallery');
+            });
+          }
+
+          return {
+            generateModal: function generateModal(img, animation) {},
+            init: function init() {
+              console.log($modal);
+              console.log($animateOnShown);
+
+              _setUpEventListeners();
+            },
+          };
+        }
 
         /***/
       },

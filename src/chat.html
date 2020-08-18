@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="css/main.css" />
   </head>
 
-  <body class="gallery">
+  <body>
     <!--Loader start-->
     <div class="row no-gutters vh-100 loader-screen">
       <div class="col align-self-center text-white text-center">
@@ -702,6 +702,7 @@
         const enlargePhoto = new EnlargePhoto({
           selectors: {
             modal: '#photoModal',
+            animateOnShown: '.animate',
           },
           enlargeClass: 'enlarge',
           animationClasses: {

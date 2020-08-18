@@ -1,3 +1,5 @@
+import preparePhotoModal from './preparePhotoModal.js';
+
 export default class EnlargePhoto {
   constructor(options) {
     this.entrance = options.animationClasses.entrance;
@@ -7,7 +9,12 @@ export default class EnlargePhoto {
 
     this.selectors = options.selectors;
 
-    this.$modal = $(options.selectors.modal);
+    let { modal, animateOnShown } = options.selectors;
+
+    this.$modal = $(modal);
+
+    // Initialize module preparation
+    preparePhotoModal({ modal, animateOnShown }).init();
 
     $(document).click(event => {
       event.preventDefault();
