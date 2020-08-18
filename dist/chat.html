@@ -32,12 +32,15 @@
     <!--SweetAlert2-->
     <link href="vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
 
+    <!--Animate.css-->
+    <link rel="stylesheet" href="vendor/animate/animate.min.css" />
+
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/main.css" />
   </head>
 
-  <body>
+  <body class="gallery">
     <!--Loader start-->
     <div class="row no-gutters vh-100 loader-screen">
       <div class="col align-self-center text-white text-center">
@@ -52,6 +55,62 @@
       </div>
     </div>
     <!--Loader end-->
+
+    <!--Modals start-->
+    <div class="profile-modals">
+      <!--Modal for photos start-->
+
+      <div
+        class="modal fade gallery-modal"
+        id="photoModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="photoModal"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog modal-dialog-centered modal-lg"
+          role="document"
+        >
+          <div class="modal-content">
+            <div class="modal-body">
+              <!--User photo start-->
+              <figure class="photo">
+                <img
+                  src="img/profile.jpg"
+                  class="modal-image"
+                  alt="Profile photo"
+                  tabindex="-1"
+                />
+              </figure>
+              <!--User photo end-->
+
+              <!--Description and button start-->
+              <div class="h-auto description mx-auto">
+                <!--Photo description-->
+                <p
+                  class="d-block w-100 pt-4 pb-3 px-2 mb-0"
+                  id="photo-description"
+                ></p>
+              </div>
+              <!--Description and button end-->
+
+              <!--Closing button-->
+              <button
+                type="button"
+                class="close animate"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Modals for photos end-->
+    </div>
+    <!--Modals end-->
 
     <!--Content start-->
     <div class="wrapper p-0">
@@ -328,7 +387,7 @@
                   Lukasz sent you a photo!
                 </p>
                 <figure class="photo">
-                  <img src="img/photo1.jpg" alt="Photo 1" />
+                  <img src="img/photo1.jpg" class="enlarge" alt="Photo 1" />
                   <figcaption class="pt-2 pl-2">
                     This is my favorite photo. Take a look!
                   </figcaption>
@@ -424,7 +483,7 @@
                   photo
                 </p>
                 <figure class="photo">
-                  <img src="img/photo1.jpg" alt="Photo 1" />
+                  <img src="img/photo1.jpg" class="enlarge" alt="Photo 1" />
                   <figcaption
                     class="pt-2 d-inline-flex justify-content-center flex-wrap"
                   >
@@ -457,7 +516,7 @@
                   Lukasz allowed you to see his private photo!
                 </p>
                 <figure class="photo">
-                  <img src="img/photo1.jpg" alt="Photo 1" />
+                  <img src="img/photo1.jpg" class="enlarge" alt="Photo 1" />
                   <figcaption class="pt-2 pl-2">
                     This is the description of my photo
                   </figcaption>
@@ -627,6 +686,31 @@
         $('.closenotification').on('click', function () {
           $(this).closest('.notification').removeClass('active');
         });
+
+        /*chat*/
+        const chat = new Chat({
+          selectors: {
+            enlargePhoto: '.enlarge',
+          },
+          requests: {},
+          classNames: {
+            enlargePhoto: 'enlarge',
+          },
+        });
+
+        /*enlarge photo*/
+        const enlargePhoto = new EnlargePhoto({
+          selectors: {
+            modal: '#photoModal',
+          },
+          enlargeClass: 'enlarge',
+          animationClasses: {
+            entrance: 'animate__zoomIn',
+            exit: 'animate__zoomOut',
+          },
+        });
+
+        /*bonuses*/
       });
     </script>
   </body>

@@ -7,6 +7,8 @@ import ChatList from './modules/chatList.js';
 import Pagination from './modules/pagination.js';
 import Ad from './modules/ad.js';
 import Gallery from './modules/gallery.js';
+import Chat from './modules/chat.js';
+import EnlargePhoto from './modules/enlargePhoto.js';
 
 window['PhotoUploader'] = PhotoUploader;
 window['PhotoEditor'] = PhotoEditor;
@@ -17,3 +19,5 @@ window['ChatList'] = ChatList;
 window['Pagination'] = Pagination;
 window['Ad'] = Ad;
 window['Gallery'] = Gallery;
+window['Chat'] = Chat;
+window['EnlargePhoto'] = EnlargePhoto;

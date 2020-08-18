@@ -7718,6 +7718,12 @@
         /* harmony import */ var _modules_gallery_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
           /*! ./modules/gallery.js */ './js/modules/gallery.js'
         );
+        /* harmony import */ var _modules_chat_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+          /*! ./modules/chat.js */ './js/modules/chat.js'
+        );
+        /* harmony import */ var _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+          /*! ./modules/enlargePhoto.js */ './js/modules/enlargePhoto.js'
+        );
 
         window['PhotoUploader'] =
           _modules_uploader_js__WEBPACK_IMPORTED_MODULE_0__['default'];
@@ -7738,6 +7744,10 @@
         window['Ad'] = _modules_ad_js__WEBPACK_IMPORTED_MODULE_7__['default'];
         window['Gallery'] =
           _modules_gallery_js__WEBPACK_IMPORTED_MODULE_8__['default'];
+        window['Chat'] =
+          _modules_chat_js__WEBPACK_IMPORTED_MODULE_9__['default'];
+        window['EnlargePhoto'] =
+          _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_10__['default'];
 
         /***/
       },
@@ -8814,6 +8824,139 @@
         /***/
       },
 
+    /***/ './js/modules/chat.js':
+      /*!****************************!*\
+  !*** ./js/modules/chat.js ***!
+  \****************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return Chat;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__
+        );
+        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! ./requests.js */ './js/modules/requests.js'
+        );
+
+        function _createSuper(Derived) {
+          var hasNativeReflectConstruct = _isNativeReflectConstruct();
+          return function _createSuperInternal() {
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
+                Derived
+              ),
+              result;
+            if (hasNativeReflectConstruct) {
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
+                this
+              ).constructor;
+              result = Reflect.construct(Super, arguments, NewTarget);
+            } else {
+              result = Super.apply(this, arguments);
+            }
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default()(
+              this,
+              result
+            );
+          };
+        }
+
+        function _isNativeReflectConstruct() {
+          if (typeof Reflect === 'undefined' || !Reflect.construct)
+            return false;
+          if (Reflect.construct.sham) return false;
+          if (typeof Proxy === 'function') return true;
+          try {
+            Date.prototype.toString.call(
+              Reflect.construct(Date, [], function () {})
+            );
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        var Chat = /*#__PURE__*/ (function (_ServerRequest) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default()(
+            Chat,
+            _ServerRequest
+          );
+
+          var _super = _createSuper(Chat);
+
+          function Chat(options) {
+            var _this;
+
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              Chat
+            );
+
+            _this = _super.call(this, options);
+
+            _this._setUpEventListeners();
+
+            return _this;
+          }
+
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
+            Chat,
+            [
+              {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
+                  var $document = $(document);
+                  $document.click(function (event) {
+                    //event.preventDefault();
+                    //
+                    //let target = event.target;
+                    //if($(target).hasClass())
+                  });
+                },
+              },
+            ]
+          );
+
+          return Chat;
+        })(_requests_js__WEBPACK_IMPORTED_MODULE_5__['default']);
+
+        /***/
+      },
+
     /***/ './js/modules/chatList.js':
       /*!********************************!*\
   !*** ./js/modules/chatList.js ***!
@@ -9667,6 +9810,74 @@
 
           return PhotoEditor;
         })(_modal_js__WEBPACK_IMPORTED_MODULE_10__['default']);
+
+        /***/
+      },
+
+    /***/ './js/modules/enlargePhoto.js':
+      /*!************************************!*\
+  !*** ./js/modules/enlargePhoto.js ***!
+  \************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return EnlargePhoto;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
+        );
+
+        var EnlargePhoto = /*#__PURE__*/ (function () {
+          function EnlargePhoto(options) {
+            var _this = this;
+
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              EnlargePhoto
+            );
+
+            this.entrance = options.animationClasses.entrance;
+            this.exit = options.animationClasses.exit;
+            this.enlargeClass = options.enlargeClass || 'enlarge';
+            this.selectors = options.selectors;
+            this.$modal = $(options.selectors.modal);
+            $(document).click(function (event) {
+              event.preventDefault();
+              var $target = $(event.target);
+              if (!$target.hasClass(_this.enlargeClass)) return;
+              console.log($target);
+
+              _this.$modal.modal('show');
+            });
+          }
+
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
+            EnlargePhoto,
+            [
+              {
+                key: '_showPhoto',
+                value: function _showPhoto() {},
+              },
+            ]
+          );
+
+          return EnlargePhoto;
+        })();
 
         /***/
       },

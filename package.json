@@ -20,6 +20,7 @@
   "homepage": "https://bitbucket.org/Maciej_Katarzynski/boyfriend#readme",
   "dependencies": {
     "@babel/runtime": "^7.10.4",
+    "animate.css": "^4.1.0",
     "card": "^2.4.0",
     "jquery-validation": "^1.19.2",
     "moment": "^2.27.0",
