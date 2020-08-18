@@ -5,6 +5,7 @@ export default class EnlargePhoto {
     this.entrance = options.animationClasses.entrance;
     this.exit = options.animationClasses.exit;
 
+    // Get class or setup default class
     this.enlargeClass = options.enlargeClass || 'enlarge';
 
     this.selectors = options.selectors;
@@ -29,4 +30,13 @@ export default class EnlargePhoto {
   }
 
   _showPhoto() {}
+
+  // This function works almost the same as the one in the gallery
+  // So consider make a single function to handle this functionality
+  _getPhotoInfo(target) {
+    let { description } = target.dataset;
+    let src = target.src;
+
+    return { description, src };
+  }
 }

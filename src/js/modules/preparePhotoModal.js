@@ -35,8 +35,6 @@ export default function preparePhotoModal({ modal, animateOnShown }) {
   return {
     generateModal(img, animation) {},
     init() {
-      console.log($modal);
-      console.log($animateOnShown);
       _setUpEventListeners();
     },
   };

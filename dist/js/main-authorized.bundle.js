@@ -8927,6 +8927,12 @@
             );
 
             _this = _super.call(this, options);
+            _this.debug = options.debug || false;
+            if (!_this.debug) _this.selectors = options.selectors; // Save class names
+
+            _this.classNames = options.classNames;
+
+            _this._cacheElements();
 
             _this._setUpEventListeners();
 
@@ -8937,15 +8943,31 @@
             Chat,
             [
               {
+                key: '_cacheElements',
+                value: function _cacheElements() {
+                  var selectors = this.selectors;
+                  this.$chat = $(selectors.chat);
+                  this.$sendButton = this.$chat
+                    .find(selectors.sendButton)
+                    .fadeOut(0);
+                  console.log(this.$sendButton);
+                },
+              },
+              {
                 key: '_setUpEventListeners',
                 value: function _setUpEventListeners() {
+                  var _this2 = this;
+
                   var $document = $(document);
-                  $document.click(function (event) {
-                    //event.preventDefault();
-                    //
-                    //let target = event.target;
-                    //if($(target).hasClass())
+                  var classNames = this.classNames;
+                  this.$chat.on('input', function (event) {
+                    var $target = $(event.target);
+                    if (!$target.hasClass(classNames.message)) return;
+                    $target.val()
+                      ? _this2.$sendButton.fadeIn()
+                      : _this2.$sendButton.fadeOut(300);
                   });
+                  $document.click(function (event) {});
                 },
               },
             ]
@@ -9855,7 +9877,8 @@
             );
 
             this.entrance = options.animationClasses.entrance;
-            this.exit = options.animationClasses.exit;
+            this.exit = options.animationClasses.exit; // Get class or setup default class
+
             this.enlargeClass = options.enlargeClass || 'enlarge';
             this.selectors = options.selectors;
             var _options$selectors = options.selectors,
@@ -9884,7 +9907,19 @@
             [
               {
                 key: '_showPhoto',
-                value: function _showPhoto() {},
+                value: function _showPhoto() {}, // This function works almost the same as the one in the gallery
+                // So consider make a single function to handle this functionality
+              },
+              {
+                key: '_getPhotoInfo',
+                value: function _getPhotoInfo(target) {
+                  var description = target.dataset.description;
+                  var src = target.src;
+                  return {
+                    description: description,
+                    src: src,
+                  };
+                },
               },
             ]
           );
@@ -10608,10 +10643,6 @@
                     _this3._updateGallery();
                   });
                 },
-              },
-              {
-                key: '_addKeyboardSupport',
-                value: function _addKeyboardSupport() {},
               },
               {
                 key: '_updateGallery',
@@ -12049,9 +12080,6 @@
           return {
             generateModal: function generateModal(img, animation) {},
             init: function init() {
-              console.log($modal);
-              console.log($animateOnShown);
-
               _setUpEventListeners();
             },
           };

@@ -117,6 +117,7 @@
       <!--Chat start-->
       <section
         class="container-fluid chat mx-auto border-left border-right shadow px-0"
+        id="chat"
       >
         <!--Chat header start-->
         <div
@@ -574,7 +575,8 @@
                 <!--Send message button start-->
                 <div class="col-1 bg-white">
                   <div
-                    class="send d-flex align-items-end align-items-lg-center justify-content-lg-center pb-2 pb-lg-0"
+                    class="send align-items-end align-items-lg-center justify-content-lg-center pb-2 pb-lg-0 animate__animated animate__zoomIn"
+                    id="send"
                   >
                     <i class="material-icons">
                       send
@@ -689,12 +691,16 @@
 
         /*chat*/
         const chat = new Chat({
+          debug: true,
           selectors: {
             enlargePhoto: '.enlarge',
+            chat: '#chat',
+            sendButton: '#send',
           },
           requests: {},
           classNames: {
             enlargePhoto: 'enlarge',
+            message: 'message-textarea',
           },
         });
 

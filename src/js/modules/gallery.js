@@ -134,8 +134,6 @@ export default class Gallery extends ServerRequest {
     });
   }
 
-  _addKeyboardSupport() {}
-
   _updateGallery() {
     let newImage = this._getImage();
     this._generateModal(newImage, true);

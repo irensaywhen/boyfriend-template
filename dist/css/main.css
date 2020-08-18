@@ -1598,6 +1598,8 @@ article .header time {
 }
 .chat .chat-content .send-message .send {
   transition: all 0.5s ease-out;
+  --animate-duration: 0.4s;
+  display: flex;
   width: 24px;
   height: 100%;
   color: #ff0068;

@@ -166,6 +166,8 @@
 
       .send {
         @include ease-out;
+        --animate-duration: 0.4s;
+        display: flex;
         width: 24px;
         height: 100%;
         color: $main-pink;
