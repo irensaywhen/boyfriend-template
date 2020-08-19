@@ -236,7 +236,7 @@
         <div class="row chat-content mx-auto">
           <!--Chat body start-->
           <div class="col-12 align-self-start">
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column" id="messages-container">
               <!--General messages start-->
 
               <!--My message start-->
@@ -596,40 +596,36 @@
     </div>
     <!--Content end-->
 
-    <!--Message templates start-->
+    <!--Message template start-->
 
-    <!--Time template start-->
-    <template id="template-time">
-      <span class="meta d-inline-flex align-items-center">
-        <time>13:55</time>
-      </span>
-    </template>
-    <!--Time template end-->
-
-    <!--Visibility template start-->
-    <template id="template-visibility">
-      <i class="fas fa-check-circle"></i>
-    </template>
-    <!--Visibility template end-->
-
-    <!--General messages start-->
-    <template id="template-generalMessage">
-      <!--My message start-->
+    <!--General message start-->
+    <!-- prettier-ignore -->
+    <script id="message-template" type="text/template">
+      {{#if mine}}
       <div
         class="message message-general mine position-relative px-3 py-2 mt-5 shadow"
+        data-id="{{id}}"
       >
-        <p class="text mb-0"></p>
+      {{else}}
+      <div
+        class="message message-general alien position-relative px-3 py-2 mt-5 shadow"
+        data-id="{{id}}"
+      >
+      {{/if}}
+        <p class="text mb-0">
+          {{text}}
+        </p>
         <span class="meta d-inline-flex align-items-center">
+          {{#if seen}}
           <i class="fas fa-check-circle"></i>
-          <time>13:55</time>
+          {{/if}}
+          <time>{{time}}</time>
         </span>
       </div>
-      <!--My message end-->
-    </template>
+    </script>
+    <!--General message end-->
 
-    <!--General messages end-->
-
-    <!--Message templates end-->
+    <!--Message template end-->
 
     <!-- footer -->
     <footer class="footer chat-footer">
@@ -735,16 +731,15 @@
             sendButton: '#send',
             sendMessageForm: '#send-message-form',
             message: '.message-textarea',
+            messagesContainer: '#messages-container',
           },
           requests: {},
           classNames: {
             enlargePhoto: 'enlarge',
             message: 'message-textarea',
           },
-          templates: {
-            time: '#template-time',
-            visibility: '#template-visibility',
-            generalMessage: '#template-generalMessage',
+          messageTemplateIds: {
+            general: 'message-template',
           },
         });
 
