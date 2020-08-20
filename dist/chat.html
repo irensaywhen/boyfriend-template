@@ -306,20 +306,29 @@
               <div
                 class="message message-special mine position-relative px-3 py-2 mt-5 shadow"
               >
+                <!--Message type icon start-->
                 <figure
                   class="icon d-flex align-items-center justify-content-center"
                 >
                   <img src="img/superlike.svg" alt="superlike" />
                 </figure>
+                <!--Message type icon end-->
+
+                <!--Message text start-->
                 <p class="text mb-0">
                   You just sent a superlike to Lukasz!
                 </p>
+
+                <!--Message text end-->
+
+                <!--Message time and visibility start-->
                 <span
                   class="meta d-flex w-100 align-items-center justify-content-end"
                 >
                   <i class="fas fa-check-circle"></i>
                   <time>13:55</time>
                 </span>
+                <!--Message time and visibility end-->
               </div>
               <!--My message end-->
 
@@ -351,27 +360,42 @@
               <div
                 class="message message-special mine position-relative px-3 py-2 mt-5 shadow"
               >
+                <!--Message type icon start-->
                 <figure
                   class="icon d-flex align-items-center justify-content-center"
                 >
                   <img src="img/photo.svg" alt="photo icon" />
                 </figure>
+
+                <!--Message type icon end-->
+
+                <!--Message text start-->
                 <p class="text mb-0">
-                  You just recieved a photo!
+                  You just sent a photo to Lukasz!
                 </p>
+                <!--Message text end-->
+
+                <!--Postcard photo start-->
                 <figure class="photo">
+                  <!--Photo-->
                   <img src="img/photo1.jpg" alt="Photo 1" />
+
+                  <!--Photo description-->
                   <figcaption class="pt-2 pl-2">
                     This is my favorite photo. Take a look! This is my favorite
                     photo. Take a look! This is my favorite photo. Take a look!
                   </figcaption>
                 </figure>
+                <!--Postcard photo end-->
+
+                <!--Message time and visibility start-->
                 <span
                   class="meta d-flex w-100 align-items-center justify-content-end"
                 >
                   <i class="fas fa-check-circle"></i>
                   <time>13:55</time>
                 </span>
+                <!--Message time and visibility end-->
               </div>
               <!--My message end-->
 
@@ -387,12 +411,18 @@
                 <p class="text mb-0">
                   Lukasz sent you a photo!
                 </p>
+                <!--Postcard photo start-->
                 <figure class="photo">
-                  <img src="img/photo1.jpg" class="enlarge" alt="Photo 1" />
+                  <!--Photo-->
+                  <img src="img/photo1.jpg" alt="Photo 1" />
+
+                  <!--Photo description-->
                   <figcaption class="pt-2 pl-2">
-                    This is my favorite photo. Take a look!
+                    This is my favorite photo. Take a look! This is my favorite
+                    photo. Take a look! This is my favorite photo. Take a look!
                   </figcaption>
                 </figure>
+                <!--Postcard photo end-->
                 <span
                   class="meta d-flex w-100 align-items-center justify-content-end"
                 >
@@ -599,11 +629,10 @@
     <!--Message template start-->
 
     <!--General message start-->
-    <!-- prettier-ignore -->
-    <script id="message-template" type="text/template">
+    <script id="template-generalMessage" type="text/template">
       {{#if mine}}
       <div
-        class="message message-general mine position-relative px-3 py-2 mt-5 shadow"
+        class="message message-general mine position-relative px-3 py-2 mt-5 shadow animate__animated animate__bounce"
         data-id="{{id}}"
       >
       {{else}}
@@ -624,6 +653,67 @@
       </div>
     </script>
     <!--General message end-->
+
+    <!--Special message start-->
+    <script id="template-specialMessage" type="text/template">
+      {{#if mine}}
+      <div
+        class="message message-special mine position-relative px-3 py-2 mt-5 shadow"
+        data-id="{{id}}"
+      >
+      {{else}}
+      <div
+        class="message message-special alien position-relative px-3 py-2 mt-5 shadow"
+        data-id="{{id}}"
+      >
+      {{/if}}
+
+      {{! Message icon start}}
+      <figure
+        class="icon d-flex align-items-center justify-content-center"
+      >
+        <img src="{{iconUrl}}" alt="superlike" />
+      </figure>
+      {{! Message icon end}}
+
+      {{#if text}}
+      <p class="text mb-0">
+        {{text}}
+      </p>
+      {{/if}}
+
+      {{#if photo}}
+      <figure class="photo">
+        <img src="{{photoUrl}}" class="enlarge" alt="Photo 1" />
+        {{#if photocard}}
+        <figcaption class="pt-2 pl-2">
+          {{photoDescription}}
+        </figcaption>
+        {{else}}
+        <figcaption
+          class="pt-2 d-inline-flex justify-content-center flex-wrap"
+        >
+          <button type="button" class="btn btn-success mr-2">
+            Allow
+          </button>
+          <button type="button" class="btn btn-outline-primary">
+            Deny
+          </button>
+        </figcaption>
+        {{/if}}
+      </figure>
+      {{/if}}
+
+      <span
+        class="meta d-flex w-100 align-items-center justify-content-end"
+      >
+        {{#if seen}}
+        <i class="fas fa-check-circle"></i>
+        {{/if}}
+        <time>{{time}}</time>
+      </span>
+    </script>
+    <!--Special message end-->
 
     <!--Message template end-->
 
@@ -733,13 +823,21 @@
             message: '.message-textarea',
             messagesContainer: '#messages-container',
           },
-          requests: {},
+          requests: {
+            send: {
+              method: 'POST',
+              headers: {},
+              endpoint:
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/send-message',
+            },
+          },
           classNames: {
             enlargePhoto: 'enlarge',
             message: 'message-textarea',
           },
           messageTemplateIds: {
-            general: 'message-template',
+            general: 'template-generalMessage',
+            special: 'template-specialMessage',
           },
         });
 

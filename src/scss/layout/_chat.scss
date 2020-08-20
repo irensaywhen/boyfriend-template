@@ -53,6 +53,14 @@
 
     /* General message start*/
     .message-general {
+      @include ease-out;
+      transform: translate3d(0, 50px, 0);
+      opacity: 0.5;
+
+      &.visible {
+        @include visible-message;
+      }
+
       &.mine {
         background: #fff;
         align-self: flex-end;

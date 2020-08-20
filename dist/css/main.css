@@ -1500,6 +1500,15 @@ article .header time {
     padding-bottom: 160px;
   }
 }
+.chat .chat-content .message-general {
+  transition: all 0.5s ease-out;
+  transform: translate3d(0, 50px, 0);
+  opacity: 0.5;
+}
+.chat .chat-content .message-general.visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
 .chat .chat-content .message-general.mine {
   background: #fff;
   align-self: flex-end;

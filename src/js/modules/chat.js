@@ -70,6 +70,13 @@ export default class Chat extends ServerRequest {
       event.preventDefault();
 
       let messageText = this._getMessageText();
+
+      let messageData = {
+        type: 'general',
+        mine: true,
+        text: messageText,
+        time: '13:55',
+      };
     });
   }
 
@@ -77,11 +84,6 @@ export default class Chat extends ServerRequest {
     let templates = this.messageTemplates;
 
     for (let id in templates) {
-      // Save templates instead of its ids as document fragments
-      //templates[id] = document
-      //  .getElementById('message-template')
-      //  .content.cloneNode(true);
-      // Save templates instead of its ids as HTML
       templates[id] = document.getElementById('message-template').innerHTML;
     }
   }
@@ -97,8 +99,10 @@ export default class Chat extends ServerRequest {
     // Compile template with passed data
     compiled = compiled(data);
 
-    // Append template to the message container
-    this.$messagesContainer.append(compiled);
+    let $newMessage = $(compiled).appendTo(this.$messagesContainer);
+
+    // Need to add animation here
+    $newMessage.addClass('visible');
   }
 
   _changeMessageStatus() {}

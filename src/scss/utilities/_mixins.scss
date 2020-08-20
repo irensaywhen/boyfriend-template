@@ -40,6 +40,12 @@
   cursor: pointer;
 }
 
+/*visible message*/
+@mixin visible-message {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
 /* Avatar */
 @mixin avatar($max-width, $line-height, $pointer: false) {
   display: block;

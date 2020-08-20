@@ -16891,6 +16891,13 @@
                     event.preventDefault();
 
                     var messageText = _this2._getMessageText();
+
+                    var messageData = {
+                      type: 'general',
+                      mine: true,
+                      text: messageText,
+                      time: '13:55',
+                    };
                   });
                 },
               },
@@ -16900,11 +16907,6 @@
                   var templates = this.messageTemplates;
 
                   for (var id in templates) {
-                    // Save templates instead of its ids as document fragments
-                    //templates[id] = document
-                    //  .getElementById('message-template')
-                    //  .content.cloneNode(true);
-                    // Save templates instead of its ids as HTML
                     templates[id] = document.getElementById(
                       'message-template'
                     ).innerHTML;
@@ -16925,9 +16927,12 @@
                     this.messageTemplates[data.type]
                   ); // Compile template with passed data
 
-                  compiled = compiled(data); // Append template to the message container
+                  compiled = compiled(data);
+                  var $newMessage = $(compiled).appendTo(
+                    this.$messagesContainer
+                  ); // Need to add animation here
 
-                  this.$messagesContainer.append(compiled);
+                  $newMessage.addClass('visible');
                 },
               },
               {
