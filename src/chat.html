@@ -589,7 +589,7 @@
           <!--Send message start-->
           <div class="col-12 send-message align-self-end">
             <div class="container-fluid mb-4 px-0">
-              <form action="" id="send-message-form">
+              <form id="send-message-form">
                 <div class="row no-gutters">
                   <!--Message textarea start-->
                   <div class="col-11">
@@ -605,14 +605,15 @@
 
                   <!--Send message button start-->
                   <div class="col-1 bg-white">
-                    <div
-                      class="send align-items-end align-items-lg-center justify-content-lg-center pb-2 pb-lg-0 animate__animated animate__zoomIn"
+                    <button
+                      type="submit"
                       id="send"
+                      class="send btn btn-outline-light align-items-end align-items-lg-center justify-content-lg-center pb-2 pb-lg-0 animate__animated animate__zoomIn"
                     >
                       <i class="material-icons">
                         send
                       </i>
-                    </div>
+                    </button>
                   </div>
                   <!--Send message button end-->
                 </div>
@@ -632,7 +633,7 @@
     <script id="template-generalMessage" type="text/template">
       {{#if mine}}
       <div
-        class="message message-general mine position-relative px-3 py-2 mt-5 shadow animate__animated animate__bounce"
+        class="message message-general mine position-relative px-3 py-2 mt-5 shadow animate__animated animate__fadeInUp"
         data-id="{{id}}"
       >
       {{else}}
@@ -658,7 +659,7 @@
     <script id="template-specialMessage" type="text/template">
       {{#if mine}}
       <div
-        class="message message-special mine position-relative px-3 py-2 mt-5 shadow"
+        class="message message-special mine position-relative px-3 py-2 mt-5 shadow animate__animated animate__fadeInUp"
         data-id="{{id}}"
       >
       {{else}}

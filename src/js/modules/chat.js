@@ -1,13 +1,22 @@
-import ServerRequest from './requests.js';
 import Handlebars from 'handlebars';
+import HttpError from './httpError.js';
 
-export default class Chat extends ServerRequest {
+export default class Chat {
   constructor(options) {
-    super(options);
-
     this.debug = options.debug || false;
 
-    if (!this.debug) this.selectors = options.selectors;
+    this.selectors = options.selectors;
+
+    if (this.debug) {
+      this.requests = options.requests;
+
+      // Transform endpoints into URL objects
+      for (let request in this.requests) {
+        this.requests[request].endpoint = new URL(
+          this.requests[request].endpoint
+        );
+      }
+    }
 
     this.testData = {
       type: 'general',
@@ -30,21 +39,11 @@ export default class Chat extends ServerRequest {
     // Save all the templates to render them in the future
     this._prepareTemplates();
 
-    // Testing handlebars templates
-    //const template = Handlebars.compile('Name: {{name}}');
-    //console.log(template({ name: 'Nils' }));
-
-    // Render template with test data
-    // And append it to the messages container
-    //let compiled = Handlebars.compile(
-    //  this.messageTemplates[this.testData.type]
-    //);
-    //this.$messagesContainer.append(compiled(this.testData));
-
     this._displayMessage(this.testData);
   }
 
   _cacheElements() {
+    console.log('Caching...');
     let selectors = this.selectors;
 
     this.$chat = $(selectors.chat);
@@ -55,9 +54,10 @@ export default class Chat extends ServerRequest {
   }
 
   _setUpEventListeners() {
-    let $document = $(document);
+    console.log('Setting up event listeners...');
     let classNames = this.classNames;
 
+    // View sending button if message input is not empty
     this.$chat.on('input', event => {
       let $target = $(event.target);
 
@@ -66,25 +66,87 @@ export default class Chat extends ServerRequest {
       $target.val() ? this.$sendButton.fadeIn() : this.$sendButton.fadeOut(300);
     });
 
+    // Submitting the message form
     this.$sendMessageForm.submit(event => {
       event.preventDefault();
 
-      let messageText = this._getMessageText();
+      console.log('Submitting message form!');
 
-      let messageData = {
-        type: 'general',
-        mine: true,
-        text: messageText,
-        time: '13:55',
-      };
+      this._sendMessage();
     });
+
+    // Send message when the sending button is clicked
+    this.$sendMessageForm.click(event => {
+      let $target = event.target;
+
+      if (!$target.closest(this.selectors.sendButton)) return;
+
+      this.$sendMessageForm.submit();
+    });
+
+    // Keyboard events
+    this.$sendMessageForm.on('keydown', event => {
+      let key = event.key;
+
+      if (key === 'Enter' && !event.shiftKey) {
+        console.log('Enter!');
+        // If Enter is pressed
+        event.preventDefault();
+
+        // Submit the form
+        this.$sendMessageForm.submit();
+      }
+    });
+  }
+
+  _sendMessage() {
+    // Prepare message data
+    let messageData = this._prepareMessage('general');
+
+    // Send message to server
+    this._sendMessageToServer(messageData)
+      .then(response => this._displayMessage(response))
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  _prepareMessage(type) {
+    // Here maybe we can handle futher actions via switch statement
+    let messageText = this._getMessageText();
+
+    return {
+      type: type,
+      mine: true,
+      text: messageText,
+    };
+  }
+
+  _sendMessageToServer(messageData) {
+    let { method, headers, endpoint } = this.requests.send;
+    //Make a request here
+    return fetch(endpoint, {
+      method,
+      headers,
+      body: JSON.stringify(messageData),
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new HttpError('Http error', response);
+        }
+      })
+      .then(json => {
+        return json;
+      });
   }
 
   _prepareTemplates() {
     let templates = this.messageTemplates;
 
     for (let id in templates) {
-      templates[id] = document.getElementById('message-template').innerHTML;
+      templates[id] = document.getElementById(templates[id]).innerHTML;
     }
   }
 
@@ -99,11 +161,13 @@ export default class Chat extends ServerRequest {
     // Compile template with passed data
     compiled = compiled(data);
 
-    let $newMessage = $(compiled).appendTo(this.$messagesContainer);
-
-    // Need to add animation here
-    $newMessage.addClass('visible');
+    $(compiled)
+      .appendTo(this.$messagesContainer)
+      .addClass('visible')[0]
+      .scrollIntoView({ behavior: 'smooth' });
   }
+
+  _showError() {}
 
   _changeMessageStatus() {}
 }

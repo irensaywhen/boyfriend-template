@@ -1,9 +1,14 @@
 export default class HttpError extends Error {
-  constructor(name, message, headers) {
-    super(name, message);
+  constructor(message, response) {
+    super(message);
 
-    this.status = name;
-    this.statusText = message;
+    this.name = 'HttpError';
+
+    // Save error information
+    let { status, statusText, headers } = response;
+
+    this.status = status;
+    this.statusText = statusText;
     this.headers = headers;
   }
 }

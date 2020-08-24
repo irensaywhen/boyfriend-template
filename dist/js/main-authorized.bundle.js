@@ -16735,91 +16735,37 @@
         /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__
-        );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__
-        );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__
-        );
-        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-          /*! ./requests.js */ './js/modules/requests.js'
-        );
-        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! handlebars */ '../node_modules/handlebars/dist/cjs/handlebars.js'
         );
-        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
-          handlebars__WEBPACK_IMPORTED_MODULE_6__
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          handlebars__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _httpError_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! ./httpError.js */ './js/modules/httpError.js'
         );
 
-        function _createSuper(Derived) {
-          var hasNativeReflectConstruct = _isNativeReflectConstruct();
-          return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
-                Derived
-              ),
-              result;
-            if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
-                this
-              ).constructor;
-              result = Reflect.construct(Super, arguments, NewTarget);
-            } else {
-              result = Super.apply(this, arguments);
-            }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default()(
-              this,
-              result
-            );
-          };
-        }
-
-        function _isNativeReflectConstruct() {
-          if (typeof Reflect === 'undefined' || !Reflect.construct)
-            return false;
-          if (Reflect.construct.sham) return false;
-          if (typeof Proxy === 'function') return true;
-          try {
-            Date.prototype.toString.call(
-              Reflect.construct(Date, [], function () {})
-            );
-            return true;
-          } catch (e) {
-            return false;
-          }
-        }
-
-        var Chat = /*#__PURE__*/ (function (_ServerRequest) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default()(
-            Chat,
-            _ServerRequest
-          );
-
-          var _super = _createSuper(Chat);
-
+        var Chat = /*#__PURE__*/ (function () {
           function Chat(options) {
-            var _this;
-
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               Chat
             );
 
-            _this = _super.call(this, options);
-            _this.debug = options.debug || false;
-            if (!_this.debug) _this.selectors = options.selectors;
-            _this.testData = {
+            this.debug = options.debug || false;
+            this.selectors = options.selectors;
+
+            if (this.debug) {
+              this.requests = options.requests; // Transform endpoints into URL objects
+
+              for (var request in this.requests) {
+                this.requests[request].endpoint = new URL(
+                  this.requests[request].endpoint
+                );
+              }
+            }
+
+            this.testData = {
               type: 'general',
               mine: false,
               text: 'Testing templating',
@@ -16828,27 +16774,17 @@
               seen: true,
             }; // Save class names
 
-            _this.classNames = options.classNames; // Save templates selectors
+            this.classNames = options.classNames; // Save templates selectors
 
-            _this.messageTemplates = options.messageTemplateIds;
+            this.messageTemplates = options.messageTemplateIds;
 
-            _this._cacheElements();
+            this._cacheElements();
 
-            _this._setUpEventListeners(); // Save all the templates to render them in the future
+            this._setUpEventListeners(); // Save all the templates to render them in the future
 
-            _this._prepareTemplates(); // Testing handlebars templates
-            //const template = Handlebars.compile('Name: {{name}}');
-            //console.log(template({ name: 'Nils' }));
-            // Render template with test data
-            // And append it to the messages container
-            //let compiled = Handlebars.compile(
-            //  this.messageTemplates[this.testData.type]
-            //);
-            //this.$messagesContainer.append(compiled(this.testData));
+            this._prepareTemplates();
 
-            _this._displayMessage(_this.testData);
-
-            return _this;
+            this._displayMessage(this.testData);
           }
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
@@ -16857,6 +16793,7 @@
               {
                 key: '_cacheElements',
                 value: function _cacheElements() {
+                  console.log('Caching...');
                   var selectors = this.selectors;
                   this.$chat = $(selectors.chat);
                   this.$messagesContainer = this.$chat.find(
@@ -16876,29 +16813,101 @@
               {
                 key: '_setUpEventListeners',
                 value: function _setUpEventListeners() {
-                  var _this2 = this;
+                  var _this = this;
 
-                  var $document = $(document);
-                  var classNames = this.classNames;
+                  console.log('Setting up event listeners...');
+                  var classNames = this.classNames; // View sending button if message input is not empty
+
                   this.$chat.on('input', function (event) {
                     var $target = $(event.target);
                     if (!$target.hasClass(classNames.message)) return;
                     $target.val()
-                      ? _this2.$sendButton.fadeIn()
-                      : _this2.$sendButton.fadeOut(300);
-                  });
+                      ? _this.$sendButton.fadeIn()
+                      : _this.$sendButton.fadeOut(300);
+                  }); // Submitting the message form
+
                   this.$sendMessageForm.submit(function (event) {
                     event.preventDefault();
+                    console.log('Submitting message form!');
 
-                    var messageText = _this2._getMessageText();
+                    _this._sendMessage();
+                  }); // Send message when the sending button is clicked
 
-                    var messageData = {
-                      type: 'general',
-                      mine: true,
-                      text: messageText,
-                      time: '13:55',
-                    };
+                  this.$sendMessageForm.click(function (event) {
+                    var $target = event.target;
+                    if (!$target.closest(_this.selectors.sendButton)) return;
+
+                    _this.$sendMessageForm.submit();
+                  }); // Keyboard events
+
+                  this.$sendMessageForm.on('keydown', function (event) {
+                    var key = event.key;
+
+                    if (key === 'Enter' && !event.shiftKey) {
+                      console.log('Enter!'); // If Enter is pressed
+
+                      event.preventDefault(); // Submit the form
+
+                      _this.$sendMessageForm.submit();
+                    }
                   });
+                },
+              },
+              {
+                key: '_sendMessage',
+                value: function _sendMessage() {
+                  var _this2 = this;
+
+                  // Prepare message data
+                  var messageData = this._prepareMessage('general'); // Send message to server
+
+                  this._sendMessageToServer(messageData)
+                    .then(function (response) {
+                      return _this2._displayMessage(response);
+                    })
+                    ['catch'](function (error) {
+                      console.log(error);
+                    });
+                },
+              },
+              {
+                key: '_prepareMessage',
+                value: function _prepareMessage(type) {
+                  // Here maybe we can handle futher actions via switch statement
+                  var messageText = this._getMessageText();
+
+                  return {
+                    type: type,
+                    mine: true,
+                    text: messageText,
+                  };
+                },
+              },
+              {
+                key: '_sendMessageToServer',
+                value: function _sendMessageToServer(messageData) {
+                  var _this$requests$send = this.requests.send,
+                    method = _this$requests$send.method,
+                    headers = _this$requests$send.headers,
+                    endpoint = _this$requests$send.endpoint; //Make a request here
+
+                  return fetch(endpoint, {
+                    method: method,
+                    headers: headers,
+                    body: JSON.stringify(messageData),
+                  })
+                    .then(function (response) {
+                      if (response.ok) {
+                        return response.json();
+                      } else {
+                        throw new _httpError_js__WEBPACK_IMPORTED_MODULE_3__[
+                          'default'
+                        ]('Http error', response);
+                      }
+                    })
+                    .then(function (json) {
+                      return json;
+                    });
                 },
               },
               {
@@ -16908,7 +16917,7 @@
 
                   for (var id in templates) {
                     templates[id] = document.getElementById(
-                      'message-template'
+                      templates[id]
                     ).innerHTML;
                   }
                 },
@@ -16923,17 +16932,22 @@
                 key: '_displayMessage',
                 value: function _displayMessage(data) {
                   // Prepare template for compilation
-                  var compiled = handlebars__WEBPACK_IMPORTED_MODULE_6___default.a.compile(
+                  var compiled = handlebars__WEBPACK_IMPORTED_MODULE_2___default.a.compile(
                     this.messageTemplates[data.type]
                   ); // Compile template with passed data
 
                   compiled = compiled(data);
-                  var $newMessage = $(compiled).appendTo(
-                    this.$messagesContainer
-                  ); // Need to add animation here
-
-                  $newMessage.addClass('visible');
+                  $(compiled)
+                    .appendTo(this.$messagesContainer)
+                    .addClass('visible')[0]
+                    .scrollIntoView({
+                      behavior: 'smooth',
+                    });
                 },
+              },
+              {
+                key: '_showError',
+                value: function _showError() {},
               },
               {
                 key: '_changeMessageStatus',
@@ -16943,7 +16957,7 @@
           );
 
           return Chat;
-        })(_requests_js__WEBPACK_IMPORTED_MODULE_5__['default']);
+        })();
 
         /***/
       },
@@ -19001,7 +19015,7 @@
 
           var _super = _createSuper(HttpError);
 
-          function HttpError(name, message, headers) {
+          function HttpError(message, response) {
             var _this;
 
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
@@ -19009,9 +19023,14 @@
               HttpError
             );
 
-            _this = _super.call(this, name, message);
-            _this.status = name;
-            _this.statusText = message;
+            _this = _super.call(this, message);
+            _this.name = 'HttpError'; // Save error information
+
+            var status = response.status,
+              statusText = response.statusText,
+              headers = response.headers;
+            _this.status = status;
+            _this.statusText = statusText;
             _this.headers = headers;
             return _this;
           }
