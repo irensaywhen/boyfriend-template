@@ -19956,10 +19956,8 @@
                                   if (type === 'boost') {
                                     window.location.href = this.redirect;
                                   } else if (type === 'superlike') {
-                                    this._proposeBuyingBonus(); // Fire alert here
-                                    // If the user approve it
-                                    // Redirect to buying page
-                                    // If no, don't do anything
+                                    // Ask user to purchase bonuses
+                                    this._proposeBuyingBonus();
                                   }
 
                                   _context.next = 13;
@@ -19978,7 +19976,18 @@
                                     this.$bonus.attr(
                                       'data-amount',
                                       this.amount
-                                    ); // Start bonus usage
+                                    );
+
+                                    if (this.type === 'superlike') {
+                                      // Update visual indicator of amount
+                                      this.$amount.text(this.amount);
+
+                                      if (this.amount === 0) {
+                                        this.$amount
+                                          .removeClass('text-success')
+                                          .addClass('text-danger');
+                                      }
+                                    } // Start bonus usage
 
                                     this._useBonus();
                                   }
@@ -20013,6 +20022,7 @@
                     result
                   ) {
                     if (result) {
+                      // Redirect to buying page in case of the user approvement
                       window.location.href = _this3.redirect;
                     }
                   });
@@ -25067,7 +25077,9 @@
                     ),
                     '_cacheElements',
                     this
-                  ).call(this); //Create expiration popup based on the generic popup
+                  ).call(this);
+
+                  this.$amount = $(this.selectors.amount); //Create expiration popup based on the generic popup
                   //this.expirationPopupData = Object.assign({}, this.popupData);
                 },
               },
@@ -25092,7 +25104,12 @@
               {
                 key: '_prepareBonusUsage',
                 value: function _prepareBonusUsage() {
-                  console.log('Preparing bonus usage...');
+                  console.log('Preparing bonus usage...'); // Ask server about sending superlike
+                  // If the server will approve usage
+                  // Send it to the user
+                  // Temporary return true for debuggins purposes
+
+                  return true;
                 },
               },
             ]

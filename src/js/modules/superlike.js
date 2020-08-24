@@ -19,6 +19,8 @@ export default class Superlike extends Bonus {
   _cacheElements() {
     super._cacheElements();
 
+    this.$amount = $(this.selectors.amount);
+
     //Create expiration popup based on the generic popup
     //this.expirationPopupData = Object.assign({}, this.popupData);
   }
@@ -33,5 +35,11 @@ export default class Superlike extends Bonus {
 
   _prepareBonusUsage() {
     console.log('Preparing bonus usage...');
+    // Ask server about sending superlike
+    // If the server will approve usage
+    // Send it to the user
+
+    // Temporary return true for debuggins purposes
+    return true;
   }
 }

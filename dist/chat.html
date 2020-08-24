@@ -192,7 +192,8 @@
                           Superlike
                         </h3>
                         <h4 class="small text-muted">
-                          Available: <span class="text-success">2</span>
+                          Available:
+                          <span class="text-success" id="amount">2</span>
                         </h4>
                       </div>
                     </li>
@@ -852,6 +853,7 @@
         const superlike = new Superlike({
           selectors: {
             bonus: '#superlike',
+            amount: '#amount',
           },
           requests: {
             use: {

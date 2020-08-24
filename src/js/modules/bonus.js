@@ -45,11 +45,8 @@ export default class Bonus extends ServerRequest {
       if (type === 'boost') {
         window.location.href = this.redirect;
       } else if (type === 'superlike') {
+        // Ask user to purchase bonuses
         this._proposeBuyingBonus();
-        // Fire alert here
-        // If the user approve it
-        // Redirect to buying page
-        // If no, don't do anything
       }
     } else {
       let approved = await this._prepareBonusUsage();
@@ -60,6 +57,15 @@ export default class Bonus extends ServerRequest {
         //Update data-amount attribute of the bonus
         this.$bonus.attr('data-amount', this.amount);
 
+        if (this.type === 'superlike') {
+          // Update visual indicator of amount
+          this.$amount.text(this.amount);
+
+          if (this.amount === 0) {
+            this.$amount.removeClass('text-success').addClass('text-danger');
+          }
+        }
+
         // Start bonus usage
         this._useBonus();
       }
@@ -69,6 +75,7 @@ export default class Bonus extends ServerRequest {
     // Fire alert
     this.fireBuyingAlert(this.buyingPopupData).then(result => {
       if (result) {
+        // Redirect to buying page in case of the user approvement
         window.location.href = this.redirect;
       }
     });
