@@ -24,12 +24,12 @@ export default class PhotoUploader extends EditorModal {
     this.uploadNewPhotos = this.uploadNewPhotos.bind(this);
 
     // Prepare Uploader
-    this.cacheElements();
-    this.setUpEventListeners();
+    this._cacheElements();
+    this._setUpEventListeners();
   }
 
-  cacheElements() {
-    super.cacheElements();
+  _cacheElements() {
+    super._cacheElements();
 
     // Container to preview uploaded images
     this.$previewContainer = this.$modal.find(this.selectors.previewContainer);
@@ -41,8 +41,8 @@ export default class PhotoUploader extends EditorModal {
     this.$gallery = $(this.selectors.gallery);
   }
 
-  setUpEventListeners() {
-    super.setUpEventListeners();
+  _setUpEventListeners() {
+    super._setUpEventListeners();
     // Listen to changes on the input elements
     this.$photoInputs.change(event => {
       this.previewPhotos(event.target);

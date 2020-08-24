@@ -10,8 +10,8 @@ export default class Form extends ServerRequest {
     this.formData = {};
 
     // Bind context
-    this.cacheElements = this.cacheElements.bind(this);
-    this.setUpEventListeners = this.setUpEventListeners.bind(this);
+    this._cacheElements = this._cacheElements.bind(this);
+    this._setUpEventListeners = this._setUpEventListeners.bind(this);
     this.collectLocationData = this.collectLocationData.bind(this);
     this.sendFormInformation = this.sendFormInformation.bind(this);
     this.showErrorMessages = this.showErrorMessages.bind(this);
@@ -23,8 +23,8 @@ export default class Form extends ServerRequest {
       this.location = true;
     }
 
-    this.cacheElements();
-    this.setUpEventListeners();
+    this._cacheElements();
+    this._setUpEventListeners();
 
     if (options.payment) {
       Object.assign(Form.prototype, payment);
@@ -79,7 +79,7 @@ export default class Form extends ServerRequest {
     this.showFailPopup = options.showFailPopup ? true : false;
   }
 
-  cacheElements() {
+  _cacheElements() {
     // Form
     this.$form = $(this.selectors.form);
 
@@ -91,7 +91,7 @@ export default class Form extends ServerRequest {
     }
   }
 
-  setUpEventListeners() {
+  _setUpEventListeners() {
     // Form submission
     this.$form.submit(event => {
       event.preventDefault();

@@ -33,25 +33,25 @@ export default class Avatar extends EditorModal {
     this.reader = new FileReader();
 
     // Binding context
-    this.cacheElements = this.cacheElements.bind(this);
-    this.setUpEventListeners = this.setUpEventListeners.bind(this);
+    this._cacheElements = this._cacheElements.bind(this);
+    this._setUpEventListeners = this._setUpEventListeners.bind(this);
     this.previewAvatar = this.previewAvatar.bind(this);
     this.submitAvatar = this.submitAvatar.bind(this);
     this.updateMarkup = this.updateMarkup.bind(this);
     this.generateFormData = this.generateFormData.bind(this);
 
     // Cache elements according to passed selectors
-    this.cacheElements();
+    this._cacheElements();
 
     // Setup event listeners
-    this.setUpEventListeners();
+    this._setUpEventListeners();
   }
 
   /**
    * Function caches elements according to passed options.
    */
-  cacheElements() {
-    super.cacheElements();
+  _cacheElements() {
+    super._cacheElements();
 
     // Avatar elements in the markup
     this.$avatar = $(this.selectors.elementSelector);
@@ -72,8 +72,8 @@ export default class Avatar extends EditorModal {
   /**
    * Function setup event listeners on the initialization stage of the object creation
    */
-  setUpEventListeners() {
-    super.setUpEventListeners();
+  _setUpEventListeners() {
+    super._setUpEventListeners();
     // Setup event handler for loading of the image data event
     this.reader.onload = e => {
       // Show avatar preview

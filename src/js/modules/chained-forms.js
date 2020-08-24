@@ -1,17 +1,17 @@
 export default class ChainedForms {
   constructor(options) {
     // Bind context
-    this.cacheElements = this.cacheElements.bind(this);
-    this.setUpEventListeners = this.setUpEventListeners.bind(this);
+    this._cacheElements = this._cacheElements.bind(this);
+    this._setUpEventListeners = this._setUpEventListeners.bind(this);
 
     // Save options
     this.selectors = options.selectors;
 
-    this.cacheElements();
-    this.setUpEventListeners();
+    this._cacheElements();
+    this._setUpEventListeners();
   }
 
-  cacheElements() {
+  _cacheElements() {
     // Forms container
     this.$container = $(this.selectors.formsContainer);
 
@@ -35,7 +35,7 @@ export default class ChainedForms {
       : null;
   }
 
-  setUpEventListeners() {
+  _setUpEventListeners() {
     // Show next form when the current is submitted
     this.$forms.on('submitted', event => {
       let target = event.target;

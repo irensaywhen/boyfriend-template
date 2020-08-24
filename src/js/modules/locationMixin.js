@@ -16,11 +16,11 @@ export default {
     }
 
     /* Elements caching and event listeners initialization */
-    this.cacheLocationElements();
-    this.setUpLocationEventListeners();
+    this._cacheLocationElements();
+    this._setUpLocationEventListeners();
   },
 
-  cacheLocationElements() {
+  _cacheLocationElements() {
     // Cache input element
     this.$locationInput = this.$form.find(this.selectors.locationInput);
 
@@ -45,7 +45,7 @@ export default {
     );
   },
 
-  setUpLocationEventListeners() {
+  _setUpLocationEventListeners() {
     // Listen to typing event
     this.$locationInput.on('input change', event => {
       // Clean previously cached values

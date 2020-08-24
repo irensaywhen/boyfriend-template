@@ -42,7 +42,7 @@ export default class Chat {
     // Save all the templates to render them in the future
     this._prepareTemplates();
 
-    this._displayMessage(this.testData);
+    //this._displayMessage(this.testData);
   }
 
   _cacheElements() {

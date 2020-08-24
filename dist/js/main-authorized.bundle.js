@@ -15584,28 +15584,31 @@
         /* harmony import */ var _modules_boost_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! ./modules/boost.js */ './js/modules/boost.js'
         );
-        /* harmony import */ var _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _modules_superlike_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! ./modules/superlike.js */ './js/modules/superlike.js'
+        );
+        /* harmony import */ var _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! ./modules/search-profiles-form.js */ './js/modules/search-profiles-form.js'
         );
-        /* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! ./modules/buyPremiumForm.js */ './js/modules/buyPremiumForm.js'
         );
-        /* harmony import */ var _modules_chatList_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _modules_chatList_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./modules/chatList.js */ './js/modules/chatList.js'
         );
-        /* harmony import */ var _modules_pagination_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _modules_pagination_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./modules/pagination.js */ './js/modules/pagination.js'
         );
-        /* harmony import */ var _modules_ad_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _modules_ad_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
           /*! ./modules/ad.js */ './js/modules/ad.js'
         );
-        /* harmony import */ var _modules_gallery_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var _modules_gallery_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
           /*! ./modules/gallery.js */ './js/modules/gallery.js'
         );
-        /* harmony import */ var _modules_chat_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+        /* harmony import */ var _modules_chat_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
           /*! ./modules/chat.js */ './js/modules/chat.js'
         );
-        /* harmony import */ var _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+        /* harmony import */ var _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
           /*! ./modules/enlargePhoto.js */ './js/modules/enlargePhoto.js'
         );
 
@@ -15615,23 +15618,25 @@
           _modules_editor_js__WEBPACK_IMPORTED_MODULE_1__['default'];
         window['Boost'] =
           _modules_boost_js__WEBPACK_IMPORTED_MODULE_2__['default'];
+        window['Superlike'] =
+          _modules_superlike_js__WEBPACK_IMPORTED_MODULE_3__['default'];
         window['SearchProfilesForm'] =
-          _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_3__[
+          _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_4__[
             'default'
           ];
         window['BuyPremiumForm'] =
-          _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__['default'];
+          _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_5__['default'];
         window['ChatList'] =
-          _modules_chatList_js__WEBPACK_IMPORTED_MODULE_5__['default'];
+          _modules_chatList_js__WEBPACK_IMPORTED_MODULE_6__['default'];
         window['Pagination'] =
-          _modules_pagination_js__WEBPACK_IMPORTED_MODULE_6__['default'];
-        window['Ad'] = _modules_ad_js__WEBPACK_IMPORTED_MODULE_7__['default'];
+          _modules_pagination_js__WEBPACK_IMPORTED_MODULE_7__['default'];
+        window['Ad'] = _modules_ad_js__WEBPACK_IMPORTED_MODULE_8__['default'];
         window['Gallery'] =
-          _modules_gallery_js__WEBPACK_IMPORTED_MODULE_8__['default'];
+          _modules_gallery_js__WEBPACK_IMPORTED_MODULE_9__['default'];
         window['Chat'] =
-          _modules_chat_js__WEBPACK_IMPORTED_MODULE_9__['default'];
+          _modules_chat_js__WEBPACK_IMPORTED_MODULE_10__['default'];
         window['EnlargePhoto'] =
-          _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_10__['default'];
+          _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_11__['default'];
 
         /***/
       },
@@ -15901,27 +15906,27 @@
 
             _this = _super.call(this, options); // Bind context
 
-            _this.cacheElements = _this.cacheElements.bind(
+            _this._cacheElements = _this._cacheElements.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
             );
-            _this.setUpEventListeners = _this.setUpEventListeners.bind(
+            _this._setUpEventListeners = _this._setUpEventListeners.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
             );
-            _this.useBonus = _this.useBonus.bind(
+            _this._useBonus = _this._useBonus.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
             );
-            _this.startUsingBonus = _this.startUsingBonus.bind(
+            _this._startUsingBonus = _this._startUsingBonus.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
             );
-            _this.prepareBonusUsage = _this.prepareBonusUsage.bind(
+            _this._prepareBonusUsage = _this._prepareBonusUsage.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
@@ -15937,8 +15942,8 @@
             Bonus,
             [
               {
-                key: 'cacheElements',
-                value: function cacheElements() {
+                key: '_cacheElements',
+                value: function _cacheElements() {
                   // Save bonus element
                   this.$bonus = $(this.selectors.bonus); // Save the bonus' data-* attributes
 
@@ -15950,12 +15955,12 @@
                 },
               },
               {
-                key: 'setUpEventListeners',
-                value: function setUpEventListeners() {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
                   var _this2 = this;
 
                   this.$bonus.click(function () {
-                    return _this2.startUsingBonus();
+                    return _this2._startUsingBonus();
                   });
                 },
                 /**
@@ -15963,9 +15968,9 @@
                  */
               },
               {
-                key: 'startUsingBonus',
+                key: '_startUsingBonus',
                 value: (function () {
-                  var _startUsingBonus = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
+                  var _startUsingBonus2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
                     /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
                       function _callee() {
                         var approved;
@@ -15995,7 +16000,7 @@
 
                                 case 8:
                                   _context.next = 10;
-                                  return this.prepareBonusUsage();
+                                  return this._prepareBonusUsage();
 
                                 case 10:
                                   approved = _context.sent;
@@ -16008,7 +16013,7 @@
                                       this.amount
                                     ); // Start bonus usage
 
-                                    this.useBonus();
+                                    this._useBonus();
                                   }
 
                                 case 12:
@@ -16024,11 +16029,11 @@
                     )
                   );
 
-                  function startUsingBonus() {
-                    return _startUsingBonus.apply(this, arguments);
+                  function _startUsingBonus() {
+                    return _startUsingBonus2.apply(this, arguments);
                   }
 
-                  return startUsingBonus;
+                  return _startUsingBonus;
                 })(),
               },
             ]
@@ -16169,7 +16174,7 @@
             _this = _super.call(this, options);
             _this.type = 'boost'; // Bind context
 
-            _this.displayTime = _this.displayTime.bind(
+            _this._displayTime = _this._displayTime.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
@@ -16178,9 +16183,9 @@
             _this.activated = false;
             _this.finished = false;
 
-            _this.cacheElements();
+            _this._cacheElements();
 
-            _this.setUpEventListeners();
+            _this._setUpEventListeners();
 
             return _this;
           }
@@ -16189,13 +16194,13 @@
             Boost,
             [
               {
-                key: 'cacheElements',
-                value: function cacheElements() {
+                key: '_cacheElements',
+                value: function _cacheElements() {
                   _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
                     _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
                       Boost.prototype
                     ),
-                    'cacheElements',
+                    '_cacheElements',
                     this
                   ).call(this); // Timer and elements to display time
 
@@ -16214,31 +16219,31 @@
                 },
               },
               {
-                key: 'setUpEventListeners',
-                value: function setUpEventListeners() {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
                   _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
                     _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
                       Boost.prototype
                     ),
-                    'setUpEventListeners',
+                    '_setUpEventListeners',
                     this
                   ).call(this);
                 },
               },
               {
-                key: 'useBonus',
-                value: function useBonus() {
+                key: '_useBonus',
+                value: function _useBonus() {
                   // Change boost state
                   this.activated = true;
                   this.finished = false; // Start timer
 
-                  this.startTimer();
+                  this._startTimer();
                 },
               },
               {
-                key: 'prepareBonusUsage',
+                key: '_prepareBonusUsage',
                 value: (function () {
-                  var _prepareBonusUsage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
+                  var _prepareBonusUsage2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
                     /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
                       function _callee() {
                         var approved,
@@ -16339,16 +16344,16 @@
                     )
                   );
 
-                  function prepareBonusUsage() {
-                    return _prepareBonusUsage.apply(this, arguments);
+                  function _prepareBonusUsage() {
+                    return _prepareBonusUsage2.apply(this, arguments);
                   }
 
-                  return prepareBonusUsage;
+                  return _prepareBonusUsage;
                 })(),
               },
               {
-                key: 'startTimer',
-                value: function startTimer() {
+                key: '_startTimer',
+                value: function _startTimer() {
                   var _this2 = this;
 
                   var intervalId = setInterval(function () {
@@ -16358,7 +16363,7 @@
                     var distance = _this2.countDownTime - now; // If the count down is finished
 
                     if (distance <= 1000) {
-                      _this2.displayTime(0, 0, 0);
+                      _this2._displayTime(0, 0, 0);
 
                       clearInterval(intervalId); // Change the state of the bonus
 
@@ -16378,15 +16383,15 @@
                     );
                     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                    _this2.displayTime(hours, minutes, seconds);
+                    _this2._displayTime(hours, minutes, seconds);
 
                     _this2.$timer.fadeIn(400);
                   }, 1000);
                 },
               },
               {
-                key: 'displayTime',
-                value: function displayTime(hours, minutes, seconds) {
+                key: '_displayTime',
+                value: function _displayTime(hours, minutes, seconds) {
                   // Add zeros for better displaying
                   if (minutes < 10) {
                     minutes = '0' + String(minutes);
@@ -16553,13 +16558,13 @@
             BuyPremiumForm,
             [
               {
-                key: 'cacheElements',
-                value: function cacheElements() {
+                key: '_cacheElements',
+                value: function _cacheElements() {
                   _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
                     _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
                       BuyPremiumForm.prototype
                     ),
-                    'cacheElements',
+                    '_cacheElements',
                     this
                   ).call(this); // Price containers
 
@@ -16572,15 +16577,15 @@
                 },
               },
               {
-                key: 'setUpEventListeners',
-                value: function setUpEventListeners() {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
                   var _this2 = this;
 
                   _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
                     _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
                       BuyPremiumForm.prototype
                     ),
-                    'setUpEventListeners',
+                    '_setUpEventListeners',
                     this
                   ).call(this); // Additiong and removing bonuses
 
@@ -16784,9 +16789,7 @@
 
             this._setUpEventListeners(); // Save all the templates to render them in the future
 
-            this._prepareTemplates();
-
-            this._displayMessage(this.testData);
+            this._prepareTemplates(); //this._displayMessage(this.testData);
           }
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
@@ -17166,9 +17169,9 @@
               String(options.messagesAmount)
             ); // Initialization call to the functions
 
-            _this.cacheElements();
+            _this._cacheElements();
 
-            _this.setUpEventListeners();
+            _this._setUpEventListeners();
 
             _this.observeLastMessage();
 
@@ -17179,8 +17182,8 @@
             ChatList,
             [
               {
-                key: 'cacheElements',
-                value: function cacheElements() {
+                key: '_cacheElements',
+                value: function _cacheElements() {
                   this.$chatList = $(this.selectors.chatList);
                   this.cacheMessages(); // Set observer options
 
@@ -17192,8 +17195,8 @@
                 },
               },
               {
-                key: 'setUpEventListeners',
-                value: function setUpEventListeners() {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
                   var chatList = document.getElementById('chat-list');
                   chatList.addEventListener(
                     'scroll',
@@ -17605,9 +17608,9 @@
               )
             ); // Prepare editor
 
-            _this.cacheElements();
+            _this._cacheElements();
 
-            _this.setUpEventListeners();
+            _this._setUpEventListeners();
 
             return _this;
           }
@@ -17619,14 +17622,14 @@
             PhotoEditor,
             [
               {
-                key: 'cacheElements',
-                value: function cacheElements() {
+                key: '_cacheElements',
+                value: function _cacheElements() {
                   // Cache elements required for gallery to work
                   _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
                     _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
                       PhotoEditor.prototype
                     ),
-                    'cacheElements',
+                    '_cacheElements',
                     this
                   ).call(this); // Description
 
@@ -17648,15 +17651,15 @@
                 },
               },
               {
-                key: 'setUpEventListeners',
-                value: function setUpEventListeners() {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
                   var _this2 = this;
 
                   _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
                     _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
                       PhotoEditor.prototype
                     ),
-                    'setUpEventListeners',
+                    '_setUpEventListeners',
                     this
                   ).call(this);
 
@@ -18060,12 +18063,12 @@
 
             _this.formData = {}; // Bind context
 
-            _this.cacheElements = _this.cacheElements.bind(
+            _this._cacheElements = _this._cacheElements.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
             );
-            _this.setUpEventListeners = _this.setUpEventListeners.bind(
+            _this._setUpEventListeners = _this._setUpEventListeners.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
@@ -18100,9 +18103,9 @@
               _this.location = true;
             }
 
-            _this.cacheElements();
+            _this._cacheElements();
 
-            _this.setUpEventListeners();
+            _this._setUpEventListeners();
 
             if (options.payment) {
               Object.assign(
@@ -18163,8 +18166,8 @@
             Form,
             [
               {
-                key: 'cacheElements',
-                value: function cacheElements() {
+                key: '_cacheElements',
+                value: function _cacheElements() {
                   // Form
                   this.$form = $(this.selectors.form); // Input fields
 
@@ -18176,8 +18179,8 @@
                 },
               },
               {
-                key: 'setUpEventListeners',
-                value: function setUpEventListeners() {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
                   var _this2 = this;
 
                   // Form submission
@@ -19101,10 +19104,11 @@
             }
             /* Elements caching and event listeners initialization */
 
-            this.cacheLocationElements();
-            this.setUpLocationEventListeners();
+            this._cacheLocationElements();
+
+            this._setUpLocationEventListeners();
           },
-          cacheLocationElements: function cacheLocationElements() {
+          _cacheLocationElements: function _cacheLocationElements() {
             // Cache input element
             this.$locationInput = this.$form.find(this.selectors.locationInput); // Loading indicator
 
@@ -19124,7 +19128,7 @@
               this.selectors['dropdown-menu']
             );
           },
-          setUpLocationEventListeners: function setUpLocationEventListeners() {
+          _setUpLocationEventListeners: function _setUpLocationEventListeners() {
             var _this = this;
 
             // Listen to typing event
@@ -19463,12 +19467,12 @@
               _this.uploaded = false;
             } // Binding context
 
-            _this.cacheElements = _this.cacheElements.bind(
+            _this._cacheElements = _this._cacheElements.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
             );
-            _this.setUpEventListeners = _this.setUpEventListeners.bind(
+            _this._setUpEventListeners = _this._setUpEventListeners.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
@@ -19513,8 +19517,8 @@
             EditorModal,
             [
               {
-                key: 'cacheElements',
-                value: function cacheElements() {
+                key: '_cacheElements',
+                value: function _cacheElements() {
                   // Modal
                   this.$modal = $(this.selectors.modal); // Find modal footer is presented
                   // And hide it
@@ -19537,8 +19541,8 @@
                 },
               },
               {
-                key: 'setUpEventListeners',
-                value: function setUpEventListeners() {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
                   var _this2 = this;
 
                   if (
@@ -20673,13 +20677,13 @@
                 },
               },
               {
-                key: 'cacheElements',
-                value: function cacheElements() {
+                key: '_cacheElements',
+                value: function _cacheElements() {
                   _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
                     _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                       SearchProfilesForm.prototype
                     ),
-                    'cacheElements',
+                    '_cacheElements',
                     this
                   ).call(this);
 
@@ -20689,15 +20693,15 @@
                 },
               },
               {
-                key: 'setUpEventListeners',
-                value: function setUpEventListeners() {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
                   var _this3 = this;
 
                   _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
                     _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                       SearchProfilesForm.prototype
                     ),
-                    'setUpEventListeners',
+                    '_setUpEventListeners',
                     this
                   ).call(this);
 
@@ -20940,6 +20944,122 @@
 
           return SearchProfilesForm;
         })(_form_js__WEBPACK_IMPORTED_MODULE_7__['default']);
+
+        /***/
+      },
+
+    /***/ './js/modules/superlike.js':
+      /*!*********************************!*\
+  !*** ./js/modules/superlike.js ***!
+  \*********************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return Superlike;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _bonus_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! ./bonus.js */ './js/modules/bonus.js'
+        );
+
+        function _createSuper(Derived) {
+          var hasNativeReflectConstruct = _isNativeReflectConstruct();
+          return function _createSuperInternal() {
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+                Derived
+              ),
+              result;
+            if (hasNativeReflectConstruct) {
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+                this
+              ).constructor;
+              result = Reflect.construct(Super, arguments, NewTarget);
+            } else {
+              result = Super.apply(this, arguments);
+            }
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(
+              this,
+              result
+            );
+          };
+        }
+
+        function _isNativeReflectConstruct() {
+          if (typeof Reflect === 'undefined' || !Reflect.construct)
+            return false;
+          if (Reflect.construct.sham) return false;
+          if (typeof Proxy === 'function') return true;
+          try {
+            Date.prototype.toString.call(
+              Reflect.construct(Date, [], function () {})
+            );
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        var Superlike = /*#__PURE__*/ (function (_Bonus) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default()(
+            Superlike,
+            _Bonus
+          );
+
+          var _super = _createSuper(Superlike);
+
+          function Superlike(options) {
+            var _this;
+
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              Superlike
+            );
+
+            _this = _super.call(this, options);
+            _this.type = 'superlike'; // Bind context
+            //this.cacheElements = this.cacheElements.bind(this);
+            //this._setUpEventListeners = this._setUpEventListeners.bind(this);
+            //this.startUsingBonus = this.startUsingBonus.bind(this);
+            //this._prepareBonusUsage = this._prepareBonusUsage.bind(this);
+            // Save popup data
+
+            _this.popupData = options.popupData; // Reference request information for the popup usage
+            //this.popupData.request = this.requests.use;
+
+            return _this;
+          }
+
+          return Superlike;
+        })(_bonus_js__WEBPACK_IMPORTED_MODULE_4__['default']);
 
         /***/
       },
@@ -21245,9 +21365,9 @@
               )
             ); // Prepare Uploader
 
-            _this.cacheElements();
+            _this._cacheElements();
 
-            _this.setUpEventListeners();
+            _this._setUpEventListeners();
 
             return _this;
           }
@@ -21256,13 +21376,13 @@
             PhotoUploader,
             [
               {
-                key: 'cacheElements',
-                value: function cacheElements() {
+                key: '_cacheElements',
+                value: function _cacheElements() {
                   _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
                     _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
                       PhotoUploader.prototype
                     ),
-                    'cacheElements',
+                    '_cacheElements',
                     this
                   ).call(this); // Container to preview uploaded images
 
@@ -21276,15 +21396,15 @@
                 },
               },
               {
-                key: 'setUpEventListeners',
-                value: function setUpEventListeners() {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
                   var _this2 = this;
 
                   _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
                     _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
                       PhotoUploader.prototype
                     ),
-                    'setUpEventListeners',
+                    '_setUpEventListeners',
                     this
                   ).call(this); // Listen to changes on the input elements
 

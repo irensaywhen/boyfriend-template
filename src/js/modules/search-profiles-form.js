@@ -27,16 +27,16 @@ export default class SearchProfilesForm extends Form {
     });
   }
 
-  cacheElements() {
-    super.cacheElements();
+  _cacheElements() {
+    super._cacheElements();
 
     this.$formLoadingIndicator = $(
       this.selectors['formLoadingIndicator']
     ).fadeOut(0);
   }
 
-  setUpEventListeners() {
-    super.setUpEventListeners();
+  _setUpEventListeners() {
+    super._setUpEventListeners();
 
     this.$form.on('input', event => {
       let target = event.target;

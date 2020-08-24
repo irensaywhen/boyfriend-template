@@ -33,11 +33,11 @@ export default class ChatList extends ServerRequest {
     );
 
     // Initialization call to the functions
-    this.cacheElements();
-    this.setUpEventListeners();
+    this._cacheElements();
+    this._setUpEventListeners();
     this.observeLastMessage();
   }
-  cacheElements() {
+  _cacheElements() {
     this.$chatList = $(this.selectors.chatList);
 
     this.cacheMessages();
@@ -50,7 +50,7 @@ export default class ChatList extends ServerRequest {
     };
   }
 
-  setUpEventListeners() {
+  _setUpEventListeners() {
     let chatList = document.getElementById('chat-list');
 
     chatList.addEventListener(

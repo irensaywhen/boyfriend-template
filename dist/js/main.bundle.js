@@ -1731,12 +1731,12 @@
 
             _this.reader = new FileReader(); // Binding context
 
-            _this.cacheElements = _this.cacheElements.bind(
+            _this._cacheElements = _this._cacheElements.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
             );
-            _this.setUpEventListeners = _this.setUpEventListeners.bind(
+            _this._setUpEventListeners = _this._setUpEventListeners.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
@@ -1762,9 +1762,9 @@
               )
             ); // Cache elements according to passed selectors
 
-            _this.cacheElements(); // Setup event listeners
+            _this._cacheElements(); // Setup event listeners
 
-            _this.setUpEventListeners();
+            _this._setUpEventListeners();
 
             return _this;
           }
@@ -1776,13 +1776,13 @@
             Avatar,
             [
               {
-                key: 'cacheElements',
-                value: function cacheElements() {
+                key: '_cacheElements',
+                value: function _cacheElements() {
                   _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
                     _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
                       Avatar.prototype
                     ),
-                    'cacheElements',
+                    '_cacheElements',
                     this
                   ).call(this); // Avatar elements in the markup
 
@@ -1803,15 +1803,15 @@
                  */
               },
               {
-                key: 'setUpEventListeners',
-                value: function setUpEventListeners() {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
                   var _this2 = this;
 
                   _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
                     _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
                       Avatar.prototype
                     ),
-                    'setUpEventListeners',
+                    '_setUpEventListeners',
                     this
                   ).call(this); // Setup event handler for loading of the image data event
 
@@ -2012,20 +2012,22 @@
             );
 
             // Bind context
-            this.cacheElements = this.cacheElements.bind(this);
-            this.setUpEventListeners = this.setUpEventListeners.bind(this); // Save options
+            this._cacheElements = this._cacheElements.bind(this);
+            this._setUpEventListeners = this._setUpEventListeners.bind(this); // Save options
 
             this.selectors = options.selectors;
-            this.cacheElements();
-            this.setUpEventListeners();
+
+            this._cacheElements();
+
+            this._setUpEventListeners();
           }
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
             ChainedForms,
             [
               {
-                key: 'cacheElements',
-                value: function cacheElements() {
+                key: '_cacheElements',
+                value: function _cacheElements() {
                   var _this = this;
 
                   // Forms container
@@ -2052,8 +2054,8 @@
                 },
               },
               {
-                key: 'setUpEventListeners',
-                value: function setUpEventListeners() {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
                   var _this2 = this;
 
                   // Show next form when the current is submitted
@@ -2251,12 +2253,12 @@
 
             _this.formData = {}; // Bind context
 
-            _this.cacheElements = _this.cacheElements.bind(
+            _this._cacheElements = _this._cacheElements.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
             );
-            _this.setUpEventListeners = _this.setUpEventListeners.bind(
+            _this._setUpEventListeners = _this._setUpEventListeners.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
@@ -2291,9 +2293,9 @@
               _this.location = true;
             }
 
-            _this.cacheElements();
+            _this._cacheElements();
 
-            _this.setUpEventListeners();
+            _this._setUpEventListeners();
 
             if (options.payment) {
               Object.assign(
@@ -2354,8 +2356,8 @@
             Form,
             [
               {
-                key: 'cacheElements',
-                value: function cacheElements() {
+                key: '_cacheElements',
+                value: function _cacheElements() {
                   // Form
                   this.$form = $(this.selectors.form); // Input fields
 
@@ -2367,8 +2369,8 @@
                 },
               },
               {
-                key: 'setUpEventListeners',
-                value: function setUpEventListeners() {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
                   var _this2 = this;
 
                   // Form submission
@@ -2626,10 +2628,11 @@
             }
             /* Elements caching and event listeners initialization */
 
-            this.cacheLocationElements();
-            this.setUpLocationEventListeners();
+            this._cacheLocationElements();
+
+            this._setUpLocationEventListeners();
           },
-          cacheLocationElements: function cacheLocationElements() {
+          _cacheLocationElements: function _cacheLocationElements() {
             // Cache input element
             this.$locationInput = this.$form.find(this.selectors.locationInput); // Loading indicator
 
@@ -2649,7 +2652,7 @@
               this.selectors['dropdown-menu']
             );
           },
-          setUpLocationEventListeners: function setUpLocationEventListeners() {
+          _setUpLocationEventListeners: function _setUpLocationEventListeners() {
             var _this = this;
 
             // Listen to typing event
@@ -2988,12 +2991,12 @@
               _this.uploaded = false;
             } // Binding context
 
-            _this.cacheElements = _this.cacheElements.bind(
+            _this._cacheElements = _this._cacheElements.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
             );
-            _this.setUpEventListeners = _this.setUpEventListeners.bind(
+            _this._setUpEventListeners = _this._setUpEventListeners.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
@@ -3038,8 +3041,8 @@
             EditorModal,
             [
               {
-                key: 'cacheElements',
-                value: function cacheElements() {
+                key: '_cacheElements',
+                value: function _cacheElements() {
                   // Modal
                   this.$modal = $(this.selectors.modal); // Find modal footer is presented
                   // And hide it
@@ -3062,8 +3065,8 @@
                 },
               },
               {
-                key: 'setUpEventListeners',
-                value: function setUpEventListeners() {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
                   var _this2 = this;
 
                   if (

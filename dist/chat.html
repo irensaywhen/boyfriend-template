@@ -175,7 +175,10 @@
                     class="dropdown-menu dropdown-menu-right dropdown-menu-sm-left"
                     aria-labelledby="dropdownMenu"
                   >
-                    <li class="dropdown-item d-inline-flex align-items-center">
+                    <li
+                      class="dropdown-item d-inline-flex align-items-center"
+                      id="superlike"
+                    >
                       <img
                         src="img/superlike.svg"
                         class="present"
@@ -241,7 +244,7 @@
 
               <!--My message start-->
               <div
-                class="message message-general mine position-relative px-3 py-2 mt-5 shadow"
+                class="message message-general mine position-relative px-3 py-2 mt-5 shadow visible"
               >
                 <p class="text mb-0">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -255,7 +258,7 @@
 
               <!--Other user message start-->
               <div
-                class="message message-general alien position-relative px-3 py-2 mt-5 shadow"
+                class="message message-general alien position-relative px-3 py-2 mt-5 shadow visible"
               >
                 <p class="text mb-0">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -271,7 +274,7 @@
 
               <!--My message start-->
               <div
-                class="message message-general mine position-relative px-3 py-2 mt-5 shadow"
+                class="message message-general mine position-relative px-3 py-2 mt-5 shadow visible"
               >
                 <p class="text mb-0">
                   Hello. How're you doing?
@@ -285,7 +288,7 @@
 
               <!--Other user message start-->
               <div
-                class="message message-general alien position-relative px-3 py-2 mt-5 shadow"
+                class="message message-general alien position-relative px-3 py-2 mt-5 shadow visible"
               >
                 <p class="text mb-0">
                   Fine, thanks. Great to hear from you!
@@ -839,6 +842,30 @@
           messageTemplateIds: {
             general: 'template-generalMessage',
             special: 'template-specialMessage',
+          },
+        });
+
+        /* Superlike initialization */
+        const superlike = new Superlike({
+          selectors: {
+            bonus: '#superlike',
+          },
+          requests: {
+            use: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-superlike',
+            },
+          },
+          popupData: {
+            title: 'Do you want to use boost?',
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No',
+            imageUrl: 'img/boost.svg',
+            imageAlt: 'Boost icon',
           },
         });
 

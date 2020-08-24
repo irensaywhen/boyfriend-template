@@ -7,18 +7,18 @@ export default class Boost extends Bonus {
     this.type = 'boost';
 
     // Bind context
-    this.displayTime = this.displayTime.bind(this);
+    this._displayTime = this._displayTime.bind(this);
 
     // Save initial state of the boost
     this.activated = false;
     this.finished = false;
 
-    this.cacheElements();
-    this.setUpEventListeners();
+    this._cacheElements();
+    this._setUpEventListeners();
   }
 
-  cacheElements() {
-    super.cacheElements();
+  _cacheElements() {
+    super._cacheElements();
 
     // Timer and elements to display time
     this.$timer = $(this.selectors.timer.element);
@@ -33,20 +33,20 @@ export default class Boost extends Bonus {
     this.expirationPopupData = Object.assign({}, this.popupData);
   }
 
-  setUpEventListeners() {
-    super.setUpEventListeners();
+  _setUpEventListeners() {
+    super._setUpEventListeners();
   }
 
-  useBonus() {
+  _useBonus() {
     // Change boost state
     this.activated = true;
     this.finished = false;
 
     // Start timer
-    this.startTimer();
+    this._startTimer();
   }
 
-  async prepareBonusUsage() {
+  async _prepareBonusUsage() {
     let approved, timestamp, expirationTitle, expirationMessage;
 
     if (!this.activated && !this.finished) {
@@ -99,7 +99,7 @@ export default class Boost extends Bonus {
     return approved;
   }
 
-  startTimer() {
+  _startTimer() {
     let intervalId = setInterval(() => {
       // Get today's date and time
       let now = new Date().getTime();
@@ -109,7 +109,7 @@ export default class Boost extends Bonus {
 
       // If the count down is finished
       if (distance <= 1000) {
-        this.displayTime(0, 0, 0);
+        this._displayTime(0, 0, 0);
 
         clearInterval(intervalId);
 
@@ -131,13 +131,13 @@ export default class Boost extends Bonus {
       let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      this.displayTime(hours, minutes, seconds);
+      this._displayTime(hours, minutes, seconds);
 
       this.$timer.fadeIn(400);
     }, 1000);
   }
 
-  displayTime(hours, minutes, seconds) {
+  _displayTime(hours, minutes, seconds) {
     // Add zeros for better displaying
     if (minutes < 10) {
       minutes = '0' + String(minutes);

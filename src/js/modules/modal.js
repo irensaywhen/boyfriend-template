@@ -17,8 +17,8 @@ class EditorModal extends ServerRequest {
     }
 
     // Binding context
-    this.cacheElements = this.cacheElements.bind(this);
-    this.setUpEventListeners = this.setUpEventListeners.bind(this);
+    this._cacheElements = this._cacheElements.bind(this);
+    this._setUpEventListeners = this._setUpEventListeners.bind(this);
     this.savePhotoInformation = this.savePhotoInformation.bind(this);
     this.generateFormData = this.generateFormData.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -29,7 +29,7 @@ class EditorModal extends ServerRequest {
   /**
    * Function caches elements according to passed options.
    */
-  cacheElements() {
+  _cacheElements() {
     // Modal
     this.$modal = $(this.selectors.modal);
 
@@ -53,7 +53,7 @@ class EditorModal extends ServerRequest {
     }
   }
 
-  setUpEventListeners() {
+  _setUpEventListeners() {
     if (this.configuration.avatar || this.configuration.uploader) {
       this.$closeButton.click(event => {
         // If user closes modal without submitting changes
