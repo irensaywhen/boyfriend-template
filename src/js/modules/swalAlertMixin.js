@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+
 export default {
   /**
    *
@@ -22,6 +24,25 @@ export default {
       icon: icon,
       showConfirmButton: false,
       showCloseButton: true,
+    });
+  },
+
+  fireBuyingAlert({
+    title,
+    text,
+    confirmButtonText,
+    cancelButtonText,
+    imageUrl,
+    imageAlt,
+  }) {
+    return Swal.fire({
+      title,
+      text,
+      cancelButtonText,
+      confirmButtonText,
+      showCancelButton: true,
+      confirmButtonColor: '#ff0068',
+      cancelButtonColor: '#bbb',
     });
   },
 

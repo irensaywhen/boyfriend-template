@@ -178,6 +178,9 @@
                     <li
                       class="dropdown-item d-inline-flex align-items-center"
                       id="superlike"
+                      data-amount="2"
+                      data-type="superlike"
+                      data-redirect="./pricing.html"
                     >
                       <img
                         src="img/superlike.svg"
@@ -860,11 +863,13 @@
                 'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-superlike',
             },
           },
-          popupData: {
-            title: 'Do you want to use boost?',
+          buyingPopupData: {
+            title: 'Oops!',
+            text:
+              "You don't have any superlikes available. Do you want to buy some?",
             confirmButtonText: 'Yes!',
             cancelButtonText: 'No',
-            imageUrl: 'img/boost.svg',
+            imageUrl: 'img/superlike.svg',
             imageAlt: 'Boost icon',
           },
         });

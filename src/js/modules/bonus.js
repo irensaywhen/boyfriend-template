@@ -10,12 +10,6 @@ export default class Bonus extends ServerRequest {
     this._useBonus = this._useBonus.bind(this);
     this._startUsingBonus = this._startUsingBonus.bind(this);
     this._prepareBonusUsage = this._prepareBonusUsage.bind(this);
-
-    // Save popup data
-    this.popupData = options.popupData;
-
-    // Reference request information for the popup usage
-    this.popupData.request = this.requests.use;
   }
 
   _cacheElements() {
@@ -45,7 +39,18 @@ export default class Bonus extends ServerRequest {
     } else if (this.amount === 0) {
       // If there are no bonuses available
       // Redirect
-      window.location.href = this.redirect;
+
+      let type = this.type;
+
+      if (type === 'boost') {
+        window.location.href = this.redirect;
+      } else if (type === 'superlike') {
+        this._proposeBuyingBonus();
+        // Fire alert here
+        // If the user approve it
+        // Redirect to buying page
+        // If no, don't do anything
+      }
     } else {
       let approved = await this._prepareBonusUsage();
 
@@ -59,5 +64,13 @@ export default class Bonus extends ServerRequest {
         this._useBonus();
       }
     }
+  }
+  _proposeBuyingBonus() {
+    // Fire alert
+    this.fireBuyingAlert(this.buyingPopupData).then(result => {
+      if (result) {
+        window.location.href = this.redirect;
+      }
+    });
   }
 }

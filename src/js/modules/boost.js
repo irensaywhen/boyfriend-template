@@ -9,6 +9,12 @@ export default class Boost extends Bonus {
     // Bind context
     this._displayTime = this._displayTime.bind(this);
 
+    // Save popup data
+    this.popupData = options.popupData;
+
+    // Reference request information for the popup usage
+    this.popupData.request = this.requests.use;
+
     // Save initial state of the boost
     this.activated = false;
     this.finished = false;

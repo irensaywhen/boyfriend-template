@@ -4,18 +4,34 @@ export default class Superlike extends Bonus {
   constructor(options) {
     super(options);
 
-    this.type = 'superlike';
-
     // Bind context
-    //this.cacheElements = this.cacheElements.bind(this);
-    //this._setUpEventListeners = this._setUpEventListeners.bind(this);
-    //this.startUsingBonus = this.startUsingBonus.bind(this);
-    //this._prepareBonusUsage = this._prepareBonusUsage.bind(this);
 
     // Save popup data
-    this.popupData = options.popupData;
+    this.buyingPopupData = options.buyingPopupData;
 
     // Reference request information for the popup usage
     //this.popupData.request = this.requests.use;
+
+    this._cacheElements();
+    this._setUpEventListeners();
+  }
+
+  _cacheElements() {
+    super._cacheElements();
+
+    //Create expiration popup based on the generic popup
+    //this.expirationPopupData = Object.assign({}, this.popupData);
+  }
+
+  _setUpEventListeners() {
+    super._setUpEventListeners();
+  }
+
+  _useBonus() {
+    console.log('Using bonus...');
+  }
+
+  _prepareBonusUsage() {
+    console.log('Preparing bonus usage...');
   }
 }
