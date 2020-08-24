@@ -23,9 +23,12 @@ export default class Chat {
       mine: false,
       text: 'Testing templating',
       time: '13:55',
-      id: 123,
-      seen: true,
+      id: 125,
+      seen: false,
     };
+
+    // Binding context
+    this._setMessageStatus = this._setMessageStatus.bind(this);
 
     // Save class names
     this.classNames = options.classNames;
@@ -43,7 +46,6 @@ export default class Chat {
   }
 
   _cacheElements() {
-    console.log('Caching...');
     let selectors = this.selectors;
 
     this.$chat = $(selectors.chat);
@@ -54,7 +56,6 @@ export default class Chat {
   }
 
   _setUpEventListeners() {
-    console.log('Setting up event listeners...');
     let classNames = this.classNames;
 
     // View sending button if message input is not empty
@@ -165,9 +166,22 @@ export default class Chat {
       .appendTo(this.$messagesContainer)
       .addClass('visible')[0]
       .scrollIntoView({ behavior: 'smooth' });
+
+    // Change message status after a second - for testing purposes
+    setTimeout(this._setMessageStatus, 1000, { id: 123, status: 'seen' });
   }
 
   _showError() {}
 
-  _changeMessageStatus() {}
+  _setMessageStatus({ id, status }) {
+    // Find message with the given data-id attribute
+    let $meta = this.$messagesContainer
+      .find(`.message[data-id='${id}']`)
+      .find('.meta');
+
+    if (status === 'seen') {
+      // If the message was seen
+      $meta.prepend('<i class="fas fa-check-circle"></i>');
+    }
+  }
 }

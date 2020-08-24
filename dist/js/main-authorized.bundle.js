@@ -16770,9 +16770,11 @@
               mine: false,
               text: 'Testing templating',
               time: '13:55',
-              id: 123,
-              seen: true,
-            }; // Save class names
+              id: 125,
+              seen: false,
+            }; // Binding context
+
+            this._setMessageStatus = this._setMessageStatus.bind(this); // Save class names
 
             this.classNames = options.classNames; // Save templates selectors
 
@@ -16793,7 +16795,6 @@
               {
                 key: '_cacheElements',
                 value: function _cacheElements() {
-                  console.log('Caching...');
                   var selectors = this.selectors;
                   this.$chat = $(selectors.chat);
                   this.$messagesContainer = this.$chat.find(
@@ -16815,7 +16816,6 @@
                 value: function _setUpEventListeners() {
                   var _this = this;
 
-                  console.log('Setting up event listeners...');
                   var classNames = this.classNames; // View sending button if message input is not empty
 
                   this.$chat.on('input', function (event) {
@@ -16942,7 +16942,12 @@
                     .addClass('visible')[0]
                     .scrollIntoView({
                       behavior: 'smooth',
-                    });
+                    }); // Change message status after a second - for testing purposes
+
+                  setTimeout(this._setMessageStatus, 1000, {
+                    id: 123,
+                    status: 'seen',
+                  });
                 },
               },
               {
@@ -16950,8 +16955,20 @@
                 value: function _showError() {},
               },
               {
-                key: '_changeMessageStatus',
-                value: function _changeMessageStatus() {},
+                key: '_setMessageStatus',
+                value: function _setMessageStatus(_ref) {
+                  var id = _ref.id,
+                    status = _ref.status;
+                  // Find message with the given data-id attribute
+                  var $meta = this.$messagesContainer
+                    .find(".message[data-id='".concat(id, "']"))
+                    .find('.meta');
+
+                  if (status === 'seen') {
+                    // If the message was seen
+                    $meta.prepend('<i class="fas fa-check-circle"></i>');
+                  }
+                },
               },
             ]
           );
