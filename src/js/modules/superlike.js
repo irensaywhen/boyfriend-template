@@ -31,6 +31,8 @@ export default class Superlike extends Bonus {
 
   _useBonus() {
     console.log('Using bonus...');
+
+    $(document).trigger('present:send', { type: 'superlike' });
   }
 
   _prepareBonusUsage() {

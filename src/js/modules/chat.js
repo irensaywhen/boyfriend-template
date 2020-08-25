@@ -73,7 +73,7 @@ export default class Chat {
 
       console.log('Submitting message form!');
 
-      this._sendMessage();
+      this._sendMessage('general');
     });
 
     // Send message when the sending button is clicked
@@ -98,15 +98,35 @@ export default class Chat {
         this.$sendMessageForm.submit();
       }
     });
+
+    $(document).on('present:send', (event, params) => {
+      let type = params.type;
+
+      if (type === 'superlike') {
+        // Send superlike message to the user
+        this._sendMessage(type);
+      }
+    });
   }
 
-  _sendMessage() {
+  _sendMessage(type) {
     // Prepare message data
-    let messageData = this._prepareMessage('general');
+    let messageData = this._prepareMessage(type);
 
     // Send message to server
     this._sendMessageToServer(messageData)
-      .then(response => this._displayMessage(response))
+      // Maybe we can handle successful/unsuccessful response here
+      .then(response => {
+        if (response.success) {
+          console.log(response);
+
+          // Display message with data passed through the response
+          this._displayMessage(response);
+        } else {
+          // We need to handle unsuccessful response here
+          console.log('Error!');
+        }
+      })
       .catch(error => {
         console.log(error);
       });
@@ -114,13 +134,22 @@ export default class Chat {
 
   _prepareMessage(type) {
     // Here maybe we can handle futher actions via switch statement
-    let messageText = this._getMessageText();
 
-    return {
-      type: type,
-      mine: true,
-      text: messageText,
-    };
+    if (type === 'general') {
+      // Save message text
+      let messageText = this._getMessageText();
+
+      return {
+        type: type,
+        mine: true,
+        text: messageText,
+      };
+    } else if (type === 'superlike') {
+      return {
+        type: type,
+        mine: true,
+      };
+    }
   }
 
   _sendMessageToServer(messageData) {
@@ -156,7 +185,7 @@ export default class Chat {
   }
 
   _displayMessage(data) {
-    // Prepare template for compilation
+    // Prepare template for compilation - for general or special message type
     let compiled = Handlebars.compile(this.messageTemplates[data.type]);
 
     // Compile template with passed data
@@ -167,7 +196,8 @@ export default class Chat {
       .addClass('visible')[0]
       .scrollIntoView({ behavior: 'smooth' });
 
-    // Change message status after a second - for testing purposes
+    // Change message status after a second for general message type
+    // for testing purposes
     setTimeout(this._setMessageStatus, 1000, { id: 123, status: 'seen' });
   }
 

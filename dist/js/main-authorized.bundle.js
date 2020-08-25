@@ -20829,7 +20829,7 @@
                     event.preventDefault();
                     console.log('Submitting message form!');
 
-                    _this._sendMessage();
+                    _this._sendMessage('general');
                   }); // Send message when the sending button is clicked
 
                   this.$sendMessageForm.click(function (event) {
@@ -20850,19 +20850,34 @@
                       _this.$sendMessageForm.submit();
                     }
                   });
+                  $(document).on('present:send', function (event, params) {
+                    var type = params.type;
+
+                    if (type === 'superlike') {
+                      // Send superlike message to the user
+                      _this._sendMessage(type);
+                    }
+                  });
                 },
               },
               {
                 key: '_sendMessage',
-                value: function _sendMessage() {
+                value: function _sendMessage(type) {
                   var _this2 = this;
 
                   // Prepare message data
-                  var messageData = this._prepareMessage('general'); // Send message to server
+                  var messageData = this._prepareMessage(type); // Send message to server
 
-                  this._sendMessageToServer(messageData)
+                  this._sendMessageToServer(messageData) // Maybe we can handle successful/unsuccessful response here
                     .then(function (response) {
-                      return _this2._displayMessage(response);
+                      if (response.success) {
+                        console.log(response); // Display message with data passed through the response
+
+                        _this2._displayMessage(response);
+                      } else {
+                        // We need to handle unsuccessful response here
+                        console.log('Error!');
+                      }
                     })
                     ['catch'](function (error) {
                       console.log(error);
@@ -20873,13 +20888,21 @@
                 key: '_prepareMessage',
                 value: function _prepareMessage(type) {
                   // Here maybe we can handle futher actions via switch statement
-                  var messageText = this._getMessageText();
+                  if (type === 'general') {
+                    // Save message text
+                    var messageText = this._getMessageText();
 
-                  return {
-                    type: type,
-                    mine: true,
-                    text: messageText,
-                  };
+                    return {
+                      type: type,
+                      mine: true,
+                      text: messageText,
+                    };
+                  } else if (type === 'superlike') {
+                    return {
+                      type: type,
+                      mine: true,
+                    };
+                  }
                 },
               },
               {
@@ -20930,7 +20953,7 @@
               {
                 key: '_displayMessage',
                 value: function _displayMessage(data) {
-                  // Prepare template for compilation
+                  // Prepare template for compilation - for general or special message type
                   var compiled = handlebars__WEBPACK_IMPORTED_MODULE_2___default.a.compile(
                     this.messageTemplates[data.type]
                   ); // Compile template with passed data
@@ -20941,7 +20964,8 @@
                     .addClass('visible')[0]
                     .scrollIntoView({
                       behavior: 'smooth',
-                    }); // Change message status after a second - for testing purposes
+                    }); // Change message status after a second for general message type
+                  // for testing purposes
 
                   setTimeout(this._setMessageStatus, 1000, {
                     id: 123,
@@ -25099,6 +25123,9 @@
                 key: '_useBonus',
                 value: function _useBonus() {
                   console.log('Using bonus...');
+                  $(document).trigger('present:send', {
+                    type: 'superlike',
+                  });
                 },
               },
               {

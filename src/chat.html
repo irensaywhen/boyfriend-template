@@ -680,7 +680,9 @@
       <figure
         class="icon d-flex align-items-center justify-content-center"
       >
-        <img src="{{iconUrl}}" alt="superlike" />
+        {{#if superlike}}
+        <img src="img/superlike.svg" alt="superlike" />
+        {{/if}}
       </figure>
       {{! Message icon end}}
 
@@ -836,7 +838,7 @@
               method: 'POST',
               headers: {},
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/send-message',
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/send-superlike',
             },
           },
           classNames: {
@@ -862,7 +864,7 @@
                 'Content-Type': 'application/json',
               },
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-superlike',
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/send-superlike',
             },
           },
           buyingPopupData: {
