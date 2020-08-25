@@ -258,8 +258,8 @@
       <!-- header ends -->
 
       <!--Profiles start-->
-      <div class="container profile-list">
-        <!-- Ad -->
+      <div class="container-fluid profile-list">
+        <!-- Ad start-->
         <div class="row">
           <div class="col-12 mt-4">
             <div
@@ -283,6 +283,7 @@
             </div>
           </div>
         </div>
+        <!-- Ad end-->
 
         <div class="row">
           <div class="col-12">
@@ -476,7 +477,7 @@
             <!--Profile search form end-->
           </div>
         </div>
-        <div id="profiles-container" class="row"></div>
+        <div id="profiles-container" class="row profiles-row justify-content-center"></div>
         <div
           id="pagination-container"
           class="pagination d-flex justify-content-center"
@@ -731,8 +732,6 @@
             "dropdown-toggle": ".dropdown-toggle",
             "dropdown-menu": ".dropdown-menu",
             age: ".age-select",
-            distanceFrom: "#input-select",
-            distanceTo: "#input-number",
             locationLoadingIndicator: ".city-loader",
             formLoadingIndicator: "#loader",
             resultsContainer: "#profiles-container",
@@ -744,7 +743,7 @@
                 "Content-Type": "application/json",
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-default",
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-custom",
             },
             location: {
               method: "GET",

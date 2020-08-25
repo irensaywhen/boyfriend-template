@@ -1,6 +1,11 @@
 .profile-list {
   padding: 120px 0 50px;
 
+  .profiles-row {
+    padding-left:  25px !important;
+    padding-right: 25px !important;
+  }
+
   h2 {
     @include fluid-type(320px, 1200px, 25px, 32px);
     padding: 50px 0 30px;
@@ -8,7 +13,20 @@
 
   /* Profiles layout */
   .column {
-    max-width: 300px;
+    max-width: 270px;
+
+    @include screen-sm {
+      max-width: 285px
+    }
+
+    @include screen-md {
+      max-width: 250px
+    }
+
+    @include screen-lg {
+      max-width: 218px
+    }
+
 
     .card {
       max-height: 300px;
