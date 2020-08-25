@@ -6,8 +6,8 @@ export default class Superlike extends Bonus {
 
     // Bind context
 
-    // Save popup data
-    this.buyingPopupData = options.buyingPopupData;
+    // Save popups
+    this.popups = options.popups;
 
     // Reference request information for the popup usage
     //this.popupData.request = this.requests.use;
@@ -31,6 +31,9 @@ export default class Superlike extends Bonus {
 
   _useBonus() {
     console.log('Using bonus...');
+
+    // Call alert here with custom animation for superlike icon
+    this.fireSendAlert(this.popups.send);
 
     $(document).trigger('present:send', { type: 'superlike' });
   }

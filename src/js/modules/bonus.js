@@ -73,7 +73,7 @@ export default class Bonus extends ServerRequest {
   }
   _proposeBuyingBonus() {
     // Fire alert
-    this.fireBuyingAlert(this.buyingPopupData).then(result => {
+    this.fireBuyingAlert(this.popups.buy).then(result => {
       if (result) {
         // Redirect to buying page in case of the user approvement
         window.location.href = this.redirect;

@@ -20018,9 +20018,7 @@
                   var _this3 = this;
 
                   // Fire alert
-                  this.fireBuyingAlert(this.buyingPopupData).then(function (
-                    result
-                  ) {
+                  this.fireBuyingAlert(this.popups.buy).then(function (result) {
                     if (result) {
                       // Redirect to buying page in case of the user approvement
                       window.location.href = _this3.redirect;
@@ -25077,9 +25075,9 @@
             );
 
             _this = _super.call(this, options); // Bind context
-            // Save popup data
+            // Save popups
 
-            _this.buyingPopupData = options.buyingPopupData; // Reference request information for the popup usage
+            _this.popups = options.popups; // Reference request information for the popup usage
             //this.popupData.request = this.requests.use;
 
             _this._cacheElements();
@@ -25122,7 +25120,9 @@
               {
                 key: '_useBonus',
                 value: function _useBonus() {
-                  console.log('Using bonus...');
+                  console.log('Using bonus...'); // Call alert here with custom animation for superlike icon
+
+                  this.fireSendAlert(this.popups.send);
                   $(document).trigger('present:send', {
                     type: 'superlike',
                   });
@@ -25197,9 +25197,7 @@
             var title = _ref3.title,
               text = _ref3.text,
               confirmButtonText = _ref3.confirmButtonText,
-              cancelButtonText = _ref3.cancelButtonText,
-              imageUrl = _ref3.imageUrl,
-              imageAlt = _ref3.imageAlt;
+              cancelButtonText = _ref3.cancelButtonText;
             return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
               title: title,
               text: text,
@@ -25208,6 +25206,25 @@
               showCancelButton: true,
               confirmButtonColor: '#ff0068',
               cancelButtonColor: '#bbb',
+            });
+          },
+          fireSendAlert: function fireSendAlert(_ref4) {
+            var title = _ref4.title,
+              text = _ref4.text,
+              confirmButtonText = _ref4.confirmButtonText,
+              cancelButtonText = _ref4.cancelButtonText,
+              imageUrl = _ref4.imageUrl,
+              imageAlt = _ref4.imageAlt;
+            return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+              title: title,
+              text: text,
+              cancelButtonText: cancelButtonText,
+              confirmButtonText: confirmButtonText,
+              confirmButtonColor: '#ff0068',
+              imageUrl: imageUrl,
+              imageAlt: imageAlt,
+              imageWidth: '150px',
+              imageHeight: '150px',
             });
           },
 
@@ -25219,17 +25236,17 @@
            * @param {String} imageUrl - Link to the image to show in the popup
            * @param {String} imageAlt - Image alttext
            */
-          askUsageApprovement: function askUsageApprovement(_ref4) {
+          askUsageApprovement: function askUsageApprovement(_ref5) {
             var _this = this;
 
-            var title = _ref4.title,
-              _ref4$text = _ref4.text,
-              text = _ref4$text === void 0 ? '' : _ref4$text,
-              confirmButtonText = _ref4.confirmButtonText,
-              cancelButtonText = _ref4.cancelButtonText,
-              imageUrl = _ref4.imageUrl,
-              imageAlt = _ref4.imageAlt,
-              request = _ref4.request;
+            var title = _ref5.title,
+              _ref5$text = _ref5.text,
+              text = _ref5$text === void 0 ? '' : _ref5$text,
+              confirmButtonText = _ref5.confirmButtonText,
+              cancelButtonText = _ref5.cancelButtonText,
+              imageUrl = _ref5.imageUrl,
+              imageAlt = _ref5.imageAlt,
+              request = _ref5.request;
             return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a
               .fire({
                 title: title,

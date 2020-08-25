@@ -867,14 +867,21 @@
                 'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/send-superlike',
             },
           },
-          buyingPopupData: {
-            title: 'Oops!',
-            text:
-              "You don't have any superlikes available. Do you want to buy some?",
-            confirmButtonText: 'Yes!',
-            cancelButtonText: 'No',
-            imageUrl: 'img/superlike.svg',
-            imageAlt: 'Boost icon',
+          popups: {
+            buy: {
+              title: 'Oops!',
+              text:
+                "You don't have any superlikes available. Do you want to buy some?",
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+            },
+            send: {
+              title: 'Hurray!',
+              text: 'You just sent a superlike!',
+              confirmButtonText: 'Ok',
+              imageUrl: 'img/superlike.svg',
+              imageAlt: 'Boost icon',
+            },
           },
         });
 

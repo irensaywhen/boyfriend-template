@@ -27,7 +27,19 @@ export default {
     });
   },
 
-  fireBuyingAlert({
+  fireBuyingAlert({ title, text, confirmButtonText, cancelButtonText }) {
+    return Swal.fire({
+      title,
+      text,
+      cancelButtonText,
+      confirmButtonText,
+      showCancelButton: true,
+      confirmButtonColor: '#ff0068',
+      cancelButtonColor: '#bbb',
+    });
+  },
+
+  fireSendAlert({
     title,
     text,
     confirmButtonText,
@@ -40,9 +52,11 @@ export default {
       text,
       cancelButtonText,
       confirmButtonText,
-      showCancelButton: true,
       confirmButtonColor: '#ff0068',
-      cancelButtonColor: '#bbb',
+      imageUrl,
+      imageAlt,
+      imageWidth: '150px',
+      imageHeight: '150px',
     });
   },
 

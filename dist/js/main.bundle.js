@@ -7799,9 +7799,7 @@
             var title = _ref3.title,
               text = _ref3.text,
               confirmButtonText = _ref3.confirmButtonText,
-              cancelButtonText = _ref3.cancelButtonText,
-              imageUrl = _ref3.imageUrl,
-              imageAlt = _ref3.imageAlt;
+              cancelButtonText = _ref3.cancelButtonText;
             return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
               title: title,
               text: text,
@@ -7810,6 +7808,25 @@
               showCancelButton: true,
               confirmButtonColor: '#ff0068',
               cancelButtonColor: '#bbb',
+            });
+          },
+          fireSendAlert: function fireSendAlert(_ref4) {
+            var title = _ref4.title,
+              text = _ref4.text,
+              confirmButtonText = _ref4.confirmButtonText,
+              cancelButtonText = _ref4.cancelButtonText,
+              imageUrl = _ref4.imageUrl,
+              imageAlt = _ref4.imageAlt;
+            return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+              title: title,
+              text: text,
+              cancelButtonText: cancelButtonText,
+              confirmButtonText: confirmButtonText,
+              confirmButtonColor: '#ff0068',
+              imageUrl: imageUrl,
+              imageAlt: imageAlt,
+              imageWidth: '150px',
+              imageHeight: '150px',
             });
           },
 
@@ -7821,17 +7838,17 @@
            * @param {String} imageUrl - Link to the image to show in the popup
            * @param {String} imageAlt - Image alttext
            */
-          askUsageApprovement: function askUsageApprovement(_ref4) {
+          askUsageApprovement: function askUsageApprovement(_ref5) {
             var _this = this;
 
-            var title = _ref4.title,
-              _ref4$text = _ref4.text,
-              text = _ref4$text === void 0 ? '' : _ref4$text,
-              confirmButtonText = _ref4.confirmButtonText,
-              cancelButtonText = _ref4.cancelButtonText,
-              imageUrl = _ref4.imageUrl,
-              imageAlt = _ref4.imageAlt,
-              request = _ref4.request;
+            var title = _ref5.title,
+              _ref5$text = _ref5.text,
+              text = _ref5$text === void 0 ? '' : _ref5$text,
+              confirmButtonText = _ref5.confirmButtonText,
+              cancelButtonText = _ref5.cancelButtonText,
+              imageUrl = _ref5.imageUrl,
+              imageAlt = _ref5.imageAlt,
+              request = _ref5.request;
             return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a
               .fire({
                 title: title,
