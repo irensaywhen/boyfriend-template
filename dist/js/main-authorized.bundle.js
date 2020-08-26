@@ -25213,18 +25213,18 @@
               text = _ref4.text,
               confirmButtonText = _ref4.confirmButtonText,
               cancelButtonText = _ref4.cancelButtonText,
-              imageUrl = _ref4.imageUrl,
-              imageAlt = _ref4.imageAlt;
+              customClass = _ref4.customClass;
             return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
               title: title,
               text: text,
               cancelButtonText: cancelButtonText,
               confirmButtonText: confirmButtonText,
               confirmButtonColor: '#ff0068',
-              imageUrl: imageUrl,
-              imageAlt: imageAlt,
-              imageWidth: '150px',
-              imageHeight: '150px',
+              customClass: customClass,
+              onBeforeOpen: function onBeforeOpen(modal) {
+                console.log(modal);
+                $(modal).find('.send-bonus-header').text('Testing modal');
+              },
             });
           },
 

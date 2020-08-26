@@ -22,6 +22,12 @@
 .pointer {
   cursor: pointer;
 }
+.fill-pink {
+  fill: #ee1f61 !important;
+}
+.default-scale {
+  transform: scale3d(1, 1, 1) !important;
+}
 .swal2-close:focus {
   outline: none !important;
 }
@@ -278,6 +284,269 @@ select.form-control optgroup {
 }
 .message .text {
   max-width: 95%;
+}
+@-webkit-keyframes superlike-hand {
+  0% {
+    transform: translate3d(-150px, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes superlike-hand {
+  0% {
+    transform: translate3d(-150px, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@-webkit-keyframes superlike-stars {
+  0% {
+    fill: #262626;
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    fill: #ee1f61;
+    transform: scale3d(1.3, 1.3, 1.3);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+    fill: #ee1f61;
+  }
+}
+@keyframes superlike-stars {
+  0% {
+    fill: #262626;
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    fill: #ee1f61;
+    transform: scale3d(1.3, 1.3, 1.3);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+    fill: #ee1f61;
+  }
+}
+@-webkit-keyframes superlike-message {
+  0% {
+    transform: scale3d(0, 0, 0);
+  }
+  80% {
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes superlike-message {
+  0% {
+    transform: scale3d(0, 0, 0);
+  }
+  80% {
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+.superlike-hand {
+  -webkit-animation-name: superlike-hand;
+  animation-name: superlike-hand;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-timing-function: easeInOutBack;
+  animation-timing-function: easeInOutBack;
+  -webkit-animation-delay: 0;
+  animation-delay: 0;
+  -webkit-animation-direction: normal;
+  animation-direction: normal;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+.superlike-stars {
+  -webkit-animation-name: superlike-stars;
+  animation-name: superlike-stars;
+  -webkit-animation-duration: 0.8s;
+  animation-duration: 0.8s;
+  -webkit-animation-timing-function: easeInOutBack;
+  animation-timing-function: easeInOutBack;
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+  -webkit-animation-direction: normal;
+  animation-direction: normal;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+.superlike-message {
+  -webkit-animation-name: superlike-message;
+  animation-name: superlike-message;
+  -webkit-animation-duration: 0.8s;
+  animation-duration: 0.8s;
+  -webkit-animation-timing-function: easeInOutBack;
+  animation-timing-function: easeInOutBack;
+  -webkit-animation-delay: 0;
+  animation-delay: 0;
+  -webkit-animation-direction: normal;
+  animation-direction: normal;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  transform-origin: center;
+}
+@-webkit-keyframes photo-flash {
+  0% {
+    box-shadow: 0;
+  }
+  100% {
+    box-shadow: inset 0 0 0 100px #fff;
+  }
+}
+@keyframes photo-flash {
+  0% {
+    box-shadow: 0;
+  }
+  100% {
+    box-shadow: inset 0 0 0 100px #fff;
+  }
+}
+.photo-camera {
+  -webkit-animation-name: jackInTheBox;
+  animation-name: jackInTheBox;
+  -webkit-animation-duration: 0.8s;
+  animation-duration: 0.8s;
+  -webkit-animation-timing-function: easeInOutBack;
+  animation-timing-function: easeInOutBack;
+  -webkit-animation-delay: 0;
+  animation-delay: 0;
+  -webkit-animation-direction: normal;
+  animation-direction: normal;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+.photo-flash {
+  -webkit-animation-name: photo-flash;
+  animation-name: photo-flash;
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-timing-function: easeInOutBack;
+  animation-timing-function: easeInOutBack;
+  -webkit-animation-delay: 0;
+  animation-delay: 0;
+  animation-direction: alternate-reverse;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+@-webkit-keyframes premium-star-animation {
+  0% {
+    fill: #000;
+    transform: scale3d(0, 0, 0);
+  }
+  50% {
+    fill: #ee1f61;
+    transform: scale3d(1.5, 1.5, 1.5);
+  }
+  100% {
+    fill: #ee1f61;
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes premium-star-animation {
+  0% {
+    fill: #000;
+    transform: scale3d(0, 0, 0);
+  }
+  50% {
+    fill: #ee1f61;
+    transform: scale3d(1.5, 1.5, 1.5);
+  }
+  100% {
+    fill: #ee1f61;
+    transform: scale3d(1, 1, 1);
+  }
+}
+.premium-person {
+  -webkit-animation-name: zoomIn;
+  animation-name: zoomIn;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-timing-function: easeInOutBack;
+  animation-timing-function: easeInOutBack;
+  -webkit-animation-delay: 0;
+  animation-delay: 0;
+  -webkit-animation-direction: normal;
+  animation-direction: normal;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+.premium-star-animation {
+  -webkit-animation-name: premium-star-animation;
+  animation-name: premium-star-animation;
+  -webkit-animation-duration: 0.8s;
+  animation-duration: 0.8s;
+  -webkit-animation-timing-function: easeInOutBack;
+  animation-timing-function: easeInOutBack;
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+  -webkit-animation-direction: normal;
+  animation-direction: normal;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+.special-icon {
+  max-width: 150px;
+  position: relative;
+}
+.special-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150px;
+  width: 150px;
+  height: 150px;
+  background: #fff;
+}
+.special-icon .photo-icon-wrapper {
+  position: relative;
+}
+.special-icon .photo-icon-wrapper .photo-icon-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.special-icon svg {
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
+}
+.special-icon .hand {
+  transform: translate3d(-190px, 0, 0);
+}
+.special-icon .message {
+  transform: scale3d(0, 0, 0);
+}
+.special-icon .premium-star {
+  transform: scale3d(0, 0, 0);
 }
 html {
   height: 100%;
@@ -1018,7 +1287,11 @@ article h2 {
 article .header {
   display: grid;
   grid-gap: 3px;
-  grid-template-areas: 'title' 'subtitle' 'date' 'social';
+  grid-template-areas:
+    'title'
+    'subtitle'
+    'date'
+    'social';
   grid-template-columns: 1fr;
 }
 article .header h1 {
@@ -1070,13 +1343,18 @@ article .header time {
 }
 @media (min-width: 576px) {
   article .header {
-    grid-template-areas: 'title social' 'subtitle empty' 'date empty';
+    grid-template-areas:
+      'title social'
+      'subtitle empty'
+      'date empty';
     grid-template-columns: 2fr 1fr;
   }
 }
 @media (min-width: 768px) {
   article .header {
-    grid-template-areas: 'title social' 'subtitle date';
+    grid-template-areas:
+      'title social'
+      'subtitle date';
     grid-gap: 0;
   }
   article .header time {
@@ -1638,7 +1916,11 @@ article .header time {
 article .header {
   display: grid;
   grid-gap: 3px;
-  grid-template-areas: 'title' 'subtitle' 'date' 'social';
+  grid-template-areas:
+    'title'
+    'subtitle'
+    'date'
+    'social';
   grid-template-columns: 1fr;
 }
 article .header h1 {
@@ -1660,13 +1942,18 @@ article .header time {
 }
 @media (min-width: 576px) {
   article .header {
-    grid-template-areas: 'title social' 'subtitle empty' 'date empty';
+    grid-template-areas:
+      'title social'
+      'subtitle empty'
+      'date empty';
     grid-template-columns: 2fr 1fr;
   }
 }
 @media (min-width: 768px) {
   article .header {
-    grid-template-areas: 'title social' 'subtitle date';
+    grid-template-areas:
+      'title social'
+      'subtitle date';
     grid-gap: 0;
   }
   article .header time {

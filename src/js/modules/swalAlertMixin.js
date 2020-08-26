@@ -44,8 +44,7 @@ export default {
     text,
     confirmButtonText,
     cancelButtonText,
-    imageUrl,
-    imageAlt,
+    customClass,
   }) {
     return Swal.fire({
       title,
@@ -53,10 +52,11 @@ export default {
       cancelButtonText,
       confirmButtonText,
       confirmButtonColor: '#ff0068',
-      imageUrl,
-      imageAlt,
-      imageWidth: '150px',
-      imageHeight: '150px',
+      customClass,
+      onBeforeOpen: modal => {
+        console.log(modal);
+        $(modal).find('.send-bonus-header').text('Testing modal');
+      },
     });
   },
 

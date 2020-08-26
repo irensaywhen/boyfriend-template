@@ -10,6 +10,23 @@
   height: auto;
 }
 
+/* Mixin to include animation */
+@mixin animation(
+  $animation-name,
+  $animation-duration: 0.8s,
+  $animation-timing-function: easeInOutBack,
+  $animation-delay: 0,
+  $animation-direction: normal
+) {
+  animation-name: $animation-name;
+  animation-duration: $animation-duration;
+  animation-timing-function: $animation-timing-function;
+  animation-delay: $animation-delay;
+  animation-direction: $animation-direction;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
 /*Circular badge*/
 @mixin circular-badge($diameter) {
   width: $diameter;
