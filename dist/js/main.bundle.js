@@ -1590,7 +1590,8 @@ var ChainedForms = /*#__PURE__*/function () {
       var _this = this;
 
       // Forms container
-      this.$container = $(this.selectors.formsContainer); // Forms to chain
+      this.$container = $(this.selectors.formsContainer);
+      this.$generalErrors = this.$container.find(this.selectors.generalError); // Forms to chain
 
       this.$forms = this.$container.find(this.selectors.forms).each(function (index, element) {
         if (index !== 0) {
@@ -1621,30 +1622,29 @@ var ChainedForms = /*#__PURE__*/function () {
       if (this.selectors.backward) {
         // Show previous form when the "back" button is clicked"
         this.$backwardButton.click(function (event) {
-          // Here something is not working
-          event.stopPropagation();
-          var $form = $(event.target).closest(_this2.selectors.wrapper).find(_this2.selectors.forms);
-          var previousStep = Number($form.data("step")) - 1; // Hide the form wrapper
-
-          $form.closest(_this2.selectors.wrapper).fadeOut(400, function () {
-            // Show the form wrapper of the previous form
-            $(_this2.$forms.get(previousStep)).closest(_this2.selectors.wrapper).fadeIn(400);
-          });
+          _this2.changeForm('backward');
         });
       }
 
       if (this.selectors.forward) {
         this.$forwardButton.click(function (event) {
-          event.stopPropagation();
-          var $form = $(event.target).closest(_this2.selectors.wrapper).find(_this2.selectors.forms);
-          var nextStep = Number($form.data("step")) + 1; // Hide the form wrapper
-
-          $form.closest(_this2.selectors.wrapper).fadeOut(400, function () {
-            // Show the form wrapper of the previous form
-            $(_this2.$forms.get(nextStep)).closest(_this2.selectors.wrapper).fadeIn(400);
-          });
+          _this2.changeForm('forward');
         });
       }
+    }
+  }, {
+    key: "changeForm",
+    value: function changeForm(direction) {
+      var _this3 = this;
+
+      event.stopPropagation();
+      var $form = $(event.target).closest(this.selectors.wrapper).find(this.selectors.forms);
+      var step = direction === 'forward' ? Number($form.data("step")) + 1 : Number($form.data("step")) - 1;
+      $form.closest(this.selectors.wrapper).fadeOut(400, function () {
+        // Show the form wrapper of the previous form
+        $(_this3.$forms.get(step)).closest(_this3.selectors.wrapper).fadeIn(400);
+      });
+      $(document).trigger('chainedForms:switchForm');
     }
   }]);
 
@@ -1719,6 +1719,8 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
     _this.sendFormInformation = _this.sendFormInformation.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
     _this.showErrorMessages = _this.showErrorMessages.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
     _this.collectFormInputs = _this.collectFormInputs.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.showGeneralError = _this.showGeneralError.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+    _this.deleteGeneralError = _this.deleteGeneralError.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
 
     if (options.location) {
       // Add location methods to the form object
@@ -1763,7 +1765,9 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
     key: "cacheElements",
     value: function cacheElements() {
       // Form
-      this.$form = $(this.selectors.form); // Input fields
+      this.$form = $(this.selectors.form); // General error container
+
+      this.$generalError = this.$form.find(this.selectors.generalError); // Input fields
 
       this.$inputs = this.$form.find(this.selectors.inputs);
 
@@ -1794,12 +1798,17 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
           // If the form has frontend validation
           _this2.collectFormInputs();
 
+          _this2.deleteGeneralError();
+
           _this2.sendFormInformation();
         }
       }); // Hiding error message on focus
 
       this.$inputs.focus(function (event) {
         $(event.target).closest(_this2.selectors["input-wrapper"]).find(".custom-error").remove();
+      });
+      $(document).on('chainedForms:switchForm', function () {
+        _this2.deleteGeneralError();
       });
     }
   }, {
@@ -1834,7 +1843,7 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
     key: "sendFormInformation",
     value: function () {
       var _sendFormInformation = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response, customSubmittedEvent;
+        var response, customSubmittedEvent, errors;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -1906,9 +1915,15 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
                     });
                   }
 
+                  errors = response.errors; // Show errors of the form fields
+
                   this.showErrorMessages({
-                    errors: response.errors
+                    errors: errors
                   });
+
+                  if (errors.general) {
+                    this.showGeneralError(errors.general);
+                  }
                 }
 
               case 13:
@@ -1938,6 +1953,16 @@ var Form = /*#__PURE__*/function (_ServerRequest) {
           $(element).closest(_this4.selectors["input-wrapper"]).append($("<span></span>").addClass("error").addClass("custom-error").text(errors[name]));
         }
       });
+    }
+  }, {
+    key: "showGeneralError",
+    value: function showGeneralError(errorText) {
+      this.$generalError.append($('<p></p>').addClass('pb-4').text(errorText));
+    }
+  }, {
+    key: "deleteGeneralError",
+    value: function deleteGeneralError() {
+      this.$generalError.empty();
     }
   }]);
 

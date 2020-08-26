@@ -15,6 +15,8 @@ export default class ChainedForms {
     // Forms container
     this.$container = $(this.selectors.formsContainer);
 
+    this.$generalErrors = this.$container.find(this.selectors.generalError);
+
     // Forms to chain
     this.$forms = this.$container
       .find(this.selectors.forms)
@@ -55,43 +57,33 @@ export default class ChainedForms {
     if (this.selectors.backward) {
       // Show previous form when the "back" button is clicked"
       this.$backwardButton.click((event) => {
-        // Here something is not working
-        event.stopPropagation();
-
-        let $form = $(event.target)
-          .closest(this.selectors.wrapper)
-          .find(this.selectors.forms);
-
-        let previousStep = Number($form.data("step")) - 1;
-
-        // Hide the form wrapper
-        $form.closest(this.selectors.wrapper).fadeOut(400, () => {
-          // Show the form wrapper of the previous form
-          $(this.$forms.get(previousStep))
-            .closest(this.selectors.wrapper)
-            .fadeIn(400);
-        });
+        this.changeForm('backward')
       });
     }
 
     if (this.selectors.forward) {
       this.$forwardButton.click((event) => {
-        event.stopPropagation();
+        this.changeForm('forward');
+      });
+    }
+  }
 
-        let $form = $(event.target)
+  changeForm(direction){
+    event.stopPropagation();
+
+    let $form = $(event.target)
           .closest(this.selectors.wrapper)
           .find(this.selectors.forms);
 
-        let nextStep = Number($form.data("step")) + 1;
+    let step = direction === 'forward' ? Number($form.data("step")) + 1 : Number($form.data("step")) - 1;
 
-        // Hide the form wrapper
-        $form.closest(this.selectors.wrapper).fadeOut(400, () => {
-          // Show the form wrapper of the previous form
-          $(this.$forms.get(nextStep))
-            .closest(this.selectors.wrapper)
-            .fadeIn(400);
-        });
-      });
-    }
+    $form.closest(this.selectors.wrapper).fadeOut(400, () => {
+      // Show the form wrapper of the previous form
+      $(this.$forms.get(step))
+        .closest(this.selectors.wrapper)
+        .fadeIn(400);
+    });
+
+    $(document).trigger('chainedForms:switchForm')
   }
 }

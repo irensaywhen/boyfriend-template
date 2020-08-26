@@ -91,6 +91,7 @@
                 In
               </h2>
               <form class="form-signin shadow" id="form-signin" data-step="0">
+                <div class="general-error" id="general-error-login"></div>
                 <div class="form-group float-label text-left">
                   <input
                     type="email"
@@ -167,6 +168,7 @@
                 id="form-forgot-password"
                 data-step="1"
               >
+              <div class="general-error" id="general-error-passwordRecovery"></div>
                 <p class="text-secondary small">
                   Please provide email adress to recieve password recovery link
                 </p>
@@ -292,6 +294,7 @@
             form: "#form-signin",
             "input-wrapper": ".form-group",
             inputs: ".signin-input",
+            generalError: "#general-error-login",
           },
           requests: {
             submit: {
@@ -300,7 +303,7 @@
                 "Content-Type": "application/json",
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail",
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail-general",
             },
           },
           location: false,
@@ -330,6 +333,7 @@
             form: "#form-forgot-password",
             "input-wrapper": ".form-group",
             inputs: ".form-control",
+            generalError: '#general-error-passwordRecovery'
           },
           requests: {
             submit: {
@@ -338,12 +342,12 @@
                 "Content-Type": "application/json",
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail-general",
             },
           },
           location: false,
           showSuccessPopup: true,
-          showFailPopup: true,
+          showFailPopup: false,
           frontendValidation: true,
           redirectOnSubmit: false,
           validatorOptions: {
@@ -365,6 +369,7 @@
             backward: ".backward",
             forms: ".form-signin",
             wrapper: ".form-wrapper",
+            generalError: '.general-error'
           },
         });
       });

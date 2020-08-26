@@ -217,6 +217,7 @@
                   id="signup-1"
                   data-step="0"
                 >
+                  <div class="general-error" id="general-error-signup-1"></div>
                   <!--Name-->
                   <div class="form-group float-label">
                     <input
@@ -296,6 +297,7 @@
                   id="signup-2"
                   data-step="1"
                 >
+                  <div class="general-error" id="general-error-signup-2"></div>
                   <!--Name-->
                   <div class="form-group float-label">
                     <input
@@ -344,6 +346,7 @@
                   data-step="2"
                   autocomplete="off"
                 >
+                  <div class="general-error" id="general-error-signup-3"></div>
                   <!--City input start-->
                   <div class="form-group float-label position-relative">
                     <input
@@ -491,6 +494,7 @@
               <!--Form step 4 start-->
               <div class="form-wrapper text-left">
                 <div class="form-signin shadow" id="signup-4" data-step="3">
+                  <div class="general-error" id="general-error-signup-4"></div>
                   <!--Profile photo upload start-->
                   <div class="text-center pb-5">
                     <h3 class="section-title">
@@ -635,6 +639,7 @@
             form: "#signup-1",
             "input-wrapper": ".form-group",
             inputs: ".signup-input",
+            generalError: '#general-error-signup-1'
           },
           requests: {
             submit: {
@@ -643,7 +648,7 @@
                 "Content-Type": "application/json",
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail-general",
             },
           },
           location: false,
@@ -677,6 +682,7 @@
             form: "#signup-2",
             "input-wrapper": ".form-group",
             inputs: ".signup-input",
+            generalError: '#general-error-signup-2'
           },
           requests: {
             submit: {
@@ -719,6 +725,7 @@
             "dropdown-toggle": ".dropdown-toggle",
             "dropdown-menu": ".dropdown-menu",
             locationLoadingIndicator: ".city-loader",
+            generalError: '#general-error-signup-3'
           },
           requests: {
             submit: {
@@ -727,7 +734,7 @@
                 "Content-Type": "application/json",
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signup-fail",
+                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
             },
             location: {
               method: "GET",

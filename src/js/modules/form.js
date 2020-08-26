@@ -15,6 +15,8 @@ export default class Form extends ServerRequest {
     this.sendFormInformation = this.sendFormInformation.bind(this);
     this.showErrorMessages = this.showErrorMessages.bind(this);
     this.collectFormInputs = this.collectFormInputs.bind(this);
+    this.showGeneralError = this.showGeneralError.bind(this);
+    this.deleteGeneralError = this.deleteGeneralError.bind(this)
 
     if (options.location) {
       // Add location methods to the form object
@@ -65,6 +67,9 @@ export default class Form extends ServerRequest {
     // Form
     this.$form = $(this.selectors.form);
 
+    // General error container
+    this.$generalError = this.$form.find(this.selectors.generalError);
+
     // Input fields
     this.$inputs = this.$form.find(this.selectors.inputs);
 
@@ -90,6 +95,7 @@ export default class Form extends ServerRequest {
       if (this.$form.valid()) {
         // If the form has frontend validation
         this.collectFormInputs();
+        this.deleteGeneralError()
         this.sendFormInformation();
       }
     });
@@ -101,6 +107,10 @@ export default class Form extends ServerRequest {
         .find(".custom-error")
         .remove();
     });
+
+    $(document).on('chainedForms:switchForm', ()=>{
+      this.deleteGeneralError()
+    })
   }
 
   collectLocationData(element) {
@@ -186,7 +196,14 @@ export default class Form extends ServerRequest {
         });
       }
 
-      this.showErrorMessages({ errors: response.errors });
+      let errors = response.errors;
+
+      // Show errors of the form fields
+      this.showErrorMessages({ errors});
+
+      if(errors.general){
+        this.showGeneralError(errors.general)
+      }
     }
   }
 
@@ -205,5 +222,13 @@ export default class Form extends ServerRequest {
           );
       }
     });
+  }
+
+  showGeneralError(errorText){
+    this.$generalError.append($('<p></p>').addClass('pb-4').text(errorText))
+  }
+
+  deleteGeneralError(){
+    this.$generalError.empty()
   }
 }
