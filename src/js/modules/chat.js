@@ -3,9 +3,12 @@ import HttpError from './httpError.js';
 
 export default class Chat {
   constructor(options) {
-    this.debug = options.debug || false;
+    // Bind context
+    this._displayMessage = this._displayMessage.bind(this);
+    this._setMessageStatus = this._setMessageStatus.bind(this);
 
-    this.selectors = options.selectors;
+    // Set debug options
+    this.debug = options.debug || false;
 
     if (this.debug) {
       this.requests = options.requests;
@@ -18,6 +21,10 @@ export default class Chat {
       }
     }
 
+    // Save selectors
+    this.selectors = options.selectors;
+
+    // Prepare testdata for displaying messages
     this.testData = {
       type: 'general',
       mine: false,
@@ -26,9 +33,6 @@ export default class Chat {
       id: 125,
       seen: false,
     };
-
-    // Binding context
-    this._setMessageStatus = this._setMessageStatus.bind(this);
 
     // Save class names
     this.classNames = options.classNames;
@@ -56,7 +60,9 @@ export default class Chat {
   }
 
   _setUpEventListeners() {
-    let classNames = this.classNames;
+    // Cache
+    let classNames = this.classNames,
+      $document = $(document);
 
     // View sending button if message input is not empty
     this.$chat.on('input', event => {
@@ -99,7 +105,8 @@ export default class Chat {
       }
     });
 
-    $(document).on('present:send', (event, params) => {
+    // Send bonus message to the server
+    $document.on('present:send', (event, params) => {
       let type = params.type;
 
       if (type === 'superlike') {
@@ -120,8 +127,17 @@ export default class Chat {
         if (response.success) {
           console.log(response);
 
-          // Display message with data passed through the response
-          this._displayMessage(response);
+          switch (response.type) {
+            case 'general':
+              // Show general message
+              this._displayMessage(response);
+              break;
+
+            case 'special':
+              // Show message after a delay to not to distract the user
+              setTimeout(this._displayMessage, 1000, response);
+              break;
+          }
         } else {
           // We need to handle unsuccessful response here
           console.log('Error!');

@@ -7815,8 +7815,7 @@
 
             var title = _ref4.title,
               text = _ref4.text,
-              confirmButtonText = _ref4.confirmButtonText,
-              cancelButtonText = _ref4.cancelButtonText,
+              timer = _ref4.timer,
               customClass = _ref4.customClass;
             // Cache document element
             var $document = $(document); // Show popup
@@ -7824,10 +7823,12 @@
             return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
               title: title,
               text: text,
-              cancelButtonText: cancelButtonText,
-              confirmButtonText: confirmButtonText,
-              confirmButtonColor: '#ff0068',
+              showConfirmButton: false,
               customClass: customClass,
+              timer: timer,
+              showClass: {
+                popup: 'animate__bounceIn',
+              },
               onBeforeOpen: function onBeforeOpen(modal) {
                 // Trigger event to prepare modal
                 $document.trigger(
@@ -7843,13 +7844,6 @@
                     modal
                   );
                 });
-              },
-              onAfterClose: function onAfterClose(modal) {
-                // Get rid of all the previously added classes
-                $document.trigger(
-                  ''.concat(_this.type, 'Modal:onAfterClose'),
-                  modal
-                );
               },
             });
           },

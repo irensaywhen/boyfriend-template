@@ -39,13 +39,7 @@ export default {
     });
   },
 
-  fireSendAlert({
-    title,
-    text,
-    confirmButtonText,
-    cancelButtonText,
-    customClass,
-  }) {
+  fireSendAlert({ title, text, timer, customClass }) {
     // Cache document element
     let $document = $(document);
 
@@ -53,10 +47,12 @@ export default {
     return Swal.fire({
       title,
       text,
-      cancelButtonText,
-      confirmButtonText,
-      confirmButtonColor: '#ff0068',
+      showConfirmButton: false,
       customClass,
+      timer,
+      showClass: {
+        popup: 'animate__bounceIn',
+      },
       onBeforeOpen: modal => {
         // Trigger event to prepare modal
         $document.trigger(`${this.type}Modal:onBeforeOpen`, modal);
@@ -66,10 +62,6 @@ export default {
           // Run animation
           $document.trigger(`${this.type}Modal:onOpen`, modal);
         });
-      },
-      onAfterClose: modal => {
-        // Get rid of all the previously added classes
-        $document.trigger(`${this.type}Modal:onAfterClose`, modal);
       },
     });
   },

@@ -20838,8 +20838,11 @@
               Chat
             );
 
+            // Bind context
+            this._displayMessage = this._displayMessage.bind(this);
+            this._setMessageStatus = this._setMessageStatus.bind(this); // Set debug options
+
             this.debug = options.debug || false;
-            this.selectors = options.selectors;
 
             if (this.debug) {
               this.requests = options.requests; // Transform endpoints into URL objects
@@ -20849,7 +20852,9 @@
                   this.requests[request].endpoint
                 );
               }
-            }
+            } // Save selectors
+
+            this.selectors = options.selectors; // Prepare testdata for displaying messages
 
             this.testData = {
               type: 'general',
@@ -20858,9 +20863,7 @@
               time: '13:55',
               id: 125,
               seen: false,
-            }; // Binding context
-
-            this._setMessageStatus = this._setMessageStatus.bind(this); // Save class names
+            }; // Save class names
 
             this.classNames = options.classNames; // Save templates selectors
 
@@ -20900,7 +20903,9 @@
                 value: function _setUpEventListeners() {
                   var _this = this;
 
-                  var classNames = this.classNames; // View sending button if message input is not empty
+                  // Cache
+                  var classNames = this.classNames,
+                    $document = $(document); // View sending button if message input is not empty
 
                   this.$chat.on('input', function (event) {
                     var $target = $(event.target);
@@ -20934,8 +20939,9 @@
 
                       _this.$sendMessageForm.submit();
                     }
-                  });
-                  $(document).on('present:send', function (event, params) {
+                  }); // Send bonus message to the server
+
+                  $document.on('present:send', function (event, params) {
                     var type = params.type;
 
                     if (type === 'superlike') {
@@ -20956,9 +20962,20 @@
                   this._sendMessageToServer(messageData) // Maybe we can handle successful/unsuccessful response here
                     .then(function (response) {
                       if (response.success) {
-                        console.log(response); // Display message with data passed through the response
+                        console.log(response);
 
-                        _this2._displayMessage(response);
+                        switch (response.type) {
+                          case 'general':
+                            // Show general message
+                            _this2._displayMessage(response);
+
+                            break;
+
+                          case 'special':
+                            // Show message after a delay to not to distract the user
+                            setTimeout(_this2._displayMessage, 1000, response);
+                            break;
+                        }
                       } else {
                         // We need to handle unsuccessful response here
                         console.log('Error!');
@@ -25226,7 +25243,7 @@
                     modal
                   ) {
                     // Run animation
-                    _this2.animation.startAnimation, 0;
+                    _this2.animation.startAnimation();
                   });
                   $document.on('superlikeModal:onAfterClose', function (
                     event,
@@ -25240,10 +25257,11 @@
               {
                 key: '_useBonus',
                 value: function _useBonus() {
-                  console.log('Using bonus...'); // Call alert here with custom animation for superlike icon
+                  console.log('Using bonus...');
+                  var $document = $(document); // Call alert here with custom animation for superlike icon
 
                   this.fireSendAlert(this.popups.send);
-                  $(document).trigger('present:send', {
+                  $document.trigger('present:send', {
                     type: 'superlike',
                   });
                 },
@@ -25555,8 +25573,7 @@
 
             var title = _ref4.title,
               text = _ref4.text,
-              confirmButtonText = _ref4.confirmButtonText,
-              cancelButtonText = _ref4.cancelButtonText,
+              timer = _ref4.timer,
               customClass = _ref4.customClass;
             // Cache document element
             var $document = $(document); // Show popup
@@ -25564,10 +25581,12 @@
             return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
               title: title,
               text: text,
-              cancelButtonText: cancelButtonText,
-              confirmButtonText: confirmButtonText,
-              confirmButtonColor: '#ff0068',
+              showConfirmButton: false,
               customClass: customClass,
+              timer: timer,
+              showClass: {
+                popup: 'animate__bounceIn',
+              },
               onBeforeOpen: function onBeforeOpen(modal) {
                 // Trigger event to prepare modal
                 $document.trigger(
@@ -25583,13 +25602,6 @@
                     modal
                   );
                 });
-              },
-              onAfterClose: function onAfterClose(modal) {
-                // Get rid of all the previously added classes
-                $document.trigger(
-                  ''.concat(_this.type, 'Modal:onAfterClose'),
-                  modal
-                );
               },
             });
           },

@@ -37,7 +37,7 @@ export default class Superlike extends Bonus {
 
     $document.on('superlikeModal:onOpen', (event, modal) => {
       // Run animation
-      this.animation.startAnimation, 0;
+      this.animation.startAnimation();
     });
 
     $document.on('superlikeModal:onAfterClose', (event, modal) => {
@@ -48,11 +48,12 @@ export default class Superlike extends Bonus {
 
   _useBonus() {
     console.log('Using bonus...');
+    let $document = $(document);
 
     // Call alert here with custom animation for superlike icon
     this.fireSendAlert(this.popups.send);
 
-    $(document).trigger('present:send', { type: 'superlike' });
+    $document.trigger('present:send', { type: 'superlike' });
   }
 
   _prepareBonusUsage() {

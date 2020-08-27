@@ -548,6 +548,9 @@ select.form-control optgroup {
 .special-icon .premium-star {
   transform: scale3d(0, 0, 0);
 }
+.send-bonus-title {
+  margin: 10px auto 5px !important;
+}
 html {
   height: 100%;
 }
