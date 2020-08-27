@@ -19745,6 +19745,93 @@
         /***/
       },
 
+    /***/ './js/modules/animatedIcons.js':
+      /*!*************************************!*\
+  !*** ./js/modules/animatedIcons.js ***!
+  \*************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return IconAnimation;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
+        );
+
+        var IconAnimation = /*#__PURE__*/ (function () {
+          function IconAnimation(options) {
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              IconAnimation
+            );
+          }
+
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
+            IconAnimation,
+            [
+              {
+                key: '_cacheElements',
+                value: function _cacheElements() {},
+              },
+              {
+                key: '_prepareAnimation',
+                value: function _prepareAnimation(modal) {
+                  // Cache
+                  var selectors = this.selectors,
+                    ids = this.ids,
+                    iconElements = selectors.iconElements; // Get icon copy
+
+                  var icon = document
+                    .getElementById(ids.icon)
+                    .content.cloneNode(true); // Save icon
+
+                  this.icon = icon; // Prepare empty container for icon elements
+
+                  this.iconElements = {}; // Save icon elements
+
+                  for (var element in iconElements) {
+                    var elements = icon.querySelectorAll(iconElements[element]); // Save jQuery collection of each element(s)
+
+                    this.iconElements['$'.concat(element)] = $(elements);
+                  } // Insert bonus icon to the modal
+
+                  modal
+                    .querySelector(this.selectors.insertContainer)
+                    .prepend(this.icon);
+                },
+              },
+              {
+                key: '_prepareIcon',
+                value: function _prepareIcon() {},
+              },
+              {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {},
+              },
+            ]
+          );
+
+          return IconAnimation;
+        })();
+
+        /***/
+      },
+
     /***/ './js/modules/bonus.js':
       /*!*****************************!*\
   !*** ./js/modules/bonus.js ***!
@@ -25020,6 +25107,9 @@
         /* harmony import */ var _bonus_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./bonus.js */ './js/modules/bonus.js'
         );
+        /* harmony import */ var _superlikeAnimation_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+          /*! ./superlikeAnimation.js */ './js/modules/superlikeAnimation.js'
+        );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -25074,11 +25164,15 @@
               Superlike
             );
 
-            _this = _super.call(this, options); // Bind context
+            _this = _super.call(this, options);
+            _this.type = 'superlike'; // Bind context
             // Save popups
 
-            _this.popups = options.popups; // Reference request information for the popup usage
-            //this.popupData.request = this.requests.use;
+            _this.popups = options.popups; // Initiate animation for icon in popup
+
+            _this.animation = new _superlikeAnimation_js__WEBPACK_IMPORTED_MODULE_7__[
+              'default'
+            ](options.animation);
 
             _this._cacheElements();
 
@@ -25101,13 +25195,14 @@
                     this
                   ).call(this);
 
-                  this.$amount = $(this.selectors.amount); //Create expiration popup based on the generic popup
-                  //this.expirationPopupData = Object.assign({}, this.popupData);
+                  this.$amount = $(this.selectors.amount);
                 },
               },
               {
                 key: '_setUpEventListeners',
                 value: function _setUpEventListeners() {
+                  var _this2 = this;
+
                   _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
                     _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
                       Superlike.prototype
@@ -25115,6 +25210,31 @@
                     '_setUpEventListeners',
                     this
                   ).call(this);
+
+                  var $document = $(document);
+                  $document.on('superlikeModal:onBeforeOpen', function (
+                    event,
+                    modal
+                  ) {
+                    // Start modal preparation
+                    _this2.animationPreparation = _this2.animation.prepareAnimation(
+                      modal
+                    );
+                  });
+                  $document.on('superlikeModal:onOpen', function (
+                    event,
+                    modal
+                  ) {
+                    // Run animation
+                    _this2.animation.startAnimation, 0;
+                  });
+                  $document.on('superlikeModal:onAfterClose', function (
+                    event,
+                    modal
+                  ) {
+                    // Prepare animation for further use
+                    console.log('Modal closed');
+                  });
                 },
               },
               {
@@ -25144,6 +25264,228 @@
 
           return Superlike;
         })(_bonus_js__WEBPACK_IMPORTED_MODULE_6__['default']);
+
+        /***/
+      },
+
+    /***/ './js/modules/superlikeAnimation.js':
+      /*!******************************************!*\
+  !*** ./js/modules/superlikeAnimation.js ***!
+  \******************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return SuperlikeAnimation;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/get */ '../node_modules/@babel/runtime/helpers/get.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__
+        );
+        /* harmony import */ var _animatedIcons_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+          /*! ./animatedIcons.js */ './js/modules/animatedIcons.js'
+        );
+
+        function _createSuper(Derived) {
+          var hasNativeReflectConstruct = _isNativeReflectConstruct();
+          return function _createSuperInternal() {
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+                Derived
+              ),
+              result;
+            if (hasNativeReflectConstruct) {
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+                this
+              ).constructor;
+              result = Reflect.construct(Super, arguments, NewTarget);
+            } else {
+              result = Super.apply(this, arguments);
+            }
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default()(
+              this,
+              result
+            );
+          };
+        }
+
+        function _isNativeReflectConstruct() {
+          if (typeof Reflect === 'undefined' || !Reflect.construct)
+            return false;
+          if (Reflect.construct.sham) return false;
+          if (typeof Proxy === 'function') return true;
+          try {
+            Date.prototype.toString.call(
+              Reflect.construct(Date, [], function () {})
+            );
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        var SuperlikeAnimation = /*#__PURE__*/ (function (_IconAnimation) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(
+            SuperlikeAnimation,
+            _IconAnimation
+          );
+
+          var _super = _createSuper(SuperlikeAnimation);
+
+          function SuperlikeAnimation(options) {
+            var _this;
+
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              SuperlikeAnimation
+            );
+
+            _this = _super.call(this, options); // Save meta data
+
+            _this.selectors = options.selectors;
+            _this.ids = options.ids; // Bind context
+
+            _this.prepareAnimation = _this.prepareAnimation.bind(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              )
+            );
+            _this.startAnimation = _this.startAnimation.bind(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              )
+            );
+            _this.finishAnimation = _this.finishAnimation.bind(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              )
+            );
+
+            _this._cacheElements();
+
+            _this._setUpEventListeners();
+
+            return _this;
+          }
+
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
+            SuperlikeAnimation,
+            [
+              {
+                key: '_cacheElements',
+                value: function _cacheElements() {
+                  //super._cacheElements();
+                },
+              },
+              {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
+                  var _this2 = this;
+
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+                      SuperlikeAnimation.prototype
+                    ),
+                    '_setUpEventListeners',
+                    this
+                  ).call(this);
+
+                  $(document).on(
+                    'webkitAnimationEnd oAnimationEnd msAnimationEnd animationend',
+                    function (event) {
+                      var animationName = event.originalEvent.animationName;
+                      var iconElements = _this2.iconElements;
+
+                      if (animationName === 'superlike-stars') {
+                        // Add final color to the stars
+                        iconElements.$star.addClass('fill-pink');
+                      } else if (animationName === 'superlike-hand') {
+                        // Play message animation
+                        iconElements.$message.addClass('superlike-message'); // Play stars animation
+
+                        iconElements.$star.addClass('superlike-stars');
+                      }
+                    }
+                  );
+                },
+              },
+              {
+                key: 'prepareAnimation',
+                value: function prepareAnimation(modal) {
+                  var _this3 = this;
+
+                  return new Promise(function (resolve) {
+                    // Append icon through calling parent method
+                    _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
+                      _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+                        SuperlikeAnimation.prototype
+                      ),
+                      '_prepareAnimation',
+                      _this3
+                    ).call(_this3, modal); // Resolve the promise
+
+                    resolve('fulfilled');
+                  });
+                },
+              },
+              {
+                key: 'startAnimation',
+                value: function startAnimation() {
+                  // Start the first part of the animation
+                  this.iconElements.$hand.addClass('superlike-hand');
+                },
+              },
+              {
+                key: 'finishAnimation',
+                value: function finishAnimation() {},
+              },
+            ]
+          );
+
+          return SuperlikeAnimation;
+        })(_animatedIcons_js__WEBPACK_IMPORTED_MODULE_7__['default']);
 
         /***/
       },
@@ -25209,11 +25551,16 @@
             });
           },
           fireSendAlert: function fireSendAlert(_ref4) {
+            var _this = this;
+
             var title = _ref4.title,
               text = _ref4.text,
               confirmButtonText = _ref4.confirmButtonText,
               cancelButtonText = _ref4.cancelButtonText,
               customClass = _ref4.customClass;
+            // Cache document element
+            var $document = $(document); // Show popup
+
             return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
               title: title,
               text: text,
@@ -25222,8 +25569,27 @@
               confirmButtonColor: '#ff0068',
               customClass: customClass,
               onBeforeOpen: function onBeforeOpen(modal) {
-                console.log(modal);
-                $(modal).find('.send-bonus-header').text('Testing modal');
+                // Trigger event to prepare modal
+                $document.trigger(
+                  ''.concat(_this.type, 'Modal:onBeforeOpen'),
+                  modal
+                );
+              },
+              onOpen: function onOpen(modal) {
+                _this.animationPreparation.then(function () {
+                  // Run animation
+                  $document.trigger(
+                    ''.concat(_this.type, 'Modal:onOpen'),
+                    modal
+                  );
+                });
+              },
+              onAfterClose: function onAfterClose(modal) {
+                // Get rid of all the previously added classes
+                $document.trigger(
+                  ''.concat(_this.type, 'Modal:onAfterClose'),
+                  modal
+                );
               },
             });
           },
@@ -25237,7 +25603,7 @@
            * @param {String} imageAlt - Image alttext
            */
           askUsageApprovement: function askUsageApprovement(_ref5) {
-            var _this = this;
+            var _this2 = this;
 
             var title = _ref5.title,
               _ref5$text = _ref5.text,
@@ -25263,7 +25629,7 @@
                 showLoaderOnConfirm: true,
                 // Request telling the server thas user wants to use the bonus
                 preConfirm: function preConfirm() {
-                  return _this.requestBonusUsage(request);
+                  return _this2.requestBonusUsage(request);
                 },
                 allowOutsideClick: function allowOutsideClick() {
                   return !sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.isLoading();
@@ -25277,7 +25643,7 @@
                   if (json.success) {
                     // If the server approved bonus usage
                     // Show popup about success
-                    _this.showRequestResult({
+                    _this2.showRequestResult({
                       title: json.title,
                       text: json.message,
                       icon: 'success',
@@ -25285,14 +25651,14 @@
                   } else {
                     // If the server restricted bonus usage
                     // Show success about error
-                    _this.showRequestResult({
+                    _this2.showRequestResult({
                       title: json.title,
                       text: json.message,
                       icon: 'error',
                     });
                   } // Maybe change to switch statement when other bonuses will be added
 
-                  if (_this.type === 'boost') {
+                  if (_this2.type === 'boost') {
                     return {
                       approved: json.success,
                       title: json.title,

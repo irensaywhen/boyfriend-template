@@ -540,7 +540,7 @@ select.form-control optgroup {
   overflow: visible;
 }
 .special-icon .hand {
-  transform: translate3d(-190px, 0, 0);
+  transform: translate3d(-456px, 0, 0);
 }
 .special-icon .message {
   transform: scale3d(0, 0, 0);

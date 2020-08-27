@@ -7811,11 +7811,16 @@
             });
           },
           fireSendAlert: function fireSendAlert(_ref4) {
+            var _this = this;
+
             var title = _ref4.title,
               text = _ref4.text,
               confirmButtonText = _ref4.confirmButtonText,
               cancelButtonText = _ref4.cancelButtonText,
               customClass = _ref4.customClass;
+            // Cache document element
+            var $document = $(document); // Show popup
+
             return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
               title: title,
               text: text,
@@ -7824,8 +7829,27 @@
               confirmButtonColor: '#ff0068',
               customClass: customClass,
               onBeforeOpen: function onBeforeOpen(modal) {
-                console.log(modal);
-                $(modal).find('.send-bonus-header').text('Testing modal');
+                // Trigger event to prepare modal
+                $document.trigger(
+                  ''.concat(_this.type, 'Modal:onBeforeOpen'),
+                  modal
+                );
+              },
+              onOpen: function onOpen(modal) {
+                _this.animationPreparation.then(function () {
+                  // Run animation
+                  $document.trigger(
+                    ''.concat(_this.type, 'Modal:onOpen'),
+                    modal
+                  );
+                });
+              },
+              onAfterClose: function onAfterClose(modal) {
+                // Get rid of all the previously added classes
+                $document.trigger(
+                  ''.concat(_this.type, 'Modal:onAfterClose'),
+                  modal
+                );
               },
             });
           },
@@ -7839,7 +7863,7 @@
            * @param {String} imageAlt - Image alttext
            */
           askUsageApprovement: function askUsageApprovement(_ref5) {
-            var _this = this;
+            var _this2 = this;
 
             var title = _ref5.title,
               _ref5$text = _ref5.text,
@@ -7865,7 +7889,7 @@
                 showLoaderOnConfirm: true,
                 // Request telling the server thas user wants to use the bonus
                 preConfirm: function preConfirm() {
-                  return _this.requestBonusUsage(request);
+                  return _this2.requestBonusUsage(request);
                 },
                 allowOutsideClick: function allowOutsideClick() {
                   return !sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.isLoading();
@@ -7879,7 +7903,7 @@
                   if (json.success) {
                     // If the server approved bonus usage
                     // Show popup about success
-                    _this.showRequestResult({
+                    _this2.showRequestResult({
                       title: json.title,
                       text: json.message,
                       icon: 'success',
@@ -7887,14 +7911,14 @@
                   } else {
                     // If the server restricted bonus usage
                     // Show success about error
-                    _this.showRequestResult({
+                    _this2.showRequestResult({
                       title: json.title,
                       text: json.message,
                       icon: 'error',
                     });
                   } // Maybe change to switch statement when other bonuses will be added
 
-                  if (_this.type === 'boost') {
+                  if (_this2.type === 'boost') {
                     return {
                       approved: json.success,
                       title: json.title,

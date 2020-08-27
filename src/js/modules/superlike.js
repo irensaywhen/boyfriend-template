@@ -1,16 +1,19 @@
 import Bonus from './bonus.js';
+import SuperlikeAnimation from './superlikeAnimation.js';
 
 export default class Superlike extends Bonus {
   constructor(options) {
     super(options);
+
+    this.type = 'superlike';
 
     // Bind context
 
     // Save popups
     this.popups = options.popups;
 
-    // Reference request information for the popup usage
-    //this.popupData.request = this.requests.use;
+    // Initiate animation for icon in popup
+    this.animation = new SuperlikeAnimation(options.animation);
 
     this._cacheElements();
     this._setUpEventListeners();
@@ -20,13 +23,27 @@ export default class Superlike extends Bonus {
     super._cacheElements();
 
     this.$amount = $(this.selectors.amount);
-
-    //Create expiration popup based on the generic popup
-    //this.expirationPopupData = Object.assign({}, this.popupData);
   }
 
   _setUpEventListeners() {
     super._setUpEventListeners();
+
+    let $document = $(document);
+
+    $document.on('superlikeModal:onBeforeOpen', (event, modal) => {
+      // Start modal preparation
+      this.animationPreparation = this.animation.prepareAnimation(modal);
+    });
+
+    $document.on('superlikeModal:onOpen', (event, modal) => {
+      // Run animation
+      this.animation.startAnimation, 0;
+    });
+
+    $document.on('superlikeModal:onAfterClose', (event, modal) => {
+      // Prepare animation for further use
+      console.log('Modal closed');
+    });
   }
 
   _useBonus() {

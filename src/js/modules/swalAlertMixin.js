@@ -46,6 +46,10 @@ export default {
     cancelButtonText,
     customClass,
   }) {
+    // Cache document element
+    let $document = $(document);
+
+    // Show popup
     return Swal.fire({
       title,
       text,
@@ -54,8 +58,18 @@ export default {
       confirmButtonColor: '#ff0068',
       customClass,
       onBeforeOpen: modal => {
-        console.log(modal);
-        $(modal).find('.send-bonus-header').text('Testing modal');
+        // Trigger event to prepare modal
+        $document.trigger(`${this.type}Modal:onBeforeOpen`, modal);
+      },
+      onOpen: modal => {
+        this.animationPreparation.then(() => {
+          // Run animation
+          $document.trigger(`${this.type}Modal:onOpen`, modal);
+        });
+      },
+      onAfterClose: modal => {
+        // Get rid of all the previously added classes
+        $document.trigger(`${this.type}Modal:onAfterClose`, modal);
       },
     });
   },
