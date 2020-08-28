@@ -141,11 +141,15 @@
               </button>
             </div>
             <!--Modal header end-->
+
             <!--Modal body start-->
             <div class="modal-body">
               <!--Photos preview start-->
               <div class="container-fluid">
-                <div class="row" id="photos-previews-container"></div>
+                <div
+                  class="row justify-content-center"
+                  id="photo-preview-container"
+                ></div>
               </div>
               <!--Photos preview end-->
               <!--Photo Upload-->
@@ -153,18 +157,17 @@
                 <!--Upload photos from your device-->
                 <li class="position-relative">
                   <label
-                    for="photos-file-input"
+                    for="photo-file-input"
                     class="upload-photo-label text-center"
                   >
                     <img src="img/upload.svg" alt="Upload photo" />
                   </label>
                   <input
                     type="file"
-                    id="photos-file-input"
+                    id="photo-file-input"
                     name="photos-file-input"
                     class="invisible position-absolute photo-input"
                     accept="image/*"
-                    multiple
                   />
                   <p class="d-inline-block pl-3">
                     Upload your photos from your device
@@ -185,7 +188,6 @@
                     class="invisible position-absolute photo-input"
                     accept="image/*"
                     capture
-                    multiple
                   />
                   <p class="d-inline-block pl-3">
                     Make photo from your camera
@@ -206,6 +208,7 @@
               </div>
             </div>
             <!--Modal body end-->
+
             <!--Modal footer start-->
             <div class="modal-footer">
               <div class="px-0 py-3 text-center w-100">
@@ -801,8 +804,14 @@
       <figure
         class="icon d-flex align-items-center justify-content-center"
       >
+        {{! Superlike icon}}
         {{#if superlike}}
         <img src="img/superlike.svg" alt="superlike" />
+        {{/if}}
+
+        {{! Photo icon}}
+        {{#if photo}}
+        <img src="img/photo.svg" alt="photo" />
         {{/if}}
       </figure>
       {{! Message icon end}}
@@ -815,10 +824,10 @@
 
       {{#if photo}}
       <figure class="photo">
-        <img src="{{photoUrl}}" class="enlarge" alt="Photo 1" />
+        <img src="{{src}}" class="enlarge" alt="Photo 1" />
         {{#if photocard}}
         <figcaption class="pt-2 pl-2">
-          {{photoDescription}}
+          {{description}}
         </figcaption>
         {{else}}
         <figcaption
@@ -847,6 +856,32 @@
     <!--Special message end-->
 
     <!--Message template end-->
+
+    <!--Template for photo preview start-->
+    <script id="template-photoPreview" type="text/template">
+      <div
+        class="col-12 col-sm-6 col-md-4 col-xl-3 photo-container"
+        data-id="121"
+      >
+        <div class="photo-description">
+          <figure>
+            <img src="{{src}}" alt="" />
+          </figure>
+          <div class="form-group">
+            <label for="photo-upload-description">
+              Add photo description
+            </label>
+            <textarea
+              id="photo-upload-description"
+              rows="4"
+              placeholder="Photo description"
+              class="form-control new-photo-description"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </script>
+    <!--Template for photo preview end-->
 
     <!--Icon templates start-->
 
@@ -1019,7 +1054,7 @@
               method: 'POST',
               headers: {},
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/send-superlike',
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/send-photo',
             },
           },
           classNames: {
@@ -1088,15 +1123,24 @@
           selectors: {
             bonus: '#photo',
             amount: '.amount',
+            modal: '#photo-bonus',
+            previewContainer: '#photo-preview-container',
+            input: '.photo-input',
+            form: '#photo-uploader',
+            closeModalButton: '.close',
+            photoDescription: '#photo-upload-description',
+          },
+          photoTemplates: {
+            preview: 'template-photoPreview',
           },
           requests: {
             use: {
               method: 'POST',
               headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'multipart/form-data',
               },
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/send-superlike',
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/send-photo',
             },
           },
           popups: {
@@ -1115,6 +1159,11 @@
                 header: 'send-bonus-header',
                 title: 'send-bonus-title',
               },
+            },
+            uploadError: {
+              title: 'Oops!',
+              text:
+                'Something went wrong while uploading your photo. Please, try again.',
             },
           },
           //animation: {

@@ -20863,6 +20863,9 @@
         /* harmony import */ var _httpError_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! ./httpError.js */ './js/modules/httpError.js'
         );
+        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
+        );
 
         var Chat = /*#__PURE__*/ (function () {
           function Chat(options) {
@@ -20898,15 +20901,15 @@
               seen: false,
             }; // Save class names
 
-            this.classNames = options.classNames; // Save templates selectors
+            this.classNames = options.classNames; // Prepare message templates to render them in the future
 
-            this.messageTemplates = options.messageTemplateIds;
+            this.messageTemplates = Object(
+              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_4__['default']
+            )(options.messageTemplateIds);
 
             this._cacheElements();
 
-            this._setUpEventListeners(); // Save all the templates to render them in the future
-
-            this._prepareTemplates(); //this._displayMessage(this.testData);
+            this._setUpEventListeners(); //this._displayMessage(this.testData);
           }
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
@@ -20974,24 +20977,60 @@
                     }
                   }); // Send bonus message to the server
 
-                  $document.on('present:send', function (event, params) {
-                    var type = params.type;
+                  $document.on('present:send', function (event, bonusData) {
+                    var formData =
+                      arguments.length > 2 && arguments[2] !== undefined
+                        ? arguments[2]
+                        : null;
 
-                    if (type === 'superlike') {
-                      // Send superlike message to the user
-                      _this._sendMessage(type);
-                    }
+                    // Prepare information to send it to the server
+                    var messageData = _this._prepareMessage(
+                      bonusData,
+                      formData
+                    ); // Send message data to the server
+
+                    _this._sendMessage(messageData, bonusData);
                   });
                 },
               },
               {
+                key: '_prepareMessage',
+                value: function _prepareMessage(bonusData, formData) {
+                  var type = bonusData.type;
+
+                  switch (type) {
+                    case 'general':
+                      // Save message text
+                      var messageText = this._getMessageText();
+
+                      return JSON.stringify({
+                        type: type,
+                        mine: true,
+                        text: messageText,
+                      });
+
+                    case 'superlike':
+                      return JSON.stringify({
+                        type: type,
+                        mine: true,
+                      });
+
+                    case 'photo':
+                      return formData;
+                  }
+                },
+              },
+              {
                 key: '_sendMessage',
-                value: function _sendMessage(type) {
+                value: function _sendMessage(messageData) {
                   var _this2 = this;
 
-                  // Prepare message data
-                  var messageData = this._prepareMessage(type); // Send message to server
+                  var bonusData =
+                    arguments.length > 1 && arguments[1] !== undefined
+                      ? arguments[1]
+                      : null;
 
+                  // Send message to server
                   this._sendMessageToServer(messageData) // Maybe we can handle successful/unsuccessful response here
                     .then(function (response) {
                       if (response.success) {
@@ -21005,7 +21044,15 @@
                             break;
 
                           case 'special':
-                            // Show message after a delay to not to distract the user
+                            if (response['photo']) {
+                              // Get src and description
+                              var src = bonusData.src,
+                                description = bonusData.description; // Save src and description
+
+                              response['src'] = src;
+                              response['description'] = description;
+                            } // Show message after a delay to not to distract the user
+
                             setTimeout(_this2._displayMessage, 1000, response);
                             break;
                         }
@@ -21020,27 +21067,6 @@
                 },
               },
               {
-                key: '_prepareMessage',
-                value: function _prepareMessage(type) {
-                  // Here maybe we can handle futher actions via switch statement
-                  if (type === 'general') {
-                    // Save message text
-                    var messageText = this._getMessageText();
-
-                    return {
-                      type: type,
-                      mine: true,
-                      text: messageText,
-                    };
-                  } else if (type === 'superlike') {
-                    return {
-                      type: type,
-                      mine: true,
-                    };
-                  }
-                },
-              },
-              {
                 key: '_sendMessageToServer',
                 value: function _sendMessageToServer(messageData) {
                   var _this$requests$send = this.requests.send,
@@ -21051,7 +21077,7 @@
                   return fetch(endpoint, {
                     method: method,
                     headers: headers,
-                    body: JSON.stringify(messageData),
+                    body: messageData,
                   })
                     .then(function (response) {
                       if (response.ok) {
@@ -21065,18 +21091,6 @@
                     .then(function (json) {
                       return json;
                     });
-                },
-              },
-              {
-                key: '_prepareTemplates',
-                value: function _prepareTemplates() {
-                  var templates = this.messageTemplates;
-
-                  for (var id in templates) {
-                    templates[id] = document.getElementById(
-                      templates[id]
-                    ).innerHTML;
-                  }
                 },
               },
               {
@@ -21107,10 +21121,6 @@
                     status: 'seen',
                   });
                 },
-              },
-              {
-                key: '_showError',
-                value: function _showError() {},
               },
               {
                 key: '_setMessageStatus',
@@ -22051,10 +22061,9 @@
               animateOnShown: animateOnShown,
             }).init();
             $(document).click(function (event) {
-              event.preventDefault();
               var $target = $(event.target);
               if (!$target.hasClass(_this.enlargeClass)) return;
-              console.log($target);
+              event.preventDefault();
 
               _this.$modal.modal('show');
             });
@@ -24251,6 +24260,15 @@
         /* harmony import */ var _photoAnimation_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./photoAnimation.js */ './js/modules/photoAnimation.js'
         );
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+          /*! handlebars */ '../node_modules/handlebars/dist/cjs/handlebars.js'
+        );
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/ __webpack_require__.n(
+          handlebars__WEBPACK_IMPORTED_MODULE_8__
+        );
+        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+          /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
+        );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -24311,7 +24329,11 @@
 
             _this.animation = new _photoAnimation_js__WEBPACK_IMPORTED_MODULE_7__[
               'default'
-            ](options.animation);
+            ](options.animation); // Prepare photo preview template
+
+            _this.photoTemplates = Object(
+              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_9__['default']
+            )(options.photoTemplates);
 
             _this._cacheElements();
 
@@ -24332,14 +24354,40 @@
                     ),
                     '_cacheElements',
                     this
-                  ).call(this); // Save amount element
+                  ).call(this); // Cache reference
 
-                  this.$amount = this.$bonus.find(this.selectors.amount);
+                  var selectors = this.selectors; // Amount element
+
+                  this.$amount = this.$bonus.find(selectors.amount);
+                  /**
+                   * Photo upload and preview specific
+                   */
+                  // Modal for photo preview
+
+                  this.$modal = $(selectors.modal); //Closing button
+
+                  this.$closeButton = this.$modal.find(
+                    selectors.closeModalButton
+                  ); // Find modal footer and hide it
+
+                  this.$modalFooter = this.$modal
+                    .find('.modal-footer')
+                    .fadeOut(0); // Container to preview photos
+
+                  this.$previewContainer = this.$modal.find(
+                    selectors.previewContainer
+                  ); // Photo inputs
+
+                  this.$photoInputs = this.$modal.find(selectors.input); // Form
+
+                  this.$form = this.$modal.find(selectors.form);
                 },
               },
               {
                 key: '_setUpEventListeners',
                 value: function _setUpEventListeners() {
+                  var _this2 = this;
+
                   _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
                     _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
                       Photo.prototype
@@ -24347,17 +24395,80 @@
                     '_setUpEventListeners',
                     this
                   ).call(this);
+
+                  this.$photoInputs.change(function (event) {
+                    // Delete previously loaded photo
+                    _this2.$previewContainer.empty(); // Delete previously saved src
+
+                    _this2._discardPhotoInformation();
+                  });
+                  this.$photoInputs.change(function (event) {
+                    // When new photo is uploaded - preview it
+                    _this2._loadPhoto(event.target);
+                  });
+                  this.$form.submit(function (event) {
+                    // When the photo is sent by the user
+                    event.preventDefault(); // Start using bonus
+
+                    _this2._sendPhoto();
+                  });
+                  this.$closeButton.click(function () {
+                    // Delete all the temporary changes if the user doesn't submit the form
+                    _this2._discardChanges();
+                  });
                 },
               },
               {
                 key: '_useBonus',
                 value: function _useBonus() {
-                  console.log('Using photo bonus...'); // Here we need to ask the user to make a photo or upload it
+                  // In use bonus function we'll need to trigger modal opening programically
+                  // After usage approvement
+                  console.log('Using photo bonus...'); // Delete previou
+                  //this._discardPhotoInformation()
+                  // Here we need to ask the user to make a photo or upload it
                   // And then send the message with it
                   // Also, if the user discard photo changes, we need to add amount of bonuses available
                   // Maybe, we can change the amount of bonuses available only if the user finishes the usage
                   // As well as in the superlike usage
-                  //$(document).trigger('present:send', { type: 'photo' });
+                  // Change the amount of bonuses available
+                },
+              },
+              {
+                key: '_sendPhoto',
+                value: function _sendPhoto() {
+                  // Change the amount of bonuses available
+                  this._decreaseBonusAmountAvailable(); // Save description to photoData object
+
+                  this._savePhotoDescription(); // Prepare formData to send photo information to the server
+
+                  this._generateFormData(); // Generate event to send the photo to the user
+
+                  $(document).trigger(
+                    'present:send',
+                    this.photoData,
+                    this.formData
+                  );
+                },
+              },
+              {
+                key: '_generateFormData',
+                value: function _generateFormData() {
+                  // Cache
+                  var photoData = this.photoData;
+
+                  for (var item in photoData) {
+                    // Save photo information except src
+                    if (item === 'src') continue;
+                    this.formData.set(item, photoData[item]);
+                  }
+                },
+              },
+              {
+                key: '_savePhotoDescription',
+                value: function _savePhotoDescription() {
+                  this.photoData['description'] = $(
+                    this.selectors.photoDescription
+                  ).val();
                 },
               },
               {
@@ -24369,6 +24480,108 @@
                   // Temporary return true for debuggins purposes
 
                   return true;
+                },
+              },
+              {
+                key: '_loadPhoto',
+                value: function _loadPhoto(photoInput) {
+                  var files = photoInput.files;
+                  if (!files[0]) return;
+
+                  this._readFile(files[0]);
+                },
+              },
+              {
+                key: '_readFile',
+                value: function _readFile(file) {
+                  // Save the currently selected photo
+                  this.formData.set('photo', file); // Instantiate a FileReader instance to handle photo upload
+
+                  var reader = new FileReader(); // Prepare event listeners to listen to photo upload events
+
+                  this._setReaderEventListeners(reader); // Start uploading photo
+
+                  reader.readAsDataURL(file);
+                },
+              },
+              {
+                key: '_setReaderEventListeners',
+                value: function _setReaderEventListeners(reader) {
+                  var _this3 = this;
+
+                  // We need to add event handler to listen to an event
+                  // when the reader starts photo loading
+                  // To show loading indicator
+                  // Show loading indicator when the read has started
+                  reader.onloadstart = function () {
+                    // Set progress indicator here
+                    console.log('Loading start');
+                  }; // Hide loading indicator when the read has finished
+
+                  reader.onloadend = function () {
+                    //Delete progress indicator here
+                    console.log('Loading end');
+                  }; // Preview photos when it is readed successfully
+
+                  reader.onload = function (event) {
+                    // Cache
+                    var target = event.target,
+                      src = target.result; // Save src for preview
+
+                    _this3.photoData['src'] = src; // Preview photo in the preview container
+
+                    _this3._previewPhoto({
+                      src: src,
+                    }); // Show submit button
+
+                    _this3.$modalFooter.fadeIn(0); //this.generatePreviewHTML({ id: id, src: src });
+                  }; // Show error popup when an error occured while whoto loading
+
+                  reader.onerror = function () {
+                    // Get text information for error popup
+                    var _this3$popups$uploadE = _this3.popups.uploadError,
+                      title = _this3$popups$uploadE.title,
+                      text = _this3$popups$uploadE.text; // Show error popup
+
+                    _this3.showRequestResult({
+                      title: title,
+                      text: text,
+                      icon: 'error',
+                    });
+                  };
+                },
+              },
+              {
+                key: '_previewPhoto',
+                value: function _previewPhoto(data) {
+                  // Prepare template for compilation
+                  var compiledPhotoTemplate = handlebars__WEBPACK_IMPORTED_MODULE_8___default.a.compile(
+                    this.photoTemplates.preview
+                  ); // Set photo preview data in template
+
+                  compiledPhotoTemplate = compiledPhotoTemplate(data); // Append template
+
+                  this.$previewContainer.append(compiledPhotoTemplate);
+                },
+              },
+              {
+                key: '_discardChanges',
+                value: function _discardChanges() {
+                  // Delete preview
+                  this.$previewContainer.empty(); // Hide modal footer
+
+                  this.$modalFooter.fadeOut(0); // Delete photo information
+
+                  this._discardPhotoInformation();
+                },
+              },
+              {
+                key: '_discardPhotoInformation',
+                value: function _discardPhotoInformation() {
+                  this.photoData = {
+                    type: 'photo',
+                  };
+                  this.formData = new FormData();
                 },
               },
               {
@@ -24582,6 +24795,32 @@
               _setUpEventListeners();
             },
           };
+        }
+
+        /***/
+      },
+
+    /***/ './js/modules/prepareTemplates.js':
+      /*!****************************************!*\
+  !*** ./js/modules/prepareTemplates.js ***!
+  \****************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return prepareTemplates;
+          }
+        );
+        function prepareTemplates(templates) {
+          for (var id in templates) {
+            templates[id] = document.getElementById(templates[id]).innerHTML;
+          }
+
+          return templates;
         }
 
         /***/
@@ -26486,24 +26725,27 @@
                             while (1) {
                               switch ((_context3.prev = _context3.next)) {
                                 case 0:
-                                  if (!input.files) {
-                                    _context3.next = 13;
+                                  if (input.files) {
+                                    _context3.next = 2;
                                     break;
                                   }
 
+                                  return _context3.abrupt('return');
+
+                                case 2:
                                   filesAmount = input.files.length;
-                                  _context3.prev = 2;
-                                  _context3.next = 5;
+                                  _context3.prev = 3;
+                                  _context3.next = 6;
                                   return this.getPhotosIds(filesAmount);
 
-                                case 5:
+                                case 6:
                                   ids = _context3.sent;
-                                  _context3.next = 11;
+                                  _context3.next = 12;
                                   break;
 
-                                case 8:
-                                  _context3.prev = 8;
-                                  _context3.t0 = _context3['catch'](2);
+                                case 9:
+                                  _context3.prev = 9;
+                                  _context3.t0 = _context3['catch'](3);
                                   // Unsuccessful Popup
                                   this.showRequestResult({
                                     title: 'Oops!',
@@ -26511,7 +26753,7 @@
                                     icon: 'error',
                                   });
 
-                                case 11:
+                                case 12:
                                   for (i = 0; i < filesAmount; i++) {
                                     // Make fileReader for each photo
                                     reader = new FileReader(); // Cache id of the loading photo
@@ -26533,7 +26775,7 @@
 
                                   this.$modalFooter.show(0);
 
-                                case 13:
+                                case 14:
                                 case 'end':
                                   return _context3.stop();
                               }
@@ -26541,7 +26783,7 @@
                           },
                           _callee3,
                           this,
-                          [[2, 8]]
+                          [[3, 9]]
                         );
                       }
                     )
@@ -26612,6 +26854,7 @@
 
                   var id = _ref2.id,
                     src = _ref2.src;
+                  // Switch from previewing through generating markup to template using Handlebars
                   // Preparing ids for preview
                   var privacyId = 'photo-upload-privacy-' + id;
                   var descriptionId = 'upload-description' + id; // Privacy checkbox control

@@ -18,13 +18,12 @@ export default class EnlargePhoto {
     preparePhotoModal({ modal, animateOnShown }).init();
 
     $(document).click(event => {
-      event.preventDefault();
-
       let $target = $(event.target);
 
       if (!$target.hasClass(this.enlargeClass)) return;
 
-      console.log($target);
+      event.preventDefault();
+
       this.$modal.modal('show');
     });
   }

@@ -551,6 +551,69 @@ select.form-control optgroup {
 .send-bonus-title {
   margin: 10px auto 5px !important;
 }
+.modal .modal-lg {
+  max-width: 600px !important;
+}
+.modal .modal-xl {
+  max-width: 950px !important;
+}
+.modal .modal-body .photo-description figure {
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  text-align: center !important;
+}
+.modal .modal-body .photo-description figure img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+.modal .modal-body .photo-description figure .privacy {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  min-width: 100px;
+  height: 30px;
+}
+.modal .modal-body .photo-description figure .privacy h4 {
+  font-size: 14px;
+}
+.modal .modal-body .photo-description figure .delete {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  min-width: 80px;
+  height: 30px;
+  border: none;
+  outline: none;
+}
+.modal .modal-body .photo-description p {
+  font-weight: 300;
+  font-size: 14px;
+}
+.upload-avatar ul {
+  list-style: none;
+}
+.upload-avatar .upload-photo-label {
+  width: 100px;
+  height: 100px;
+  min-width: 100px;
+  min-height: 100px;
+  line-height: 100px;
+  vertical-align: middle;
+  border-radius: 50%;
+  background: #e3eaf1;
+  font-size: 53px;
+  cursor: pointer;
+}
+.upload-avatar .upload-photo-label img {
+  width: 70px;
+  height: auto;
+}
+.upload-avatar .avatar-requirements li {
+  font-weight: 300;
+  font-size: 14px;
+}
 html {
   height: 100%;
 }
@@ -2050,69 +2113,6 @@ article .header time {
   font-size: 12px;
   font-weight: bold;
   color: #fff;
-}
-.modal .modal-lg {
-  max-width: 600px !important;
-}
-.modal .modal-xl {
-  max-width: 950px !important;
-}
-.modal .modal-body .photo-description figure {
-  width: 100%;
-  max-width: 100%;
-  position: relative;
-  text-align: center !important;
-}
-.modal .modal-body .photo-description figure img {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-}
-.modal .modal-body .photo-description figure .privacy {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  min-width: 100px;
-  height: 30px;
-}
-.modal .modal-body .photo-description figure .privacy h4 {
-  font-size: 14px;
-}
-.modal .modal-body .photo-description figure .delete {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  min-width: 80px;
-  height: 30px;
-  border: none;
-  outline: none;
-}
-.modal .modal-body .photo-description p {
-  font-weight: 300;
-  font-size: 14px;
-}
-.upload-avatar ul {
-  list-style: none;
-}
-.upload-avatar .upload-photo-label {
-  width: 100px;
-  height: 100px;
-  min-width: 100px;
-  min-height: 100px;
-  line-height: 100px;
-  vertical-align: middle;
-  border-radius: 50%;
-  background: #e3eaf1;
-  font-size: 53px;
-  cursor: pointer;
-}
-.upload-avatar .upload-photo-label img {
-  width: 70px;
-  height: auto;
-}
-.upload-avatar .avatar-requirements li {
-  font-weight: 300;
-  font-size: 14px;
 }
 .account-table {
   border-collapse: collapse;

@@ -1,5 +1,6 @@
 import Handlebars from 'handlebars';
 import HttpError from './httpError.js';
+import prepareTemplates from './prepareTemplates.js';
 
 export default class Chat {
   constructor(options) {
@@ -37,14 +38,11 @@ export default class Chat {
     // Save class names
     this.classNames = options.classNames;
 
-    // Save templates selectors
-    this.messageTemplates = options.messageTemplateIds;
+    // Prepare message templates to render them in the future
+    this.messageTemplates = prepareTemplates(options.messageTemplateIds);
 
     this._cacheElements();
     this._setUpEventListeners();
-
-    // Save all the templates to render them in the future
-    this._prepareTemplates();
 
     //this._displayMessage(this.testData);
   }
@@ -106,20 +104,41 @@ export default class Chat {
     });
 
     // Send bonus message to the server
-    $document.on('present:send', (event, params) => {
-      let type = params.type;
+    $document.on('present:send', (event, bonusData, formData = null) => {
+      // Prepare information to send it to the server
+      let messageData = this._prepareMessage(bonusData, formData);
+      // Send message data to the server
 
-      if (type === 'superlike') {
-        // Send superlike message to the user
-        this._sendMessage(type);
-      }
+      this._sendMessage(messageData, bonusData);
     });
   }
 
-  _sendMessage(type) {
-    // Prepare message data
-    let messageData = this._prepareMessage(type);
+  _prepareMessage(bonusData, formData) {
+    let type = bonusData.type;
 
+    switch (type) {
+      case 'general':
+        // Save message text
+        let messageText = this._getMessageText();
+
+        return JSON.stringify({
+          type: type,
+          mine: true,
+          text: messageText,
+        });
+
+      case 'superlike':
+        return JSON.stringify({
+          type: type,
+          mine: true,
+        });
+
+      case 'photo':
+        return formData;
+    }
+  }
+
+  _sendMessage(messageData, bonusData = null) {
     // Send message to server
     this._sendMessageToServer(messageData)
       // Maybe we can handle successful/unsuccessful response here
@@ -134,6 +153,13 @@ export default class Chat {
               break;
 
             case 'special':
+              if (response['photo']) {
+                // Get src and description
+                let { src, description } = bonusData;
+                // Save src and description
+                response['src'] = src;
+                response['description'] = description;
+              }
               // Show message after a delay to not to distract the user
               setTimeout(this._displayMessage, 1000, response);
               break;
@@ -148,33 +174,14 @@ export default class Chat {
       });
   }
 
-  _prepareMessage(type) {
-    // Here maybe we can handle futher actions via switch statement
-
-    if (type === 'general') {
-      // Save message text
-      let messageText = this._getMessageText();
-
-      return {
-        type: type,
-        mine: true,
-        text: messageText,
-      };
-    } else if (type === 'superlike') {
-      return {
-        type: type,
-        mine: true,
-      };
-    }
-  }
-
   _sendMessageToServer(messageData) {
     let { method, headers, endpoint } = this.requests.send;
+
     //Make a request here
     return fetch(endpoint, {
       method,
       headers,
-      body: JSON.stringify(messageData),
+      body: messageData,
     })
       .then(response => {
         if (response.ok) {
@@ -186,14 +193,6 @@ export default class Chat {
       .then(json => {
         return json;
       });
-  }
-
-  _prepareTemplates() {
-    let templates = this.messageTemplates;
-
-    for (let id in templates) {
-      templates[id] = document.getElementById(templates[id]).innerHTML;
-    }
   }
 
   _getMessageText() {
@@ -216,8 +215,6 @@ export default class Chat {
     // for testing purposes
     setTimeout(this._setMessageStatus, 1000, { id: 123, status: 'seen' });
   }
-
-  _showError() {}
 
   _setMessageStatus({ id, status }) {
     // Find message with the given data-id attribute
