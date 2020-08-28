@@ -57,6 +57,8 @@
     <!--Loader end-->
 
     <!--Modals start-->
+
+    <!--Profile modals start-->
     <div class="profile-modals">
       <!--Modal for photos start-->
 
@@ -110,6 +112,117 @@
       </div>
       <!--Modals for photos end-->
     </div>
+    <!--Profile modals end-->
+
+    <!--Modal for photo upload start-->
+    <div
+      class="modal fade upload-avatar"
+      id="photo-bonus"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="addPhotosModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+          <form action="fill-profile.html" id="photo-uploader">
+            <!--Modal header start-->
+            <div class="modal-header">
+              <h3 class="title">
+                Upload your photos:
+              </h3>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <!--Modal header end-->
+            <!--Modal body start-->
+            <div class="modal-body">
+              <!--Photos preview start-->
+              <div class="container-fluid">
+                <div class="row" id="photos-previews-container"></div>
+              </div>
+              <!--Photos preview end-->
+              <!--Photo Upload-->
+              <ul class="pl-1">
+                <!--Upload photos from your device-->
+                <li class="position-relative">
+                  <label
+                    for="photos-file-input"
+                    class="upload-photo-label text-center"
+                  >
+                    <img src="img/upload.svg" alt="Upload photo" />
+                  </label>
+                  <input
+                    type="file"
+                    id="photos-file-input"
+                    name="photos-file-input"
+                    class="invisible position-absolute photo-input"
+                    accept="image/*"
+                    multiple
+                  />
+                  <p class="d-inline-block pl-3">
+                    Upload your photos from your device
+                  </p>
+                </li>
+                <!--Capture photo-->
+                <li class="position-relative d-lg-none">
+                  <label
+                    for="make-photo"
+                    class="upload-photo-label text-center"
+                  >
+                    <i class="fas fa-camera-retro"></i>
+                  </label>
+                  <input
+                    type="file"
+                    id="make-photo"
+                    name="make-photo"
+                    class="invisible position-absolute photo-input"
+                    accept="image/*"
+                    capture
+                    multiple
+                  />
+                  <p class="d-inline-block pl-3">
+                    Make photo from your camera
+                  </p>
+                </li>
+              </ul>
+
+              <!--Photo requirements-->
+              <div class="avatar-requirements border-top">
+                <h4 class="section-title pt-3">
+                  Photo requirements
+                </h4>
+                <ul class="pl-1">
+                  <li>Rozmiar: 500x500px</li>
+                  <li>Dostępne rozszerzenia</li>
+                  <li>Lorem ipsum</li>
+                </ul>
+              </div>
+            </div>
+            <!--Modal body end-->
+            <!--Modal footer start-->
+            <div class="modal-footer">
+              <div class="px-0 py-3 text-center w-100">
+                <button
+                  type="submit"
+                  class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
+                >
+                  <span>Submit</span><i class="material-icons">arrow_forward</i>
+                </button>
+              </div>
+            </div>
+            <!--Modal footer end-->
+          </form>
+        </div>
+      </div>
+    </div>
+    <!--Modal for photo upload end-->
     <!--Modals end-->
 
     <!--Content start-->
@@ -204,6 +317,8 @@
                       data-amount="1"
                       data-type="photo"
                       data-redirect="./pricing.html"
+                      data-toggle="modal"
+                      data-target="#photo-bonus"
                     >
                       <img
                         src="img/photo.svg"
