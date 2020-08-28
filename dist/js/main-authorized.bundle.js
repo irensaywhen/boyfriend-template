@@ -19548,28 +19548,31 @@
         /* harmony import */ var _modules_superlike_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! ./modules/superlike.js */ './js/modules/superlike.js'
         );
-        /* harmony import */ var _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _modules_photo_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! ./modules/photo.js */ './js/modules/photo.js'
+        );
+        /* harmony import */ var _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! ./modules/search-profiles-form.js */ './js/modules/search-profiles-form.js'
         );
-        /* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./modules/buyPremiumForm.js */ './js/modules/buyPremiumForm.js'
         );
-        /* harmony import */ var _modules_chatList_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _modules_chatList_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./modules/chatList.js */ './js/modules/chatList.js'
         );
-        /* harmony import */ var _modules_pagination_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _modules_pagination_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
           /*! ./modules/pagination.js */ './js/modules/pagination.js'
         );
-        /* harmony import */ var _modules_ad_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var _modules_ad_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
           /*! ./modules/ad.js */ './js/modules/ad.js'
         );
-        /* harmony import */ var _modules_gallery_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+        /* harmony import */ var _modules_gallery_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
           /*! ./modules/gallery.js */ './js/modules/gallery.js'
         );
-        /* harmony import */ var _modules_chat_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+        /* harmony import */ var _modules_chat_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
           /*! ./modules/chat.js */ './js/modules/chat.js'
         );
-        /* harmony import */ var _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+        /* harmony import */ var _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
           /*! ./modules/enlargePhoto.js */ './js/modules/enlargePhoto.js'
         );
 
@@ -19581,23 +19584,25 @@
           _modules_boost_js__WEBPACK_IMPORTED_MODULE_2__['default'];
         window['Superlike'] =
           _modules_superlike_js__WEBPACK_IMPORTED_MODULE_3__['default'];
+        window['Photo'] =
+          _modules_photo_js__WEBPACK_IMPORTED_MODULE_4__['default'];
         window['SearchProfilesForm'] =
-          _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_4__[
+          _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_5__[
             'default'
           ];
         window['BuyPremiumForm'] =
-          _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_5__['default'];
+          _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_6__['default'];
         window['ChatList'] =
-          _modules_chatList_js__WEBPACK_IMPORTED_MODULE_6__['default'];
+          _modules_chatList_js__WEBPACK_IMPORTED_MODULE_7__['default'];
         window['Pagination'] =
-          _modules_pagination_js__WEBPACK_IMPORTED_MODULE_7__['default'];
-        window['Ad'] = _modules_ad_js__WEBPACK_IMPORTED_MODULE_8__['default'];
+          _modules_pagination_js__WEBPACK_IMPORTED_MODULE_8__['default'];
+        window['Ad'] = _modules_ad_js__WEBPACK_IMPORTED_MODULE_9__['default'];
         window['Gallery'] =
-          _modules_gallery_js__WEBPACK_IMPORTED_MODULE_9__['default'];
+          _modules_gallery_js__WEBPACK_IMPORTED_MODULE_10__['default'];
         window['Chat'] =
-          _modules_chat_js__WEBPACK_IMPORTED_MODULE_10__['default'];
+          _modules_chat_js__WEBPACK_IMPORTED_MODULE_11__['default'];
         window['EnlargePhoto'] =
-          _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_11__['default'];
+          _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_12__['default'];
 
         /***/
       },
@@ -19816,10 +19821,6 @@
                 },
               },
               {
-                key: '_prepareIcon',
-                value: function _prepareIcon() {},
-              },
-              {
                 key: '_setUpEventListeners',
                 value: function _setUpEventListeners() {},
               },
@@ -20032,54 +20033,49 @@
 
                                 case 4:
                                   if (!(this.amount === 0)) {
-                                    _context.next = 9;
+                                    _context.next = 15;
                                     break;
                                   }
 
                                   // If there are no bonuses available
-                                  // Redirect
                                   type = this.type;
-
-                                  if (type === 'boost') {
-                                    window.location.href = this.redirect;
-                                  } else if (type === 'superlike') {
-                                    // Ask user to purchase bonuses
-                                    this._proposeBuyingBonus();
-                                  }
-
-                                  _context.next = 13;
+                                  _context.t0 = type;
+                                  _context.next =
+                                    _context.t0 === 'boost'
+                                      ? 9
+                                      : _context.t0 === 'superlike'
+                                      ? 11
+                                      : 13;
                                   break;
 
                                 case 9:
-                                  _context.next = 11;
-                                  return this._prepareBonusUsage();
+                                  // Redirect
+                                  window.location.href = this.redirect;
+                                  return _context.abrupt('break', 13);
 
                                 case 11:
+                                  // Ask the user to purchase bonuses
+                                  this._proposeBuyingBonus();
+
+                                  return _context.abrupt('break', 13);
+
+                                case 13:
+                                  _context.next = 19;
+                                  break;
+
+                                case 15:
+                                  _context.next = 17;
+                                  return this._prepareBonusUsage();
+
+                                case 17:
                                   approved = _context.sent;
 
                                   if (approved) {
-                                    this.amount = --this.amount; //Update data-amount attribute of the bonus
-
-                                    this.$bonus.attr(
-                                      'data-amount',
-                                      this.amount
-                                    );
-
-                                    if (this.type === 'superlike') {
-                                      // Update visual indicator of amount
-                                      this.$amount.text(this.amount);
-
-                                      if (this.amount === 0) {
-                                        this.$amount
-                                          .removeClass('text-success')
-                                          .addClass('text-danger');
-                                      }
-                                    } // Start bonus usage
-
+                                    // Start bonus usage
                                     this._useBonus();
                                   }
 
-                                case 13:
+                                case 19:
                                 case 'end':
                                   return _context.stop();
                               }
@@ -20106,11 +20102,34 @@
 
                   // Fire alert
                   this.fireBuyingAlert(this.popups.buy).then(function (result) {
-                    if (result) {
+                    if (result.isConfirmed) {
                       // Redirect to buying page in case of the user approvement
                       window.location.href = _this3.redirect;
                     }
                   });
+                },
+              },
+              {
+                key: '_decreaseBonusAmountAvailable',
+                value: function _decreaseBonusAmountAvailable() {
+                  // Decrease the saved amount of bonuses available
+                  this.amount = --this.amount; // Update markup
+
+                  this.$bonus.attr('data-amount', this.amount);
+                },
+              },
+              {
+                key: '_updateAmountOnMarkup',
+                value: function _updateAmountOnMarkup() {
+                  // Update visual indicator of amount
+                  this.$amount.text(this.amount);
+
+                  if (this.amount === 0) {
+                    // Change the color of the amount indicator
+                    this.$amount
+                      .removeClass('text-success')
+                      .addClass('text-danger');
+                  }
                 },
               },
             ]
@@ -20316,7 +20335,9 @@
                 value: function _useBonus() {
                   // Change boost state
                   this.activated = true;
-                  this.finished = false; // Start timer
+                  this.finished = false; // Change the amount of boosts available
+
+                  this._decreaseBonusAmountAvailable(); // Start timer
 
                   this._startTimer();
                 },
@@ -20485,6 +20506,18 @@
                   this.$hours.text(hours);
                   this.$minutes.text(minutes);
                   this.$seconds.text(seconds);
+                },
+              },
+              {
+                key: '_decreaseBonusAmountAvailable',
+                value: function _decreaseBonusAmountAvailable() {
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+                      Boost.prototype
+                    ),
+                    '_decreaseBonusAmountAvailable',
+                    this
+                  ).call(this);
                 },
               },
             ]
@@ -24161,6 +24194,341 @@
         /***/
       },
 
+    /***/ './js/modules/photo.js':
+      /*!*****************************!*\
+  !*** ./js/modules/photo.js ***!
+  \*****************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return Photo;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/get */ '../node_modules/@babel/runtime/helpers/get.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__
+        );
+        /* harmony import */ var _bonus_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+          /*! ./bonus.js */ './js/modules/bonus.js'
+        );
+        /* harmony import */ var _photoAnimation_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+          /*! ./photoAnimation.js */ './js/modules/photoAnimation.js'
+        );
+
+        function _createSuper(Derived) {
+          var hasNativeReflectConstruct = _isNativeReflectConstruct();
+          return function _createSuperInternal() {
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+                Derived
+              ),
+              result;
+            if (hasNativeReflectConstruct) {
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+                this
+              ).constructor;
+              result = Reflect.construct(Super, arguments, NewTarget);
+            } else {
+              result = Super.apply(this, arguments);
+            }
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default()(
+              this,
+              result
+            );
+          };
+        }
+
+        function _isNativeReflectConstruct() {
+          if (typeof Reflect === 'undefined' || !Reflect.construct)
+            return false;
+          if (Reflect.construct.sham) return false;
+          if (typeof Proxy === 'function') return true;
+          try {
+            Date.prototype.toString.call(
+              Reflect.construct(Date, [], function () {})
+            );
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        var Photo = /*#__PURE__*/ (function (_Bonus) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default()(
+            Photo,
+            _Bonus
+          );
+
+          var _super = _createSuper(Photo);
+
+          function Photo(options) {
+            var _this;
+
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              Photo
+            );
+
+            _this = _super.call(this, options); // Save popups
+
+            _this.popups = options.popups; // Initiate animation for icon in popup
+
+            _this.animation = new _photoAnimation_js__WEBPACK_IMPORTED_MODULE_7__[
+              'default'
+            ](options.animation);
+
+            _this._cacheElements();
+
+            _this._setUpEventListeners();
+
+            return _this;
+          }
+
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
+            Photo,
+            [
+              {
+                key: '_cacheElements',
+                value: function _cacheElements() {
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+                      Photo.prototype
+                    ),
+                    '_cacheElements',
+                    this
+                  ).call(this); // Save amount element
+
+                  this.$amount = this.$bonus.find(this.selectors.amount);
+                },
+              },
+              {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+                      Photo.prototype
+                    ),
+                    '_setUpEventListeners',
+                    this
+                  ).call(this);
+                },
+              },
+              {
+                key: '_useBonus',
+                value: function _useBonus() {
+                  console.log('Using photo bonus...'); // Here we need to ask the user to make a photo or upload it
+                  // And then send the message with it
+                  // Also, if the user discard photo changes, we need to add amount of bonuses available
+                  // Maybe, we can change the amount of bonuses available only if the user finishes the usage
+                  // As well as in the superlike usage
+                  //$(document).trigger('present:send', { type: 'photo' });
+                },
+              },
+              {
+                key: '_prepareBonusUsage',
+                value: function _prepareBonusUsage() {
+                  console.log('Preparing photo bonus usage...'); // Ask server about sending superlike
+                  // If the server will approve usage
+                  // Send it to the user
+                  // Temporary return true for debuggins purposes
+
+                  return true;
+                },
+              },
+              {
+                key: '_decreaseBonusAmountAvailable',
+                value: function _decreaseBonusAmountAvailable() {
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+                      Photo.prototype
+                    ),
+                    '_decreaseBonusAmountAvailable',
+                    this
+                  ).call(this);
+
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+                      Photo.prototype
+                    ),
+                    '_updateAmountOnMarkup',
+                    this
+                  ).call(this);
+                },
+              },
+            ]
+          );
+
+          return Photo;
+        })(_bonus_js__WEBPACK_IMPORTED_MODULE_6__['default']);
+
+        /***/
+      },
+
+    /***/ './js/modules/photoAnimation.js':
+      /*!**************************************!*\
+  !*** ./js/modules/photoAnimation.js ***!
+  \**************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return PhotoAnimation;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__
+        );
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5__
+        );
+        /* harmony import */ var _animatedIcons_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+          /*! ./animatedIcons.js */ './js/modules/animatedIcons.js'
+        );
+
+        function _createSuper(Derived) {
+          var hasNativeReflectConstruct = _isNativeReflectConstruct();
+          return function _createSuperInternal() {
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
+                Derived
+              ),
+              result;
+            if (hasNativeReflectConstruct) {
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
+                this
+              ).constructor;
+              result = Reflect.construct(Super, arguments, NewTarget);
+            } else {
+              result = Super.apply(this, arguments);
+            }
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default()(
+              this,
+              result
+            );
+          };
+        }
+
+        function _isNativeReflectConstruct() {
+          if (typeof Reflect === 'undefined' || !Reflect.construct)
+            return false;
+          if (Reflect.construct.sham) return false;
+          if (typeof Proxy === 'function') return true;
+          try {
+            Date.prototype.toString.call(
+              Reflect.construct(Date, [], function () {})
+            );
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        var PhotoAnimation = /*#__PURE__*/ (function (_IconAnimation) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default()(
+            PhotoAnimation,
+            _IconAnimation
+          );
+
+          var _super = _createSuper(PhotoAnimation);
+
+          // Save type
+          function PhotoAnimation(options) {
+            var _this;
+
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              PhotoAnimation
+            );
+
+            _this = _super.call(this, options);
+
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1___default()(
+                _this
+              ),
+              'type',
+              'photo'
+            );
+
+            _this.type = 'photo';
+            return _this;
+          }
+
+          return PhotoAnimation;
+        })(_animatedIcons_js__WEBPACK_IMPORTED_MODULE_6__['default']);
+
+        /***/
+      },
+
     /***/ './js/modules/preparePhotoModal.js':
       /*!*****************************************!*\
   !*** ./js/modules/preparePhotoModal.js ***!
@@ -25181,9 +25549,7 @@
               Superlike
             );
 
-            _this = _super.call(this, options);
-            _this.type = 'superlike'; // Bind context
-            // Save popups
+            _this = _super.call(this, options); // Save popups
 
             _this.popups = options.popups; // Initiate animation for icon in popup
 
@@ -25210,9 +25576,9 @@
                     ),
                     '_cacheElements',
                     this
-                  ).call(this);
+                  ).call(this); // Save amount element
 
-                  this.$amount = $(this.selectors.amount);
+                  this.$amount = this.$bonus.find(this.selectors.amount);
                 },
               },
               {
@@ -25257,11 +25623,12 @@
               {
                 key: '_useBonus',
                 value: function _useBonus() {
-                  console.log('Using bonus...');
-                  var $document = $(document); // Call alert here with custom animation for superlike icon
+                  // Call alert here with custom animation for superlike icon
+                  this.fireSendAlert(this.popups.send); // Change the amount of bonuses available
 
-                  this.fireSendAlert(this.popups.send);
-                  $document.trigger('present:send', {
+                  this._decreaseBonusAmountAvailable();
+
+                  $(document).trigger('present:send', {
                     type: 'superlike',
                   });
                 },
@@ -25275,6 +25642,26 @@
                   // Temporary return true for debuggins purposes
 
                   return true;
+                },
+              },
+              {
+                key: '_decreaseBonusAmountAvailable',
+                value: function _decreaseBonusAmountAvailable() {
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+                      Superlike.prototype
+                    ),
+                    '_decreaseBonusAmountAvailable',
+                    this
+                  ).call(this);
+
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+                      Superlike.prototype
+                    ),
+                    '_updateAmountOnMarkup',
+                    this
+                  ).call(this);
                 },
               },
             ]
@@ -25415,11 +25802,6 @@
                 _this
               )
             );
-            _this.finishAnimation = _this.finishAnimation.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
-                _this
-              )
-            );
 
             _this._cacheElements();
 
@@ -25432,23 +25814,9 @@
             SuperlikeAnimation,
             [
               {
-                key: '_cacheElements',
-                value: function _cacheElements() {
-                  //super._cacheElements();
-                },
-              },
-              {
                 key: '_setUpEventListeners',
                 value: function _setUpEventListeners() {
                   var _this2 = this;
-
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
-                      SuperlikeAnimation.prototype
-                    ),
-                    '_setUpEventListeners',
-                    this
-                  ).call(this);
 
                   $(document).on(
                     'webkitAnimationEnd oAnimationEnd msAnimationEnd animationend',
@@ -25494,10 +25862,6 @@
                   // Start the first part of the animation
                   this.iconElements.$hand.addClass('superlike-hand');
                 },
-              },
-              {
-                key: 'finishAnimation',
-                value: function finishAnimation() {},
               },
             ]
           );

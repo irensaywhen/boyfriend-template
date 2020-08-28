@@ -48,6 +48,9 @@ export default class Boost extends Bonus {
     this.activated = true;
     this.finished = false;
 
+    // Change the amount of boosts available
+    this._decreaseBonusAmountAvailable();
+
     // Start timer
     this._startTimer();
   }
@@ -155,5 +158,9 @@ export default class Boost extends Bonus {
     this.$hours.text(hours);
     this.$minutes.text(minutes);
     this.$seconds.text(seconds);
+  }
+
+  _decreaseBonusAmountAvailable() {
+    super._decreaseBonusAmountAvailable();
   }
 }

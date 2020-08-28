@@ -30,7 +30,5 @@ export default class IconAnimation {
     modal.querySelector(this.selectors.insertContainer).prepend(this.icon);
   }
 
-  _prepareIcon() {}
-
   _setUpEventListeners() {}
 }

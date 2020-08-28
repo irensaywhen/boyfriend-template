@@ -33,51 +33,62 @@ export default class Bonus extends ServerRequest {
    */
   async _startUsingBonus() {
     if (this.activated && !this.finished) {
-      // If the bonus has already been activated and not finished yet
+      // If the bonus - boost has already been activated and not finished yet
       // Forbid any actions with it
       return;
     } else if (this.amount === 0) {
       // If there are no bonuses available
-      // Redirect
-
       let type = this.type;
 
-      if (type === 'boost') {
-        window.location.href = this.redirect;
-      } else if (type === 'superlike') {
-        // Ask user to purchase bonuses
-        this._proposeBuyingBonus();
+      switch (type) {
+        case 'boost':
+          // Redirect
+          window.location.href = this.redirect;
+          break;
+
+        case 'superlike':
+          // Ask the user to purchase bonuses
+          this._proposeBuyingBonus();
+          break;
       }
     } else {
+      // If there are bonuses available
+
+      // Negotiate bonus usage with the server
       let approved = await this._prepareBonusUsage();
 
       if (approved) {
-        this.amount = --this.amount;
-
-        //Update data-amount attribute of the bonus
-        this.$bonus.attr('data-amount', this.amount);
-
-        if (this.type === 'superlike') {
-          // Update visual indicator of amount
-          this.$amount.text(this.amount);
-
-          if (this.amount === 0) {
-            this.$amount.removeClass('text-success').addClass('text-danger');
-          }
-        }
-
         // Start bonus usage
         this._useBonus();
       }
     }
   }
+
   _proposeBuyingBonus() {
     // Fire alert
     this.fireBuyingAlert(this.popups.buy).then(result => {
-      if (result) {
+      if (result.isConfirmed) {
         // Redirect to buying page in case of the user approvement
         window.location.href = this.redirect;
       }
     });
+  }
+
+  _decreaseBonusAmountAvailable() {
+    // Decrease the saved amount of bonuses available
+    this.amount = --this.amount;
+
+    // Update markup
+    this.$bonus.attr('data-amount', this.amount);
+  }
+
+  _updateAmountOnMarkup() {
+    // Update visual indicator of amount
+    this.$amount.text(this.amount);
+
+    if (this.amount === 0) {
+      // Change the color of the amount indicator
+      this.$amount.removeClass('text-success').addClass('text-danger');
+    }
   }
 }

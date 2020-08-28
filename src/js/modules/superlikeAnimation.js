@@ -11,18 +11,12 @@ export default class SuperlikeAnimation extends IconAnimation {
     // Bind context
     this.prepareAnimation = this.prepareAnimation.bind(this);
     this.startAnimation = this.startAnimation.bind(this);
-    this.finishAnimation = this.finishAnimation.bind(this);
 
     this._cacheElements();
     this._setUpEventListeners();
   }
-  _cacheElements() {
-    //super._cacheElements();
-  }
 
   _setUpEventListeners() {
-    super._setUpEventListeners();
-
     $(document).on(
       'webkitAnimationEnd oAnimationEnd msAnimationEnd animationend',
       event => {
@@ -57,6 +51,4 @@ export default class SuperlikeAnimation extends IconAnimation {
     // Start the first part of the animation
     this.iconElements.$hand.addClass('superlike-hand');
   }
-
-  finishAnimation() {}
 }

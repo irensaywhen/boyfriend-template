@@ -193,12 +193,18 @@
                         </h3>
                         <h4 class="small text-muted">
                           Available:
-                          <span class="text-success" id="amount">2</span>
+                          <span class="text-success amount">2</span>
                         </h4>
                       </div>
                     </li>
                     <li class="dropdown-divider"></li>
-                    <li class="dropdown-item d-inline-flex align-items-center">
+                    <li
+                      class="dropdown-item d-inline-flex align-items-center"
+                      id="photo"
+                      data-amount="1"
+                      data-type="photo"
+                      data-redirect="./pricing.html"
+                    >
                       <img
                         src="img/photo.svg"
                         class="present"
@@ -209,7 +215,7 @@
                           Photo
                         </h3>
                         <h4 class="small text-muted">
-                          Available: <span class="text-danger">0</span>
+                          Available: <span class="text-success amount">1</span>
                         </h4>
                       </div>
                     </li>
@@ -915,7 +921,7 @@
         const superlike = new Superlike({
           selectors: {
             bonus: '#superlike',
-            amount: '#amount',
+            amount: '.amount',
           },
           requests: {
             use: {
@@ -938,7 +944,6 @@
             send: {
               title: 'Hurray!',
               text: 'You just sent a superlike!',
-              confirmButtonText: 'Ok',
               timer: 2000,
               customClass: {
                 header: 'send-bonus-header',
@@ -961,6 +966,57 @@
               icon: 'superlike-icon',
             },
           },
+        });
+
+        /*Photo bonus initialization*/
+        const photo = new Photo({
+          selectors: {
+            bonus: '#photo',
+            amount: '.amount',
+          },
+          requests: {
+            use: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/send-superlike',
+            },
+          },
+          popups: {
+            buy: {
+              title: 'Oops!',
+              text:
+                "You don't have any photo bonuses available. Do you want to buy some?",
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+            },
+            send: {
+              title: 'Hurray!',
+              text: 'You just sent a photo!',
+              timer: 2000,
+              customClass: {
+                header: 'send-bonus-header',
+                title: 'send-bonus-title',
+              },
+            },
+          },
+          //animation: {
+          //  selectors: {
+          //    icon: '#superlike-icon',
+          //    icons: '#template-icons',
+          //    iconElements: {
+          //      hand: '.hand',
+          //      message: '.message',
+          //      star: '.star',
+          //    },
+          //    insertContainer: '.send-bonus-header',
+          //  },
+          //  ids: {
+          //    icon: 'superlike-icon',
+          //  },
+          //},
         });
 
         /*enlarge photo*/

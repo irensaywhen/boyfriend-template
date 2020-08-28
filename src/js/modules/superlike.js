@@ -5,10 +5,6 @@ export default class Superlike extends Bonus {
   constructor(options) {
     super(options);
 
-    this.type = 'superlike';
-
-    // Bind context
-
     // Save popups
     this.popups = options.popups;
 
@@ -22,7 +18,8 @@ export default class Superlike extends Bonus {
   _cacheElements() {
     super._cacheElements();
 
-    this.$amount = $(this.selectors.amount);
+    // Save amount element
+    this.$amount = this.$bonus.find(this.selectors.amount);
   }
 
   _setUpEventListeners() {
@@ -47,13 +44,13 @@ export default class Superlike extends Bonus {
   }
 
   _useBonus() {
-    console.log('Using bonus...');
-    let $document = $(document);
-
     // Call alert here with custom animation for superlike icon
     this.fireSendAlert(this.popups.send);
 
-    $document.trigger('present:send', { type: 'superlike' });
+    // Change the amount of bonuses available
+    this._decreaseBonusAmountAvailable();
+
+    $(document).trigger('present:send', { type: 'superlike' });
   }
 
   _prepareBonusUsage() {
@@ -64,5 +61,10 @@ export default class Superlike extends Bonus {
 
     // Temporary return true for debuggins purposes
     return true;
+  }
+
+  _decreaseBonusAmountAvailable() {
+    super._decreaseBonusAmountAvailable();
+    super._updateAmountOnMarkup();
   }
 }
