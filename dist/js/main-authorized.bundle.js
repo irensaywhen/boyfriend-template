@@ -19814,8 +19814,7 @@
                   this.iconElements = {}; // Save icon elements
 
                   for (var element in iconElements) {
-                    var elements = icon.querySelectorAll(iconElements[element]);
-                    console.log(elements); // Save jQuery collection of each element(s)
+                    var elements = icon.querySelectorAll(iconElements[element]); // Save jQuery collection of each element(s)
 
                     this.iconElements['$'.concat(element)] = $(elements);
                   } // Insert bonus icon to the modal
@@ -24664,62 +24663,50 @@
         /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-          /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
-        );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! @babel/runtime/helpers/get */ '../node_modules/@babel/runtime/helpers/get.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2__
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__
         );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
-          /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7__
-        );
-        /* harmony import */ var _animatedIcons_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var _animatedIcons_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./animatedIcons.js */ './js/modules/animatedIcons.js'
         );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
           return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
                 Derived
               ),
               result;
             if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
                 this
               ).constructor;
               result = Reflect.construct(Super, arguments, NewTarget);
             } else {
               result = Super.apply(this, arguments);
             }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default()(
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default()(
               this,
               result
             );
@@ -24742,33 +24729,20 @@
         }
 
         var PhotoAnimation = /*#__PURE__*/ (function (_IconAnimation) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default()(
             PhotoAnimation,
             _IconAnimation
           );
 
           var _super = _createSuper(PhotoAnimation);
 
-          // Save type
           function PhotoAnimation(options) {
-            var _this;
-
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               PhotoAnimation
             );
 
-            _this = _super.call(this, options);
-
-            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default()(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
-                _this
-              ),
-              'type',
-              'photo'
-            );
-
-            return _this;
+            return _super.call(this, options);
           }
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
@@ -24777,7 +24751,25 @@
               {
                 key: '_setUpEventListeners',
                 value: function _setUpEventListeners() {
-                  // Should set event listeners to handle beginning and ending of the animation
+                  var _this = this;
+
+                  // Listen to animation events
+                  $(document).on(
+                    'webkitAnimationEnd oAnimationEnd msAnimationEnd animationend',
+                    function (event) {
+                      var animationName = event.originalEvent.animationName,
+                        target = event.target,
+                        iconElements = _this.iconElements;
+                      if (!target.closest(_this.selectors.popup)) return;
+
+                      if (animationName === 'jackInTheBox') {
+                        iconElements.$icon.removeClass('photo-camera');
+                        iconElements.$shadow.addClass('photo-flash');
+                      } else if (animationName === 'photo-flash') {
+                        iconElements.$shadow.removeClass('photo-flash');
+                      }
+                    }
+                  );
                 }, // Maybe we can put animation preparation function into animated icons class also
               },
               {
@@ -24787,8 +24779,8 @@
 
                   return new Promise(function (resolve) {
                     // Append icon through calling parent method
-                    _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
-                      _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+                    _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
+                      _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
                         PhotoAnimation.prototype
                       ),
                       '_prepareAnimation',
@@ -24802,14 +24794,15 @@
               {
                 key: 'startAnimation',
                 value: function startAnimation() {
-                  // Should add the first class initiating the animation
+                  // Add the class initializing the animation
+                  this.iconElements.$icon.addClass('photo-camera');
                 },
               },
             ]
           );
 
           return PhotoAnimation;
-        })(_animatedIcons_js__WEBPACK_IMPORTED_MODULE_8__['default']);
+        })(_animatedIcons_js__WEBPACK_IMPORTED_MODULE_6__['default']);
 
         /***/
       },
@@ -26233,7 +26226,7 @@
               text: text,
               showConfirmButton: false,
               customClass: customClass,
-              //timer,
+              timer: timer,
               showClass: {
                 popup: 'animate__bounceIn',
               },

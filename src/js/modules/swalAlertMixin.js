@@ -49,7 +49,7 @@ export default {
       text,
       showConfirmButton: false,
       customClass,
-      //timer,
+      timer,
       showClass: {
         popup: 'animate__bounceIn',
       },

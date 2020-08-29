@@ -7825,7 +7825,7 @@
               text: text,
               showConfirmButton: false,
               customClass: customClass,
-              //timer,
+              timer: timer,
               showClass: {
                 popup: 'animate__bounceIn',
               },

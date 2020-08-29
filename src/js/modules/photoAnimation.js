@@ -1,15 +1,29 @@
 import IconAnimation from './animatedIcons.js';
 
 export default class PhotoAnimation extends IconAnimation {
-  // Save type
-  type = 'photo';
-
   constructor(options) {
     super(options);
   }
 
   _setUpEventListeners() {
-    // Should set event listeners to handle beginning and ending of the animation
+    // Listen to animation events
+    $(document).on(
+      'webkitAnimationEnd oAnimationEnd msAnimationEnd animationend',
+      event => {
+        let animationName = event.originalEvent.animationName,
+          target = event.target,
+          iconElements = this.iconElements;
+
+        if (!target.closest(this.selectors.popup)) return;
+
+        if (animationName === 'jackInTheBox') {
+          iconElements.$icon.removeClass('photo-camera');
+          iconElements.$shadow.addClass('photo-flash');
+        } else if (animationName === 'photo-flash') {
+          iconElements.$shadow.removeClass('photo-flash');
+        }
+      }
+    );
   }
 
   // Maybe we can put animation preparation function into animated icons class also
@@ -24,6 +38,7 @@ export default class PhotoAnimation extends IconAnimation {
   }
 
   startAnimation() {
-    // Should add the first class initiating the animation
+    // Add the class initializing the animation
+    this.iconElements.$icon.addClass('photo-camera');
   }
 }

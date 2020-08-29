@@ -27,7 +27,6 @@ export default class IconAnimation {
     // Save icon elements
     for (let element in iconElements) {
       let elements = icon.querySelectorAll(iconElements[element]);
-      console.log(elements);
 
       // Save jQuery collection of each element(s)
       this.iconElements[`$${element}`] = $(elements);
