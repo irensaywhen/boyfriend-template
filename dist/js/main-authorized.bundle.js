@@ -20043,6 +20043,8 @@
                                       ? 9
                                       : _context.t0 === 'superlike'
                                       ? 11
+                                      : _context.t0 === 'photo'
+                                      ? 11
                                       : 13;
                                   break;
 
@@ -24442,6 +24444,7 @@
                 value: function _useBonus() {
                   // In use bonus function we'll need to trigger modal opening programically
                   // After usage approvement
+                  this.$modal.modal('show');
                   console.log('Using photo bonus...'); // Delete previou
                   //this._discardPhotoInformation()
                   // Here we need to ask the user to make a photo or upload it

@@ -95,6 +95,7 @@ export default class Photo extends Bonus {
   _useBonus() {
     // In use bonus function we'll need to trigger modal opening programically
     // After usage approvement
+    this.$modal.modal('show');
     console.log('Using photo bonus...');
 
     // Delete previou

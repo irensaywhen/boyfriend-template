@@ -47,6 +47,7 @@ export default class Bonus extends ServerRequest {
           break;
 
         case 'superlike':
+        case 'photo':
           // Ask the user to purchase bonuses
           this._proposeBuyingBonus();
           break;
