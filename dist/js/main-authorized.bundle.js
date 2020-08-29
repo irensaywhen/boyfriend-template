@@ -19784,15 +19784,21 @@
               this,
               IconAnimation
             );
+
+            // Save meta data
+            this.selectors = options.selectors;
+            this.ids = options.ids; // Bind context
+
+            this.prepareAnimation = this.prepareAnimation.bind(this);
+            this._prepareAnimation = this._prepareAnimation.bind(this);
+            this.startAnimation = this.startAnimation.bind(this);
+
+            this._setUpEventListeners();
           }
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
             IconAnimation,
             [
-              {
-                key: '_cacheElements',
-                value: function _cacheElements() {},
-              },
               {
                 key: '_prepareAnimation',
                 value: function _prepareAnimation(modal) {
@@ -19803,26 +19809,19 @@
 
                   var icon = document
                     .getElementById(ids.icon)
-                    .content.cloneNode(true); // Save icon
-
-                  this.icon = icon; // Prepare empty container for icon elements
+                    .content.cloneNode(true); // Prepare empty container for icon elements
 
                   this.iconElements = {}; // Save icon elements
 
                   for (var element in iconElements) {
-                    var elements = icon.querySelectorAll(iconElements[element]); // Save jQuery collection of each element(s)
+                    var elements = icon.querySelectorAll(iconElements[element]);
+                    console.log(elements); // Save jQuery collection of each element(s)
 
                     this.iconElements['$'.concat(element)] = $(elements);
                   } // Insert bonus icon to the modal
 
-                  modal
-                    .querySelector(this.selectors.insertContainer)
-                    .prepend(this.icon);
+                  modal.querySelector(selectors.insertContainer).prepend(icon);
                 },
-              },
-              {
-                key: '_setUpEventListeners',
-                value: function _setUpEventListeners() {},
               },
             ]
           );
@@ -24394,8 +24393,9 @@
                     ),
                     '_setUpEventListeners',
                     this
-                  ).call(this);
+                  ).call(this); // Cache document element
 
+                  var $document = $(document);
                   this.$photoInputs.change(function (event) {
                     // Delete previously loaded photo
                     _this2.$previewContainer.empty(); // Delete previously saved src
@@ -24415,6 +24415,26 @@
                   this.$closeButton.click(function () {
                     // Delete all the temporary changes if the user doesn't submit the form
                     _this2._discardChanges();
+                  });
+                  $document.on('photoModal:onBeforeOpen', function (
+                    event,
+                    modal
+                  ) {
+                    // Start modal preparation
+                    _this2.animationPreparation = _this2.animation.prepareAnimation(
+                      modal
+                    );
+                  });
+                  $document.on('photoModal:onOpen', function (event, modal) {
+                    // Run animation
+                    _this2.animation.startAnimation();
+                  });
+                  $document.on('photoModal:onAfterClose', function (
+                    event,
+                    modal
+                  ) {
+                    // Prepare animation for further use
+                    console.log('Modal closed');
                   });
                 },
               },
@@ -24447,7 +24467,11 @@
                     'present:send',
                     this.photoData,
                     this.formData
-                  );
+                  ); // Close modal
+
+                  this.$closeButton.click(); // Call alert here with custom animation for superlike icon
+
+                  this.fireSendAlert(this.popups.send);
                 },
               },
               {
@@ -24634,56 +24658,68 @@
         /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
         );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1__
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/get */ '../node_modules/@babel/runtime/helpers/get.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__
         );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5__
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7__
         );
-        /* harmony import */ var _animatedIcons_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _animatedIcons_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
           /*! ./animatedIcons.js */ './js/modules/animatedIcons.js'
         );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
           return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                 Derived
               ),
               result;
             if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                 this
               ).constructor;
               result = Reflect.construct(Super, arguments, NewTarget);
             } else {
               result = Super.apply(this, arguments);
             }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default()(
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default()(
               this,
               result
             );
@@ -24706,7 +24742,7 @@
         }
 
         var PhotoAnimation = /*#__PURE__*/ (function (_IconAnimation) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default()(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(
             PhotoAnimation,
             _IconAnimation
           );
@@ -24724,20 +24760,56 @@
 
             _this = _super.call(this, options);
 
-            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default()(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1___default()(
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
                 _this
               ),
               'type',
               'photo'
             );
 
-            _this.type = 'photo';
             return _this;
           }
 
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
+            PhotoAnimation,
+            [
+              {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
+                  // Should set event listeners to handle beginning and ending of the animation
+                }, // Maybe we can put animation preparation function into animated icons class also
+              },
+              {
+                key: 'prepareAnimation',
+                value: function prepareAnimation(modal) {
+                  var _this2 = this;
+
+                  return new Promise(function (resolve) {
+                    // Append icon through calling parent method
+                    _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
+                      _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+                        PhotoAnimation.prototype
+                      ),
+                      '_prepareAnimation',
+                      _this2
+                    ).call(_this2, modal); // Resolve the promise
+
+                    resolve('fulfilled');
+                  });
+                },
+              },
+              {
+                key: 'startAnimation',
+                value: function startAnimation() {
+                  // Should add the first class initiating the animation
+                },
+              },
+            ]
+          );
+
           return PhotoAnimation;
-        })(_animatedIcons_js__WEBPACK_IMPORTED_MODULE_6__['default']);
+        })(_animatedIcons_js__WEBPACK_IMPORTED_MODULE_8__['default']);
 
         /***/
       },
@@ -25939,56 +26011,50 @@
         /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-          /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
-        );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! @babel/runtime/helpers/get */ '../node_modules/@babel/runtime/helpers/get.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2__
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__
         );
-        /* harmony import */ var _animatedIcons_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _animatedIcons_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./animatedIcons.js */ './js/modules/animatedIcons.js'
         );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
           return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
                 Derived
               ),
               result;
             if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
                 this
               ).constructor;
               result = Reflect.construct(Super, arguments, NewTarget);
             } else {
               result = Super.apply(this, arguments);
             }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default()(
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default()(
               this,
               result
             );
@@ -26011,7 +26077,7 @@
         }
 
         var SuperlikeAnimation = /*#__PURE__*/ (function (_IconAnimation) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default()(
             SuperlikeAnimation,
             _IconAnimation
           );
@@ -26019,34 +26085,12 @@
           var _super = _createSuper(SuperlikeAnimation);
 
           function SuperlikeAnimation(options) {
-            var _this;
-
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               SuperlikeAnimation
             );
 
-            _this = _super.call(this, options); // Save meta data
-
-            _this.selectors = options.selectors;
-            _this.ids = options.ids; // Bind context
-
-            _this.prepareAnimation = _this.prepareAnimation.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
-                _this
-              )
-            );
-            _this.startAnimation = _this.startAnimation.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
-                _this
-              )
-            );
-
-            _this._cacheElements();
-
-            _this._setUpEventListeners();
-
-            return _this;
+            return _super.call(this, options);
           }
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
@@ -26055,13 +26099,16 @@
               {
                 key: '_setUpEventListeners',
                 value: function _setUpEventListeners() {
-                  var _this2 = this;
+                  var _this = this;
 
                   $(document).on(
                     'webkitAnimationEnd oAnimationEnd msAnimationEnd animationend',
                     function (event) {
-                      var animationName = event.originalEvent.animationName;
-                      var iconElements = _this2.iconElements;
+                      var animationName = event.originalEvent.animationName,
+                        target = event.target,
+                        iconElements = _this.iconElements;
+                      if (!target.closest(_this.selectors.popup)) return;
+                      console.log(target);
 
                       if (animationName === 'superlike-stars') {
                         // Add final color to the stars
@@ -26079,17 +26126,17 @@
               {
                 key: 'prepareAnimation',
                 value: function prepareAnimation(modal) {
-                  var _this3 = this;
+                  var _this2 = this;
 
                   return new Promise(function (resolve) {
                     // Append icon through calling parent method
-                    _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
-                      _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+                    _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
+                      _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
                         SuperlikeAnimation.prototype
                       ),
                       '_prepareAnimation',
-                      _this3
-                    ).call(_this3, modal); // Resolve the promise
+                      _this2
+                    ).call(_this2, modal); // Resolve the promise
 
                     resolve('fulfilled');
                   });
@@ -26106,7 +26153,7 @@
           );
 
           return SuperlikeAnimation;
-        })(_animatedIcons_js__WEBPACK_IMPORTED_MODULE_7__['default']);
+        })(_animatedIcons_js__WEBPACK_IMPORTED_MODULE_6__['default']);
 
         /***/
       },
@@ -26186,7 +26233,7 @@
               text: text,
               showConfirmButton: false,
               customClass: customClass,
-              timer: timer,
+              //timer,
               showClass: {
                 popup: 'animate__bounceIn',
               },

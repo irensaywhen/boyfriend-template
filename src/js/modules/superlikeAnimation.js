@@ -3,25 +3,18 @@ import IconAnimation from './animatedIcons.js';
 export default class SuperlikeAnimation extends IconAnimation {
   constructor(options) {
     super(options);
-
-    // Save meta data
-    this.selectors = options.selectors;
-    this.ids = options.ids;
-
-    // Bind context
-    this.prepareAnimation = this.prepareAnimation.bind(this);
-    this.startAnimation = this.startAnimation.bind(this);
-
-    this._cacheElements();
-    this._setUpEventListeners();
   }
 
   _setUpEventListeners() {
     $(document).on(
       'webkitAnimationEnd oAnimationEnd msAnimationEnd animationend',
       event => {
-        let animationName = event.originalEvent.animationName;
-        let iconElements = this.iconElements;
+        let animationName = event.originalEvent.animationName,
+          target = event.target,
+          iconElements = this.iconElements;
+
+        if (!target.closest(this.selectors.popup)) return;
+        console.log(target);
 
         if (animationName === 'superlike-stars') {
           // Add final color to the stars

@@ -47,6 +47,8 @@ export default class Photo extends Bonus {
 
   _setUpEventListeners() {
     super._setUpEventListeners();
+    // Cache document element
+    let $document = $(document);
 
     this.$photoInputs.change(event => {
       // Delete previously loaded photo
@@ -73,6 +75,21 @@ export default class Photo extends Bonus {
       // Delete all the temporary changes if the user doesn't submit the form
       this._discardChanges();
     });
+
+    $document.on('photoModal:onBeforeOpen', (event, modal) => {
+      // Start modal preparation
+      this.animationPreparation = this.animation.prepareAnimation(modal);
+    });
+
+    $document.on('photoModal:onOpen', (event, modal) => {
+      // Run animation
+      this.animation.startAnimation();
+    });
+
+    $document.on('photoModal:onAfterClose', (event, modal) => {
+      // Prepare animation for further use
+      console.log('Modal closed');
+    });
   }
 
   _useBonus() {
@@ -93,15 +110,16 @@ export default class Photo extends Bonus {
   _sendPhoto() {
     // Change the amount of bonuses available
     this._decreaseBonusAmountAvailable();
-
     // Save description to photoData object
     this._savePhotoDescription();
-
     // Prepare formData to send photo information to the server
     this._generateFormData();
-
     // Generate event to send the photo to the user
     $(document).trigger('present:send', this.photoData, this.formData);
+    // Close modal
+    this.$closeButton.click();
+    // Call alert here with custom animation for superlike icon
+    this.fireSendAlert(this.popups.send);
   }
 
   _generateFormData() {

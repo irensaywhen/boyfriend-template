@@ -1,7 +1,16 @@
 export default class IconAnimation {
-  constructor(options) {}
+  constructor(options) {
+    // Save meta data
+    this.selectors = options.selectors;
+    this.ids = options.ids;
 
-  _cacheElements() {}
+    // Bind context
+    this.prepareAnimation = this.prepareAnimation.bind(this);
+    this._prepareAnimation = this._prepareAnimation.bind(this);
+    this.startAnimation = this.startAnimation.bind(this);
+
+    this._setUpEventListeners();
+  }
 
   _prepareAnimation(modal) {
     // Cache
@@ -12,23 +21,19 @@ export default class IconAnimation {
     // Get icon copy
     let icon = document.getElementById(ids.icon).content.cloneNode(true);
 
-    // Save icon
-    this.icon = icon;
-
     // Prepare empty container for icon elements
     this.iconElements = {};
 
     // Save icon elements
     for (let element in iconElements) {
       let elements = icon.querySelectorAll(iconElements[element]);
+      console.log(elements);
 
       // Save jQuery collection of each element(s)
       this.iconElements[`$${element}`] = $(elements);
     }
 
     // Insert bonus icon to the modal
-    modal.querySelector(this.selectors.insertContainer).prepend(this.icon);
+    modal.querySelector(selectors.insertContainer).prepend(icon);
   }
-
-  _setUpEventListeners() {}
 }
