@@ -23171,7 +23171,7 @@
                   restrictlength = _target$dataset.restrictlength,
                   maxlength = _target$dataset.maxlength; // Check whether we need to restrict length
 
-                if (!restrictlength.toLowerCase() === 'true') return; // Convert type to perform comparison
+                if (!restrictlength) return; // Convert type to perform comparison
 
                 maxlength = parseInt(maxlength); // If the field's value length is equals to max, prevent typing
 
@@ -23378,14 +23378,13 @@
 
               for (var key in customAttributes) {
                 customAttributes[key] = '';
-              } // If the user selects the city
-              // from dropdown
+              } // If the user selects the city from dropdown
 
               if (_this.citySelection) return;
+              console.log(_this.locationInputStarted);
 
               if (!_this.locationInputStarted) {
-                // If input hasn't started yet
-                // Indicate that input started
+                // If input hasn't started yet, indicate that the input has started
                 _this.locationInputStarted = true; // Save the value
 
                 _this.locationInputValue = _this.$locationInput.val(); // Schedule next check
@@ -23397,7 +23396,8 @@
             this.$locationDropdownMenu.click(function (event) {
               var target = event.target;
               if (target.tagName !== 'LI') return;
-              var dataset = target.dataset;
+              var dataset = target.dataset; // Indicate that we're on city selection stage
+
               _this.citySelection = true;
               clearTimeout(_this.locationTimer); // Save attributes from selected city
 
@@ -23472,7 +23472,7 @@
                             newValue = _this3.$locationInput.val();
 
                             if (newValue === _this3.locationInputValue) {
-                              _context2.next = 14;
+                              _context2.next = 15;
                               break;
                             }
 
@@ -23483,9 +23483,9 @@
                             requestInfo.endpoint.searchParams.set(
                               'city',
                               _this3.locationInputValue
-                            );
+                            ); // Show loading indicator
 
-                            _this3.$loadingIndicator.fadeIn(150); // Make request
+                            _this3.$loadingIndicator.fadeIn(150); // Get cities
 
                             _context2.next = 8;
                             return _this3.getCities({
@@ -23496,7 +23496,8 @@
 
                           case 8:
                             cities = _context2.sent;
-                            // Schedule next check
+                            console.log(cities); // Schedule next check
+
                             _this3.locationTimer = setTimeout(
                               _this3.throttleInput,
                               1500
@@ -23506,14 +23507,14 @@
 
                             _this3.displayCities(cities);
 
-                            _context2.next = 15;
+                            _context2.next = 16;
                             break;
 
-                          case 14:
+                          case 15:
                             // If the location hasn't changed recently
                             _this3.locationInputStarted = false;
 
-                          case 15:
+                          case 16:
                           case 'end':
                             return _context2.stop();
                         }

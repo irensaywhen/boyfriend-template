@@ -351,7 +351,9 @@
                 >
                   <div class="general-error" id="general-error-signup-3"></div>
                   <!--City input start-->
-                  <div class="form-group float-label position-relative">
+                  <div
+                    class="form-group float-label position-relative input-wrapper"
+                  >
                     <input
                       type="text"
                       name="city"
@@ -382,9 +384,9 @@
                     Date of birth
                   </h4>
                   <div class="container">
-                    <div class="row">
+                    <div class="row input-wrapper">
                       <div class="col-12 col-sm-4 pl-0">
-                        <div class="form-group float-label">
+                        <div class="form-group float-label mb-1">
                           <input
                             type="number"
                             name="day"
@@ -396,19 +398,29 @@
                         </div>
                       </div>
                       <div class="col-12 col-sm-4 pl-0 pl-sm-1">
-                        <div class="form-group float-label">
-                          <input
-                            type="number"
-                            name="month"
-                            min="1"
-                            max="12"
+                        <div class="form-group float-label active mb-1">
+                          <select
                             class="form-control signup-input"
-                          />
+                            name="month"
+                          >
+                            <option value="01">01</option>
+                            <option value="february">February</option>
+                            <option value="march">March</option>
+                            <option value="april">April</option>
+                            <option value="may">May</option>
+                            <option value="june">June</option>
+                            <option value="july">July</option>
+                            <option value="august">August</option>
+                            <option value="september">September</option>
+                            <option value="october">October</option>
+                            <option value="november">November</option>
+                            <option value="december">December</option>
+                          </select>
                           <label class="form-control-label">Month</label>
                         </div>
                       </div>
                       <div class="col-12 col-sm-4 pr-0 pl-0 pl-sm-1">
-                        <div class="form-group float-label">
+                        <div class="form-group float-label mb-1">
                           <input
                             type="number"
                             name="year"
@@ -425,7 +437,7 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-6 pl-0">
-                        <div class="form-group float-label">
+                        <div class="form-group float-label input-wrapper">
                           <input
                             type="number"
                             name="weight"
@@ -438,7 +450,7 @@
                         </div>
                       </div>
                       <div class="col-6 pr-0">
-                        <div class="form-group float-label">
+                        <div class="form-group float-label input-wrapper">
                           <input
                             type="number"
                             name="height"
@@ -457,7 +469,7 @@
 
                   <!--Preference start-->
 
-                  <div class="form-group">
+                  <div class="form-group input-wrapper">
                     <label for="preference" class="section-subtitle"
                       >Preference</label
                     >
@@ -728,7 +740,7 @@
         const signupThirdStep = new Form({
           selectors: {
             form: '#signup-3',
-            'input-wrapper': '.form-group',
+            'input-wrapper': '.input-wrapper',
             inputs: '.signup-input',
             locationInput: '.location',
             'location-dropdown': '.location-dropdown',
@@ -772,6 +784,7 @@
                 required: true,
                 location: true,
               },
+              /*
               day: {
                 required: true,
                 min: 1,
@@ -781,7 +794,7 @@
                 required: true,
                 min: 1,
                 max: 12,
-              },
+              },*/
               year: 'required',
               weight: {
                 required: true,

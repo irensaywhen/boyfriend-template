@@ -56,7 +56,7 @@ export default (function () {
         // Cache custom attributes
         let { restrictlength, maxlength } = target.dataset;
         // Check whether we need to restrict length
-        if (!restrictlength.toLowerCase() === 'true') return;
+        if (!restrictlength) return;
         // Convert type to perform comparison
         maxlength = parseInt(maxlength);
         // If the field's value length is equals to max, prevent typing

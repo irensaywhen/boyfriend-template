@@ -54,18 +54,14 @@ export default {
         customAttributes[key] = '';
       }
 
-      // If the user selects the city
-      // from dropdown
+      // If the user selects the city from dropdown
       if (this.citySelection) return;
-
+      console.log(this.locationInputStarted);
       if (!this.locationInputStarted) {
-        // If input hasn't started yet
-        // Indicate that input started
+        // If input hasn't started yet, indicate that the input has started
         this.locationInputStarted = true;
-
         // Save the value
         this.locationInputValue = this.$locationInput.val();
-
         // Schedule next check
         this.locationTimer = setTimeout(this.throttleInput, 1500);
       }
@@ -78,7 +74,7 @@ export default {
       if (target.tagName !== 'LI') return;
 
       let dataset = target.dataset;
-
+      // Indicate that we're on city selection stage
       this.citySelection = true;
       clearTimeout(this.locationTimer);
 
@@ -122,15 +118,17 @@ export default {
 
       // Adjust searchParams
       requestInfo.endpoint.searchParams.set('city', this.locationInputValue);
-
+      // Show loading indicator
       this.$loadingIndicator.fadeIn(150);
 
-      // Make request
+      // Get cities
       let cities = await this.getCities({
         headers: requestInfo.headers,
         endpoint: requestInfo.endpoint,
         method: requestInfo.method,
       });
+
+      console.log(cities);
 
       // Schedule next check
       this.locationTimer = setTimeout(this.throttleInput, 1500);
