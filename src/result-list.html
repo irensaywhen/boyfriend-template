@@ -123,7 +123,7 @@
     </div>
     <!-- sidebar ends -->
 
-    <div class="wrapper">
+    <div class="wrapper wrapper-padding">
       <!-- header -->
       <div class="private-header d-flex align-items-center">
         <div class="container-fluid">
@@ -256,11 +256,10 @@
         </div>
       </div>
       <!-- header ends -->
-
-      <!--Profiles start-->
-      <div class="container-fluid profile-list">
-        <!-- Ad start-->
-        <div class="row">
+      
+      <!--Ad at the top start-->
+      <div class="container-fluid">
+         <div class="row">
           <div class="col-12 mt-4">
             <div
               class="content custom-content d-sm-flex justify-content-between justify-content-md-around justify-content-lg-evenly align-items-center text-center text-sm-left py-4 px-3"
@@ -283,13 +282,16 @@
             </div>
           </div>
         </div>
-        <!-- Ad end-->
+      </div>
+      <!--Ad at the top end-->
 
+      <!--Profiles start-->
+      <div class="container search-profiles-form">
         <div class="row">
           <div class="col-12">
             <!--Profile search form start-->
             <form
-              class="search-form my-5"
+              class="search-form mt-5 mb-4"
               id="profile-search"
               autocomplete="off"
             >
@@ -477,12 +479,30 @@
             <!--Profile search form end-->
           </div>
         </div>
+      </div>
+
+      <!--Profiles preview container start-->
+      <div class="container-fluid profile-list">
         <div id="profiles-container" class="row profiles-row justify-content-center"></div>
         <div
           id="pagination-container"
           class="pagination d-flex justify-content-center"
         ></div>
+      </div>
+      <!--Profiles preview container end-->
 
+      <!--Bottom ad start-->
+      <div class="container-fluid mt-3">
+        <div class="row">
+          <div class="col-12 mt-3 mb-3">
+            <div class="content default-content" data-type="default"></div>
+          </div>
+        </div>
+      </div>
+      <!--Bottom ad end-->
+
+      <!--Ads start-->
+      <div class="container-fluid">
         <div class="row" id="content-container">
           <!--Default-->
           <div class="col-12 mt-4 mb-5">
@@ -512,14 +532,8 @@
             </div>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-12 mt-5 mb-3">
-            <div class="content default-content" data-type="default"></div>
-          </div>
-        </div>
       </div>
-      <!--Profiles end-->
+      <!--Ads end-->
 
       <!-- footer -->
       <footer class="footer">
