@@ -1,7 +1,9 @@
 export default (function () {
+  // Private variables and functions
   const breakpoints = [320, 576, 768, 992, 1200];
 
   return {
+    // Public variables and functions
     getScrollBarWidth() {
       var $outer = $('<div>')
           .css({ visibility: 'hidden', width: 100, overflow: 'scroll' })
@@ -45,6 +47,21 @@ export default (function () {
 
     getHeaderHeight(headerSelector = '.private-header') {
       return $(headerSelector).outerHeight();
+    },
+
+    restrictInputLength($form) {
+      $form.on('keydown', event => {
+        // Cache target
+        let target = event.target;
+        // Cache custom attributes
+        let { restrictlength, maxlength } = target.dataset;
+        // Check whether we need to restrict length
+        if (!restrictlength.toLowerCase() === 'true') return;
+        // Convert type to perform comparison
+        maxlength = parseInt(maxlength);
+        // If the field's value length is equals to max, prevent typing
+        if (target.value.length === maxlength) event.preventDefault();
+      });
     },
   };
 })();

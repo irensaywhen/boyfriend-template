@@ -6157,6 +6157,9 @@
         /* harmony import */ var _paymentMixin_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
           /*! ./paymentMixin.js */ './js/modules/paymentMixin.js'
         );
+        /* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+          /*! ./helper.js */ './js/modules/helper.js'
+        );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -6254,7 +6257,9 @@
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
-            );
+            ); // cache
+
+            var selectors = _this.selectors;
 
             if (options.location) {
               // Add location methods to the form object
@@ -6267,7 +6272,7 @@
 
             _this._cacheElements();
 
-            _this._setUpEventListeners();
+            _this._setUpEventListeners(); // Handle payment form
 
             if (options.payment) {
               Object.assign(
@@ -6285,7 +6290,7 @@
                 _this.creditCardNumberValidation,
                 'Card number is invalid'
               );
-            }
+            } // Handle frontend validation
 
             if (options.frontendValidation) {
               // If this form requires frontend validation
@@ -6296,31 +6301,45 @@
                 error,
                 element
               ) {
-                element.closest(_this.selectors['input-wrapper']).append(error);
+                element.closest(selectors['input-wrapper']).append(error);
               };
 
               if (_this.location) {
-                // Add custom frontend validation for location field
+                var errorMessage =
+                  options.locationErrorMessage || 'No such city'; // Add custom frontend validation for location field
+
                 jQuery.validator.addMethod(
                   'location',
                   _this.frontendCityValidator,
-                  'No such city'
+                  errorMessage
                 );
               } // Add frontend validation
 
               _this.$form.validate(options.validatorOptions);
             }
+            /**
+             * Form configuration for submit part
+             */
+            // Set redirect on submit option
 
-            _this.redirectOnSubmit = options.redirectOnSubmit ? true : false;
+            _this.redirectOnSubmit = options.redirectOnSubmit ? true : false; // Set generate submit event option
+
             _this.generateSubmitEvent = options.generateSubmitEvent
               ? true
-              : false; // Clean fields after submission?
+              : false; // Set cleaning fields after submission option
 
             _this.cleanFields = options.cleanFields ? true : false; // Show popup after submission with successful result?
 
             _this.showSuccessPopup = options.showSuccessPopup ? true : false; // Show popup after submission with failed result?
 
-            _this.showFailPopup = options.showFailPopup ? true : false;
+            _this.showFailPopup = options.showFailPopup ? true : false; // Restrict input length
+
+            if (options.restrictInputLength) {
+              _helper_js__WEBPACK_IMPORTED_MODULE_11__[
+                'default'
+              ].restrictInputLength(_this.$form);
+            }
+
             return _this;
           }
 
@@ -6586,6 +6605,94 @@
 
           return Form;
         })(_requests_js__WEBPACK_IMPORTED_MODULE_8__['default']);
+
+        /***/
+      },
+
+    /***/ './js/modules/helper.js':
+      /*!******************************!*\
+  !*** ./js/modules/helper.js ***!
+  \******************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony default export */ __webpack_exports__[
+          'default'
+        ] = (function () {
+          // Private variables and functions
+          var breakpoints = [320, 576, 768, 992, 1200];
+          return {
+            // Public variables and functions
+            getScrollBarWidth: function getScrollBarWidth() {
+              var $outer = $('<div>')
+                  .css({
+                    visibility: 'hidden',
+                    width: 100,
+                    overflow: 'scroll',
+                  })
+                  .appendTo('body'),
+                widthWithScroll = $('<div>')
+                  .css({
+                    width: '100%',
+                  })
+                  .appendTo($outer)
+                  .outerWidth();
+              $outer.remove();
+              return 100 - widthWithScroll;
+            },
+            getViewportWidth: function getViewportWidth() {
+              return $(window).width() + this.getScrollBarWidth();
+            },
+            getViewportRange: function getViewportRange() {
+              var viewportWidth = this.getViewportWidth();
+
+              if (viewportWidth && viewportWidth < breakpoints[1]) {
+                return 'xs';
+              } else if (
+                breakpoints[1] <= viewportWidth &&
+                viewportWidth < breakpoints[2]
+              ) {
+                return 'sm';
+              } else if (
+                breakpoints[2] <= viewportWidth &&
+                viewportWidth < breakpoints[3]
+              ) {
+                return 'md';
+              } else if (
+                breakpoints[3] <= viewportWidth &&
+                viewportWidth < breakpoints[4]
+              ) {
+                return 'lg';
+              } else if (breakpoints[4] <= viewportWidth) {
+                return 'xl';
+              }
+            },
+            getHeaderHeight: function getHeaderHeight() {
+              var headerSelector =
+                arguments.length > 0 && arguments[0] !== undefined
+                  ? arguments[0]
+                  : '.private-header';
+              return $(headerSelector).outerHeight();
+            },
+            restrictInputLength: function restrictInputLength($form) {
+              $form.on('keydown', function (event) {
+                // Cache target
+                var target = event.target; // Cache custom attributes
+
+                var _target$dataset = target.dataset,
+                  restrictlength = _target$dataset.restrictlength,
+                  maxlength = _target$dataset.maxlength; // Check whether we need to restrict length
+
+                if (!restrictlength.toLowerCase() === 'true') return; // Convert type to perform comparison
+
+                maxlength = parseInt(maxlength); // If the field's value length is equals to max, prevent typing
+
+                if (target.value.length === maxlength) event.preventDefault();
+              });
+            },
+          };
+        })();
 
         /***/
       },

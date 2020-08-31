@@ -430,6 +430,8 @@
                             type="number"
                             name="weight"
                             id="weight"
+                            data-restrictLength="true"
+                            data-maxlength="3"
                             class="form-control signup-input"
                           />
                           <label class="form-control-label">Weight</label>
@@ -440,7 +442,10 @@
                           <input
                             type="number"
                             name="height"
+                            maxlength="3"
                             id="height"
+                            data-restrictLength="true"
+                            data-maxlength="3"
                             class="form-control signup-input"
                           />
                           <label class="form-control-label">Height</label>
@@ -653,7 +658,7 @@
                 'Content-Type': 'application/json',
               },
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail-general',
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin',
             },
           },
           location: false,
@@ -753,7 +758,9 @@
               },
             },
           },
+          restrictInputLength: true,
           location: true,
+          locationErrorMessage: 'Please, enter a valid city name',
           showSuccessPopup: false,
           showFailPopup: false,
           frontendValidation: true,
@@ -776,8 +783,14 @@
                 max: 12,
               },
               year: 'required',
-              weight: 'required',
-              height: 'required',
+              weight: {
+                required: true,
+                maxlength: 3,
+              },
+              height: {
+                required: true,
+                maxlength: 3,
+              },
               preference: 'required',
             },
           },
@@ -808,14 +821,15 @@
         /* avatar handling end */
 
         /* forms chainer initialization start */
-        const chainedForms = new ChainedForms({
-          selectors: {
-            formsContainer: '#forms-signup',
-            forms: '.form-signin',
-            backward: '.back',
-            wrapper: '.form-wrapper',
-          },
-        });
+        // Chained forms are temporary disables
+        //const chainedForms = new ChainedForms({
+        //  selectors: {
+        //    formsContainer: '#forms-signup',
+        //    forms: '.form-signin',
+        //    backward: '.back',
+        //    wrapper: '.form-wrapper',
+        //  },
+        //});
         /* forms chainer initialization end */
 
         $('#continue').click(event => {

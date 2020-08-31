@@ -1,6 +1,7 @@
 import ServerRequest from './requests.js';
 import location from './locationMixin.js';
 import payment from './paymentMixin.js';
+import helper from './helper.js';
 
 export default class Form extends ServerRequest {
   constructor(options) {
@@ -19,6 +20,9 @@ export default class Form extends ServerRequest {
     this.showGeneralError = this.showGeneralError.bind(this);
     this.deleteGeneralError = this.deleteGeneralError.bind(this);
 
+    // cache
+    let selectors = this.selectors;
+
     if (options.location) {
       // Add location methods to the form object
       Object.assign(Form.prototype, location);
@@ -28,6 +32,7 @@ export default class Form extends ServerRequest {
     this._cacheElements();
     this._setUpEventListeners();
 
+    // Handle payment form
     if (options.payment) {
       Object.assign(Form.prototype, payment);
       this.payment = true;
@@ -45,6 +50,7 @@ export default class Form extends ServerRequest {
       );
     }
 
+    // Handle frontend validation
     if (options.frontendValidation) {
       // If this form requires frontend validation
       this.frontendValidation = true;
@@ -52,15 +58,16 @@ export default class Form extends ServerRequest {
       // Change where error messages occur
       // This is required for label to work properly when errors are shown
       options.validatorOptions['errorPlacement'] = (error, element) => {
-        element.closest(this.selectors['input-wrapper']).append(error);
+        element.closest(selectors['input-wrapper']).append(error);
       };
 
       if (this.location) {
+        let errorMessage = options.locationErrorMessage || 'No such city';
         // Add custom frontend validation for location field
         jQuery.validator.addMethod(
           'location',
           this.frontendCityValidator,
-          'No such city'
+          errorMessage
         );
       }
 
@@ -68,17 +75,24 @@ export default class Form extends ServerRequest {
       this.$form.validate(options.validatorOptions);
     }
 
+    /**
+     * Form configuration for submit part
+     */
+    // Set redirect on submit option
     this.redirectOnSubmit = options.redirectOnSubmit ? true : false;
+    // Set generate submit event option
     this.generateSubmitEvent = options.generateSubmitEvent ? true : false;
-
-    // Clean fields after submission?
+    // Set cleaning fields after submission option
     this.cleanFields = options.cleanFields ? true : false;
-
     // Show popup after submission with successful result?
     this.showSuccessPopup = options.showSuccessPopup ? true : false;
-
     // Show popup after submission with failed result?
     this.showFailPopup = options.showFailPopup ? true : false;
+
+    // Restrict input length
+    if (options.restrictInputLength) {
+      helper.restrictInputLength(this.$form);
+    }
   }
 
   _cacheElements() {

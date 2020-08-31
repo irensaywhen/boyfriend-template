@@ -1357,11 +1357,7 @@ article h2 {
 article .header {
   display: grid;
   grid-gap: 3px;
-  grid-template-areas:
-    'title'
-    'subtitle'
-    'date'
-    'social';
+  grid-template-areas: 'title' 'subtitle' 'date' 'social';
   grid-template-columns: 1fr;
 }
 article .header h1 {
@@ -1413,18 +1409,13 @@ article .header time {
 }
 @media (min-width: 576px) {
   article .header {
-    grid-template-areas:
-      'title social'
-      'subtitle empty'
-      'date empty';
+    grid-template-areas: 'title social' 'subtitle empty' 'date empty';
     grid-template-columns: 2fr 1fr;
   }
 }
 @media (min-width: 768px) {
   article .header {
-    grid-template-areas:
-      'title social'
-      'subtitle date';
+    grid-template-areas: 'title social' 'subtitle date';
     grid-gap: 0;
   }
   article .header time {
@@ -1986,11 +1977,7 @@ article .header time {
 article .header {
   display: grid;
   grid-gap: 3px;
-  grid-template-areas:
-    'title'
-    'subtitle'
-    'date'
-    'social';
+  grid-template-areas: 'title' 'subtitle' 'date' 'social';
   grid-template-columns: 1fr;
 }
 article .header h1 {
@@ -2012,18 +1999,13 @@ article .header time {
 }
 @media (min-width: 576px) {
   article .header {
-    grid-template-areas:
-      'title social'
-      'subtitle empty'
-      'date empty';
+    grid-template-areas: 'title social' 'subtitle empty' 'date empty';
     grid-template-columns: 2fr 1fr;
   }
 }
 @media (min-width: 768px) {
   article .header {
-    grid-template-areas:
-      'title social'
-      'subtitle date';
+    grid-template-areas: 'title social' 'subtitle date';
     grid-gap: 0;
   }
   article .header time {
