@@ -61,7 +61,8 @@ export default class Form extends ServerRequest {
         element.closest(selectors['input-wrapper']).append(error);
       };
 
-      if (this.location) {
+      // Temporary disable location validation to change how location mixin will behave
+      /*if (this.location) {
         let errorMessage = options.locationErrorMessage || 'No such city';
         // Add custom frontend validation for location field
         jQuery.validator.addMethod(
@@ -69,7 +70,7 @@ export default class Form extends ServerRequest {
           this.frontendCityValidator,
           errorMessage
         );
-      }
+      }*/
 
       // Add frontend validation
       this.$form.validate(options.validatorOptions);

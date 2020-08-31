@@ -1,4 +1,4 @@
-export default {
+let prevLocationMixin = {
   locationInputStarted: false,
   locationInputValue: null,
 
@@ -66,6 +66,8 @@ export default {
         this.locationTimer = setTimeout(this.throttleInput, 1500);
       }
     });
+
+    this.$locationInput.on('input', event => {});
 
     // Handle city selection from dropdown
     this.$locationDropdownMenu.click(event => {
@@ -173,3 +175,185 @@ export default {
     }
   },
 };
+
+// This is the new location mixing
+export default (function () {
+  // Private functions and variables
+  // Timer id for debouncing
+  let timerId,
+    $locationInput,
+    $loadingIndicator,
+    $locationDropdownWrapper,
+    $locationDropdownToggle,
+    $locationDropdownMenu;
+
+  /**
+   * Helper function to cache required elements
+   */
+  // Maybe, after implementing functionality, you can make these variables private
+  // TO not to mess everything together
+  function _cacheElements() {
+    // Caching selectors
+    let selectors = this.selectors;
+
+    // Cache input element
+    $locationInput = this.$form.find(selectors.locationInput);
+
+    // Find and hide loading indicator
+    $loadingIndicator = this.$form
+      .find(selectors.locationLoadingIndicator)
+      .fadeOut(0);
+
+    // location dropdown wrapper
+    $locationDropdownWrapper = this.$form.find(selectors['location-dropdown']);
+
+    // Dropdown toggle
+    $locationDropdownToggle = $locationDropdownWrapper.find(
+      selectors['dropdown-toggle']
+    );
+
+    // Dropdown menu
+    $locationDropdownMenu = $locationDropdownWrapper.find(
+      selectors['dropdown-menu']
+    );
+  }
+
+  /**
+   * Helper function to setup event listeners
+   */
+  function _setUpEventListeners() {
+    // Cache
+    let requestInfo = this.requests.location;
+
+    // Handle location input
+    $locationInput.on('input', event => {
+      // Clean previously cached values about city
+      // Check whether they are cached properly
+      let customAttributes = event.target.dataset;
+      for (let key in customAttributes) {
+        customAttributes[key] = '';
+      }
+
+      // Show loading indicator here
+      // And hide it when the cities are being retrieved and showed
+
+      // Debounce user input
+      _debounce(_getNewCities, 1000, requestInfo);
+    });
+
+    // Handle city selection from dropdown
+    $locationDropdownMenu.click(event => {
+      let target = event.target;
+
+      if (target.tagName !== 'LI') return;
+
+      let dataset = target.dataset;
+
+      // Save attributes from selected city
+      $locationInput
+        .attr('data-lat', dataset.lat)
+        .attr('data-lon', dataset.lon)
+        .attr('data-name', dataset.name)
+        .val(dataset.name);
+
+      // Clean dropdown
+      $locationDropdownMenu.empty();
+
+      if ($locationInput.valid()) {
+        // Trigger event to let everything know that the city was selected
+        $locationInput.trigger('citySelected');
+      }
+    });
+  }
+
+  // Function to make async API call to the Nominatium
+  function _makeAPICallForCities({ headers, endpoint, method }) {
+    return this.makeRequest({
+      headers,
+      endpoint,
+      method,
+    });
+  }
+
+  // Function to display cities in dropdown
+  function _displayCities(cities) {
+    if (cities.length === 0) return;
+
+    cities.forEach(city => {
+      $locationDropdownMenu
+        .append(
+          $('<li></li>')
+            .addClass('dropdown-item')
+            .attr('data-lat', city.lat)
+            .attr('data-lon', city.lon)
+            .attr('data-name', city['display_name'])
+            .text(city['display_name'])
+        )
+        .append($('<li></li>').addClass('dropdown-divider'));
+    });
+
+    $locationDropdownToggle.dropdown('toggle');
+  }
+
+  function _getNewCities(requestInfo) {
+    // Set the current input value to the search parameters
+    requestInfo.endpoint.searchParams.set('city', $locationInput.val());
+
+    _makeAPICallForCities(requestInfo).then(cities => {
+      _displayCities(cities);
+    });
+  }
+
+  // Function to debonce making an API call
+  function _debounce(func, delay, requestInfo) {
+    // Cancels the setTimeout method execution
+    clearTimeout(timerId);
+
+    // Executes the func after delay time.
+    timerId = setTimeout(func, delay, requestInfo);
+  }
+
+  return {
+    // Public functions and variables
+
+    // Function for the custom frontend validation of the city input
+    frontendCityValidator(value, element) {
+      // Cache data-* sttributes
+      let dataset = element.dataset;
+
+      if (dataset['lat'] && dataset['lon'] && dataset['name']) {
+        // If dataset properties are not empty, the element is valid
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+    initializeLocationInput() {
+      console.log('Initializing location inout');
+      console.log(this);
+      // Caching
+      let requestInfo = this.requests.location;
+
+      // Bind context
+      this.frontendCityValidator = this.frontendCityValidator.bind(this);
+      _cacheElements = _cacheElements.bind(this);
+      _setUpEventListeners = _setUpEventListeners.bind(this);
+      _makeAPICallForCities = _makeAPICallForCities.bind(this);
+      _getNewCities = _getNewCities.bind(this);
+      _displayCities = _displayCities.bind(this);
+
+      // Add default query params to retrieve city information
+      for (let key in requestInfo.searchParams) {
+        requestInfo.endpoint.searchParams.set(
+          key,
+          requestInfo.searchParams[key]
+        );
+      }
+
+      // Location input preparation
+      _cacheElements();
+      _setUpEventListeners();
+    },
+  };
+})();
