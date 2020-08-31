@@ -24535,18 +24535,17 @@
                 value: function _setReaderEventListeners(reader) {
                   var _this3 = this;
 
-                  // We need to add event handler to listen to an event
-                  // when the reader starts photo loading
-                  // To show loading indicator
                   // Show loading indicator when the read has started
-                  reader.onloadstart = function () {
+                  reader.onloadstart = function (event) {
                     // Set progress indicator here
                     console.log('Loading start');
+                    console.log(event);
                   }; // Hide loading indicator when the read has finished
 
-                  reader.onloadend = function () {
+                  reader.onloadend = function (event) {
                     //Delete progress indicator here
                     console.log('Loading end');
+                    console.log(event);
                   }; // Preview photos when it is readed successfully
 
                   reader.onload = function (event) {
@@ -24560,7 +24559,7 @@
                       src: src,
                     }); // Show submit button
 
-                    _this3.$modalFooter.fadeIn(0); //this.generatePreviewHTML({ id: id, src: src });
+                    _this3.$modalFooter.fadeIn(0);
                   }; // Show error popup when an error occured while whoto loading
 
                   reader.onerror = function () {

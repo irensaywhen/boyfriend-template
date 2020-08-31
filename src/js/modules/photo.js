@@ -168,20 +168,18 @@ export default class Photo extends Bonus {
   }
 
   _setReaderEventListeners(reader) {
-    // We need to add event handler to listen to an event
-    // when the reader starts photo loading
-    // To show loading indicator
-
     // Show loading indicator when the read has started
-    reader.onloadstart = () => {
+    reader.onloadstart = event => {
       // Set progress indicator here
       console.log('Loading start');
+      console.log(event);
     };
 
     // Hide loading indicator when the read has finished
-    reader.onloadend = () => {
+    reader.onloadend = event => {
       //Delete progress indicator here
       console.log('Loading end');
+      console.log(event);
     };
 
     // Preview photos when it is readed successfully
@@ -189,24 +187,18 @@ export default class Photo extends Bonus {
       // Cache
       let target = event.target,
         src = target.result;
-
       // Save src for preview
       this.photoData['src'] = src;
-
       // Preview photo in the preview container
       this._previewPhoto({ src });
-
       // Show submit button
       this.$modalFooter.fadeIn(0);
-
-      //this.generatePreviewHTML({ id: id, src: src });
     };
 
     // Show error popup when an error occured while whoto loading
     reader.onerror = () => {
       // Get text information for error popup
       let { title, text } = this.popups.uploadError;
-
       // Show error popup
       this.showRequestResult({
         title,
