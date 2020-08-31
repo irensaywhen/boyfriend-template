@@ -10,12 +10,21 @@
     "type": "git",
     "url": "git+https://IrenSayWhen@bitbucket.org/Maciej_Katarzynski/boyfriend.git"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "author": "Irina Gataullina",
   "license": "ISC",
   "homepage": "https://bitbucket.org/Maciej_Katarzynski/boyfriend#readme",
   "dependencies": {
     "@babel/runtime": "^7.10.4",
+    "animate.css": "^4.1.0",
+    "card": "^2.4.0",
+    "handlebars": "^4.7.6",
     "jquery-validation": "^1.19.2",
+    "moment": "^2.27.0",
     "node-sass": "^4.14.1",
     "sweetalert2": "^9.15.3"
   },
@@ -32,6 +41,12 @@
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-svgmin": "^3.0.0",
+    "husky": "^4.2.5",
+    "moment-locales-webpack-plugin": "^1.2.0",
+    "prettier": "2.0.5",
+    "pretty-quick": "^2.0.1",
     "raw-loader": "^4.0.1",
     "webpack": "^4.43.0",
     "webpack-dev-middleware": "^3.7.2",

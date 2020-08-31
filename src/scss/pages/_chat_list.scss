@@ -1,0 +1,51 @@
+.chat-list {
+  position: relative;
+  margin-top: 15px;
+  overflow-y: auto;
+  height: 80vh;
+  max-height: 80vh;
+  .message {
+    /* All the messages' styles */
+    .avatar {
+      margin: 0;
+
+      @include circular-badge(80px);
+      @include screen-sm {
+        @include circular-badge(110px);
+      }
+      @include screen-md {
+        @include circular-badge(150px);
+      }
+
+      img {
+        @include image;
+      }
+    }
+
+    .name {
+      @include fluid-type($screen-xs, $screen-xl, 16px, 20px);
+    }
+
+    .text {
+      @include fluid-type($screen-xs, $screen-xl, 14px, 16px);
+      max-width: calc(100% - 34px);
+    }
+
+    /* New messages styles */
+    &.unread {
+      .name {
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+      }
+
+      .text {
+        font-weight: 600;
+      }
+
+      .date {
+        font-weight: 600;
+      }
+    }
+  }
+}

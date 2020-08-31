@@ -1,0 +1,54 @@
+/*default footer styles*/
+@mixin footer($shadow: true) {
+  @include ease-out;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  padding: env(safe-area-inset-bottom);
+  bottom: 0;
+  left: 0;
+  z-index: 9;
+  background: #ffffff;
+
+  @if $shadow {
+    box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/*Default buttons in footer*/
+@mixin footer-btn {
+  width: 60px;
+  height: 60px;
+  line-height: 54px;
+  padding: 0;
+  text-align: center;
+  display: block;
+
+  i {
+    width: 22px;
+    margin: 0 auto;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+/*center button in footer*/
+@mixin footer-btn--center($diameter, $mt) {
+  height: $diameter;
+  line-height: 54px;
+  width: $diameter;
+  border-radius: 50%;
+  margin: 0 15px;
+  margin-top: $mt;
+
+  .icon {
+    font-size: increase-font-size($icon-size, 2px);
+    width: auto;
+  }
+
+  .badge-circle {
+    position: absolute;
+    bottom: -11px;
+    font-size: 12px;
+  }
+}

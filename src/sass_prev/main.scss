@@ -11,7 +11,7 @@ body {
 }
 
 /*TYPOGRAPHY*/
-$primaryFont: "Raleway", sans-serif;
+$primaryFont: 'Raleway', sans-serif;
 $bold: 700;
 $medium: 500;
 .row {
@@ -45,14 +45,14 @@ header {
     padding: 0 0 40px 0;
   }
   &--big {
-    font-family: "Roboto";
+    font-family: 'Roboto';
     color: #212529;
     font-size: 48px;
     font-weight: 600;
     margin: 0;
   }
   &--medium {
-    font-family: "Roboto";
+    font-family: 'Roboto';
     color: #212529;
     font-size: 26px;
     font-weight: 400;
@@ -73,7 +73,7 @@ header {
   }
 }
 .subheader {
-  font-family: "Roboto";
+  font-family: 'Roboto';
   &--light {
     font-size: 17px;
     color: #212529;
@@ -107,7 +107,7 @@ header {
     font-size: 26px;
   }
   &--date {
-    font-family: "Roboto";
+    font-family: 'Roboto';
     font-weight: 300;
     color: #757575;
     font-size: 18px;
@@ -121,7 +121,7 @@ header {
   }
 }
 .paragraph {
-  $primaryFont: "Raleway", sans-serif;
+  $primaryFont: 'Raleway', sans-serif;
   &--small {
     font-size: 14px;
     color: #3b4046;
@@ -129,14 +129,14 @@ header {
   }
   &--article {
     color: #212529;
-    font-family: "Roboto";
+    font-family: 'Roboto';
     font-size: 16px;
     font-weight: 400;
     line-height: 1.8;
   }
   &--articleBig {
     color: #212529;
-    font-family: "Roboto";
+    font-family: 'Roboto';
     font-size: 17px;
     font-weight: 300;
     margin: 20px 0;
@@ -144,7 +144,7 @@ header {
   }
   &--articleLight {
     color: #212529;
-    font-family: "Roboto";
+    font-family: 'Roboto';
     font-size: 16px;
     font-weight: 300;
     line-height: 1.4;
@@ -348,13 +348,13 @@ header {
   }
 }
 .bg-1 {
-  background-image: url("../img/main-bg.jpg");
+  background-image: url('../img/main-bg.jpg');
 }
 .bg-2 {
-  background-image: url("../img/main-bg.jpg");
+  background-image: url('../img/main-bg.jpg');
 }
 .bg-3 {
-  background-image: url("../img/main-bg.jpg");
+  background-image: url('../img/main-bg.jpg');
 }
 .index {
   &__articles {
@@ -482,11 +482,11 @@ header {
   }
   &__breadcrumbs {
     & a::after {
-      content: ">";
+      content: '>';
       margin: 0 7px;
     }
     & a:last-child::after {
-      content: "";
+      content: '';
     }
   }
 }
@@ -743,7 +743,7 @@ header {
 .main {
   height: 100vh;
   width: 100%;
-  background-image: url("../img/main-bg.jpg");
+  background-image: url('../img/main-bg.jpg');
   background-size: cover;
   background-position: top;
   &__header {
@@ -910,7 +910,7 @@ header {
     }
     h6 {
       margin: 0 0 0 0px;
-      font-family: "Roboto";
+      font-family: 'Roboto';
       font-size: 18px;
       font-weight: 400;
       color: #495057;
@@ -979,7 +979,7 @@ header {
   }
 }
 .navButton {
-  font-family: "Roboto";
+  font-family: 'Roboto';
   font-size: 17px;
   padding: 10px 30px 8px 30px;
   font-weight: 400;

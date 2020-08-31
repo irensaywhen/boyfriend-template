@@ -1,0 +1,214 @@
+.profile {
+  max-width: 612px;
+
+  @include screen-md {
+    max-width: 750px;
+  }
+  /* Avatar */
+  .profile-avatar {
+    @include avatar(200px, 200px, true);
+
+    @include screen-sm {
+      max-width: 100%;
+      border-radius: unset;
+    }
+
+    @include screen-md {
+      max-width: 250px;
+    }
+  }
+
+  /* Private photo */
+  .private {
+    width: 100%;
+    max-width: 100%;
+
+    img {
+      @include image;
+    }
+  }
+
+  .name {
+    @include fluid-type($screen-xs, $screen-xl, 24px, 32px);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .heart {
+    width: 30px;
+    height: auto;
+  }
+
+  .about {
+    @include fluid-type($screen-xs, $screen-xl, 22px, 30px);
+    font-weight: 500;
+  }
+
+  .description {
+    @include fluid-type($screen-xs, $screen-xl, 15px, 18px);
+  }
+
+  .city {
+    @include fluid-type($screen-xs, $screen-xl, 16px, 20px);
+  }
+
+  .complain {
+    font-size: 12px;
+  }
+
+  .information {
+    list-style: none;
+
+    li {
+      width: 33%;
+      position: relative;
+    }
+
+    @for $i from 1 through 2 {
+      li:nth-of-type(#{$i}) {
+        &:after {
+          content: '';
+          position: absolute;
+          top: calc(50% - 10px);
+          right: 0;
+          border-right: 1px solid lighten($bootstrap-secondary, 40);
+          height: 20px;
+        }
+      }
+    }
+
+    .label {
+      font-size: 14px;
+    }
+
+    .data {
+      @include fluid-type($screen-xs, $screen-xl, 15px, 18px);
+    }
+  }
+
+  .action {
+    @include ease-out;
+    @include fluid-type($screen-xs, $screen-xl, 12.8px, 18px);
+    border-radius: 5px;
+    line-height: 1.3;
+    cursor: pointer;
+
+    img {
+      width: 30px;
+      height: auto;
+    }
+  }
+
+  .superlike {
+    background: $superlike-yellow;
+
+    &:hover {
+      background: darken($superlike-yellow, 10);
+    }
+  }
+
+  .bonus {
+    background: $present-blue;
+
+    &:hover {
+      background: darken($present-blue, 10);
+    }
+  }
+
+  .chat {
+    display: block;
+    background: $main-pink;
+
+    &:hover {
+      background: darken($main-pink, 10);
+    }
+  }
+}
+
+/* Profile modals */
+.profile-modals {
+  .modal-content {
+    border-radius: $photo-modal-radius !important;
+  }
+  .modal-body {
+    padding: 0;
+  }
+
+  /* Avatar modal */
+  .photo-modal {
+    .photo {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      background-color: #fff;
+      overflow: hidden;
+      text-align: center;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 0;
+      border-top-right-radius: 15px;
+      border-top-left-radius: 15px;
+
+      &.avatar {
+        border-radius: 15px;
+      }
+
+      img {
+        @include image;
+        line-height: 200px;
+        vertical-align: middle;
+      }
+
+      /* Modal closing button */
+      .close {
+        @include modal-close(10px, 10px);
+      }
+
+      p {
+        font-weight: 300;
+        font-size: $paragraph-size;
+      }
+    }
+  }
+
+  .modal-button {
+    max-width: 300px;
+  }
+
+  /* Superlike */
+  .superlike {
+    figure {
+      position: relative;
+
+      img {
+        max-width: 100px;
+      }
+
+      @include screen-sm {
+        img {
+          max-width: 150px;
+        }
+      }
+
+      .close {
+        @include modal-close(-20px, 10px);
+      }
+    }
+
+    .amount {
+      max-width: 150px;
+    }
+  }
+
+  /* Present */
+  .present {
+    figure {
+      img {
+        max-width: 100px;
+      }
+    }
+    .amount {
+      max-width: 150px;
+    }
+  }
+}

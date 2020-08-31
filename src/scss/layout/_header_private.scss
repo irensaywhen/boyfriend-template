@@ -1,3 +1,17 @@
+.wrapper.wrapper-padding {
+  padding-top: 70px;
+}
+
+.wrapper {
+  &.wrapper-padding-top {
+    padding-top: 70px;
+  }
+
+  &.wrapper-padding-bottom {
+    padding-bottom: 60px !important;
+  }
+}
+
 .private-header {
   width: 100%;
   background: $main-blue !important;
@@ -47,7 +61,7 @@
 
     .svg-wrapper {
       width: 40px;
-      height: auto;
+      height: 40px;
     }
 
     .timer {

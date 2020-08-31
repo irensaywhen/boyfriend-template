@@ -10,13 +10,84 @@
   height: auto;
 }
 
+/* Mixin to include animation */
+@mixin animation(
+  $animation-name,
+  $animation-duration: 0.8s,
+  $animation-timing-function: easeInOutBack,
+  $animation-delay: 0,
+  $animation-direction: normal
+) {
+  animation-name: $animation-name;
+  animation-duration: $animation-duration;
+  animation-timing-function: $animation-timing-function;
+  animation-delay: $animation-delay;
+  animation-direction: $animation-direction;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
 /*Circular badge*/
 @mixin circular-badge($diameter) {
   width: $diameter;
   height: $diameter;
+  min-width: $diameter;
+  min-height: $diameter;
   line-height: $diameter;
   vertical-align: middle;
-  border-radius: 100%;
+  border-radius: 50%;
+}
+
+/* Closing modal cross*/
+@mixin modal-close($top, $right) {
+  position: absolute;
+  top: $top;
+  right: $right;
+}
+
+/* small pagination link */
+@mixin pagination-link {
+  @include ease-out;
+  display: inline-block;
+  padding: 8px 12px;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-right: none;
+  color: $main-pink;
+  cursor: pointer;
+}
+
+/*visible message*/
+@mixin visible-message {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Avatar */
+@mixin avatar($max-width, $line-height, $pointer: false) {
+  display: block;
+  width: 100%;
+  max-width: $max-width;
+  height: auto;
+  border-radius: 50%;
+  background-color: #fff;
+  overflow: hidden;
+  border: 3px solid #fff;
+  text-align: center;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
+
+  @if $pointer {
+    cursor: pointer;
+  } @else {
+    cursor: auto;
+  }
+
+  img {
+    @include image;
+    line-height: $line-height;
+    vertical-align: middle;
+  }
 }
 
 /*Responsize font size*/

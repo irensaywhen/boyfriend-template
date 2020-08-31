@@ -1,4 +1,4 @@
-import ServerRequest from "./requests.js";
+import ServerRequest from './requests.js';
 
 class EditorModal extends ServerRequest {
   formData = null;
@@ -17,8 +17,8 @@ class EditorModal extends ServerRequest {
     }
 
     // Binding context
-    this.cacheElements = this.cacheElements.bind(this);
-    this.setUpEventListeners = this.setUpEventListeners.bind(this);
+    this._cacheElements = this._cacheElements.bind(this);
+    this._setUpEventListeners = this._setUpEventListeners.bind(this);
     this.savePhotoInformation = this.savePhotoInformation.bind(this);
     this.generateFormData = this.generateFormData.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -29,15 +29,15 @@ class EditorModal extends ServerRequest {
   /**
    * Function caches elements according to passed options.
    */
-  cacheElements() {
+  _cacheElements() {
     // Modal
     this.$modal = $(this.selectors.modal);
 
     // Find modal footer is presented
     // And hide it
-    if (this.selectors["modal-footer"]) {
+    if (this.selectors['modal-footer']) {
       this.$modalFooter = $(
-        this.$modal.find(this.selectors["modal-footer"])
+        this.$modal.find(this.selectors['modal-footer'])
       ).hide();
     }
 
@@ -45,17 +45,17 @@ class EditorModal extends ServerRequest {
     this.$form = this.$modal.find(this.selectors.form);
 
     // Closing button
-    this.$closeButton = this.$modal.find(".close");
+    this.$closeButton = this.$modal.find('.close');
 
     // Deleting button
-    if ("deleteButton" in this.selectors) {
+    if ('deleteButton' in this.selectors) {
       this.$deleteButton = this.$modal.find(this.selectors.deleteButton);
     }
   }
 
-  setUpEventListeners() {
+  _setUpEventListeners() {
     if (this.configuration.avatar || this.configuration.uploader) {
-      this.$closeButton.click((event) => {
+      this.$closeButton.click(event => {
         // If user closes modal without submitting changes
         if (!this.uploaded) {
           // Delete his newly uploaded photo
@@ -100,7 +100,7 @@ class EditorModal extends ServerRequest {
         this.showRequestResult({
           title: error.name,
           text: error.message,
-          icon: "error",
+          icon: 'error',
         });
       }
 
@@ -112,7 +112,7 @@ class EditorModal extends ServerRequest {
         this.showRequestResult({
           title: response.title,
           text: response.message,
-          icon: "success",
+          icon: 'success',
         });
 
         this.closeModal();
@@ -121,7 +121,7 @@ class EditorModal extends ServerRequest {
         this.showRequestResult({
           title: response.title,
           text: response.message,
-          icon: "error",
+          icon: 'error',
         });
       }
     }
@@ -145,7 +145,7 @@ class EditorModal extends ServerRequest {
     file = null,
     src = null,
     privacy = false,
-    description = "",
+    description = '',
   }) {
     if (file) {
       this.photoData[id].file = file;
@@ -168,14 +168,14 @@ class EditorModal extends ServerRequest {
       for (let id in this.photoData) {
         for (let property in this.photoData[id]) {
           // Don't send src for previews
-          if (property === "src") continue;
+          if (property === 'src') continue;
           this.formData.append(property + id, this.photoData[id][property]);
         }
       }
     }
 
     if (this.configuration.avatar) {
-      this.formData.set("avatar", this.avatar, this.avatar.name);
+      this.formData.set('avatar', this.avatar, this.avatar.name);
     }
   }
 }

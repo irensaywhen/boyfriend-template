@@ -1,0 +1,30 @@
+/*-- Animations for premium start --*/
+
+@keyframes premium-star-animation {
+  0% {
+    fill: #000;
+    transform: scale3d(0, 0, 0);
+  }
+  50% {
+    fill: $icon-pink;
+    transform: scale3d(1.5, 1.5, 1.5);
+  }
+  100% {
+    fill: $icon-pink;
+    transform: scale3d(1, 1, 1);
+  }
+}
+/*-- Animations for premium end --*/
+
+/*- Premium classes start -*/
+.premium-person {
+  @include animation(zoomIn, $animation-duration: 1s);
+}
+
+.premium-star-animation {
+  @include animation(premium-star-animation, $animation-delay: 0.1s);
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+/*- Premium classes end -*/

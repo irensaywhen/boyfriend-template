@@ -81,7 +81,10 @@
       </header>
       <!--Header end-->
 
-      <div id="forms-container" class="login-and-registration pb-5 d-flex align-items-sm-center align-items-start">
+      <div
+        id="forms-container"
+        class="login-and-registration pb-5 d-flex align-items-sm-center align-items-start"
+      >
         <section class="container">
           <div class="row no-gutters proh bg-template">
             <!--Login section start-->
@@ -168,7 +171,10 @@
                 id="form-forgot-password"
                 data-step="1"
               >
-              <div class="general-error" id="general-error-passwordRecovery"></div>
+                <div
+                  class="general-error"
+                  id="general-error-passwordRecovery"
+                ></div>
                 <p class="text-secondary small">
                   Please provide email adress to recieve password recovery link
                 </p>
@@ -276,34 +282,34 @@
 
     <!-- page level script -->
     <script>
-      $(window).on("load", function () {
+      $(window).on('load', function () {
         /* notification view and hide */
         setTimeout(function () {
-          $(".notification").addClass("active");
+          $('.notification').addClass('active');
           setTimeout(function () {
-            $(".notification").removeClass("active");
+            $('.notification').removeClass('active');
           }, 3500);
         }, 500);
-        $(".closenotification").on("click", function () {
-          $(this).closest(".notification").removeClass("active");
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
 
         /* login form functionality start */
         const signinFOrm = new Form({
           selectors: {
-            form: "#form-signin",
-            "input-wrapper": ".form-group",
-            inputs: ".signin-input",
-            generalError: "#general-error-login",
+            form: '#form-signin',
+            'input-wrapper': '.form-group',
+            inputs: '.signin-input',
+            generalError: '#general-error-login',
           },
           requests: {
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail-general",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail-general',
             },
           },
           location: false,
@@ -312,7 +318,7 @@
           frontendValidation: true,
           redirectOnSubmit: true,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
               email: {
                 required: true,
@@ -330,19 +336,19 @@
         /* Password recovery form */
         const passwordRecoveryForm = new Form({
           selectors: {
-            form: "#form-forgot-password",
-            "input-wrapper": ".form-group",
-            inputs: ".form-control",
-            generalError: '#general-error-passwordRecovery'
+            form: '#form-forgot-password',
+            'input-wrapper': '.form-group',
+            inputs: '.form-control',
+            generalError: '#general-error-passwordRecovery',
           },
           requests: {
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail-general",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail-general',
             },
           },
           location: false,
@@ -351,7 +357,7 @@
           frontendValidation: true,
           redirectOnSubmit: false,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
               email: {
                 required: true,
@@ -364,12 +370,12 @@
         /* forms chainer initialization */
         const chainedForms = new ChainedForms({
           selectors: {
-            formsContainer: "#forms-container",
-            forward: ".forward",
-            backward: ".backward",
-            forms: ".form-signin",
-            wrapper: ".form-wrapper",
-            generalError: '.general-error'
+            formsContainer: '#forms-container',
+            forward: '.forward',
+            backward: '.backward',
+            forms: '.form-signin',
+            wrapper: '.form-wrapper',
+            generalError: '.general-error',
           },
         });
       });

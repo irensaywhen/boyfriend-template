@@ -149,7 +149,7 @@
       <!--Article end-->
 
       <!--Articles section start-->
-      <section class="vh-100">
+      <section>
         <h2 class="w-100 text-center text-white py-5">
           The latest articles
         </h2>
@@ -159,7 +159,9 @@
             <!--Swiper slide start-->
             <article class="swiper-slide">
               <div class="card shadow-sm border-0 text-dark">
-                <img src="img/article1.jpg" alt="Article image" />
+                <figure class="card-img-top">
+                  <img src="img/article1.jpg" alt="Article image" />
+                </figure>
                 <div class="card-body">
                   <a
                     href="article.html"
@@ -187,7 +189,9 @@
             <!--Swiper slide start-->
             <article class="swiper-slide">
               <div class="card shadow-sm border-0 text-dark">
-                <img src="img/article1.jpg" alt="Article image" />
+                <figure class="card-img-top">
+                  <img src="img/article1.jpg" alt="Article image" />
+                </figure>
                 <div class="card-body">
                   <a
                     href="article.html"
@@ -215,7 +219,9 @@
             <!--Swiper slide start-->
             <article class="swiper-slide">
               <div class="card shadow-sm border-0 text-dark">
-                <img src="img/article1.jpg" alt="Article image" />
+                <figure class="card-img-top">
+                  <img src="img/article1.jpg" alt="Article image" />
+                </figure>
                 <div class="card-body">
                   <a
                     href="article.html"
@@ -243,7 +249,9 @@
             <!--Swiper slide start-->
             <article class="swiper-slide">
               <div class="card shadow-sm border-0 text-dark">
-                <img src="img/article1.jpg" alt="Article image" />
+                <figure class="card-img-top">
+                  <img src="img/article1.jpg" alt="Article image" />
+                </figure>
                 <div class="card-body">
                   <a
                     href="article.html"
@@ -271,7 +279,9 @@
             <!--Swiper slide start-->
             <article class="swiper-slide">
               <div class="card shadow-sm border-0 text-dark">
-                <img src="img/article1.jpg" alt="Article image" />
+                <figure class="card-img-top">
+                  <img src="img/article1.jpg" alt="Article image" />
+                </figure>
                 <div class="card-body">
                   <a
                     href="article.html"
@@ -299,7 +309,9 @@
             <!--Swiper slide start-->
             <article class="swiper-slide">
               <div class="card shadow-sm border-0 text-dark">
-                <img src="img/article1.jpg" alt="Article image" />
+                <figure class="card-img-top">
+                  <img src="img/article1.jpg" alt="Article image" />
+                </figure>
                 <div class="card-body">
                   <a
                     href="article.html"
@@ -327,12 +339,13 @@
           <!-- Add Pagination -->
           <div class="swiper-pagination"></div>
         </div>
+        <div class="text-center pb-5">
+          <a href="articles.html" class="btn btn-lg btn-default px-5 my-4">
+            See More
+          </a>
+        </div>
       </section>
-      <div class="text-center pb-5">
-        <a href="articles.html" class="btn btn-lg btn-default px-5 my-4">
-          See More
-        </a>
-      </div>
+      <!--Articles section end-->
     </div>
 
     <!--Footer start-->
@@ -384,7 +397,7 @@
     </div>
     <!-- notification ends -->
 
-    <!-- jquery, popper and bootstrap js -->
+    <!-- jquery and bootstrap js -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
 
@@ -396,18 +409,18 @@
 
     <!-- page level script -->
     <script>
-      $(window).on("load", function () {
+      $(window).on('load', function () {
         /* swiper slider carousel */
-        var swiper = new Swiper(".small-slide", {
-          slidesPerView: "auto",
+        var swiper = new Swiper('.small-slide', {
+          slidesPerView: 'auto',
           spaceBetween: 0,
         });
 
-        var swiper = new Swiper(".news-slide", {
+        var swiper = new Swiper('.news-slide', {
           slidesPerView: 5,
           spaceBetween: 0,
           pagination: {
-            el: ".swiper-pagination",
+            el: '.swiper-pagination',
           },
           breakpoints: {
             1024: {
@@ -435,13 +448,13 @@
 
         /* notification view and hide */
         setTimeout(function () {
-          $(".notification").addClass("active");
+          $('.notification').addClass('active');
           setTimeout(function () {
-            $(".notification").removeClass("active");
+            $('.notification').removeClass('active');
           }, 3500);
         }, 500);
-        $(".closenotification").on("click", function () {
-          $(this).closest(".notification").removeClass("active");
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
       });
     </script>

@@ -1,4 +1,4 @@
-import swalAlert from "./swalAlertMixin.js";
+import swalAlert from './swalAlertMixin.js';
 
 export default class ServerRequest {
   constructor(options) {
@@ -11,8 +11,8 @@ export default class ServerRequest {
     this.requestBonusUsage = this.requestBonusUsage.bind(this);
 
     // Save passed options
-    this.selectors = options.selectors;
-    this.requests = options.requests;
+    this.selectors = options['selectors'];
+    this.requests = options['requests'];
 
     // Transform endpoints into URL Objects
     this.makeURLObjects();
@@ -36,11 +36,11 @@ export default class ServerRequest {
    * Function checks whether the method is GET and if so, sends request without body
    */
   makeRequest({ headers, endpoint, method, body }) {
-    if (method === "GET") {
+    if (method === 'GET') {
       return fetch(endpoint, {
         headers,
       })
-        .then((response) => {
+        .then(response => {
           if (response.ok) {
             return response.json();
           } else {
@@ -48,19 +48,19 @@ export default class ServerRequest {
             this.showRequestResult({
               title: response.status,
               text: response.statusText,
-              icon: "error",
+              icon: 'error',
             });
           }
         })
-        .then((json) => {
+        .then(json => {
           return json;
         })
-        .catch((error) => {
+        .catch(error => {
           // Unsuccessful Popup
           this.showRequestResult({
             title: error.name,
             text: error.message,
-            icon: "error",
+            icon: 'error',
           });
         });
     } else {
@@ -70,7 +70,7 @@ export default class ServerRequest {
         headers,
         body,
       })
-        .then((response) => {
+        .then(response => {
           if (response.ok) {
             return response.json();
           } else {
@@ -78,19 +78,19 @@ export default class ServerRequest {
             this.showRequestResult({
               title: response.status,
               text: response.statusText,
-              icon: "error",
+              icon: 'error',
             });
           }
         })
-        .then((json) => {
+        .then(json => {
           return json;
         })
-        .catch((error) => {
+        .catch(error => {
           // Unsuccessful Popup
           this.showRequestResult({
             title: error.name,
             text: error.message,
-            icon: "error",
+            icon: 'error',
           });
         });
     }
@@ -124,7 +124,7 @@ export default class ServerRequest {
   async getPhotosIds({ filesAmount, headers, endpoint, method }) {
     // Add amount of files as a query parameter
     this.requests.getIds.endpoint.searchParams.set(
-      "amount",
+      'amount',
       String(filesAmount)
     );
 
@@ -135,19 +135,27 @@ export default class ServerRequest {
     });
   }
 
+  async getPrice({ headers, endpoint, method }) {
+    for (let name in this.formData) {
+      endpoint.searchParams.set(name, this.formData[name]);
+    }
+
+    return await this.makeRequest({ headers, endpoint, method });
+  }
+
   requestBonusUsage({ headers, endpoint, method, body }) {
     return fetch(endpoint, {
       method,
       headers,
       body,
     })
-      .then((response) => {
+      .then(response => {
         if (!response.ok) {
           throw new Error(response.statusText);
         }
         return response.json();
       })
-      .catch((error) => {
+      .catch(error => {
         Swal.showValidationMessage(`Request failed: ${error}`);
       });
   }

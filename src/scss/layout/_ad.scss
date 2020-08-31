@@ -1,0 +1,30 @@
+/* Default ad styles */
+.default-content {
+  width: 253px;
+  height: 60px;
+  background: #fff;
+  border: 1px solid $bootstrap-secondary;
+  margin: 0 auto;
+
+  @include screen-sm {
+    width: 475px;
+    height: 59px;
+
+    &.small {
+      width: 253px;
+      height: 60px;
+    }
+  }
+}
+
+/* Custom ad styles */
+.custom-content {
+  figure {
+    width: 25%;
+    max-width: 175px;
+
+    img {
+      @include image;
+    }
+  }
+}

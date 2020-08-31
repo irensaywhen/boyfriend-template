@@ -1,0 +1,42 @@
+.chat {
+  /*hide dropdown arrow*/
+  .dropdown-toggle::after {
+    content: none;
+  }
+
+  .dropdown-menu {
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 250px;
+  }
+
+  .dropdown-item {
+    padding: $dropdown-item-y-padding $dropdown-item-x-padding;
+    cursor: pointer;
+
+    .info {
+      overflow: hidden;
+      width: 100%;
+
+      .title,
+      .subtitle {
+        width: 100%;
+        max-width: 100%;
+        white-space: normal;
+      }
+
+      .subtitle {
+        font-size: 80%;
+        font-weight: 400;
+      }
+    }
+
+    .present {
+      max-width: 70px;
+    }
+  }
+
+  .dropdown-divider {
+    margin: 0;
+  }
+}

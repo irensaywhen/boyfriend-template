@@ -1,19 +1,21 @@
 // Gulp modules
-const gulp = require("gulp");
-const sass = require("gulp-sass");
-const autoprefixer = require("gulp-autoprefixer");
+const gulp = require('gulp');
+const sass = require('gulp-sass');
+const sourcemaps = require('gulp-sourcemaps');
+const autoprefixer = require('gulp-autoprefixer');
+const svgmin = require('gulp-svgmin');
 
 // Webpack modules
-const webpack = require("webpack");
-const webpackConfig = require("./webpack.config.js");
-const webpackDevMiddleware = require("webpack-dev-middleware");
-const webpackHotMiddleware = require("webpack-hot-middleware");
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config.js');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
 // Setup bundler
 const bundler = webpack(webpackConfig);
 
 // Other modules
-const browserSync = require("browser-sync").create();
+const browserSync = require('browser-sync').create();
 
 function assets() {
   return new Promise((resolve, reject) => {
@@ -22,7 +24,7 @@ function assets() {
         return reject(err);
       }
       if (stats.hasErrors()) {
-        return reject(new Error(stats.compilation.errors.join("\n")));
+        return reject(new Error(stats.compilation.errors.join('\n')));
       }
       resolve();
     });
@@ -31,23 +33,44 @@ function assets() {
 
 function styles() {
   return gulp
-    .src("src/scss/**/*.scss")
-    .pipe(sass({ outputStyle: "compressed" }).on("error", sass.logError))
+    .src('src/scss/**/*.scss')
+    .pipe(sourcemaps.init())
+    .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
     .pipe(
       autoprefixer({
-        overrideBrowserslist: ["defaults"],
+        overrideBrowserslist: ['defaults'],
       })
     )
-    .pipe(gulp.dest("./dist/css"))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('./dist/css'))
     .pipe(browserSync.stream());
 }
 
 function copyHTML() {
-  return gulp.src(["./src/*.html", "!./src/*prev*"]).pipe(gulp.dest("./dist"));
+  return gulp.src(['./src/*.html', '!./src/*prev*']).pipe(gulp.dest('./dist'));
 }
 
 function copyImages() {
-  return gulp.src("./src/img/*").pipe(gulp.dest("./dist/img"));
+  return gulp
+    .src(['./src/img/*', '!./src/img/*.svg'])
+    .pipe(gulp.dest('./dist/img'));
+}
+
+function copySVG() {
+  return gulp
+    .src('./src/img/*.svg')
+    .pipe(
+      svgmin({
+        js2svg: {
+          pretty: true,
+        },
+      })
+    )
+    .pipe(gulp.dest('./dist/img'));
+}
+
+function copyVendor() {
+  return gulp.src('./src/vendor/**/*').pipe(gulp.dest('./dist/vendor'));
 }
 
 // Initialize server
@@ -55,7 +78,7 @@ function serve(done) {
   browserSync.init(
     {
       server: {
-        baseDir: "./dist",
+        baseDir: './dist',
         //middleware: [
         //  webpackDevMiddleware(bundler, {
         //    publicPath: webpackConfig.output.publicPath,
@@ -65,7 +88,7 @@ function serve(done) {
         //],
       },
       port: 8080,
-      host: "0.0.0.0",
+      host: '0.0.0.0',
     },
     done
   );
@@ -77,10 +100,11 @@ function reload(done) {
 }
 
 function watch() {
-  gulp.watch("src/scss/**/*.scss", styles);
-  gulp.watch("src/js/**/*.js", gulp.series(assets, reload));
-  gulp.watch("./src/*.html").on("change", gulp.series(copyHTML, reload));
-  gulp.watch("./src/img/*.svg").on("change", gulp.series(copyImages, reload));
+  gulp.watch('src/scss/**/*.scss', styles);
+  gulp.watch('src/js/**/*.js', gulp.series(assets, reload));
+  gulp.watch('./src/*.html').on('change', gulp.series(copyHTML, reload));
+  gulp.watch('./src/img/*.svg').on('change', gulp.series(copySVG, reload));
+  gulp.watch('./src/vendor/**/*').on('change', gulp.series(copyVendor, reload));
 }
 
 exports.assets = assets;
@@ -90,6 +114,8 @@ exports.develop = gulp.series(
   assets,
   copyHTML,
   copyImages,
+  copySVG,
+  copyVendor,
   styles,
   serve,
   watch

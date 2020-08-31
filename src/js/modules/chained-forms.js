@@ -1,17 +1,17 @@
 export default class ChainedForms {
   constructor(options) {
     // Bind context
-    this.cacheElements = this.cacheElements.bind(this);
-    this.setUpEventListeners = this.setUpEventListeners.bind(this);
+    this._cacheElements = this._cacheElements.bind(this);
+    this._setUpEventListeners = this._setUpEventListeners.bind(this);
 
     // Save options
     this.selectors = options.selectors;
 
-    this.cacheElements();
-    this.setUpEventListeners();
+    this._cacheElements();
+    this._setUpEventListeners();
   }
 
-  cacheElements() {
+  _cacheElements() {
     // Forms container
     this.$container = $(this.selectors.formsContainer);
 
@@ -37,9 +37,10 @@ export default class ChainedForms {
       : null;
   }
 
-  setUpEventListeners() {
+  _setUpEventListeners() {
+    let selectors = this.selectors;
     // Show next form when the current is submitted
-    this.$forms.on("submitted", (event) => {
+    this.$forms.on('submitted', event => {
       let target = event.target;
       let step = target.dataset.step;
 
@@ -48,42 +49,45 @@ export default class ChainedForms {
       if (step === this.$forms.length) return;
 
       $(target)
-        .closest(this.selectors.wrapper)
+        .closest(selectors.wrapper)
         .fadeOut(400, () => {
-          $(this.$forms.get(step)).closest(this.selectors.wrapper).fadeIn(400);
+          $(this.$forms.get(step)).closest(selectors.wrapper).fadeIn(400);
         });
     });
 
-    if (this.selectors.backward) {
+    if (selectors.backward) {
       // Show previous form when the "back" button is clicked"
-      this.$backwardButton.click((event) => {
-        this.changeForm('backward')
+      this.$backwardButton.click(event => {
+        this.changeForm('backward');
       });
     }
 
-    if (this.selectors.forward) {
-      this.$forwardButton.click((event) => {
+    if (selectors.forward) {
+      // Show next form
+      this.$forwardButton.click(event => {
         this.changeForm('forward');
       });
     }
   }
 
-  changeForm(direction){
+  changeForm(direction) {
     event.stopPropagation();
+    let selectors = this.selectors;
 
     let $form = $(event.target)
-          .closest(this.selectors.wrapper)
-          .find(this.selectors.forms);
+      .closest(selectors.wrapper)
+      .find(selectors.forms);
 
-    let step = direction === 'forward' ? Number($form.data("step")) + 1 : Number($form.data("step")) - 1;
+    let step =
+      direction === 'forward'
+        ? Number($form.data('step')) + 1
+        : Number($form.data('step')) - 1;
 
-    $form.closest(this.selectors.wrapper).fadeOut(400, () => {
+    $form.closest(selectors.wrapper).fadeOut(400, () => {
       // Show the form wrapper of the previous form
-      $(this.$forms.get(step))
-        .closest(this.selectors.wrapper)
-        .fadeIn(400);
+      $(this.$forms.get(step)).closest(selectors.wrapper).fadeIn(400);
     });
 
-    $(document).trigger('chainedForms:switchForm')
+    $(document).trigger('chainedForms:switchForm');
   }
 }

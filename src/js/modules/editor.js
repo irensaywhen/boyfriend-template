@@ -1,4 +1,4 @@
-import EditorModal from "./modal.js";
+import EditorModal from './modal.js';
 
 export default class PhotoEditor extends EditorModal {
   // Currently clicked photo
@@ -25,40 +25,40 @@ export default class PhotoEditor extends EditorModal {
     this.updatePhotoInformation = this.updatePhotoInformation.bind(this);
 
     // Prepare editor
-    this.cacheElements();
-    this.setUpEventListeners();
+    this._cacheElements();
+    this._setUpEventListeners();
   }
 
   /**
    * Function caches elements according to passed options.
    */
-  cacheElements() {
+  _cacheElements() {
     // Cache elements required for gallery to work
-    super.cacheElements();
+    super._cacheElements();
 
     // Description
     this.$description = this.$modal.find(this.selectors.description);
 
     // Privacy input
-    this.$privacyInput = this.$modal.find(this.selectors["privacy-input"]);
+    this.$privacyInput = this.$modal.find(this.selectors['privacy-input']);
 
     // Privacy label
-    this.$privacyLabel = this.$modal.find(this.selectors["privacy-label"]);
+    this.$privacyLabel = this.$modal.find(this.selectors['privacy-label']);
 
     // Photo in editor
-    this.$modalPhotoElement = this.$modal.find("img");
+    this.$modalPhotoElement = this.$modal.find('img');
 
     // Photos gallery
     this.$gallery = $(this.selectors.gallery);
   }
 
-  setUpEventListeners() {
-    super.setUpEventListeners();
+  _setUpEventListeners() {
+    super._setUpEventListeners();
 
-    this.$gallery.click((event) => {
+    this.$gallery.click(event => {
       let target = event.target;
 
-      if (target.tagName !== "IMG") return;
+      if (target.tagName !== 'IMG') return;
 
       // Save photo
       this.photo = target;
@@ -78,11 +78,11 @@ export default class PhotoEditor extends EditorModal {
     });
 
     // Delete photo when user clicks on deleting button
-    this.$deleteButton.click((event) => {
+    this.$deleteButton.click(event => {
       this.deletePhoto(event, this.photo);
     });
 
-    this.$form.submit((event) => {
+    this.$form.submit(event => {
       event.preventDefault();
 
       this.updatePhotoInformation();
@@ -96,7 +96,7 @@ export default class PhotoEditor extends EditorModal {
     // Save information
     this.savePhotoInformation({
       id: id,
-      privacy: this.$privacyInput.is(":checked"),
+      privacy: this.$privacyInput.is(':checked'),
       description: this.$description.val(),
     });
 
@@ -117,7 +117,7 @@ export default class PhotoEditor extends EditorModal {
       this.showRequestResult({
         title: error.name,
         text: error.message,
-        icon: "error",
+        icon: 'error',
       });
     }
 
@@ -129,7 +129,7 @@ export default class PhotoEditor extends EditorModal {
       this.showRequestResult({
         title: response.title,
         text: response.message,
-        icon: "success",
+        icon: 'success',
       });
 
       this.closeModal();
@@ -138,7 +138,7 @@ export default class PhotoEditor extends EditorModal {
       this.showRequestResult({
         title: response.title,
         text: response.message,
-        icon: "error",
+        icon: 'error',
       });
     }
   }
@@ -163,18 +163,18 @@ export default class PhotoEditor extends EditorModal {
    */
   prepareModal(id) {
     // Set photo
-    this.$modalPhotoElement.attr("src", this.photoData[id].src);
+    this.$modalPhotoElement.attr('src', this.photoData[id].src);
 
     // Generate photo id
-    let photoId = "photo-" + id;
+    let photoId = 'photo-' + id;
 
     // Set privacy
     this.$privacyInput
-      .prop("checked", this.photoData[id].privacy)
-      .attr("id", photoId);
+      .prop('checked', this.photoData[id].privacy)
+      .attr('id', photoId);
 
     // Set toggle
-    this.$privacyLabel.attr("for", photoId);
+    this.$privacyLabel.attr('for', photoId);
 
     // Set description
     this.$description.text(this.photoData[id].description);

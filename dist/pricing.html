@@ -1,179 +1,1125 @@
-<!doctype html>
-<html lang="en" class="pink-theme">
+<!DOCTYPE html>
+<html lang="en" class="blue-theme">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="Maxartkiller" />
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no">
-    <meta name="description" content="">
-    <meta name="author" content="Maxartkiller">
-
-    <title>Pricing · GoFruit</title>
+    <title>Shop · GoFruit</title>
 
     <!-- Material design icons CSS -->
-    <link rel="stylesheet" href="vendor/materializeicon/material-icons.css">
+    <link rel="stylesheet" href="vendor/materializeicon/material-icons.css" />
 
     <!-- Roboto fonts CSS -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--Fontawesome-->
+    <link rel="stylesheet" href="fontawesome/css/all.min.css" />
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap-4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="vendor/bootstrap-4.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
-    <!-- Swiper CSS -->
-    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet">
+    <!--SweetAlert2-->
+    <link href="vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
 
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet">
-</head>
+    <link href="css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
 
-<body>
-    <!-- Loader -->
+  <body>
+    <!--Loader start-->
     <div class="row no-gutters vh-100 loader-screen">
-        <div class="col align-self-center text-white text-center">
-            <img src="img/logo.png" alt="logo">
-            <h1><span class="font-weight-light">Go</span>Fruit</h1>
-            <div class="laoderhorizontal">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
+      <div class="col align-self-center text-white text-center">
+        <img src="img/logo.png" alt="logo" />
+        <h1><span class="font-weight-light">Boy</span>friend</h1>
+        <div class="laoderhorizontal">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
+      </div>
     </div>
-    <!-- Loader ends -->
+    <!--Loader end-->
+
+    <!-- sidebar -->
+    <div class="sidebar">
+      <div class="text-center">
+        <div class="figure-menu shadow">
+          <figure>
+            <img src="img/photo1.jpg" class="avatar-image" alt="Avatar" />
+          </figure>
+        </div>
+        <h5 class="mb-1">Lukasz</h5>
+      </div>
+      <br />
+      <div class="row mx-0">
+        <div class="col">
+          <div class="card mb-3 border-0 shadow-sm bg-template-light">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <p class="text-secondary small mb-0">Premium until:</p>
+                  <h6 class="text-dark my-0"><time>22/09/2019</time></h6>
+                </div>
+                <div class="col-auto">
+                  <a class="btn btn-default button-rounded-36 shadow">
+                    <i class="material-icons">add</i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h5 class="subtitle text-uppercase"><span>Menu</span></h5>
+          <div class="list-group main-menu">
+            <a href="index.html" class="list-group-item list-group-item-action"
+              >View profiles</a
+            >
+            <a
+              href="notification.html"
+              class="list-group-item list-group-item-action"
+              >Messages <span class="badge badge-pink ml-2">15</span></a
+            >
+            <a
+              href="all-products.html"
+              class="list-group-item list-group-item-action"
+              >Favourites</a
+            >
+            <a
+              href="likes-you.html"
+              class="list-group-item list-group-item-action"
+              >Who likes you <span class="badge badge-pink ml-2">7</span></a
+            >
+            <a
+              href="viewed-you.html"
+              class="list-group-item list-group-item-action"
+              >Who Visited you <span class="badge badge-pink ml-2">2</span></a
+            >
+            <a
+              href="setting.html"
+              class="list-group-item list-group-item-action mt-4"
+              >Settings</a
+            >
+            <a href="login.html" class="list-group-item list-group-item-action"
+              >Logout</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- sidebar ends -->
 
     <div class="wrapper">
-
-        <!-- header -->
-        <div class="header">
-            <div class="row no-gutters">
-                <div class="col-auto">
-                    <a href="controls.html" class="btn  btn-link text-dark"><i class="material-icons">navigate_before</i></a>
-                </div>
-                <div class="col text-center"><img src="img/logo-header.png" alt="" class="header-logo"></div>
-                <div class="col-auto">
-                    <a href="profile.html" class="btn  btn-link text-dark"><i class="material-icons">account_circle</i></a>
-                </div>
+      <!-- header -->
+      <div class="private-header d-flex align-items-center">
+        <div class="container-fluid">
+          <div class="row no-gutters justify-content-between">
+            <!--Menu-->
+            <div class="col-4 d-flex">
+              <button class="btn btn-link text-dark menu-btn position-relative">
+                <img src="img/menu.png" alt="" /><span
+                  class="new-notification"
+                ></span>
+              </button>
             </div>
+            <!--Logo-->
+            <div class="col-4 text-center">
+              <a href="index.html">
+                <img
+                  src="img/logo.png"
+                  alt=""
+                  class="private-header-logo d-none d-md-inline-block"
+                />
+              </a>
+            </div>
+            <!--Icons-->
+            <div class="col-4">
+              <div class="d-flex justify-content-end align-items-center">
+                <!--
+                      Data-amount attribute contains the number of available bonuses
+                    -->
+                <div
+                  class="boost d-flex justify-content-center"
+                  data-amount="2"
+                  data-type="boost"
+                  data-redirect="./pricing.html"
+                >
+                  <div class="timer text-center">
+                    <span class="hours"></span>: <span class="minutes"></span>:
+                    <span class="seconds"></span>
+                  </div>
+                  <div class="svg-wrapper">
+                    <!--Svg for boost start-->
+                    <svg
+                      version="1.1"
+                      class="svg-icon"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 500 500"
+                      style="enable-background: new 0 0 500 500;"
+                    >
+                      <path
+                        id="XMLID_28_"
+                        class="heart"
+                        d="M396.9,228.1c-37.8-42.3-102.1-48.2-147.3-17C176.9,161.1,76.3,211.2,76,296c0,61.1,33.9,110.8,83.4,148.3
+                          c40,30.3,80.2,45.1,84.6,46.7c3.4,1.2,7.6,1.3,11.1,0c4.4-1.6,44.6-16.4,84.6-46.7c49.5-37.5,83.4-87.2,83.4-148.3
+                          C423.1,271.1,413.7,247,396.9,228.1L396.9,228.1z M249.6,470.4C230.2,463,98.2,408.6,98.2,296.1c0.3-71.1,87.8-109.6,144.2-63.3
+                          c4.1,3.4,10.3,3.4,14.4,0c57-46.7,144-7.2,144.2,63.3C401,408.5,269.2,462.9,249.6,470.4L249.6,470.4z"
+                      />
+                      <path
+                        id="XMLID_2_"
+                        class="heart"
+                        d="M353.8,256.6c-5.2,3.1-6.8,9.6-3.6,14.6c9.5,14.6,11,36.4,4.2,59.8c-2,6.8,3.4,13.4,10.7,13.4
+                   c4.9,0,9.3-3.1,10.7-7.8c8.5-29.6,6.1-56.8-6.8-76.7C365.8,255.1,359,253.5,353.8,256.6L353.8,256.6z"
+                      />
+                      <path
+                        id="XMLID_1_"
+                        class="st0 heart"
+                        d="M334.5,234.2c-5.5-1.7-11.5-2.8-17.7-3.2c-6.1-0.4-11.4,4-11.8,9.9c-0.4,5.8,4.2,10.9,10.3,11.3
+                   c4.4,0.3,8.6,1,12.4,2.2c5.8,1.8,12.1-1.3,13.9-6.8C343.5,242,340.3,236,334.5,234.2L334.5,234.2z"
+                      />
+                      <g id="XMLID_6_">
+                        <polygon
+                          id="XMLID_24_"
+                          class="st0"
+                          points="258.5,84 249.6,92.5 240.7,84 249.6,92.3 	"
+                        />
+                        <path
+                          id="XMLID_23_"
+                          class="st0 arrow-up"
+                          d="M318.2,157.9c-22.9-21.9-45.7-43.6-68.5-65.5l8.8-8.4l-8.9,8.3l-8.9-8.3l8.8,8.4
+                     c-22.8,21.9-45.7,43.7-68.5,65.6c-11.4,11-29.2-6.1-17.8-17.1c25.8-24.8,51.7-49.5,77.5-74.3c4.8-4.6,13-4.6,17.8,0
+                     c25.8,24.7,51.7,49.5,77.5,74.2C347.4,151.9,329.7,168.9,318.2,157.9z"
+                        />
+                        <path
+                          id="XMLID_17_"
+                          class="st0"
+                          d="M240.7,84l8.9,8.3c0,0-0.1,0.1-0.1,0.1L240.7,84z"
+                        />
+                        <path
+                          id="XMLID_18_"
+                          class="st0"
+                          d="M258.5,84l-8.8,8.4c0,0-0.1-0.1-0.1-0.1L258.5,84z"
+                        />
+                      </g>
+                      <g id="XMLID_7_">
+                        <polygon
+                          id="XMLID_22_"
+                          class="st0"
+                          points="258.5,29.2 249.6,37.7 240.7,29.2 249.6,37.7 	"
+                        />
+                        <path
+                          id="XMLID_20_"
+                          class="st0 arrow-up"
+                          d="M318.2,103.4l-68.6-65.7l8.9-8.5l-8.9,8.5l-8.9-8.5l8.9,8.5L181,103.4
+                     c-11.4,11-29.2-6.1-17.8-17c25.8-24.7,51.7-49.5,77.5-74.2c4.8-4.6,13-4.6,17.8,0c25.8,24.7,51.7,49.5,77.5,74.2
+                     C347.4,97.3,329.7,114.3,318.2,103.4z"
+                        />
+                        <polygon
+                          id="XMLID_16_"
+                          class="st0"
+                          points="249.6,37.7 249.6,37.7 240.7,29.2 	"
+                        />
+                        <polygon
+                          id="XMLID_15_"
+                          class="st0"
+                          points="258.5,29.2 249.6,37.7 249.6,37.7 	"
+                        />
+                      </g>
+                    </svg>
+                    <!--Svg for boost end-->
+                  </div>
+                </div>
+                <a
+                  href="pricing.html"
+                  class="btn btn-default text-white premium mr-3"
+                  >Premium</a
+                >
+                <a href="profile.html" class="btn blue-link text-white account"
+                  ><i class="material-icons">account_circle</i></a
+                >
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- header ends -->
+      </div>
+      <!-- header ends -->
 
-        <div class="container">
-            <!-- page content here -->
-            <h6 class="subtitle text-center">Pricing</h6>
-            
+      <div class="container checkout" id="checkout">
+        <!--Upper price badge start-->
+        <div class="row">
+          <div class="col-12 col-sm-6 col-lg-4 offset-sm-6 offset-lg-8">
+            <div
+              class="d-flex align-items-center mx-auto mr-md-0 price-badge bg-white py-3 px-3"
+            >
+              <i class="fas fa-money-check-alt icon"></i>
+              <div class="d-inline-flex flex-column pl-4">
+                <p class="mb-0">
+                  <span>Price:</span>
+                  <strong class="total-price text-success">0 </strong>
+                  <span class="text-success">zł</span>
+                </p>
+                <small class="d-block text-secondary">total</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Upper price badge end-->
+
+        <!--Form for selecting plans and presents start-->
+        <div class="form-wrapper">
+          <form id="buy-premium" class="buy-premium-step" data-step="0">
             <div class="row my-3 text-center">
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card mb-4 shadow-sm border-0">
-                        <div class="card-header">
-                            <h4 class="my-0 font-weight-normal">Free</h4>
-                        </div>
-                        <div class="card-body">
-                            <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li>10 users included</li>
-                                <li>2 GB of storage</li>
-                                <li>Email support</li>
-                                <li>Help center access</li>
-                            </ul>
-                            <button type="button" class="btn btn-rounded btn-block shadow btn-outline-default">Sign up for free</button>
-                        </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card mb-4 shadow-sm border-0">
+                  <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">1 month</h4>
+                  </div>
+                  <div class="card-body">
+                    <h3 class="card-title pricing-card-title">
+                      14.99 zł <small class="text-muted">/ mo</small>
+                    </h3>
+                    <ul class="list-unstyled mt-3 mb-4">
+                      <li>10 users included</li>
+                      <li>2 GB of storage</li>
+                      <li>Email support</li>
+                      <li>Help center access</li>
+                    </ul>
+                    <!--Plan's input start-->
+                    <div class="form-group position-relative">
+                      <input
+                        type="radio"
+                        name="plan"
+                        id="oneMonth"
+                        value="oneMonth"
+                        class="position-absolute d-none plan-input buy-premium-input"
+                      />
+                      <label
+                        for="oneMonth"
+                        class="mb-2 btn btn-outline-primary btn-rounded btn-block plan-label"
+                      >
+                        Select plan</label
+                      >
                     </div>
+                    <!--Plan's input end-->
+                  </div>
                 </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card mb-4 shadow-sm border-0">
-                        <div class="card-header">
-                            <h4 class="my-0 font-weight-normal">Pro</h4>
-                        </div>
-                        <div class="card-body">
-                            <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ mo</small></h1>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li>20 users included</li>
-                                <li>10 GB of storage</li>
-                                <li>Priority email support</li>
-                                <li>Help center access</li>
-                            </ul>
-                            <button type="button" class="btn btn-rounded btn-block shadow btn-default">Get started</button>
-                        </div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card mb-4 shadow-sm border-0">
+                  <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">3 months</h4>
+                  </div>
+                  <div class="card-body">
+                    <h3 class="card-title pricing-card-title">
+                      14.99 zł <small class="text-muted">/ mo</small>
+                    </h3>
+                    <ul class="list-unstyled mt-3 mb-4">
+                      <li>20 users included</li>
+                      <li>10 GB of storage</li>
+                      <li>Priority email support</li>
+                      <li>Help center access</li>
+                    </ul>
+                    <!--Plan's input start-->
+                    <div class="form-group position-relative">
+                      <input
+                        type="radio"
+                        name="plan"
+                        id="threeMonths"
+                        value="threeMonths"
+                        class="position-absolute d-none plan-input buy-premium-input"
+                      />
+                      <label
+                        for="threeMonths"
+                        class="mb-2 btn btn-outline-primary btn-rounded btn-block plan-label"
+                      >
+                        Select plan</label
+                      >
                     </div>
+                    <!--Plan's input end-->
+                  </div>
                 </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card mb-4 shadow-sm border-0">
-                        <div class="card-header">
-                            <h4 class="my-0 font-weight-normal">Enterprise</h4>
-                        </div>
-                        <div class="card-body">
-                            <h1 class="card-title pricing-card-title">$29 <small class="text-muted">/ mo</small></h1>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li>30 users included</li>
-                                <li>15 GB of storage</li>
-                                <li>Phone and email support</li>
-                                <li>Help center access</li>
-                            </ul>
-                            <button type="button" class="btn btn-rounded btn-block shadow btn-default">Contact us</button>
-                        </div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card mb-4 shadow-sm border-0">
+                  <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">6 months</h4>
+                  </div>
+                  <div class="card-body">
+                    <h3 class="card-title pricing-card-title">
+                      14.99 zł <small class="text-muted">/ mo</small>
+                    </h3>
+                    <ul class="list-unstyled mt-3 mb-4">
+                      <li>30 users included</li>
+                      <li>15 GB of storage</li>
+                      <li>Phone and email support</li>
+                      <li>Help center access</li>
+                    </ul>
+                    <!--Plan's input start-->
+                    <div class="form-group position-relative">
+                      <input
+                        type="radio"
+                        name="plan"
+                        id="sixMonths"
+                        value="sixMonths"
+                        class="position-absolute d-none plan-input buy-premium-input"
+                      />
+                      <label
+                        for="sixMonths"
+                        class="mb-2 btn btn-outline-primary btn-rounded btn-block plan-label"
+                      >
+                        Select plan</label
+                      >
                     </div>
+                    <!--Plan's input end-->
+                  </div>
                 </div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card mb-4 shadow-sm border-0">
+                  <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">12 months</h4>
+                  </div>
+                  <div class="card-body">
+                    <h3 class="card-title pricing-card-title">
+                      14.99 zł <small class="text-muted">/ mo</small>
+                    </h3>
+                    <ul class="list-unstyled mt-3 mb-4">
+                      <li>30 users included</li>
+                      <li>15 GB of storage</li>
+                      <li>Phone and email support</li>
+                      <li>Help center access</li>
+                    </ul>
+                    <!--Plan's input start-->
+                    <div class="form-group position-relative">
+                      <input
+                        type="radio"
+                        name="plan"
+                        id="twelveMonths"
+                        value="twelveMonths"
+                        class="position-absolute d-none plan-input buy-premium-input"
+                      />
+                      <label
+                        for="twelveMonths"
+                        class="mb-2 btn btn-outline-primary btn-rounded btn-block plan-label"
+                      >
+                        Select plan</label
+                      >
+                    </div>
+                    <!--Plan's input end-->
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <!-- page content ends -->
-        </div>
+            <!--Bonuses selection start-->
+            <div class="row">
+              <div class="col text-center text-md-left pb-5">
+                <!--Toggle button start-->
+                <button
+                  class="btn btn-lg btn-default mb-2 collapsed"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#bonuses"
+                  aria-expanded="false"
+                  aria-controls="bonuses"
+                >
+                  <i class="material-icons"> card_giftcard </i>
+                  <span class="align-middle">Select bonuses</span>
+                  <i class="fa fa-chevron-down"></i>
+                </button>
+                <!--Toggle button end-->
 
-        <!-- footer -->
-        <div class="footer">
-            <div class="no-gutters">
-                <div class="col-auto mx-auto">
-                    <div class="row no-gutters justify-content-center">
-                        <div class="col-auto">
-                            <a href="index.html" class="btn btn-link-default active">
-                                <i class="material-icons">store_mall_directory</i>
-                            </a>
+                <!--Bonuses container start-->
+                <div class="collapse pt-4" id="bonuses">
+                  <ul class="list-group list-group-flush mb-4">
+                    <!--Superlike start-->
+                    <li class="list-group-item pb-5 pb-md-3">
+                      <div class="row">
+                        <div class="col-12 col-md-2 align-self-center">
+                          <figure class="product-image h-auto">
+                            <img src="img/superlike.svg" alt="" class="vm" />
+                          </figure>
                         </div>
-                        <div class="col-auto">
-                            <a href="statistics.html" class="btn btn-link-default">
-                                <i class="material-icons">insert_chart_outline</i>
-                            </a>
+                        <div
+                          class="col-12 col-md-7 pl-md-4 text-center text-md-left"
+                        >
+                          <h3 class="text-dark mb-1 h4 d-block">
+                            Super Like
+                          </h3>
+
+                          <div
+                            class="text-secondary font-weight-normal mb-0 pt-1"
+                          >
+                            Price: <span class="text-success">10 </span>
+                            <span class="text-success">zł</span>
+                          </div>
+
+                          <p class="text-secondary pb-2 pb-md-0 pt-2">
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Facilis dolorem iure ullam repudiandae velit!
+                            Rem, reprehenderit! Eos, libero aut? Reiciendis, non
+                            illo culpa iusto numquam laborum adipisci illum ab
+                            excepturi?
+                          </p>
                         </div>
-                        <div class="col-auto">
-                            <a href="cart.html" class="btn btn-default shadow centerbutton">
-                                <i class="material-icons">local_mall</i>
-                            </a>
+
+                        <!--Amount input start-->
+                        <div
+                          class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
+                        >
+                          <div class="input-group input-group-sm form-group">
+                            <!--Substration button-->
+                            <div class="input-group-prepend bonus-control">
+                              <button
+                                class="btn btn-light-grey px-1"
+                                type="button"
+                              >
+                                <i class="material-icons">remove</i>
+                              </button>
+                            </div>
+
+                            <!--Input-->
+                            <input
+                              type="text"
+                              name="super-like"
+                              id="super-like"
+                              class="form-control w-35 buy-premium-input"
+                              value="0"
+                            />
+
+                            <!--Addition button-->
+                            <div class="input-group-append bonus-control">
+                              <button
+                                class="btn btn-light-grey px-1"
+                                type="button"
+                              >
+                                <i class="material-icons">add</i>
+                              </button>
+                            </div>
+                          </div>
                         </div>
-                        <div class="col-auto">
-                            <a href="favorite-products.html" class="btn btn-link-default">
-                                <i class="material-icons">favorite</i>
-                            </a>
+                        <!--Amount input end-->
+                      </div>
+                    </li>
+                    <!--Superlike end-->
+
+                    <!--Boost start-->
+                    <li class="list-group-item pb-5 pb-md-3">
+                      <div class="row">
+                        <div class="col-12 col-md-2 align-self-center">
+                          <figure class="product-image h-auto">
+                            <img src="img/boost-static.svg" alt="" class="vm" />
+                          </figure>
                         </div>
-                        <div class="col-auto">
-                            <a href="profile.html" class="btn btn-link-default">
-                                <i class="material-icons">account_circle</i>
-                            </a>
+                        <div
+                          class="col-12 col-md-7 pl-md-4 text-center text-md-left"
+                        >
+                          <h3 class="text-dark mb-1 h4 d-block">
+                            Boost
+                          </h3>
+
+                          <div
+                            class="text-secondary font-weight-normal mb-0 pt-1"
+                          >
+                            Price: <span class="text-success">15 </span>
+                            <span class="text-success">zł</span>
+                          </div>
+
+                          <p class="text-secondary pb-2 pb-md-0 pt-2">
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Facilis dolorem iure ullam repudiandae velit!
+                            Rem, reprehenderit! Eos, libero aut? Reiciendis, non
+                            illo culpa iusto numquam laborum adipisci illum ab
+                            excepturi?
+                          </p>
                         </div>
-                    </div>
+
+                        <!--Amount input start-->
+                        <div
+                          class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
+                        >
+                          <div class="input-group input-group-sm form-group">
+                            <!--Substration button-->
+                            <div class="input-group-prepend bonus-control">
+                              <button
+                                class="btn btn-light-grey px-1"
+                                type="button"
+                              >
+                                <i class="material-icons">remove</i>
+                              </button>
+                            </div>
+
+                            <!--Input-->
+                            <input
+                              type="text"
+                              name="boost"
+                              id="boost"
+                              class="form-control w-35 buy-premium-input"
+                              value="0"
+                            />
+
+                            <!--Addition button-->
+                            <div class="input-group-append bonus-control">
+                              <button
+                                class="btn btn-light-grey px-1"
+                                type="button"
+                              >
+                                <i class="material-icons">add</i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <!--Amount input end-->
+                      </div>
+                    </li>
+                    <!--Boost end-->
+
+                    <!--Photo cart start-->
+                    <li class="list-group-item pb-5 pb-md-3">
+                      <div class="row">
+                        <div class="col-12 col-md-2 align-self-center">
+                          <figure class="product-image h-auto">
+                            <img src="img/photo.svg" alt="" class="vm" />
+                          </figure>
+                        </div>
+                        <div
+                          class="col-12 col-md-7 pl-md-4 text-center text-md-left"
+                        >
+                          <h3 class="text-dark mb-1 h4 d-block">
+                            Photo Card
+                          </h3>
+
+                          <div
+                            class="text-secondary font-weight-normal mb-0 pt-1"
+                          >
+                            Price: <span class="text-success">12 </span>
+                            <span class="text-success">zł</span>
+                          </div>
+
+                          <p class="text-secondary pb-2 pb-md-0 pt-2">
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Facilis dolorem iure ullam repudiandae velit!
+                            Rem, reprehenderit! Eos, libero aut? Reiciendis, non
+                            illo culpa iusto numquam laborum adipisci illum ab
+                            excepturi?
+                          </p>
+                        </div>
+
+                        <!--Amount input start-->
+                        <div
+                          class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
+                        >
+                          <div class="input-group input-group-sm form-group">
+                            <!--Substration button-->
+                            <div class="input-group-prepend bonus-control">
+                              <button
+                                class="btn btn-light-grey px-1"
+                                type="button"
+                              >
+                                <i class="material-icons">remove</i>
+                              </button>
+                            </div>
+
+                            <!--Input-->
+                            <input
+                              type="text"
+                              name="photo-card"
+                              id="photo-card"
+                              class="form-control w-35 buy-premium-input"
+                              value="0"
+                            />
+
+                            <!--Addition button-->
+                            <div class="input-group-append bonus-control">
+                              <button
+                                class="btn btn-light-grey px-1"
+                                type="button"
+                              >
+                                <i class="material-icons">add</i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <!--Amount input end-->
+                      </div>
+                    </li>
+                    <!--Photo cart end-->
+                  </ul>
                 </div>
+                <!--Bonus container end-->
+              </div>
             </div>
+            <!--Bonuses selection end-->
+
+            <!--Button for total price start-->
+            <div class="row plan-and-bonuses-checkout">
+              <div class="col-12">
+                <div class="card mb-4 border-0 shadow-sm">
+                  <div class="card-body text-center">
+                    <p class="text-secondary my-1">Total amount to pay:</p>
+                    <div class="h3 mb-4">
+                      <span class="total-price">0 </span>
+                      <span>zł</span>
+                    </div>
+                    <button
+                      type="submit"
+                      class="mb-2 mx-auto btn btn-block btn-lg btn-rounded btn-default"
+                    >
+                      Checkout <i class="material-icons">arrow_forward</i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--Button for total price end-->
+          </form>
         </div>
-        <!-- footer ends -->
+        <!--Form for selecting plans and presents end-->
+        <div class="form-wrapper">
+          <div class="buy-premium-step" data-step="1">
+            <!--Payment selection start-->
+            <div class="row">
+              <div class="col-12">
+                <h2 class="h3 mx-3 text-center text-sm-left pb-4">
+                  Choose payment method:
+                </h2>
+              </div>
+            </div>
+
+            <!--Card payment start-->
+            <div
+              class="row payment bg-white shadow-sm rounded py-4 mx-3 mb-5 forward"
+            >
+              <div
+                class="col-12 col-sm-4 col-md-2 d-none d-sm-block text-center"
+              >
+                <span class="material-icons align-middle">
+                  payment
+                </span>
+              </div>
+              <div
+                class="col-12 col-sm-7 d-flex flex-column justify-content-center align-items-center align-items-sm-start"
+              >
+                <h3 class="title">
+                  Card payment - <span class="text-success">20% off</span>
+                </h3>
+                <div class="price font-weight-normal mb-0 pt-1">
+                  <span class="small text-secondary">total:</span>
+                  <span class="text-success discount-price">0 </span>
+                  <span class="text-success">zł</span>
+                  &nbsp;
+                  <del class="text-secondary small">
+                    <span class="total-price">0 </span>zł
+                  </del>
+                </div>
+                <p class="text-secondary small pt-3">
+                  subscription
+                </p>
+              </div>
+            </div>
+            <!--Card payment end-->
+
+            <!--Bank transfer start-->
+            <div
+              class="row payment bg-white shadow-sm rounded py-4 mx-3"
+              id="bank-transfer"
+            >
+              <div
+                class="col-12 col-sm-4 col-md-2 d-none d-sm-block text-center"
+              >
+                <span class="material-icons">
+                  account_balance
+                </span>
+              </div>
+              <div
+                class="col-12 col-sm-7 d-flex flex-column justify-content-center align-items-center align-items-sm-start"
+              >
+                <h3 class="title">
+                  Bank transfer
+                </h3>
+                <div class="price font-weight-normal mb-0 pt-1">
+                  <span class="small text-secondary">total:</span>
+                  <span class="text-secondary total-price">0 </span>
+                  <span class="text-secondary">zł</span>
+                </div>
+
+                <!--Hidden form for bank transfer start-->
+                <form
+                  action="https://pay.cashbill.pl/form/pay.php"
+                  id="bank-transfer-form"
+                  method="POST"
+                  target="_blank"
+                >
+                  <input type="hidden" name="service" value="{$service}" />
+                  <input type="hidden" name="amount" value="{$amount}" />
+                  <input type="hidden" name="desc" value="{$desc}" />
+                  <input type="hidden" name="userdata" value="{$userdata}" />
+                  <input type="hidden" name="sign" value="{$sign}" />
+                </form>
+                <!--Hidden form for bank transfer end-->
+              </div>
+            </div>
+            <!--Bank transfer end-->
+          </div>
+        </div>
+        <!--Payment selection end-->
+
+        <!--Card payment input start-->
+
+        <div class="form-wrapper">
+          <form
+            class="row credit-card buy-premium-step mx-auto bg-white shadow-sm rounded my-4 py-5 px-3 px-sm-5"
+            id="credit-card"
+            data-step="2"
+          >
+            <div class="col-12 text-center">
+              <h2 class="h3 mx-3 py-4">
+                Fill your card information
+              </h2>
+            </div>
+            <div class="col-12 card-wrapper pb-4"></div>
+            <!--Card number start-->
+            <div class="col-12 col-sm-6 col-lg-4 offset-lg-2">
+              <div class="form-group">
+                <label for="number">Card number</label>
+                <input
+                  type="text"
+                  class="form-control form-control-sm payment-input"
+                  name="number"
+                  id="number"
+                  placeholder="•••• •••• •••• ••••"
+                />
+              </div>
+            </div>
+            <!--Card number end-->
+
+            <!--Card expiration start-->
+            <div class="col-12 col-sm-6 col-lg-4">
+              <div class="form-group">
+                <label for="expiry">Expiration date</label>
+                <input
+                  type="text"
+                  class="form-control form-control-sm payment-input"
+                  name="expiry"
+                  id="expiry"
+                  placeholder="MM/YY"
+                />
+              </div>
+            </div>
+            <!--Card expiration end-->
+
+            <!--Full name start-->
+            <div class="col-12 col-sm-6 col-lg-4 offset-lg-2">
+              <div class="form-group">
+                <label for="name">Full name</label>
+                <input
+                  type="text"
+                  class="form-control form-control-sm payment-input"
+                  name="name"
+                  id="name"
+                  placeholder="Full Name"
+                />
+              </div>
+            </div>
+            <!--Full name end-->
+
+            <!--CVC start-->
+            <div class="col-12 col-sm-6 col-lg-4">
+              <div class="form-group">
+                <label for="cvc">CVC Code</label>
+                <input
+                  type="text"
+                  class="form-control form-control-sm payment-input"
+                  name="cvc"
+                  id="cvc"
+                  placeholder="CVC"
+                />
+              </div>
+            </div>
+            <!--CVC end-->
+
+            <!--Terms of service start-->
+            <div class="col-12 offset-lg-2">
+              <div class="custom-control custom-checkbox form-group">
+                <input
+                  type="checkbox"
+                  class="custom-control-input payment-input"
+                  id="terms"
+                  name="terms"
+                />
+                <label class="custom-control-label" for="terms"
+                  >I accept
+                  <a href="terms.html" class="blue-link text-underline"
+                    >terms and conditions</a
+                  ></label
+                >
+              </div>
+            </div>
+            <!--Terms of service end-->
+
+            <!--Submission button start-->
+            <div class="col-12 col-lg-8 offset-lg-2 py-4">
+              <button
+                type="submit"
+                class="mb-2 btn btn-block btn-rounded btn-default submit"
+              >
+                Pay: <span class="total-price">0 </span>zł / month
+              </button>
+              <p class="text-center small text-secondary">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              </p>
+            </div>
+            <!--Submission button end-->
+          </form>
+        </div>
+        <!--Card payment input end-->
+      </div>
+
+      <!-- footer -->
+      <footer class="footer">
+        <div class="no-gutters">
+          <div class="col-auto mx-auto">
+            <div class="row no-gutters justify-content-center">
+              <div class="col-auto">
+                <a href="index.html" class="btn btn-link-default active icon">
+                  <i class="fas fa-home"></i>
+                </a>
+              </div>
+              <div class="col-auto">
+                <a href="statistics.html" class="btn btn-link-default icon">
+                  <i class="far fa-eye"></i>
+                </a>
+              </div>
+              <div class="col-auto">
+                <a
+                  href="cart.html"
+                  class="btn btn-default shadow centerbutton d-flex justify-content-center align-items-center position-relative"
+                >
+                  <i class="far fa-envelope icon"></i>
+                  <span class="badge-circle badge-primary mb-1">3</span>
+                </a>
+              </div>
+              <div class="col-auto">
+                <a href="favorite-products.html" class="btn btn-link-default">
+                  <i class="material-icons">favorite</i>
+                </a>
+              </div>
+              <div class="col-auto">
+                <a href="profile.html" class="btn btn-link-default">
+                  <i class="material-icons">account_circle</i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- footer ends -->
+
+      <!-- notification -->
+      <div class="notification bg-white shadow border-primary">
+        <div class="row">
+          <div class="col-auto align-self-center pr-0">
+            <i class="material-icons text-primary md-36">fullscreen</i>
+          </div>
+          <div class="col">
+            <h6>Viewing in Phone?</h6>
+            <p class="mb-0 text-secondary">
+              Double tap to enter into fullscreen mode for each page.
+            </p>
+          </div>
+          <div class="col-auto align-self-center pl-0">
+            <button class="btn btn-link closenotification">
+              <i class="material-icons text-secondary text-mute md-18">close</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- notification ends -->
     </div>
 
     <!-- jquery, popper and bootstrap js -->
     <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
 
-    <!-- swiper js -->
-    <script src="vendor/swiper/js/swiper.min.js"></script>
+    <!--Sweetalert-->
+    <script
+      type="text/javascript"
+      src="vendor/sweetalert2/sweetalert2.min.js"
+    ></script>
+
+    <!--Creditly-->
+    <script type="text/javascript" src="vendor/card/card.js"></script>
 
     <!-- template custom js -->
-    <script src="js/main.js"></script>
+    <script src="js/main.bundle.js"></script>
+    <script src="js/main-authorized.bundle.js"></script>
 
-    <!-- page level script -->
     <script>
-        $(window).on('load', function() {
-
+      $(window).on('load', function () {
+        /* notification view and hide */
+        setTimeout(function () {
+          $('.notification').addClass('active');
+          setTimeout(function () {
+            $('.notification').removeClass('active');
+          }, 3500);
+        }, 500);
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
 
+        /* Credit card initialization */
+        var card = new Card({
+          form: '#credit-card',
+          container: '.card-wrapper',
+          debug: true,
+        });
+
+        /* Boost initialization */
+        const boost = new Boost({
+          selectors: {
+            bonus: '.boost',
+            timer: {
+              element: '.timer',
+              hours: '.hours',
+              minutes: '.minutes',
+              seconds: '.seconds',
+            },
+          },
+          requests: {
+            use: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus',
+            },
+          },
+          popupData: {
+            title: 'Do you want to use boost?',
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No',
+            imageUrl: 'img/boost.svg',
+            imageAlt: 'Boost icon',
+          },
+        });
+
+        /* Buy premium form initialization */
+        const buyPremiumForm = new BuyPremiumForm({
+          selectors: {
+            form: '#buy-premium',
+            'input-wrapper': '.form-group',
+            inputs: '.buy-premium-input',
+            // Wrapper of the bonus input
+            'bonus-inputs': '.input-group',
+            // + and - buttons to add/remove bonuses
+            'bonus-control': '.bonus-control',
+            'add-bonus-input-className': 'input-group-append',
+            price: '.total-price',
+            'card-payment-price': '.discount-price',
+            checkout: '.plan-and-bonuses-checkout',
+          },
+          requests: {
+            price: {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/price',
+            },
+            submit: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/price',
+            },
+          },
+          location: false,
+          showSuccessPopup: false,
+          generateSubmitEvent: true,
+          showFailPopup: false,
+          frontendValidation: false,
+        });
+
+        /* Bank transfer handling */
+        $('#bank-transfer').click(function () {
+          $(this).find('#bank-transfer-form').submit();
+        });
+
+        /* Payment with credit card form initialization */
+        const paymentForm = new Form({
+          selectors: {
+            form: '#credit-card',
+            'input-wrapper': '.form-group',
+            inputs: '.payment-input',
+          },
+          requests: {
+            submit: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/card',
+            },
+          },
+          location: false,
+          showSuccessPopup: true,
+          showFailPopup: false,
+          payment: true,
+          frontendValidation: true,
+          redirectOnSubmit: true,
+          validatorOptions: {
+            errorElement: 'span',
+            rules: {
+              terms: 'required',
+              name: {
+                required: true,
+                minlength: 5,
+              },
+              cvc: {
+                required: true,
+                minlength: 3,
+              },
+              expiry: {
+                required: true,
+                expiration: true,
+              },
+              number: {
+                required: true,
+                cardNumber: true,
+              },
+            },
+          },
+        });
+
+        /* forms chainer initialization */
+        const chainedForms = new ChainedForms({
+          selectors: {
+            formsContainer: '#checkout',
+            forms: '.buy-premium-step',
+            forward: '.forward',
+            wrapper: '.form-wrapper',
+          },
+        });
+      });
     </script>
-
-</body>
-
+  </body>
 </html>

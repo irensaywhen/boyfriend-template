@@ -202,14 +202,17 @@
       </header>
       <!--Header end-->
 
-      <div id="forms-signup" class="login-and-registration pb-5 d-flex align-items-sm-center align-items-start">
-      <!--Registration section start-->
-      <section class="container">
-        <div class="row no-gutters proh bg-template">
-          <div class="col-12 align-self-center px-3 text-center">
-            <h2 class="text-white">
-              <span class="font-weight-light">Sign</span>Up
-            </h2>
+      <div
+        id="forms-signup"
+        class="login-and-registration pb-5 d-flex align-items-sm-center align-items-start"
+      >
+        <!--Registration section start-->
+        <section class="container">
+          <div class="row no-gutters proh bg-template">
+            <div class="col-12 align-self-center px-3 text-center">
+              <h2 class="text-white">
+                <span class="font-weight-light">Sign</span>Up
+              </h2>
               <!--Form step 1 start-->
               <div class="form-wrapper">
                 <form
@@ -279,7 +282,7 @@
                     <div class="col-12 text-center">
                       <button
                         type="submit"
-                        class="btn btn-lg btn-default btn-rounded shadow forward"
+                        class="btn btn-lg btn-default btn-rounded shadow"
                       >
                         <span>Sign Up</span
                         ><i class="material-icons">arrow_forward</i>
@@ -327,7 +330,7 @@
                     <div class="col-6 offset-5 offset-sm-6">
                       <button
                         type="submit"
-                        class="btn btn-lg btn-default btn-rounded shadow forward"
+                        class="btn btn-lg btn-default btn-rounded shadow"
                       >
                         <span>Next</span
                         ><i class="material-icons">arrow_forward</i>
@@ -472,7 +475,7 @@
                     <div class="col-6 offset-5 offset-sm-6">
                       <button
                         type="submit"
-                        class="btn btn-lg btn-default btn-rounded shadow forward"
+                        class="btn btn-lg btn-default btn-rounded shadow"
                       >
                         <span>Next</span
                         ><i class="material-icons">arrow_forward</i>
@@ -543,16 +546,18 @@
               </div>
               <!--Form step 4 end-->
 
-            <p class="text-center text-white pt-4">
-              Already have account?<br />
-              <a href="login.html" class="blue-link text-underline">Sign In</a>
-              here.
-            </p>
+              <p class="text-center text-white pt-4">
+                Already have account?<br />
+                <a href="login.html" class="blue-link text-underline"
+                  >Sign In</a
+                >
+                here.
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
-      <!--Registration section end-->
-    </div>
+        </section>
+        <!--Registration section end-->
+      </div>
     </div>
 
     <!--Footer start-->
@@ -619,16 +624,16 @@
 
     <!-- page level script -->
     <script>
-      $(window).on("load", function () {
+      $(window).on('load', function () {
         /* notification view and hide */
         setTimeout(function () {
-          $(".notification").addClass("active");
+          $('.notification').addClass('active');
           setTimeout(function () {
-            $(".notification").removeClass("active");
+            $('.notification').removeClass('active');
           }, 3500);
         }, 500);
-        $(".closenotification").on("click", function () {
-          $(this).closest(".notification").removeClass("active");
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
 
         /* signup form functionality start */
@@ -636,19 +641,19 @@
         // First step
         const signupFirstStep = new Form({
           selectors: {
-            form: "#signup-1",
-            "input-wrapper": ".form-group",
-            inputs: ".signup-input",
-            generalError: '#general-error-signup-1'
+            form: '#signup-1',
+            'input-wrapper': '.form-group',
+            inputs: '.signup-input',
+            generalError: '#general-error-signup-1',
           },
           requests: {
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail-general",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail-general',
             },
           },
           location: false,
@@ -657,7 +662,7 @@
           frontendValidation: true,
           generateSubmitEvent: true,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
               login: {
                 required: true,
@@ -671,7 +676,7 @@
                 required: true,
                 minlength: 4,
               },
-              terms: "required",
+              terms: 'required',
             },
           },
         });
@@ -679,19 +684,19 @@
         // Second step
         const signupSecondStep = new Form({
           selectors: {
-            form: "#signup-2",
-            "input-wrapper": ".form-group",
-            inputs: ".signup-input",
-            generalError: '#general-error-signup-2'
+            form: '#signup-2',
+            'input-wrapper': '.form-group',
+            inputs: '.signup-input',
+            generalError: '#general-error-signup-2',
           },
           requests: {
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin',
             },
           },
           location: false,
@@ -700,7 +705,7 @@
           frontendValidation: true,
           generateSubmitEvent: true,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
               name: {
                 required: true,
@@ -717,34 +722,34 @@
         // Third step
         const signupThirdStep = new Form({
           selectors: {
-            form: "#signup-3",
-            "input-wrapper": ".form-group",
-            inputs: ".signup-input",
-            locationInput: ".location",
-            "location-dropdown": ".location-dropdown",
-            "dropdown-toggle": ".dropdown-toggle",
-            "dropdown-menu": ".dropdown-menu",
-            locationLoadingIndicator: ".city-loader",
-            generalError: '#general-error-signup-3'
+            form: '#signup-3',
+            'input-wrapper': '.form-group',
+            inputs: '.signup-input',
+            locationInput: '.location',
+            'location-dropdown': '.location-dropdown',
+            'dropdown-toggle': '.dropdown-toggle',
+            'dropdown-menu': '.dropdown-menu',
+            locationLoadingIndicator: '.city-loader',
+            generalError: '#general-error-signup-3',
           },
           requests: {
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin',
             },
             location: {
-              method: "GET",
+              method: 'GET',
               headers: {},
-              endpoint: "https://nominatim.openstreetmap.org/search",
+              endpoint: 'https://nominatim.openstreetmap.org/search',
               searchParams: {
-                format: "json",
-                addressdetails: "1",
-                countrycodes: "pl",
-                "accept-language": "pl,en",
+                format: 'json',
+                addressdetails: '1',
+                countrycodes: 'pl',
+                'accept-language': 'pl,en',
               },
             },
           },
@@ -754,7 +759,7 @@
           frontendValidation: true,
           generateSubmitEvent: true,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
               city: {
                 required: true,
@@ -770,10 +775,10 @@
                 min: 1,
                 max: 12,
               },
-              year: "required",
-              weight: "required",
-              height: "required",
-              preference: "required",
+              year: 'required',
+              weight: 'required',
+              height: 'required',
+              preference: 'required',
             },
           },
         });
@@ -782,21 +787,21 @@
         /* avatar handling start */
         const avatar = new Avatar({
           selectors: {
-            elementSelector: ".avatar-image",
-            modal: "#upload-avatar",
-            "modal-footer": ".modal-footer",
-            input: ".avatar-input",
-            preview: "#avatar-preview",
-            form: "#avatar-editor",
+            elementSelector: '.avatar-image',
+            modal: '#upload-avatar',
+            'modal-footer': '.modal-footer',
+            input: '.avatar-input',
+            preview: '#avatar-preview',
+            form: '#avatar-editor',
           },
           requests: {
             saveAvatar: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "multipart/form-data",
+                'Content-Type': 'multipart/form-data',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar',
             },
           },
         });
@@ -805,17 +810,17 @@
         /* forms chainer initialization start */
         const chainedForms = new ChainedForms({
           selectors: {
-            formsContainer: "#forms-signup",
-            forms: ".form-signin",
-            backward: ".back",
-            wrapper: ".form-wrapper",
+            formsContainer: '#forms-signup',
+            forms: '.form-signin',
+            backward: '.back',
+            wrapper: '.form-wrapper',
           },
         });
         /* forms chainer initialization end */
 
-        $("#continue").click((event) => {
+        $('#continue').click(event => {
           event.preventDefault();
-          window.location.replace("./profile.html");
+          window.location.replace('./profile.html');
         });
       });
     </script>

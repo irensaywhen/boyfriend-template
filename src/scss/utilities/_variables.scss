@@ -1,4 +1,4 @@
-$front-page-background: url("../img/main-bg.jpg");
+$front-page-background: url('../img/main-bg.jpg');
 
 /*Colors*/
 
@@ -8,7 +8,9 @@ $main-pink: #ff0068;
 $hover-pink: #dd015b;
 
 $primary-blue: #3fa7ff;
+$present-blue: #41b6f2;
 $warning-yellow: #fdd835;
+$superlike-yellow: #f2be41;
 $success-green: #15d36c;
 $orange: #ff9133;
 
@@ -18,6 +20,7 @@ $main-background-color: #e3eaf1;
 $bootstrap-secondary: #6c757d;
 
 $label-color: #212529;
+$label-border: #ced4da;
 
 /*Text sizes*/
 $h1: 40px;
@@ -34,3 +37,41 @@ $screen-sm: 576px;
 $screen-md: 768px;
 $screen-lg: 992px;
 $screen-xl: 1200px;
+
+/*radiuses*/
+$photo-modal-radius: 5px;
+
+/*spacing*/
+$dropdown-item-y-padding: 10px;
+$dropdown-item-x-padding: 10px;
+
+/*footer*/
+$centerbutton-height: 60px;
+$chat-centerbutton-height-lg: 50px;
+
+/*chat*/
+$chat-header-height: 77px;
+$chat-footer-height: 45px;
+$chat-footer-height-lg: 60px;
+$chat-message-height: 40px;
+$chat-message-height-lg: 60px;
+$chat-message-max-width: 450px;
+$chat-width: 576px;
+$chat-width-lg: 800px;
+$max-message-width: 85%;
+$message-width: 85%;
+$message-border-radius: 30px;
+
+$chat-bottom-spacing: $chat-footer-height + $chat-message-height + 90px;
+$chat-bottom-spacing-lg: $chat-footer-height-lg + $chat-message-height-lg + 40px;
+
+/*special message types*/
+$icon-width: 76px;
+$photo-max-width: 300px;
+
+/* animated icons specific variables */
+/* variables */
+$icon-pink: #ee1f61;
+$superlike-gray: #262626;
+$animated-icon-height: 150px;
+$animated-icon-width: 150px;

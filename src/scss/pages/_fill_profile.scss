@@ -71,86 +71,6 @@
   }
 }
 
-/* Modals */
-
-.modal {
-  .modal-lg {
-    max-width: 600px !important;
-  }
-
-  .modal-xl {
-    max-width: 950px !important;
-  }
-
-  .modal-body {
-    .photo-description {
-      figure {
-        width: 100%;
-        max-width: 100%;
-        position: relative;
-        text-align: center !important;
-
-        img {
-          @include image;
-        }
-
-        .privacy {
-          position: absolute;
-          top: 10px;
-          left: 10px;
-          min-width: 100px;
-          height: 30px;
-
-          h4 {
-            font-size: $paragraph-size;
-          }
-        }
-
-        .delete {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          min-width: 80px;
-          height: 30px;
-          border: none;
-          outline: none;
-        }
-      }
-
-      p {
-        font-weight: 300;
-        font-size: $paragraph-size;
-      }
-    }
-  }
-}
-
-/* Avatar upload */
-.upload-avatar {
-  ul {
-    list-style: none;
-  }
-
-  .upload-photo-label {
-    @include circular-badge(100px);
-    background: $main-background-color;
-    font-size: 53px;
-    cursor: pointer;
-
-    img {
-      width: 70px;
-      height: auto;
-    }
-  }
-
-  .avatar-requirements {
-    li {
-      font-weight: 300;
-      font-size: $paragraph-size;
-    }
-  }
-}
-
 /* Table */
 .account-table {
   border-collapse: collapse;
@@ -228,19 +148,19 @@
         /* Label data */
 
         &:nth-of-type(1):before {
-          content: "Name";
+          content: 'Name';
         }
 
         &:nth-of-type(2):before {
-          content: "Price";
+          content: 'Price';
         }
 
         &:nth-of-type(3):before {
-          content: "Date";
+          content: 'Date';
         }
 
         &:nth-of-type(4):before {
-          content: "Invoice";
+          content: 'Invoice';
         }
       }
     }

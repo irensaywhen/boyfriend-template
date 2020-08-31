@@ -32,3 +32,13 @@
 .pointer {
   cursor: pointer;
 }
+
+/* icon specific */
+
+.fill-pink {
+  fill: $icon-pink !important;
+}
+
+.default-scale {
+  transform: scale3d(1, 1, 1) !important;
+}

@@ -1,5 +1,6 @@
-import ServerRequest from "./requests.js";
-import location from "./locationMixin.js";
+import ServerRequest from './requests.js';
+import location from './locationMixin.js';
+import payment from './paymentMixin.js';
 
 export default class Form extends ServerRequest {
   constructor(options) {
@@ -9,14 +10,14 @@ export default class Form extends ServerRequest {
     this.formData = {};
 
     // Bind context
-    this.cacheElements = this.cacheElements.bind(this);
-    this.setUpEventListeners = this.setUpEventListeners.bind(this);
+    this._cacheElements = this._cacheElements.bind(this);
+    this._setUpEventListeners = this._setUpEventListeners.bind(this);
     this.collectLocationData = this.collectLocationData.bind(this);
     this.sendFormInformation = this.sendFormInformation.bind(this);
     this.showErrorMessages = this.showErrorMessages.bind(this);
     this.collectFormInputs = this.collectFormInputs.bind(this);
     this.showGeneralError = this.showGeneralError.bind(this);
-    this.deleteGeneralError = this.deleteGeneralError.bind(this)
+    this.deleteGeneralError = this.deleteGeneralError.bind(this);
 
     if (options.location) {
       // Add location methods to the form object
@@ -24,8 +25,25 @@ export default class Form extends ServerRequest {
       this.location = true;
     }
 
-    this.cacheElements();
-    this.setUpEventListeners();
+    this._cacheElements();
+    this._setUpEventListeners();
+
+    if (options.payment) {
+      Object.assign(Form.prototype, payment);
+      this.payment = true;
+
+      jQuery.validator.addMethod(
+        'expiration',
+        this.creditCardExpirationValidation,
+        'Expiration date is passed'
+      );
+
+      jQuery.validator.addMethod(
+        'cardNumber',
+        this.creditCardNumberValidation,
+        'Card number is invalid'
+      );
+    }
 
     if (options.frontendValidation) {
       // If this form requires frontend validation
@@ -33,16 +51,16 @@ export default class Form extends ServerRequest {
 
       // Change where error messages occur
       // This is required for label to work properly when errors are shown
-      options.validatorOptions["errorPlacement"] = (error, element) => {
-        element.closest(this.selectors["input-wrapper"]).append(error);
+      options.validatorOptions['errorPlacement'] = (error, element) => {
+        element.closest(this.selectors['input-wrapper']).append(error);
       };
 
       if (this.location) {
         // Add custom frontend validation for location field
         jQuery.validator.addMethod(
-          "location",
+          'location',
           this.frontendCityValidator,
-          "No such city"
+          'No such city'
         );
       }
 
@@ -63,7 +81,7 @@ export default class Form extends ServerRequest {
     this.showFailPopup = options.showFailPopup ? true : false;
   }
 
-  cacheElements() {
+  _cacheElements() {
     // Form
     this.$form = $(this.selectors.form);
 
@@ -78,11 +96,12 @@ export default class Form extends ServerRequest {
     }
   }
 
-  setUpEventListeners() {
+  _setUpEventListeners() {
     // Form submission
-    this.$form.submit((event) => {
+    this.$form.submit(event => {
       event.preventDefault();
       event.stopPropagation();
+      console.log('Submitted!');
 
       if (!this.frontendValidation) {
         // If this form doesn't require frontend validation (as with checkboxes)
@@ -95,29 +114,29 @@ export default class Form extends ServerRequest {
       if (this.$form.valid()) {
         // If the form has frontend validation
         this.collectFormInputs();
-        this.deleteGeneralError()
+        this.deleteGeneralError();
         this.sendFormInformation();
       }
     });
 
     // Hiding error message on focus
-    this.$inputs.focus((event) => {
+    this.$inputs.focus(event => {
       $(event.target)
-        .closest(this.selectors["input-wrapper"])
-        .find(".custom-error")
+        .closest(this.selectors['input-wrapper'])
+        .find('.custom-error')
         .remove();
     });
 
-    $(document).on('chainedForms:switchForm', ()=>{
-      this.deleteGeneralError()
-    })
+    $(document).on('chainedForms:switchForm', () => {
+      this.deleteGeneralError();
+    });
   }
 
   collectLocationData(element) {
-    this.formData["city"] = {};
+    this.formData['city'] = {};
 
     for (let property in element.dataset) {
-      this.formData["city"][property] = element.dataset[property];
+      this.formData['city'][property] = element.dataset[property];
     }
   }
 
@@ -127,12 +146,18 @@ export default class Form extends ServerRequest {
       let name = element.name;
       let $element = $(element);
 
-      if ($element.is(":checkbox")) {
-        this.formData[name] = $element.is(":checked");
-      } else if (name === "city") {
+      if ($element.is(':checkbox')) {
+        this.formData[name] = $element.is(':checked');
+      } else if ($element.is(':radio')) {
+        this.formData[name] = $('input[name=' + name + ']:checked').val();
+      } else if (name === 'city') {
         this.collectLocationData(element);
       } else {
-        this.formData[name] = $element.val();
+        let value = $element.val();
+        let numericValue = Number(value);
+
+        // Perform type conversion if the value is a number
+        this.formData[name] = numericValue.isNaN ? value : numericValue;
       }
     });
   }
@@ -153,16 +178,16 @@ export default class Form extends ServerRequest {
       this.showRequestResult({
         title: error.name,
         text: error.message,
-        icon: "error",
+        icon: 'error',
       });
     } finally {
       // Remove error messages
-      this.$form.find(".error").remove();
+      this.$form.find('.error').remove();
     }
     if (response.success) {
       if (this.generateSubmitEvent) {
         // Make custom event for form submission
-        let customSubmittedEvent = new CustomEvent("submitted");
+        let customSubmittedEvent = new CustomEvent('submitted');
 
         // Dispatch custom event
         this.$form[0].dispatchEvent(customSubmittedEvent);
@@ -173,18 +198,20 @@ export default class Form extends ServerRequest {
         this.showRequestResult({
           title: response.title,
           text: response.message,
-          icon: "success",
+          icon: 'success',
         });
       }
 
       if (this.cleanFields) {
         // Clean input fields
-        this.$inputs.val("");
+        this.$inputs.val('');
       }
 
       if (this.redirectOnSubmit) {
         // Redirection with simulating HTTP request
-        window.location.replace(response.redirect);
+        setTimeout(() => {
+          window.location.replace(response.redirect);
+        }, 1000);
       }
     } else {
       if (this.showFailPopup) {
@@ -192,19 +219,21 @@ export default class Form extends ServerRequest {
         this.showRequestResult({
           title: response.title,
           text: response.message,
-          icon: "error",
+          icon: 'error',
         });
       }
 
       let errors = response.errors;
 
       // Show errors of the form fields
-      this.showErrorMessages({ errors});
+      this.showErrorMessages({ errors });
 
-      if(errors.general){
-        this.showGeneralError(errors.general)
+      if (errors.general) {
+        this.showGeneralError(errors.general);
       }
     }
+
+    this.formData = {};
   }
 
   showErrorMessages({ errors }) {
@@ -213,22 +242,22 @@ export default class Form extends ServerRequest {
 
       if (name in errors) {
         $(element)
-          .closest(this.selectors["input-wrapper"])
+          .closest(this.selectors['input-wrapper'])
           .append(
-            $("<span></span>")
-              .addClass("error")
-              .addClass("custom-error")
+            $('<span></span>')
+              .addClass('error')
+              .addClass('custom-error')
               .text(errors[name])
           );
       }
     });
   }
 
-  showGeneralError(errorText){
-    this.$generalError.append($('<p></p>').addClass('pb-4').text(errorText))
+  showGeneralError(errorText) {
+    this.$generalError.append($('<p></p>').addClass('pb-4').text(errorText));
   }
 
-  deleteGeneralError(){
-    this.$generalError.empty()
+  deleteGeneralError() {
+    this.$generalError.empty();
   }
 }
