@@ -6302,18 +6302,18 @@
                 element
               ) {
                 element.closest(selectors['input-wrapper']).append(error);
-              }; // Temporary disable location validation to change how location mixin will behave
+              };
 
-              /*if (this.location) {
-        let errorMessage = options.locationErrorMessage || 'No such city';
-        // Add custom frontend validation for location field
-        jQuery.validator.addMethod(
-          'location',
-          this.frontendCityValidator,
-          errorMessage
-        );
-      }*/
-              // Add frontend validation
+              if (_this.location) {
+                var errorMessage =
+                  options.locationErrorMessage || 'No such city'; // Add custom frontend validation for location field
+
+                jQuery.validator.addMethod(
+                  'location',
+                  _this.frontendCityValidator,
+                  errorMessage
+                );
+              } // Add frontend validation
 
               _this.$form.validate(options.validatorOptions);
             }
@@ -6705,254 +6705,6 @@
       /***/ function (module, __webpack_exports__, __webpack_require__) {
         'use strict';
         __webpack_require__.r(__webpack_exports__);
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-          /*! @babel/runtime/regenerator */ '../node_modules/@babel/runtime/regenerator/index.js'
-        );
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-          /*! @babel/runtime/helpers/asyncToGenerator */ '../node_modules/@babel/runtime/helpers/asyncToGenerator.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__
-        );
-
-        var prevLocationMixin = {
-          locationInputStarted: false,
-          locationInputValue: null,
-          initializeLocationInput: function initializeLocationInput() {
-            var requestInfo = this.requests.location; // Bind context
-
-            this.throttleInput = this.throttleInput.bind(this);
-            this.displayCities = this.displayCities.bind(this);
-            this.frontendCityValidator = this.frontendCityValidator.bind(this); // Add default query params
-
-            for (var key in requestInfo.searchParams) {
-              requestInfo.endpoint.searchParams.set(
-                key,
-                requestInfo.searchParams[key]
-              );
-            }
-            /* Elements caching and event listeners initialization */
-
-            this._cacheLocationElements();
-
-            this._setUpLocationEventListeners();
-          },
-          _cacheLocationElements: function _cacheLocationElements() {
-            // Cache input element
-            this.$locationInput = this.$form.find(this.selectors.locationInput); // Loading indicator
-
-            this.$loadingIndicator = this.$form
-              .find(this.selectors.locationLoadingIndicator)
-              .fadeOut(0); // location dropdown wrapper
-
-            this.$locationDropdownWrapper = this.$form.find(
-              this.selectors['location-dropdown']
-            ); // Dropdown toggle
-
-            this.$locationDropdownToggle = this.$locationDropdownWrapper.find(
-              this.selectors['dropdown-toggle']
-            ); // Dropdown menu
-
-            this.$locationDropdownMenu = this.$locationDropdownWrapper.find(
-              this.selectors['dropdown-menu']
-            );
-          },
-          _setUpLocationEventListeners: function _setUpLocationEventListeners() {
-            var _this = this;
-
-            // Listen to typing event
-            this.$locationInput.on('input change', function (event) {
-              // Clean previously cached values
-              var customAttributes = event.target.dataset;
-
-              for (var key in customAttributes) {
-                customAttributes[key] = '';
-              } // If the user selects the city from dropdown
-
-              if (_this.citySelection) return;
-              console.log(_this.locationInputStarted);
-
-              if (!_this.locationInputStarted) {
-                // If input hasn't started yet, indicate that the input has started
-                _this.locationInputStarted = true; // Save the value
-
-                _this.locationInputValue = _this.$locationInput.val(); // Schedule next check
-
-                _this.locationTimer = setTimeout(_this.throttleInput, 1500);
-              }
-            });
-            this.$locationInput.on('input', function (event) {}); // Handle city selection from dropdown
-
-            this.$locationDropdownMenu.click(function (event) {
-              var target = event.target;
-              if (target.tagName !== 'LI') return;
-              var dataset = target.dataset; // Indicate that we're on city selection stage
-
-              _this.citySelection = true;
-              clearTimeout(_this.locationTimer); // Save attributes from selected city
-
-              _this.$locationInput
-                .attr('data-lat', dataset.lat)
-                .attr('data-lon', dataset.lon)
-                .attr('data-name', dataset.name)
-                .val(dataset.name);
-
-              _this.citySelection = false;
-              _this.locationInputStarted = false;
-              _this.newValue = null;
-
-              _this.$locationDropdownMenu.empty();
-
-              if (_this.$locationInput.valid()) {
-                _this.$locationInput.trigger('citySelected');
-              }
-            });
-          },
-          getCities: function getCities(_ref) {
-            var _this2 = this;
-
-            return _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-              /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                function _callee() {
-                  var headers, endpoint, method;
-                  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                    function _callee$(_context) {
-                      while (1) {
-                        switch ((_context.prev = _context.next)) {
-                          case 0:
-                            (headers = _ref.headers),
-                              (endpoint = _ref.endpoint),
-                              (method = _ref.method);
-                            _context.next = 3;
-                            return _this2.makeRequest({
-                              headers: headers,
-                              endpoint: endpoint,
-                              method: method,
-                            });
-
-                          case 3:
-                            return _context.abrupt('return', _context.sent);
-
-                          case 4:
-                          case 'end':
-                            return _context.stop();
-                        }
-                      }
-                    },
-                    _callee
-                  );
-                }
-              )
-            )();
-          },
-          throttleInput: function throttleInput() {
-            var _this3 = this;
-
-            return _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-              /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                function _callee2() {
-                  var requestInfo, newValue, cities;
-                  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                    function _callee2$(_context2) {
-                      while (1) {
-                        switch ((_context2.prev = _context2.next)) {
-                          case 0:
-                            // Cache request information
-                            requestInfo = _this3.requests.location;
-                            newValue = _this3.$locationInput.val();
-
-                            if (newValue === _this3.locationInputValue) {
-                              _context2.next = 15;
-                              break;
-                            }
-
-                            // If the inputed value has been changed recently
-                            // Save new value
-                            _this3.locationInputValue = newValue; // Adjust searchParams
-
-                            requestInfo.endpoint.searchParams.set(
-                              'city',
-                              _this3.locationInputValue
-                            ); // Show loading indicator
-
-                            _this3.$loadingIndicator.fadeIn(150); // Get cities
-
-                            _context2.next = 8;
-                            return _this3.getCities({
-                              headers: requestInfo.headers,
-                              endpoint: requestInfo.endpoint,
-                              method: requestInfo.method,
-                            });
-
-                          case 8:
-                            cities = _context2.sent;
-                            console.log(cities); // Schedule next check
-
-                            _this3.locationTimer = setTimeout(
-                              _this3.throttleInput,
-                              1500
-                            );
-
-                            _this3.$loadingIndicator.fadeOut(150);
-
-                            _this3.displayCities(cities);
-
-                            _context2.next = 16;
-                            break;
-
-                          case 15:
-                            // If the location hasn't changed recently
-                            _this3.locationInputStarted = false;
-
-                          case 16:
-                          case 'end':
-                            return _context2.stop();
-                        }
-                      }
-                    },
-                    _callee2
-                  );
-                }
-              )
-            )();
-          },
-          displayCities: function displayCities(cities) {
-            var _this4 = this;
-
-            if (cities.length === 0) return;
-            cities.forEach(function (city) {
-              _this4.$locationDropdownMenu
-                .append(
-                  $('<li></li>')
-                    .addClass('dropdown-item')
-                    .attr('data-lat', city.lat)
-                    .attr('data-lon', city.lon)
-                    .attr('data-name', city['display_name'])
-                    .text(city['display_name'])
-                )
-                .append($('<li></li>').addClass('dropdown-divider'));
-            });
-            this.$locationDropdownToggle.dropdown('toggle');
-          },
-          frontendCityValidator: function frontendCityValidator(
-            value,
-            element
-          ) {
-            // Cache data-* sttributes
-            var dataset = element.dataset;
-
-            if (dataset['lat'] && dataset['lon'] && dataset['name']) {
-              // If dataset properties are not empty, the element is valid
-              return true;
-            } else {
-              return false;
-            }
-          },
-        }; // This is the new location mixing
-
         /* harmony default export */ __webpack_exports__[
           'default'
         ] = (function () {
@@ -6963,12 +6715,11 @@
             $loadingIndicator,
             $locationDropdownWrapper,
             $locationDropdownToggle,
-            $locationDropdownMenu;
+            $locationDropdownMenu,
+            dropdownShown = false;
           /**
            * Helper function to cache required elements
            */
-          // Maybe, after implementing functionality, you can make these variables private
-          // TO not to mess everything together
 
           function _cacheElements() {
             // Caching selectors
@@ -7000,50 +6751,81 @@
             // Cache
             var requestInfo = this.requests.location; // Handle location input
 
-            $locationInput.on('input', function (event) {
-              // Clean previously cached values about city
-              // Check whether they are cached properly
-              var customAttributes = event.target.dataset;
+            $locationInput.on('input focus', function (event) {
+              // Prepare input for futher actions
+              _prepareCityInput(event.target); // Set delay based on event type
 
-              for (var key in customAttributes) {
-                customAttributes[key] = '';
-              } // Show loading indicator here
-              // And hide it when the cities are being retrieved and showed
-              // Debounce user input
+              var delay = event.type === 'focus' ? 0 : 300; // Debounce user input
 
-              _debounce(_getNewCities, 1000, requestInfo);
+              _debounce(_getNewCities, delay, requestInfo);
             }); // Handle city selection from dropdown
 
             $locationDropdownMenu.click(function (event) {
               var target = event.target;
-              if (target.tagName !== 'LI') return;
-              var dataset = target.dataset; // Save attributes from selected city
+              if (target.tagName !== 'LI') return; // Change how data attributes are handled here
+
+              var _target$dataset = target.dataset,
+                lat = _target$dataset.lat,
+                lon = _target$dataset.lon,
+                name = _target$dataset.name; // Save attributes from selected city
 
               $locationInput
-                .attr('data-lat', dataset.lat)
-                .attr('data-lon', dataset.lon)
-                .attr('data-name', dataset.name)
-                .val(dataset.name); // Clean dropdown
+                .attr('data-lat', lat)
+                .attr('data-lon', lon)
+                .attr('data-name', name)
+                .val(name); // Clean dropdown
 
               $locationDropdownMenu.empty();
 
               if ($locationInput.valid()) {
-                // Trigger event to let everything know that the city was selected
+                // This event initially dedicated to profiles retrieval
                 $locationInput.trigger('citySelected');
               }
             });
-          } // Function to make async API call to the Nominatium
+            $locationDropdownWrapper.on('shown.bs.dropdown', function () {
+              dropdownShown = true;
+            });
+            $locationDropdownWrapper.on('hidden.bs.dropdown', function () {
+              dropdownShown = false;
+            });
+          }
+          /**
+           * Function to prepare user input before showing newly retrieved cities
+           * @param {DOMElement} input
+           */
 
-          function _makeAPICallForCities(_ref2) {
-            var headers = _ref2.headers,
-              endpoint = _ref2.endpoint,
-              method = _ref2.method;
+          function _prepareCityInput(input) {
+            var customAttributes = input.dataset;
+
+            for (var key in customAttributes) {
+              customAttributes[key] = '';
+            }
+
+            if (dropdownShown) {
+              // Hide dropdown menu on input
+              $locationDropdownToggle.dropdown('toggle');
+            } // Clean dropdown menu
+
+            $locationDropdownMenu.empty();
+          }
+          /**
+           * Function to make async API call to retrieve cities
+           */
+
+          function _makeAPICallForCities(_ref) {
+            var headers = _ref.headers,
+              endpoint = _ref.endpoint,
+              method = _ref.method;
             return this.makeRequest({
               headers: headers,
               endpoint: endpoint,
               method: method,
             });
-          } // Function to display cities in dropdown
+          }
+          /**
+           * Function to display cities in dropdown
+           * @param {Array} cities - cities from the API to display in dropdown
+           */
 
           function _displayCities(cities) {
             if (cities.length === 0) return;
@@ -7061,15 +6843,34 @@
             });
             $locationDropdownToggle.dropdown('toggle');
           }
+          /**
+           * Function to perform operations with city retrieval
+           * Including showing and hiding loading indicator
+           * and calling function to display cities
+           * @param {Object} requestInfo - endpoint, headers and method fot the request to retrieve citis
+           */
 
           function _getNewCities(requestInfo) {
-            // Set the current input value to the search parameters
-            requestInfo.endpoint.searchParams.set('city', $locationInput.val());
+            var city = $locationInput.val();
+            if (!city) return; // Show loading indicator
+
+            $loadingIndicator.fadeIn(150); // Set the current input value to the search parameters
+
+            requestInfo.endpoint.searchParams.set('city', city);
 
             _makeAPICallForCities(requestInfo).then(function (cities) {
+              // Hide loading indicator
+              $loadingIndicator.fadeOut(150); // Show retrieved cities
+
               _displayCities(cities);
             });
-          } // Function to debonce making an API call
+          }
+          /**
+           * Function to decrease the amount of requests to the API while user input
+           * @param {Function} func - function to debounce
+           * @param {Number} delay - delay after which to call the function
+           * @param {Object} requestInfo - optional parameter - request information to make an API call
+           */
 
           function _debounce(func, delay, requestInfo) {
             // Cancels the setTimeout method execution
@@ -7095,10 +6896,15 @@
                 return false;
               }
             },
-            initializeLocationInput: function initializeLocationInput() {
-              console.log('Initializing location inout');
-              console.log(this); // Caching
 
+            /**
+             * Function to initialize location input
+             * It binds the context of private functions
+             * Saves request information
+             * Caches elements and sets event listeners
+             */
+            initializeLocationInput: function initializeLocationInput() {
+              // Caching
               var requestInfo = this.requests.location; // Bind context
 
               this.frontendCityValidator = this.frontendCityValidator.bind(
@@ -7108,7 +6914,8 @@
               _setUpEventListeners = _setUpEventListeners.bind(this);
               _makeAPICallForCities = _makeAPICallForCities.bind(this);
               _getNewCities = _getNewCities.bind(this);
-              _displayCities = _displayCities.bind(this); // Add default query params to retrieve city information
+              _displayCities = _displayCities.bind(this);
+              _prepareCityInput = _prepareCityInput.bind(this); // Add default query params to retrieve city information
 
               for (var key in requestInfo.searchParams) {
                 requestInfo.endpoint.searchParams.set(
