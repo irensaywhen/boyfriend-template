@@ -2,6 +2,7 @@ import ServerRequest from './requests.js';
 import location from './locationMixin.js';
 import payment from './paymentMixin.js';
 import helper from './helper.js';
+import dateValidator from './dateMixin.js';
 
 export default class Form extends ServerRequest {
   constructor(options) {
@@ -21,16 +22,25 @@ export default class Form extends ServerRequest {
     this.deleteGeneralError = this.deleteGeneralError.bind(this);
 
     // cache
-    let selectors = this.selectors;
-
-    if (options.location) {
-      // Add location methods to the form object
-      Object.assign(Form.prototype, location);
-      this.location = true;
-    }
+    let selectors = this.selectors,
+      errorMessages = options.errorMessages;
 
     this._cacheElements();
     this._setUpEventListeners();
+
+    if (options.location) {
+      // Add location methods to the form prototype
+      Object.assign(Form.prototype, location);
+      this.location = true;
+      this.initializeLocationInput();
+    }
+
+    if (options.date) {
+      // Add date validation method to the form prototype
+      Object.assign(Form.prototype, dateValidator);
+      this.date = true;
+      this.initializeDateInput();
+    }
 
     // Handle payment form
     if (options.payment) {
@@ -62,11 +72,20 @@ export default class Form extends ServerRequest {
       };
 
       if (this.location) {
-        let errorMessage = options.locationErrorMessage || 'No such city';
+        let errorMessage = errorMessages.location || 'No such city';
         // Add custom frontend validation for location field
         jQuery.validator.addMethod(
           'location',
           this.frontendCityValidator,
+          errorMessage
+        );
+      }
+
+      if (this.date) {
+        let errorMessage = errorMessages.date || 'No such city';
+        jQuery.validator.addMethod(
+          'date',
+          this.frontendDateValidator,
           errorMessage
         );
       }
@@ -104,10 +123,6 @@ export default class Form extends ServerRequest {
 
     // Input fields
     this.$inputs = this.$form.find(this.selectors.inputs);
-
-    if (this.location) {
-      this.initializeLocationInput();
-    }
   }
 
   _setUpEventListeners() {

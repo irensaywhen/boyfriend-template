@@ -344,7 +344,7 @@
               <!--Form step 3 start-->
               <div class="form-wrapper" id="signup-3-wrapper">
                 <form
-                  class="form-signin shadow text-left"
+                  class="form-signin-lg shadow text-left"
                   id="signup-3"
                   data-step="2"
                   autocomplete="off"
@@ -384,46 +384,52 @@
                     Date of birth
                   </h4>
                   <div class="container">
-                    <div class="row input-wrapper">
-                      <div class="col-12 col-sm-4 pl-0">
-                        <div class="form-group float-label mb-1">
+                    <div class="row">
+                      <div class="col-12 col-sm-4 px-0 pr-sm-2">
+                        <div class="form-group float-label mb-1 input-wrapper">
                           <input
                             type="number"
                             name="day"
+                            id="day"
                             min="1"
                             max="31"
+                            data-restrictLength="true"
+                            data-maxlength="2"
                             class="form-control signup-input"
                           />
                           <label class="form-control-label">Day</label>
                         </div>
                       </div>
-                      <div class="col-12 col-sm-4 pl-0 pl-sm-1">
-                        <div class="form-group float-label active mb-1">
+                      <div class="col-12 col-sm-4 px-0 pl-sm-1 pr-sm-2">
+                        <div class="form-group float-label mb-1 input-wrapper">
                           <select
                             class="form-control signup-input"
                             name="month"
+                            id="month"
                           >
-                            <option value="01">01</option>
-                            <option value="february">February</option>
-                            <option value="march">March</option>
-                            <option value="april">April</option>
-                            <option value="may">May</option>
-                            <option value="june">June</option>
-                            <option value="july">July</option>
-                            <option value="august">August</option>
-                            <option value="september">September</option>
-                            <option value="october">October</option>
-                            <option value="november">November</option>
-                            <option value="december">December</option>
+                            <option value="" disabled selected></option>
+                            <option value="01">January</option>
+                            <option value="02">February</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="06">June</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
                           </select>
                           <label class="form-control-label">Month</label>
                         </div>
                       </div>
                       <div class="col-12 col-sm-4 pr-0 pl-0 pl-sm-1">
-                        <div class="form-group float-label mb-1">
+                        <div class="form-group float-label mb-1 input-wrapper">
                           <input
                             type="number"
                             name="year"
+                            id="year"
                             class="form-control signup-input"
                           />
                           <label class="form-control-label">Year</label>
@@ -489,7 +495,7 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-6 offset-5 offset-sm-6">
+                    <div class="col-6 offset-5 offset-sm-6 text-right">
                       <button
                         type="submit"
                         class="btn btn-lg btn-default btn-rounded shadow"
@@ -748,6 +754,11 @@
             'dropdown-menu': '.dropdown-menu',
             locationLoadingIndicator: '.city-loader',
             generalError: '#general-error-signup-3',
+            date: {
+              day: '#day',
+              month: '#month',
+              year: '#year',
+            },
           },
           requests: {
             submit: {
@@ -771,8 +782,12 @@
             },
           },
           restrictInputLength: true,
+          errorMessages: {
+            location: 'Please, enter a valid city name',
+            date: 'You should be 18 to register',
+          },
+          date: true,
           location: true,
-          locationErrorMessage: 'Please, enter a valid city name',
           showSuccessPopup: false,
           showFailPopup: false,
           frontendValidation: true,
@@ -780,30 +795,23 @@
           validatorOptions: {
             errorElement: 'span',
             rules: {
-              /*city: {
+              city: {
                 required: true,
                 location: true,
               },
-              
+
               day: {
                 required: true,
                 min: 1,
                 max: 31,
               },
-              month: {
+              month: 'required',
+              year: {
                 required: true,
-                min: 1,
-                max: 12,
-              },*/
-              year: 'required',
-              weight: {
-                required: true,
-                maxlength: 3,
+                date: true,
               },
-              height: {
-                required: true,
-                maxlength: 3,
-              },
+              weight: 'required',
+              height: 'required',
               preference: 'required',
             },
           },

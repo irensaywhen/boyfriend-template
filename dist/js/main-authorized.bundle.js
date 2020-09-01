@@ -21595,6 +21595,116 @@
         /***/
       },
 
+    /***/ './js/modules/dateMixin.js':
+      /*!*********************************!*\
+  !*** ./js/modules/dateMixin.js ***!
+  \*********************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/slicedToArray */ '../node_modules/@babel/runtime/helpers/slicedToArray.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! moment */ '../node_modules/moment/moment.js'
+        );
+        /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          moment__WEBPACK_IMPORTED_MODULE_1__
+        );
+
+        /* harmony default export */ __webpack_exports__[
+          'default'
+        ] = (function () {
+          // Private functions and methods
+          var $day, $month, $year, day, month, year, selectors;
+          /**
+           * Helper function to cache elements required for validation
+           */
+
+          function _cacheElements() {
+            selectors = this.selectors.date;
+            $day = this.$form.find(selectors.day);
+            $month = this.$form.find(selectors.month);
+            $year = this.$form.find(selectors.year);
+          }
+
+          function _getBirthDate() {
+            // Get the inputed values
+            var day = $day.val(),
+              month = $month.val(),
+              year = $year.val(); // Convert its type to number
+
+            var _map = [day, month, year].map(function (item) {
+              return parseInt(item);
+            });
+
+            var _map2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(
+              _map,
+              3
+            );
+
+            day = _map2[0];
+            month = _map2[1];
+            year = _map2[2];
+            return {
+              day: day,
+              month: month,
+              year: year,
+            };
+          }
+          /**
+           * Helper function to calculate age of the person based on the current date
+           * and information provided in the form
+           */
+
+          function _calculateAge() {
+            var _getBirthDate2 = _getBirthDate(),
+              day = _getBirthDate2.day,
+              month = _getBirthDate2.month,
+              year = _getBirthDate2.year,
+              now = moment__WEBPACK_IMPORTED_MODULE_1___default()();
+
+            var birth = moment__WEBPACK_IMPORTED_MODULE_1___default()({
+              year: year,
+              month: month,
+              day: day,
+            }); // Return age
+
+            return now.diff(birth, 'years');
+          }
+
+          return {
+            // Public functions and methods
+            frontendDateValidator: function frontendDateValidator(
+              value,
+              element
+            ) {
+              var age = _calculateAge();
+
+              if (age >= 18) {
+                return true;
+              } else {
+                return false;
+              }
+            },
+            initializeDateInput: function initializeDateInput() {
+              // Binding context
+              _cacheElements = _cacheElements.bind(this);
+              _calculateAge = _calculateAge.bind(this);
+              _getBirthDate = _getBirthDate.bind(this); // Prepare date validation
+
+              _cacheElements();
+            },
+          };
+        })();
+
+        /***/
+      },
+
     /***/ './js/modules/editor.js':
       /*!******************************!*\
   !*** ./js/modules/editor.js ***!
@@ -22172,6 +22282,9 @@
         /* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
           /*! ./helper.js */ './js/modules/helper.js'
         );
+        /* harmony import */ var _dateMixin_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+          /*! ./dateMixin.js */ './js/modules/dateMixin.js'
+        );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -22271,20 +22384,34 @@
               )
             ); // cache
 
-            var selectors = _this.selectors;
+            var selectors = _this.selectors,
+              errorMessages = options.errorMessages;
+
+            _this._cacheElements();
+
+            _this._setUpEventListeners();
 
             if (options.location) {
-              // Add location methods to the form object
+              // Add location methods to the form prototype
               Object.assign(
                 Form.prototype,
                 _locationMixin_js__WEBPACK_IMPORTED_MODULE_9__['default']
               );
               _this.location = true;
+
+              _this.initializeLocationInput();
             }
 
-            _this._cacheElements();
+            if (options.date) {
+              // Add date validation method to the form prototype
+              Object.assign(
+                Form.prototype,
+                _dateMixin_js__WEBPACK_IMPORTED_MODULE_12__['default']
+              );
+              _this.date = true;
 
-            _this._setUpEventListeners(); // Handle payment form
+              _this.initializeDateInput();
+            } // Handle payment form
 
             if (options.payment) {
               Object.assign(
@@ -22317,13 +22444,22 @@
               };
 
               if (_this.location) {
-                var errorMessage =
-                  options.locationErrorMessage || 'No such city'; // Add custom frontend validation for location field
+                var errorMessage = errorMessages.location || 'No such city'; // Add custom frontend validation for location field
 
                 jQuery.validator.addMethod(
                   'location',
                   _this.frontendCityValidator,
                   errorMessage
+                );
+              }
+
+              if (_this.date) {
+                var _errorMessage = errorMessages.date || 'No such city';
+
+                jQuery.validator.addMethod(
+                  'date',
+                  _this.frontendDateValidator,
+                  _errorMessage
                 );
               } // Add frontend validation
 
@@ -22369,10 +22505,6 @@
                   ); // Input fields
 
                   this.$inputs = this.$form.find(this.selectors.inputs);
-
-                  if (this.location) {
-                    this.initializeLocationInput();
-                  }
                 },
               },
               {
@@ -23165,8 +23297,9 @@
             restrictInputLength: function restrictInputLength($form) {
               $form.on('keydown', function (event) {
                 // Cache target
-                var target = event.target; // Cache custom attributes
-
+                var target = event.target,
+                  key = event.key;
+                if (key === 'Backspace') return;
                 var _target$dataset = target.dataset,
                   restrictlength = _target$dataset.restrictlength,
                   maxlength = _target$dataset.maxlength; // Check whether we need to restrict length

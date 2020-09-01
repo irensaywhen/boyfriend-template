@@ -52,8 +52,11 @@ export default (function () {
     restrictInputLength($form) {
       $form.on('keydown', event => {
         // Cache target
-        let target = event.target;
-        // Cache custom attributes
+        let target = event.target,
+          key = event.key;
+
+        if (key === 'Backspace') return;
+
         let { restrictlength, maxlength } = target.dataset;
         // Check whether we need to restrict length
         if (!restrictlength) return;
