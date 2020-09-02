@@ -25,6 +25,9 @@ export default class Form extends ServerRequest {
     let selectors = this.selectors,
       errorMessages = options.errorMessages;
 
+    // Save error messages if provided
+    this.errorMessages = options.errorMessages;
+
     this._cacheElements();
     this._setUpEventListeners();
 
@@ -72,7 +75,7 @@ export default class Form extends ServerRequest {
       };
 
       if (this.location) {
-        let errorMessage = errorMessages.location || 'No such city';
+        let errorMessage = errorMessages.city || 'No such city';
         // Add custom frontend validation for location field
         jQuery.validator.addMethod(
           'location',
@@ -82,16 +85,11 @@ export default class Form extends ServerRequest {
       }
 
       if (this.date) {
-        let errorMessage = errorMessages.date || 'No such city';
-        jQuery.validator.addMethod(
-          'date',
-          this.frontendDateValidator,
-          errorMessage
-        );
+        jQuery.validator.addMethod('date', this.dateValidator, '');
       }
 
       // Add frontend validation
-      this.$form.validate(options.validatorOptions);
+      this.validator = this.$form.validate(options.validatorOptions);
     }
 
     /**

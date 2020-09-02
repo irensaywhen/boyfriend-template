@@ -783,8 +783,10 @@
           },
           restrictInputLength: true,
           errorMessages: {
-            location: 'Please, enter a valid city name',
-            date: 'You should be 18 to register',
+            year: {
+              emptyDayAndMonth: 'Please, fill out day and month fields first',
+              age: 'You should be 18 to register',
+            },
           },
           date: true,
           location: true,
@@ -794,6 +796,14 @@
           generateSubmitEvent: true,
           validatorOptions: {
             errorElement: 'span',
+            showErrors: function (errorMap) {
+              //Perform default plugin behavior
+              this.defaultShowErrors();
+              // Handle custom date validaton
+              if ('year' in errorMap) {
+                $(document).trigger('validator:yearIsInvalid');
+              }
+            },
             rules: {
               city: {
                 required: true,
@@ -813,6 +823,17 @@
               weight: 'required',
               height: 'required',
               preference: 'required',
+            },
+            messages: {
+              city: {
+                required: 'Please, provide your city',
+                location: 'Enter a valid city',
+              },
+              /*
+              year: {
+                required: 'Please, provide your year of birth',
+                date: 'You should be 18!',
+              },*/
             },
           },
         });

@@ -12229,16 +12229,69 @@
           'default'
         ] = (function () {
           // Private functions and methods
-          var $day, $month, $year, day, month, year, selectors;
+          var $day,
+            $month,
+            $year,
+            errorMessages,
+            currentErrorMessage,
+            selectors,
+            isDayAndMonthValid,
+            isAgeValid;
           /**
            * Helper function to cache elements required for validation
            */
 
           function _cacheElements() {
+            // Cache
             selectors = this.selectors.date;
+            errorMessages = this.errorMessages.year; // Save input wrapper selector
+
+            selectors['input-wrapper'] = this.selectors['input-wrapper'];
             $day = this.$form.find(selectors.day);
             $month = this.$form.find(selectors.month);
             $year = this.$form.find(selectors.year);
+          }
+          /**
+           * Helper function to listen to validator events
+           * and handle error messages changing
+           */
+
+          function _setUpEventListeners() {
+            var year = selectors.year;
+            $(document).on('validator:yearIsInvalid', function () {
+              _setErrorMessage(); // Display error message
+
+              $year
+                .closest(selectors['input-wrapper'])
+                .find(''.concat(year, '-error'))
+                .text(currentErrorMessage);
+            });
+          }
+          /**
+           * Function checking validity of day and month fields
+           */
+
+          function _isDayAndMonthValid() {
+            // Check if the day and month are not empty
+            var isDayValid = $day.val() ? true : false,
+              isMonthValid = $month.val() ? true : false;
+            return isDayValid && isMonthValid;
+          }
+
+          function _isAgeValid() {
+            var age = _calculateAge();
+
+            if (age >= 18) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+
+          function _setErrorMessage() {
+            currentErrorMessage = isDayAndMonthValid
+              ? errorMessages.age
+              : errorMessages.emptyDayAndMonth;
           }
 
           function _getBirthDate() {
@@ -12274,39 +12327,45 @@
             var _getBirthDate2 = _getBirthDate(),
               day = _getBirthDate2.day,
               month = _getBirthDate2.month,
-              year = _getBirthDate2.year,
-              now = moment__WEBPACK_IMPORTED_MODULE_1___default()();
+              year = _getBirthDate2.year;
 
             var birth = moment__WEBPACK_IMPORTED_MODULE_1___default()({
-              year: year,
-              month: month,
-              day: day,
-            }); // Return age
+                year: year,
+                month: month,
+                day: day,
+              }),
+              now = moment__WEBPACK_IMPORTED_MODULE_1___default()(); // Return age
 
             return now.diff(birth, 'years');
           }
 
           return {
             // Public functions and methods
-            frontendDateValidator: function frontendDateValidator(
-              value,
-              element
-            ) {
-              var age = _calculateAge();
+            dateValidator: function dateValidator(value, element) {
+              // Check the validity of all three elements
+              isDayAndMonthValid = _isDayAndMonthValid();
+              isAgeValid = _isAgeValid();
 
-              if (age >= 18) {
-                return true;
-              } else {
+              if (!isDayAndMonthValid || !isAgeValid) {
                 return false;
               }
+
+              return true;
             },
             initializeDateInput: function initializeDateInput() {
-              // Binding context
+              // Bind context
               _cacheElements = _cacheElements.bind(this);
+              _setUpEventListeners = _setUpEventListeners.bind(this);
               _calculateAge = _calculateAge.bind(this);
-              _getBirthDate = _getBirthDate.bind(this); // Prepare date validation
+              _getBirthDate = _getBirthDate.bind(this);
+              _setErrorMessage = _setErrorMessage.bind(this);
+              _isDayAndMonthValid = _isDayAndMonthValid.bind(this);
+              _isAgeValid = _isAgeValid.bind(this);
+              this.dateValidator = this.dateValidator.bind(this); // Prepare date validation
 
               _cacheElements();
+
+              _setUpEventListeners();
             },
           };
         })();
@@ -12492,7 +12551,9 @@
             ); // cache
 
             var selectors = _this.selectors,
-              errorMessages = options.errorMessages;
+              errorMessages = options.errorMessages; // Save error messages if provided
+
+            _this.errorMessages = options.errorMessages;
 
             _this._cacheElements();
 
@@ -12551,7 +12612,7 @@
               };
 
               if (_this.location) {
-                var errorMessage = errorMessages.location || 'No such city'; // Add custom frontend validation for location field
+                var errorMessage = errorMessages.city || 'No such city'; // Add custom frontend validation for location field
 
                 jQuery.validator.addMethod(
                   'location',
@@ -12561,16 +12622,10 @@
               }
 
               if (_this.date) {
-                var _errorMessage = errorMessages.date || 'No such city';
-
-                jQuery.validator.addMethod(
-                  'date',
-                  _this.frontendDateValidator,
-                  _errorMessage
-                );
+                jQuery.validator.addMethod('date', _this.dateValidator, '');
               } // Add frontend validation
 
-              _this.$form.validate(options.validatorOptions);
+              _this.validator = _this.$form.validate(options.validatorOptions);
             }
             /**
              * Form configuration for submit part
