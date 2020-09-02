@@ -23942,6 +23942,7 @@
                   this.$form = this.$modal.find(this.selectors.form); // Closing button
 
                   this.$closeButton = this.$modal.find('.close'); // Deleting button
+                  // Maybe we can put this functionality into uploader
 
                   if ('deleteButton' in this.selectors) {
                     this.$deleteButton = this.$modal.find(

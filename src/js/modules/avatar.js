@@ -2,15 +2,6 @@ import EditorModal from './modal.js';
 import fileReaderMixin from './fileReaderMixin';
 
 export default class Avatar extends EditorModal {
-  // Currently selected avatar. Data type - blob or file
-  avatar = null;
-
-  // Generated link pointing to the avatar locally in the browser
-  newAvatarLink = null;
-
-  // Previous avatar link
-  prevAvatarLink = null;
-
   /**
    * Constructor accepts options object which contains:
    * jQuery Object containing DOM Element for avatar preview,
@@ -21,19 +12,11 @@ export default class Avatar extends EditorModal {
    */
   constructor(options) {
     super(options);
-
+    // Set configuration for upload type
     this.configuration.avatar = true;
-
-    // FormData object containing avatar
-    this.formData = null;
-
-    // Array containing avatar input elements
-    this.$avatarInputs = null;
 
     // Create FileReader instance to handle reading image data
     this.reader = new FileReader();
-
-    console.log(this.classes);
 
     // Binding context
     this._cacheElements = this._cacheElements.bind(this);
@@ -48,6 +31,10 @@ export default class Avatar extends EditorModal {
 
     // Setup event listeners
     this._setUpEventListeners();
+
+    // Prepare avatar for using FileReader to load and preview photos
+    Object.assign(Avatar.prototype, fileReaderMixin);
+    this.initializeFileReader(this.$form);
   }
 
   /**
@@ -55,21 +42,20 @@ export default class Avatar extends EditorModal {
    */
   _cacheElements() {
     super._cacheElements();
+    let selectors = this.selectors;
 
     // Avatar elements in the markup
-    this.$avatar = $(this.selectors.elementSelector);
+    this.$avatar = $(selectors.elementSelector);
 
     // Avatar preview
-    this.$avatarPreview = this.$modal.find(this.selectors.preview);
+    this.$avatarPreview = this.$modal.find(selectors.preview);
 
     // Save previous avatar to discard changes if user doesn't submit the form
     this.prevAvatarLink = this.$avatarPreview.attr('src');
 
-    // Form
-    this.$avatarForm = this.$modal.find(this.selectors.form);
-
     // Inputs
-    this.$avatarInputs = this.$modal.find(this.selectors.input);
+    // There will be not need in this line after integrating FileReader
+    this.$avatarInputs = this.$modal.find(selectors.input);
   }
 
   /**
@@ -79,12 +65,8 @@ export default class Avatar extends EditorModal {
     super._setUpEventListeners();
     // Setup event handler for loading of the image data event
     this.reader.onload = e => {
-      // Show avatar preview
-      this.$avatarPreview.attr('src', e.target.result);
-
-      this.$modalFooter.slideDown();
-
-      this.newAvatarLink = e.target.result;
+      // For testing purposes, set it here
+      this._preview(event.target);
     };
 
     // Listen to changes on the input elements
@@ -93,11 +75,20 @@ export default class Avatar extends EditorModal {
     });
 
     // Submit avatar
-    this.$avatarForm.submit(event => {
+    this.$form.submit(event => {
       event.preventDefault();
 
       this.submitAvatar();
     });
+  }
+
+  _preview(fileReader) {
+    // cache
+    let src = fileReader.result;
+    // update preview
+    this.$avatarPreview.attr('src', src);
+    // save src to update markup
+    this.newAvatarLink = src;
   }
 
   /**
@@ -114,6 +105,39 @@ export default class Avatar extends EditorModal {
       //Start reading the image from the input
       this.reader.readAsDataURL(input.files[0]);
     }
+  }
+
+  /**
+   * The function to perform cleaning object fields after
+   * all the actions with avatar upload are performed
+   */
+  clean() {
+    // Delete formData object
+    this.formData = null;
+
+    // Update previous avatar link
+    this.prevAvatarLink = this.$avatarPreview.attr('src');
+
+    // Discard new link
+    this.newAvatarLink = null;
+
+    // Return the previous avatar status
+    this.uploaded = false;
+  }
+
+  /**
+   * Function updates the avatar in the editing area and in the menu
+   */
+  updateMarkup() {
+    this.$avatar.attr('src', this.newAvatarLink);
+  }
+
+  /**
+   * Function delete the newly uploaded avatar
+   * If user didn't submit the form
+   */
+  discardChanges() {
+    this.$avatarPreview.attr('src', this.prevAvatarLink);
   }
 
   // Maybe, I can change this function to work through then rather than async/await
@@ -161,38 +185,5 @@ export default class Avatar extends EditorModal {
         icon: 'error',
       });
     }
-  }
-
-  /**
-   * The function to perform cleaning object fields after
-   * all the actions with avatar upload are performed
-   */
-  clean() {
-    // Delete formData object
-    this.formData = null;
-
-    // Update previous avatar link
-    this.prevAvatarLink = this.$avatarPreview.attr('src');
-
-    // Discard new link
-    this.newAvatarLink = null;
-
-    // Return the previous avatar status
-    this.uploaded = false;
-  }
-
-  /**
-   * Function updates the avatar in the editing area and in the menu
-   */
-  updateMarkup() {
-    this.$avatar.attr('src', this.newAvatarLink);
-  }
-
-  /**
-   * Function delete the newly uploaded avatar
-   * If user didn't submit the form
-   */
-  discardChanges() {
-    this.$avatarPreview.attr('src', this.prevAvatarLink);
   }
 }

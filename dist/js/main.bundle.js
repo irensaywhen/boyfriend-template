@@ -11702,16 +11702,10 @@
         /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__
         );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
-          /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9__
-        );
-        /* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+        /* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
           /*! ./modal.js */ './js/modules/modal.js'
         );
-        /* harmony import */ var _fileReaderMixin__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+        /* harmony import */ var _fileReaderMixin__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
           /*! ./fileReaderMixin */ './js/modules/fileReaderMixin.js'
         );
 
@@ -11760,10 +11754,6 @@
 
           var _super = _createSuper(Avatar);
 
-          // Currently selected avatar. Data type - blob or file
-          // Generated link pointing to the avatar locally in the browser
-          // Previous avatar link
-
           /**
            * Constructor accepts options object which contains:
            * jQuery Object containing DOM Element for avatar preview,
@@ -11780,40 +11770,11 @@
               Avatar
             );
 
-            _this = _super.call(this, options);
+            _this = _super.call(this, options); // Set configuration for upload type
 
-            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
-                _this
-              ),
-              'avatar',
-              null
-            );
+            _this.configuration.avatar = true; // Create FileReader instance to handle reading image data
 
-            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
-                _this
-              ),
-              'newAvatarLink',
-              null
-            );
-
-            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
-                _this
-              ),
-              'prevAvatarLink',
-              null
-            );
-
-            _this.configuration.avatar = true; // FormData object containing avatar
-
-            _this.formData = null; // Array containing avatar input elements
-
-            _this.$avatarInputs = null; // Create FileReader instance to handle reading image data
-
-            _this.reader = new FileReader();
-            console.log(_this.classes); // Binding context
+            _this.reader = new FileReader(); // Binding context
 
             _this._cacheElements = _this._cacheElements.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
@@ -11848,7 +11809,14 @@
 
             _this._cacheElements(); // Setup event listeners
 
-            _this._setUpEventListeners();
+            _this._setUpEventListeners(); // Prepare avatar for using FileReader to load and preview photos
+
+            Object.assign(
+              Avatar.prototype,
+              _fileReaderMixin__WEBPACK_IMPORTED_MODULE_10__['default']
+            );
+
+            _this.initializeFileReader(_this.$form);
 
             return _this;
           }
@@ -11868,19 +11836,18 @@
                     ),
                     '_cacheElements',
                     this
-                  ).call(this); // Avatar elements in the markup
+                  ).call(this);
 
-                  this.$avatar = $(this.selectors.elementSelector); // Avatar preview
+                  var selectors = this.selectors; // Avatar elements in the markup
 
-                  this.$avatarPreview = this.$modal.find(
-                    this.selectors.preview
-                  ); // Save previous avatar to discard changes if user doesn't submit the form
+                  this.$avatar = $(selectors.elementSelector); // Avatar preview
 
-                  this.prevAvatarLink = this.$avatarPreview.attr('src'); // Form
+                  this.$avatarPreview = this.$modal.find(selectors.preview); // Save previous avatar to discard changes if user doesn't submit the form
 
-                  this.$avatarForm = this.$modal.find(this.selectors.form); // Inputs
+                  this.prevAvatarLink = this.$avatarPreview.attr('src'); // Inputs
+                  // There will be not need in this line after integrating FileReader
 
-                  this.$avatarInputs = this.$modal.find(this.selectors.input);
+                  this.$avatarInputs = this.$modal.find(selectors.input);
                 },
                 /**
                  * Function setup event listeners on the initialization stage of the object creation
@@ -11900,23 +11867,30 @@
                   ).call(this); // Setup event handler for loading of the image data event
 
                   this.reader.onload = function (e) {
-                    // Show avatar preview
-                    _this2.$avatarPreview.attr('src', e.target.result);
-
-                    _this2.$modalFooter.slideDown();
-
-                    _this2.newAvatarLink = e.target.result;
+                    // For testing purposes, set it here
+                    _this2._preview(event.target);
                   }; // Listen to changes on the input elements
 
                   this.$avatarInputs.change(function (event) {
                     _this2.previewAvatar(event.target);
                   }); // Submit avatar
 
-                  this.$avatarForm.submit(function (event) {
+                  this.$form.submit(function (event) {
                     event.preventDefault();
 
                     _this2.submitAvatar();
                   });
+                },
+              },
+              {
+                key: '_preview',
+                value: function _preview(fileReader) {
+                  // cache
+                  var src = fileReader.result; // update preview
+
+                  this.$avatarPreview.attr('src', src); // save src to update markup
+
+                  this.newAvatarLink = src;
                 },
                 /**
                  * This function is called when the process of avatar preview is occuring.
@@ -11934,6 +11908,42 @@
 
                     this.reader.readAsDataURL(input.files[0]);
                   }
+                },
+                /**
+                 * The function to perform cleaning object fields after
+                 * all the actions with avatar upload are performed
+                 */
+              },
+              {
+                key: 'clean',
+                value: function clean() {
+                  // Delete formData object
+                  this.formData = null; // Update previous avatar link
+
+                  this.prevAvatarLink = this.$avatarPreview.attr('src'); // Discard new link
+
+                  this.newAvatarLink = null; // Return the previous avatar status
+
+                  this.uploaded = false;
+                },
+                /**
+                 * Function updates the avatar in the editing area and in the menu
+                 */
+              },
+              {
+                key: 'updateMarkup',
+                value: function updateMarkup() {
+                  this.$avatar.attr('src', this.newAvatarLink);
+                },
+                /**
+                 * Function delete the newly uploaded avatar
+                 * If user didn't submit the form
+                 */
+              },
+              {
+                key: 'discardChanges',
+                value: function discardChanges() {
+                  this.$avatarPreview.attr('src', this.prevAvatarLink);
                 }, // Maybe, I can change this function to work through then rather than async/await
                 // Plus think of error handling
               },
@@ -12015,48 +12025,12 @@
 
                   return submitAvatar;
                 })(),
-                /**
-                 * The function to perform cleaning object fields after
-                 * all the actions with avatar upload are performed
-                 */
-              },
-              {
-                key: 'clean',
-                value: function clean() {
-                  // Delete formData object
-                  this.formData = null; // Update previous avatar link
-
-                  this.prevAvatarLink = this.$avatarPreview.attr('src'); // Discard new link
-
-                  this.newAvatarLink = null; // Return the previous avatar status
-
-                  this.uploaded = false;
-                },
-                /**
-                 * Function updates the avatar in the editing area and in the menu
-                 */
-              },
-              {
-                key: 'updateMarkup',
-                value: function updateMarkup() {
-                  this.$avatar.attr('src', this.newAvatarLink);
-                },
-                /**
-                 * Function delete the newly uploaded avatar
-                 * If user didn't submit the form
-                 */
-              },
-              {
-                key: 'discardChanges',
-                value: function discardChanges() {
-                  this.$avatarPreview.attr('src', this.prevAvatarLink);
-                },
               },
             ]
           );
 
           return Avatar;
-        })(_modal_js__WEBPACK_IMPORTED_MODULE_10__['default']);
+        })(_modal_js__WEBPACK_IMPORTED_MODULE_9__['default']);
 
         /***/
       },
@@ -12464,19 +12438,22 @@
         // but export only one of them
         /* harmony default export */ __webpack_exports__['default'] = {
           initializeFileReader: function initializeFileReader($photosForm) {
-            // Bind context
+            console.log('Initializing filereader!'); // Bind context
+
             _setReaderEventListeners = _setReaderEventListeners.bind(this);
             _readFile = _readFile.bind(this);
             _loadfromInput = _loadfromInput.bind(this);
             _cacheElements = _cacheElements.bind(this);
-            _setUpEventLiseners = _setUpEventLiseners.bind(this); // Perform caching and setting event listeners
+            _setUpEventLiseners = _setUpEventLiseners.bind(this); // Binding functions from the Class
+
+            this._preview = this._preview.bind(this); // Save passed arguments
+
+            $form = $photosForm; // Perform caching and setting event listeners
             // Maybe there will be no need in caching function
 
             _cacheElements();
 
-            _setUpEventLiseners(); // Save passed arguments
-
-            $form = $photosForm;
+            _setUpEventLiseners();
           },
         }; // Private varialbes
 
@@ -12499,7 +12476,11 @@
             console.log(event);
           });
           reader.addEventListener('load', function (event) {
-            console.log('load event'); //_preview(event.target);
+            console.log('load event'); // While previewing avatar, we can save the URL
+            // as _preview function will be implemented in each class
+            //_preview(event.target);
+
+            console.log(event.target);
           });
           reader.addEventListener('error', function (event) {
             console.log('Error');
@@ -12523,9 +12504,10 @@
 
         function _setUpEventLiseners() {
           $form.on('change', function (event) {
-            var target = event.target; // Stop execution if the target is not for photo upload
+            var target = event.target;
+            console.log(target.classList); // Stop execution if the target is not for photo upload
 
-            if (!target.classList.hasClass(classes.input)) return;
+            if (!target.classList.contains(classes.input)) return;
 
             _loadfromInput(target);
           });
@@ -12539,9 +12521,10 @@
          */
 
         function _readFile(file) {
+          console.log('Reading file!');
           var reader = new FileReader();
 
-          this._setReaderEventListeners(reader);
+          _setReaderEventListeners(reader);
 
           reader.readAsDataURL(file);
         }
@@ -12553,6 +12536,7 @@
          */
 
         function _loadfromInput(input) {
+          console.log('Loading from input!');
           var files = input.files;
           if (!files[0]) return;
 
@@ -13655,6 +13639,7 @@
                   this.$form = this.$modal.find(this.selectors.form); // Closing button
 
                   this.$closeButton = this.$modal.find('.close'); // Deleting button
+                  // Maybe we can put this functionality into uploader
 
                   if ('deleteButton' in this.selectors) {
                     this.$deleteButton = this.$modal.find(

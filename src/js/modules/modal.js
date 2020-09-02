@@ -50,6 +50,7 @@ class EditorModal extends ServerRequest {
     this.$closeButton = this.$modal.find('.close');
 
     // Deleting button
+    // Maybe we can put this functionality into uploader
     if ('deleteButton' in this.selectors) {
       this.$deleteButton = this.$modal.find(this.selectors.deleteButton);
     }
