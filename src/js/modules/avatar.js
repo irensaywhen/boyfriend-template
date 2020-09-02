@@ -1,4 +1,5 @@
 import EditorModal from './modal.js';
+import fileReaderMixin from './fileReaderMixin';
 
 export default class Avatar extends EditorModal {
   // Currently selected avatar. Data type - blob or file
@@ -31,6 +32,8 @@ export default class Avatar extends EditorModal {
 
     // Create FileReader instance to handle reading image data
     this.reader = new FileReader();
+
+    console.log(this.classes);
 
     // Binding context
     this._cacheElements = this._cacheElements.bind(this);
@@ -113,6 +116,8 @@ export default class Avatar extends EditorModal {
     }
   }
 
+  // Maybe, I can change this function to work through then rather than async/await
+  // Plus think of error handling
   async submitAvatar() {
     this.generateFormData();
 

@@ -16,6 +16,8 @@ class EditorModal extends ServerRequest {
       this.uploaded = false;
     }
 
+    this.classes = options.classes;
+
     // Binding context
     this._cacheElements = this._cacheElements.bind(this);
     this._setUpEventListeners = this._setUpEventListeners.bind(this);

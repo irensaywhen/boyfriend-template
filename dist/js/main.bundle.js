@@ -11711,6 +11711,9 @@
         /* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
           /*! ./modal.js */ './js/modules/modal.js'
         );
+        /* harmony import */ var _fileReaderMixin__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+          /*! ./fileReaderMixin */ './js/modules/fileReaderMixin.js'
+        );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -11809,7 +11812,8 @@
 
             _this.$avatarInputs = null; // Create FileReader instance to handle reading image data
 
-            _this.reader = new FileReader(); // Binding context
+            _this.reader = new FileReader();
+            console.log(_this.classes); // Binding context
 
             _this._cacheElements = _this._cacheElements.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
@@ -11930,7 +11934,8 @@
 
                     this.reader.readAsDataURL(input.files[0]);
                   }
-                },
+                }, // Maybe, I can change this function to work through then rather than async/await
+                // Plus think of error handling
               },
               {
                 key: 'submitAvatar',
@@ -12369,6 +12374,203 @@
             },
           };
         })();
+
+        /***/
+      },
+
+    /***/ './js/modules/fileReaderMixin.js':
+      /*!***************************************!*\
+  !*** ./js/modules/fileReaderMixin.js ***!
+  \***************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        function _createForOfIteratorHelper(o, allowArrayLike) {
+          var it;
+          if (typeof Symbol === 'undefined' || o[Symbol.iterator] == null) {
+            if (
+              Array.isArray(o) ||
+              (it = _unsupportedIterableToArray(o)) ||
+              (allowArrayLike && o && typeof o.length === 'number')
+            ) {
+              if (it) o = it;
+              var i = 0;
+              var F = function F() {};
+              return {
+                s: F,
+                n: function n() {
+                  if (i >= o.length) return { done: true };
+                  return { done: false, value: o[i++] };
+                },
+                e: function e(_e) {
+                  throw _e;
+                },
+                f: F,
+              };
+            }
+            throw new TypeError(
+              'Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
+            );
+          }
+          var normalCompletion = true,
+            didErr = false,
+            err;
+          return {
+            s: function s() {
+              it = o[Symbol.iterator]();
+            },
+            n: function n() {
+              var step = it.next();
+              normalCompletion = step.done;
+              return step;
+            },
+            e: function e(_e2) {
+              didErr = true;
+              err = _e2;
+            },
+            f: function f() {
+              try {
+                if (!normalCompletion && it['return'] != null) it['return']();
+              } finally {
+                if (didErr) throw err;
+              }
+            },
+          };
+        }
+
+        function _unsupportedIterableToArray(o, minLen) {
+          if (!o) return;
+          if (typeof o === 'string') return _arrayLikeToArray(o, minLen);
+          var n = Object.prototype.toString.call(o).slice(8, -1);
+          if (n === 'Object' && o.constructor) n = o.constructor.name;
+          if (n === 'Map' || n === 'Set') return Array.from(o);
+          if (
+            n === 'Arguments' ||
+            /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)
+          )
+            return _arrayLikeToArray(o, minLen);
+        }
+
+        function _arrayLikeToArray(arr, len) {
+          if (len == null || len > arr.length) len = arr.length;
+          for (var i = 0, arr2 = new Array(len); i < len; i++) {
+            arr2[i] = arr[i];
+          }
+          return arr2;
+        }
+
+        // Here we'll make mixin and put functions on the global level
+        // but export only one of them
+        /* harmony default export */ __webpack_exports__['default'] = {
+          initializeFileReader: function initializeFileReader($photosForm) {
+            // Bind context
+            _setReaderEventListeners = _setReaderEventListeners.bind(this);
+            _readFile = _readFile.bind(this);
+            _loadfromInput = _loadfromInput.bind(this);
+            _cacheElements = _cacheElements.bind(this);
+            _setUpEventLiseners = _setUpEventLiseners.bind(this); // Perform caching and setting event listeners
+            // Maybe there will be no need in caching function
+
+            _cacheElements();
+
+            _setUpEventLiseners(); // Save passed arguments
+
+            $form = $photosForm;
+          },
+        }; // Private varialbes
+
+        var selectors, $form, classes; // Private functions
+
+        /**
+         * Function setting event listeners to all of the
+         * @param {FileReader Object} reader - reader to set event listeners to
+         */
+
+        function _setReaderEventListeners(reader) {
+          reader.addEventListener('loadstart', function (event) {
+            // Show loading indicator here
+            console.log('Loading start');
+            console.log(event);
+          });
+          reader.addEventListener('loadend', function (event) {
+            //Delete progress indicator here
+            console.log('Loading end');
+            console.log(event);
+          });
+          reader.addEventListener('load', function (event) {
+            console.log('load event'); //_preview(event.target);
+          });
+          reader.addEventListener('error', function (event) {
+            console.log('Error');
+          });
+          reader.addEventListener('abort', function (event) {
+            console.log('Aborted');
+          });
+        }
+        /**
+         * Function to cache elements required for FileReader to work
+         */
+
+        function _cacheElements() {
+          selectors = this.selectors;
+          classes = this.classes;
+        }
+        /**
+         * Function to set initial event listeners to handle photo upload
+         * and discard changes functionality
+         */
+
+        function _setUpEventLiseners() {
+          $form.on('change', function (event) {
+            var target = event.target; // Stop execution if the target is not for photo upload
+
+            if (!target.classList.hasClass(classes.input)) return;
+
+            _loadfromInput(target);
+          });
+        }
+        /**
+         * Function to read file and start loading it
+         * It instantiates a FileReader Object for the current file
+         * Sets event listeners to listen to events on reader
+         * And then, starts reading it to generate URL
+         * @param {File Object} file
+         */
+
+        function _readFile(file) {
+          var reader = new FileReader();
+
+          this._setReaderEventListeners(reader);
+
+          reader.readAsDataURL(file);
+        }
+        /**
+         * The function to load files from input.
+         * It checks if there is at least one file,
+         * and if so, start file loading
+         * @param {DOMElement} input - input element from which all the files are loaded
+         */
+
+        function _loadfromInput(input) {
+          var files = input.files;
+          if (!files[0]) return;
+
+          var _iterator = _createForOfIteratorHelper(files),
+            _step;
+
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done; ) {
+              var file = _step.value;
+
+              _readFile(file);
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+        }
 
         /***/
       },
@@ -13384,7 +13586,9 @@
 
             if (_this.configuration.avatar || _this.configuration.uploader) {
               _this.uploaded = false;
-            } // Binding context
+            }
+
+            _this.classes = options.classes; // Binding context
 
             _this._cacheElements = _this._cacheElements.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(

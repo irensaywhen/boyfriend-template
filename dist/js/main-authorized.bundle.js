@@ -23873,7 +23873,9 @@
 
             if (_this.configuration.avatar || _this.configuration.uploader) {
               _this.uploaded = false;
-            } // Binding context
+            }
+
+            _this.classes = options.classes; // Binding context
 
             _this._cacheElements = _this._cacheElements.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
