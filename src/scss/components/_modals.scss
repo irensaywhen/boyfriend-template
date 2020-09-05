@@ -54,6 +54,13 @@
 
 /* Avatar upload */
 .upload-avatar {
+  /*upload progress indicator*/
+  .upload-progress {
+    .progress-bar {
+      @include ease-out;
+    }
+  }
+
   ul {
     list-style: none;
   }

@@ -102,6 +102,28 @@
                   </div>
                 </div>
 
+                <!--Upload progress indicator start-->
+                <div class="upload-progress" id="fileRead-progress"></div>
+                <!--Upload progress indicator end-->
+
+                <script id="progress-template" type="text/template">
+                  <div class="fileProgress-wrapper">
+                    <div class="filename text-muted">
+                      <span class="name d-inline-block pb-1">{{name}}</span>
+                    </div>
+                    <div class="progress mb-3 h-4">
+                      <div
+                        class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                        role="progressbar"
+                        style="width: 0%"
+                        aria-valuenow="0"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                    </div>
+                  </div>
+                </script>
+
                 <!--Avatar Upload-->
                 <ul class="pl-1">
                   <!--Avatar upload from the computer-->
@@ -829,11 +851,6 @@
                 required: 'Please, provide your city',
                 location: 'Enter a valid city',
               },
-              /*
-              year: {
-                required: 'Please, provide your year of birth',
-                date: 'You should be 18!',
-              },*/
             },
           },
         });
@@ -848,6 +865,13 @@
             input: '.avatar-input',
             preview: '#avatar-preview',
             form: '#avatar-editor',
+            fileRead: {
+              // Template will be inserted into this container
+              progress: '#fileRead-progress',
+              progressBar: '.progress-bar',
+              templateId: 'progress-template',
+              fileProgressWrapper: '.fileProgress-wrapper',
+            },
           },
           classes: {
             input: 'avatar-input',

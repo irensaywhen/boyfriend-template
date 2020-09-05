@@ -595,6 +595,9 @@ select.form-control optgroup {
   font-weight: 300;
   font-size: 14px;
 }
+.upload-avatar .upload-progress .progress-bar {
+  transition: all 0.5s ease-out;
+}
 .upload-avatar ul {
   list-style: none;
 }
