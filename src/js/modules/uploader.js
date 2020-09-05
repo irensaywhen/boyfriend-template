@@ -19,7 +19,7 @@ export default class PhotoUploader extends EditorModal {
     // Binding context
     this.previewPhotos = this.previewPhotos.bind(this);
     this.generatePreviewHTML = this.generatePreviewHTML.bind(this);
-    this.updateMarkup = this.updateMarkup.bind(this);
+    this._updateMarkup = this._updateMarkup.bind(this);
     this.getPhotosIds = this.getPhotosIds.bind(this);
     this.uploadNewPhotos = this.uploadNewPhotos.bind(this);
 
@@ -98,7 +98,7 @@ export default class PhotoUploader extends EditorModal {
         let photoData = this.photoData[id];
 
         // Add each uploaded photo to the markup
-        this.updateMarkup({
+        this._updateMarkup({
           id: id,
           src: photoData.src,
           privacy: photoData.privacy,
@@ -227,7 +227,7 @@ export default class PhotoUploader extends EditorModal {
   /**
    * Function deleting uploaded photos
    */
-  discardChanges() {
+  _discardChanges() {
     this.$previewContainer.empty();
   }
 

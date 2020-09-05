@@ -62,7 +62,7 @@ class EditorModal extends ServerRequest {
         // If user closes modal without submitting changes
         if (!this.uploaded) {
           // Delete his newly uploaded photo
-          this.discardChanges();
+          this._discardChanges();
         }
 
         this.$modalFooter.hide();

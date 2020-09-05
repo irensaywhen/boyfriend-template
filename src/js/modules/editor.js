@@ -21,7 +21,7 @@ export default class PhotoEditor extends EditorModal {
 
     // Binding context
     this.prepareModal = this.prepareModal.bind(this);
-    this.updateMarkup = this.updateMarkup.bind(this);
+    this._updateMarkup = this._updateMarkup.bind(this);
     this.updatePhotoInformation = this.updatePhotoInformation.bind(this);
 
     // Prepare editor
@@ -123,7 +123,7 @@ export default class PhotoEditor extends EditorModal {
 
     if (response.success) {
       // Delete photo container
-      this.updateMarkup();
+      this._updateMarkup();
 
       // Successful Popup
       this.showRequestResult({

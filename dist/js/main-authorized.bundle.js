@@ -21931,7 +21931,7 @@
                 _this
               )
             );
-            _this.updateMarkup = _this.updateMarkup.bind(
+            _this._updateMarkup = _this._updateMarkup.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
@@ -22082,7 +22082,7 @@
                                 case 11:
                                   if (response.success) {
                                     // Delete photo container
-                                    this.updateMarkup(); // Successful Popup
+                                    this._updateMarkup(); // Successful Popup
 
                                     this.showRequestResult({
                                       title: response.title,
@@ -23964,7 +23964,7 @@
                       // If user closes modal without submitting changes
                       if (!_this2.uploaded) {
                         // Delete his newly uploaded photo
-                        _this2.discardChanges();
+                        _this2._discardChanges();
                       }
 
                       _this2.$modalFooter.hide();
@@ -24658,7 +24658,7 @@
                   });
                   this.$closeButton.click(function () {
                     // Delete all the temporary changes if the user doesn't submit the form
-                    _this2._discardChanges();
+                    _this2.__discardChanges();
                   });
                   $document.on('photoModal:onBeforeOpen', function (
                     event,
@@ -24833,8 +24833,8 @@
                 },
               },
               {
-                key: '_discardChanges',
-                value: function _discardChanges() {
+                key: '__discardChanges',
+                value: function __discardChanges() {
                   // Delete preview
                   this.$previewContainer.empty(); // Hide modal footer
 
@@ -26742,7 +26742,7 @@
                 _this
               )
             );
-            _this.updateMarkup = _this.updateMarkup.bind(
+            _this._updateMarkup = _this._updateMarkup.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
@@ -26871,7 +26871,7 @@
                                     for (id in this.photoData) {
                                       photoData = this.photoData[id]; // Add each uploaded photo to the markup
 
-                                      this.updateMarkup({
+                                      this._updateMarkup({
                                         id: id,
                                         src: photoData.src,
                                         privacy: photoData.privacy,
@@ -27124,8 +27124,8 @@
                  */
               },
               {
-                key: 'discardChanges',
-                value: function discardChanges() {
+                key: '_discardChanges',
+                value: function _discardChanges() {
                   this.$previewContainer.empty();
                 },
                 /**

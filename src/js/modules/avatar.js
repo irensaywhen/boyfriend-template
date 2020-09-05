@@ -18,8 +18,8 @@ export default class Avatar extends EditorModal {
     // Binding context
     this._cacheElements = this._cacheElements.bind(this);
     this._setUpEventListeners = this._setUpEventListeners.bind(this);
-    this.submitAvatar = this.submitAvatar.bind(this);
-    this.updateMarkup = this.updateMarkup.bind(this);
+    this._submitAvatar = this._submitAvatar.bind(this);
+    this._updateMarkup = this._updateMarkup.bind(this);
 
     // Class usage preparation
     this._cacheElements();
@@ -50,7 +50,7 @@ export default class Avatar extends EditorModal {
     this.$form.submit(event => {
       event.preventDefault();
 
-      this.submitAvatar();
+      this._submitAvatar();
     });
   }
 
@@ -94,11 +94,17 @@ export default class Avatar extends EditorModal {
     this.uploaded = false;
   }
 
-  updateMarkup() {
+  /**
+   * Function to show newly uploaded avatar
+   */
+  _updateMarkup() {
     this.$avatar.attr('src', this.newAvatarLink);
   }
 
-  discardChanges() {
+  /**
+   * Show previous avatar
+   */
+  _discardChanges() {
     this.$avatarPreview.attr('src', this.prevAvatarLink);
   }
 
@@ -111,50 +117,52 @@ export default class Avatar extends EditorModal {
     this.formData.set('avatar', this.avatar, this.avatar.name);
   }
 
-  // Maybe, I can change this function to work through then rather than async/await
-  // Plus think of error handling
-  async submitAvatar() {
+  /**
+   * Function to submit avatar to the server
+   */
+  _submitAvatar() {
+    let { headers, endpoint, method } = this.requests.saveAvatar;
     this._generateFormData();
 
-    let response;
+    this.makeRequest({
+      headers,
+      endpoint,
+      method,
+      body: this.formData,
+    })
+      .then(response => {
+        if (response.success) {
+          // Save uploading progress
+          this.uploaded = true;
+          // Update markup
+          this._updateMarkup();
 
-    try {
-      // Make server request to save avatar
-      response = await this.makeRequest({
-        headers: this.requests.saveAvatar.headers,
-        endpoint: this.requests.saveAvatar.endpoint,
-        method: this.requests.saveAvatar.method,
-        body: this.formData,
-      });
-    } catch (error) {
-      // Unsuccessful Popup
-      this.showRequestResult({
-        title: error.name,
-        text: error.message,
-        icon: 'error',
-      });
-    }
+          // Show successful Popup
+          this.showRequestResult({
+            title: response.title,
+            text: response.message,
+            icon: 'success',
+          });
 
-    if (response.success) {
-      this.uploaded = true;
-      this.updateMarkup();
-
-      // Successful Popup
-      this.showRequestResult({
-        title: response.title,
-        text: response.message,
-        icon: 'success',
+          this.closeModal();
+          // Delete cached data about the file
+          this.clean();
+        } else {
+          // Show unsuccessful Popup
+          this.showRequestResult({
+            title: response.title,
+            text: response.message,
+            icon: 'error',
+          });
+        }
+      })
+      .catch(error => {
+        // Unsuccessful Popup
+        this.showRequestResult({
+          title: error.name,
+          text: error.message,
+          icon: 'error',
+        });
       });
-
-      this.closeModal();
-      this.clean();
-    } else {
-      // Unsuccessful Popup
-      this.showRequestResult({
-        title: response.title,
-        text: response.message,
-        icon: 'error',
-      });
-    }
   }
 }

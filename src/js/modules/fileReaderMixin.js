@@ -186,8 +186,6 @@ function _setReaderEventListeners(reader) {
     this.$modalFooter.show();
   });
 
-  reader.addEventListener('preview', event => {});
-
   reader.addEventListener('error', event => {
     console.log('Error');
   });

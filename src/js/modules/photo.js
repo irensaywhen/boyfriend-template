@@ -73,7 +73,7 @@ export default class Photo extends Bonus {
 
     this.$closeButton.click(() => {
       // Delete all the temporary changes if the user doesn't submit the form
-      this._discardChanges();
+      this.__discardChanges();
     });
 
     $document.on('photoModal:onBeforeOpen', (event, modal) => {
@@ -217,7 +217,7 @@ export default class Photo extends Bonus {
     this.$previewContainer.append(compiledPhotoTemplate);
   }
 
-  _discardChanges() {
+  __discardChanges() {
     // Delete preview
     this.$previewContainer.empty();
     // Hide modal footer
