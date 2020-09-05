@@ -23892,7 +23892,7 @@
                 _this
               )
             );
-            _this.generateFormData = _this.generateFormData.bind(
+            _this._generateFormData = _this._generateFormData.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
@@ -24130,8 +24130,8 @@
                 },
               },
               {
-                key: 'generateFormData',
-                value: function generateFormData() {
+                key: '_generateFormData',
+                value: function _generateFormData() {
                   this.formData = new FormData();
 
                   if (this.configuration.uploader) {
@@ -24145,10 +24145,6 @@
                         );
                       }
                     }
-                  }
-
-                  if (this.configuration.avatar) {
-                    this.formData.set('avatar', this.avatar, this.avatar.name);
                   }
                 },
               },
@@ -24710,7 +24706,7 @@
 
                   this._savePhotoDescription(); // Prepare formData to send photo information to the server
 
-                  this._generateFormData(); // Generate event to send the photo to the user
+                  this.__generateFormData(); // Generate event to send the photo to the user
 
                   $(document).trigger(
                     'present:send',
@@ -24724,8 +24720,8 @@
                 },
               },
               {
-                key: '_generateFormData',
-                value: function _generateFormData() {
+                key: '__generateFormData',
+                value: function __generateFormData() {
                   // Cache
                   var photoData = this.photoData;
 
@@ -26836,7 +26832,9 @@
                               switch ((_context.prev = _context.next)) {
                                 case 0:
                                   this.collectData();
-                                  this.generateFormData();
+
+                                  this._generateFormData();
+
                                   _context.prev = 2;
                                   _context.next = 5;
                                   return this.makeRequest({

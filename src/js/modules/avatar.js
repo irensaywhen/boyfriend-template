@@ -27,7 +27,7 @@ export default class Avatar extends EditorModal {
 
     // Prepare avatar for using FileReader to load and preview photos
     Object.assign(Avatar.prototype, fileReaderMixin);
-
+    // Initialization of the fileReader for avatar
     this.initializeFileReader({ form: this.$form, modal: this.$modal });
   }
 
@@ -47,7 +47,6 @@ export default class Avatar extends EditorModal {
     super._setUpEventListeners();
 
     // Here we need to listen to submit event also
-    // Add it here
     this.$form.submit(event => {
       event.preventDefault();
 
@@ -72,19 +71,25 @@ export default class Avatar extends EditorModal {
   }
 
   /**
+   * Function specific to classes using FileReader Mixin.
+   * It saves file to allow futher upload in case of submitting the form
+   * @param {File Object} file - reference to the file in the system
+   */
+  _saveFile(file) {
+    this.avatar = file;
+  }
+
+  /**
    * The function to perform cleaning object fields after
    * all the actions with avatar upload are performed
    */
   clean() {
     // Delete formData object
     this.formData = null;
-
     // Update previous avatar link
     this.prevAvatarLink = this.$avatarPreview.attr('src');
-
     // Discard new link
     this.newAvatarLink = null;
-
     // Return the previous avatar status
     this.uploaded = false;
   }
@@ -97,10 +102,19 @@ export default class Avatar extends EditorModal {
     this.$avatarPreview.attr('src', this.prevAvatarLink);
   }
 
+  /**
+   * Function to generate formData object to send avatar to the server
+   */
+  _generateFormData() {
+    super._generateFormData();
+
+    this.formData.set('avatar', this.avatar, this.avatar.name);
+  }
+
   // Maybe, I can change this function to work through then rather than async/await
   // Plus think of error handling
   async submitAvatar() {
-    this.generateFormData();
+    this._generateFormData();
 
     let response;
 

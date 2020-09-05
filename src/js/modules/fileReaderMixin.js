@@ -16,6 +16,7 @@ export default {
 
     // Binding functions from the Class
     this._preview = this._preview.bind(this);
+    this._saveFile = this._saveFile.bind(this);
 
     // Save passed arguments
     [$form, $modal] = [form, modal];
@@ -88,9 +89,11 @@ function _loadfromInput(input) {
   if (!files[0]) return;
 
   for (let file of files) {
-    // For now leave it without filename
+    //Save file to upload it in the future
+    this._saveFile(file);
+    // Insert progress bar
     let $progressBar = _insertProgressBar({ fileName: file.name });
-    // Read file and connect it with the current
+    // Read file and connect it with progress bar
     _readFile({ file, $progressBar });
   }
 }

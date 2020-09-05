@@ -114,7 +114,7 @@ export default class Photo extends Bonus {
     // Save description to photoData object
     this._savePhotoDescription();
     // Prepare formData to send photo information to the server
-    this._generateFormData();
+    this.__generateFormData();
     // Generate event to send the photo to the user
     $(document).trigger('present:send', this.photoData, this.formData);
     // Close modal
@@ -123,7 +123,7 @@ export default class Photo extends Bonus {
     this.fireSendAlert(this.popups.send);
   }
 
-  _generateFormData() {
+  __generateFormData() {
     // Cache
     let photoData = this.photoData;
 

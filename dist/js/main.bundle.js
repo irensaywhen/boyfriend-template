@@ -19686,7 +19686,7 @@
             Object.assign(
               Avatar.prototype,
               _fileReaderMixin__WEBPACK_IMPORTED_MODULE_10__['default']
-            );
+            ); // Initialization of the fileReader for avatar
 
             _this.initializeFileReader({
               form: _this.$form,
@@ -19731,7 +19731,6 @@
                     '_setUpEventListeners',
                     this
                   ).call(this); // Here we need to listen to submit event also
-                  // Add it here
 
                   this.$form.submit(function (event) {
                     event.preventDefault();
@@ -19756,6 +19755,17 @@
                   this.$avatarPreview.attr('src', src); // save src to update markup
 
                   this.newAvatarLink = src;
+                },
+                /**
+                 * Function specific to classes using FileReader Mixin.
+                 * It saves file to allow futher upload in case of submitting the form
+                 * @param {File Object} file - reference to the file in the system
+                 */
+              },
+              {
+                key: '_saveFile',
+                value: function _saveFile(file) {
+                  this.avatar = file;
                 },
                 /**
                  * The function to perform cleaning object fields after
@@ -19785,6 +19795,23 @@
                 key: 'discardChanges',
                 value: function discardChanges() {
                   this.$avatarPreview.attr('src', this.prevAvatarLink);
+                },
+                /**
+                 * Function to generate formData object to send avatar to the server
+                 */
+              },
+              {
+                key: '_generateFormData',
+                value: function _generateFormData() {
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+                      Avatar.prototype
+                    ),
+                    '_generateFormData',
+                    this
+                  ).call(this);
+
+                  this.formData.set('avatar', this.avatar, this.avatar.name);
                 }, // Maybe, I can change this function to work through then rather than async/await
                 // Plus think of error handling
               },
@@ -19800,7 +19827,8 @@
                             while (1) {
                               switch ((_context.prev = _context.next)) {
                                 case 0:
-                                  this.generateFormData();
+                                  this._generateFormData();
+
                                   _context.prev = 1;
                                   _context.next = 4;
                                   return this.makeRequest({
@@ -20298,7 +20326,8 @@
             _cacheElements = _cacheElements.bind(this);
             _setUpEventLiseners = _setUpEventLiseners.bind(this); // Binding functions from the Class
 
-            this._preview = this._preview.bind(this); // Save passed arguments
+            this._preview = this._preview.bind(this);
+            this._saveFile = this._saveFile.bind(this); // Save passed arguments
 
             $form = form;
             $modal = modal;
@@ -20371,10 +20400,12 @@
             for (_iterator.s(); !(_step = _iterator.n()).done; ) {
               var file = _step.value;
 
-              // For now leave it without filename
+              //Save file to upload it in the future
+              this._saveFile(file); // Insert progress bar
+
               var _$progressBar = _insertProgressBar({
                 fileName: file.name,
-              }); // Read file and connect it with the current
+              }); // Read file and connect it with progress bar
 
               _readFile({
                 file: file,
@@ -21523,7 +21554,7 @@
                 _this
               )
             );
-            _this.generateFormData = _this.generateFormData.bind(
+            _this._generateFormData = _this._generateFormData.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
@@ -21761,8 +21792,8 @@
                 },
               },
               {
-                key: 'generateFormData',
-                value: function generateFormData() {
+                key: '_generateFormData',
+                value: function _generateFormData() {
                   this.formData = new FormData();
 
                   if (this.configuration.uploader) {
@@ -21776,10 +21807,6 @@
                         );
                       }
                     }
-                  }
-
-                  if (this.configuration.avatar) {
-                    this.formData.set('avatar', this.avatar, this.avatar.name);
                   }
                 },
               },

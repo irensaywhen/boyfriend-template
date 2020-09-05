@@ -64,7 +64,7 @@ export default class PhotoUploader extends EditorModal {
 
   async uploadNewPhotos() {
     this.collectData();
-    this.generateFormData();
+    this._generateFormData();
 
     let response;
 
