@@ -31,6 +31,9 @@
 .swal2-close:focus {
   outline: none !important;
 }
+button:disabled {
+  cursor: not-allowed !important;
+}
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;

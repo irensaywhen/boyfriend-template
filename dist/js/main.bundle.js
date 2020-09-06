@@ -19646,16 +19646,6 @@
 
             _this.configuration.avatar = true; // Binding context
 
-            _this._cacheElements = _this._cacheElements.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
-                _this
-              )
-            );
-            _this._setUpEventListeners = _this._setUpEventListeners.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
-                _this
-              )
-            );
             _this._submitAvatar = _this._submitAvatar.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
                 _this
@@ -19680,6 +19670,8 @@
               form: _this.$form,
               modal: _this.$modal,
             });
+
+            _this.initializeLoadingIndicators(_this.$form);
 
             return _this;
           }
@@ -19831,7 +19823,9 @@
                   })
                     .then(function (response) {
                       if (response.success) {
-                        // Save uploading progress
+                        // Trigger custom event
+                        $(document).trigger('successfulRequest'); // Save uploaded progress
+
                         _this3.uploaded = true; // Update markup
 
                         _this3._updateMarkup(); // Show successful Popup
@@ -20278,9 +20272,6 @@
           return arr2;
         }
 
-        // Here we'll make mixin and put functions on the global level
-        // but export only one of them
-
         /* harmony default export */ __webpack_exports__['default'] = {
           initializeFileReader: function initializeFileReader(_ref) {
             var form = _ref.form,
@@ -20306,7 +20297,8 @@
 
             _setUpEventLiseners();
           },
-        }; // Private varialbes
+        };
+        /** Private variables */
 
         var selectors,
           fileRead,
@@ -20315,7 +20307,8 @@
           $form,
           progressTemplate,
           $progressContainer,
-          $progressBar; // Private functions
+          $progressBar;
+        /** Private functions */
 
         /**
          * Function to cache elements required for FileReader to work
@@ -21933,6 +21926,9 @@
         /* harmony import */ var _swalAlertMixin_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! ./swalAlertMixin.js */ './js/modules/swalAlertMixin.js'
         );
+        /* harmony import */ var _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! ./requestsIndictorMixin.js */ './js/modules/requestsIndictorMixin.js'
+        );
 
         var ServerRequest = /*#__PURE__*/ (function () {
           function ServerRequest(options) {
@@ -21956,6 +21952,10 @@
             Object.assign(
               ServerRequest.prototype,
               _swalAlertMixin_js__WEBPACK_IMPORTED_MODULE_4__['default']
+            );
+            Object.assign(
+              ServerRequest.prototype,
+              _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_5__['default']
             );
           }
           /**
@@ -22298,6 +22298,56 @@
 
           return ServerRequest;
         })();
+
+        /***/
+      },
+
+    /***/ './js/modules/requestsIndictorMixin.js':
+      /*!*********************************************!*\
+  !*** ./js/modules/requestsIndictorMixin.js ***!
+  \*********************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony default export */ __webpack_exports__['default'] = {
+          initializeLoadingIndicators: function initializeLoadingIndicators(
+            $form
+          ) {
+            // Save current selectors
+            loading = this.selectors.loading; // Cache
+
+            $submitButton = $form.find(loading.submitButton);
+            template = document.getElementById(loading.spinnerTemplateId);
+            buttonContent = $submitButton.html(); // Event handling
+
+            $form.submit(function () {
+              var spinner = template.content.cloneNode(true); //Change button
+
+              $submitButton
+                .attr('disabled', true)
+                .empty()
+                .addClass('text-capitalize')
+                .text(loading.text)[0]
+                .prepend(spinner);
+            });
+            $document.on('successfulRequest', function () {
+              // Change button and remove spinner
+              $submitButton
+                .attr('disabled', false)
+                .removeClass('text-capitalize')
+                .html(buttonContent)
+                .find(loading.spinner)
+                .remove();
+            });
+          },
+        }; // Private variables
+
+        var $submitButton,
+          buttonContent,
+          loading,
+          template,
+          $document = $(document);
 
         /***/
       },

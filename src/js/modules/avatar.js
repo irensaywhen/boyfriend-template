@@ -16,8 +16,6 @@ export default class Avatar extends EditorModal {
     this.configuration.avatar = true;
 
     // Binding context
-    this._cacheElements = this._cacheElements.bind(this);
-    this._setUpEventListeners = this._setUpEventListeners.bind(this);
     this._submitAvatar = this._submitAvatar.bind(this);
     this._updateMarkup = this._updateMarkup.bind(this);
 
@@ -29,6 +27,8 @@ export default class Avatar extends EditorModal {
     Object.assign(Avatar.prototype, fileReaderMixin);
     // Initialization of the fileReader for avatar
     this.initializeFileReader({ form: this.$form, modal: this.$modal });
+
+    this.initializeLoadingIndicators(this.$form);
   }
 
   _cacheElements() {
@@ -132,7 +132,9 @@ export default class Avatar extends EditorModal {
     })
       .then(response => {
         if (response.success) {
-          // Save uploading progress
+          // Trigger custom event
+          $(document).trigger('successfulRequest');
+          // Save uploaded progress
           this.uploaded = true;
           // Update markup
           this._updateMarkup();

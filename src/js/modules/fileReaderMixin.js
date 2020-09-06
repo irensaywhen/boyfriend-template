@@ -1,5 +1,3 @@
-// Here we'll make mixin and put functions on the global level
-// but export only one of them
 import Handlebars from 'handlebars';
 
 export default {
@@ -27,7 +25,7 @@ export default {
   },
 };
 
-// Private varialbes
+/** Private variables */
 let selectors,
   fileRead,
   classes,
@@ -37,7 +35,7 @@ let selectors,
   $progressContainer,
   $progressBar;
 
-// Private functions
+/** Private functions */
 
 /**
  * Function to cache elements required for FileReader to work

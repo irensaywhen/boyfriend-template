@@ -57,6 +57,17 @@
       </div>
       <!--Loader end-->
 
+      <!--Spinner template start-->
+      <template id="spinner-template">
+        <span
+          class="spinner-border spinner-border-sm mr-1"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        <span class="sr-only">Loading...</span>
+      </template>
+      <!--Spinner template end-->
+
       <!--Modal for uploading avatar start-->
       <div
         class="modal fade upload-avatar"
@@ -186,7 +197,8 @@
                 <div class="px-0 py-3 text-center w-100">
                   <button
                     type="submit"
-                    class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
+                    class="btn btn-lg btn-default text-white btn-rounded shadow"
+                    id="submitButton-avatar"
                   >
                     <span>Submit</span
                     ><i class="material-icons">arrow_forward</i>
@@ -865,6 +877,12 @@
             input: '.avatar-input',
             preview: '#avatar-preview',
             form: '#avatar-editor',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitButton-avatar',
+              spinner: '.spinner-border',
+              text: 'Saving avatar...',
+            },
             fileRead: {
               // Template will be inserted into this container
               progress: '#fileRead-progress',

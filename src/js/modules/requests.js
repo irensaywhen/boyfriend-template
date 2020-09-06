@@ -1,4 +1,5 @@
 import swalAlert from './swalAlertMixin.js';
+import loadingIndicatorMixin from './requestsIndictorMixin.js';
 
 export default class ServerRequest {
   constructor(options) {
@@ -18,6 +19,7 @@ export default class ServerRequest {
     this.makeURLObjects();
 
     Object.assign(ServerRequest.prototype, swalAlert);
+    Object.assign(ServerRequest.prototype, loadingIndicatorMixin);
   }
 
   /**
