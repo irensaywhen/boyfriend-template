@@ -20,8 +20,8 @@ export default {
         loading = this.loading,
         $submitButton = this.$submitButton;
 
-      // Get rid of previous button content
-      $submitButton.empty();
+      // Preserve width and get rid of the previous content
+      $submitButton.css('min-width', $submitButton.outerWidth() + 'px').empty();
 
       // Change button text
       loading.text === undefined
@@ -38,6 +38,7 @@ export default {
         .attr('disabled', false)
         .removeClass('text-capitalize')
         .html(this.buttonContent)
+        .css('min-width', '')
         .find(this.loading.spinner)
         .remove();
     });
@@ -45,8 +46,4 @@ export default {
 };
 
 // Private variables
-let $submitButton,
-  buttonContent,
-  loading,
-  template,
-  $document = $(document);
+let template;

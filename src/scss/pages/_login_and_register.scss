@@ -1,17 +1,27 @@
 .form-wrapper {
+  /* Utility class for backwards button*/
+  .back-default {
+    margin: 0 auto;
+  }
+
   .form-signin {
     @include form;
-    width: 320px;
+    width: $formWidth;
   }
 
   .form-signin-lg {
     @include form;
-    width: 450px;
+    width: $formWidth-lg;
   }
 
   .back {
-    max-width: 320px;
-    margin: 0 auto;
+    @extend .back-default;
+    max-width: $formWidth;
+  }
+
+  .back-lg {
+    @extend .back-default;
+    max-width: $formWidth-lg;
   }
 }
 

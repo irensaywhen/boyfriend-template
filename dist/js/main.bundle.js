@@ -22344,9 +22344,11 @@
             $form.submit(function () {
               var spinner = template.content.cloneNode(true),
                 loading = _this.loading,
-                $submitButton = _this.$submitButton; // Get rid of previous button content
+                $submitButton = _this.$submitButton; // Preserve width and get rid of the previous content
 
-              $submitButton.empty(); // Change button text
+              $submitButton
+                .css('min-width', $submitButton.outerWidth() + 'px')
+                .empty(); // Change button text
 
               loading.text === undefined
                 ? $submitButton.text('').addClass('text-center')
@@ -22360,17 +22362,14 @@
                 .attr('disabled', false)
                 .removeClass('text-capitalize')
                 .html(_this.buttonContent)
+                .css('min-width', '')
                 .find(_this.loading.spinner)
                 .remove();
             });
           },
         }; // Private variables
 
-        var $submitButton,
-          buttonContent,
-          loading,
-          template,
-          $document = $(document);
+        var template;
 
         /***/
       },

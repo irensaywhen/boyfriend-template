@@ -2175,6 +2175,11 @@ article .header time {
     content: 'Invoice';
   }
 }
+.form-wrapper .back-default,
+.form-wrapper .back,
+.form-wrapper .back-lg {
+  margin: 0 auto;
+}
 .form-wrapper .form-signin {
   border-radius: 20px;
   background-color: #ffffff;
@@ -2193,7 +2198,9 @@ article .header time {
 }
 .form-wrapper .back {
   max-width: 320px;
-  margin: 0 auto;
+}
+.form-wrapper .back-lg {
+  max-width: 450px;
 }
 .login-and-registration {
   min-height: 65vh;
