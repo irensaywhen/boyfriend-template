@@ -243,7 +243,7 @@
         <!--Registration section start-->
         <section class="container">
           <div class="row no-gutters proh bg-template">
-            <div class="col-12 align-self-center px-3 text-center">
+            <div class="col-12 align-self-center px-0 px-sm-3 text-center">
               <h2 class="text-white">
                 <span class="font-weight-light">Sign</span>Up
               </h2>
@@ -317,6 +317,7 @@
                       <button
                         type="submit"
                         class="btn btn-lg btn-default btn-rounded shadow"
+                        id="btn-firstStep"
                       >
                         <span>Sign Up</span
                         ><i class="material-icons">arrow_forward</i>
@@ -361,10 +362,11 @@
 
                   <!--Submit button-->
                   <div class="row">
-                    <div class="col-6 offset-5 offset-sm-6">
+                    <div class="col-12 text-right">
                       <button
                         type="submit"
                         class="btn btn-lg btn-default btn-rounded shadow"
+                        id="btn-secondStep"
                       >
                         <span>Next</span
                         ><i class="material-icons">arrow_forward</i>
@@ -529,10 +531,11 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-6 offset-5 offset-sm-6 text-right">
+                    <div class="col-12 text-right">
                       <button
                         type="submit"
                         class="btn btn-lg btn-default btn-rounded shadow"
+                        id="btn-thirdStep"
                       >
                         <span>Next</span
                         ><i class="material-icons">arrow_forward</i>
@@ -702,6 +705,12 @@
             'input-wrapper': '.form-group',
             inputs: '.signup-input',
             generalError: '#general-error-signup-1',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#btn-firstStep',
+              spinner: '.spinner-border',
+              text: 'Finishing the first step...',
+            },
           },
           requests: {
             submit: {
@@ -745,6 +754,12 @@
             'input-wrapper': '.form-group',
             inputs: '.signup-input',
             generalError: '#general-error-signup-2',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#btn-secondStep',
+              spinner: '.spinner-border',
+              text: 'Finishing the second step...',
+            },
           },
           requests: {
             submit: {
@@ -792,6 +807,12 @@
               day: '#day',
               month: '#month',
               year: '#year',
+            },
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#btn-thirdStep',
+              spinner: '.spinner-border',
+              text: 'Finishing the third step...',
             },
           },
           requests: {
@@ -889,6 +910,7 @@
               progressBar: '.progress-bar',
               templateId: 'progress-template',
               fileProgressWrapper: '.fileProgress-wrapper',
+              submitButton: '#submitButton-avatar',
             },
           },
           classes: {

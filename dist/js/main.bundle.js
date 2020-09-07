@@ -19823,9 +19823,7 @@
                   })
                     .then(function (response) {
                       if (response.success) {
-                        // Trigger custom event
-                        $(document).trigger('successfulRequest'); // Save uploaded progress
-
+                        // Save uploaded progress
                         _this3.uploaded = true; // Update markup
 
                         _this3._updateMarkup(); // Show successful Popup
@@ -20305,6 +20303,7 @@
           classes,
           $modal,
           $form,
+          $submitButton,
           progressTemplate,
           $progressContainer,
           $progressBar;
@@ -20321,7 +20320,9 @@
 
           $progressContainer = $modal.find(fileRead.progress); // Template
 
-          progressTemplate = document.getElementById(fileRead.templateId);
+          progressTemplate = document.getElementById(fileRead.templateId); // Submit button
+
+          $submitButton = $form.find(fileRead.submitButton);
         }
         /**
          * Function to set initial event listeners to handle photo upload
@@ -20332,7 +20333,9 @@
           $form.on('change', function (event) {
             var target = event.target; // Stop execution if the target is not for photo upload
 
-            if (!target.classList.contains(classes.input)) return;
+            if (!target.classList.contains(classes.input)) return; // Disable submit button
+
+            $submitButton.attr('disabled', true); // Load files for preview
 
             _loadfromInput(target);
           }); // Hide loading indicator after transition
@@ -20341,7 +20344,9 @@
             var $target = $(event.target);
             if (!$target.hasClass('loadend')) return; // Remove progress indicator
 
-            $target.closest(fileRead.fileProgressWrapper).remove();
+            $target.closest(fileRead.fileProgressWrapper).remove(); // Enable button
+
+            $submitButton.attr('disabled', false);
           });
         }
         /**
@@ -20669,7 +20674,9 @@
 
             _this._cacheElements();
 
-            _this._setUpEventListeners();
+            _this._setUpEventListeners(); // Initializing loading indicator when the form is submitted
+
+            _this.initializeLoadingIndicators(_this.$form);
 
             if (options.location) {
               // Add location methods to the form prototype
@@ -21930,6 +21937,8 @@
           /*! ./requestsIndictorMixin.js */ './js/modules/requestsIndictorMixin.js'
         );
 
+        var $document = $(document);
+
         var ServerRequest = /*#__PURE__*/ (function () {
           function ServerRequest(options) {
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(
@@ -22006,6 +22015,8 @@
                         }
                       })
                       .then(function (json) {
+                        // this === current Form here
+                        $(_this).trigger('successfulRequest');
                         return json;
                       })
                       ['catch'](function (error) {
@@ -22036,6 +22047,8 @@
                         }
                       })
                       .then(function (json) {
+                        // this === current Form here
+                        $(_this).trigger('successfulRequest');
                         return json;
                       })
                       ['catch'](function (error) {
@@ -22314,30 +22327,40 @@
           initializeLoadingIndicators: function initializeLoadingIndicators(
             $form
           ) {
-            // Save current selectors
-            loading = this.selectors.loading; // Cache
+            var _this = this;
 
-            $submitButton = $form.find(loading.submitButton);
-            template = document.getElementById(loading.spinnerTemplateId);
-            buttonContent = $submitButton.html(); // Event handling
+            // Bind context
+            this.initializeLoadingIndicators = this.initializeLoadingIndicators.bind(
+              this
+            ); // Save loading data to the form
+
+            this.loading = this.selectors.loading; // Save information about submit button
+
+            this.$submitButton = $form.find(this.loading.submitButton);
+            this.buttonContent = this.$submitButton.html(); // Cache
+
+            template = document.getElementById(this.loading.spinnerTemplateId); // Event handling
 
             $form.submit(function () {
-              var spinner = template.content.cloneNode(true); //Change button
+              var spinner = template.content.cloneNode(true),
+                loading = _this.loading,
+                $submitButton = _this.$submitButton; // Get rid of previous button content
 
-              $submitButton
-                .attr('disabled', true)
-                .empty()
-                .addClass('text-capitalize')
-                .text(loading.text)[0]
-                .prepend(spinner);
+              $submitButton.empty(); // Change button text
+
+              loading.text === undefined
+                ? $submitButton.text('').addClass('text-center')
+                : $submitButton.text(loading.text).addClass('text-capitalize'); //Change button state
+
+              $submitButton.attr('disabled', true)[0].prepend(spinner);
             });
-            $document.on('successfulRequest', function () {
+            $(this).on('successfulRequest', function () {
               // Change button and remove spinner
-              $submitButton
+              _this.$submitButton
                 .attr('disabled', false)
                 .removeClass('text-capitalize')
-                .html(buttonContent)
-                .find(loading.spinner)
+                .html(_this.buttonContent)
+                .find(_this.loading.spinner)
                 .remove();
             });
           },

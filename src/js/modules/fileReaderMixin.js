@@ -31,6 +31,7 @@ let selectors,
   classes,
   $modal,
   $form,
+  $submitButton,
   progressTemplate,
   $progressContainer,
   $progressBar;
@@ -49,6 +50,8 @@ function _cacheElements() {
   $progressContainer = $modal.find(fileRead.progress);
   // Template
   progressTemplate = document.getElementById(fileRead.templateId);
+  // Submit button
+  $submitButton = $form.find(fileRead.submitButton);
 }
 
 /**
@@ -61,7 +64,9 @@ function _setUpEventLiseners() {
 
     // Stop execution if the target is not for photo upload
     if (!target.classList.contains(classes.input)) return;
-
+    // Disable submit button
+    $submitButton.attr('disabled', true);
+    // Load files for preview
     _loadfromInput(target);
   });
 
@@ -72,6 +77,8 @@ function _setUpEventLiseners() {
     if (!$target.hasClass('loadend')) return;
     // Remove progress indicator
     $target.closest(fileRead.fileProgressWrapper).remove();
+    // Enable button
+    $submitButton.attr('disabled', false);
   });
 }
 

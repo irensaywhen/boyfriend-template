@@ -1,32 +1,44 @@
 export default {
   initializeLoadingIndicators($form) {
-    // Save current selectors
-    loading = this.selectors.loading;
+    // Bind context
+    this.initializeLoadingIndicators = this.initializeLoadingIndicators.bind(
+      this
+    );
+
+    // Save loading data to the form
+    this.loading = this.selectors.loading;
+    // Save information about submit button
+    this.$submitButton = $form.find(this.loading.submitButton);
+    this.buttonContent = this.$submitButton.html();
 
     // Cache
-    $submitButton = $form.find(loading.submitButton);
-    template = document.getElementById(loading.spinnerTemplateId);
-    buttonContent = $submitButton.html();
+    template = document.getElementById(this.loading.spinnerTemplateId);
 
     // Event handling
     $form.submit(() => {
-      let spinner = template.content.cloneNode(true);
-      //Change button
-      $submitButton
-        .attr('disabled', true)
-        .empty()
-        .addClass('text-capitalize')
-        .text(loading.text)[0]
-        .prepend(spinner);
+      let spinner = template.content.cloneNode(true),
+        loading = this.loading,
+        $submitButton = this.$submitButton;
+
+      // Get rid of previous button content
+      $submitButton.empty();
+
+      // Change button text
+      loading.text === undefined
+        ? $submitButton.text('').addClass('text-center')
+        : $submitButton.text(loading.text).addClass('text-capitalize');
+
+      //Change button state
+      $submitButton.attr('disabled', true)[0].prepend(spinner);
     });
 
-    $document.on('successfulRequest', () => {
+    $(this).on('successfulRequest', () => {
       // Change button and remove spinner
-      $submitButton
+      this.$submitButton
         .attr('disabled', false)
         .removeClass('text-capitalize')
-        .html(buttonContent)
-        .find(loading.spinner)
+        .html(this.buttonContent)
+        .find(this.loading.spinner)
         .remove();
     });
   },

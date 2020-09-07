@@ -132,8 +132,6 @@ export default class Avatar extends EditorModal {
     })
       .then(response => {
         if (response.success) {
-          // Trigger custom event
-          $(document).trigger('successfulRequest');
           // Save uploaded progress
           this.uploaded = true;
           // Update markup

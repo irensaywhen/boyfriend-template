@@ -1,6 +1,8 @@
 import swalAlert from './swalAlertMixin.js';
 import loadingIndicatorMixin from './requestsIndictorMixin.js';
 
+let $document = $(document);
+
 export default class ServerRequest {
   constructor(options) {
     // Bind context
@@ -55,6 +57,8 @@ export default class ServerRequest {
           }
         })
         .then(json => {
+          // this === current Form here
+          $(this).trigger('successfulRequest');
           return json;
         })
         .catch(error => {
@@ -85,6 +89,8 @@ export default class ServerRequest {
           }
         })
         .then(json => {
+          // this === current Form here
+          $(this).trigger('successfulRequest');
           return json;
         })
         .catch(error => {
