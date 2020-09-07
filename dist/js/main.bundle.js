@@ -20053,10 +20053,9 @@
           dayValidator: function dayValidator(value, element) {
             // Day is considered valid if the month is empty or there is such day in month
             var isMonthEmpty = _isMonthEmpty(),
-              isYearEmpty = _isYearEmpty(); //console.log(isMonthEmpty);
-            //console.log(isYearEmpty);
+              isYearEmpty = _isYearEmpty();
 
-            if (isMonthEmpty || isYearEmpty) return true;
+            if (isMonthEmpty || isYearEmpty || !isYearFormatValid) return true;
             return _isDayValid();
           },
           initializeDateInput: function initializeDateInput() {
@@ -20189,13 +20188,20 @@
          */
 
         function _isDayValid() {
-          console.log('Validating day!');
-          var year = $year.val(),
-            month = $month.val();
-          console.log(year, month);
-          return true; // Parse current year and month
-          // Make moment from it
-          // Check if the currently inputed day is in the month
+          var year = Number($year.val()),
+            month = $month.val(),
+            day = parseInt($day.val());
+          var daysInMonth =
+            year <= 99
+              ? moment__WEBPACK_IMPORTED_MODULE_1___default()(
+                  ''.concat(year, '-').concat(month),
+                  'YY-MM'
+                ).daysInMonth()
+              : moment__WEBPACK_IMPORTED_MODULE_1___default()(
+                  ''.concat(year, '-').concat(month),
+                  'YYYY-MM'
+                ).daysInMonth();
+          return day <= daysInMonth;
         }
         /**
          * Function selecting error message for the year field
@@ -20825,7 +20831,7 @@
                 jQuery.validator.addMethod(
                   'day',
                   _this.dayValidator,
-                  'Testing'
+                  'Please enter valid day of month'
                 );
               } // Add frontend validation
 

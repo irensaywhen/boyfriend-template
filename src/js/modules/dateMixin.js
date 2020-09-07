@@ -22,9 +22,7 @@ export default {
     let isMonthEmpty = _isMonthEmpty(),
       isYearEmpty = _isYearEmpty();
 
-    //console.log(isMonthEmpty);
-    //console.log(isYearEmpty);
-    if (isMonthEmpty || isYearEmpty) return true;
+    if (isMonthEmpty || isYearEmpty || !isYearFormatValid) return true;
 
     return _isDayValid();
   },
@@ -165,15 +163,16 @@ function _isYearFormatValid() {
  * Function checking if the day exists in the currently selected month
  */
 function _isDayValid() {
-  console.log('Validating day!');
-  let year = $year.val(),
-    month = $month.val();
+  let year = Number($year.val()),
+    month = $month.val(),
+    day = parseInt($day.val());
 
-  console.log(year, month);
-  return true;
-  // Parse current year and month
-  // Make moment from it
-  // Check if the currently inputed day is in the month
+  let daysInMonth =
+    year <= 99
+      ? moment(`${year}-${month}`, 'YY-MM').daysInMonth()
+      : moment(`${year}-${month}`, 'YYYY-MM').daysInMonth();
+
+  return day <= daysInMonth;
 }
 
 /**

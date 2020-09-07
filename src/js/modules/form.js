@@ -89,7 +89,11 @@ export default class Form extends ServerRequest {
 
       if (this.date) {
         jQuery.validator.addMethod('year', this.yearValidator, '');
-        jQuery.validator.addMethod('day', this.dayValidator, 'Testing');
+        jQuery.validator.addMethod(
+          'day',
+          this.dayValidator,
+          'Please enter valid day of month'
+        );
       }
 
       // Add frontend validation
