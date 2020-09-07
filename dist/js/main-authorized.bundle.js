@@ -21616,167 +21616,230 @@
           moment__WEBPACK_IMPORTED_MODULE_1__
         );
 
-        /* harmony default export */ __webpack_exports__[
-          'default'
-        ] = (function () {
-          // Private functions and methods
-          var $day,
-            $month,
-            $year,
-            errorMessages,
-            currentErrorMessage,
-            selectors,
-            isDayAndMonthValid,
-            isAgeValid;
-          /**
-           * Helper function to cache elements required for validation
-           */
+        /* harmony default export */ __webpack_exports__['default'] = {
+          // Public functions and methods
+          // Function to validate year
+          yearValidator: function yearValidator(value, element) {
+            // Check the validity of all three elements
+            isDayAndMonthValid = _isDayAndMonthValid();
+            isAgeValid = _isAgeValid();
+            isYearFormatValid = _isYearFormatValid();
 
-          function _cacheElements() {
-            // Cache
-            selectors = this.selectors.date;
-            errorMessages = this.errorMessages.year; // Save input wrapper selector
-
-            selectors['input-wrapper'] = this.selectors['input-wrapper'];
-            $day = this.$form.find(selectors.day);
-            $month = this.$form.find(selectors.month);
-            $year = this.$form.find(selectors.year);
-          }
-          /**
-           * Helper function to listen to validator events
-           * and handle error messages changing
-           */
-
-          function _setUpEventListeners() {
-            var _this = this;
-
-            var year = selectors.year;
-            $(document).on('validator:yearIsInvalid', function () {
-              _setYearErrorMessage(); // Display error message
-
-              $year
-                .closest(selectors['input-wrapper'])
-                .find(''.concat(year, '-error'))
-                .text(currentErrorMessage);
-            });
-            this.$form.on('input', function (event) {
-              var target = event.target;
-              var date = target.dataset.date,
-                year = $year.val(); // If year is empty or not date custom attribute specified
-
-              if (!date || !year) return; // Validate year
-
-              _this.validator.element(selectors.year);
-            });
-          }
-          /**
-           * Function checking validity of day and month fields
-           */
-
-          function _isDayAndMonthValid() {
-            // Check if the day and month are not empty
-            var isDayValid = $day.val() ? true : false,
-              isMonthValid = $month.val() ? true : false;
-            return isDayValid && isMonthValid;
-          }
-
-          function _isAgeValid() {
-            var age = _calculateAge();
-
-            if (age >= 18) {
-              return true;
-            } else {
+            if (!isDayAndMonthValid || !isAgeValid || !isYearFormatValid) {
               return false;
             }
+
+            return true;
+          },
+          // Function to validate day depending on month
+          dayValidator: function dayValidator(value, element) {
+            // Day is considered valid if the month is empty or there is such day in month
+            var isMonthEmpty = _isMonthEmpty(),
+              isYearEmpty = _isYearEmpty(); //console.log(isMonthEmpty);
+            //console.log(isYearEmpty);
+
+            if (isMonthEmpty || isYearEmpty) return true;
+            return _isDayValid();
+          },
+          initializeDateInput: function initializeDateInput() {
+            // Bind context
+            _cacheElements = _cacheElements.bind(this);
+            _setUpEventListeners = _setUpEventListeners.bind(this);
+            _calculateAge = _calculateAge.bind(this);
+            _getBirthDate = _getBirthDate.bind(this);
+            _setYearErrorMessage = _setYearErrorMessage.bind(this);
+            _isDayEmpty = _isDayEmpty.bind(this);
+            _isMonthEmpty = _isMonthEmpty.bind(this);
+            _isYearEmpty = _isYearEmpty.bind(this);
+            _isDayAndMonthValid = _isDayAndMonthValid.bind(this);
+            _isAgeValid = _isAgeValid.bind(this);
+            _isDayValid = _isDayValid.bind(this);
+            _isYearFormatValid = _isYearFormatValid.bind(this); // Class functions
+
+            this.yearValidator = this.yearValidator.bind(this);
+            this.dayValidator = this.dayValidator.bind(this); // Prepare date validation
+
+            _cacheElements();
+
+            _setUpEventListeners();
+          },
+        }; // Private variables
+
+        var $day,
+          $month,
+          $year,
+          errorMessages,
+          currentYearErrorMessage,
+          selectors,
+          isDayAndMonthValid,
+          isAgeValid,
+          isYearFormatValid;
+        /** Private methods */
+
+        /**
+         * Helper function to cache elements required for validation
+         */
+
+        function _cacheElements() {
+          // Cache
+          selectors = this.selectors.date;
+          errorMessages = this.errorMessages.year; // Save input wrapper selector
+
+          selectors['input-wrapper'] = this.selectors['input-wrapper'];
+          $day = this.$form.find(selectors.day);
+          $month = this.$form.find(selectors.month);
+          $year = this.$form.find(selectors.year);
+        }
+        /**
+         * Helper function to listen to validator events
+         * and handle error messages changing
+         */
+
+        function _setUpEventListeners() {
+          var _this = this;
+
+          var year = selectors.year;
+          $(document).on('validator:yearIsInvalid', function () {
+            _setYearErrorMessage(); // Display error message
+
+            $year
+              .closest(selectors['input-wrapper'])
+              .find(''.concat(year, '-error'))
+              .text(currentYearErrorMessage);
+          }); // Validate year on day and month input
+
+          this.$form.on('input', function (event) {
+            var target = event.target;
+            var date = target.dataset.date,
+              year = $year.val(); // If year is empty or not date custom attribute specified
+
+            if (!date || !year) return; // Validate year
+
+            _this.validator.element(selectors.year);
+          });
+        }
+        /**
+         * Function checking validity of day and month fields
+         */
+
+        function _isDayAndMonthValid() {
+          // Check if the day and month are not empty
+          var isDayEmpty = _isDayEmpty(),
+            isMonthEmpty = _isMonthEmpty();
+
+          return !isDayEmpty && !isMonthEmpty;
+        }
+        /**
+         * Three functions checking whether the day/month/year input field is empty
+         */
+
+        function _isDayEmpty() {
+          return !Boolean($day.val());
+        }
+
+        function _isMonthEmpty() {
+          return !Boolean($month.val());
+        }
+
+        function _isYearEmpty() {
+          return !Boolean($year.val());
+        }
+        /**
+         * Function checking if the person is older than 18
+         */
+
+        function _isAgeValid() {
+          var age = _calculateAge();
+
+          if (age >= 18) {
+            return true;
+          } else {
+            return false;
           }
-          /**
-           * Function selecting error message for the year field
-           */
+        }
+        /**
+         * Function checking if the user inputed either two-digit or four-digit year
+         */
 
-          function _setYearErrorMessage() {
-            currentErrorMessage = isDayAndMonthValid
-              ? errorMessages.age
-              : errorMessages.emptyDayAndMonth;
+        function _isYearFormatValid() {
+          var year = Number($year.val());
+          if (100 <= year && year <= 999) return false;
+          return true;
+        }
+        /**
+         * Function checking if the day exists in the currently selected month
+         */
+
+        function _isDayValid() {
+          console.log('Validating day!');
+          var year = $year.val(),
+            month = $month.val();
+          console.log(year, month);
+          return true; // Parse current year and month
+          // Make moment from it
+          // Check if the currently inputed day is in the month
+        }
+        /**
+         * Function selecting error message for the year field
+         */
+
+        function _setYearErrorMessage() {
+          if (!isDayAndMonthValid) {
+            currentYearErrorMessage = errorMessages.emptyDayAndMonth;
+          } else if (!isAgeValid) {
+            currentYearErrorMessage = errorMessages.age;
+          } else if (!isYearFormatValid) {
+            currentYearErrorMessage = errorMessages.format;
           }
-          /**
-           * Function collection birth date from the form fields
-           */
+        }
+        /**
+         * Function collection birth date from the form fields
+         */
 
-          function _getBirthDate() {
-            // Get the inputed values
-            var day = $day.val(),
-              month = $month.val(),
-              year = $year.val(); // Convert its type to number
+        function _getBirthDate() {
+          // Get the inputed values
+          var day = $day.val(),
+            month = $month.val(),
+            year = $year.val(); // Convert its type to number
 
-            var _map = [day, month, year].map(function (item) {
-              return parseInt(item);
-            });
+          var _map = [day, month, year].map(function (item) {
+            return parseInt(item);
+          });
 
-            var _map2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(
-              _map,
-              3
-            );
+          var _map2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(
+            _map,
+            3
+          );
 
-            day = _map2[0];
-            month = _map2[1];
-            year = _map2[2];
-            return {
-              day: day,
-              month: month,
-              year: year,
-            };
-          }
-          /**
-           * Helper function to calculate age of the person based on the current date
-           * and information provided in the form
-           */
-
-          function _calculateAge() {
-            var _getBirthDate2 = _getBirthDate(),
-              day = _getBirthDate2.day,
-              month = _getBirthDate2.month,
-              year = _getBirthDate2.year;
-
-            var birth = moment__WEBPACK_IMPORTED_MODULE_1___default()({
-                year: year,
-                month: month,
-                day: day,
-              }),
-              now = moment__WEBPACK_IMPORTED_MODULE_1___default()(); // Return age
-
-            return now.diff(birth, 'years');
-          }
-
+          day = _map2[0];
+          month = _map2[1];
+          year = _map2[2];
           return {
-            // Public functions and methods
-            dateValidator: function dateValidator(value, element) {
-              // Check the validity of all three elements
-              isDayAndMonthValid = _isDayAndMonthValid();
-              isAgeValid = _isAgeValid();
-
-              if (!isDayAndMonthValid || !isAgeValid) {
-                return false;
-              }
-
-              return true;
-            },
-            initializeDateInput: function initializeDateInput() {
-              // Bind context
-              _cacheElements = _cacheElements.bind(this);
-              _setUpEventListeners = _setUpEventListeners.bind(this);
-              _calculateAge = _calculateAge.bind(this);
-              _getBirthDate = _getBirthDate.bind(this);
-              _setYearErrorMessage = _setYearErrorMessage.bind(this);
-              _isDayAndMonthValid = _isDayAndMonthValid.bind(this);
-              _isAgeValid = _isAgeValid.bind(this);
-              this.dateValidator = this.dateValidator.bind(this); // Prepare date validation
-
-              _cacheElements();
-
-              _setUpEventListeners();
-            },
+            day: day,
+            month: month,
+            year: year,
           };
-        })();
+        }
+        /**
+         * Helper function to calculate age of the person based on the current date
+         * and information provided in the form
+         */
+
+        function _calculateAge() {
+          var _getBirthDate2 = _getBirthDate(),
+            day = _getBirthDate2.day,
+            month = _getBirthDate2.month,
+            year = _getBirthDate2.year;
+
+          var birth = moment__WEBPACK_IMPORTED_MODULE_1___default()({
+              year: year,
+              month: month,
+              day: day,
+            }),
+            now = moment__WEBPACK_IMPORTED_MODULE_1___default()(); // Return age
+
+          return now.diff(birth, 'years');
+        }
 
         /***/
       },
@@ -22534,7 +22597,12 @@
               }
 
               if (_this.date) {
-                jQuery.validator.addMethod('date', _this.dateValidator, '');
+                jQuery.validator.addMethod('year', _this.yearValidator, '');
+                jQuery.validator.addMethod(
+                  'day',
+                  _this.dayValidator,
+                  'Testing'
+                );
               } // Add frontend validation
 
               _this.validator = _this.$form.validate(options.validatorOptions);

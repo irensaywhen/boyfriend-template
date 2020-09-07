@@ -845,6 +845,7 @@
             year: {
               emptyDayAndMonth: 'Please, fill out day and month fields first',
               age: 'You should be 18 to register',
+              format: 'Please enter year in YY or YYYY format',
             },
           },
           date: true,
@@ -873,11 +874,12 @@
                 required: true,
                 min: 1,
                 max: 31,
+                day: true,
               },
               month: 'required',
               year: {
                 required: true,
-                date: true,
+                year: true,
                 max: 2020,
               },
               weight: 'required',
