@@ -53,9 +53,16 @@ export default (function () {
       $form.on('keydown', event => {
         // Cache target
         let target = event.target,
-          key = event.key;
+          key = event.key,
+          selection = window.getSelection().toString();
 
-        if (key === 'Backspace') return;
+        switch (key) {
+          case 'Backspace':
+          case 'Tab':
+            return;
+        }
+
+        if (selection !== '') return;
 
         let { restrictlength, maxlength } = target.dataset;
         // Check whether we need to restrict length

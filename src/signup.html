@@ -431,6 +431,7 @@
                             max="31"
                             data-restrictLength="true"
                             data-maxlength="2"
+                            data-date="true"
                             class="form-control signup-input"
                           />
                           <label class="form-control-label">Day</label>
@@ -441,6 +442,7 @@
                           <select
                             class="form-control signup-input"
                             name="month"
+                            data-date="true"
                             id="month"
                           >
                             <option value="" disabled selected></option>
@@ -466,6 +468,8 @@
                             type="number"
                             name="year"
                             id="year"
+                            data-restrictLength="true"
+                            data-maxlength="4"
                             class="form-control signup-input"
                           />
                           <label class="form-control-label">Year</label>
@@ -874,6 +878,7 @@
               year: {
                 required: true,
                 date: true,
+                max: 2020,
               },
               weight: 'required',
               height: 'required',

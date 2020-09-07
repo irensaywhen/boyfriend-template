@@ -35,13 +35,26 @@ export default (function () {
     let year = selectors.year;
 
     $(document).on('validator:yearIsInvalid', () => {
-      _setErrorMessage();
+      _setYearErrorMessage();
 
       // Display error message
       $year
         .closest(selectors['input-wrapper'])
         .find(`${year}-error`)
         .text(currentErrorMessage);
+    });
+
+    this.$form.on('input', event => {
+      let target = event.target;
+
+      let date = target.dataset.date,
+        year = $year.val();
+
+      // If year is empty or not date custom attribute specified
+      if (!date || !year) return;
+
+      // Validate year
+      this.validator.element(selectors.year);
     });
   }
 
@@ -66,12 +79,18 @@ export default (function () {
     }
   }
 
-  function _setErrorMessage() {
+  /**
+   * Function selecting error message for the year field
+   */
+  function _setYearErrorMessage() {
     currentErrorMessage = isDayAndMonthValid
       ? errorMessages.age
       : errorMessages.emptyDayAndMonth;
   }
 
+  /**
+   * Function collection birth date from the form fields
+   */
   function _getBirthDate() {
     // Get the inputed values
     let day = $day.val(),
@@ -117,7 +136,7 @@ export default (function () {
       _setUpEventListeners = _setUpEventListeners.bind(this);
       _calculateAge = _calculateAge.bind(this);
       _getBirthDate = _getBirthDate.bind(this);
-      _setErrorMessage = _setErrorMessage.bind(this);
+      _setYearErrorMessage = _setYearErrorMessage.bind(this);
       _isDayAndMonthValid = _isDayAndMonthValid.bind(this);
       _isAgeValid = _isAgeValid.bind(this);
       this.dateValidator = this.dateValidator.bind(this);

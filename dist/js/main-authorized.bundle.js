@@ -21648,14 +21648,25 @@
            */
 
           function _setUpEventListeners() {
+            var _this = this;
+
             var year = selectors.year;
             $(document).on('validator:yearIsInvalid', function () {
-              _setErrorMessage(); // Display error message
+              _setYearErrorMessage(); // Display error message
 
               $year
                 .closest(selectors['input-wrapper'])
                 .find(''.concat(year, '-error'))
                 .text(currentErrorMessage);
+            });
+            this.$form.on('input', function (event) {
+              var target = event.target;
+              var date = target.dataset.date,
+                year = $year.val(); // If year is empty or not date custom attribute specified
+
+              if (!date || !year) return; // Validate year
+
+              _this.validator.element(selectors.year);
             });
           }
           /**
@@ -21678,12 +21689,18 @@
               return false;
             }
           }
+          /**
+           * Function selecting error message for the year field
+           */
 
-          function _setErrorMessage() {
+          function _setYearErrorMessage() {
             currentErrorMessage = isDayAndMonthValid
               ? errorMessages.age
               : errorMessages.emptyDayAndMonth;
           }
+          /**
+           * Function collection birth date from the form fields
+           */
 
           function _getBirthDate() {
             // Get the inputed values
@@ -21749,7 +21766,7 @@
               _setUpEventListeners = _setUpEventListeners.bind(this);
               _calculateAge = _calculateAge.bind(this);
               _getBirthDate = _getBirthDate.bind(this);
-              _setErrorMessage = _setErrorMessage.bind(this);
+              _setYearErrorMessage = _setYearErrorMessage.bind(this);
               _isDayAndMonthValid = _isDayAndMonthValid.bind(this);
               _isAgeValid = _isAgeValid.bind(this);
               this.dateValidator = this.dateValidator.bind(this); // Prepare date validation
@@ -23355,8 +23372,16 @@
               $form.on('keydown', function (event) {
                 // Cache target
                 var target = event.target,
-                  key = event.key;
-                if (key === 'Backspace') return;
+                  key = event.key,
+                  selection = window.getSelection().toString();
+
+                switch (key) {
+                  case 'Backspace':
+                  case 'Tab':
+                    return;
+                }
+
+                if (selection !== '') return;
                 var _target$dataset = target.dataset,
                   restrictlength = _target$dataset.restrictlength,
                   maxlength = _target$dataset.maxlength; // Check whether we need to restrict length
