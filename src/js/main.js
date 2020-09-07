@@ -45,6 +45,8 @@ $(document).ready(function () {
 
   /* float label checking input is not empty */
   $('.float-label .form-control').on('blur', function () {
+    if ($(this).val() === null) return;
+
     if ($(this).val() || $(this).val().length != 0) {
       $(this).closest('.float-label').addClass('active');
     } else {

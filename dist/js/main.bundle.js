@@ -19442,6 +19442,8 @@
           /* float label checking input is not empty */
 
           $('.float-label .form-control').on('blur', function () {
+            if ($(this).val() === null) return;
+
             if ($(this).val() || $(this).val().length != 0) {
               $(this).closest('.float-label').addClass('active');
             } else {
@@ -20128,7 +20130,7 @@
           this.$form.on('input', function (event) {
             var target = event.target;
             var date = target.dataset.date,
-              year = $year.val(); // If year is empty or not date custom attribute specified
+              year = $year.val(); // If year is empty or no date custom attribute specified
 
             if (!date || !year) return; // Validate year
 

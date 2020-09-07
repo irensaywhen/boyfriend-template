@@ -105,7 +105,7 @@ function _setUpEventListeners() {
     let date = target.dataset.date,
       year = $year.val();
 
-    // If year is empty or not date custom attribute specified
+    // If year is empty or no date custom attribute specified
     if (!date || !year) return;
 
     // Validate year
