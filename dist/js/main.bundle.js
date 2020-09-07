@@ -20055,7 +20055,9 @@
           dayValidator: function dayValidator(value, element) {
             // Day is considered valid if the month is empty or there is such day in month
             var isMonthEmpty = _isMonthEmpty(),
-              isYearEmpty = _isYearEmpty();
+              isYearEmpty = _isYearEmpty(); // Check year format
+
+            isYearFormatValid = _isYearFormatValid(); // Don't validate day if either any field is empty of year format is incorrect
 
             if (isMonthEmpty || isYearEmpty || !isYearFormatValid) return true;
             return _isDayValid();
@@ -20092,7 +20094,8 @@
           selectors,
           isDayAndMonthValid,
           isAgeValid,
-          isYearFormatValid;
+          isYearFormatValid,
+          $document = $(document);
         /** Private methods */
 
         /**
@@ -20118,7 +20121,7 @@
           var _this = this;
 
           var year = selectors.year;
-          $(document).on('validator:yearIsInvalid', function () {
+          $document.on('validator:yearIsInvalid', function () {
             _setYearErrorMessage(); // Display error message
 
             $year
@@ -20129,12 +20132,23 @@
 
           this.$form.on('input', function (event) {
             var target = event.target;
-            var date = target.dataset.date,
+            var isValidateDateOnInput =
+                target.dataset.date === 'true' ? true : false,
               year = $year.val(); // If year is empty or no date custom attribute specified
 
-            if (!date || !year) return; // Validate year
+            if (!isValidateDateOnInput || !year) return; // Validate year
 
             _this.validator.element(selectors.year);
+          }); // Validate day on year and month input
+
+          this.$form.on('input', function (event) {
+            var target = event.target;
+            var isValidateDayOnInput =
+                target.dataset.day === 'true' ? true : false,
+              dayValue = $day.val();
+            if (!isValidateDayOnInput || !dayValue) return; // Validate day
+
+            _this.validator.element(selectors.day);
           });
         }
         /**

@@ -22,6 +22,10 @@ export default {
     let isMonthEmpty = _isMonthEmpty(),
       isYearEmpty = _isYearEmpty();
 
+    // Check year format
+    isYearFormatValid = _isYearFormatValid();
+
+    // Don't validate day if either any field is empty of year format is incorrect
     if (isMonthEmpty || isYearEmpty || !isYearFormatValid) return true;
 
     return _isDayValid();
@@ -61,7 +65,8 @@ let $day,
   selectors,
   isDayAndMonthValid,
   isAgeValid,
-  isYearFormatValid;
+  isYearFormatValid,
+  $document = $(document);
 
 /** Private methods */
 
@@ -88,7 +93,7 @@ function _cacheElements() {
 function _setUpEventListeners() {
   let year = selectors.year;
 
-  $(document).on('validator:yearIsInvalid', () => {
+  $document.on('validator:yearIsInvalid', () => {
     _setYearErrorMessage();
 
     // Display error message
@@ -102,14 +107,26 @@ function _setUpEventListeners() {
   this.$form.on('input', event => {
     let target = event.target;
 
-    let date = target.dataset.date,
+    let isValidateDateOnInput = target.dataset.date === 'true' ? true : false,
       year = $year.val();
 
     // If year is empty or no date custom attribute specified
-    if (!date || !year) return;
+    if (!isValidateDateOnInput || !year) return;
 
     // Validate year
     this.validator.element(selectors.year);
+  });
+
+  // Validate day on year and month input
+  this.$form.on('input', event => {
+    let target = event.target;
+
+    let isValidateDayOnInput = target.dataset.day === 'true' ? true : false,
+      dayValue = $day.val();
+
+    if (!isValidateDayOnInput || !dayValue) return;
+    // Validate day
+    this.validator.element(selectors.day);
   });
 }
 

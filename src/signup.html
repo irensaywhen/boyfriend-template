@@ -443,6 +443,7 @@
                             class="form-control signup-input"
                             name="month"
                             data-date="true"
+                            data-day="true"
                             id="month"
                           >
                             <option value="null" disabled selected></option>
@@ -470,6 +471,7 @@
                             id="year"
                             data-restrictLength="true"
                             data-maxlength="4"
+                            data-day="true"
                             class="form-control signup-input"
                           />
                           <label class="form-control-label">Year</label>
@@ -700,6 +702,8 @@
           $(this).closest('.notification').removeClass('active');
         });
 
+        var $document = $(document);
+
         /* signup form functionality start */
 
         // First step
@@ -861,7 +865,7 @@
               this.defaultShowErrors();
               // Handle custom date validaton
               if ('year' in errorMap) {
-                $(document).trigger('validator:yearIsInvalid');
+                $document.trigger('validator:yearIsInvalid');
               }
             },
             rules: {
