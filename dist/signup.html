@@ -135,9 +135,9 @@
                   </div>
                 </script>
 
-                <!--Avatar Upload-->
-                <ul class="pl-1">
-                  <!--Avatar upload from the computer-->
+                <!--Avatar Upload previous
+                <ul class="pl-1">-->
+                <!--Avatar upload from the computer
                   <li class="position-relative">
                     <label
                       for="avatar-file-input"
@@ -155,9 +155,9 @@
                     <p class="d-inline-block pl-3">
                       Upload your avatar from your computer
                     </p>
-                  </li>
+                  </li>-->
 
-                  <!--Capturing avatar from device-->
+                <!--Capturing avatar from device
                   <li class="position-relative d-lg-none">
                     <label
                       for="make-avatar"
@@ -177,7 +177,70 @@
                       Make photo from your camera
                     </p>
                   </li>
-                </ul>
+                </ul>-->
+
+                <!--Avatar upload and drag'n'drop start-->
+                <div class="photo-upload advanced-upload">
+                  <div class="drag-n-drop">
+                    <div class="icon">
+                      <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <p
+                      class="text-center text-uppercase info d-flex flex-column"
+                    >
+                      <strong class="title">Drag & drop</strong>
+                      <span class="pt-2">to upload, or</span>
+                    </p>
+                  </div>
+
+                  <div
+                    class="d-flex flex-column align-items-center pt-4 pb-5 position-relative"
+                  >
+                    <!--Select file from device start-->
+                    <button
+                      type="button"
+                      class="btn btn-lg btn-outline-secondary btn-rounded shadow-sm position-relative mb-3"
+                    >
+                      <label
+                        for="avatar-file-input"
+                        class="text-center mb-0 pointer upload-photo-label"
+                      >
+                        <i class="fas fa-file-upload"></i> select file
+                      </label>
+                      <input
+                        type="file"
+                        id="avatar-file-input"
+                        name="avatar-file-input"
+                        class="invisible position-absolute avatar-input"
+                        accept="image/*"
+                      />
+                    </button>
+                    <!--Select file from device end-->
+
+                    <!--Capture photo start-->
+                    <button
+                      type="button"
+                      class="btn btn-lg btn-outline-secondary btn-rounded shadow-sm capture"
+                    >
+                      <label
+                        for="make-avatar"
+                        class="text-center mb-0 pointer upload-photo-label"
+                      >
+                        <i class="fas fa-camera-retro"></i> take photo
+                      </label>
+                      <input
+                        type="file"
+                        id="make-avatar"
+                        name="make-avatar"
+                        class="invisible position-absolute avatar-input"
+                        accept="image/*"
+                        capture
+                      />
+                    </button>
+                    <!--Capture photo end-->
+                  </div>
+                </div>
+                <!--Avatar upload and drag'n'drop end-->
 
                 <!--Avatar requirements-->
                 <div class="avatar-requirements border-top">
@@ -691,7 +754,6 @@
     <!-- page level script -->
     <script>
       $(window).on('load', function () {
-        /* notification view and hide */
         setTimeout(function () {
           $('.notification').addClass('active');
           setTimeout(function () {
@@ -704,9 +766,6 @@
 
         var $document = $(document);
 
-        /* signup form functionality start */
-
-        // First step
         const signupFirstStep = new Form({
           selectors: {
             form: '#signup-1',
@@ -755,7 +814,6 @@
           },
         });
 
-        // Second step
         const signupSecondStep = new Form({
           selectors: {
             form: '#signup-2',
@@ -799,7 +857,6 @@
           },
         });
 
-        // Third step
         const signupThirdStep = new Form({
           selectors: {
             form: '#signup-3',
@@ -861,9 +918,7 @@
           validatorOptions: {
             errorElement: 'span',
             showErrors: function (errorMap) {
-              //Perform default plugin behavior
               this.defaultShowErrors();
-              // Handle custom date validaton
               if ('year' in errorMap) {
                 $document.trigger('validator:yearIsInvalid');
               }
@@ -898,9 +953,6 @@
             },
           },
         });
-        /* signup form functionality end*/
-
-        /* avatar handling start */
         const avatar = new Avatar({
           selectors: {
             elementSelector: '.avatar-image',
@@ -916,7 +968,6 @@
               text: 'Saving avatar...',
             },
             fileRead: {
-              // Template will be inserted into this container
               progress: '#fileRead-progress',
               progressBar: '.progress-bar',
               templateId: 'progress-template',
@@ -938,20 +989,6 @@
             },
           },
         });
-        /* avatar handling end */
-
-        /* forms chainer initialization start */
-        // Chained forms are temporary disables
-        //const chainedForms = new ChainedForms({
-        //  selectors: {
-        //    formsContainer: '#forms-signup',
-        //    forms: '.form-signin',
-        //    backward: '.back',
-        //    wrapper: '.form-wrapper',
-        //  },
-        //});
-        /* forms chainer initialization end */
-
         $('#continue').click(event => {
           event.preventDefault();
           window.location.replace('./profile.html');

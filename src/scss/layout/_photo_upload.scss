@@ -1,10 +1,78 @@
 /*photo upload container*/
 .photo-upload {
-  background: $main-background-color;
+  background: lighten($main-background-color, 5);
+  position: relative;
+  text-align: center;
+
+  .drag-n-drop {
+    @include hide;
+  }
+
+  .capture {
+    @include hide;
+  }
+
+  .mobile {
+    .capture {
+      @include show;
+    }
+  }
 
   /*When dragndrop is supported*/
   &.advanced-upload {
     outline: 2px dashed lighten($bootstrap-secondary, 10);
     outline-offset: -10px;
+
+    /* Drag-n-drop indicator on modern devices*/
+    .drag-n-drop {
+      @include show;
+
+      .icon {
+        @include fluid-type($screen-xs, $screen-xl, 70px, 100px);
+        text-align: center;
+        font-size: 70px;
+        color: $bootstrap-secondary;
+        margin: 0 auto;
+        padding: 30px 10px;
+      }
+
+      .info {
+        color: $bootstrap-secondary;
+        .title {
+          @include fluid-type($screen-xs, $screen-xl, 20px, 28px);
+        }
+      }
+    }
+  }
+}
+
+/* Avatar upload */
+.upload-avatar {
+  /*upload progress indicator*/
+  .upload-progress {
+    .progress-bar {
+      @include ease-out;
+    }
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  .upload-photo-label {
+    vertical-align: middle;
+    i {
+      display: inline-block;
+      font-size: 32px;
+      padding-right: 4px;
+      padding-left: 5px;
+    }
+  }
+
+  .avatar-requirements {
+    li {
+      font-weight: 300;
+      font-size: $paragraph-size;
+    }
   }
 }

@@ -99,6 +99,18 @@
   max-width: 100%;
 }
 
+/*hide element*/
+@mixin hide {
+  position: absolute;
+  visibility: hidden;
+}
+
+/*show element*/
+@mixin show {
+  position: relative;
+  visibility: visible;
+}
+
 /*Responsize font size*/
 
 @mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {

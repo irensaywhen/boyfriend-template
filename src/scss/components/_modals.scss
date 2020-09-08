@@ -51,36 +51,3 @@
     }
   }
 }
-
-/* Avatar upload */
-.upload-avatar {
-  /*upload progress indicator*/
-  .upload-progress {
-    .progress-bar {
-      @include ease-out;
-    }
-  }
-
-  ul {
-    list-style: none;
-  }
-
-  .upload-photo-label {
-    @include circular-badge(100px);
-    background: $main-background-color;
-    font-size: 53px;
-    cursor: pointer;
-
-    img {
-      width: 70px;
-      height: auto;
-    }
-  }
-
-  .avatar-requirements {
-    li {
-      font-weight: 300;
-      font-size: $paragraph-size;
-    }
-  }
-}

@@ -20384,10 +20384,7 @@
             _prepareTemplate = _prepareTemplate.bind(this);
             _insertProgressBar = _insertProgressBar.bind(this);
             _cacheElements = _cacheElements.bind(this);
-            _setUpEventLiseners = _setUpEventLiseners.bind(this); // Binding functions from the Class
-
-            this._preview = this._preview.bind(this);
-            this._saveFile = this._saveFile.bind(this); // Save passed arguments
+            _setUpEventLiseners = _setUpEventLiseners.bind(this); // Save passed arguments
 
             $form = form;
             $modal = modal;

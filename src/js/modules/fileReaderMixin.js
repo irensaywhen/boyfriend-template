@@ -12,10 +12,6 @@ export default {
     _cacheElements = _cacheElements.bind(this);
     _setUpEventLiseners = _setUpEventLiseners.bind(this);
 
-    // Binding functions from the Class
-    this._preview = this._preview.bind(this);
-    this._saveFile = this._saveFile.bind(this);
-
     // Save passed arguments
     [$form, $modal] = [form, modal];
 
