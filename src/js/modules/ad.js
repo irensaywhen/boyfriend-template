@@ -2,7 +2,7 @@ import helper from "./helper.js";
 
 export default class Ad {
   constructor(options) {
-    // Setup internal name for ad wrapper
+    // Setup internal name for ad wrapper - to remove ads in the future
     this.adWrapperClass = "pagination-wrapper";
 
     this.selectors = options["selectors"];

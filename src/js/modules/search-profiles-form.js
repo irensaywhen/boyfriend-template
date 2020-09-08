@@ -6,22 +6,23 @@ export default class SearchProfilesForm extends Form {
     super(options);
 
     //Binding context
-    this.generateAgeRange = this.generateAgeRange.bind(this);
-    this.initializeSlider = this.initializeSlider.bind(this);
-    this.createProfileView = this.createProfileView.bind(this);
-    this.createProfileViews = this.createProfileViews.bind(this);
-    this.createNoResultsBadge = this.createNoResultsBadge.bind(this);
+    this._generateAgeRange = this._generateAgeRange.bind(this);
+    this._initializeSlider = this._initializeSlider.bind(this);
+    this._createProfileView = this._createProfileView.bind(this);
+    this._createProfileViews = this._createProfileViews.bind(this);
+    this._createNoResultsBadge = this._createNoResultsBadge.bind(this);
+    this._getProfiles = this._getProfiles.bind(this);
 
     this.searchFormOptions = options["searchFormOptions"];
     this.$resultsContainer = $(this.selectors["resultsContainer"]);
 
     this.slider = options["slider"];
 
-    this.generateAgeRange();
-    this.initializeSlider();
+    this._generateAgeRange();
+    this._initializeSlider();
   }
 
-  initializeSlider() {
+  _initializeSlider() {
     this.slider["noUiSlider"].on("change", () => {
       this.$inputs.first().trigger("input");
     });
@@ -39,25 +40,30 @@ export default class SearchProfilesForm extends Form {
     super.setUpEventListeners();
 
     this.$form.on("input", (event) => {
+      // Listen to input to retrieve profiles
       let target = event.target;
 
       if (target.name === "city") return;
+      // Indicate that the input has finished
       this.$form.trigger("inputFinished");
     });
 
+    // Handle the case when the city has been selected
     this.$locationInput.on("citySelected", () => {
       this.$form.trigger("inputFinished");
     });
 
+    // Retrieve new profiles when input has been finished
     this.$form.on("inputFinished", (event) => {
       // Show loading indicator
       this.$formLoadingIndicator.fadeIn(200);
-
+      // Save inputed information
       this.collectFormInputs();
 
-      let request = this.requests.profiles;
-
       this.$form.trigger("searchForm:beforeRequest");
+      //let request = this.requests.profiles;
+
+      //this.$form.trigger("searchForm:beforeRequest");
 
       this.makeRequest({
         method: request.method,
@@ -67,7 +73,7 @@ export default class SearchProfilesForm extends Form {
       })
         .then((response) => {
           if (!response.success) {
-            this.createNoResultsBadge(response);
+            this._createNoResultsBadge(response);
 
             // Hide loading indicator
             this.$formLoadingIndicator.fadeOut(200);
@@ -76,7 +82,7 @@ export default class SearchProfilesForm extends Form {
 
           let profiles = response.profiles;
 
-          this.createProfileViews(profiles);
+          this._createProfileViews(profiles);
 
           this.$form.trigger("searchForm:afterSuccessfulRequest", response);
 
@@ -91,9 +97,18 @@ export default class SearchProfilesForm extends Form {
           });
         });
     });
+
+    $(document).ready(() => {
+      // Make request to retrieve initial profiles here
+      // And show preloaded profiles before anything from the form is retrieved
+    })
   }
 
-  createProfileViews(profiles) {
+  _getProfiles(requestType){
+    let request = requestType === 'initial' ? this.requests.preload : this.requests.profiles;
+  }
+
+  _createProfileViews(profiles) {
     // Sort out all the premium users to be at the beginning
     profiles.sort((user1, user2) => {
       return user1.premium.status
@@ -126,11 +141,11 @@ export default class SearchProfilesForm extends Form {
       1100
     );
     profiles.forEach((profile) => {
-      this.createProfileView(profile).appendTo(this.$resultsContainer);
+      this._createProfileView(profile).appendTo(this.$resultsContainer);
     });
   }
 
-  generateAgeRange() {
+  _generateAgeRange() {
     // Cache range
     let ageFrom = this.searchFormOptions.ageFrom;
     let ageTo = this.searchFormOptions.ageTo;
@@ -142,7 +157,7 @@ export default class SearchProfilesForm extends Form {
     }
   }
 
-  createProfileView(profileParameters) {
+  _createProfileView(profileParameters) {
     let { premium, online, avatar, profile } = profileParameters;
 
     let $col = $("<div></div>")
@@ -216,7 +231,7 @@ export default class SearchProfilesForm extends Form {
     );
   }
 
-  createNoResultsBadge(content) {
+  _createNoResultsBadge(content) {
     let { title, message } = content;
 
     $("<div></div>")

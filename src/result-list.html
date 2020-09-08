@@ -486,7 +486,7 @@
         <div id="profiles-container" class="row profiles-row justify-content-center">
           <!--Online and premium user-->
           <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 search-result"
           >
             <div class="card shadow-sm border-0 mb-4">
               <figure class="profile-image premium card-img-top">
@@ -516,7 +516,7 @@
 
           <!--Premium user-->
           <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 search-result"
           >
             <div class="card shadow-sm border-0 mb-4">
               <figure class="profile-image premium card-img-top">
@@ -545,7 +545,7 @@
 
           <!--Online user-->
           <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 search-result"
           >
             <div class="card shadow-sm border-0 mb-4">
               <figure class="profile-image card-img-top">
@@ -571,9 +571,10 @@
               </div>
             </div>
           </div>
+
           <!--Just user-->
           <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 search-result"
           >
             <div class="card shadow-sm border-0 mb-4">
               <figure class="profile-image card-img-top">
@@ -598,9 +599,10 @@
               </div>
             </div>
           </div>
+
           <!--Just user-->
           <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 search-result"
           >
             <div class="card shadow-sm border-0 mb-4">
               <figure class="profile-image card-img-top">
@@ -625,9 +627,10 @@
               </div>
             </div>
           </div>
+
           <!--Just user-->
           <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 search-result"
           >
             <div class="card shadow-sm border-0 mb-4">
               <figure class="profile-image card-img-top">
@@ -927,6 +930,13 @@
               },
               endpoint:
                 "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-custom",
+            },
+            preload: {
+              method: 'GET',
+              headers: {
+
+              },
+              endpoint: "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-preload"
             },
             location: {
               method: "GET",

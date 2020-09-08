@@ -1,33 +1,35 @@
 import helper from "./helper.js";
 
 export default class Pagination {
+  // This field is required to handle plugin re-initialization
+  // on page resize
   _profilesShown = false;
 
   constructor(config) {
     let selectors = config.selectors;
-
+    // Profiles container
     this.$container = $(selectors.container);
+    // Pagination container
     this.$pagination = $(selectors.pagination);
-
-    // Options for the plugin
+    // Options for the pagination plugin
     this.pluginOptions = config["pluginOptions"];
-
     // Configuration for breakpoints
     this.perPageConfig = config["perPageConfig"];
 
     this._init = false;
 
     $(window).resize(() => {
+      // If there is no any profiles yet, don't do anything
+      if (!this._profilesShown) return;
+      // Get current viewport range
       let viewportRange = helper.getViewportRange();
 
-      // If there is no any profiles yet
-      if (!this._profilesShown) return;
-
+      // If viewport range didn't change during resize operations
       if (viewportRange === this._viewportRange && this._init) return;
 
       // Indicate that destroyment was caused by resize
       this.destroy({ resized: true });
-
+      // Re-initalize the plugin
       this.init();
     });
 

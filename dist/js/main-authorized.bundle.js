@@ -1337,7 +1337,7 @@ var Ad = /*#__PURE__*/function () {
 
     _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Ad);
 
-    // Setup internal name for ad wrapper
+    // Setup internal name for ad wrapper - to remove ads in the future
     this.adWrapperClass = "pagination-wrapper";
     this.selectors = options["selectors"];
     this.placementConfig = options["placementConfig"];
@@ -3153,6 +3153,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Pagination = /*#__PURE__*/function () {
+  // This field is required to handle plugin re-initialization
+  // on page resize
   function Pagination(config) {
     var _this = this;
 
@@ -3160,23 +3162,28 @@ var Pagination = /*#__PURE__*/function () {
 
     _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(this, "_profilesShown", false);
 
-    var selectors = config.selectors;
-    this.$container = $(selectors.container);
-    this.$pagination = $(selectors.pagination); // Options for the plugin
+    var selectors = config.selectors; // Profiles container
+
+    this.$container = $(selectors.container); // Pagination container
+
+    this.$pagination = $(selectors.pagination); // Options for the pagination plugin
 
     this.pluginOptions = config["pluginOptions"]; // Configuration for breakpoints
 
     this.perPageConfig = config["perPageConfig"];
     this._init = false;
     $(window).resize(function () {
-      var viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_3__["default"].getViewportRange(); // If there is no any profiles yet
+      // If there is no any profiles yet, don't do anything
+      if (!_this._profilesShown) return; // Get current viewport range
 
-      if (!_this._profilesShown) return;
+      var viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_3__["default"].getViewportRange(); // If viewport range didn't change during resize operations
+
       if (viewportRange === _this._viewportRange && _this._init) return; // Indicate that destroyment was caused by resize
 
       _this.destroy({
         resized: true
-      });
+      }); // Re-initalize the plugin
+
 
       _this.init();
     });
@@ -3716,25 +3723,26 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
 
     _this = _super.call(this, options); //Binding context
 
-    _this.generateAgeRange = _this.generateAgeRange.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
-    _this.initializeSlider = _this.initializeSlider.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
-    _this.createProfileView = _this.createProfileView.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
-    _this.createProfileViews = _this.createProfileViews.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
-    _this.createNoResultsBadge = _this.createNoResultsBadge.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
+    _this._generateAgeRange = _this._generateAgeRange.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
+    _this._initializeSlider = _this._initializeSlider.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
+    _this._createProfileView = _this._createProfileView.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
+    _this._createProfileViews = _this._createProfileViews.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
+    _this._createNoResultsBadge = _this._createNoResultsBadge.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
+    _this._getProfiles = _this._getProfiles.bind(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this));
     _this.searchFormOptions = options["searchFormOptions"];
     _this.$resultsContainer = $(_this.selectors["resultsContainer"]);
     _this.slider = options["slider"];
 
-    _this.generateAgeRange();
+    _this._generateAgeRange();
 
-    _this.initializeSlider();
+    _this._initializeSlider();
 
     return _this;
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(SearchProfilesForm, [{
-    key: "initializeSlider",
-    value: function initializeSlider() {
+    key: "_initializeSlider",
+    value: function _initializeSlider() {
       var _this2 = this;
 
       this.slider["noUiSlider"].on("change", function () {
@@ -3756,23 +3764,27 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
       _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(SearchProfilesForm.prototype), "setUpEventListeners", this).call(this);
 
       this.$form.on("input", function (event) {
+        // Listen to input to retrieve profiles
         var target = event.target;
-        if (target.name === "city") return;
+        if (target.name === "city") return; // Indicate that the input has finished
 
         _this3.$form.trigger("inputFinished");
-      });
+      }); // Handle the case when the city has been selected
+
       this.$locationInput.on("citySelected", function () {
         _this3.$form.trigger("inputFinished");
-      });
+      }); // Retrieve new profiles when input has been finished
+
       this.$form.on("inputFinished", function (event) {
         // Show loading indicator
-        _this3.$formLoadingIndicator.fadeIn(200);
+        _this3.$formLoadingIndicator.fadeIn(200); // Save inputed information
+
 
         _this3.collectFormInputs();
 
-        var request = _this3.requests.profiles;
+        _this3.$form.trigger("searchForm:beforeRequest"); //let request = this.requests.profiles;
+        //this.$form.trigger("searchForm:beforeRequest");
 
-        _this3.$form.trigger("searchForm:beforeRequest");
 
         _this3.makeRequest({
           method: request.method,
@@ -3781,7 +3793,7 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
           body: JSON.stringify(_this3.formData)
         }).then(function (response) {
           if (!response.success) {
-            _this3.createNoResultsBadge(response); // Hide loading indicator
+            _this3._createNoResultsBadge(response); // Hide loading indicator
 
 
             _this3.$formLoadingIndicator.fadeOut(200);
@@ -3791,7 +3803,7 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
 
           var profiles = response.profiles;
 
-          _this3.createProfileViews(profiles);
+          _this3._createProfileViews(profiles);
 
           _this3.$form.trigger("searchForm:afterSuccessfulRequest", response); // Hide loading indicator
 
@@ -3805,10 +3817,18 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
           });
         });
       });
+      $(document).ready(function () {// Make request to retrieve initial profiles here
+        // And show preloaded profiles before anything from the form is retrieved
+      });
     }
   }, {
-    key: "createProfileViews",
-    value: function createProfileViews(profiles) {
+    key: "_getProfiles",
+    value: function _getProfiles(requestType) {
+      var request = requestType === 'initial' ? this.requests.preload : this.requests.profiles;
+    }
+  }, {
+    key: "_createProfileViews",
+    value: function _createProfileViews(profiles) {
       var _this4 = this;
 
       // Sort out all the premium users to be at the beginning
@@ -3819,12 +3839,12 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
         scrollTop: this.$resultsContainer.offset().top - 2 * _helper_js__WEBPACK_IMPORTED_MODULE_8__["default"].getHeaderHeight()
       }, 1100);
       profiles.forEach(function (profile) {
-        _this4.createProfileView(profile).appendTo(_this4.$resultsContainer);
+        _this4._createProfileView(profile).appendTo(_this4.$resultsContainer);
       });
     }
   }, {
-    key: "generateAgeRange",
-    value: function generateAgeRange() {
+    key: "_generateAgeRange",
+    value: function _generateAgeRange() {
       // Cache range
       var ageFrom = this.searchFormOptions.ageFrom;
       var ageTo = this.searchFormOptions.ageTo;
@@ -3835,8 +3855,8 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
       }
     }
   }, {
-    key: "createProfileView",
-    value: function createProfileView(profileParameters) {
+    key: "_createProfileView",
+    value: function _createProfileView(profileParameters) {
       var premium = profileParameters.premium,
           online = profileParameters.online,
           avatar = profileParameters.avatar,
@@ -3863,8 +3883,8 @@ var SearchProfilesForm = /*#__PURE__*/function (_Form) {
       return $col.append($profileContainer.append($cardImage).append($cardBody).append($cardFooter));
     }
   }, {
-    key: "createNoResultsBadge",
-    value: function createNoResultsBadge(content) {
+    key: "_createNoResultsBadge",
+    value: function _createNoResultsBadge(content) {
       var title = content.title,
           message = content.message;
       $("<div></div>").addClass("col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3").append($("<div></div>").addClass("no-results shadow-sm bg-white rounded text-center px-3 py-5").append($("<i></i>").addClass("fas fa-heart-broken")).append($("<h2></h2>").addClass("title").text(title)).append($("<p></p>").addClass("text-secondary").text(message))).css("opacity", "0").appendTo(this.$resultsContainer).animate({
