@@ -5089,65 +5089,68 @@
                     // Show loading indicator
                     _this3.$formLoadingIndicator.fadeIn(200); // Save inputed information
 
-                    _this3.collectFormInputs();
+                    _this3.collectFormInputs(); // Trigger hook
 
-                    _this3.$form.trigger('searchForm:beforeRequest'); //let request = this.requests.profiles;
-                    //this.$form.trigger("searchForm:beforeRequest");
+                    _this3.$form.trigger('searchForm:beforeRequest'); // Get profiles from the server
 
-                    _this3
-                      .makeRequest({
-                        method: request.method,
-                        headers: request.headers,
-                        endpoint: request.endpoint,
-                        body: JSON.stringify(_this3.formData),
-                      })
-                      .then(function (response) {
-                        if (!response.success) {
-                          _this3._createNoResultsBadge(response); // Hide loading indicator
+                    _this3._getProfiles('search'); // Hide loading indicator
 
-                          _this3.$formLoadingIndicator.fadeOut(200);
-
-                          return;
-                        }
-
-                        var profiles = response.profiles;
-
-                        _this3._createProfileViews(profiles);
-
-                        _this3.$form.trigger(
-                          'searchForm:afterSuccessfulRequest',
-                          response
-                        ); // Hide loading indicator
-
-                        _this3.$formLoadingIndicator.fadeOut(200);
-                      })
-                      ['catch'](function (error) {
-                        _this3.showRequestResult({
-                          title: error.name,
-                          text: error.message,
-                          icon: 'error',
-                        });
-                      });
+                    _this3.$formLoadingIndicator.fadeOut(200);
                   });
                   $(document).ready(function () {
-                    // Make request to retrieve initial profiles here
+                    _this3._getProfiles('initial'); // Make request to retrieve initial profiles here
                     // And show preloaded profiles before anything from the form is retrieved
                   });
                 },
+                /**
+                 * Function handling getting profiles from the server
+                 * @param {String} requestType - indicator whether we need to retrieve profiles
+                 * based on the search or preload profiles when the user enter the page
+                 */
               },
               {
                 key: '_getProfiles',
                 value: function _getProfiles(requestType) {
+                  var _this4 = this;
+
                   var request =
                     requestType === 'initial'
                       ? this.requests.preload
                       : this.requests.profiles;
+                  this.makeRequest({
+                    method: request.method,
+                    headers: request.headers,
+                    endpoint: request.endpoint,
+                    body: JSON.stringify(this.formData),
+                  })
+                    .then(function (response) {
+                      if (response.success) {
+                        // Cache
+                        var profiles = response.profiles; // Preview retrieved profiles
+
+                        _this4._createProfileViews(profiles);
+
+                        _this4.$form.trigger(
+                          'searchForm:afterSuccessfulRequest',
+                          response
+                        );
+                      } else {
+                        _this4._createNoResultsBadge(response);
+                      }
+                    })
+                    ['catch'](function (error) {
+                      _this4.showRequestResult({
+                        title: error.name,
+                        text: error.message,
+                        icon: 'error',
+                      });
+                    });
                 },
               },
               {
                 key: '_createProfileViews',
                 value: function _createProfileViews(profiles) {
-                  var _this4 = this;
+                  var _this5 = this;
 
                   // Sort out all the premium users to be at the beginning
                   profiles.sort(function (user1, user2) {
@@ -5185,9 +5188,9 @@
                     1100
                   );
                   profiles.forEach(function (profile) {
-                    _this4
+                    _this5
                       ._createProfileView(profile)
-                      .appendTo(_this4.$resultsContainer);
+                      .appendTo(_this5.$resultsContainer);
                   });
                 },
               },

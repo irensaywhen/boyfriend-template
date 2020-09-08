@@ -60,55 +60,57 @@ export default class SearchProfilesForm extends Form {
       // Save inputed information
       this.collectFormInputs();
 
+      // Trigger hook
       this.$form.trigger('searchForm:beforeRequest');
-      //let request = this.requests.profiles;
-
-      //this.$form.trigger("searchForm:beforeRequest");
-
-      this.makeRequest({
-        method: request.method,
-        headers: request.headers,
-        endpoint: request.endpoint,
-        body: JSON.stringify(this.formData),
-      })
-        .then(response => {
-          if (!response.success) {
-            this._createNoResultsBadge(response);
-
-            // Hide loading indicator
-            this.$formLoadingIndicator.fadeOut(200);
-            return;
-          }
-
-          let profiles = response.profiles;
-
-          this._createProfileViews(profiles);
-
-          this.$form.trigger('searchForm:afterSuccessfulRequest', response);
-
-          // Hide loading indicator
-          this.$formLoadingIndicator.fadeOut(200);
-        })
-        .catch(error => {
-          this.showRequestResult({
-            title: error.name,
-            text: error.message,
-            icon: 'error',
-          });
-        });
+      // Get profiles from the server
+      this._getProfiles('search');
+      // Hide loading indicator
+      this.$formLoadingIndicator.fadeOut(200);
     });
 
     $(document).ready(() => {
+      this._getProfiles('initial');
       // Make request to retrieve initial profiles here
       // And show preloaded profiles before anything from the form is retrieved
     });
   }
 
+  /**
+   * Function handling getting profiles from the server
+   * @param {String} requestType - indicator whether we need to retrieve profiles
+   * based on the search or preload profiles when the user enter the page
+   */
   _getProfiles(requestType) {
     let request =
       requestType === 'initial'
         ? this.requests.preload
         : this.requests.profiles;
+
+    this.makeRequest({
+      method: request.method,
+      headers: request.headers,
+      endpoint: request.endpoint,
+      body: JSON.stringify(this.formData),
+    })
+      .then(response => {
+        if (response.success) {
+          // Cache
+          let profiles = response.profiles;
+          // Preview retrieved profiles
+          this._createProfileViews(profiles);
+
+          this.$form.trigger('searchForm:afterSuccessfulRequest', response);
+        } else {
+          this._createNoResultsBadge(response);
+        }
+      })
+      .catch(error => {
+        this.showRequestResult({
+          title: error.name,
+          text: error.message,
+          icon: 'error',
+        });
+      });
   }
 
   _createProfileViews(profiles) {
