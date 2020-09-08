@@ -5096,10 +5096,10 @@
                     _this3._getProfiles('search'); // Hide loading indicator
 
                     _this3.$formLoadingIndicator.fadeOut(200);
-                  });
+                  }); // Preload profiles
+
                   $(document).ready(function () {
-                    _this3._getProfiles('initial'); // Make request to retrieve initial profiles here
-                    // And show preloaded profiles before anything from the form is retrieved
+                    _this3._getProfiles('initial');
                   });
                 },
                 /**
@@ -5128,7 +5128,7 @@
                         // Cache
                         var profiles = response.profiles; // Preview retrieved profiles
 
-                        _this4._createProfileViews(profiles);
+                        _this4._createProfileViews(profiles, requestType);
 
                         _this4.$form.trigger(
                           'searchForm:afterSuccessfulRequest',
@@ -5149,10 +5149,11 @@
               },
               {
                 key: '_createProfileViews',
-                value: function _createProfileViews(profiles) {
+                value: function _createProfileViews(profiles, requestType) {
                   var _this5 = this;
 
-                  // Sort out all the premium users to be at the beginning
+                  console.log(requestType); // Sort out all the premium and online users to be at the beginning
+
                   profiles.sort(function (user1, user2) {
                     return user1.premium.status
                       ? user1.online.status
@@ -5176,17 +5177,21 @@
                       ? 1
                       : 0;
                   });
-                  $('html, body').animate(
-                    {
-                      scrollTop:
-                        this.$resultsContainer.offset().top -
-                        2 *
-                          _helper_js__WEBPACK_IMPORTED_MODULE_8__[
-                            'default'
-                          ].getHeaderHeight(),
-                    },
-                    1100
-                  );
+
+                  if (requestType === 'search') {
+                    $('html, body').animate(
+                      {
+                        scrollTop:
+                          this.$resultsContainer.offset().top -
+                          2 *
+                            _helper_js__WEBPACK_IMPORTED_MODULE_8__[
+                              'default'
+                            ].getHeaderHeight(),
+                      },
+                      1100
+                    );
+                  } // Display profile views
+
                   profiles.forEach(function (profile) {
                     _this5
                       ._createProfileView(profile)

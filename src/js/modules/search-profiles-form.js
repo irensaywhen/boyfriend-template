@@ -68,10 +68,9 @@ export default class SearchProfilesForm extends Form {
       this.$formLoadingIndicator.fadeOut(200);
     });
 
+    // Preload profiles
     $(document).ready(() => {
       this._getProfiles('initial');
-      // Make request to retrieve initial profiles here
-      // And show preloaded profiles before anything from the form is retrieved
     });
   }
 
@@ -97,7 +96,7 @@ export default class SearchProfilesForm extends Form {
           // Cache
           let profiles = response.profiles;
           // Preview retrieved profiles
-          this._createProfileViews(profiles);
+          this._createProfileViews(profiles, requestType);
 
           this.$form.trigger('searchForm:afterSuccessfulRequest', response);
         } else {
@@ -113,8 +112,9 @@ export default class SearchProfilesForm extends Form {
       });
   }
 
-  _createProfileViews(profiles) {
-    // Sort out all the premium users to be at the beginning
+  _createProfileViews(profiles, requestType) {
+    console.log(requestType);
+    // Sort out all the premium and online users to be at the beginning
     profiles.sort((user1, user2) => {
       return user1.premium.status
         ? user1.online.status
@@ -138,13 +138,18 @@ export default class SearchProfilesForm extends Form {
         ? 1
         : 0;
     });
-    $('html, body').animate(
-      {
-        scrollTop:
-          this.$resultsContainer.offset().top - 2 * helper.getHeaderHeight(),
-      },
-      1100
-    );
+
+    if (requestType === 'search') {
+      $('html, body').animate(
+        {
+          scrollTop:
+            this.$resultsContainer.offset().top - 2 * helper.getHeaderHeight(),
+        },
+        1100
+      );
+    }
+
+    // Display profile views
     profiles.forEach(profile => {
       this._createProfileView(profile).appendTo(this.$resultsContainer);
     });
