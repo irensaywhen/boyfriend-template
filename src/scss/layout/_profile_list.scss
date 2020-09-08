@@ -13,16 +13,20 @@
   .column {
     max-width: 270px;
 
-    @include screen-sm {
-      max-width: 285px
+    @include screen-sm{
+      width: 245px;
     }
 
     @include screen-md {
-      max-width: 250px
+      width: 233px;
     }
 
     @include screen-lg {
-      max-width: 218px
+      width: 227.5px;
+    }
+
+    @include screen-xl {
+      width: 182px;
     }
 
 
