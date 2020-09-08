@@ -63,9 +63,7 @@
             <div
               class="col-md-7 col-12 d-flex align-items-center justify-content-center justify-content-xs-between justify-content-md-end"
             >
-              <a href="#" class="mx-3 btn btn-lg btn-default">
-                Zarejestruj
-              </a>
+              <a href="#" class="mx-3 btn btn-lg btn-default"> Zarejestruj </a>
               <a href="#" class="btn btn-lg btn-outline-white mx-3">
                 Zaloguj
               </a>
@@ -318,18 +316,18 @@
 
     <!-- page level script -->
     <script>
-      $(window).on("load", function () {
+      $(window).on('load', function () {
         /* swiper slider carousel */
-        var swiper = new Swiper(".small-slide", {
-          slidesPerView: "auto",
+        var swiper = new Swiper('.small-slide', {
+          slidesPerView: 'auto',
           spaceBetween: 0,
         });
 
-        var swiper = new Swiper(".news-slide", {
+        var swiper = new Swiper('.news-slide', {
           slidesPerView: 5,
           spaceBetween: 0,
           pagination: {
-            el: ".swiper-pagination",
+            el: '.swiper-pagination',
           },
           breakpoints: {
             1024: {
@@ -357,13 +355,13 @@
 
         /* notification view and hide */
         setTimeout(function () {
-          $(".notification").addClass("active");
+          $('.notification').addClass('active');
           setTimeout(function () {
-            $(".notification").removeClass("active");
+            $('.notification').removeClass('active');
           }, 3500);
         }, 500);
-        $(".closenotification").on("click", function () {
-          $(this).closest(".notification").removeClass("active");
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
       });
     </script>

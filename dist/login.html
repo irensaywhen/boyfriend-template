@@ -159,9 +159,7 @@
 
             <!--Password recovery section start-->
             <div class="col-12 align-self-center px-3 text-center form-wrapper">
-              <h2 class="text-white font-weight-light">
-                Password Recovery
-              </h2>
+              <h2 class="text-white font-weight-light">Password Recovery</h2>
               <form
                 class="form-signin shadow"
                 id="form-forgot-password"
@@ -199,9 +197,7 @@
                 <div
                   class="backward pointer blue-link text-white d-inline-flex align-items-center"
                 >
-                  <i class="material-icons">
-                    arrow_back
-                  </i>
+                  <i class="material-icons"> arrow_back </i>
                   back
                 </div>
               </div>
@@ -274,33 +270,33 @@
 
     <!-- page level script -->
     <script>
-      $(window).on("load", function () {
+      $(window).on('load', function () {
         /* notification view and hide */
         setTimeout(function () {
-          $(".notification").addClass("active");
+          $('.notification').addClass('active');
           setTimeout(function () {
-            $(".notification").removeClass("active");
+            $('.notification').removeClass('active');
           }, 3500);
         }, 500);
-        $(".closenotification").on("click", function () {
-          $(this).closest(".notification").removeClass("active");
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
 
         /* login form functionality start */
         const signinFOrm = new Form({
           selectors: {
-            form: "#form-signin",
-            "input-wrapper": ".form-group",
-            inputs: ".signin-input",
+            form: '#form-signin',
+            'input-wrapper': '.form-group',
+            inputs: '.signin-input',
           },
           requests: {
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail',
             },
           },
           location: false,
@@ -309,7 +305,7 @@
           frontendValidation: true,
           redirectOnSubmit: true,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
               email: {
                 required: true,
@@ -327,18 +323,18 @@
         /* Password recovery form */
         const passwordRecoveryForm = new Form({
           selectors: {
-            form: "#form-forgot-password",
-            "input-wrapper": ".form-group",
-            inputs: ".form-control",
+            form: '#form-forgot-password',
+            'input-wrapper': '.form-group',
+            inputs: '.form-control',
           },
           requests: {
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin',
             },
           },
           location: false,
@@ -347,7 +343,7 @@
           frontendValidation: true,
           redirectOnSubmit: false,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
               email: {
                 required: true,
@@ -360,11 +356,11 @@
         /* forms chainer initialization */
         const chainedForms = new ChainedForms({
           selectors: {
-            formsContainer: "#forms-container",
-            forward: ".forward",
-            backward: ".backward",
-            forms: ".form-signin",
-            wrapper: ".form-wrapper",
+            formsContainer: '#forms-container',
+            forward: '.forward',
+            backward: '.backward',
+            forms: '.form-signin',
+            wrapper: '.form-wrapper',
           },
         });
       });

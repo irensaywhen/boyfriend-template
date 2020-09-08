@@ -170,7 +170,7 @@
                       x="0px"
                       y="0px"
                       viewBox="0 0 500 500"
-                      style="enable-background: new 0 0 500 500;"
+                      style="enable-background: new 0 0 500 500"
                     >
                       <path
                         id="XMLID_28_"
@@ -256,23 +256,21 @@
         </div>
       </div>
       <!-- header ends -->
-      
+
       <!--Ad at the top start-->
       <div class="container-fluid">
-         <div class="row">
+        <div class="row">
           <div class="col-12 mt-4">
             <div
               class="content custom-content d-sm-flex justify-content-between justify-content-md-around justify-content-lg-evenly align-items-center text-center text-sm-left py-4 px-3"
-              style="background: #ffc400; color: #fff;"
+              style="background: #ffc400; color: #fff"
               data-type="custom"
             >
               <div class="description">
-                <h2 class="text-uppercase mb-3 p-0">
-                  20% OFF Season Sale
-                </h2>
+                <h2 class="text-uppercase mb-3 p-0">20% OFF Season Sale</h2>
                 <p class="mb-3">
                   Use Coupan Code
-                  <span style="color: #000;">DFR0020</span>
+                  <span style="color: #000">DFR0020</span>
                 </p>
                 <p>Get the all new fresh bananas at very low price</p>
               </div>
@@ -309,8 +307,7 @@
                               class="form-control search-field age-select"
                               name="age-from"
                               id="age-from"
-                            >
-                            </select>
+                            ></select>
                           </div>
                         </div>
                         <div class="col-6">
@@ -320,8 +317,7 @@
                               class="form-control search-field age-select"
                               name="age-to"
                               id="age-to"
-                            >
-                            </select>
+                            ></select>
                           </div>
                         </div>
                       </div>
@@ -410,9 +406,7 @@
 
                     <!--Distance input start-->
                     <div class="form-group">
-                      <label class="form-control-lable">
-                        Distance
-                      </label>
+                      <label class="form-control-lable"> Distance </label>
                       <br />
                       <div id="rangeslider" class="mt-2"></div>
                     </div>
@@ -483,7 +477,10 @@
 
       <!--Profiles preview container start-->
       <div class="container-fluid profile-list">
-        <div id="profiles-container" class="row profiles-row justify-content-center">
+        <div
+          id="profiles-container"
+          class="row profiles-row justify-content-center"
+        >
           <!--Online and premium user-->
           <div
             class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 search-result"
@@ -685,16 +682,14 @@
           <div class="col-12 mt-4 mb-5">
             <div
               class="content custom-content d-sm-flex justify-content-between justify-content-md-around justify-content-lg-evenly align-items-center text-center text-sm-left py-4 px-3"
-              style="background: #ffc400; color: #fff;"
+              style="background: #ffc400; color: #fff"
               data-type="custom"
             >
               <div class="description">
-                <h2 class="text-uppercase mb-3 p-0">
-                  20% OFF Season Sale
-                </h2>
+                <h2 class="text-uppercase mb-3 p-0">20% OFF Season Sale</h2>
                 <p class="mb-3">
                   Use Coupan Code
-                  <span style="color: #000;">DFR0020</span>
+                  <span style="color: #000">DFR0020</span>
                 </p>
                 <p>Get the all new fresh bananas at very low price</p>
               </div>
@@ -792,20 +787,20 @@
     <script src="js/main-authorized.bundle.js"></script>
 
     <script>
-      $(window).on("load", function () {
+      $(window).on('load', function () {
         /* notification view and hide */
         setTimeout(function () {
-          $(".notification").addClass("active");
+          $('.notification').addClass('active');
           setTimeout(function () {
-            $(".notification").removeClass("active");
+            $('.notification').removeClass('active');
           }, 3500);
         }, 500);
-        $(".closenotification").on("click", function () {
-          $(this).closest(".notification").removeClass("active");
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
 
         /* range picker for filter */
-        var html5Slider = document.getElementById("rangeslider");
+        var html5Slider = document.getElementById('rangeslider');
         noUiSlider.create(html5Slider, {
           start: [0, 100],
           connect: true,
@@ -815,10 +810,10 @@
           },
         });
 
-        var inputNumber = document.getElementById("input-number");
-        var select = document.getElementById("input-select");
+        var inputNumber = document.getElementById('input-number');
+        var select = document.getElementById('input-select');
 
-        html5Slider.noUiSlider.on("update", function (values, handle) {
+        html5Slider.noUiSlider.on('update', function (values, handle) {
           var value = values[handle];
 
           if (handle) {
@@ -828,49 +823,49 @@
           }
         });
 
-        select.addEventListener("change", function () {
+        select.addEventListener('change', function () {
           html5Slider.noUiSlider.set([this.value, null]);
         });
-        inputNumber.addEventListener("change", function () {
+        inputNumber.addEventListener('change', function () {
           html5Slider.noUiSlider.set([null, this.value]);
         });
 
         /* Boost initialization */
         const boost = new Boost({
           selectors: {
-            bonus: ".boost",
+            bonus: '.boost',
             timer: {
-              element: ".timer",
-              hours: ".hours",
-              minutes: ".minutes",
-              seconds: ".seconds",
+              element: '.timer',
+              hours: '.hours',
+              minutes: '.minutes',
+              seconds: '.seconds',
             },
           },
           requests: {
             use: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus',
             },
           },
           popupData: {
-            title: "Do you want to use boost?",
-            confirmButtonText: "Yes!",
-            cancelButtonText: "No",
-            imageUrl: "img/boost.svg",
-            imageAlt: "Boost icon",
+            title: 'Do you want to use boost?',
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No',
+            imageUrl: 'img/boost.svg',
+            imageAlt: 'Boost icon',
           },
         });
 
         /* Advertisement initialization */
         const ad = new Ad({
           selectors: {
-            container: "#content-container",
-            profilesContainer: "#profiles-container",
-            genericClass: ".content",
+            container: '#content-container',
+            profilesContainer: '#profiles-container',
+            genericClass: '.content',
           },
           placementConfig: {
             xs: 2,
@@ -880,23 +875,23 @@
             xl: 6,
           },
           elementInsertAfter: {
-            element: "div",
-            class: "search-result",
+            element: 'div',
+            class: 'search-result',
           },
         });
 
         /*Pagination initialization*/
         const pagination = new Pagination({
           pluginOptions: {
-            containerID: "profiles-container",
+            containerID: 'profiles-container',
             minHeight: false,
             perPage: 10,
-            previous: "«",
-            next: "»",
+            previous: '«',
+            next: '»',
           },
           selectors: {
-            container: "#profiles-container",
-            pagination: "#pagination-container",
+            container: '#profiles-container',
+            pagination: '#pagination-container',
           },
           perPageConfig: {
             xs: 5,
@@ -910,43 +905,42 @@
         /* Form initialization */
         const searchProfilesForm = new SearchProfilesForm({
           selectors: {
-            form: "#profile-search",
-            locationInput: ".location",
-            "input-wrapper": ".form-group",
-            inputs: ".search-field",
-            "location-dropdown": ".location-dropdown",
-            "dropdown-toggle": ".dropdown-toggle",
-            "dropdown-menu": ".dropdown-menu",
-            age: ".age-select",
-            locationLoadingIndicator: ".city-loader",
-            formLoadingIndicator: "#loader",
-            resultsContainer: "#profiles-container",
+            form: '#profile-search',
+            locationInput: '.location',
+            'input-wrapper': '.form-group',
+            inputs: '.search-field',
+            'location-dropdown': '.location-dropdown',
+            'dropdown-toggle': '.dropdown-toggle',
+            'dropdown-menu': '.dropdown-menu',
+            age: '.age-select',
+            locationLoadingIndicator: '.city-loader',
+            formLoadingIndicator: '#loader',
+            resultsContainer: '#profiles-container',
           },
           requests: {
             profiles: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-custom",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-custom',
             },
             preload: {
               method: 'GET',
-              headers: {
-
-              },
-              endpoint: "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-preload"
+              headers: {},
+              endpoint:
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-preload',
             },
             location: {
-              method: "GET",
+              method: 'GET',
               headers: {},
-              endpoint: "https://nominatim.openstreetmap.org/search",
+              endpoint: 'https://nominatim.openstreetmap.org/search',
               searchParams: {
-                format: "json",
-                addressdetails: "1",
-                countrycodes: "pl",
-                "accept-language": "pl,en",
+                format: 'json',
+                addressdetails: '1',
+                countrycodes: 'pl',
+                'accept-language': 'pl,en',
               },
             },
           },
@@ -960,7 +954,7 @@
           showFailPopup: false,
           frontendValidation: true,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
               city: {
                 location: true,

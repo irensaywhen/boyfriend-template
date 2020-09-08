@@ -93,9 +93,7 @@
 
     <!--Articles section start-->
     <section class="vh-100 bg-white">
-      <h2 class="w-100 text-center py-5">
-        The latest articles
-      </h2>
+      <h2 class="w-100 text-center py-5">The latest articles</h2>
       <!-- Swiper -->
       <div class="swiper-container news-slide">
         <div class="swiper-wrapper">
@@ -110,12 +108,8 @@
                 >
                   <i class="material-icons md-18">arrow_forward</i>
                 </a>
-                <h3 class="mb-0">
-                  Article title
-                </h3>
-                <time class="small mb-1">
-                  22/10/2019
-                </time>
+                <h3 class="mb-0">Article title</h3>
+                <time class="small mb-1"> 22/10/2019 </time>
                 <p class="text-mute small">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Maxime veritatis quisquam quis iste unde quaerat eaque culpa!
@@ -138,12 +132,8 @@
                 >
                   <i class="material-icons md-18">arrow_forward</i>
                 </a>
-                <h3 class="mb-0">
-                  Article title
-                </h3>
-                <time class="small mb-1">
-                  22/10/2019
-                </time>
+                <h3 class="mb-0">Article title</h3>
+                <time class="small mb-1"> 22/10/2019 </time>
                 <p class="text-mute small">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Maxime veritatis quisquam quis iste unde quaerat eaque culpa!
@@ -166,12 +156,8 @@
                 >
                   <i class="material-icons md-18">arrow_forward</i>
                 </a>
-                <h3 class="mb-0">
-                  Article title
-                </h3>
-                <time class="small mb-1">
-                  22/10/2019
-                </time>
+                <h3 class="mb-0">Article title</h3>
+                <time class="small mb-1"> 22/10/2019 </time>
                 <p class="text-mute small">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Maxime veritatis quisquam quis iste unde quaerat eaque culpa!
@@ -194,12 +180,8 @@
                 >
                   <i class="material-icons md-18">arrow_forward</i>
                 </a>
-                <h3 class="mb-0">
-                  Article title
-                </h3>
-                <time class="small mb-1">
-                  22/10/2019
-                </time>
+                <h3 class="mb-0">Article title</h3>
+                <time class="small mb-1"> 22/10/2019 </time>
                 <p class="text-mute small">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Maxime veritatis quisquam quis iste unde quaerat eaque culpa!
@@ -222,12 +204,8 @@
                 >
                   <i class="material-icons md-18">arrow_forward</i>
                 </a>
-                <h3 class="mb-0">
-                  Article title
-                </h3>
-                <time class="small mb-1">
-                  22/10/2019
-                </time>
+                <h3 class="mb-0">Article title</h3>
+                <time class="small mb-1"> 22/10/2019 </time>
                 <p class="text-mute small">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Maxime veritatis quisquam quis iste unde quaerat eaque culpa!
@@ -250,12 +228,8 @@
                 >
                   <i class="material-icons md-18">arrow_forward</i>
                 </a>
-                <h3 class="mb-0">
-                  Article title
-                </h3>
-                <time class="small mb-1">
-                  22/10/2019
-                </time>
+                <h3 class="mb-0">Article title</h3>
+                <time class="small mb-1"> 22/10/2019 </time>
                 <p class="text-mute small">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Maxime veritatis quisquam quis iste unde quaerat eaque culpa!
@@ -340,18 +314,18 @@
 
     <!-- page level script -->
     <script>
-      $(window).on("load", function () {
+      $(window).on('load', function () {
         /* swiper slider carousel */
-        var swiper = new Swiper(".small-slide", {
-          slidesPerView: "auto",
+        var swiper = new Swiper('.small-slide', {
+          slidesPerView: 'auto',
           spaceBetween: 0,
         });
 
-        var swiper = new Swiper(".news-slide", {
+        var swiper = new Swiper('.news-slide', {
           slidesPerView: 5,
           spaceBetween: 0,
           pagination: {
-            el: ".swiper-pagination",
+            el: '.swiper-pagination',
           },
           breakpoints: {
             1024: {
@@ -379,13 +353,13 @@
 
         /* notification view and hide */
         setTimeout(function () {
-          $(".notification").addClass("active");
+          $('.notification').addClass('active');
           setTimeout(function () {
-            $(".notification").removeClass("active");
+            $('.notification').removeClass('active');
           }, 3500);
         }, 500);
-        $(".closenotification").on("click", function () {
-          $(this).closest(".notification").removeClass("active");
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
       });
     </script>

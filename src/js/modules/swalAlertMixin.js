@@ -35,7 +35,7 @@ export default {
    */
   askUsageApprovement({
     title,
-    text = "",
+    text = '',
     confirmButtonText,
     cancelButtonText,
     imageUrl,
@@ -48,17 +48,17 @@ export default {
       cancelButtonText,
       confirmButtonText,
       showCancelButton: true,
-      confirmButtonColor: "#ff0068",
-      cancelButtonColor: "#bbb",
+      confirmButtonColor: '#ff0068',
+      cancelButtonColor: '#bbb',
       imageUrl,
       imageAlt,
-      imageWidth: "150px",
-      imageHeight: "150px",
+      imageWidth: '150px',
+      imageHeight: '150px',
       showLoaderOnConfirm: true,
       // Request telling the server thas user wants to use the bonus
       preConfirm: () => this.requestBonusUsage(request),
       allowOutsideClick: () => !Swal.isLoading(),
-    }).then((result) => {
+    }).then(result => {
       if (result.value) {
         // If the server answered
         let json = result.value;
@@ -69,7 +69,7 @@ export default {
           this.showRequestResult({
             title: json.title,
             text: json.message,
-            icon: "success",
+            icon: 'success',
           });
         } else {
           // If the server restricted bonus usage
@@ -77,12 +77,12 @@ export default {
           this.showRequestResult({
             title: json.title,
             text: json.message,
-            icon: "error",
+            icon: 'error',
           });
         }
 
         // Maybe change to switch statement when other bonuses will be added
-        if (this.type === "boost") {
+        if (this.type === 'boost') {
           return {
             approved: json.success,
             title: json.title,

@@ -72,9 +72,7 @@
           <form action="" id="avatar-editor">
             <!--Modal header start-->
             <div class="modal-header">
-              <h3 class="title">
-                Upload your avatar:
-              </h3>
+              <h3 class="title">Upload your avatar:</h3>
               <button
                 type="button"
                 class="close"
@@ -138,17 +136,13 @@
                     accept="image/*"
                     capture
                   />
-                  <p class="d-inline-block pl-3">
-                    Make photo from your camera
-                  </p>
+                  <p class="d-inline-block pl-3">Make photo from your camera</p>
                 </li>
               </ul>
 
               <!--Avatar requirements-->
               <div class="avatar-requirements border-top">
-                <h4 class="section-title pt-3">
-                  Avatar requirements
-                </h4>
+                <h4 class="section-title pt-3">Avatar requirements</h4>
                 <ul class="pl-1">
                   <li>Rozmiar: 500x500px</li>
                   <li>Dostępne rozszerzenia</li>
@@ -189,9 +183,7 @@
           <form action="fill-profile.html" id="photo-uploader">
             <!--Modal header start-->
             <div class="modal-header">
-              <h3 class="title">
-                Upload your photos:
-              </h3>
+              <h3 class="title">Upload your photos:</h3>
               <button
                 type="button"
                 class="close"
@@ -248,17 +240,13 @@
                     capture
                     multiple
                   />
-                  <p class="d-inline-block pl-3">
-                    Make photo from your camera
-                  </p>
+                  <p class="d-inline-block pl-3">Make photo from your camera</p>
                 </li>
               </ul>
 
               <!--Photo requirements-->
               <div class="avatar-requirements border-top">
-                <h4 class="section-title pt-3">
-                  Photo requirements
-                </h4>
+                <h4 class="section-title pt-3">Photo requirements</h4>
                 <ul class="pl-1">
                   <li>Rozmiar: 500x500px</li>
                   <li>Dostępne rozszerzenia</li>
@@ -298,9 +286,7 @@
         <div class="modal-content">
           <!--Modal header start-->
           <div class="modal-header">
-            <h3 class="title">
-              Edit your photo information:
-            </h3>
+            <h3 class="title">Edit your photo information:</h3>
             <button
               type="button"
               class="close"
@@ -341,9 +327,7 @@
                   </button>
                 </figure>
                 <label for="photo-description">Add photo description</label>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                </p>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
                 <div class="form-group">
                   <textarea
                     class="form-control"
@@ -486,7 +470,7 @@
                       x="0px"
                       y="0px"
                       viewBox="0 0 500 500"
-                      style="enable-background: new 0 0 500 500;"
+                      style="enable-background: new 0 0 500 500"
                     >
                       <path
                         id="XMLID_28_"
@@ -649,9 +633,7 @@
                     <h2 class="tab-title pt-4 pb-2">
                       In quae ab nesciunt velit veniam.
                     </h2>
-                    <p class="tab-description pb-2">
-                      Lorem ipsum dolor.
-                    </p>
+                    <p class="tab-description pb-2">Lorem ipsum dolor.</p>
                   </div>
                 </div>
                 <div class="row">
@@ -808,9 +790,7 @@
                     </div>
                     <!--Date-->
                     <div class="col-12 col-md-6 date">
-                      <h4 class="section-subtitle">
-                        Date of birth
-                      </h4>
+                      <h4 class="section-subtitle">Date of birth</h4>
                       <div class="container">
                         <div class="row">
                           <div class="col-4 pl-0">
@@ -861,9 +841,9 @@
                           id="preference"
                           name="preference"
                         >
-                          <option value="" disabled selected hidden
-                            >Choose you preference</option
-                          >
+                          <option value="" disabled selected hidden>
+                            Choose you preference
+                          </option>
                           <option value="active">Active</option>
                           <option value="passive">Passive</option>
                           <option value="both">Both</option>
@@ -1104,9 +1084,7 @@
                 <div class="row"></div>
                 <div class="row">
                   <div class="col-12 col-md-5">
-                    <h3 class="section-title text-dark pt-3">
-                      Premium Status
-                    </h3>
+                    <h3 class="section-title text-dark pt-3">Premium Status</h3>
 
                     <!--Activated premium status-->
                     <div
@@ -1134,9 +1112,7 @@
                     </div>
                   </div>
                   <div class="col-12 col-md-7">
-                    <h3 class="section-title text-dark pt-3">
-                      Extras
-                    </h3>
+                    <h3 class="section-title text-dark pt-3">Extras</h3>
                     <div class="d-flex flex-wrap py-2">
                       <div class="extra">
                         <img src="img/boost.svg" alt="boost" />
@@ -1302,9 +1278,9 @@
 
     <!-- page level script -->
     <script>
-      $(window).on("load", function () {
+      $(window).on('load', function () {
         // Swiper initialization
-        const swiper = new Swiper(".swiper-container", {
+        const swiper = new Swiper('.swiper-container', {
           slidesPerView: 2,
           observer: true,
           spaceBetween: 5,
@@ -1312,24 +1288,24 @@
             enabled: true,
           },
           pagination: {
-            el: ".swiper-pagination",
+            el: '.swiper-pagination',
             clickable: true,
           },
           navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
           },
         });
 
         /* notification view and hide */
         setTimeout(function () {
-          $(".notification").addClass("active");
+          $('.notification').addClass('active');
           setTimeout(function () {
-            $(".notification").removeClass("active");
+            $('.notification').removeClass('active');
           }, 3500);
         }, 500);
-        $(".closenotification").on("click", function () {
-          $(this).closest(".notification").removeClass("active");
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
 
         // In caching elements we'll need to check whether
@@ -1338,32 +1314,32 @@
         // Profile Information Form start
         const profileInformationForm = new Form({
           selectors: {
-            form: "#profile-information",
-            locationInput: ".location",
-            "input-wrapper": ".form-group",
-            inputs: ".form-control",
-            "location-dropdown": ".location-dropdown",
-            "dropdown-toggle": ".dropdown-toggle",
-            "dropdown-menu": ".dropdown-menu",
+            form: '#profile-information',
+            locationInput: '.location',
+            'input-wrapper': '.form-group',
+            inputs: '.form-control',
+            'location-dropdown': '.location-dropdown',
+            'dropdown-toggle': '.dropdown-toggle',
+            'dropdown-menu': '.dropdown-menu',
           },
           requests: {
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/submit-profile",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/submit-profile',
             },
             location: {
-              method: "GET",
+              method: 'GET',
               headers: {},
-              endpoint: "https://nominatim.openstreetmap.org/search",
+              endpoint: 'https://nominatim.openstreetmap.org/search',
               searchParams: {
-                format: "json",
-                addressdetails: "1",
-                countrycodes: "pl",
-                "accept-language": "pl,en",
+                format: 'json',
+                addressdetails: '1',
+                countrycodes: 'pl',
+                'accept-language': 'pl,en',
               },
             },
           },
@@ -1372,9 +1348,9 @@
           showFailPopup: true,
           frontendValidation: true,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
-              name: "required",
+              name: 'required',
               city: {
                 required: true,
                 location: true,
@@ -1389,9 +1365,9 @@
                 min: 1,
                 max: 12,
               },
-              year: "required",
-              preference: "required",
-              about: "required",
+              year: 'required',
+              preference: 'required',
+              about: 'required',
             },
           },
         });
@@ -1400,18 +1376,18 @@
         // Profile Notifications Form start
         const profileNotificationsForm = new Form({
           selectors: {
-            form: "#notifications",
-            "input-wrapper": ".custom-control.custom-switch",
-            inputs: ".custom-control-input",
+            form: '#notifications',
+            'input-wrapper': '.custom-control.custom-switch',
+            inputs: '.custom-control-input',
           },
           requests: {
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin',
             },
           },
           location: false,
@@ -1424,18 +1400,18 @@
         // Change password form start
         const profileChangePasswordForm = new Form({
           selectors: {
-            form: "#change-password",
-            "input-wrapper": ".form-group",
-            inputs: ".form-control",
+            form: '#change-password',
+            'input-wrapper': '.form-group',
+            inputs: '.form-control',
           },
           requests: {
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/change-password",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/change-password',
             },
           },
           location: false,
@@ -1444,15 +1420,15 @@
           frontendValidation: true,
           cleanFields: true,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
-              "new-password": {
+              'new-password': {
                 required: true,
                 minlength: 4,
               },
-              "repeat-password": {
+              'repeat-password': {
                 required: true,
-                equalTo: "#new-password",
+                equalTo: '#new-password',
               },
             },
           },
@@ -1462,30 +1438,30 @@
         // Boosts initialization start
         const boost = new Boost({
           selectors: {
-            bonus: ".boost",
+            bonus: '.boost',
             timer: {
-              element: ".timer",
-              hours: ".hours",
-              minutes: ".minutes",
-              seconds: ".seconds",
+              element: '.timer',
+              hours: '.hours',
+              minutes: '.minutes',
+              seconds: '.seconds',
             },
           },
           requests: {
             use: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus',
             },
           },
           popupData: {
-            title: "Do you want to use boost?",
-            confirmButtonText: "Yes!",
-            cancelButtonText: "No",
-            imageUrl: "img/boost.svg",
-            imageAlt: "Boost icon",
+            title: 'Do you want to use boost?',
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No',
+            imageUrl: 'img/boost.svg',
+            imageAlt: 'Boost icon',
           },
         });
         // Boosts initialization end
@@ -1493,21 +1469,21 @@
         // Avatar start
         const avatar = new Avatar({
           selectors: {
-            elementSelector: ".avatar-image",
-            modal: "#upload-avatar",
-            "modal-footer": ".modal-footer",
-            input: ".avatar-input",
-            preview: "#avatar-preview",
-            form: "#avatar-editor",
+            elementSelector: '.avatar-image',
+            modal: '#upload-avatar',
+            'modal-footer': '.modal-footer',
+            input: '.avatar-input',
+            preview: '#avatar-preview',
+            form: '#avatar-editor',
           },
           requests: {
             saveAvatar: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "multipart/form-data",
+                'Content-Type': 'multipart/form-data',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar',
             },
           },
         });
@@ -1516,27 +1492,27 @@
         // Photo Editor start
         const photoEditor = new PhotoEditor({
           selectors: {
-            modal: "#edit-photo",
-            form: "#photo-editor",
-            deleteButton: ".delete",
-            description: "#photo-description",
-            "privacy-input": ".privacy-input",
-            "privacy-label": ".privacy-label",
-            gallery: "#photos-container",
-            container: ".gallery-slide",
+            modal: '#edit-photo',
+            form: '#photo-editor',
+            deleteButton: '.delete',
+            description: '#photo-description',
+            'privacy-input': '.privacy-input',
+            'privacy-label': '.privacy-label',
+            gallery: '#photos-container',
+            container: '.gallery-slide',
           },
           requests: {
             savePhoto: {
-              method: "POST",
-              headers: { "Content-Type": "application/json;charset=utf-8" },
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json;charset=utf-8' },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-changes",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-changes',
             },
             deletePhoto: {
-              method: "POST",
-              headers: { "Content-Type": "application/json;charset=utf-8" },
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json;charset=utf-8' },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/delete-photo",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/delete-photo',
             },
           },
         });
@@ -1545,31 +1521,31 @@
         // Photo Uploader start
         const photoUploader = new PhotoUploader({
           selectors: {
-            modal: "#add-photos",
-            "modal-footer": ".modal-footer",
-            form: "#photo-uploader",
-            description: ".new-photo-description",
-            input: ".photo-input",
-            "privacy-input": ".privacy-input",
-            container: ".photo-container",
-            previewContainer: "#photos-previews-container",
-            gallery: "#photos-container",
-            photos: ".gallery-photo",
+            modal: '#add-photos',
+            'modal-footer': '.modal-footer',
+            form: '#photo-uploader',
+            description: '.new-photo-description',
+            input: '.photo-input',
+            'privacy-input': '.privacy-input',
+            container: '.photo-container',
+            previewContainer: '#photos-previews-container',
+            gallery: '#photos-container',
+            photos: '.gallery-photo',
           },
           requests: {
             getIds: {
-              method: "GET",
+              method: 'GET',
               headers: {},
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/get-id",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/get-id',
             },
             savePhotos: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "multipart/form-data",
+                'Content-Type': 'multipart/form-data',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-photos",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-photos',
             },
           },
         });

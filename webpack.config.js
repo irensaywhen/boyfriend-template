@@ -1,20 +1,20 @@
-const path = require("path");
-const webpack = require("webpack");
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-  context: path.resolve(__dirname, "src"),
+  context: path.resolve(__dirname, 'src'),
   entry: {
-    "main-authorized": [
+    'main-authorized': [
       //"webpack/hot/dev-server",
       //"webpack-hot-middleware/client",
-      "./js/main-authorized.js",
+      './js/main-authorized.js',
     ],
-    main: ["./js/main.js"],
+    main: ['./js/main.js'],
   },
   output: {
-    path: path.resolve(__dirname, "dist/js"),
-    filename: "[name].bundle.js",
-    publicPath: "/dist",
+    path: path.resolve(__dirname, 'dist/js'),
+    filename: '[name].bundle.js',
+    publicPath: '/dist',
   },
   //plugins: [new webpack.HotModuleReplacementPlugin()],
   module: {
@@ -22,10 +22,10 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: ["babel-loader"],
+        use: ['babel-loader'],
       },
     ],
   },
-  devtool: "source-map",
-  mode: "development",
+  devtool: 'source-map',
+  mode: 'development',
 };

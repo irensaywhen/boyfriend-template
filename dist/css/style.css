@@ -202,7 +202,7 @@ sup {
 
 .search {
   border-radius: 30px;
-  background: url("../img/search.png") no-repeat center right #fff;
+  background: url('../img/search.png') no-repeat center right #fff;
   border-color: #ffffff;
 }
 
@@ -263,7 +263,7 @@ sup {
   border-width: 0;
 }
 
-[class*="outline"] {
+[class*='outline'] {
   border-width: 1px;
 }
 

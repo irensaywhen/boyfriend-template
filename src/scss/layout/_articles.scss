@@ -20,10 +20,10 @@ article {
     display: grid;
     grid-gap: 3px;
     grid-template-areas:
-      "title"
-      "subtitle"
-      "date"
-      "social";
+      'title'
+      'subtitle'
+      'date'
+      'social';
     grid-template-columns: 1fr;
 
     h1 {
@@ -93,9 +93,9 @@ article {
   article {
     .header {
       grid-template-areas:
-        "title social"
-        "subtitle empty"
-        "date empty";
+        'title social'
+        'subtitle empty'
+        'date empty';
       grid-template-columns: 2fr 1fr;
     }
   }
@@ -105,8 +105,8 @@ article {
   article {
     .header {
       grid-template-areas:
-        "title social"
-        "subtitle date";
+        'title social'
+        'subtitle date';
 
       grid-gap: 0;
 

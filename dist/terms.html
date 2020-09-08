@@ -66,9 +66,7 @@
             <div
               class="col-md-7 col-12 d-flex align-items-center justify-content-center justify-content-xs-between justify-content-md-end"
             >
-              <a href="#" class="mx-3 btn btn-lg btn-default">
-                Zarejestruj
-              </a>
+              <a href="#" class="mx-3 btn btn-lg btn-default"> Zarejestruj </a>
               <a href="#" class="btn btn-lg btn-outline-white mx-3">
                 Zaloguj
               </a>
@@ -99,12 +97,8 @@
       <article class="pb-5 pt-3 pt-md-5">
         <div class="bg-light rounded shadow-sm container-md py-4 px-md-5">
           <div class="header bg-light text-center text-sm-left">
-            <h1>
-              Our terms of services
-            </h1>
-            <h2 class="text-secondary font-weight-light">
-              Subtitle
-            </h2>
+            <h1>Our terms of services</h1>
+            <h2 class="text-secondary font-weight-light">Subtitle</h2>
           </div>
           <p class="pb-5">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique
@@ -186,16 +180,16 @@
 
     <!-- page level script -->
     <script>
-      $(window).on("load", function () {
+      $(window).on('load', function () {
         /* notification view and hide */
         setTimeout(function () {
-          $(".notification").addClass("active");
+          $('.notification').addClass('active');
           setTimeout(function () {
-            $(".notification").removeClass("active");
+            $('.notification').removeClass('active');
           }, 3500);
         }, 500);
-        $(".closenotification").on("click", function () {
-          $(this).closest(".notification").removeClass("active");
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
       });
     </script>

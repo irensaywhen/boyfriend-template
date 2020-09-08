@@ -1,5 +1,5 @@
-import Form from "./form.js";
-import helper from "./helper.js";
+import Form from './form.js';
+import helper from './helper.js';
 
 export default class SearchProfilesForm extends Form {
   constructor(options) {
@@ -13,18 +13,18 @@ export default class SearchProfilesForm extends Form {
     this._createNoResultsBadge = this._createNoResultsBadge.bind(this);
     this._getProfiles = this._getProfiles.bind(this);
 
-    this.searchFormOptions = options["searchFormOptions"];
-    this.$resultsContainer = $(this.selectors["resultsContainer"]);
+    this.searchFormOptions = options['searchFormOptions'];
+    this.$resultsContainer = $(this.selectors['resultsContainer']);
 
-    this.slider = options["slider"];
+    this.slider = options['slider'];
 
     this._generateAgeRange();
     this._initializeSlider();
   }
 
   _initializeSlider() {
-    this.slider["noUiSlider"].on("change", () => {
-      this.$inputs.first().trigger("input");
+    this.slider['noUiSlider'].on('change', () => {
+      this.$inputs.first().trigger('input');
     });
   }
 
@@ -32,35 +32,35 @@ export default class SearchProfilesForm extends Form {
     super.cacheElements();
 
     this.$formLoadingIndicator = $(
-      this.selectors["formLoadingIndicator"]
+      this.selectors['formLoadingIndicator']
     ).fadeOut(0);
   }
 
   setUpEventListeners() {
     super.setUpEventListeners();
 
-    this.$form.on("input", (event) => {
+    this.$form.on('input', event => {
       // Listen to input to retrieve profiles
       let target = event.target;
 
-      if (target.name === "city") return;
+      if (target.name === 'city') return;
       // Indicate that the input has finished
-      this.$form.trigger("inputFinished");
+      this.$form.trigger('inputFinished');
     });
 
     // Handle the case when the city has been selected
-    this.$locationInput.on("citySelected", () => {
-      this.$form.trigger("inputFinished");
+    this.$locationInput.on('citySelected', () => {
+      this.$form.trigger('inputFinished');
     });
 
     // Retrieve new profiles when input has been finished
-    this.$form.on("inputFinished", (event) => {
+    this.$form.on('inputFinished', event => {
       // Show loading indicator
       this.$formLoadingIndicator.fadeIn(200);
       // Save inputed information
       this.collectFormInputs();
 
-      this.$form.trigger("searchForm:beforeRequest");
+      this.$form.trigger('searchForm:beforeRequest');
       //let request = this.requests.profiles;
 
       //this.$form.trigger("searchForm:beforeRequest");
@@ -71,7 +71,7 @@ export default class SearchProfilesForm extends Form {
         endpoint: request.endpoint,
         body: JSON.stringify(this.formData),
       })
-        .then((response) => {
+        .then(response => {
           if (!response.success) {
             this._createNoResultsBadge(response);
 
@@ -84,16 +84,16 @@ export default class SearchProfilesForm extends Form {
 
           this._createProfileViews(profiles);
 
-          this.$form.trigger("searchForm:afterSuccessfulRequest", response);
+          this.$form.trigger('searchForm:afterSuccessfulRequest', response);
 
           // Hide loading indicator
           this.$formLoadingIndicator.fadeOut(200);
         })
-        .catch((error) => {
+        .catch(error => {
           this.showRequestResult({
             title: error.name,
             text: error.message,
-            icon: "error",
+            icon: 'error',
           });
         });
     });
@@ -101,11 +101,14 @@ export default class SearchProfilesForm extends Form {
     $(document).ready(() => {
       // Make request to retrieve initial profiles here
       // And show preloaded profiles before anything from the form is retrieved
-    })
+    });
   }
 
-  _getProfiles(requestType){
-    let request = requestType === 'initial' ? this.requests.preload : this.requests.profiles;
+  _getProfiles(requestType) {
+    let request =
+      requestType === 'initial'
+        ? this.requests.preload
+        : this.requests.profiles;
   }
 
   _createProfileViews(profiles) {
@@ -133,14 +136,14 @@ export default class SearchProfilesForm extends Form {
         ? 1
         : 0;
     });
-    $("html, body").animate(
+    $('html, body').animate(
       {
         scrollTop:
           this.$resultsContainer.offset().top - 2 * helper.getHeaderHeight(),
       },
       1100
     );
-    profiles.forEach((profile) => {
+    profiles.forEach(profile => {
       this._createProfileView(profile).appendTo(this.$resultsContainer);
     });
   }
@@ -153,74 +156,74 @@ export default class SearchProfilesForm extends Form {
     let $ageInputs = this.$form.find(this.selectors.age);
 
     for (let i = ageFrom; i <= ageTo; i++) {
-      $("<option></option>").attr("value", i).text(i).appendTo($ageInputs);
+      $('<option></option>').attr('value', i).text(i).appendTo($ageInputs);
     }
   }
 
   _createProfileView(profileParameters) {
     let { premium, online, avatar, profile } = profileParameters;
 
-    let $col = $("<div></div>")
-      .addClass("col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2")
-      .addClass("column mx-auto mx-sm-0 search-result");
+    let $col = $('<div></div>')
+      .addClass('col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2')
+      .addClass('column mx-auto mx-sm-0 search-result');
 
-    let $profileContainer = $("<div></div>").addClass(
-      "card shadow-sm border-0 mb-4"
+    let $profileContainer = $('<div></div>').addClass(
+      'card shadow-sm border-0 mb-4'
     );
 
-    let $cardImage = $("<figure></figure>")
-      .addClass("profile-image card-img-top")
+    let $cardImage = $('<figure></figure>')
+      .addClass('profile-image card-img-top')
       .append(
-        $("<img>")
-          .addClass("card-img-top")
-          .attr("src", avatar.src)
-          .attr("alt", avatar.alt)
+        $('<img>')
+          .addClass('card-img-top')
+          .attr('src', avatar.src)
+          .attr('alt', avatar.alt)
       );
 
     if (premium.status) {
-      $cardImage.addClass("premium").append(
-        $("<span></span>")
-          .addClass("badge badge-primary mb-1")
-          .text(premium.text || "Premium")
+      $cardImage.addClass('premium').append(
+        $('<span></span>')
+          .addClass('badge badge-primary mb-1')
+          .text(premium.text || 'Premium')
       );
     }
 
-    let $cardBody = $("<div></div>").addClass("card-body");
+    let $cardBody = $('<div></div>').addClass('card-body');
 
-    let $userName = $("<h3></h3>")
-      .addClass("mb-0")
+    let $userName = $('<h3></h3>')
+      .addClass('mb-0')
       .append(
-        $("<a></a>")
+        $('<a></a>')
           .addClass(
-            "text-dark mb-1 mt-2 mr-2 h6 d-inline-block text-capitalize"
+            'text-dark mb-1 mt-2 mr-2 h6 d-inline-block text-capitalize'
           )
-          .attr("href", profile.url)
+          .attr('href', profile.url)
           .text(profile.name)
       );
 
     if (online.status) {
-      $userName.addClass("name online").append(
-        $("<span></span>")
-          .addClass("badge badge-success mb-1 small")
-          .text(online.text || "online")
+      $userName.addClass('name online').append(
+        $('<span></span>')
+          .addClass('badge badge-success mb-1 small')
+          .text(online.text || 'online')
       );
     }
 
-    let $city = $("<p>")
-      .addClass("text-secondary small mb-2")
+    let $city = $('<p>')
+      .addClass('text-secondary small mb-2')
       .text(profile.city);
 
     $cardBody.append($userName).append($city);
 
-    let $cardFooter = $("<div></div>")
-      .addClass("card-footer")
+    let $cardFooter = $('<div></div>')
+      .addClass('card-footer')
       .append(
-        $("<div></div>")
-          .addClass("text-center mt-2")
+        $('<div></div>')
+          .addClass('text-center mt-2')
           .append(
-            $("<a></a>")
-              .addClass("btn btn-default")
-              .attr("href", profile.url)
+            $('<a></a>')
+              .addClass('btn btn-default')
+              .attr('href', profile.url)
               .text(profile.buttonText)
           )
       );
@@ -234,18 +237,18 @@ export default class SearchProfilesForm extends Form {
   _createNoResultsBadge(content) {
     let { title, message } = content;
 
-    $("<div></div>")
-      .addClass("col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3")
+    $('<div></div>')
+      .addClass('col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3')
       .append(
-        $("<div></div>")
+        $('<div></div>')
           .addClass(
-            "no-results shadow-sm bg-white rounded text-center px-3 py-5"
+            'no-results shadow-sm bg-white rounded text-center px-3 py-5'
           )
-          .append($("<i></i>").addClass("fas fa-heart-broken"))
-          .append($("<h2></h2>").addClass("title").text(title))
-          .append($("<p></p>").addClass("text-secondary").text(message))
+          .append($('<i></i>').addClass('fas fa-heart-broken'))
+          .append($('<h2></h2>').addClass('title').text(title))
+          .append($('<p></p>').addClass('text-secondary').text(message))
       )
-      .css("opacity", "0")
+      .css('opacity', '0')
       .appendTo(this.$resultsContainer)
       .animate(
         {
@@ -253,7 +256,7 @@ export default class SearchProfilesForm extends Form {
         },
         800
       );
-    $("html, body").animate(
+    $('html, body').animate(
       {
         scrollTop:
           this.$resultsContainer.offset().top - helper.getHeaderHeight(),

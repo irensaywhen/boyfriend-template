@@ -1,7 +1,7 @@
 export default {
   creditCardNumberValidation(value) {
     // remove all non digit characters
-    value = value.replace(/\D/g, "");
+    value = value.replace(/\D/g, '');
     let sum = 0;
     let shouldDouble = false;
     // loop through values starting at the rightmost side
@@ -58,11 +58,11 @@ export default {
         return false;
     }
 
-    console.log("currentYear === year:");
+    console.log('currentYear === year:');
     console.log(currentYear === year);
-    console.log("currentMonth < month");
+    console.log('currentMonth < month');
     console.log(currentMonth < month);
-    console.log("currentYear > year");
+    console.log('currentYear > year');
     console.log(currentYear > year);
 
     return currentYear === year
