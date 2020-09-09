@@ -1,5 +1,6 @@
 import EditorModal from './modal.js';
 import fileReaderMixin from './fileReaderMixin';
+import photoUploadMixin from './photoUploadMixin';
 
 export default class Avatar extends EditorModal {
   /**
@@ -24,10 +25,10 @@ export default class Avatar extends EditorModal {
     this._setUpEventListeners();
 
     // Prepare avatar for using FileReader to load and preview photos
-    Object.assign(Avatar.prototype, fileReaderMixin);
-    // Initialization of the fileReader for avatar
-    this.initializeFileReader({ form: this.$form, modal: this.$modal });
-
+    Object.assign(Avatar.prototype, photoUploadMixin);
+    // Initialization of the photo upload for avatar
+    this.initializePhotoUpload({ form: this.$form, modal: this.$modal });
+    // Loading indicator initialization
     this.initializeLoadingIndicators(this.$form);
   }
 

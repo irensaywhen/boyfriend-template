@@ -1,82 +1,16 @@
 import Handlebars from 'handlebars';
 
 export default {
-  initializeFileReader({ form, modal }) {
+  initializeFileReader() {
     // Bind context
     _setReaderEventListeners = _setReaderEventListeners.bind(this);
     _readFile = _readFile.bind(this);
     _loadfromInput = _loadfromInput.bind(this);
-    _showProgress = _showProgress.bind(this);
-    _prepareTemplate = _prepareTemplate.bind(this);
-    _insertProgressBar = _insertProgressBar.bind(this);
-    _cacheElements = _cacheElements.bind(this);
-    _setUpEventLiseners = _setUpEventLiseners.bind(this);
-
-    // Save passed arguments
-    [$form, $modal] = [form, modal];
-
-    // Preparations to read file
-    _cacheElements();
-    _setUpEventLiseners();
   },
+  _loadfromInput,
 };
 
-/** Private variables */
-let selectors,
-  fileRead,
-  classes,
-  $modal,
-  $form,
-  $submitButton,
-  progressTemplate,
-  $progressContainer,
-  $progressBar;
-
 /** Private functions */
-
-/**
- * Function to cache elements required for FileReader to work
- */
-function _cacheElements() {
-  selectors = this.selectors;
-  fileRead = selectors.fileRead;
-  classes = this.classes;
-
-  // Progress indicator
-  $progressContainer = $modal.find(fileRead.progress);
-  // Template
-  progressTemplate = document.getElementById(fileRead.templateId);
-  // Submit button
-  $submitButton = $form.find(fileRead.submitButton);
-}
-
-/**
- * Function to set initial event listeners to handle photo upload
- * and discard changes functionality
- */
-function _setUpEventLiseners() {
-  $form.on('change', event => {
-    let target = event.target;
-
-    // Stop execution if the target is not for photo upload
-    if (!target.classList.contains(classes.input)) return;
-    // Disable submit button
-    $submitButton.attr('disabled', true);
-    // Load files for preview
-    _loadfromInput(target);
-  });
-
-  // Hide loading indicator after transition
-  $modal.on('transitionend', event => {
-    let $target = $(event.target);
-
-    if (!$target.hasClass('loadend')) return;
-    // Remove progress indicator
-    $target.closest(fileRead.fileProgressWrapper).remove();
-    // Enable button
-    $submitButton.attr('disabled', false);
-  });
-}
 
 /**
  * The function to load files from input.
@@ -93,7 +27,7 @@ function _loadfromInput(input) {
     //Save file to upload it in the future
     this._saveFile(file);
     // Insert progress bar
-    let $progressBar = _insertProgressBar({ fileName: file.name });
+    let $progressBar = this._insertProgressBar({ fileName: file.name });
     // Read file and connect it with progress bar
     _readFile({ file, $progressBar });
   }
@@ -117,49 +51,6 @@ function _readFile({ file, $progressBar }) {
 }
 
 /**
- * Function copying template
- * and compiling it with provided filename
- * @param {String} fileName - name of the file being loaded
- */
-function _prepareTemplate(fileName) {
-  // Get template content
-  let progress = progressTemplate.innerHTML;
-
-  // Compile template with provided filename
-  progress = Handlebars.compile(progress);
-  progress = progress({ name: fileName });
-
-  return progress;
-}
-
-/**
- * Function inserting progress bar
- * @param {String} fileName - name of the file being loaded
- */
-function _insertProgressBar({ fileName }) {
-  // Prepare template for insertion
-  let template = _prepareTemplate(fileName);
-  // Insert the template into the progress container
-  $progressContainer.append(template);
-  // Save progress bar
-  $progressBar = $progressContainer.find(fileRead.progressBar);
-  return $progressBar;
-}
-
-/**
- * Function showing progress of photo read
- * in the progress bar
- * @param {Number} loaded - amount of loaded bytes
- * @param {Number} total - amount of total bytes to load
- */
-function _showProgress({ loaded, total }) {
-  // Calculate progress
-  let progress = Math.round((loaded / total) * 100);
-  // Update progress
-  $progressBar.css('width', `${progress}%`);
-}
-
-/**
  * Function setting event listeners to the current reader
  * @param {FileReader Object} reader - reader to set event listeners to
  */
@@ -170,12 +61,16 @@ function _setReaderEventListeners(reader) {
   });
 
   reader.addEventListener('progress', event => {
-    _showProgress({ loaded: event.loaded, total: event.total });
+    // Show progress for the current reader
+    this._showProgress({
+      loaded: event.loaded,
+      total: event.total,
+      $progressBar: event.target.$progressBar,
+    });
   });
 
   reader.addEventListener('loadend', event => {
     let target = event.target;
-
     // Indicate that the file related to the current progress bar was loaded
     target.$progressBar.addClass('loadend');
   });

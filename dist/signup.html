@@ -125,6 +125,7 @@
                     <div class="progress mb-3 h-4">
                       <div
                         class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                        id={{id}}
                         role="progressbar"
                         style="width: 0%"
                         aria-valuenow="0"
@@ -966,6 +967,16 @@
               submitButton: '#submitButton-avatar',
               spinner: '.spinner-border',
               text: 'Saving avatar...',
+            },
+            photoUpload: {
+              submitButton: '#submitButton-avatar',
+              progress: {
+                progress: '#fileRead-progress',
+                progressBar: '.progress-bar',
+                templateId: 'progress-template',
+                fileProgressWrapper: '.fileProgress-wrapper',
+              },
+              dragNDrop: {},
             },
             fileRead: {
               progress: '#fileRead-progress',
