@@ -4,6 +4,8 @@ export default {
     $dragNDropContainer = $container;
     // Save classes
     classes = this.classes;
+    // Save configuration
+    //let { avatar, uploader } = this.configuration;
 
     // Bind context
     _setUpEventListeners = _setUpEventListeners.bind(this);
@@ -22,7 +24,6 @@ let $dragNDropContainer,
  * Helper function to setup drag'n'drop event listeners
  */
 function _setUpEventListeners() {
-  console.log($dragNDropContainer);
   $dragNDropContainer
     .on('drag dragstart dragend dragover dragenter dragleave drop', event => {
       // Prevent browser default behavior
@@ -36,10 +37,5 @@ function _setUpEventListeners() {
     })
     .on('dragleave dragend drop', () => {
       $dragNDropContainer.removeClass(classes.dragOver);
-    })
-    .on('drop', event => {
-      // Save files for futher upload
-      // Maybe we should do something differently here
-      droppedFiles = event.originalEvent.dataTransfer.files;
     });
 }

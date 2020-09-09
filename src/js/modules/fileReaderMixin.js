@@ -3,9 +3,10 @@ export default {
     // Bind context
     _setReaderEventListeners = _setReaderEventListeners.bind(this);
     _readFile = _readFile.bind(this);
-    _loadfromInput = _loadfromInput.bind(this);
+    //_loadfromInput = _loadfromInput.bind(this);
   },
-  _loadfromInput,
+  //_loadfromInput,
+  _readFile,
 };
 
 /** Private functions */
@@ -16,20 +17,20 @@ export default {
  * and if so, start file loading
  * @param {DOMElement} input - input element from which all the files are loaded
  */
-function _loadfromInput(input) {
-  let files = input.files;
-
-  if (!files[0]) return;
-
-  for (let file of files) {
-    //Save file to upload it in the future
-    this._saveFile(file);
-    // Insert progress bar
-    let $progressBar = this._insertProgressBar({ fileName: file.name });
-    // Read file and connect it with progress bar
-    _readFile({ file, $progressBar });
-  }
-}
+//function _loadfromInput(input) {
+//  let files = input.files;
+//
+//  if (!files[0]) return;
+//
+//  for (let file of files) {
+//    //Save file to upload it in the future
+//    this._saveFile(file);
+//    // Insert progress bar
+//    let $progressBar = this._insertProgressBar({ fileName: file.name });
+//    // Read file and connect it with progress bar
+//    _readFile({ file, $progressBar });
+//  }
+//}
 
 /**
  * Function to read file and start loading it

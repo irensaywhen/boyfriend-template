@@ -20289,88 +20289,14 @@
       /***/ function (module, __webpack_exports__, __webpack_require__) {
         'use strict';
         __webpack_require__.r(__webpack_exports__);
-        function _createForOfIteratorHelper(o, allowArrayLike) {
-          var it;
-          if (typeof Symbol === 'undefined' || o[Symbol.iterator] == null) {
-            if (
-              Array.isArray(o) ||
-              (it = _unsupportedIterableToArray(o)) ||
-              (allowArrayLike && o && typeof o.length === 'number')
-            ) {
-              if (it) o = it;
-              var i = 0;
-              var F = function F() {};
-              return {
-                s: F,
-                n: function n() {
-                  if (i >= o.length) return { done: true };
-                  return { done: false, value: o[i++] };
-                },
-                e: function e(_e) {
-                  throw _e;
-                },
-                f: F,
-              };
-            }
-            throw new TypeError(
-              'Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
-            );
-          }
-          var normalCompletion = true,
-            didErr = false,
-            err;
-          return {
-            s: function s() {
-              it = o[Symbol.iterator]();
-            },
-            n: function n() {
-              var step = it.next();
-              normalCompletion = step.done;
-              return step;
-            },
-            e: function e(_e2) {
-              didErr = true;
-              err = _e2;
-            },
-            f: function f() {
-              try {
-                if (!normalCompletion && it['return'] != null) it['return']();
-              } finally {
-                if (didErr) throw err;
-              }
-            },
-          };
-        }
-
-        function _unsupportedIterableToArray(o, minLen) {
-          if (!o) return;
-          if (typeof o === 'string') return _arrayLikeToArray(o, minLen);
-          var n = Object.prototype.toString.call(o).slice(8, -1);
-          if (n === 'Object' && o.constructor) n = o.constructor.name;
-          if (n === 'Map' || n === 'Set') return Array.from(o);
-          if (
-            n === 'Arguments' ||
-            /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)
-          )
-            return _arrayLikeToArray(o, minLen);
-        }
-
-        function _arrayLikeToArray(arr, len) {
-          if (len == null || len > arr.length) len = arr.length;
-          for (var i = 0, arr2 = new Array(len); i < len; i++) {
-            arr2[i] = arr[i];
-          }
-          return arr2;
-        }
-
         /* harmony default export */ __webpack_exports__['default'] = {
           initializeFileReader: function initializeFileReader() {
             // Bind context
             _setReaderEventListeners = _setReaderEventListeners.bind(this);
-            _readFile = _readFile.bind(this);
-            _loadfromInput = _loadfromInput.bind(this);
+            _readFile = _readFile.bind(this); //_loadfromInput = _loadfromInput.bind(this);
           },
-          _loadfromInput: _loadfromInput,
+          //_loadfromInput,
+          _readFile: _readFile,
         };
         /** Private functions */
 
@@ -20380,36 +20306,21 @@
          * and if so, start file loading
          * @param {DOMElement} input - input element from which all the files are loaded
          */
+        //function _loadfromInput(input) {
+        //  let files = input.files;
+        //
+        //  if (!files[0]) return;
+        //
+        //  for (let file of files) {
+        //    //Save file to upload it in the future
+        //    this._saveFile(file);
+        //    // Insert progress bar
+        //    let $progressBar = this._insertProgressBar({ fileName: file.name });
+        //    // Read file and connect it with progress bar
+        //    _readFile({ file, $progressBar });
+        //  }
+        //}
 
-        function _loadfromInput(input) {
-          var files = input.files;
-          if (!files[0]) return;
-
-          var _iterator = _createForOfIteratorHelper(files),
-            _step;
-
-          try {
-            for (_iterator.s(); !(_step = _iterator.n()).done; ) {
-              var file = _step.value;
-
-              //Save file to upload it in the future
-              this._saveFile(file); // Insert progress bar
-
-              var $progressBar = this._insertProgressBar({
-                fileName: file.name,
-              }); // Read file and connect it with progress bar
-
-              _readFile({
-                file: file,
-                $progressBar: $progressBar,
-              });
-            }
-          } catch (err) {
-            _iterator.e(err);
-          } finally {
-            _iterator.f();
-          }
-        }
         /**
          * Function to read file and start loading it
          * It instantiates a FileReader Object for the current file
@@ -21902,6 +21813,79 @@
         /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
           handlebars__WEBPACK_IMPORTED_MODULE_2__
         );
+        function _createForOfIteratorHelper(o, allowArrayLike) {
+          var it;
+          if (typeof Symbol === 'undefined' || o[Symbol.iterator] == null) {
+            if (
+              Array.isArray(o) ||
+              (it = _unsupportedIterableToArray(o)) ||
+              (allowArrayLike && o && typeof o.length === 'number')
+            ) {
+              if (it) o = it;
+              var i = 0;
+              var F = function F() {};
+              return {
+                s: F,
+                n: function n() {
+                  if (i >= o.length) return { done: true };
+                  return { done: false, value: o[i++] };
+                },
+                e: function e(_e) {
+                  throw _e;
+                },
+                f: F,
+              };
+            }
+            throw new TypeError(
+              'Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
+            );
+          }
+          var normalCompletion = true,
+            didErr = false,
+            err;
+          return {
+            s: function s() {
+              it = o[Symbol.iterator]();
+            },
+            n: function n() {
+              var step = it.next();
+              normalCompletion = step.done;
+              return step;
+            },
+            e: function e(_e2) {
+              didErr = true;
+              err = _e2;
+            },
+            f: function f() {
+              try {
+                if (!normalCompletion && it['return'] != null) it['return']();
+              } finally {
+                if (didErr) throw err;
+              }
+            },
+          };
+        }
+
+        function _unsupportedIterableToArray(o, minLen) {
+          if (!o) return;
+          if (typeof o === 'string') return _arrayLikeToArray(o, minLen);
+          var n = Object.prototype.toString.call(o).slice(8, -1);
+          if (n === 'Object' && o.constructor) n = o.constructor.name;
+          if (n === 'Map' || n === 'Set') return Array.from(o);
+          if (
+            n === 'Arguments' ||
+            /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)
+          )
+            return _arrayLikeToArray(o, minLen);
+        }
+
+        function _arrayLikeToArray(arr, len) {
+          if (len == null || len > arr.length) len = arr.length;
+          for (var i = 0, arr2 = new Array(len); i < len; i++) {
+            arr2[i] = arr[i];
+          }
+          return arr2;
+        }
 
         /* harmony default export */ __webpack_exports__['default'] = {
           initializePhotoUpload: function initializePhotoUpload() {
@@ -21911,15 +21895,20 @@
             _prepareTemplate = _prepareTemplate.bind(this);
             _insertProgressBar = _insertProgressBar.bind(this);
             _showProgress = _showProgress.bind(this);
-            _generateRandomId = _generateRandomId.bind(this); // Cache
+            _generateRandomId = _generateRandomId.bind(this);
+            _loadfromInput = _loadfromInput.bind(this);
+            _saveAndPreviewFile = _saveAndPreviewFile.bind(this); // Cache
 
             selectors = this.selectors.photoUpload;
             classes = this.classes;
-            progressSelectors = selectors.progress; // Perform preparations to handle photo upload
+            progressSelectors = selectors.progress; // Save configuration
 
-            _cacheElements();
+            var _this$configuration = this.configuration;
+            avatar = _this$configuration.avatar;
+            uploader = _this$configuration.uploader;
 
-            _setUpEventListeners(); // Check for browser APIs that should be presented to handle
+            // Perform preparations to handle photo upload
+            _cacheElements(); // Check for browser APIs that should be presented to handle
             // sending photos via FormData and getting it via FileReader
 
             isAjaxUpload = (function () {
@@ -21954,17 +21943,19 @@
               this.initializeDragNDrop({
                 $container: $photoUploadContainer,
               });
-            } // Binding functions from the Class
+            }
+
+            _setUpEventListeners(); // Binding functions from the Class
 
             this._preview = this._preview.bind(this);
             this._saveFile = this._saveFile.bind(this);
           },
-          _prepareTemplate: _prepareTemplate,
-          _insertProgressBar: _insertProgressBar,
           _showProgress: _showProgress,
         }; // Private variables
 
         var selectors,
+          avatar,
+          uploader,
           classes,
           isAjaxUpload,
           isAdvancedUpload,
@@ -21972,7 +21963,8 @@
           $progressContainer,
           $submitButton,
           progressTemplate,
-          $photoUploadContainer;
+          $photoUploadContainer,
+          droppedFiles = false;
         /**Private functions */
 
         /**
@@ -21997,8 +21989,6 @@
          */
 
         function _setUpEventListeners() {
-          var _this = this;
-
           // Start loading from input using FileReader
           this.$form.on('change', function (event) {
             var target = event.target; // Stop execution if the target is not for photo upload
@@ -22007,7 +21997,7 @@
 
             $submitButton.attr('disabled', true); // Load files for preview
 
-            _this._loadfromInput(target);
+            _loadfromInput(target);
           }); // Hide loading indicator after transition
 
           this.$modal.on('transitionend', function (event) {
@@ -22017,25 +22007,66 @@
             $target.closest(progressSelectors.fileProgressWrapper).remove(); // Enable button
 
             $submitButton.attr('disabled', false);
-          }); //if (isAdvancedUpload) {
-          //  _setDragNDropEventListeners();
-          //}
+          });
+          if (!isAdvancedUpload) return; // Handler to save and preview dropped file
+
+          $photoUploadContainer.on('drop', function (event) {
+            droppedFiles = event.originalEvent.dataTransfer.files;
+            if (droppedFiles.length === 0) return;
+
+            if (avatar) {
+              _saveAndPreviewFile(droppedFiles[0]);
+            } else if (uploader) {
+              console.log('We are in photo uploader!');
+            }
+          });
         }
         /**
-         * Helper function to set event listeners required Drag'nDrop file upload to work
-         * It is separated into a function to improve readability
+         * The function to load files from input.
+         * It checks if there is at least one file,
+         * and if so, start file loading
+         * @param {DOMElement} input - input element from which all the files are loaded
          */
-        //function _setDragNDropEventListeners() {
-        //  // Cancel browser default behavior on drag'n'drop event above the photo upload container
-        //  $photoUploadContainer.on(
-        //    'drag dragstart dragend dragover dragenter dragleave drop',
-        //    event => {
-        //      event.preventDefault();
-        //      event.stopPropagation();
-        //    }
-        //  );
-        //}
 
+        function _loadfromInput(input) {
+          var files = input.files;
+          if (!files[0]) return;
+
+          var _iterator = _createForOfIteratorHelper(files),
+            _step;
+
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done; ) {
+              var file = _step.value;
+
+              // Handle file saving and preview
+              _saveAndPreviewFile(file);
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+        }
+        /**
+         * Function saving the file for further upload
+         * and initializing reading and previewing the file
+         * @param {File Object} file - file to save and preview
+         */
+
+        function _saveAndPreviewFile(file) {
+          //Save file to upload it in the future
+          this._saveFile(file); // Insert progress bar
+
+          var $progressBar = _insertProgressBar({
+            fileName: file.name,
+          }); // Read file and connect it with progress bar
+
+          this._readFile({
+            file: file,
+            $progressBar: $progressBar,
+          });
+        }
         /**
          * Function copying template
          * and compiling it with provided filename
@@ -22121,7 +22152,9 @@
             // Save reference to drag'n'drop container
             $dragNDropContainer = $container; // Save classes
 
-            classes = this.classes; // Bind context
+            classes = this.classes; // Save configuration
+            //let { avatar, uploader } = this.configuration;
+            // Bind context
 
             _setUpEventListeners = _setUpEventListeners.bind(this); // Prepare drag'n'drop for usage
 
@@ -22137,7 +22170,6 @@
          */
 
         function _setUpEventListeners() {
-          console.log($dragNDropContainer);
           $dragNDropContainer
             .on(
               'drag dragstart dragend dragover dragenter dragleave drop',
@@ -22153,11 +22185,6 @@
             })
             .on('dragleave dragend drop', function () {
               $dragNDropContainer.removeClass(classes.dragOver);
-            })
-            .on('drop', function (event) {
-              // Save files for futher upload
-              // Maybe we should do something differently here
-              droppedFiles = event.originalEvent.dataTransfer.files;
             });
         }
 

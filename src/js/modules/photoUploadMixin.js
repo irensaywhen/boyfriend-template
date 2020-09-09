@@ -11,15 +11,18 @@ export default {
     _insertProgressBar = _insertProgressBar.bind(this);
     _showProgress = _showProgress.bind(this);
     _generateRandomId = _generateRandomId.bind(this);
+    _loadfromInput = _loadfromInput.bind(this);
+    _saveAndPreviewFile = _saveAndPreviewFile.bind(this);
 
     // Cache
     selectors = this.selectors.photoUpload;
     classes = this.classes;
     progressSelectors = selectors.progress;
+    // Save configuration
+    ({ avatar, uploader } = this.configuration);
 
     // Perform preparations to handle photo upload
     _cacheElements();
-    _setUpEventListeners();
 
     // Check for browser APIs that should be presented to handle
     // sending photos via FormData and getting it via FileReader
@@ -50,17 +53,19 @@ export default {
       this.initializeDragNDrop({ $container: $photoUploadContainer });
     }
 
+    _setUpEventListeners();
+
     // Binding functions from the Class
     this._preview = this._preview.bind(this);
     this._saveFile = this._saveFile.bind(this);
   },
-  _prepareTemplate,
-  _insertProgressBar,
   _showProgress,
 };
 
 // Private variables
 let selectors,
+  avatar,
+  uploader,
   classes,
   isAjaxUpload,
   isAdvancedUpload,
@@ -68,7 +73,8 @@ let selectors,
   $progressContainer,
   $submitButton,
   progressTemplate,
-  $photoUploadContainer;
+  $photoUploadContainer,
+  droppedFiles = false;
 
 /**Private functions */
 
@@ -101,7 +107,7 @@ function _setUpEventListeners() {
     // Disable submit button
     $submitButton.attr('disabled', true);
     // Load files for preview
-    this._loadfromInput(target);
+    _loadfromInput(target);
   });
 
   // Hide loading indicator after transition
@@ -115,25 +121,52 @@ function _setUpEventListeners() {
     $submitButton.attr('disabled', false);
   });
 
-  //if (isAdvancedUpload) {
-  //  _setDragNDropEventListeners();
-  //}
+  if (!isAdvancedUpload) return;
+
+  // Handler to save and preview dropped file
+  $photoUploadContainer.on('drop', event => {
+    droppedFiles = event.originalEvent.dataTransfer.files;
+
+    if (droppedFiles.length === 0) return;
+
+    if (avatar) {
+      _saveAndPreviewFile(droppedFiles[0]);
+    } else if (uploader) {
+      console.log('We are in photo uploader!');
+    }
+  });
 }
 
 /**
- * Helper function to set event listeners required Drag'nDrop file upload to work
- * It is separated into a function to improve readability
+ * The function to load files from input.
+ * It checks if there is at least one file,
+ * and if so, start file loading
+ * @param {DOMElement} input - input element from which all the files are loaded
  */
-//function _setDragNDropEventListeners() {
-//  // Cancel browser default behavior on drag'n'drop event above the photo upload container
-//  $photoUploadContainer.on(
-//    'drag dragstart dragend dragover dragenter dragleave drop',
-//    event => {
-//      event.preventDefault();
-//      event.stopPropagation();
-//    }
-//  );
-//}
+function _loadfromInput(input) {
+  let files = input.files;
+
+  if (!files[0]) return;
+
+  for (let file of files) {
+    // Handle file saving and preview
+    _saveAndPreviewFile(file);
+  }
+}
+
+/**
+ * Function saving the file for further upload
+ * and initializing reading and previewing the file
+ * @param {File Object} file - file to save and preview
+ */
+function _saveAndPreviewFile(file) {
+  //Save file to upload it in the future
+  this._saveFile(file);
+  // Insert progress bar
+  let $progressBar = _insertProgressBar({ fileName: file.name });
+  // Read file and connect it with progress bar
+  this._readFile({ file, $progressBar });
+}
 
 /**
  * Function copying template
