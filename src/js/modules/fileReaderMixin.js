@@ -1,5 +1,3 @@
-import Handlebars from 'handlebars';
-
 export default {
   initializeFileReader() {
     // Bind context

@@ -1950,7 +1950,6 @@ article .header time {
   height: auto;
 }
 .photo-upload {
-  background: #f4f7fa;
   position: relative;
   text-align: center;
 }
@@ -1962,13 +1961,26 @@ article .header time {
   position: absolute;
   visibility: hidden;
 }
-.photo-upload .mobile .capture {
+.photo-upload.mobile .select {
+  margin-bottom: 15px;
+  width: 100%;
+}
+.photo-upload.mobile .capture {
   position: relative;
   visibility: visible;
+  margin-bottom: 15px;
+  width: 100%;
 }
 .photo-upload.advanced-upload {
+  background: #f4f7fa;
   outline: 2px dashed #868e96;
   outline-offset: -10px;
+}
+.photo-upload.advanced-upload.is-dragover {
+  transition: all 0.3s ease-out;
+  outline-offset: -20px;
+  outline-color: #caced1;
+  background: #fff;
 }
 .photo-upload.advanced-upload .drag-n-drop {
   position: relative;
@@ -2012,9 +2024,6 @@ article .header time {
 }
 .upload-avatar .upload-progress .progress-bar {
   transition: all 0.5s ease-out;
-}
-.upload-avatar ul {
-  list-style: none;
 }
 .upload-avatar .upload-photo-label {
   vertical-align: middle;

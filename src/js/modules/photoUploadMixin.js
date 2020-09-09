@@ -1,8 +1,9 @@
 import fileReaderMixin from './fileReaderMixin';
+import dragNDropMixin from './photosDragnDropMixin';
 import Handlebars from 'handlebars';
 
-const photoUploadMixin = {
-  initializePhotoUpload({ form, modal }) {
+export default {
+  initializePhotoUpload() {
     // Bind context
     _cacheElements = _cacheElements.bind(this);
     _setUpEventListeners = _setUpEventListeners.bind(this);
@@ -16,18 +17,42 @@ const photoUploadMixin = {
     classes = this.classes;
     progressSelectors = selectors.progress;
 
-    Object.assign(this.__proto__, fileReaderMixin);
-
     // Perform preparations to handle photo upload
     _cacheElements();
     _setUpEventListeners();
 
+    // Check for browser APIs that should be presented to handle
+    // sending photos via FormData and getting it via FileReader
+    isAjaxUpload = (function () {
+      return 'FormData' in window && 'FileReader' in window;
+    })();
+
+    // Check for browser APIs that should be presented to handle Drag'n'Drop
+    isAdvancedUpload = (function () {
+      let div = document.createElement('div');
+      return (
+        ('draggable' in div || ('ondragstart' in div && 'ondrop' in div)) &&
+        isAjaxUpload
+      );
+    })();
+
+    // Assign fileReaderMixin to the prototype of the current class
+    Object.assign(this.__proto__, fileReaderMixin);
+    // Initializing File Reader handler
+    this.initializeFileReader();
+
+    if (isAdvancedUpload) {
+      // Change container visual appearance
+      $photoUploadContainer.addClass(classes.dragNDrop);
+      // Assign drag'n'drop methods to the prototype
+      Object.assign(this.__proto__, dragNDropMixin);
+      // Initialize drag'n'drop
+      this.initializeDragNDrop({ $container: $photoUploadContainer });
+    }
+
     // Binding functions from the Class
     this._preview = this._preview.bind(this);
     this._saveFile = this._saveFile.bind(this);
-
-    // Initializing other mixins
-    this.initializeFileReader();
   },
   _prepareTemplate,
   _insertProgressBar,
@@ -37,10 +62,13 @@ const photoUploadMixin = {
 // Private variables
 let selectors,
   classes,
+  isAjaxUpload,
+  isAdvancedUpload,
   progressSelectors,
   $progressContainer,
   $submitButton,
-  progressTemplate;
+  progressTemplate,
+  $photoUploadContainer;
 
 /**Private functions */
 
@@ -53,6 +81,8 @@ function _cacheElements() {
   $progressContainer = this.$modal.find(progressSelectors.progress);
   // Submit button
   $submitButton = this.$form.find(selectors.submitButton);
+  //Photo upload container
+  $photoUploadContainer = this.$modal.find(selectors.uploadContainer);
   // Template
   progressTemplate = document.getElementById(progressSelectors.templateId);
 }
@@ -84,7 +114,26 @@ function _setUpEventListeners() {
     // Enable button
     $submitButton.attr('disabled', false);
   });
+
+  //if (isAdvancedUpload) {
+  //  _setDragNDropEventListeners();
+  //}
 }
+
+/**
+ * Helper function to set event listeners required Drag'nDrop file upload to work
+ * It is separated into a function to improve readability
+ */
+//function _setDragNDropEventListeners() {
+//  // Cancel browser default behavior on drag'n'drop event above the photo upload container
+//  $photoUploadContainer.on(
+//    'drag dragstart dragend dragover dragenter dragleave drop',
+//    event => {
+//      event.preventDefault();
+//      event.stopPropagation();
+//    }
+//  );
+//}
 
 /**
  * Function copying template
@@ -140,5 +189,3 @@ function _showProgress({ loaded, total, $progressBar }) {
   // Update progress
   $progressBar.css('width', `${progress}%`);
 }
-
-export default photoUploadMixin;

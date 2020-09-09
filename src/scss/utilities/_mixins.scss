@@ -142,6 +142,10 @@
   transition: all 0.5s ease-out;
 }
 
+@mixin ease-in {
+  transition: all 0.3s ease-out;
+}
+
 /*Media queries*/
 
 @mixin screen-xs {

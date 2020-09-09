@@ -19579,10 +19579,7 @@
         /* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./modal.js */ './js/modules/modal.js'
         );
-        /* harmony import */ var _fileReaderMixin__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
-          /*! ./fileReaderMixin */ './js/modules/fileReaderMixin.js'
-        );
-        /* harmony import */ var _photoUploadMixin__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+        /* harmony import */ var _photoUploadMixin__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
           /*! ./photoUploadMixin */ './js/modules/photoUploadMixin.js'
         );
 
@@ -19668,13 +19665,10 @@
 
             Object.assign(
               Avatar.prototype,
-              _photoUploadMixin__WEBPACK_IMPORTED_MODULE_9__['default']
+              _photoUploadMixin__WEBPACK_IMPORTED_MODULE_8__['default']
             ); // Initialization of the photo upload for avatar
 
-            _this.initializePhotoUpload({
-              form: _this.$form,
-              modal: _this.$modal,
-            }); // Loading indicator initialization
+            _this.initializePhotoUpload(); // Loading indicator initialization
 
             _this.initializeLoadingIndicators(_this.$form);
 
@@ -20295,12 +20289,6 @@
       /***/ function (module, __webpack_exports__, __webpack_require__) {
         'use strict';
         __webpack_require__.r(__webpack_exports__);
-        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-          /*! handlebars */ '../node_modules/handlebars/dist/cjs/handlebars.js'
-        );
-        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
-          handlebars__WEBPACK_IMPORTED_MODULE_0__
-        );
         function _createForOfIteratorHelper(o, allowArrayLike) {
           var it;
           if (typeof Symbol === 'undefined' || o[Symbol.iterator] == null) {
@@ -21905,17 +21893,18 @@
         /* harmony import */ var _fileReaderMixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
           /*! ./fileReaderMixin */ './js/modules/fileReaderMixin.js'
         );
-        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+        /* harmony import */ var _photosDragnDropMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! ./photosDragnDropMixin */ './js/modules/photosDragnDropMixin.js'
+        );
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! handlebars */ '../node_modules/handlebars/dist/cjs/handlebars.js'
         );
-        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
-          handlebars__WEBPACK_IMPORTED_MODULE_1__
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          handlebars__WEBPACK_IMPORTED_MODULE_2__
         );
 
-        var photoUploadMixin = {
-          initializePhotoUpload: function initializePhotoUpload(_ref) {
-            var form = _ref.form,
-              modal = _ref.modal;
+        /* harmony default export */ __webpack_exports__['default'] = {
+          initializePhotoUpload: function initializePhotoUpload() {
             // Bind context
             _cacheElements = _cacheElements.bind(this);
             _setUpEventListeners = _setUpEventListeners.bind(this);
@@ -21926,20 +21915,49 @@
 
             selectors = this.selectors.photoUpload;
             classes = this.classes;
-            progressSelectors = selectors.progress;
-            Object.assign(
-              this.__proto__,
-              _fileReaderMixin__WEBPACK_IMPORTED_MODULE_0__['default']
-            ); // Perform preparations to handle photo upload
+            progressSelectors = selectors.progress; // Perform preparations to handle photo upload
 
             _cacheElements();
 
-            _setUpEventListeners(); // Binding functions from the Class
+            _setUpEventListeners(); // Check for browser APIs that should be presented to handle
+            // sending photos via FormData and getting it via FileReader
 
-            this._preview = this._preview.bind(this);
-            this._saveFile = this._saveFile.bind(this); // Initializing other mixins
+            isAjaxUpload = (function () {
+              return 'FormData' in window && 'FileReader' in window;
+            })(); // Check for browser APIs that should be presented to handle Drag'n'Drop
+
+            isAdvancedUpload = (function () {
+              var div = document.createElement('div');
+              return (
+                ('draggable' in div ||
+                  ('ondragstart' in div && 'ondrop' in div)) &&
+                isAjaxUpload
+              );
+            })(); // Assign fileReaderMixin to the prototype of the current class
+
+            Object.assign(
+              this.__proto__,
+              _fileReaderMixin__WEBPACK_IMPORTED_MODULE_0__['default']
+            ); // Initializing File Reader handler
 
             this.initializeFileReader();
+
+            if (isAdvancedUpload) {
+              // Change container visual appearance
+              $photoUploadContainer.addClass(classes.dragNDrop); // Assign drag'n'drop methods to the prototype
+
+              Object.assign(
+                this.__proto__,
+                _photosDragnDropMixin__WEBPACK_IMPORTED_MODULE_1__['default']
+              ); // Initialize drag'n'drop
+
+              this.initializeDragNDrop({
+                $container: $photoUploadContainer,
+              });
+            } // Binding functions from the Class
+
+            this._preview = this._preview.bind(this);
+            this._saveFile = this._saveFile.bind(this);
           },
           _prepareTemplate: _prepareTemplate,
           _insertProgressBar: _insertProgressBar,
@@ -21948,10 +21966,13 @@
 
         var selectors,
           classes,
+          isAjaxUpload,
+          isAdvancedUpload,
           progressSelectors,
           $progressContainer,
           $submitButton,
-          progressTemplate;
+          progressTemplate,
+          $photoUploadContainer;
         /**Private functions */
 
         /**
@@ -21963,7 +21984,9 @@
           // Progress indicator
           $progressContainer = this.$modal.find(progressSelectors.progress); // Submit button
 
-          $submitButton = this.$form.find(selectors.submitButton); // Template
+          $submitButton = this.$form.find(selectors.submitButton); //Photo upload container
+
+          $photoUploadContainer = this.$modal.find(selectors.uploadContainer); // Template
 
           progressTemplate = document.getElementById(
             progressSelectors.templateId
@@ -21994,8 +22017,25 @@
             $target.closest(progressSelectors.fileProgressWrapper).remove(); // Enable button
 
             $submitButton.attr('disabled', false);
-          });
+          }); //if (isAdvancedUpload) {
+          //  _setDragNDropEventListeners();
+          //}
         }
+        /**
+         * Helper function to set event listeners required Drag'nDrop file upload to work
+         * It is separated into a function to improve readability
+         */
+        //function _setDragNDropEventListeners() {
+        //  // Cancel browser default behavior on drag'n'drop event above the photo upload container
+        //  $photoUploadContainer.on(
+        //    'drag dragstart dragend dragover dragenter dragleave drop',
+        //    event => {
+        //      event.preventDefault();
+        //      event.stopPropagation();
+        //    }
+        //  );
+        //}
+
         /**
          * Function copying template
          * and compiling it with provided filename
@@ -22009,7 +22049,7 @@
           var progress = progressTemplate.innerHTML,
             id = _generateRandomId(); // Compile template with provided filename
 
-          progress = handlebars__WEBPACK_IMPORTED_MODULE_1___default.a.compile(
+          progress = handlebars__WEBPACK_IMPORTED_MODULE_2___default.a.compile(
             progress
           );
           progress = progress({
@@ -22034,8 +22074,8 @@
          * @param {String} fileName - name of the file being loaded
          */
 
-        function _insertProgressBar(_ref2) {
-          var fileName = _ref2.fileName;
+        function _insertProgressBar(_ref) {
+          var fileName = _ref.fileName;
 
           // Prepare template for insertion
           var _prepareTemplate2 = _prepareTemplate(fileName),
@@ -22054,19 +22094,72 @@
          * @param {Number} total - amount of total bytes to load
          */
 
-        function _showProgress(_ref3) {
-          var loaded = _ref3.loaded,
-            total = _ref3.total,
-            $progressBar = _ref3.$progressBar;
+        function _showProgress(_ref2) {
+          var loaded = _ref2.loaded,
+            total = _ref2.total,
+            $progressBar = _ref2.$progressBar;
           // Calculate progress
           var progress = Math.round((loaded / total) * 100); // Update progress
 
           $progressBar.css('width', ''.concat(progress, '%'));
         }
 
-        /* harmony default export */ __webpack_exports__[
-          'default'
-        ] = photoUploadMixin;
+        /***/
+      },
+
+    /***/ './js/modules/photosDragnDropMixin.js':
+      /*!********************************************!*\
+  !*** ./js/modules/photosDragnDropMixin.js ***!
+  \********************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony default export */ __webpack_exports__['default'] = {
+          initializeDragNDrop: function initializeDragNDrop(_ref) {
+            var $container = _ref.$container;
+            // Save reference to drag'n'drop container
+            $dragNDropContainer = $container; // Save classes
+
+            classes = this.classes; // Bind context
+
+            _setUpEventListeners = _setUpEventListeners.bind(this); // Prepare drag'n'drop for usage
+
+            _setUpEventListeners();
+          },
+        }; // Private variables
+
+        var $dragNDropContainer,
+          classes,
+          droppedFiles = false;
+        /**
+         * Helper function to setup drag'n'drop event listeners
+         */
+
+        function _setUpEventListeners() {
+          console.log($dragNDropContainer);
+          $dragNDropContainer
+            .on(
+              'drag dragstart dragend dragover dragenter dragleave drop',
+              function (event) {
+                // Prevent browser default behavior
+                event.preventDefault();
+                event.stopPropagation();
+              }
+            ) // Handle dragover indicator to let the user know about ability
+            // to safety drop files
+            .on('dragover dragenter', function () {
+              $dragNDropContainer.addClass(classes.dragOver);
+            })
+            .on('dragleave dragend drop', function () {
+              $dragNDropContainer.removeClass(classes.dragOver);
+            })
+            .on('drop', function (event) {
+              // Save files for futher upload
+              // Maybe we should do something differently here
+              droppedFiles = event.originalEvent.dataTransfer.files;
+            });
+        }
 
         /***/
       },

@@ -136,52 +136,8 @@
                   </div>
                 </script>
 
-                <!--Avatar Upload previous
-                <ul class="pl-1">-->
-                <!--Avatar upload from the computer
-                  <li class="position-relative">
-                    <label
-                      for="avatar-file-input"
-                      class="upload-photo-label text-center"
-                    >
-                      <img src="img/upload.svg" alt="Upload photo" />
-                    </label>
-                    <input
-                      type="file"
-                      id="avatar-file-input"
-                      name="avatar-file-input"
-                      class="invisible position-absolute avatar-input"
-                      accept="image/*"
-                    />
-                    <p class="d-inline-block pl-3">
-                      Upload your avatar from your computer
-                    </p>
-                  </li>-->
-
-                <!--Capturing avatar from device
-                  <li class="position-relative d-lg-none">
-                    <label
-                      for="make-avatar"
-                      class="upload-photo-label text-center"
-                    >
-                      <i class="fas fa-camera-retro"></i>
-                    </label>
-                    <input
-                      type="file"
-                      id="make-avatar"
-                      name="make-avatar"
-                      class="invisible position-absolute avatar-input"
-                      accept="image/*"
-                      capture
-                    />
-                    <p class="d-inline-block pl-3">
-                      Make photo from your camera
-                    </p>
-                  </li>
-                </ul>-->
-
                 <!--Avatar upload and drag'n'drop start-->
-                <div class="photo-upload advanced-upload">
+                <div class="photo-upload" id="dragNDropUploadContainer">
                   <div class="drag-n-drop">
                     <div class="icon">
                       <i class="fas fa-cloud-upload-alt"></i>
@@ -195,12 +151,12 @@
                   </div>
 
                   <div
-                    class="d-flex flex-column align-items-center pt-4 pb-5 position-relative"
+                    class="d-flex flex-column align-items-center py-4 position-relative"
                   >
                     <!--Select file from device start-->
                     <button
                       type="button"
-                      class="btn btn-lg btn-outline-secondary btn-rounded shadow-sm position-relative mb-3"
+                      class="btn btn-lg btn-outline-secondary btn-rounded shadow-sm position-relative select"
                     >
                       <label
                         for="avatar-file-input"
@@ -970,6 +926,7 @@
             },
             photoUpload: {
               submitButton: '#submitButton-avatar',
+              uploadContainer: '#dragNDropUploadContainer',
               progress: {
                 progress: '#fileRead-progress',
                 progressBar: '.progress-bar',
@@ -978,16 +935,19 @@
               },
               dragNDrop: {},
             },
-            fileRead: {
+            /*fileRead: {
               progress: '#fileRead-progress',
               progressBar: '.progress-bar',
               templateId: 'progress-template',
               fileProgressWrapper: '.fileProgress-wrapper',
               submitButton: '#submitButton-avatar',
-            },
+            },*/
           },
           classes: {
             input: 'avatar-input',
+            dragNDrop: 'advanced-upload',
+            dragOver: 'is-dragover',
+            mobilePhotoUpload: 'mobile',
           },
           requests: {
             saveAvatar: {
