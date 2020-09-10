@@ -4,8 +4,6 @@ export default {
     $dragNDropContainer = $container;
     // Save classes
     classes = this.classes;
-    // Save configuration
-    //let { avatar, uploader } = this.configuration;
 
     // Bind context
     _setUpEventListeners = _setUpEventListeners.bind(this);

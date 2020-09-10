@@ -19761,7 +19761,9 @@
 
                   this.newAvatarLink = null; // Return the previous avatar status
 
-                  this.uploaded = false;
+                  this.uploaded = false; // Empty error container
+
+                  this.$errorContainer.empty();
                 },
                 /**
                  * Function to show newly uploaded avatar
@@ -20290,36 +20292,18 @@
         'use strict';
         __webpack_require__.r(__webpack_exports__);
         /* harmony default export */ __webpack_exports__['default'] = {
-          initializeFileReader: function initializeFileReader() {
+          initializeFileReader: function initializeFileReader(config) {
+            // Save passed information
+            errorText = config.errorText;
             // Bind context
             _setReaderEventListeners = _setReaderEventListeners.bind(this);
-            _readFile = _readFile.bind(this); //_loadfromInput = _loadfromInput.bind(this);
+            _readFile = _readFile.bind(this);
           },
-          //_loadfromInput,
           _readFile: _readFile,
-        };
-        /** Private functions */
+        }; // Private varibles
 
-        /**
-         * The function to load files from input.
-         * It checks if there is at least one file,
-         * and if so, start file loading
-         * @param {DOMElement} input - input element from which all the files are loaded
-         */
-        //function _loadfromInput(input) {
-        //  let files = input.files;
-        //
-        //  if (!files[0]) return;
-        //
-        //  for (let file of files) {
-        //    //Save file to upload it in the future
-        //    this._saveFile(file);
-        //    // Insert progress bar
-        //    let $progressBar = this._insertProgressBar({ fileName: file.name });
-        //    // Read file and connect it with progress bar
-        //    _readFile({ file, $progressBar });
-        //  }
-        //}
+        var errorText;
+        /** Private functions */
 
         /**
          * Function to read file and start loading it
@@ -20349,8 +20333,7 @@
           var _this = this;
 
           reader.addEventListener('loadstart', function (event) {
-            // Show progress indicator
-            //$progress.show();
+            _this._hideError();
           });
           reader.addEventListener('progress', function (event) {
             // Show progress for the current reader
@@ -20371,8 +20354,8 @@
 
             _this.$modalFooter.show();
           });
-          reader.addEventListener('error', function (event) {
-            console.log('Error');
+          reader.addEventListener('error', function () {
+            _this._showError(errorText.read);
           });
         }
 
@@ -21143,6 +21126,10 @@
                 )
               )();
             },
+            MIMETypeIsImage: function MIMETypeIsImage(file) {
+              var regex = /^image\/*/i;
+              return regex.test(file.type.trim());
+            },
           };
         })();
 
@@ -21621,7 +21608,9 @@
                       if (!_this2.uploaded) {
                         // Delete his newly uploaded photo
                         _this2._discardChanges();
-                      }
+                      } // Empty error container
+
+                      _this2.$errorContainer.empty(); // Hide modal footer
 
                       _this2.$modalFooter.hide();
                     });
@@ -22053,9 +22042,15 @@
                             _loadfromInput = _loadfromInput.bind(_this);
                             _saveAndPreviewFile = _saveAndPreviewFile.bind(
                               _this
-                            ); // Cache
+                            );
+                            _handleLegacyBrowsers = _handleLegacyBrowsers.bind(
+                              _this
+                            );
+                            _showError = _showError.bind(_this);
+                            _hideError = _hideError.bind(_this); // Cache
 
                             selectors = _this.selectors.photoUpload;
+                            errorText = _this.errorText.photoUpload;
                             classes = _this.classes;
                             progressSelectors = selectors.progress; // Save configuration
 
@@ -22071,16 +22066,21 @@
                               return (
                                 'FormData' in window && 'FileReader' in window
                               );
-                            })(); // Detect whether to show camera capturing for mobile and tablet devices
+                            })();
 
-                            _context.next = 18;
+                            if (!isAjaxUpload) {
+                              // Let the user know that his browser is outdated
+                              _handleLegacyBrowsers();
+                            } // Detect whether to show camera capturing for mobile and tablet devices
+
+                            _context.next = 23;
                             return _helper_js__WEBPACK_IMPORTED_MODULE_4__[
                               'default'
                             ].isShowCameraCapturing.call(
                               _helper_js__WEBPACK_IMPORTED_MODULE_4__['default']
                             );
 
-                          case 18:
+                          case 23:
                             isShowCameraCapturing = _context.sent;
 
                             if (!isShowCameraCapturing) {
@@ -22105,16 +22105,21 @@
                               $photoUploadContainer.addClass(
                                 classes.mobilePhotoUpload
                               );
-                            } // Assign fileReaderMixin to the prototype of the current class
+                            }
 
-                            Object.assign(
-                              _this.__proto__,
-                              _fileReaderMixin__WEBPACK_IMPORTED_MODULE_2__[
-                                'default'
-                              ]
-                            ); // Initializing File Reader handler
+                            if (isAjaxUpload) {
+                              // Assign fileReaderMixin to the prototype of the current class
+                              Object.assign(
+                                _this.__proto__,
+                                _fileReaderMixin__WEBPACK_IMPORTED_MODULE_2__[
+                                  'default'
+                                ]
+                              ); // Initializing File Reader handler
 
-                            _this.initializeFileReader();
+                              _this.initializeFileReader({
+                                errorText: errorText,
+                              });
+                            }
 
                             if (isAdvancedUpload) {
                               // Change container visual appearance
@@ -22137,7 +22142,7 @@
                             _this._preview = _this._preview.bind(_this);
                             _this._saveFile = _this._saveFile.bind(_this);
 
-                          case 26:
+                          case 30:
                           case 'end':
                             return _context.stop();
                         }
@@ -22150,9 +22155,12 @@
             )();
           },
           _showProgress: _showProgress,
+          _showError: _showError,
+          _hideError: _hideError,
         }; // Private variables
 
         var selectors,
+          errorText,
           avatar,
           uploader,
           classes,
@@ -22160,7 +22168,8 @@
           isAdvancedUpload,
           progressSelectors,
           $progressContainer,
-          $submitButton,
+          $disableWhileLoad,
+          $errorContainer,
           progressTemplate,
           $photoUploadContainer,
           droppedFiles = false;
@@ -22172,10 +22181,15 @@
          */
 
         function _cacheElements() {
-          // Progress indicator
-          $progressContainer = this.$modal.find(progressSelectors.progress); // Submit button
+          // Buttons to disable while file is being read
+          $disableWhileLoad = this.$modal.find(selectors.disableWhileLoad); // Containers
+          // Progress
 
-          $submitButton = this.$form.find(selectors.submitButton); //Photo upload container
+          $progressContainer = this.$modal.find(progressSelectors.progress); // Error
+
+          this.$errorContainer = $errorContainer = this.$modal.find(
+            selectors.errorContainer
+          ); // Photo upload
 
           $photoUploadContainer = this.$modal.find(selectors.uploadContainer); // Template
 
@@ -22192,9 +22206,7 @@
           this.$form.on('change', function (event) {
             var target = event.target; // Stop execution if the target is not for photo upload
 
-            if (!target.classList.contains(classes.input)) return; // Disable submit button
-
-            $submitButton.attr('disabled', true); // Load files for preview
+            if (!target.classList.contains(classes.input)) return; // Load files for preview
 
             _loadfromInput(target);
           }); // Hide loading indicator after transition
@@ -22205,7 +22217,7 @@
 
             $target.closest(progressSelectors.fileProgressWrapper).remove(); // Enable button
 
-            $submitButton.attr('disabled', false);
+            $disableWhileLoad.attr('disabled', false);
           });
           if (!isAdvancedUpload) return; // Handler to save and preview dropped file
 
@@ -22219,6 +22231,30 @@
               console.log('We are in photo uploader!');
             }
           });
+        }
+        /**
+         * Function to notify the user that his browser is outdated
+         * And it will not support file upload
+         */
+
+        function _handleLegacyBrowsers() {
+          $photoUploadContainer.hide();
+
+          _showError(errorText.legacyBrowser);
+        }
+        /**
+         * Function showing errors that are not handled via alerts in error container
+         */
+
+        function _showError(errorMessage) {
+          $errorContainer.text(errorMessage);
+        }
+        /**
+         * Function hiding previously displayed error in the error container
+         */
+
+        function _hideError() {
+          $errorContainer.empty();
         }
         /**
          * The function to load files from input.
@@ -22254,7 +22290,19 @@
          */
 
         function _saveAndPreviewFile(file) {
-          //Save file to upload it in the future
+          // Restrict allowed file types
+          var isImage = _helper_js__WEBPACK_IMPORTED_MODULE_4__[
+            'default'
+          ].MIMETypeIsImage(file);
+
+          if (!isImage) {
+            _showError(errorText.wrongFileType);
+
+            return;
+          } // Disable buttons
+
+          $disableWhileLoad.attr('disabled', true); // Save file to upload it in the future - this method is unique to each class using file upload
+
           this._saveFile(file); // Insert progress bar
 
           var $progressBar = _insertProgressBar({
@@ -22351,9 +22399,7 @@
             // Save reference to drag'n'drop container
             $dragNDropContainer = $container; // Save classes
 
-            classes = this.classes; // Save configuration
-            //let { avatar, uploader } = this.configuration;
-            // Bind context
+            classes = this.classes; // Bind context
 
             _setUpEventListeners = _setUpEventListeners.bind(this); // Prepare drag'n'drop for usage
 
@@ -22453,8 +22499,9 @@
             this.getPhotosIds = this.getPhotosIds.bind(this);
             this.requestBonusUsage = this.requestBonusUsage.bind(this); // Save passed options
 
-            this.selectors = options['selectors'];
-            this.requests = options['requests']; // Transform endpoints into URL Objects
+            this.selectors = options.selectors;
+            this.requests = options.requests;
+            this.errorText = options.errorText; // Transform endpoints into URL Objects
 
             this.makeURLObjects();
             Object.assign(

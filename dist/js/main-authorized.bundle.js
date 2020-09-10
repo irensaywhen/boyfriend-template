@@ -23605,6 +23605,10 @@
                 )
               )();
             },
+            MIMETypeIsImage: function MIMETypeIsImage(file) {
+              var regex = /^image\/*/i;
+              return regex.test(file.type.trim());
+            },
           };
         })();
 
@@ -24204,7 +24208,9 @@
                       if (!_this2.uploaded) {
                         // Delete his newly uploaded photo
                         _this2._discardChanges();
-                      }
+                      } // Empty error container
+
+                      _this2.$errorContainer.empty(); // Hide modal footer
 
                       _this2.$modalFooter.hide();
                     });
@@ -25438,8 +25444,9 @@
             this.getPhotosIds = this.getPhotosIds.bind(this);
             this.requestBonusUsage = this.requestBonusUsage.bind(this); // Save passed options
 
-            this.selectors = options['selectors'];
-            this.requests = options['requests']; // Transform endpoints into URL Objects
+            this.selectors = options.selectors;
+            this.requests = options.requests;
+            this.errorText = options.errorText; // Transform endpoints into URL Objects
 
             this.makeURLObjects();
             Object.assign(

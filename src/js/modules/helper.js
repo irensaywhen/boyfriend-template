@@ -137,5 +137,10 @@ export default (function () {
         return false;
       }
     },
+
+    MIMETypeIsImage(file) {
+      let regex = /^image\/*/i;
+      return regex.test(file.type.trim());
+    },
   };
 })();

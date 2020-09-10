@@ -92,6 +92,8 @@ export default class Avatar extends EditorModal {
     this.newAvatarLink = null;
     // Return the previous avatar status
     this.uploaded = false;
+    // Empty error container
+    this.$errorContainer.empty();
   }
 
   /**

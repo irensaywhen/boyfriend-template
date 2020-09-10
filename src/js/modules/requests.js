@@ -14,8 +14,9 @@ export default class ServerRequest {
     this.requestBonusUsage = this.requestBonusUsage.bind(this);
 
     // Save passed options
-    this.selectors = options['selectors'];
-    this.requests = options['requests'];
+    this.selectors = options.selectors;
+    this.requests = options.requests;
+    this.errorText = options.errorText;
 
     // Transform endpoints into URL Objects
     this.makeURLObjects();

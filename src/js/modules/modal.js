@@ -65,6 +65,9 @@ class EditorModal extends ServerRequest {
           this._discardChanges();
         }
 
+        // Empty error container
+        this.$errorContainer.empty();
+        // Hide modal footer
         this.$modalFooter.hide();
       });
     }

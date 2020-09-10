@@ -9,3 +9,7 @@
   color: $main-pink;
   text-align: center !important;
 }
+
+.upload-error {
+  @extend .general-error;
+}

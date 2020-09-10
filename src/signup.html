@@ -70,7 +70,7 @@
 
       <!--Modal for uploading avatar start-->
       <div
-        class="modal fade upload-avatar"
+        class="modal fade upload-avatar pr-0"
         id="upload-avatar"
         tabindex="-1"
         role="dialog"
@@ -113,6 +113,9 @@
                   </div>
                 </div>
 
+                <!--Container holding read and legacy errors-->
+                <p id="avatarUploadError" class="upload-error"></p>
+
                 <!--Upload progress indicator start-->
                 <div class="upload-progress" id="fileRead-progress"></div>
                 <!--Upload progress indicator end-->
@@ -137,7 +140,7 @@
                 </script>
 
                 <!--Avatar upload and drag'n'drop start-->
-                <div class="photo-upload mobile" id="dragNDropUploadContainer">
+                <div class="photo-upload" id="dragNDropUploadContainer">
                   <div class="drag-n-drop">
                     <div class="icon">
                       <i class="fas fa-cloud-upload-alt"></i>
@@ -150,50 +153,42 @@
                     </p>
                   </div>
 
-                  <div
-                    class="d-flex flex-column align-items-center py-4 position-relative"
-                  >
+                  <div class="d-flex flex-column align-items-center py-4">
                     <!--Select file from device start-->
-                    <button
-                      type="button"
-                      class="btn btn-lg btn-outline-secondary btn-rounded shadow-sm position-relative select"
-                    >
-                      <label
-                        for="avatar-file-input"
-                        class="text-center mb-0 pointer upload-photo-label"
-                      >
-                        <i class="fas fa-file-upload"></i> select file
-                      </label>
+                    <div class="position-relative">
                       <input
                         type="file"
                         id="avatar-file-input"
                         name="avatar-file-input"
-                        class="invisible position-absolute avatar-input"
+                        class="invisible position-absolute avatar-input disable-while-load"
                         accept="image/*"
                       />
-                    </button>
+                      <label
+                        for="avatar-file-input"
+                        class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm select"
+                      >
+                        <i class="fas fa-file-upload"></i> select file
+                      </label>
+                    </div>
                     <!--Select file from device end-->
 
                     <!--Capture photo start-->
-                    <button
-                      type="button"
-                      class="btn btn-lg btn-outline-secondary btn-rounded shadow-sm capture"
-                    >
-                      <label
-                        for="make-avatar"
-                        class="text-center mb-0 pointer upload-photo-label"
-                      >
-                        <i class="fas fa-camera-retro"></i> take photo
-                      </label>
+                    <div class="position-relative">
                       <input
                         type="file"
                         id="make-avatar"
                         name="make-avatar"
-                        class="invisible position-absolute avatar-input"
+                        class="invisible position-absolute avatar-input disable-while-load"
                         accept="image/*"
                         capture
                       />
-                    </button>
+                      <label
+                        for="make-avatar"
+                        class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm capture"
+                      >
+                        <i class="fas fa-camera-retro"></i> take photo
+                      </label>
+                    </div>
                     <!--Capture photo end-->
                   </div>
                 </div>
@@ -217,7 +212,7 @@
                 <div class="px-0 py-3 text-center w-100">
                   <button
                     type="submit"
-                    class="btn btn-lg btn-default text-white btn-rounded shadow"
+                    class="btn btn-lg btn-default text-white btn-rounded shadow disable-while-load"
                     id="submitButton-avatar"
                   >
                     <span>Submit</span
@@ -613,7 +608,7 @@
                       <a
                         href="#"
                         id="continue"
-                        class="btn btn-lg btn-default btn-rounded shadow"
+                        class="btn btn-lg btn-default text-white btn-rounded shadow"
                       >
                         <span>Continue</span
                         ><i class="material-icons">arrow_forward</i>
@@ -925,23 +920,25 @@
               text: 'Saving avatar...',
             },
             photoUpload: {
-              submitButton: '#submitButton-avatar',
+              disableWhileLoad: '.disable-while-load',
               uploadContainer: '#dragNDropUploadContainer',
+              errorContainer: '#avatarUploadError',
               progress: {
                 progress: '#fileRead-progress',
                 progressBar: '.progress-bar',
                 templateId: 'progress-template',
                 fileProgressWrapper: '.fileProgress-wrapper',
               },
-              dragNDrop: {},
             },
-            /*fileRead: {
-              progress: '#fileRead-progress',
-              progressBar: '.progress-bar',
-              templateId: 'progress-template',
-              fileProgressWrapper: '.fileProgress-wrapper',
-              submitButton: '#submitButton-avatar',
-            },*/
+          },
+          errorText: {
+            photoUpload: {
+              read:
+                'Something went wrong while reading the file. Please, try again',
+              legacyBrowser:
+                'Your browser is outdated. Please, update your browser and try again',
+              wrongFileType: 'Please, upload image file',
+            },
           },
           classes: {
             input: 'avatar-input',

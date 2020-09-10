@@ -14,9 +14,13 @@ export default {
     _generateRandomId = _generateRandomId.bind(this);
     _loadfromInput = _loadfromInput.bind(this);
     _saveAndPreviewFile = _saveAndPreviewFile.bind(this);
+    _handleLegacyBrowsers = _handleLegacyBrowsers.bind(this);
+    _showError = _showError.bind(this);
+    _hideError = _hideError.bind(this);
 
     // Cache
     selectors = this.selectors.photoUpload;
+    errorText = this.errorText.photoUpload;
     classes = this.classes;
     progressSelectors = selectors.progress;
     // Save configuration
@@ -31,12 +35,18 @@ export default {
       return 'FormData' in window && 'FileReader' in window;
     })();
 
+    if (!isAjaxUpload) {
+      // Let the user know that his browser is outdated
+      _handleLegacyBrowsers();
+    }
+
     // Detect whether to show camera capturing for mobile and tablet devices
     let isShowCameraCapturing = await helper.isShowCameraCapturing.call(helper);
 
     if (!isShowCameraCapturing) {
       // Hide mobile capturing as a precaution
       $photoUploadContainer.removeClass(classes.mobilePhotoUpload);
+
       // Check for browser APIs that should be presented to handle Drag'n'Drop
       isAdvancedUpload = (function () {
         let div = document.createElement('div');
@@ -52,10 +62,12 @@ export default {
       $photoUploadContainer.addClass(classes.mobilePhotoUpload);
     }
 
-    // Assign fileReaderMixin to the prototype of the current class
-    Object.assign(this.__proto__, fileReaderMixin);
-    // Initializing File Reader handler
-    this.initializeFileReader();
+    if (isAjaxUpload) {
+      // Assign fileReaderMixin to the prototype of the current class
+      Object.assign(this.__proto__, fileReaderMixin);
+      // Initializing File Reader handler
+      this.initializeFileReader({ errorText });
+    }
 
     if (isAdvancedUpload) {
       // Change container visual appearance
@@ -73,10 +85,13 @@ export default {
     this._saveFile = this._saveFile.bind(this);
   },
   _showProgress,
+  _showError,
+  _hideError,
 };
 
 // Private variables
 let selectors,
+  errorText,
   avatar,
   uploader,
   classes,
@@ -84,7 +99,8 @@ let selectors,
   isAdvancedUpload,
   progressSelectors,
   $progressContainer,
-  $submitButton,
+  $disableWhileLoad,
+  $errorContainer,
   progressTemplate,
   $photoUploadContainer,
   droppedFiles = false;
@@ -96,12 +112,19 @@ let selectors,
  * progress container, progress template
  */
 function _cacheElements() {
-  // Progress indicator
+  // Buttons to disable while file is being read
+  $disableWhileLoad = this.$modal.find(selectors.disableWhileLoad);
+
+  // Containers
+  // Progress
   $progressContainer = this.$modal.find(progressSelectors.progress);
-  // Submit button
-  $submitButton = this.$form.find(selectors.submitButton);
-  //Photo upload container
+  // Error
+  this.$errorContainer = $errorContainer = this.$modal.find(
+    selectors.errorContainer
+  );
+  // Photo upload
   $photoUploadContainer = this.$modal.find(selectors.uploadContainer);
+
   // Template
   progressTemplate = document.getElementById(progressSelectors.templateId);
 }
@@ -117,8 +140,6 @@ function _setUpEventListeners() {
     // Stop execution if the target is not for photo upload
     if (!target.classList.contains(classes.input)) return;
 
-    // Disable submit button
-    $submitButton.attr('disabled', true);
     // Load files for preview
     _loadfromInput(target);
   });
@@ -131,7 +152,7 @@ function _setUpEventListeners() {
     // Remove progress indicator
     $target.closest(progressSelectors.fileProgressWrapper).remove();
     // Enable button
-    $submitButton.attr('disabled', false);
+    $disableWhileLoad.attr('disabled', false);
   });
 
   if (!isAdvancedUpload) return;
@@ -148,6 +169,29 @@ function _setUpEventListeners() {
       console.log('We are in photo uploader!');
     }
   });
+}
+
+/**
+ * Function to notify the user that his browser is outdated
+ * And it will not support file upload
+ */
+function _handleLegacyBrowsers() {
+  $photoUploadContainer.hide();
+  _showError(errorText.legacyBrowser);
+}
+
+/**
+ * Function showing errors that are not handled via alerts in error container
+ */
+function _showError(errorMessage) {
+  $errorContainer.text(errorMessage);
+}
+
+/**
+ * Function hiding previously displayed error in the error container
+ */
+function _hideError() {
+  $errorContainer.empty();
 }
 
 /**
@@ -173,7 +217,16 @@ function _loadfromInput(input) {
  * @param {File Object} file - file to save and preview
  */
 function _saveAndPreviewFile(file) {
-  //Save file to upload it in the future
+  // Restrict allowed file types
+  let isImage = helper.MIMETypeIsImage(file);
+  if (!isImage) {
+    _showError(errorText.wrongFileType);
+    return;
+  }
+
+  // Disable buttons
+  $disableWhileLoad.attr('disabled', true);
+  // Save file to upload it in the future - this method is unique to each class using file upload
   this._saveFile(file);
   // Insert progress bar
   let $progressBar = _insertProgressBar({ fileName: file.name });

@@ -122,7 +122,8 @@ select.form-control optgroup {
   padding-top: 7px;
   font-size: 16px !important;
 }
-.general-error {
+.general-error,
+.upload-error {
   color: #ff0068;
   text-align: center !important;
 }
@@ -1962,13 +1963,13 @@ article .header time {
   visibility: hidden;
 }
 .photo-upload.mobile .select {
-  margin-bottom: 15px;
+  margin-bottom: 15px !important;
   width: 100%;
 }
 .photo-upload.mobile .capture {
   position: relative;
   visibility: visible;
-  margin-bottom: 15px;
+  margin-bottom: 15px !important;
   width: 100%;
 }
 .photo-upload.advanced-upload {
@@ -2021,6 +2022,14 @@ article .header time {
   .photo-upload.advanced-upload .drag-n-drop .info .title {
     font-size: 28px;
   }
+}
+.photo-upload .avatar-input:disabled ~ .upload-photo-label,
+.photo-upload .avatar-input:disabled ~ .upload-photo-label:hover,
+.photo-upload .avatar-input:disabled ~ .upload-photo-label:focus,
+.photo-upload .avatar-input:disabled ~ .upload-photo-label:active {
+  background: #fff;
+  color: #bcc1c6;
+  border-color: #bcc1c6;
 }
 .upload-avatar .upload-progress .progress-bar {
   transition: all 0.5s ease-out;

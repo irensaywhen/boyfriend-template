@@ -1,36 +1,19 @@
 export default {
-  initializeFileReader() {
+  initializeFileReader(config) {
+    // Save passed information
+    ({ errorText } = config);
+
     // Bind context
     _setReaderEventListeners = _setReaderEventListeners.bind(this);
     _readFile = _readFile.bind(this);
-    //_loadfromInput = _loadfromInput.bind(this);
   },
-  //_loadfromInput,
   _readFile,
 };
 
-/** Private functions */
+// Private varibles
+let errorText;
 
-/**
- * The function to load files from input.
- * It checks if there is at least one file,
- * and if so, start file loading
- * @param {DOMElement} input - input element from which all the files are loaded
- */
-//function _loadfromInput(input) {
-//  let files = input.files;
-//
-//  if (!files[0]) return;
-//
-//  for (let file of files) {
-//    //Save file to upload it in the future
-//    this._saveFile(file);
-//    // Insert progress bar
-//    let $progressBar = this._insertProgressBar({ fileName: file.name });
-//    // Read file and connect it with progress bar
-//    _readFile({ file, $progressBar });
-//  }
-//}
+/** Private functions */
 
 /**
  * Function to read file and start loading it
@@ -55,8 +38,7 @@ function _readFile({ file, $progressBar }) {
  */
 function _setReaderEventListeners(reader) {
   reader.addEventListener('loadstart', event => {
-    // Show progress indicator
-    //$progress.show();
+    this._hideError();
   });
 
   reader.addEventListener('progress', event => {
@@ -81,7 +63,7 @@ function _setReaderEventListeners(reader) {
     this.$modalFooter.show();
   });
 
-  reader.addEventListener('error', event => {
-    console.log('Error');
+  reader.addEventListener('error', () => {
+    this._showError(errorText.read);
   });
 }
