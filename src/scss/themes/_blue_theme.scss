@@ -225,8 +225,7 @@
     }
 
     &:hover .page-link,
-    &:focus .page-link,
-    &.active .page-link {
+    &:focus .page-link {
       color: #fff;
       border-color: #fff;
       background: $main-pink;
@@ -238,7 +237,6 @@
         @include pagination-link;
 
         &.jp-current,
-        &:active,
         &:focus,
         &:hover {
           background: $main-pink;

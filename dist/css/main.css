@@ -34,6 +34,16 @@
 button:disabled {
   cursor: not-allowed !important;
 }
+.btn-outline-secondary {
+  color: #6c757d;
+  border-color: #6c757d;
+}
+.btn-outline-secondary:not(:disabled):not(.disabled):active,
+.btn-outline-secondary:not(:disabled):not(.disabled).active {
+  color: #6c757d;
+  background: #fff;
+  border-color: #6c757d;
+}
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -812,8 +822,7 @@ nav ul {
   color: #ff0068;
 }
 .blue-theme .page-item:hover .page-link,
-.blue-theme .page-item:focus .page-link,
-.blue-theme .page-item.active .page-link {
+.blue-theme .page-item:focus .page-link {
   color: #fff;
   border-color: #fff;
   background: #ff0068;
@@ -829,7 +838,6 @@ nav ul {
   cursor: pointer;
 }
 .blue-theme .profile-list .pagination a.jp-current,
-.blue-theme .profile-list .pagination a:active,
 .blue-theme .profile-list .pagination a:focus,
 .blue-theme .profile-list .pagination a:hover {
   background: #ff0068;
