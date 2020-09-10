@@ -80,9 +80,13 @@
   }
 
   .avatar-requirements {
-    li {
-      font-weight: 300;
-      font-size: $paragraph-size;
+    ul {
+      list-style: none;
+
+      li {
+        font-weight: 300;
+        font-size: $paragraph-size;
+      }
     }
   }
 }

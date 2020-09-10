@@ -20936,6 +20936,19 @@
       /***/ function (module, __webpack_exports__, __webpack_require__) {
         'use strict';
         __webpack_require__.r(__webpack_exports__);
+        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/regenerator */ '../node_modules/@babel/runtime/regenerator/index.js'
+        );
+        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/asyncToGenerator */ '../node_modules/@babel/runtime/helpers/asyncToGenerator.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__
+        );
+
         /* harmony default export */ __webpack_exports__[
           'default'
         ] = (function () {
@@ -21018,6 +21031,117 @@
 
                 if (target.value.length === maxlength) event.preventDefault();
               });
+            },
+            hasTouchScreen: function hasTouchScreen() {
+              var hasTouchScreen = false;
+
+              if ('maxTouchPoints' in navigator) {
+                hasTouchScreen = navigator.maxTouchPoints > 0;
+              } else if ('msMaxTouchPoints' in navigator) {
+                hasTouchScreen = navigator.msMaxTouchPoints > 0;
+              } else {
+                var mQ = window.matchMedia && matchMedia('(pointer:coarse)');
+
+                if (mQ && mQ.media === '(pointer:coarse)') {
+                  hasTouchScreen = !!mQ.matches;
+                } else if ('orientation' in window) {
+                  // deprecated, but good fallback
+                  hasTouchScreen = true;
+                } else {
+                  // Only as a last resort, fall back to user agent sniffing
+                  var UA = navigator.userAgent;
+                  hasTouchScreen =
+                    /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
+                    /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA);
+                }
+              }
+
+              return hasTouchScreen;
+            },
+            hasWebCamera: function hasWebCamera() {
+              var hasWebCam, supportMediaDevices; // Check properties support in the browser
+
+              if (
+                !navigator.mediaDevices ||
+                !navigator.mediaDevices.enumerateDevices
+              ) {
+                return {
+                  supportMediaDevices: false,
+                };
+              } else {
+                supportMediaDevices = true;
+              }
+
+              return navigator.mediaDevices
+                .enumerateDevices()
+                .then(function (devices) {
+                  hasWebCam = devices.some(function (device) {
+                    return device.kind === 'videoinput';
+                  });
+                  return {
+                    supportMediaDevices: supportMediaDevices,
+                    hasWebCam: hasWebCam,
+                  };
+                })
+                ['catch'](function (err) {
+                  console.log(err.name + ': ' + err.message);
+                });
+            },
+            isShowCameraCapturing: function isShowCameraCapturing() {
+              var _this = this;
+
+              return _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
+                /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
+                  function _callee() {
+                    var hasTouchScreen,
+                      _yield$_this$hasWebCa,
+                      supportMediaDevices,
+                      hasWebCam;
+
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
+                      function _callee$(_context) {
+                        while (1) {
+                          switch ((_context.prev = _context.next)) {
+                            case 0:
+                              hasTouchScreen = _this.hasTouchScreen();
+                              _context.next = 3;
+                              return _this.hasWebCamera();
+
+                            case 3:
+                              _yield$_this$hasWebCa = _context.sent;
+                              supportMediaDevices =
+                                _yield$_this$hasWebCa.supportMediaDevices;
+                              hasWebCam = _yield$_this$hasWebCa.hasWebCam;
+
+                              if (supportMediaDevices) {
+                                _context.next = 10;
+                                break;
+                              }
+
+                              return _context.abrupt('return', true);
+
+                            case 10:
+                              if (!(hasTouchScreen && hasWebCam)) {
+                                _context.next = 14;
+                                break;
+                              }
+
+                              return _context.abrupt('return', true);
+
+                            case 14:
+                              return _context.abrupt('return', false);
+
+                            case 15:
+                            case 'end':
+                              return _context.stop();
+                          }
+                        }
+                      },
+                      _callee
+                    );
+                  }
+                )
+              )();
             },
           };
         })();
@@ -21801,18 +21925,34 @@
       /***/ function (module, __webpack_exports__, __webpack_require__) {
         'use strict';
         __webpack_require__.r(__webpack_exports__);
-        /* harmony import */ var _fileReaderMixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/regenerator */ '../node_modules/@babel/runtime/regenerator/index.js'
+        );
+        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/asyncToGenerator */ '../node_modules/@babel/runtime/helpers/asyncToGenerator.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _fileReaderMixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! ./fileReaderMixin */ './js/modules/fileReaderMixin.js'
         );
-        /* harmony import */ var _photosDragnDropMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+        /* harmony import */ var _photosDragnDropMixin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! ./photosDragnDropMixin */ './js/modules/photosDragnDropMixin.js'
         );
-        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! ./helper.js */ './js/modules/helper.js'
+        );
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! handlebars */ '../node_modules/handlebars/dist/cjs/handlebars.js'
         );
-        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          handlebars__WEBPACK_IMPORTED_MODULE_2__
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          handlebars__WEBPACK_IMPORTED_MODULE_5__
         );
+
         function _createForOfIteratorHelper(o, allowArrayLike) {
           var it;
           if (typeof Symbol === 'undefined' || o[Symbol.iterator] == null) {
@@ -21889,66 +22029,125 @@
 
         /* harmony default export */ __webpack_exports__['default'] = {
           initializePhotoUpload: function initializePhotoUpload() {
-            // Bind context
-            _cacheElements = _cacheElements.bind(this);
-            _setUpEventListeners = _setUpEventListeners.bind(this);
-            _prepareTemplate = _prepareTemplate.bind(this);
-            _insertProgressBar = _insertProgressBar.bind(this);
-            _showProgress = _showProgress.bind(this);
-            _generateRandomId = _generateRandomId.bind(this);
-            _loadfromInput = _loadfromInput.bind(this);
-            _saveAndPreviewFile = _saveAndPreviewFile.bind(this); // Cache
+            var _this = this;
 
-            selectors = this.selectors.photoUpload;
-            classes = this.classes;
-            progressSelectors = selectors.progress; // Save configuration
+            return _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
+              /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
+                function _callee() {
+                  var _this$configuration, isShowCameraCapturing;
 
-            var _this$configuration = this.configuration;
-            avatar = _this$configuration.avatar;
-            uploader = _this$configuration.uploader;
+                  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
+                    function _callee$(_context) {
+                      while (1) {
+                        switch ((_context.prev = _context.next)) {
+                          case 0:
+                            // Bind context
+                            _cacheElements = _cacheElements.bind(_this);
+                            _setUpEventListeners = _setUpEventListeners.bind(
+                              _this
+                            );
+                            _prepareTemplate = _prepareTemplate.bind(_this);
+                            _insertProgressBar = _insertProgressBar.bind(_this);
+                            _showProgress = _showProgress.bind(_this);
+                            _generateRandomId = _generateRandomId.bind(_this);
+                            _loadfromInput = _loadfromInput.bind(_this);
+                            _saveAndPreviewFile = _saveAndPreviewFile.bind(
+                              _this
+                            ); // Cache
 
-            // Perform preparations to handle photo upload
-            _cacheElements(); // Check for browser APIs that should be presented to handle
-            // sending photos via FormData and getting it via FileReader
+                            selectors = _this.selectors.photoUpload;
+                            classes = _this.classes;
+                            progressSelectors = selectors.progress; // Save configuration
 
-            isAjaxUpload = (function () {
-              return 'FormData' in window && 'FileReader' in window;
-            })(); // Check for browser APIs that should be presented to handle Drag'n'Drop
+                            _this$configuration = _this.configuration;
+                            avatar = _this$configuration.avatar;
+                            uploader = _this$configuration.uploader;
 
-            isAdvancedUpload = (function () {
-              var div = document.createElement('div');
-              return (
-                ('draggable' in div ||
-                  ('ondragstart' in div && 'ondrop' in div)) &&
-                isAjaxUpload
-              );
-            })(); // Assign fileReaderMixin to the prototype of the current class
+                            // Perform preparations to handle photo upload
+                            _cacheElements(); // Check for browser APIs that should be presented to handle
+                            // sending photos via FormData and getting it via FileReader
 
-            Object.assign(
-              this.__proto__,
-              _fileReaderMixin__WEBPACK_IMPORTED_MODULE_0__['default']
-            ); // Initializing File Reader handler
+                            isAjaxUpload = (function () {
+                              return (
+                                'FormData' in window && 'FileReader' in window
+                              );
+                            })(); // Detect whether to show camera capturing for mobile and tablet devices
 
-            this.initializeFileReader();
+                            _context.next = 18;
+                            return _helper_js__WEBPACK_IMPORTED_MODULE_4__[
+                              'default'
+                            ].isShowCameraCapturing.call(
+                              _helper_js__WEBPACK_IMPORTED_MODULE_4__['default']
+                            );
 
-            if (isAdvancedUpload) {
-              // Change container visual appearance
-              $photoUploadContainer.addClass(classes.dragNDrop); // Assign drag'n'drop methods to the prototype
+                          case 18:
+                            isShowCameraCapturing = _context.sent;
 
-              Object.assign(
-                this.__proto__,
-                _photosDragnDropMixin__WEBPACK_IMPORTED_MODULE_1__['default']
-              ); // Initialize drag'n'drop
+                            if (!isShowCameraCapturing) {
+                              // Hide mobile capturing as a precaution
+                              $photoUploadContainer.removeClass(
+                                classes.mobilePhotoUpload
+                              ); // Check for browser APIs that should be presented to handle Drag'n'Drop
 
-              this.initializeDragNDrop({
-                $container: $photoUploadContainer,
-              });
-            }
+                              isAdvancedUpload = (function () {
+                                var div = document.createElement('div');
+                                return (
+                                  ('draggable' in div ||
+                                    ('ondragstart' in div &&
+                                      'ondrop' in div)) &&
+                                  isAjaxUpload
+                                );
+                              })();
+                            } else {
+                              // Don't show drag'n'drop for mobile devices
+                              isAdvancedUpload = false; // Add photo capturing on mobile devices
 
-            _setUpEventListeners(); // Binding functions from the Class
+                              $photoUploadContainer.addClass(
+                                classes.mobilePhotoUpload
+                              );
+                            } // Assign fileReaderMixin to the prototype of the current class
 
-            this._preview = this._preview.bind(this);
-            this._saveFile = this._saveFile.bind(this);
+                            Object.assign(
+                              _this.__proto__,
+                              _fileReaderMixin__WEBPACK_IMPORTED_MODULE_2__[
+                                'default'
+                              ]
+                            ); // Initializing File Reader handler
+
+                            _this.initializeFileReader();
+
+                            if (isAdvancedUpload) {
+                              // Change container visual appearance
+                              $photoUploadContainer.addClass(classes.dragNDrop); // Assign drag'n'drop methods to the prototype
+
+                              Object.assign(
+                                _this.__proto__,
+                                _photosDragnDropMixin__WEBPACK_IMPORTED_MODULE_3__[
+                                  'default'
+                                ]
+                              ); // Initialize drag'n'drop
+
+                              _this.initializeDragNDrop({
+                                $container: $photoUploadContainer,
+                              });
+                            }
+
+                            _setUpEventListeners(); // Binding functions from the Class
+
+                            _this._preview = _this._preview.bind(_this);
+                            _this._saveFile = _this._saveFile.bind(_this);
+
+                          case 26:
+                          case 'end':
+                            return _context.stop();
+                        }
+                      }
+                    },
+                    _callee
+                  );
+                }
+              )
+            )();
           },
           _showProgress: _showProgress,
         }; // Private variables
@@ -22080,7 +22279,7 @@
           var progress = progressTemplate.innerHTML,
             id = _generateRandomId(); // Compile template with provided filename
 
-          progress = handlebars__WEBPACK_IMPORTED_MODULE_2___default.a.compile(
+          progress = handlebars__WEBPACK_IMPORTED_MODULE_5___default.a.compile(
             progress
           );
           progress = progress({

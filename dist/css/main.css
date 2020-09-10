@@ -2034,7 +2034,10 @@ article .header time {
   padding-right: 4px;
   padding-left: 5px;
 }
-.upload-avatar .avatar-requirements li {
+.upload-avatar .avatar-requirements ul {
+  list-style: none;
+}
+.upload-avatar .avatar-requirements ul li {
   font-weight: 300;
   font-size: 14px;
 }

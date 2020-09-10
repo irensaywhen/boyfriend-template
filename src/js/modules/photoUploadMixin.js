@@ -1,9 +1,10 @@
 import fileReaderMixin from './fileReaderMixin';
 import dragNDropMixin from './photosDragnDropMixin';
+import helper from './helper.js';
 import Handlebars from 'handlebars';
 
 export default {
-  initializePhotoUpload() {
+  async initializePhotoUpload() {
     // Bind context
     _cacheElements = _cacheElements.bind(this);
     _setUpEventListeners = _setUpEventListeners.bind(this);
@@ -30,14 +31,26 @@ export default {
       return 'FormData' in window && 'FileReader' in window;
     })();
 
-    // Check for browser APIs that should be presented to handle Drag'n'Drop
-    isAdvancedUpload = (function () {
-      let div = document.createElement('div');
-      return (
-        ('draggable' in div || ('ondragstart' in div && 'ondrop' in div)) &&
-        isAjaxUpload
-      );
-    })();
+    // Detect whether to show camera capturing for mobile and tablet devices
+    let isShowCameraCapturing = await helper.isShowCameraCapturing.call(helper);
+
+    if (!isShowCameraCapturing) {
+      // Hide mobile capturing as a precaution
+      $photoUploadContainer.removeClass(classes.mobilePhotoUpload);
+      // Check for browser APIs that should be presented to handle Drag'n'Drop
+      isAdvancedUpload = (function () {
+        let div = document.createElement('div');
+        return (
+          ('draggable' in div || ('ondragstart' in div && 'ondrop' in div)) &&
+          isAjaxUpload
+        );
+      })();
+    } else {
+      // Don't show drag'n'drop for mobile devices
+      isAdvancedUpload = false;
+      // Add photo capturing on mobile devices
+      $photoUploadContainer.addClass(classes.mobilePhotoUpload);
+    }
 
     // Assign fileReaderMixin to the prototype of the current class
     Object.assign(this.__proto__, fileReaderMixin);
