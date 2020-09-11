@@ -1,11 +1,9 @@
 import Form from './modules/form.js';
 import ChainedForms from './modules/chained-forms.js';
-import ChainedFormsWithSteps from './modules/chainedFormsWithSteps.js';
 import Avatar from './modules/avatar.js';
 
 window['Form'] = Form;
 window['ChainedForms'] = ChainedForms;
-window['ChainedFormsWithSteps'] = ChainedFormsWithSteps;
 window['Avatar'] = Avatar;
 
 $(document).ready(function () {

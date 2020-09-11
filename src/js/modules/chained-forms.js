@@ -1,3 +1,5 @@
+import stepsMixin from './stepsMixin.js';
+
 export default class ChainedForms {
   constructor(options) {
     // Bind context
@@ -6,6 +8,11 @@ export default class ChainedForms {
 
     // Save options
     this.selectors = options.selectors;
+
+    if (options.showSteps) {
+      Object.assign(ChainedForms.prototype, stepsMixin);
+      this.initStepsMixin(options.stepsConfig);
+    }
 
     this._cacheElements();
     this._setUpEventListeners();

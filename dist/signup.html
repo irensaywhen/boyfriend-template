@@ -275,18 +275,18 @@
                   ></div>
                 </div>
                 <div class="steps d-flex justify-content-around">
-                  <div class="step step-1 step-passed">
+                  <div class="step step-passed" data-step="0">
                     <i class="fas fa-check"></i>
                     <p class="label">General information</p>
                   </div>
-                  <div class="step step-2 step-current">
+                  <div class="step step-current" data-step="1">
                     <div class="current-mark"></div>
                     <p class="label">Write about yourself</p>
                   </div>
-                  <div class="step step-3 step-further">
+                  <div class="step step-further" data-step="2">
                     <p class="label">Physical data</p>
                   </div>
-                  <div class="step step-4 step-further">
+                  <div class="step step-further" data-step="3">
                     <p class="label">Select avatar</p>
                   </div>
                 </div>
@@ -992,12 +992,20 @@
         });
 
         /* forms chainer initialization */
-        const chainedForms = new ChainedFormsWithSteps({
+        const chainedForms = new ChainedForms({
           selectors: {
             formsContainer: '#forms-signup',
             forms: '.form-step',
             backward: '.backward',
             wrapper: '.form-wrapper',
+          },
+          showSteps: true,
+          stepsConfig: {
+            selectors: {
+              steps: '.step',
+              progressBar: 'progress-bar',
+              labels: '.label',
+            },
           },
         });
 
