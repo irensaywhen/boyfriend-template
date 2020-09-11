@@ -4,16 +4,6 @@
     margin: 0 auto;
   }
 
-  .form-signin {
-    @include form;
-    width: $formWidth;
-  }
-
-  .form-signin-lg {
-    @include form;
-    width: $formWidth-lg;
-  }
-
   .back {
     @extend .back-default;
     max-width: $formWidth;
@@ -27,4 +17,14 @@
 
 .login-and-registration {
   min-height: 65vh;
+}
+
+.form-signin {
+  @include form;
+  width: $formWidth;
+}
+
+.form-signin-lg {
+  @include form;
+  width: $formWidth-lg;
 }

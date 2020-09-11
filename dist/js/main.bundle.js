@@ -20674,7 +20674,6 @@
                   this.$form.submit(function (event) {
                     event.preventDefault();
                     event.stopPropagation();
-                    console.log('Submitted!');
 
                     if (!_this2.frontendValidation) {
                       // If this form doesn't require frontend validation (as with checkboxes)

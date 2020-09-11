@@ -136,7 +136,6 @@ export default class Form extends ServerRequest {
     this.$form.submit(event => {
       event.preventDefault();
       event.stopPropagation();
-      console.log('Submitted!');
 
       if (!this.frontendValidation) {
         // If this form doesn't require frontend validation (as with checkboxes)

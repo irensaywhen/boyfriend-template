@@ -1,0 +1,54 @@
+.form-steps {
+  width: 90%;
+  position: relative;
+
+  .progress {
+    .progress-bar {
+      @include ease-out;
+      background: #fff;
+    }
+  }
+
+  .steps {
+    width: 100%;
+    position: absolute;
+    top: 2.5px;
+
+    .step {
+      @include circular-badge(30px);
+      background: #fff;
+      position: relative;
+
+      .label {
+        position: absolute;
+        top: 120%;
+        left: -50%;
+        text-align: center;
+        color: #fff;
+        font-size: 14px;
+        line-height: 1.2;
+        min-width: 50px;
+      }
+
+      &.step-passed {
+        color: darken($success-green, 3);
+      }
+
+      &.step-current {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .current-mark {
+          @include circular-badge(8px);
+          background: lighten($main-blue, 7);
+        }
+      }
+
+      &.step-further {
+        background: darken($main-blue, 5);
+        border: 1x solid darken($main-blue, 7);
+      }
+    }
+  }
+}

@@ -2058,6 +2058,62 @@ article .header time {
   font-weight: 300;
   font-size: 14px;
 }
+.form-steps {
+  width: 90%;
+  position: relative;
+}
+.form-steps .progress .progress-bar {
+  transition: all 0.5s ease-out;
+  background: #fff;
+}
+.form-steps .steps {
+  width: 100%;
+  position: absolute;
+  top: 2.5px;
+}
+.form-steps .steps .step {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
+  line-height: 30px;
+  vertical-align: middle;
+  border-radius: 50%;
+  background: #fff;
+  position: relative;
+}
+.form-steps .steps .step .label {
+  position: absolute;
+  top: 120%;
+  left: -50%;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.2;
+  min-width: 50px;
+}
+.form-steps .steps .step.step-passed {
+  color: #14c565;
+}
+.form-steps .steps .step.step-current {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form-steps .steps .step.step-current .current-mark {
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  min-height: 8px;
+  line-height: 8px;
+  vertical-align: middle;
+  border-radius: 50%;
+  background: #0f75bb;
+}
+.form-steps .steps .step.step-further {
+  background: #0a5182;
+  border: 1x solid #094b79;
+}
 .top-section {
   background-image: url('../img/main-bg.jpg');
   background-size: cover;
@@ -2263,22 +2319,6 @@ article .header time {
 .form-wrapper .back-lg {
   margin: 0 auto;
 }
-.form-wrapper .form-signin {
-  border-radius: 20px;
-  background-color: #ffffff;
-  padding: 20px;
-  margin: 30px auto 10px auto;
-  max-width: 100%;
-  width: 320px;
-}
-.form-wrapper .form-signin-lg {
-  border-radius: 20px;
-  background-color: #ffffff;
-  padding: 20px;
-  margin: 30px auto 10px auto;
-  max-width: 100%;
-  width: 450px;
-}
 .form-wrapper .back {
   max-width: 320px;
 }
@@ -2287,6 +2327,22 @@ article .header time {
 }
 .login-and-registration {
   min-height: 65vh;
+}
+.form-signin {
+  border-radius: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  margin: 30px auto 10px auto;
+  max-width: 100%;
+  width: 320px;
+}
+.form-signin-lg {
+  border-radius: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  margin: 30px auto 10px auto;
+  max-width: 100%;
+  width: 450px;
 }
 .profile-list .search-form {
   border: 1px solid #ced4da;

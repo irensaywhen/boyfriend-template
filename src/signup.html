@@ -259,13 +259,42 @@
         <section class="container">
           <div class="row no-gutters proh bg-template">
             <div class="col-12 align-self-center px-0 px-sm-3 text-center">
-              <h2 class="text-white">
+              <h2 class="text-white pb-4">
                 <span class="font-weight-light">Sign</span>Up
               </h2>
+
+              <div class="form-steps py-3 mx-auto mb-5">
+                <div class="progress h-2">
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    style="width: 37.5%;"
+                    aria-valuenow="25"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+                <div class="steps d-flex justify-content-around">
+                  <div class="step step-1 step-passed">
+                    <i class="fas fa-check"></i>
+                    <p class="label">General information</p>
+                  </div>
+                  <div class="step step-2 step-current">
+                    <div class="current-mark"></div>
+                    <p class="label">Write about yourself</p>
+                  </div>
+                  <div class="step step-3 step-further">
+                    <p class="label">Physical data</p>
+                  </div>
+                  <div class="step step-4 step-further">
+                    <p class="label">Select avatar</p>
+                  </div>
+                </div>
+              </div>
               <!--Form step 1 start-->
-              <div class="form-wrapper">
+              <div class="form-wrapper pt-3">
                 <form
-                  class="form-signin shadow text-left"
+                  class="form-step form-signin shadow text-left"
                   id="signup-1"
                   data-step="0"
                 >
@@ -346,7 +375,7 @@
               <!--Form step 2 start-->
               <div class="form-wrapper">
                 <form
-                  class="form-signin shadow text-left"
+                  class="form-step form-signin shadow text-left"
                   id="signup-2"
                   data-step="1"
                 >
@@ -395,7 +424,7 @@
               <!--Form step 3 start-->
               <div class="form-wrapper" id="signup-3-wrapper">
                 <form
-                  class="form-signin-lg shadow text-left"
+                  class="form-step form-signin-lg shadow text-left"
                   id="signup-3"
                   data-step="2"
                   autocomplete="off"
@@ -565,7 +594,7 @@
                   </div>
                 </form>
                 <div
-                  class="back-lg blue-link text-white d-flex align-items-center"
+                  class="backward back-lg blue-link text-white d-flex align-items-center"
                 >
                   <i class="material-icons">
                     arrow_back
@@ -577,7 +606,11 @@
 
               <!--Form step 4 start-->
               <div class="form-wrapper text-left">
-                <div class="form-signin shadow" id="signup-4" data-step="3">
+                <div
+                  class="form-step form-signin shadow"
+                  id="signup-4"
+                  data-step="3"
+                >
                   <div class="general-error" id="general-error-signup-4"></div>
                   <!--Profile photo upload start-->
                   <div class="text-center pb-5">
@@ -617,7 +650,7 @@
                   </div>
                 </div>
                 <div
-                  class="back blue-link text-white d-flex align-items-center"
+                  class="backward back blue-link text-white d-flex align-items-center"
                 >
                   <i class="material-icons">
                     arrow_back
@@ -957,6 +990,17 @@
             },
           },
         });
+
+        /* forms chainer initialization */
+        const chainedForms = new ChainedForms({
+          selectors: {
+            formsContainer: '#forms-signup',
+            forms: '.form-step',
+            backward: '.backward',
+            wrapper: '.form-wrapper',
+          },
+        });
+
         $('#continue').click(event => {
           event.preventDefault();
           window.location.replace('./profile.html');
