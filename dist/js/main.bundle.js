@@ -19393,7 +19393,10 @@
         /* harmony import */ var _modules_chained_forms_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
           /*! ./modules/chained-forms.js */ './js/modules/chained-forms.js'
         );
-        /* harmony import */ var _modules_avatar_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _modules_chainedFormsWithSteps_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! ./modules/chainedFormsWithSteps.js */ './js/modules/chainedFormsWithSteps.js'
+        );
+        /* harmony import */ var _modules_avatar_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! ./modules/avatar.js */ './js/modules/avatar.js'
         );
 
@@ -19401,8 +19404,12 @@
           _modules_form_js__WEBPACK_IMPORTED_MODULE_0__['default'];
         window['ChainedForms'] =
           _modules_chained_forms_js__WEBPACK_IMPORTED_MODULE_1__['default'];
+        window['ChainedFormsWithSteps'] =
+          _modules_chainedFormsWithSteps_js__WEBPACK_IMPORTED_MODULE_2__[
+            'default'
+          ];
         window['Avatar'] =
-          _modules_avatar_js__WEBPACK_IMPORTED_MODULE_2__['default'];
+          _modules_avatar_js__WEBPACK_IMPORTED_MODULE_3__['default'];
         $(document).ready(function () {
           /* Browser fullscreen experience on double click */
           if (self == top) {
@@ -19954,37 +19961,27 @@
                   var selectors = this.selectors; // Show next form when the current is submitted
 
                   this.$forms.on('submitted', function (event) {
-                    var target = event.target;
-                    var step = target.dataset.step;
-                    ++step;
-                    if (step === _this2.$forms.length) return;
-                    $(target)
-                      .closest(selectors.wrapper)
-                      .fadeOut(400, function () {
-                        $(_this2.$forms.get(step))
-                          .closest(selectors.wrapper)
-                          .fadeIn(400);
-                      });
+                    _this2._changeForm('forward');
                   });
 
                   if (selectors.backward) {
                     // Show previous form when the "back" button is clicked"
                     this.$backwardButton.click(function (event) {
-                      _this2.changeForm('backward');
+                      _this2._changeForm('backward');
                     });
                   }
 
                   if (selectors.forward) {
                     // Show next form
                     this.$forwardButton.click(function (event) {
-                      _this2.changeForm('forward');
+                      _this2._changeForm('forward');
                     });
                   }
                 },
               },
               {
-                key: 'changeForm',
-                value: function changeForm(direction) {
+                key: '_changeForm',
+                value: function _changeForm(direction) {
                   var _this3 = this;
 
                   event.stopPropagation();
@@ -19996,6 +19993,7 @@
                     direction === 'forward'
                       ? Number($form.data('step')) + 1
                       : Number($form.data('step')) - 1;
+                  if (step > this.$forms.length) return;
                   $form.closest(selectors.wrapper).fadeOut(400, function () {
                     // Show the form wrapper of the previous form
                     $(_this3.$forms.get(step))
@@ -20010,6 +20008,109 @@
 
           return ChainedForms;
         })();
+
+        /***/
+      },
+
+    /***/ './js/modules/chainedFormsWithSteps.js':
+      /*!*********************************************!*\
+  !*** ./js/modules/chainedFormsWithSteps.js ***!
+  \*********************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return ChainedFormsWithSteps;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _chained_forms_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! ./chained-forms.js */ './js/modules/chained-forms.js'
+        );
+
+        function _createSuper(Derived) {
+          var hasNativeReflectConstruct = _isNativeReflectConstruct();
+          return function _createSuperInternal() {
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+                Derived
+              ),
+              result;
+            if (hasNativeReflectConstruct) {
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+                this
+              ).constructor;
+              result = Reflect.construct(Super, arguments, NewTarget);
+            } else {
+              result = Super.apply(this, arguments);
+            }
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(
+              this,
+              result
+            );
+          };
+        }
+
+        function _isNativeReflectConstruct() {
+          if (typeof Reflect === 'undefined' || !Reflect.construct)
+            return false;
+          if (Reflect.construct.sham) return false;
+          if (typeof Proxy === 'function') return true;
+          try {
+            Date.prototype.toString.call(
+              Reflect.construct(Date, [], function () {})
+            );
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        var ChainedFormsWithSteps = /*#__PURE__*/ (function (_ChainedForms) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default()(
+            ChainedFormsWithSteps,
+            _ChainedForms
+          );
+
+          var _super = _createSuper(ChainedFormsWithSteps);
+
+          function ChainedFormsWithSteps(options) {
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              ChainedFormsWithSteps
+            );
+
+            return _super.call(this, options);
+          }
+
+          return ChainedFormsWithSteps;
+        })(_chained_forms_js__WEBPACK_IMPORTED_MODULE_4__['default']);
 
         /***/
       },

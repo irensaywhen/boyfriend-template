@@ -41,36 +41,25 @@ export default class ChainedForms {
     let selectors = this.selectors;
     // Show next form when the current is submitted
     this.$forms.on('submitted', event => {
-      let target = event.target;
-      let step = target.dataset.step;
-
-      ++step;
-
-      if (step === this.$forms.length) return;
-
-      $(target)
-        .closest(selectors.wrapper)
-        .fadeOut(400, () => {
-          $(this.$forms.get(step)).closest(selectors.wrapper).fadeIn(400);
-        });
+      this._changeForm('forward');
     });
 
     if (selectors.backward) {
       // Show previous form when the "back" button is clicked"
       this.$backwardButton.click(event => {
-        this.changeForm('backward');
+        this._changeForm('backward');
       });
     }
 
     if (selectors.forward) {
       // Show next form
       this.$forwardButton.click(event => {
-        this.changeForm('forward');
+        this._changeForm('forward');
       });
     }
   }
 
-  changeForm(direction) {
+  _changeForm(direction) {
     event.stopPropagation();
     let selectors = this.selectors;
 
@@ -82,6 +71,8 @@ export default class ChainedForms {
       direction === 'forward'
         ? Number($form.data('step')) + 1
         : Number($form.data('step')) - 1;
+
+    if (step > this.$forms.length) return;
 
     $form.closest(selectors.wrapper).fadeOut(400, () => {
       // Show the form wrapper of the previous form
