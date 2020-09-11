@@ -16,6 +16,7 @@
 
     .step {
       @include circular-badge(30px);
+      @include ease-out;
       background: #fff;
       position: relative;
 

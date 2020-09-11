@@ -147,6 +147,7 @@ export default class Avatar extends EditorModal {
           });
 
           this.closeModal();
+          $(document).trigger('avatar:submitted');
           // Delete cached data about the file
           this.clean();
         } else {

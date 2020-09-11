@@ -6,6 +6,9 @@ export default class ChainedForms {
     this._cacheElements = this._cacheElements.bind(this);
     this._setUpEventListeners = this._setUpEventListeners.bind(this);
 
+    // Save current step
+    this.step = 0;
+
     // Save options
     this.selectors = options.selectors;
 
@@ -81,11 +84,14 @@ export default class ChainedForms {
 
     if (step > this.$forms.length) return;
 
+    // Save the current step;
+    this.step = step;
+
     $form.closest(selectors.wrapper).fadeOut(400, () => {
       // Show the form wrapper of the previous form
       $(this.$forms.get(step)).closest(selectors.wrapper).fadeIn(400);
     });
 
-    $(document).trigger('chainedForms:switchForm');
+    $(document).trigger('chainedForms:switchForm', direction);
   }
 }

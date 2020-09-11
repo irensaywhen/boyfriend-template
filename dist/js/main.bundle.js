@@ -19835,7 +19835,9 @@
                           icon: 'success',
                         });
 
-                        _this3.closeModal(); // Delete cached data about the file
+                        _this3.closeModal();
+
+                        $(document).trigger('avatar:submitted'); // Delete cached data about the file
 
                         _this3.clean();
                       } else {
@@ -19906,7 +19908,9 @@
 
             // Bind context
             this._cacheElements = this._cacheElements.bind(this);
-            this._setUpEventListeners = this._setUpEventListeners.bind(this); // Save options
+            this._setUpEventListeners = this._setUpEventListeners.bind(this); // Save current step
+
+            this.step = 0; // Save options
 
             this.selectors = options.selectors;
 
@@ -19997,14 +20001,16 @@
                     direction === 'forward'
                       ? Number($form.data('step')) + 1
                       : Number($form.data('step')) - 1;
-                  if (step > this.$forms.length) return;
+                  if (step > this.$forms.length) return; // Save the current step;
+
+                  this.step = step;
                   $form.closest(selectors.wrapper).fadeOut(400, function () {
                     // Show the form wrapper of the previous form
                     $(_this3.$forms.get(step))
                       .closest(selectors.wrapper)
                       .fadeIn(400);
                   });
-                  $(document).trigger('chainedForms:switchForm');
+                  $(document).trigger('chainedForms:switchForm', direction);
                 },
               },
             ]
@@ -22930,13 +22936,19 @@
         'use strict';
         __webpack_require__.r(__webpack_exports__);
         /* harmony default export */ __webpack_exports__['default'] = {
-          initStepsMixin: function initStepsMixin(stepsConfig) {
-            selectors = stepsConfig.selectors; // Caching
+          initStepsMixin: function initStepsMixin(config) {
+            selectors = config.selectors;
+            classes = config.classes;
+            // Bind context
+            _calculateProgressBarWidth = _calculateProgressBarWidth.bind(this);
+            _changeProgressIndicator = _changeProgressIndicator.bind(this);
+            _changeStepsIndicators = _changeStepsIndicators.bind(this); // Prepare elements and event listeners
 
-            _cacheElements.call(this); // Adjust labels alignment
+            _cacheElements.call(this);
+
+            _setUpEventListeners.call(this); // Adjust labels alignment
 
             (function adjustLabelsAlignment() {
-              var oneHalfStepWidth = $steps.first().outerWidth() / 2;
               $steps.find(selectors.labels).each(function (index, label) {
                 var $label = $(label);
                 $label.css(
@@ -22948,10 +22960,121 @@
           },
         }; // Private variables
 
-        var selectors, $steps; // Private functions
+        var selectors,
+          classes,
+          formFulfilled = false,
+          $wrapper,
+          $steps,
+          $progressBar,
+          oneHalfStepWidth; // Private functions
 
         function _cacheElements() {
-          $steps = $(selectors.steps);
+          // Steps wrapper
+          $wrapper = $(selectors.wrapper); // Steps icons
+
+          $steps = $wrapper.find(selectors.steps); // Hide passed icons
+
+          $wrapper.find(selectors.passed).hide(); // Hide current icons
+
+          $steps.each(function (index, item) {
+            if (index !== 0) {
+              $(item).find(selectors.current).hide();
+            }
+          }); // Calculate half of the width of the step indicator
+
+          oneHalfStepWidth = $steps.first().outerWidth() / 2; // Prepare progress bar
+
+          $progressBar = $wrapper
+            .find(selectors.progressBar)
+            .css('width', ''.concat(_calculateProgressBarWidth(), 'px'));
+        }
+
+        function _setUpEventListeners() {
+          $(document).on('chainedForms:switchForm', function (
+            event,
+            direction
+          ) {
+            _changeProgressIndicator(direction);
+          });
+          $(document).on('avatar:submitted', function (event) {
+            formFulfilled = true;
+
+            _changeProgressIndicator('forward');
+          });
+        }
+        /**
+         * Function responsible for changing everything related to showing steps
+         * @param {String} direction - string indicating to which direction did the movement occur
+         */
+
+        function _changeProgressIndicator(direction) {
+          // Change progress bar width
+          (function changeProgressBarWidth() {
+            $progressBar.css(
+              'width',
+              ''.concat(_calculateProgressBarWidth(), 'px')
+            );
+          })(); // Change step indicators
+
+          _changeStepsIndicators(direction);
+        }
+
+        function _calculateProgressBarWidth() {
+          if (formFulfilled) {
+            return '100%';
+          } else {
+            return $($steps[this.step]).position().left + oneHalfStepWidth;
+          }
+        }
+
+        function _changeStepsIndicators(direction) {
+          var currentStep = this.step,
+            _classes = classes,
+            passed = _classes.passed,
+            current = _classes.current,
+            further = _classes.further; // Cache
+
+          var $prevStep =
+              direction === 'forward'
+                ? $($steps[currentStep - 1])
+                : $($steps[currentStep + 1]),
+            $currentStep = $($steps[currentStep]); // Delete styles of the previous step as the current step
+
+          $prevStep.removeClass(current); // Add styles to the current step
+
+          $currentStep.addClass(current);
+
+          if (direction === 'forward') {
+            // Add styles to the the previous step as a passed step
+            $prevStep.addClass(passed); // Remove styles of the current step as a further step
+
+            $currentStep
+              .removeClass(further)
+              .find(selectors.current)
+              .fadeIn(200);
+          } else {
+            // If direction is backward
+            // Add styles to the previous step as a further
+            $prevStep.addClass(further);
+            $currentStep
+              .removeClass(passed)
+              .find(selectors.passed)
+              .fadeOut({
+                duration: 200,
+                queue: false,
+                complete: function complete() {
+                  // Show current step indicator
+                  $currentStep.find(selectors.current).fadeIn(200);
+                },
+              });
+          } // Hide current indicator
+
+          $prevStep.find(selectors.current).fadeOut(200, function () {
+            if (direction === 'forward') {
+              // Show passed indicator
+              $prevStep.find(selectors.passed).fadeIn(200);
+            }
+          });
         }
 
         /***/
