@@ -115,8 +115,7 @@ export default class Avatar extends EditorModal {
    */
   _generateFormData() {
     super._generateFormData();
-
-    this.formData.set('avatar', this.avatar, this.avatar.name);
+    this.formData.append('avatar', this.avatar, this.avatar.name);
   }
 
   /**

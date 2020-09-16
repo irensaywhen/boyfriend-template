@@ -202,12 +202,10 @@ function _hideError() {
  */
 function _loadfromInput(input) {
   let files = input.files;
-
   if (!files[0]) return;
 
-  for (let file of files) {
-    // Handle file saving and preview
-    _saveAndPreviewFile(file);
+  for (let i = 0; i < files.length; i++) {
+    _saveAndPreviewFile(files[i]);
   }
 }
 
@@ -219,6 +217,7 @@ function _loadfromInput(input) {
 function _saveAndPreviewFile(file) {
   // Restrict allowed file types
   let isImage = helper.MIMETypeIsImage(file);
+
   if (!isImage) {
     _showError(errorText.wrongFileType);
     return;
