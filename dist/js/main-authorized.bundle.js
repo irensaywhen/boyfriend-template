@@ -25832,6 +25832,8 @@
             template = document.getElementById(this.loading.spinnerTemplateId); // Event handling
 
             $form.submit(function () {
+              // Don't show loading indicator if the form isn't valid
+              if (!_this.$form.valid()) return;
               var spinner = template.content.cloneNode(true),
                 loading = _this.loading,
                 $submitButton = _this.$submitButton; // Preserve width and get rid of the previous content

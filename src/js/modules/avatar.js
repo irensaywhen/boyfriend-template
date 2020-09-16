@@ -160,6 +160,7 @@ export default class Avatar extends EditorModal {
         }
       })
       .catch(error => {
+        console.error(error);
         // Unsuccessful Popup
         this.showRequestResult({
           title: error.name,

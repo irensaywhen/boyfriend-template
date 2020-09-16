@@ -22,28 +22,30 @@ export default class ChainedForms {
   }
 
   _cacheElements() {
-    // Forms container
-    this.$container = $(this.selectors.formsContainer);
+    let selectors = this.selectors;
 
-    this.$generalErrors = this.$container.find(this.selectors.generalError);
+    // Forms container
+    this.$container = $(selectors.formsContainer);
+
+    this.$generalErrors = this.$container.find(selectors.generalError);
 
     // Forms to chain
     this.$forms = this.$container
-      .find(this.selectors.forms)
+      .find(selectors.forms)
       .each((index, element) => {
         if (index !== 0) {
-          $(element).closest(this.selectors.wrapper).fadeOut().hide();
+          $(element).closest(selectors.wrapper).fadeOut().hide();
         }
       });
 
     // Forward button
-    this.$forwardButton = this.selectors.forward
-      ? this.$container.find(this.selectors.forward)
+    this.$forwardButton = selectors.forward
+      ? this.$container.find(selectors.forward)
       : null;
 
     // Backward button
-    this.$backwardButton = this.selectors.backward
-      ? this.$container.find(this.selectors.backward)
+    this.$backwardButton = selectors.backward
+      ? this.$container.find(selectors.backward)
       : null;
   }
 
@@ -82,7 +84,7 @@ export default class ChainedForms {
         ? Number($form.data('step')) + 1
         : Number($form.data('step')) - 1;
 
-    if (step > this.$forms.length) return;
+    if (step > this.$forms.length - 1) return;
 
     // Save the current step;
     this.step = step;

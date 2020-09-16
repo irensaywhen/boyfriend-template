@@ -6,6 +6,8 @@ export default {
     _calculateProgressBarWidth = _calculateProgressBarWidth.bind(this);
     _changeProgressIndicator = _changeProgressIndicator.bind(this);
     _changeStepsIndicators = _changeStepsIndicators.bind(this);
+    _changeSteps = _changeSteps.bind(this);
+    _showFilledIndicator = _showFilledIndicator.bind(this);
 
     // Prepare elements and event listeners
     _cacheElements.call(this);
@@ -53,7 +55,7 @@ function _cacheElements() {
   // Prepare progress bar
   $progressBar = $wrapper
     .find(selectors.progressBar)
-    .css('width', `${_calculateProgressBarWidth()}px`);
+    .css('width', _calculateProgressBarWidth());
 }
 
 function _setUpEventListeners() {
@@ -75,29 +77,56 @@ function _setUpEventListeners() {
 function _changeProgressIndicator(direction) {
   // Change progress bar width
   (function changeProgressBarWidth() {
-    $progressBar.css('width', `${_calculateProgressBarWidth()}px`);
+    $progressBar.css('width', _calculateProgressBarWidth(direction));
   })();
+
   // Change step indicators
   _changeStepsIndicators(direction);
 }
 
-function _calculateProgressBarWidth() {
-  if (formFulfilled) {
+/**
+ * Function calculating the width of the progress bar to show
+ */
+function _calculateProgressBarWidth(direction) {
+  if (formFulfilled && direction === 'forward') {
     return '100%';
   } else {
-    return $($steps[this.step]).position().left + oneHalfStepWidth;
+    return `${$($steps[this.step]).position().left + oneHalfStepWidth}px`;
   }
 }
 
+/**
+ * Function changing the visual appearance of the steps indicators
+ * depending on whether the user goes forward or clicks backward button
+ * @param {String} direction - the direction in which the form is being changed
+ * Possible values: forward, backward
+ */
 function _changeStepsIndicators(direction) {
-  let currentStep = this.step,
-    { passed, current, further } = classes;
+  if (
+    formFulfilled &&
+    this.step === this.$forms.length - 1 &&
+    direction === 'forward'
+  ) {
+    _showFilledIndicator();
+  } else {
+    _changeSteps(direction);
+  }
+}
+
+function _changeSteps(direction) {
   // Cache
-  let $prevStep =
-      direction === 'forward'
-        ? $($steps[currentStep - 1])
-        : $($steps[currentStep + 1]),
-    $currentStep = $($steps[currentStep]);
+  let currentStep = this.step,
+    { passed, current, further } = classes,
+    $prevStep,
+    $currentStep;
+
+  // Set the previous step
+  $prevStep =
+    direction === 'forward'
+      ? $($steps[currentStep - 1])
+      : $($steps[currentStep + 1]);
+  // Set the current step
+  $currentStep = $($steps[currentStep]);
 
   // Delete styles of the previous step as the current step
   $prevStep.removeClass(current);
@@ -105,15 +134,30 @@ function _changeStepsIndicators(direction) {
   $currentStep.addClass(current);
 
   if (direction === 'forward') {
-    // Add styles to the the previous step as a passed step
-    $prevStep.addClass(passed);
-    // Remove styles of the current step as a further step
-    $currentStep.removeClass(further).find(selectors.current).fadeIn(200);
-  } else {
-    // If direction is backward
-    // Add styles to the previous step as a further
-    $prevStep.addClass(further);
+    // Previous step is passed
+    $prevStep.addClass(passed).attr('data-passed', true);
 
+    if ($currentStep.attr('data-passed') === 'true') {
+      // Change styles of the current step as a passed step
+      $currentStep
+        .removeClass(passed)
+        .addClass(current)
+        .find(selectors.passed)
+        .fadeOut(200, () => {
+          $currentStep.find(selectors.current).fadeIn(200);
+        });
+    } else {
+      // Remove styles of the current step as a further step
+      $currentStep.removeClass(further).find(selectors.current).fadeIn(200);
+    }
+  } else if (direction === 'backward') {
+    if (!($prevStep.attr('data-passed') === 'true')) {
+      $prevStep.addClass(further);
+    } else {
+      $prevStep.addClass(passed);
+    }
+
+    // Hide the passed tick and show the current indicator
     $currentStep
       .removeClass(passed)
       .find(selectors.passed)
@@ -127,11 +171,27 @@ function _changeStepsIndicators(direction) {
       });
   }
 
-  // Hide current indicator
   $prevStep.find(selectors.current).fadeOut(200, () => {
-    if (direction === 'forward') {
+    if (direction === 'forward' || $prevStep.attr('data-passed') === 'true') {
       // Show passed indicator
       $prevStep.find(selectors.passed).fadeIn(200);
     }
   });
+}
+
+function _showFilledIndicator() {
+  // Cache
+  let { passed, current } = classes,
+    $prevStep;
+
+  $prevStep = $steps.last();
+  // Delete styles of the previous step as the current step
+  $prevStep
+    .removeClass(current)
+    .addClass(passed)
+    .attr('data-passed', true)
+    .find(selectors.current)
+    .fadeOut(200, () => {
+      $prevStep.find(selectors.passed).fadeIn(200);
+    });
 }
