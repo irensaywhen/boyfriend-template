@@ -239,10 +239,16 @@
             <div
               class="col-md-7 col-12 d-flex align-items-center justify-content-center justify-content-xs-between justify-content-md-end"
             >
-              <a href="register.html" class="mx-3 btn btn-lg btn-default">
+              <a
+                href="register.html"
+                class="mx-3 btn btn-lg btn-default text-white"
+              >
                 Zarejestruj
               </a>
-              <a href="login.html" class="btn btn-lg btn-outline-white mx-3">
+              <a
+                href="login.html"
+                class="btn btn-lg btn-outline-white mx-3 text-white"
+              >
                 Zaloguj
               </a>
             </div>
@@ -992,7 +998,7 @@
           },
         });
 
-        /* forms chainer initialization 
+        /* forms chainer initialization*/
         const chainedForms = new ChainedForms({
           selectors: {
             formsContainer: '#forms-signup',
@@ -1016,7 +1022,7 @@
               further: 'step-further',
             },
           },
-        });*/
+        });
 
         $('#continue').click(event => {
           event.preventDefault();
