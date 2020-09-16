@@ -49,31 +49,6 @@ export default (function () {
       return $(headerSelector).outerHeight();
     },
 
-    restrictInputLength($form) {
-      $form.on('keydown', event => {
-        // Cache target
-        let target = event.target,
-          key = event.key,
-          selection = window.getSelection().toString();
-
-        switch (key) {
-          case 'Backspace':
-          case 'Tab':
-            return;
-        }
-
-        if (selection !== '') return;
-
-        let { restrictlength, maxlength } = target.dataset;
-        // Check whether we need to restrict length
-        if (!restrictlength) return;
-        // Convert type to perform comparison
-        maxlength = parseInt(maxlength);
-        // If the field's value length is equals to max, prevent typing
-        if (target.value.length === maxlength) event.preventDefault();
-      });
-    },
-
     hasTouchScreen() {
       let hasTouchScreen = false;
 

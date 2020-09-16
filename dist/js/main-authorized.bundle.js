@@ -22438,8 +22438,8 @@
         /* harmony import */ var _paymentMixin_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
           /*! ./paymentMixin.js */ './js/modules/paymentMixin.js'
         );
-        /* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
-          /*! ./helper.js */ './js/modules/helper.js'
+        /* harmony import */ var _restrictLengthMixin_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+          /*! ./restrictLengthMixin.js */ './js/modules/restrictLengthMixin.js'
         );
         /* harmony import */ var _dateMixin_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
           /*! ./dateMixin.js */ './js/modules/dateMixin.js'
@@ -22645,9 +22645,14 @@
             _this.showFailPopup = options.showFailPopup ? true : false; // Restrict input length
 
             if (options.restrictInputLength) {
-              _helper_js__WEBPACK_IMPORTED_MODULE_11__[
+              _restrictLengthMixin_js__WEBPACK_IMPORTED_MODULE_11__[
                 'default'
-              ].restrictInputLength(_this.$form);
+              ].init.call(
+                _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
+                  _this
+                ),
+                _this.$form
+              );
             }
 
             return _this;
@@ -23467,31 +23472,6 @@
                   ? arguments[0]
                   : '.private-header';
               return $(headerSelector).outerHeight();
-            },
-            restrictInputLength: function restrictInputLength($form) {
-              $form.on('keydown', function (event) {
-                // Cache target
-                var target = event.target,
-                  key = event.key,
-                  selection = window.getSelection().toString();
-
-                switch (key) {
-                  case 'Backspace':
-                  case 'Tab':
-                    return;
-                }
-
-                if (selection !== '') return;
-                var _target$dataset = target.dataset,
-                  restrictlength = _target$dataset.restrictlength,
-                  maxlength = _target$dataset.maxlength; // Check whether we need to restrict length
-
-                if (!restrictlength) return; // Convert type to perform comparison
-
-                maxlength = parseInt(maxlength); // If the field's value length is equals to max, prevent typing
-
-                if (target.value.length === maxlength) event.preventDefault();
-              });
             },
             hasTouchScreen: function hasTouchScreen() {
               var hasTouchScreen = false;
@@ -25862,6 +25842,82 @@
         }; // Private variables
 
         var template;
+
+        /***/
+      },
+
+    /***/ './js/modules/restrictLengthMixin.js':
+      /*!*******************************************!*\
+  !*** ./js/modules/restrictLengthMixin.js ***!
+  \*******************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony default export */ __webpack_exports__['default'] = {
+          restrictInputLength: function restrictInputLength($form) {},
+          init: function init($form) {
+            _getSelectionLength = _getSelectionLength.bind(this);
+            _isNumericInput = _isNumericInput.bind(this);
+            $form.on('keydown', function (event) {
+              // Cache target
+              var target = event.target,
+                key = event.key;
+
+              switch (key) {
+                case 'Backspace':
+                case 'Tab':
+                  return;
+              }
+
+              if (!_isNumericInput(key)) {
+                event.preventDefault();
+                return;
+              }
+
+              var _target$dataset = target.dataset,
+                restrictlength = _target$dataset.restrictlength,
+                maxlength = _target$dataset.maxlength; // Check whether we need to restrict length
+
+              if (!restrictlength) return; // Allow selection
+
+              var selectionLength = _getSelectionLength(target);
+
+              if (selectionLength > 0) return; // Convert type to perform comparison
+
+              maxlength = parseInt(maxlength); // If the field's value length is equals to max, prevent typing
+
+              if (target.value.length === maxlength) event.preventDefault();
+            });
+          },
+        };
+        /**
+         * Function checking whether the inputed key is numeric
+         * @param {String} key - inputed letter
+         */
+
+        function _isNumericInput(key) {
+          var regex = /\D/;
+          return !regex.test(key);
+        }
+        /**
+         * Function getting the length of the selected text
+         * @param {HTMLElement} target - element in which to get the selected area
+         */
+
+        function _getSelectionLength(target) {
+          if (window.getSelection) {
+            try {
+              var selection = target.value.substring(
+                target.selectionStart,
+                target.selectionEnd
+              );
+              return selection.length;
+            } catch (e) {
+              console.error(e);
+            }
+          }
+        }
 
         /***/
       },

@@ -1,7 +1,7 @@
 import ServerRequest from './requests.js';
 import location from './locationMixin.js';
 import payment from './paymentMixin.js';
-import helper from './helper.js';
+import restrictLength from './restrictLengthMixin.js';
 import dateValidator from './dateMixin.js';
 
 export default class Form extends ServerRequest {
@@ -116,7 +116,7 @@ export default class Form extends ServerRequest {
 
     // Restrict input length
     if (options.restrictInputLength) {
-      helper.restrictInputLength(this.$form);
+      restrictLength.init.call(this, this.$form);
     }
   }
 

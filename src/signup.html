@@ -301,6 +301,7 @@
                   class="form-step form-signin shadow text-left"
                   id="signup-1"
                   data-step="0"
+                  autocomplete="off"
                 >
                   <div class="general-error" id="general-error-signup-1"></div>
                   <!--Name-->
@@ -382,6 +383,7 @@
                   class="form-step form-signin shadow text-left"
                   id="signup-2"
                   data-step="1"
+                  autocomplete="off"
                 >
                   <div class="general-error" id="general-error-signup-2"></div>
                   <!--Name-->
@@ -472,11 +474,9 @@
                       <div class="col-12 col-sm-4 px-0 pr-sm-2">
                         <div class="form-group float-label mb-1 input-wrapper">
                           <input
-                            type="number"
+                            type="text"
                             name="day"
                             id="day"
-                            min="1"
-                            max="31"
                             data-restrictLength="true"
                             data-maxlength="2"
                             data-date="true"
@@ -514,7 +514,7 @@
                       <div class="col-12 col-sm-4 pr-0 pl-0 pl-sm-1">
                         <div class="form-group float-label mb-1 input-wrapper">
                           <input
-                            type="number"
+                            type="text"
                             name="year"
                             id="year"
                             data-restrictLength="true"
@@ -995,7 +995,7 @@
           },
         });
 
-        /* forms chainer initialization */
+        /* forms chainer initialization 
         const chainedForms = new ChainedForms({
           selectors: {
             formsContainer: '#forms-signup',
@@ -1019,7 +1019,7 @@
               further: 'step-further',
             },
           },
-        });
+        });*/
 
         $('#continue').click(event => {
           event.preventDefault();
