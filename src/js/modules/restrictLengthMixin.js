@@ -16,14 +16,15 @@ export default {
           return;
       }
 
+      let { restrictlength, maxlength } = target.dataset;
+      // Check whether we need to restrict length
+      if (!restrictlength) return;
+
+      // Prevent not numeric inputs
       if (!_isNumericInput(key)) {
         event.preventDefault();
         return;
       }
-
-      let { restrictlength, maxlength } = target.dataset;
-      // Check whether we need to restrict length
-      if (!restrictlength) return;
 
       // Allow selection
       let selectionLength = _getSelectionLength(target);

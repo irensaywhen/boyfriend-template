@@ -161,9 +161,17 @@ export default class Form extends ServerRequest {
         .remove();
     });
 
-    $(document).on('chainedForms:switchForm', () => {
-      this.deleteGeneralError();
-    });
+    $(document)
+      .on('chainedForms:switchForm', () => {
+        this.deleteGeneralError();
+      })
+      .ready(() => {
+        this.$inputs.each((index, elem) => {
+          if ($(elem).is('select')) return;
+
+          elem.value = '';
+        });
+      });
   }
 
   collectLocationData(element) {

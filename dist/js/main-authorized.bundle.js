@@ -22709,9 +22709,16 @@
                       .find('.custom-error')
                       .remove();
                   });
-                  $(document).on('chainedForms:switchForm', function () {
-                    _this2.deleteGeneralError();
-                  });
+                  $(document)
+                    .on('chainedForms:switchForm', function () {
+                      _this2.deleteGeneralError();
+                    })
+                    .ready(function () {
+                      _this2.$inputs.each(function (index, elem) {
+                        if ($(elem).is('select')) return;
+                        elem.value = '';
+                      });
+                    });
                 },
               },
               {
@@ -25870,16 +25877,16 @@
                   return;
               }
 
-              if (!_isNumericInput(key)) {
-                event.preventDefault();
-                return;
-              }
-
               var _target$dataset = target.dataset,
                 restrictlength = _target$dataset.restrictlength,
                 maxlength = _target$dataset.maxlength; // Check whether we need to restrict length
 
-              if (!restrictlength) return; // Allow selection
+              if (!restrictlength) return; // Prevent not numeric inputs
+
+              if (!_isNumericInput(key)) {
+                event.preventDefault();
+                return;
+              } // Allow selection
 
               var selectionLength = _getSelectionLength(target);
 
