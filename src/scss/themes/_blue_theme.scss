@@ -230,6 +230,14 @@
       border-color: #fff;
       background: $main-pink;
     }
+
+    &.active {
+      .page-link {
+        color: #fff;
+        background: $main-pink;
+        border-color: #fff;
+      }
+    }
   }
   .profile-list {
     .pagination {

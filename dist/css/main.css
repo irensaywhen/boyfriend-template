@@ -827,6 +827,11 @@ nav ul {
   border-color: #fff;
   background: #ff0068;
 }
+.blue-theme .page-item.active .page-link {
+  color: #fff;
+  background: #ff0068;
+  border-color: #fff;
+}
 .blue-theme .profile-list .pagination a {
   transition: all 0.5s ease-out;
   display: inline-block;

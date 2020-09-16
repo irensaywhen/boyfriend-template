@@ -57,6 +57,17 @@
       </div>
       <!--Loader end-->
 
+      <!--Spinner template start-->
+      <template id="spinner-template">
+        <span
+          class="spinner-border spinner-border-sm mr-1"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        <span class="sr-only">Loading...</span>
+      </template>
+      <!--Spinner template end-->
+
       <!--Header start-->
       <header class="public-header w-100 pb-4">
         <div class="container-lg">
@@ -139,6 +150,7 @@
                     <button
                       type="submit"
                       class="btn btn-lg btn-default btn-rounded shadow"
+                      id="btn-loginSubmit"
                     >
                       <span>Sign in</span
                       ><i class="material-icons">arrow_forward</i>
@@ -196,6 +208,7 @@
                     <button
                       type="submit"
                       class="btn btn-lg btn-default btn-rounded shadow"
+                      id="btn-passwordRecovery"
                     >
                       <span>Reset password</span
                       ><i class="material-icons">arrow_forward</i>
@@ -301,6 +314,12 @@
             'input-wrapper': '.form-group',
             inputs: '.signin-input',
             generalError: '#general-error-login',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#btn-loginSubmit',
+              spinner: '.spinner-border',
+              text: 'Login...',
+            },
           },
           requests: {
             submit: {
@@ -340,6 +359,12 @@
             'input-wrapper': '.form-group',
             inputs: '.form-control',
             generalError: '#general-error-passwordRecovery',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#btn-passwordRecovery',
+              spinner: '.spinner-border',
+              text: 'Login...',
+            },
           },
           requests: {
             submit: {
