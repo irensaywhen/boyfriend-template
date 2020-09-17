@@ -69,9 +69,9 @@ export default class SearchProfilesForm extends Form {
     });
 
     // Preload profiles
-    $(document).ready(() => {
-      this._getProfiles('initial');
-    });
+    //$(document).ready(() => {
+    //  this._getProfiles('initial');
+    //});
   }
 
   /**

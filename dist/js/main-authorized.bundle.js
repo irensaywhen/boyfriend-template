@@ -1438,11 +1438,14 @@
         /* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! ./modules/buyPremiumForm.js */ './js/modules/buyPremiumForm.js'
         );
-        /* harmony import */ var _modules_pagination_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-          /*! ./modules/pagination.js */ './js/modules/pagination.js'
+        /* harmony import */ var _modules_paginationPrev_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! ./modules/paginationPrev.js */ './js/modules/paginationPrev.js'
         );
         /* harmony import */ var _modules_ad_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./modules/ad.js */ './js/modules/ad.js'
+        );
+        /* harmony import */ var _modules_profiles_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+          /*! ./modules/profiles.js */ './js/modules/profiles.js'
         );
 
         window['PhotoUploader'] =
@@ -1458,8 +1461,10 @@
         window['BuyPremiumForm'] =
           _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__['default'];
         window['Pagination'] =
-          _modules_pagination_js__WEBPACK_IMPORTED_MODULE_5__['default'];
+          _modules_paginationPrev_js__WEBPACK_IMPORTED_MODULE_5__['default'];
         window['Ad'] = _modules_ad_js__WEBPACK_IMPORTED_MODULE_6__['default'];
+        window['Profiles'] =
+          _modules_profiles_js__WEBPACK_IMPORTED_MODULE_7__['default'];
 
         /***/
       },
@@ -4169,10 +4174,10 @@
         /***/
       },
 
-    /***/ './js/modules/pagination.js':
-      /*!**********************************!*\
-  !*** ./js/modules/pagination.js ***!
-  \**********************************/
+    /***/ './js/modules/paginationPrev.js':
+      /*!**************************************!*\
+  !*** ./js/modules/paginationPrev.js ***!
+  \**************************************/
       /*! exports provided: default */
       /***/ function (module, __webpack_exports__, __webpack_require__) {
         'use strict';
@@ -4456,6 +4461,124 @@
               : true;
           },
         };
+
+        /***/
+      },
+
+    /***/ './js/modules/profiles.js':
+      /*!********************************!*\
+  !*** ./js/modules/profiles.js ***!
+  \********************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return Profiles;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
+        );
+
+        //import paginationMixin from './paginationMixin.js';
+        var Profiles = /*#__PURE__*/ (function () {
+          function Profiles(options) {
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              Profiles
+            );
+
+            //let { pagination: paginationConfig } = options;
+            // Save config options for pagination
+            this.paginationConfig = options.pagination;
+            this.selectors = options.selectors;
+            this.requests = options.requests;
+
+            this._cacheElements();
+
+            this._setUpEventListeners();
+          }
+
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
+            Profiles,
+            [
+              {
+                key: '_cacheElements',
+                value: function _cacheElements() {},
+              },
+              {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
+                  $();
+                },
+              },
+              {
+                key: '_prepareTemplates',
+                value: function _prepareTemplates() {}, // Getters and setters
+                // Pagination configuration
+              },
+              {
+                key: 'paginationConfig',
+                get: function get() {
+                  return this._paginationConfig;
+                },
+                set: function set(config) {
+                  if (!this._paginationConfig) {
+                    this._paginationConfig = config;
+                  }
+                }, // Selectors
+              },
+              {
+                key: 'selectors',
+                get: function get() {
+                  return this._selectors;
+                },
+                set: function set(selectors) {
+                  if (!this._selectors) {
+                    this._selectors = selectors;
+                  }
+                }, // Requests
+              },
+              {
+                key: 'requests',
+                get: function get() {
+                  return this._request;
+                },
+                set: function set(requests) {
+                  if (!this._requests) {
+                    this._requests = requests;
+                  }
+                }, // Ids
+              },
+              {
+                key: 'templateIds',
+                get: function get() {
+                  return this._templateIds;
+                },
+                set: function set(ids) {
+                  if (!this._templateIds) {
+                    this._templateIds = ids;
+                  }
+                },
+              },
+            ]
+          );
+
+          return Profiles;
+        })();
 
         /***/
       },
@@ -5097,10 +5220,9 @@
 
                     _this3.$formLoadingIndicator.fadeOut(200);
                   }); // Preload profiles
-
-                  $(document).ready(function () {
-                    _this3._getProfiles('initial');
-                  });
+                  //$(document).ready(() => {
+                  //  this._getProfiles('initial');
+                  //});
                 },
                 /**
                  * Function handling getting profiles from the server
