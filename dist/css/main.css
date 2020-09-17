@@ -216,6 +216,10 @@ select.form-control optgroup {
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
+.page-item.navigation-hidden {
+  position: absolute;
+  visibility: hidden;
+}
 html {
   height: 100%;
 }
@@ -414,12 +418,18 @@ nav ul {
   transition: all 0.5s ease-out;
   color: #ff0068;
 }
-.blue-theme .page-item:hover .page-link,
-.blue-theme .page-item:focus .page-link,
-.blue-theme .page-item.active .page-link {
+.blue-theme .page-item:hover .page-link:not(.disabled),
+.blue-theme .page-item:focus .page-link:not(.disabled),
+.blue-theme .page-item.active .page-link:not(.disabled) {
   color: #fff;
   border-color: #fff;
   background: #ff0068;
+}
+.blue-theme .page-item:hover .page-link.disabled,
+.blue-theme .page-item:focus .page-link.disabled,
+.blue-theme .page-item.active .page-link.disabled {
+  background: #fff !important;
+  cursor: default !important;
 }
 .blue-theme .profile-list .pagination a {
   transition: all 0.5s ease-out;

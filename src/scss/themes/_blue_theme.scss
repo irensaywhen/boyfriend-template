@@ -217,12 +217,21 @@
       color: $main-pink;
     }
 
-    &:hover .page-link,
-    &:focus .page-link,
-    &.active .page-link {
-      color: #fff;
-      border-color: #fff;
-      background: $main-pink;
+    &:hover,
+    &:focus,
+    &.active {
+      .page-link {
+        &:not(.disabled) {
+          color: #fff;
+          border-color: #fff;
+          background: $main-pink;
+        }
+
+        &.disabled {
+          background: #fff !important;
+          cursor: default !important;
+        }
+      }
     }
   }
   .profile-list {

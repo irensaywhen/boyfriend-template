@@ -1163,7 +1163,7 @@
 
       <!--Previous-->
       <template id="pageItem-previous">
-        <li class="page-item">
+        <li class="page-item previous" data-navigation="true">
           <a class="page-link" href="#" aria-label="Previous">
             <span aria-hidden="true">«</span>
             <span class="sr-only">Previous</span>
@@ -1173,7 +1173,7 @@
 
       <!--Next-->
       <template id="pageItem-next">
-        <li class="page-item">
+        <li class="page-item next" data-navigation="true">
           <a class="page-link" href="#" aria-label="Next">
             <span aria-hidden="true">»</span>
             <span class="sr-only">Next</span>
@@ -1184,8 +1184,10 @@
       <!--Hidden-->
       <template id="pageItem-hidden">
         <li class="page-item">
-          <span aria-hidden="true">...</span>
-          <span class="sr-only">hidden</span>
+          <span class="page-link disabled">
+            <span aria-hidden="true">...</span>
+            <span class="sr-only">hidden</span>
+          </span>
         </li>
       </template>
       <!--Templates for pagination end-->
@@ -1193,28 +1195,28 @@
       <!--Pagination start-->
       <nav class="d-flex justify-content-center my-3">
         <ul class="pagination w-auto" id="profiles-paginaition">
-          <li class="page-item active">
+          <li class="page-item active" data-page="1">
             <a class="page-link" href="#">1</a>
           </li>
-          <li class="page-item">
+          <li class="page-item" data-page="2">
             <a class="page-link" href="#">2</a>
           </li>
-          <li class="page-item">
+          <li class="page-item" data-page="3">
             <a class="page-link" href="#">3</a>
           </li>
-          <li class="page-item">
+          <li class="page-item" data-page="4">
             <a class="page-link" href="#">4</a>
           </li>
-          <li class="page-item">
+          <li class="page-item" data-page="5">
             <a class="page-link" href="#">5</a>
           </li>
-          <li class="page-item">
+          <li class="page-item" data-page="6">
             <a class="page-link" href="#">6</a>
           </li>
-          <li class="page-item">
+          <li class="page-item" data-page="7">
             <a class="page-link" href="#">7</a>
           </li>
-          <li class="page-item">
+          <li class="page-item" data-page="8">
             <a class="page-link" href="#">8</a>
           </li>
         </ul>
@@ -1431,6 +1433,7 @@
         const profiles = new Profiles({
           selectors: {
             container: '#profiles-container',
+            pageItem: '.page-item',
             pagination: '#profiles-paginaition',
             templateIds: {
               pagination: {
@@ -1443,6 +1446,7 @@
           },
           pagination: {
             maxPages: 5,
+            hiddenItemsClass: 'navigation-hidden',
           },
           requests: {
             profiles: {

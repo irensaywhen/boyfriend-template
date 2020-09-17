@@ -4465,6 +4465,32 @@
         /***/
       },
 
+    /***/ './js/modules/prepareTemplates.js':
+      /*!****************************************!*\
+  !*** ./js/modules/prepareTemplates.js ***!
+  \****************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return prepareTemplates;
+          }
+        );
+        function prepareTemplates(templates) {
+          for (var id in templates) {
+            templates[id] = document.getElementById(templates[id]).innerHTML;
+          }
+
+          return templates;
+        }
+
+        /***/
+      },
+
     /***/ './js/modules/profiles.js':
       /*!********************************!*\
   !*** ./js/modules/profiles.js ***!
@@ -4480,54 +4506,150 @@
             return Profiles;
           }
         );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/typeof */ '../node_modules/@babel/runtime/helpers/typeof.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
           /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
         );
 
         //import paginationMixin from './paginationMixin.js';
+
         var Profiles = /*#__PURE__*/ (function () {
           function Profiles(options) {
-            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(
               this,
               Profiles
             );
 
             //let { pagination: paginationConfig } = options;
-            // Save config options for pagination
+            // Bind context
+            this._addNavigationButton = this._addNavigationButton.bind(this);
+            this._removeNavigationButton = this._removeNavigationButton.bind(
+              this
+            );
+            this._togglePageVisibility = this._togglePageVisibility.bind(this); // Save config options for pagination
+
             this.paginationConfig = options.pagination;
             this.selectors = options.selectors;
-            this.requests = options.requests;
+            this.requests = options.requests; // Templates preparation
+
+            var _this$selectors$templ = this.selectors.templateIds,
+              profileTemplateId = _this$selectors$templ.profile,
+              paginationTemplateIds = _this$selectors$templ.pagination; // Get templates for pagination
+
+            this.paginationTemplates = Object(
+              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_3__['default']
+            )(paginationTemplateIds); // Get profiles template
+            // Set it up a bit later
 
             this._cacheElements();
 
             this._setUpEventListeners();
+
+            this._preparePagination();
           }
 
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(
             Profiles,
             [
               {
                 key: '_cacheElements',
-                value: function _cacheElements() {},
-              },
-              {
-                key: '_setUpEventListeners',
-                value: function _setUpEventListeners() {
-                  $();
+                value: function _cacheElements() {
+                  var selectors = this.selectors;
+                  this.$paginationContainer = $(selectors.pagination);
                 },
               },
               {
-                key: '_prepareTemplates',
-                value: function _prepareTemplates() {}, // Getters and setters
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {},
+              },
+              {
+                key: '_preparePagination',
+                value: function _preparePagination() {
+                  var $container = this.$paginationContainer,
+                    selectors = this.selectors,
+                    _this$paginationConfi = this.paginationConfig,
+                    maxPages = _this$paginationConfi.maxPages,
+                    hiddenItemsClass = _this$paginationConfi.hiddenItemsClass;
+                  var $pageItems = $container.find(selectors.pageItem);
+                  var pagesAmount = $pageItems.length; // Hide extra pages if there is more than maximum allowed pages
+
+                  if (pagesAmount > maxPages)
+                    this._togglePageVisibility({
+                      indexFrom: maxPages - 1,
+                      indexTo: pagesAmount - 2,
+                      hiddenItemsClass: hiddenItemsClass,
+                      $pageItems: $pageItems,
+                      action: 'hide',
+                    }); // Show "next" button if there is more than one page
+
+                  if (pagesAmount > 1) this._addNavigationButton('next');
+                }, // Manipulating navigation buttons
+              },
+              {
+                key: '_addNavigationButton',
+                value: function _addNavigationButton(direction) {
+                  direction === 'next'
+                    ? this.$paginationContainer.append(
+                        this.paginationTemplates.nextItem
+                      )
+                    : this.$paginationContainer.prepend(
+                        this.paginationTemplates.previousItem
+                      );
+                },
+              },
+              {
+                key: '_removeNavigationButton',
+                value: function _removeNavigationButton(direction) {}, // Changing pages visibility depending on the passed action
+              },
+              {
+                key: '_togglePageVisibility',
+                value: function _togglePageVisibility(_ref) {
+                  var indexFrom = _ref.indexFrom,
+                    indexTo = _ref.indexTo,
+                    hiddenItemsClass = _ref.hiddenItemsClass,
+                    $pageItems = _ref.$pageItems,
+                    action = _ref.action;
+                  console.log('Index from: '.concat(indexFrom));
+                  console.log('Index to: '.concat(indexTo));
+                  console.log($pageItems); // Hide extra buttons
+
+                  $pageItems.each(function (index, item) {
+                    if (index >= indexFrom && index <= indexTo) {
+                      action === 'hide'
+                        ? $(item).addClass(hiddenItemsClass)
+                        : $(item).removeClass(hiddenItemsClass);
+                    }
+                  });
+                  console.log(
+                    _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(
+                      this.paginationTemplates.hiddenItems
+                    )
+                  );
+                  console.log($pageItems.get(indexFrom - 1)); // Show indicator representing the hidden buttons
+
+                  action === 'hide'
+                    ? $($pageItems.get(indexFrom - 1)).after(
+                        this.paginationTemplates.hiddenItems
+                      )
+                    : console.log('Hiding ... button');
+                }, // Getters and setters
                 // Pagination configuration
               },
               {
@@ -4561,16 +4683,27 @@
                   if (!this._requests) {
                     this._requests = requests;
                   }
-                }, // Ids
+                }, // Pagination templates
               },
               {
-                key: 'templateIds',
+                key: 'paginationTemplates',
                 get: function get() {
-                  return this._templateIds;
+                  return this._paginationTemplates;
                 },
-                set: function set(ids) {
-                  if (!this._templateIds) {
-                    this._templateIds = ids;
+                set: function set(templates) {
+                  if (!this._paginationTemplates) {
+                    this._paginationTemplates = templates;
+                  }
+                }, // Profile template
+              },
+              {
+                key: 'profileTemplate',
+                get: function get() {
+                  return this._profileTemplate;
+                },
+                set: function set(template) {
+                  if (!this._profileTemplate) {
+                    this._profileTemplate = template;
                   }
                 },
               },
