@@ -1183,7 +1183,7 @@
 
       <!--Hidden-->
       <template id="pageItem-hidden">
-        <li class="page-item">
+        <li class="page-item hidden-pages">
           <span class="page-link disabled">
             <span aria-hidden="true">...</span>
             <span class="sr-only">hidden</span>
@@ -1435,6 +1435,9 @@
             container: '#profiles-container',
             pageItem: '.page-item',
             pagination: '#profiles-paginaition',
+            previousButton: '.previous',
+            activeItem: '.active',
+            nextButton: '.next',
             templateIds: {
               pagination: {
                 previousItem: 'pageItem-previous',
@@ -1446,7 +1449,13 @@
           },
           pagination: {
             maxPages: 5,
-            hiddenItemsClass: 'navigation-hidden',
+            classes: {
+              hiddenItems: 'navigation-hidden',
+              activeItem: 'active',
+              previousButton: 'previous',
+              nextButton: 'next',
+            },
+            hiddenItemsLabel: '.hidden-pages',
           },
           requests: {
             profiles: {

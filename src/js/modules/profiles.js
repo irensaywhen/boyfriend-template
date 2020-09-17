@@ -9,6 +9,7 @@ export default class Profiles {
     this._addNavigationButton = this._addNavigationButton.bind(this);
     this._removeNavigationButton = this._removeNavigationButton.bind(this);
     this._togglePageVisibility = this._togglePageVisibility.bind(this);
+    this._changePaginationState = this._changePaginationState.bind(this);
 
     // Save config options for pagination
     this.paginationConfig = options.pagination;
@@ -38,21 +39,137 @@ export default class Profiles {
     this.$paginationContainer = $(selectors.pagination);
   }
 
-  _setUpEventListeners() {}
+  _setUpEventListeners() {
+    let { hiddenItemsLabel } = this.paginationConfig,
+      { pageItem, activeItem } = this.selectors;
+
+    this.$paginationContainer.click(event => {
+      event.preventDefault();
+      event.stopPropagation();
+      let $target = $(event.target);
+
+      // Don't do anything if ... or active button is clicked
+      if (
+        $target.closest(hiddenItemsLabel).length === 1 ||
+        $target.closest(activeItem).length === 1
+      )
+        return;
+
+      this._changePaginationState($target.closest(pageItem));
+    });
+  }
+
+  _changePaginationState($clickedButton) {
+    let {
+        activeItem,
+        previousButton,
+        nextButton,
+      } = this.paginationConfig.classes,
+      { pageItem } = this.selectors,
+      $paginationContainer = this.$paginationContainer;
+
+    // Add active state to the specified page item
+    let setActiveState = $item => {
+      $item.addClass(activeItem);
+    };
+    let removeActiveState = () => {
+      $paginationContainer.find(`.${activeItem}`).removeClass(activeItem);
+    };
+
+    // If next/previous button is clicked
+    if (
+      $clickedButton.hasClass(previousButton) ||
+      $clickedButton.hasClass(nextButton)
+    ) {
+      // Get the current page
+      let currentPage = parseInt(
+        $paginationContainer.find(`.${activeItem}`).data('page')
+      );
+
+      if ($clickedButton.hasClass(previousButton)) {
+        // Add active state to the previous item
+        if (currentPage === 2) {
+          // If we're on the second page, hide previous button
+          this._removeNavigationButton('previous');
+        }
+
+        if (currentPage === this.pagesAmount) {
+          // If we're on the second to last page, show next button
+          this._addNavigationButton('next');
+        }
+      } else if ($clickedButton.hasClass(nextButton)) {
+        if (currentPage === this.pagesAmount - 1) {
+          // If we're on the second to last page hide next button
+          this._removeNavigationButton('next');
+        }
+
+        if (currentPage === 1) {
+          // If we're on the first page show previous button
+          this._addNavigationButton('previous');
+        }
+      }
+
+      // Remove current active state
+      removeActiveState();
+
+      currentPage = $clickedButton.hasClass(nextButton)
+        ? ++currentPage
+        : --currentPage;
+      // Set active state on the previous page
+      $paginationContainer
+        .find(`${pageItem}[data-page=${currentPage}]`)
+        .addClass(activeItem);
+    }
+
+    //if ($clickedButton.hasClass(nextButton)) {
+    //  // Get the current page
+    //  let currentPage = parseInt(
+    //    $paginationContainer.find(`.${activeItem}`).data('page')
+    //  );
+    //
+    //  if (currentPage === this.pagesAmount - 1) {
+    //    // If we're on the second to last page hide next button
+    //    this._removeNavigationButton('next');
+    //  }
+    //
+    //  if (currentPage === 1) {
+    //    // If we're on the first page show previous button
+    //    this._addNavigationButton('previous');
+    //  }
+    //
+    //  // Remove current active state
+    //  removeActiveState();
+    //
+    //  // Set active state on the next page
+    //  $paginationContainer
+    //    .find(`${pageItem}[data-page=${++currentPage}]`)
+    //    .addClass(activeItem);
+    //}
+    // Remove active state from the current active item
+    //let removeActiveState = () => {
+    //  this.$paginationContainer.find(`.${activeItem}`).removeClass(activeItem);
+    //};
+
+    // If next/previous button is clicked, change active state to one
+    // If another button is clicked, add active state to that button
+    // Also, handle showing additional pages/moving ... button here
+  }
 
   _preparePagination() {
+    // Cache
     let $container = this.$paginationContainer,
       selectors = this.selectors,
-      { maxPages, hiddenItemsClass } = this.paginationConfig;
+      { maxPages } = this.paginationConfig,
+      { hiddenItems } = this.paginationConfig.classes;
     let $pageItems = $container.find(selectors.pageItem);
-    let pagesAmount = $pageItems.length;
+    let pagesAmount = (this.pagesAmount = $pageItems.length);
 
     // Hide extra pages if there is more than maximum allowed pages
     if (pagesAmount > maxPages)
       this._togglePageVisibility({
         indexFrom: maxPages - 1,
         indexTo: pagesAmount - 2,
-        hiddenItemsClass,
+        hiddenItems,
         $pageItems,
         action: 'hide',
       });
@@ -63,36 +180,39 @@ export default class Profiles {
 
   // Manipulating navigation buttons
   _addNavigationButton(direction) {
+    let $paginationContainer = this.$paginationContainer;
+
     direction === 'next'
-      ? this.$paginationContainer.append(this.paginationTemplates.nextItem)
-      : this.$paginationContainer.prepend(
-          this.paginationTemplates.previousItem
-        );
+      ? $paginationContainer.append(this.paginationTemplates.nextItem)
+      : $paginationContainer.prepend(this.paginationTemplates.previousItem);
   }
-  _removeNavigationButton(direction) {}
+  _removeNavigationButton(direction) {
+    // Cache
+    let $paginationContainer = this.$paginationContainer,
+      { previousButton, nextButton } = this.selectors;
+
+    direction === 'next'
+      ? $paginationContainer.find(nextButton).remove()
+      : $paginationContainer.find(previousButton).remove();
+  }
 
   // Changing pages visibility depending on the passed action
   _togglePageVisibility({
     indexFrom,
     indexTo,
-    hiddenItemsClass,
+    hiddenItems,
     $pageItems,
     action,
   }) {
-    console.log(`Index from: ${indexFrom}`);
-    console.log(`Index to: ${indexTo}`);
-    console.log($pageItems);
-
     // Hide extra buttons
     $pageItems.each((index, item) => {
       if (index >= indexFrom && index <= indexTo) {
         action === 'hide'
-          ? $(item).addClass(hiddenItemsClass)
-          : $(item).removeClass(hiddenItemsClass);
+          ? $(item).addClass(hiddenItems)
+          : $(item).removeClass(hiddenItems);
       }
     });
-    console.log(typeof this.paginationTemplates.hiddenItems);
-    console.log($pageItems.get(indexFrom - 1));
+
     // Show indicator representing the hidden buttons
     action === 'hide'
       ? $($pageItems.get(indexFrom - 1)).after(

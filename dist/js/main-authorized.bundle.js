@@ -4506,25 +4506,19 @@
             return Profiles;
           }
         );
-        /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-          /*! @babel/runtime/helpers/typeof */ '../node_modules/@babel/runtime/helpers/typeof.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__
-        );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
           /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
           /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
         );
 
@@ -4532,7 +4526,7 @@
 
         var Profiles = /*#__PURE__*/ (function () {
           function Profiles(options) {
-            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               Profiles
             );
@@ -4543,7 +4537,10 @@
             this._removeNavigationButton = this._removeNavigationButton.bind(
               this
             );
-            this._togglePageVisibility = this._togglePageVisibility.bind(this); // Save config options for pagination
+            this._togglePageVisibility = this._togglePageVisibility.bind(this);
+            this._changePaginationState = this._changePaginationState.bind(
+              this
+            ); // Save config options for pagination
 
             this.paginationConfig = options.pagination;
             this.selectors = options.selectors;
@@ -4554,7 +4551,7 @@
               paginationTemplateIds = _this$selectors$templ.pagination; // Get templates for pagination
 
             this.paginationTemplates = Object(
-              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_3__['default']
+              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_2__['default']
             )(paginationTemplateIds); // Get profiles template
             // Set it up a bit later
 
@@ -4565,7 +4562,7 @@
             this._preparePagination();
           }
 
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
             Profiles,
             [
               {
@@ -4577,24 +4574,143 @@
               },
               {
                 key: '_setUpEventListeners',
-                value: function _setUpEventListeners() {},
+                value: function _setUpEventListeners() {
+                  var _this = this;
+
+                  var hiddenItemsLabel = this.paginationConfig.hiddenItemsLabel,
+                    _this$selectors = this.selectors,
+                    pageItem = _this$selectors.pageItem,
+                    activeItem = _this$selectors.activeItem;
+                  this.$paginationContainer.click(function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    var $target = $(event.target); // Don't do anything if ... or active button is clicked
+
+                    if (
+                      $target.closest(hiddenItemsLabel).length === 1 ||
+                      $target.closest(activeItem).length === 1
+                    )
+                      return;
+
+                    _this._changePaginationState($target.closest(pageItem));
+                  });
+                },
+              },
+              {
+                key: '_changePaginationState',
+                value: function _changePaginationState($clickedButton) {
+                  var _this$paginationConfi = this.paginationConfig.classes,
+                    activeItem = _this$paginationConfi.activeItem,
+                    previousButton = _this$paginationConfi.previousButton,
+                    nextButton = _this$paginationConfi.nextButton,
+                    pageItem = this.selectors.pageItem,
+                    $paginationContainer = this.$paginationContainer; // Add active state to the specified page item
+
+                  var setActiveState = function setActiveState($item) {
+                    $item.addClass(activeItem);
+                  };
+
+                  var removeActiveState = function removeActiveState() {
+                    $paginationContainer
+                      .find('.'.concat(activeItem))
+                      .removeClass(activeItem);
+                  }; // If next/previous button is clicked
+
+                  if (
+                    $clickedButton.hasClass(previousButton) ||
+                    $clickedButton.hasClass(nextButton)
+                  ) {
+                    // Get the current page
+                    var currentPage = parseInt(
+                      $paginationContainer
+                        .find('.'.concat(activeItem))
+                        .data('page')
+                    );
+
+                    if ($clickedButton.hasClass(previousButton)) {
+                      // Add active state to the previous item
+                      if (currentPage === 2) {
+                        // If we're on the second page, hide previous button
+                        this._removeNavigationButton('previous');
+                      }
+
+                      if (currentPage === this.pagesAmount) {
+                        // If we're on the second to last page, show next button
+                        this._addNavigationButton('next');
+                      }
+                    } else if ($clickedButton.hasClass(nextButton)) {
+                      if (currentPage === this.pagesAmount - 1) {
+                        // If we're on the second to last page hide next button
+                        this._removeNavigationButton('next');
+                      }
+
+                      if (currentPage === 1) {
+                        // If we're on the first page show previous button
+                        this._addNavigationButton('previous');
+                      }
+                    } // Remove current active state
+
+                    removeActiveState();
+                    currentPage = $clickedButton.hasClass(nextButton)
+                      ? ++currentPage
+                      : --currentPage; // Set active state on the previous page
+
+                    $paginationContainer
+                      .find(
+                        ''
+                          .concat(pageItem, '[data-page=')
+                          .concat(currentPage, ']')
+                      )
+                      .addClass(activeItem);
+                  } //if ($clickedButton.hasClass(nextButton)) {
+                  //  // Get the current page
+                  //  let currentPage = parseInt(
+                  //    $paginationContainer.find(`.${activeItem}`).data('page')
+                  //  );
+                  //
+                  //  if (currentPage === this.pagesAmount - 1) {
+                  //    // If we're on the second to last page hide next button
+                  //    this._removeNavigationButton('next');
+                  //  }
+                  //
+                  //  if (currentPage === 1) {
+                  //    // If we're on the first page show previous button
+                  //    this._addNavigationButton('previous');
+                  //  }
+                  //
+                  //  // Remove current active state
+                  //  removeActiveState();
+                  //
+                  //  // Set active state on the next page
+                  //  $paginationContainer
+                  //    .find(`${pageItem}[data-page=${++currentPage}]`)
+                  //    .addClass(activeItem);
+                  //}
+                  // Remove active state from the current active item
+                  //let removeActiveState = () => {
+                  //  this.$paginationContainer.find(`.${activeItem}`).removeClass(activeItem);
+                  //};
+                  // If next/previous button is clicked, change active state to one
+                  // If another button is clicked, add active state to that button
+                  // Also, handle showing additional pages/moving ... button here
+                },
               },
               {
                 key: '_preparePagination',
                 value: function _preparePagination() {
+                  // Cache
                   var $container = this.$paginationContainer,
                     selectors = this.selectors,
-                    _this$paginationConfi = this.paginationConfig,
-                    maxPages = _this$paginationConfi.maxPages,
-                    hiddenItemsClass = _this$paginationConfi.hiddenItemsClass;
+                    maxPages = this.paginationConfig.maxPages,
+                    hiddenItems = this.paginationConfig.classes.hiddenItems;
                   var $pageItems = $container.find(selectors.pageItem);
-                  var pagesAmount = $pageItems.length; // Hide extra pages if there is more than maximum allowed pages
+                  var pagesAmount = (this.pagesAmount = $pageItems.length); // Hide extra pages if there is more than maximum allowed pages
 
                   if (pagesAmount > maxPages)
                     this._togglePageVisibility({
                       indexFrom: maxPages - 1,
                       indexTo: pagesAmount - 2,
-                      hiddenItemsClass: hiddenItemsClass,
+                      hiddenItems: hiddenItems,
                       $pageItems: $pageItems,
                       action: 'hide',
                     }); // Show "next" button if there is more than one page
@@ -4605,44 +4721,45 @@
               {
                 key: '_addNavigationButton',
                 value: function _addNavigationButton(direction) {
+                  var $paginationContainer = this.$paginationContainer;
                   direction === 'next'
-                    ? this.$paginationContainer.append(
+                    ? $paginationContainer.append(
                         this.paginationTemplates.nextItem
                       )
-                    : this.$paginationContainer.prepend(
+                    : $paginationContainer.prepend(
                         this.paginationTemplates.previousItem
                       );
                 },
               },
               {
                 key: '_removeNavigationButton',
-                value: function _removeNavigationButton(direction) {}, // Changing pages visibility depending on the passed action
+                value: function _removeNavigationButton(direction) {
+                  // Cache
+                  var $paginationContainer = this.$paginationContainer,
+                    _this$selectors2 = this.selectors,
+                    previousButton = _this$selectors2.previousButton,
+                    nextButton = _this$selectors2.nextButton;
+                  direction === 'next'
+                    ? $paginationContainer.find(nextButton).remove()
+                    : $paginationContainer.find(previousButton).remove();
+                }, // Changing pages visibility depending on the passed action
               },
               {
                 key: '_togglePageVisibility',
                 value: function _togglePageVisibility(_ref) {
                   var indexFrom = _ref.indexFrom,
                     indexTo = _ref.indexTo,
-                    hiddenItemsClass = _ref.hiddenItemsClass,
+                    hiddenItems = _ref.hiddenItems,
                     $pageItems = _ref.$pageItems,
                     action = _ref.action;
-                  console.log('Index from: '.concat(indexFrom));
-                  console.log('Index to: '.concat(indexTo));
-                  console.log($pageItems); // Hide extra buttons
-
+                  // Hide extra buttons
                   $pageItems.each(function (index, item) {
                     if (index >= indexFrom && index <= indexTo) {
                       action === 'hide'
-                        ? $(item).addClass(hiddenItemsClass)
-                        : $(item).removeClass(hiddenItemsClass);
+                        ? $(item).addClass(hiddenItems)
+                        : $(item).removeClass(hiddenItems);
                     }
-                  });
-                  console.log(
-                    _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(
-                      this.paginationTemplates.hiddenItems
-                    )
-                  );
-                  console.log($pageItems.get(indexFrom - 1)); // Show indicator representing the hidden buttons
+                  }); // Show indicator representing the hidden buttons
 
                   action === 'hide'
                     ? $($pageItems.get(indexFrom - 1)).after(
