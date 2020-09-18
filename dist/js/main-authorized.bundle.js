@@ -4540,6 +4540,9 @@
             this._togglePageVisibility = this._togglePageVisibility.bind(this);
             this._changePaginationState = this._changePaginationState.bind(
               this
+            );
+            this._isNavigationButtonShown = this._isNavigationButtonShown.bind(
+              this
             ); // Save config options for pagination
 
             this.paginationConfig = options.pagination;
@@ -4608,89 +4611,67 @@
 
                   var setActiveState = function setActiveState($item) {
                     $item.addClass(activeItem);
-                  };
+                  }; // Remove current active state
 
                   var removeActiveState = function removeActiveState() {
                     $paginationContainer
                       .find('.'.concat(activeItem))
                       .removeClass(activeItem);
-                  }; // If next/previous button is clicked
+                  }; // Get the current page
+
+                  var currentPage = parseInt(
+                    $paginationContainer
+                      .find('.'.concat(activeItem))
+                      .data('page')
+                  );
+                  /**
+                   * Change the current active state
+                   * If the next button is clicked, the next page item should be active
+                   * If the previous button is clicked, the previous page item should be active
+                   * Otherwise, the clicked page item should be active
+                   */
 
                   if (
                     $clickedButton.hasClass(previousButton) ||
                     $clickedButton.hasClass(nextButton)
                   ) {
-                    // Get the current page
-                    var currentPage = parseInt(
-                      $paginationContainer
-                        .find('.'.concat(activeItem))
-                        .data('page')
-                    );
+                    // Next/previous button is clicked
+                    removeActiveState(); // Update current page number
 
-                    if ($clickedButton.hasClass(previousButton)) {
-                      // Add active state to the previous item
-                      if (currentPage === 2) {
-                        // If we're on the second page, hide previous button
-                        this._removeNavigationButton('previous');
-                      }
-
-                      if (currentPage === this.pagesAmount) {
-                        // If we're on the second to last page, show next button
-                        this._addNavigationButton('next');
-                      }
-                    } else if ($clickedButton.hasClass(nextButton)) {
-                      if (currentPage === this.pagesAmount - 1) {
-                        // If we're on the second to last page hide next button
-                        this._removeNavigationButton('next');
-                      }
-
-                      if (currentPage === 1) {
-                        // If we're on the first page show previous button
-                        this._addNavigationButton('previous');
-                      }
-                    } // Remove current active state
-
-                    removeActiveState();
                     currentPage = $clickedButton.hasClass(nextButton)
                       ? ++currentPage
-                      : --currentPage; // Set active state on the previous page
-
-                    $paginationContainer
-                      .find(
+                      : --currentPage;
+                    setActiveState(
+                      $paginationContainer.find(
                         ''
                           .concat(pageItem, '[data-page=')
                           .concat(currentPage, ']')
                       )
-                      .addClass(activeItem);
-                  } //if ($clickedButton.hasClass(nextButton)) {
-                  //  // Get the current page
-                  //  let currentPage = parseInt(
-                  //    $paginationContainer.find(`.${activeItem}`).data('page')
-                  //  );
-                  //
-                  //  if (currentPage === this.pagesAmount - 1) {
-                  //    // If we're on the second to last page hide next button
-                  //    this._removeNavigationButton('next');
-                  //  }
-                  //
-                  //  if (currentPage === 1) {
-                  //    // If we're on the first page show previous button
-                  //    this._addNavigationButton('previous');
-                  //  }
-                  //
-                  //  // Remove current active state
-                  //  removeActiveState();
-                  //
-                  //  // Set active state on the next page
-                  //  $paginationContainer
-                  //    .find(`${pageItem}[data-page=${++currentPage}]`)
-                  //    .addClass(activeItem);
-                  //}
-                  // Remove active state from the current active item
-                  //let removeActiveState = () => {
-                  //  this.$paginationContainer.find(`.${activeItem}`).removeClass(activeItem);
-                  //};
-                  // If next/previous button is clicked, change active state to one
+                    );
+                  } else {
+                    // Button with page number is clicked
+                    removeActiveState();
+                    setActiveState($clickedButton); // Update the current page number
+
+                    currentPage = parseInt($clickedButton.data('page'));
+                  }
+                  /**
+                   * Toggle navigation buttons visibility
+                   * The current page is storing the page number after selection (active now)
+                   * So, if the page is the first one, hide the previous button
+                   * If the page is the last one, hide the next button
+                   * Show these buttons otherwise
+                   */
+
+                  if (currentPage === 1) {
+                    this._removeNavigationButton('previous');
+                  } else if (currentPage === this.pagesAmount) {
+                    this._removeNavigationButton('next');
+                  } else if (!this._isNavigationButtonShown('next')) {
+                    this._addNavigationButton('next');
+                  } else if (!this._isNavigationButtonShown('previous')) {
+                    this._addNavigationButton('previous');
+                  } // If next/previous button is clicked, change active state to one
                   // If another button is clicked, add active state to that button
                   // Also, handle showing additional pages/moving ... button here
                 },
@@ -4734,7 +4715,6 @@
               {
                 key: '_removeNavigationButton',
                 value: function _removeNavigationButton(direction) {
-                  // Cache
                   var $paginationContainer = this.$paginationContainer,
                     _this$selectors2 = this.selectors,
                     previousButton = _this$selectors2.previousButton,
@@ -4742,6 +4722,18 @@
                   direction === 'next'
                     ? $paginationContainer.find(nextButton).remove()
                     : $paginationContainer.find(previousButton).remove();
+                },
+              },
+              {
+                key: '_isNavigationButtonShown',
+                value: function _isNavigationButtonShown(direction) {
+                  var $paginationContainer = this.$paginationContainer,
+                    _this$selectors3 = this.selectors,
+                    previousButton = _this$selectors3.previousButton,
+                    nextButton = _this$selectors3.nextButton;
+                  return direction === 'next'
+                    ? $paginationContainer.find(nextButton).length === 1
+                    : $paginationContainer.find(previousButton).length === 1;
                 }, // Changing pages visibility depending on the passed action
               },
               {
