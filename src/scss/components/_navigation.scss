@@ -1,5 +1,6 @@
 .page-item {
   &.navigation-hidden {
+    @include ease-out;
     position: absolute;
     visibility: hidden;
   }

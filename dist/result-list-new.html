@@ -1194,29 +1194,32 @@
 
       <!--Pagination start-->
       <nav class="d-flex justify-content-center my-3">
-        <ul class="pagination w-auto" id="profiles-paginaition">
-          <li class="page-item active" data-page="1">
+        <ul
+          class="pagination w-auto position-relative"
+          id="profiles-paginaition"
+        >
+          <li class="page-item page-number active" data-page="1">
             <a class="page-link" href="#">1</a>
           </li>
-          <li class="page-item" data-page="2">
+          <li class="page-item page-number" data-page="2">
             <a class="page-link" href="#">2</a>
           </li>
-          <li class="page-item" data-page="3">
+          <li class="page-item page-number" data-page="3">
             <a class="page-link" href="#">3</a>
           </li>
-          <li class="page-item" data-page="4">
+          <li class="page-item page-number" data-page="4">
             <a class="page-link" href="#">4</a>
           </li>
-          <li class="page-item" data-page="5">
+          <li class="page-item page-number" data-page="5">
             <a class="page-link" href="#">5</a>
           </li>
-          <li class="page-item" data-page="6">
+          <li class="page-item page-number" data-page="6">
             <a class="page-link" href="#">6</a>
           </li>
-          <li class="page-item" data-page="7">
+          <li class="page-item page-number" data-page="7">
             <a class="page-link" href="#">7</a>
           </li>
-          <li class="page-item" data-page="8">
+          <li class="page-item page-number" data-page="8">
             <a class="page-link" href="#">8</a>
           </li>
         </ul>
@@ -1434,9 +1437,11 @@
           selectors: {
             container: '#profiles-container',
             pageItem: '.page-item',
+            pageNumber: '.page-number',
             pagination: '#profiles-paginaition',
             previousButton: '.previous',
             activeItem: '.active',
+            hiddenPagesItem: '.hidden-pages',
             nextButton: '.next',
             templateIds: {
               pagination: {

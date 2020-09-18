@@ -4606,8 +4606,12 @@
                     activeItem = _this$paginationConfi.activeItem,
                     previousButton = _this$paginationConfi.previousButton,
                     nextButton = _this$paginationConfi.nextButton,
-                    pageItem = this.selectors.pageItem,
-                    $paginationContainer = this.$paginationContainer; // Add active state to the specified page item
+                    _this$selectors2 = this.selectors,
+                    pageItem = _this$selectors2.pageItem,
+                    pageNumber = _this$selectors2.pageNumber,
+                    $paginationContainer = this.$paginationContainer,
+                    pagesAmount = this.pagesAmount,
+                    maxPages = this.paginationConfig.maxPages; // Add active state to the specified page item
 
                   var setActiveState = function setActiveState($item) {
                     $item.addClass(activeItem);
@@ -4644,7 +4648,7 @@
                     setActiveState(
                       $paginationContainer.find(
                         ''
-                          .concat(pageItem, '[data-page=')
+                          .concat(pageNumber, '[data-page=')
                           .concat(currentPage, ']')
                       )
                     );
@@ -4665,34 +4669,84 @@
 
                   if (currentPage === 1) {
                     this._removeNavigationButton('previous');
-                  } else if (currentPage === this.pagesAmount) {
+                  } else if (currentPage === pagesAmount) {
                     this._removeNavigationButton('next');
-                  } else if (!this._isNavigationButtonShown('next')) {
-                    this._addNavigationButton('next');
-                  } else if (!this._isNavigationButtonShown('previous')) {
+                  }
+
+                  if (
+                    currentPage !== 1 &&
+                    !this._isNavigationButtonShown('previous')
+                  ) {
                     this._addNavigationButton('previous');
-                  } // If next/previous button is clicked, change active state to one
-                  // If another button is clicked, add active state to that button
+                  }
+
+                  if (
+                    currentPage !== pagesAmount &&
+                    !this._isNavigationButtonShown('next')
+                  ) {
+                    this._addNavigationButton('next');
+                  }
+                  /**
+                   * Change visibility of the buttons
+                   * If the active button is the first one or the last one
+                   * Show maximum amount of pages
+                   */
+                  //if (currentPage === 1 || currentPage === pagesAmount) {
+                  //  switch (currentPage) {
+                  //    case 1:
+                  //      console.log('The current page is the first one');
+                  //      break;
+                  //    case this.pagesAmount:
+                  //      console.log('The current page is the last one');
+                  //      // Hide pages in the begining
+                  //      //this._togglePageVisibility({
+                  //      //  indexFrom: 1,
+                  //      //  indexTo: pagesAmount - maxPages + 1,
+                  //      //  action: 'hide',
+                  //      //});
+                  //
+                  //      // Show pages in the end
+                  //      this._togglePageVisibility({
+                  //        indexFrom: pagesAmount - maxPages + 1,
+                  //        indexTo: pagesAmount - 1,
+                  //        action: 'show',
+                  //      });
+                  //
+                  //      // Hide pages in the beginning
+                  //      this._togglePageVisibility({
+                  //        indexFrom: 1,
+                  //        indexTo: pagesAmount - maxPages,
+                  //        action: 'hide',
+                  //      });
+                  //      break;
+                  //  }
+                  //}
                   // Also, handle showing additional pages/moving ... button here
                 },
               },
               {
                 key: '_preparePagination',
                 value: function _preparePagination() {
-                  // Cache
-                  var $container = this.$paginationContainer,
-                    selectors = this.selectors,
-                    maxPages = this.paginationConfig.maxPages,
-                    hiddenItems = this.paginationConfig.classes.hiddenItems;
-                  var $pageItems = $container.find(selectors.pageItem);
-                  var pagesAmount = (this.pagesAmount = $pageItems.length); // Hide extra pages if there is more than maximum allowed pages
+                  var maxPages = this.paginationConfig.maxPages;
+
+                  if (maxPages < 3) {
+                    throw new Error(
+                      'Cannot set maximum amount of pages to less than 3'
+                    );
+                  } else if (maxPages > 5) {
+                    throw new Error(
+                      'Showing more than five pages is not working yet'
+                    );
+                  } // Cache
+
+                  var pagesAmount = (this.pagesAmount = this.$paginationContainer.find(
+                    this.selectors.pageNumber
+                  ).length); // Hide extra pages if there is more than maximum allowed pages
 
                   if (pagesAmount > maxPages)
                     this._togglePageVisibility({
                       indexFrom: maxPages - 1,
                       indexTo: pagesAmount - 2,
-                      hiddenItems: hiddenItems,
-                      $pageItems: $pageItems,
                       action: 'hide',
                     }); // Show "next" button if there is more than one page
 
@@ -4702,6 +4756,7 @@
               {
                 key: '_addNavigationButton',
                 value: function _addNavigationButton(direction) {
+                  if (direction !== 'previous' && direction !== 'next') return;
                   var $paginationContainer = this.$paginationContainer;
                   direction === 'next'
                     ? $paginationContainer.append(
@@ -4715,41 +4770,67 @@
               {
                 key: '_removeNavigationButton',
                 value: function _removeNavigationButton(direction) {
-                  var $paginationContainer = this.$paginationContainer,
-                    _this$selectors2 = this.selectors,
-                    previousButton = _this$selectors2.previousButton,
-                    nextButton = _this$selectors2.nextButton;
-                  direction === 'next'
-                    ? $paginationContainer.find(nextButton).remove()
-                    : $paginationContainer.find(previousButton).remove();
-                },
-              },
-              {
-                key: '_isNavigationButtonShown',
-                value: function _isNavigationButtonShown(direction) {
+                  if (direction !== 'previous' && direction !== 'next') return;
                   var $paginationContainer = this.$paginationContainer,
                     _this$selectors3 = this.selectors,
                     previousButton = _this$selectors3.previousButton,
                     nextButton = _this$selectors3.nextButton;
+                  direction === 'next'
+                    ? $paginationContainer.find(nextButton).remove()
+                    : $paginationContainer.find(previousButton).remove();
+                },
+                /**
+                 * Function telling whether navigation button is shown
+                 * The navigation button is specified by the direction parameter
+                 * @param {String} direction - 'next' references the right button, while
+                 * 'previous' references the left button
+                 */
+              },
+              {
+                key: '_isNavigationButtonShown',
+                value: function _isNavigationButtonShown(direction) {
+                  if (direction !== 'previous' && direction !== 'next') return;
+                  var $paginationContainer = this.$paginationContainer,
+                    _this$selectors4 = this.selectors,
+                    previousButton = _this$selectors4.previousButton,
+                    nextButton = _this$selectors4.nextButton;
                   return direction === 'next'
                     ? $paginationContainer.find(nextButton).length === 1
                     : $paginationContainer.find(previousButton).length === 1;
-                }, // Changing pages visibility depending on the passed action
+                },
+                /**
+                 * Function hiding/showing pages and hiding/showing ... button
+                 * instead of the hidden pages
+                 * @param {indexFrom} Number - index from which perform the action, including
+                 * @param {indexTo} Number - index to which perform the action, including
+                 * @param {action} String - specifying the current action - hide or show
+                 */
               },
               {
                 key: '_togglePageVisibility',
                 value: function _togglePageVisibility(_ref) {
                   var indexFrom = _ref.indexFrom,
                     indexTo = _ref.indexTo,
-                    hiddenItems = _ref.hiddenItems,
-                    $pageItems = _ref.$pageItems,
                     action = _ref.action;
-                  // Hide extra buttons
+                  if (action !== 'hide' && action !== 'show') return;
+                  var selectors = this.selectors,
+                    $paginationContainer = this.$paginationContainer;
+                  var hiddenPagesItem = selectors.hiddenPagesItem,
+                    hiddenItems = this.paginationConfig.classes.hiddenItems,
+                    $pageItems = $paginationContainer.find(
+                      selectors.pageNumber
+                    );
+                  /**
+                   * Iterate over all the page items
+                   * If the passed action is hide, hide a range of items specified,
+                   * Otherwise, of the passed action is show, show a range of items
+                   */
+
                   $pageItems.each(function (index, item) {
                     if (index >= indexFrom && index <= indexTo) {
                       action === 'hide'
                         ? $(item).addClass(hiddenItems)
-                        : $(item).removeClass(hiddenItems);
+                        : $(item).removeClass(hiddenItems); //console.log(item);
                     }
                   }); // Show indicator representing the hidden buttons
 
@@ -4757,7 +4838,7 @@
                     ? $($pageItems.get(indexFrom - 1)).after(
                         this.paginationTemplates.hiddenItems
                       )
-                    : console.log('Hiding ... button');
+                    : $paginationContainer.find(hiddenPagesItem).remove();
                 }, // Getters and setters
                 // Pagination configuration
               },

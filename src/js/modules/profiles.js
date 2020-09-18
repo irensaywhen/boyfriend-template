@@ -66,8 +66,10 @@ export default class Profiles {
         previousButton,
         nextButton,
       } = this.paginationConfig.classes,
-      { pageItem } = this.selectors,
-      $paginationContainer = this.$paginationContainer;
+      { pageItem, pageNumber } = this.selectors,
+      $paginationContainer = this.$paginationContainer,
+      pagesAmount = this.pagesAmount,
+      { maxPages } = this.paginationConfig;
 
     // Add active state to the specified page item
     let setActiveState = $item => {
@@ -103,7 +105,7 @@ export default class Profiles {
         : --currentPage;
 
       setActiveState(
-        $paginationContainer.find(`${pageItem}[data-page=${currentPage}]`)
+        $paginationContainer.find(`${pageNumber}[data-page=${currentPage}]`)
       );
     } else {
       // Button with page number is clicked
@@ -123,35 +125,75 @@ export default class Profiles {
      */
     if (currentPage === 1) {
       this._removeNavigationButton('previous');
-    } else if (currentPage === this.pagesAmount) {
+    } else if (currentPage === pagesAmount) {
       this._removeNavigationButton('next');
-    } else if (!this._isNavigationButtonShown('next')) {
-      this._addNavigationButton('next');
-    } else if (!this._isNavigationButtonShown('previous')) {
-      this._addNavigationButton('previous');
     }
 
-    // If next/previous button is clicked, change active state to one
-    // If another button is clicked, add active state to that button
+    if (currentPage !== 1 && !this._isNavigationButtonShown('previous')) {
+      this._addNavigationButton('previous');
+    }
+    if (currentPage !== pagesAmount && !this._isNavigationButtonShown('next')) {
+      this._addNavigationButton('next');
+    }
+
+    /**
+     * Change visibility of the buttons
+     * If the active button is the first one or the last one
+     * Show maximum amount of pages
+     */
+    //if (currentPage === 1 || currentPage === pagesAmount) {
+    //  switch (currentPage) {
+    //    case 1:
+    //      console.log('The current page is the first one');
+    //      break;
+    //    case this.pagesAmount:
+    //      console.log('The current page is the last one');
+    //      // Hide pages in the begining
+    //      //this._togglePageVisibility({
+    //      //  indexFrom: 1,
+    //      //  indexTo: pagesAmount - maxPages + 1,
+    //      //  action: 'hide',
+    //      //});
+    //
+    //      // Show pages in the end
+    //      this._togglePageVisibility({
+    //        indexFrom: pagesAmount - maxPages + 1,
+    //        indexTo: pagesAmount - 1,
+    //        action: 'show',
+    //      });
+    //
+    //      // Hide pages in the beginning
+    //      this._togglePageVisibility({
+    //        indexFrom: 1,
+    //        indexTo: pagesAmount - maxPages,
+    //        action: 'hide',
+    //      });
+    //      break;
+    //  }
+    //}
+
     // Also, handle showing additional pages/moving ... button here
   }
 
   _preparePagination() {
+    let { maxPages } = this.paginationConfig;
+
+    if (maxPages < 3) {
+      throw new Error('Cannot set maximum amount of pages to less than 3');
+    } else if (maxPages > 5) {
+      throw new Error('Showing more than five pages is not working yet');
+    }
+
     // Cache
-    let $container = this.$paginationContainer,
-      selectors = this.selectors,
-      { maxPages } = this.paginationConfig,
-      { hiddenItems } = this.paginationConfig.classes;
-    let $pageItems = $container.find(selectors.pageItem);
-    let pagesAmount = (this.pagesAmount = $pageItems.length);
+    let pagesAmount = (this.pagesAmount = this.$paginationContainer.find(
+      this.selectors.pageNumber
+    ).length);
 
     // Hide extra pages if there is more than maximum allowed pages
     if (pagesAmount > maxPages)
       this._togglePageVisibility({
         indexFrom: maxPages - 1,
         indexTo: pagesAmount - 2,
-        hiddenItems,
-        $pageItems,
         action: 'hide',
       });
 
@@ -161,6 +203,8 @@ export default class Profiles {
 
   // Manipulating navigation buttons
   _addNavigationButton(direction) {
+    if (direction !== 'previous' && direction !== 'next') return;
+
     let $paginationContainer = this.$paginationContainer;
 
     direction === 'next'
@@ -168,6 +212,8 @@ export default class Profiles {
       : $paginationContainer.prepend(this.paginationTemplates.previousItem);
   }
   _removeNavigationButton(direction) {
+    if (direction !== 'previous' && direction !== 'next') return;
+
     let $paginationContainer = this.$paginationContainer,
       { previousButton, nextButton } = this.selectors;
 
@@ -175,7 +221,16 @@ export default class Profiles {
       ? $paginationContainer.find(nextButton).remove()
       : $paginationContainer.find(previousButton).remove();
   }
+
+  /**
+   * Function telling whether navigation button is shown
+   * The navigation button is specified by the direction parameter
+   * @param {String} direction - 'next' references the right button, while
+   * 'previous' references the left button
+   */
   _isNavigationButtonShown(direction) {
+    if (direction !== 'previous' && direction !== 'next') return;
+
     let $paginationContainer = this.$paginationContainer,
       { previousButton, nextButton } = this.selectors;
 
@@ -184,20 +239,34 @@ export default class Profiles {
       : $paginationContainer.find(previousButton).length === 1;
   }
 
-  // Changing pages visibility depending on the passed action
-  _togglePageVisibility({
-    indexFrom,
-    indexTo,
-    hiddenItems,
-    $pageItems,
-    action,
-  }) {
-    // Hide extra buttons
+  /**
+   * Function hiding/showing pages and hiding/showing ... button
+   * instead of the hidden pages
+   * @param {indexFrom} Number - index from which perform the action, including
+   * @param {indexTo} Number - index to which perform the action, including
+   * @param {action} String - specifying the current action - hide or show
+   */
+  _togglePageVisibility({ indexFrom, indexTo, action }) {
+    if (action !== 'hide' && action !== 'show') return;
+
+    let selectors = this.selectors,
+      $paginationContainer = this.$paginationContainer;
+
+    let { hiddenPagesItem } = selectors,
+      { hiddenItems } = this.paginationConfig.classes,
+      $pageItems = $paginationContainer.find(selectors.pageNumber);
+    /**
+     * Iterate over all the page items
+     * If the passed action is hide, hide a range of items specified,
+     * Otherwise, of the passed action is show, show a range of items
+     */
     $pageItems.each((index, item) => {
       if (index >= indexFrom && index <= indexTo) {
         action === 'hide'
           ? $(item).addClass(hiddenItems)
           : $(item).removeClass(hiddenItems);
+
+        //console.log(item);
       }
     });
 
@@ -206,7 +275,7 @@ export default class Profiles {
       ? $($pageItems.get(indexFrom - 1)).after(
           this.paginationTemplates.hiddenItems
         )
-      : console.log('Hiding ... button');
+      : $paginationContainer.find(hiddenPagesItem).remove();
   }
 
   // Getters and setters
