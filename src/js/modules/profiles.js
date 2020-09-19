@@ -1,4 +1,3 @@
-//import paginationMixin from './paginationMixin.js';
 import prepareTemplates from './prepareTemplates.js';
 import ServerRequest from './requests.js';
 import Handlebars from 'handlebars';
@@ -75,6 +74,10 @@ export default class Profiles extends ServerRequest {
       });
       this._changePaginationState($clickedButton);
     });
+
+    $(document).on('ad:afterInsert', () => {
+      console.log('Showing profiles and hiding skeleton');
+    });
   }
 
   _loadProfiles({ page = 1, mode }) {
@@ -140,6 +143,7 @@ export default class Profiles extends ServerRequest {
             this.$profilesContainer.append(template);
           });
 
+        $(document).trigger('profiles:afterInsert', advertisementType);
         this.$profilesContainer.show();
         this.$skeleton.hide();
       } else {

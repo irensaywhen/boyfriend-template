@@ -1,84 +1,52 @@
+import prepareTemplates from './prepareTemplates.js';
 import helper from './helper.js';
 
 export default class Ad {
   constructor(options) {
-    // Setup internal name for ad wrapper - to remove ads in the future
-    this.adWrapperClass = 'pagination-wrapper';
+    // Bind context
+    this._insertAds = this._insertAds.bind(this);
 
-    this.selectors = options['selectors'];
-    this.placementConfig = options['placementConfig'];
-    this.elementInsertAfter = options['elementInsertAfter'];
+    let selectors = (this.selectors = options.selectors);
+    this.requests = options.requests;
+    this.placementConfig = options.placementConfig;
+    this.displayOnLoad = options.displayOnLoad;
 
-    this.$adContainer = $(this['selectors']['container']).fadeOut(0);
-    this.$profilesContainer = $(this.selectors['profilesContainer']);
+    this.templates = prepareTemplates(selectors.templateIds);
 
-    let $document = $(document);
+    this._setUpEventListeners();
+    this._insertAds('custom');
+  }
 
-    $document.on('pagination:beforeInit', (event, data) => {
-      if (data) {
-        // If pagination is initiated after request
-        // Get ad with the passed advertisement type
-        this._getAd(data['advertisementType']);
-        this._makeAdWrapper();
+  _setUpEventListeners() {
+    $(document)
+      .on('profiles:afterInsert', (event, adType) => {
+        this._insertAds(adType);
+      })
+      .ready(() => {
+        console.log('Document is ready');
+      });
+  }
+
+  _removeAds() {}
+
+  _insertAds(adType) {
+    console.log('Inserting ads!');
+    let viewport = helper.getViewportRange(),
+      template = this.templates[adType];
+    let insertAfter = this.placementConfig[viewport];
+
+    let $profiles = $(this.selectors.profiles);
+    let profielsAmount = $profiles.length;
+
+    $profiles.each((index, profile) => {
+      ++index;
+      if (index % insertAfter === 0 && index !== profielsAmount) {
+        $(profile).after(template);
       }
-
-      this._insertAd();
     });
-
-    $document.on('pagination:beforeDestroyAfterResize', () => {
-      this._removeAds();
-    });
-  }
-
-  _getAd(type) {
-    this.$ad = this.$adContainer.find(`[data-type='${type}']`).clone();
-  }
-
-  _makeAdWrapper() {
-    this.$adWrapper = $('<div></div>')
-      .addClass('col-12 mt-4 mb-5')
-      .addClass(this.adWrapperClass);
-  }
-
-  _insertAd() {
-    let viewportRange = helper.getViewportRange(),
-      place = this.placementConfig[viewportRange],
-      element = this.elementInsertAfter['element'],
-      htmlClass = this.elementInsertAfter['class'];
-
-    let formula = String(2 * place) + 'n' + '+' + String(place);
-
-    this.$profilesContainer
-      .find(`${element}.${htmlClass}:nth-of-type(${formula})`)
-      .after(this.$adWrapper.clone().append(this.$ad.clone()));
-
-    this.$profilesContainer.trigger('ad:afterInsert');
-  }
-
-  _removeAds() {
-    let ads = this.$profilesContainer
-      .find(this.selectors['genericClass'])
-      .closest('.' + this.adWrapperClass)
-      .remove();
-  }
-
-  // Getters and setters
-
-  // Ads container
-  set $adContainer($element) {
-    if (this._adContainer) return;
-    this._adContainer = $element;
-  }
-  get $adContainer() {
-    return this._adContainer;
-  }
-
-  // Profiles container
-  set $profilesContainer($element) {
-    if (this._profilesContainer) return;
-    this._profilesContainer = $element;
-  }
-  get $profilesContainer() {
-    return this._profilesContainer;
+    // Get current screen size
+    console.log(helper.getViewportRange());
+    // Iterate over profiles
+    // Insert ads in appropriate places
   }
 }

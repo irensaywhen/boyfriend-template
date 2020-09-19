@@ -9380,111 +9380,81 @@
         /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
+        );
+        /* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! ./helper.js */ './js/modules/helper.js'
         );
 
         var Ad = /*#__PURE__*/ (function () {
           function Ad(options) {
-            var _this = this;
-
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               Ad
             );
 
-            // Setup internal name for ad wrapper - to remove ads in the future
-            this.adWrapperClass = 'pagination-wrapper';
-            this.selectors = options['selectors'];
-            this.placementConfig = options['placementConfig'];
-            this.elementInsertAfter = options['elementInsertAfter'];
-            this.$adContainer = $(this['selectors']['container']).fadeOut(0);
-            this.$profilesContainer = $(this.selectors['profilesContainer']);
-            var $document = $(document);
-            $document.on('pagination:beforeInit', function (event, data) {
-              if (data) {
-                // If pagination is initiated after request
-                // Get ad with the passed advertisement type
-                _this._getAd(data['advertisementType']);
+            // Bind context
+            this._insertAds = this._insertAds.bind(this);
+            var selectors = (this.selectors = options.selectors);
+            this.requests = options.requests;
+            this.placementConfig = options.placementConfig;
+            this.displayOnLoad = options.displayOnLoad;
+            this.templates = Object(
+              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_2__['default']
+            )(selectors.templateIds);
 
-                _this._makeAdWrapper();
-              }
+            this._setUpEventListeners();
 
-              _this._insertAd();
-            });
-            $document.on('pagination:beforeDestroyAfterResize', function () {
-              _this._removeAds();
-            });
+            this._insertAds('custom');
           }
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
             Ad,
             [
               {
-                key: '_getAd',
-                value: function _getAd(type) {
-                  this.$ad = this.$adContainer
-                    .find("[data-type='".concat(type, "']"))
-                    .clone();
-                },
-              },
-              {
-                key: '_makeAdWrapper',
-                value: function _makeAdWrapper() {
-                  this.$adWrapper = $('<div></div>')
-                    .addClass('col-12 mt-4 mb-5')
-                    .addClass(this.adWrapperClass);
-                },
-              },
-              {
-                key: '_insertAd',
-                value: function _insertAd() {
-                  var viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_2__[
-                      'default'
-                    ].getViewportRange(),
-                    place = this.placementConfig[viewportRange],
-                    element = this.elementInsertAfter['element'],
-                    htmlClass = this.elementInsertAfter['class'];
-                  var formula = String(2 * place) + 'n' + '+' + String(place);
-                  this.$profilesContainer
-                    .find(
-                      ''
-                        .concat(element, '.')
-                        .concat(htmlClass, ':nth-of-type(')
-                        .concat(formula, ')')
-                    )
-                    .after(this.$adWrapper.clone().append(this.$ad.clone()));
-                  this.$profilesContainer.trigger('ad:afterInsert');
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
+                  var _this = this;
+
+                  $(document)
+                    .on('profiles:afterInsert', function (event, adType) {
+                      _this._insertAds(adType);
+                    })
+                    .ready(function () {
+                      console.log('Document is ready');
+                    });
                 },
               },
               {
                 key: '_removeAds',
-                value: function _removeAds() {
-                  var ads = this.$profilesContainer
-                    .find(this.selectors['genericClass'])
-                    .closest('.' + this.adWrapperClass)
-                    .remove();
-                }, // Getters and setters
-                // Ads container
+                value: function _removeAds() {},
               },
               {
-                key: '$adContainer',
-                set: function set($element) {
-                  if (this._adContainer) return;
-                  this._adContainer = $element;
-                },
-                get: function get() {
-                  return this._adContainer;
-                }, // Profiles container
-              },
-              {
-                key: '$profilesContainer',
-                set: function set($element) {
-                  if (this._profilesContainer) return;
-                  this._profilesContainer = $element;
-                },
-                get: function get() {
-                  return this._profilesContainer;
+                key: '_insertAds',
+                value: function _insertAds(adType) {
+                  console.log('Inserting ads!');
+                  var viewport = _helper_js__WEBPACK_IMPORTED_MODULE_3__[
+                      'default'
+                    ].getViewportRange(),
+                    template = this.templates[adType];
+                  var insertAfter = this.placementConfig[viewport];
+                  var $profiles = $(this.selectors.profiles);
+                  var profielsAmount = $profiles.length;
+                  $profiles.each(function (index, profile) {
+                    ++index;
+
+                    if (index % insertAfter === 0 && index !== profielsAmount) {
+                      $(profile).after(template);
+                    }
+                  }); // Get current screen size
+
+                  console.log(
+                    _helper_js__WEBPACK_IMPORTED_MODULE_3__[
+                      'default'
+                    ].getViewportRange()
+                  ); // Iterate over profiles
+                  // Insert ads in appropriate places
                 },
               },
             ]
@@ -12504,8 +12474,6 @@
           }
         }
 
-        //import paginationMixin from './paginationMixin.js';
-
         var Profiles = /*#__PURE__*/ (function (_ServerRequest) {
           _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default()(
             Profiles,
@@ -12634,6 +12602,9 @@
 
                     _this2._changePaginationState($clickedButton);
                   });
+                  $(document).on('ad:afterInsert', function () {
+                    console.log('Showing profiles and hiding skeleton');
+                  });
                 },
               },
               {
@@ -12718,6 +12689,10 @@
 
                           _this3.$profilesContainer.append(template);
                         });
+                      $(document).trigger(
+                        'profiles:afterInsert',
+                        advertisementType
+                      );
 
                       _this3.$profilesContainer.show();
 
