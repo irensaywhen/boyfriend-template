@@ -4518,63 +4518,152 @@
         /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__
+        );
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_6__
         );
-        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
         );
+        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+          /*! ./requests.js */ './js/modules/requests.js'
+        );
+
+        function _createSuper(Derived) {
+          var hasNativeReflectConstruct = _isNativeReflectConstruct();
+          return function _createSuperInternal() {
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+                Derived
+              ),
+              result;
+            if (hasNativeReflectConstruct) {
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+                this
+              ).constructor;
+              result = Reflect.construct(Super, arguments, NewTarget);
+            } else {
+              result = Super.apply(this, arguments);
+            }
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default()(
+              this,
+              result
+            );
+          };
+        }
+
+        function _isNativeReflectConstruct() {
+          if (typeof Reflect === 'undefined' || !Reflect.construct)
+            return false;
+          if (Reflect.construct.sham) return false;
+          if (typeof Proxy === 'function') return true;
+          try {
+            Date.prototype.toString.call(
+              Reflect.construct(Date, [], function () {})
+            );
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
 
         //import paginationMixin from './paginationMixin.js';
 
-        var Profiles = /*#__PURE__*/ (function () {
+        var Profiles = /*#__PURE__*/ (function (_ServerRequest) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default()(
+            Profiles,
+            _ServerRequest
+          );
+
+          var _super = _createSuper(Profiles);
+
           function Profiles(options) {
+            var _this;
+
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               Profiles
             );
 
-            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(
-              this,
+            _this = _super.call(this, options); // Bind context
+
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_6___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              ),
               '_arePagesHidden',
               false
             );
 
-            //let { pagination: paginationConfig } = options;
-            // Bind context
-            this._addNavigationButton = this._addNavigationButton.bind(this);
-            this._removeNavigationButton = this._removeNavigationButton.bind(
-              this
+            _this._addNavigationButton = _this._addNavigationButton.bind(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              )
             );
-            this._togglePageVisibility = this._togglePageVisibility.bind(this);
-            this._changePaginationState = this._changePaginationState.bind(
-              this
+            _this._removeNavigationButton = _this._removeNavigationButton.bind(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              )
             );
-            this._isNavigationButtonShown = this._isNavigationButtonShown.bind(
-              this
+            _this._togglePageVisibility = _this._togglePageVisibility.bind(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              )
+            );
+            _this._changePaginationState = _this._changePaginationState.bind(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              )
+            );
+            _this._isNavigationButtonShown = _this._isNavigationButtonShown.bind(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              )
             ); // Save config options for pagination
 
-            this.paginationConfig = options.pagination;
-            this.selectors = options.selectors;
-            this.requests = options.requests; // Templates preparation
+            _this.paginationConfig = options.pagination; // Templates preparation
 
-            var _this$selectors$templ = this.selectors.templateIds,
+            var _this$selectors$templ = _this.selectors.templateIds,
               profileTemplateId = _this$selectors$templ.profile,
               paginationTemplateIds = _this$selectors$templ.pagination; // Get templates for pagination
 
-            this.paginationTemplates = Object(
-              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_3__['default']
+            _this.paginationTemplates = Object(
+              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_7__['default']
             )(paginationTemplateIds); // Get profiles template
             // Set it up a bit later
 
-            this._cacheElements();
+            _this._cacheElements();
 
-            this._setUpEventListeners();
+            _this._setUpEventListeners();
 
-            this._preparePagination();
+            _this._preparePagination();
+
+            return _this;
           }
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
@@ -4590,7 +4679,7 @@
               {
                 key: '_setUpEventListeners',
                 value: function _setUpEventListeners() {
-                  var _this = this;
+                  var _this2 = this;
 
                   var _this$selectors = this.selectors,
                     pageItem = _this$selectors.pageItem,
@@ -4606,8 +4695,9 @@
                       $target.closest(activeItem).length === 1
                     )
                       return;
+                    var $clickedButton = $target.closest(pageItem);
 
-                    _this._changePaginationState($target.closest(pageItem));
+                    _this2._changePaginationState($clickedButton);
                   });
                 },
               },
@@ -4795,7 +4885,6 @@
                       .find('.'.concat(hiddenPagesItem))
                       .remove()
                       .first();
-                    console.log($hiddenItemsButton);
                     var $activeItem = $paginationContainer.find(
                       '.'.concat(activeItem)
                     );
@@ -5049,7 +5138,7 @@
           );
 
           return Profiles;
-        })();
+        })(_requests_js__WEBPACK_IMPORTED_MODULE_8__['default']);
 
         /***/
       },

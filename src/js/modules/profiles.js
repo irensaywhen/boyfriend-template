@@ -1,11 +1,12 @@
 //import paginationMixin from './paginationMixin.js';
 import prepareTemplates from './prepareTemplates.js';
+import ServerRequest from './requests.js';
 
-export default class Profiles {
+export default class Profiles extends ServerRequest {
   _arePagesHidden = false;
 
   constructor(options) {
-    //let { pagination: paginationConfig } = options;
+    super(options);
 
     // Bind context
     this._addNavigationButton = this._addNavigationButton.bind(this);
@@ -16,8 +17,6 @@ export default class Profiles {
 
     // Save config options for pagination
     this.paginationConfig = options.pagination;
-    this.selectors = options.selectors;
-    this.requests = options.requests;
 
     // Templates preparation
     let {
@@ -57,7 +56,8 @@ export default class Profiles {
       )
         return;
 
-      this._changePaginationState($target.closest(pageItem));
+      let $clickedButton = $target.closest(pageItem);
+      this._changePaginationState($clickedButton);
     });
   }
 
@@ -233,7 +233,6 @@ export default class Profiles {
         .find(`.${hiddenPagesItem}`)
         .remove()
         .first();
-      console.log($hiddenItemsButton);
 
       let $activeItem = $paginationContainer.find(`.${activeItem}`);
 

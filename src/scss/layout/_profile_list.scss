@@ -1,5 +1,8 @@
 .profile-list {
-  .profiles-row {
+  position: relative;
+
+  .profiles-row,
+  .skeleton {
     padding-left: 25px !important;
     padding-right: 25px !important;
   }

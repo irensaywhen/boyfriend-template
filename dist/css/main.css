@@ -1091,7 +1091,11 @@ article .header time {
   margin-left: -40px !important;
   margin-right: -40px !important;
 }
-.profile-list .profiles-row {
+.profile-list {
+  position: relative;
+}
+.profile-list .profiles-row,
+.profile-list .skeleton {
   padding-left: 25px !important;
   padding-right: 25px !important;
 }
@@ -1215,6 +1219,65 @@ article .header time {
 }
 .wrapper.wrapper-padding {
   padding-top: 120px;
+}
+.skeleton .card {
+  height: 300px;
+  position: relative;
+}
+.skeleton .card .skeleton-element {
+  position: absolute;
+  background-image: linear-gradient(90deg, #ddd 0px, #e8e8e8 40px, #ddd 80px);
+  background-size: 600px;
+  border-radius: 15px;
+  -webkit-animation: shine-lines 1.6s infinite linear;
+  animation: shine-lines 1.6s infinite linear;
+}
+.skeleton .card .skeleton-element.skeleton-badge {
+  width: 69px;
+  height: 18px;
+  right: 15px;
+  top: 15px;
+}
+.skeleton .card .skeleton-element.skeleton-title {
+  top: 50%;
+  left: 15px;
+  width: 80%;
+  height: 20px;
+}
+.skeleton .card .skeleton-element.skeleton-subtitle {
+  top: 60%;
+  left: 15px;
+  width: 59%;
+  height: 15px;
+}
+.skeleton .card .skeleton-element.skeleton-button {
+  bottom: 30px;
+  width: 130px;
+  height: 36px;
+  left: calc(50% - 65px);
+  border-radius: 20px;
+}
+@-webkit-keyframes shine-lines {
+  0% {
+    background-position: -100px;
+  }
+  40% {
+    background-position: 140px;
+  }
+  100% {
+    background-position: 140px;
+  }
+}
+@keyframes shine-lines {
+  0% {
+    background-position: -100px;
+  }
+  40% {
+    background-position: 140px;
+  }
+  100% {
+    background-position: 140px;
+  }
 }
 .top-section {
   background-image: url('../img/main-bg.jpg');
