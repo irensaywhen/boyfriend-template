@@ -4518,7 +4518,13 @@
         /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
         );
 
@@ -4529,6 +4535,12 @@
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               Profiles
+            );
+
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(
+              this,
+              '_arePagesHidden',
+              false
             );
 
             //let { pagination: paginationConfig } = options;
@@ -4554,7 +4566,7 @@
               paginationTemplateIds = _this$selectors$templ.pagination; // Get templates for pagination
 
             this.paginationTemplates = Object(
-              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_2__['default']
+              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_3__['default']
             )(paginationTemplateIds); // Get profiles template
             // Set it up a bit later
 
@@ -4580,17 +4592,17 @@
                 value: function _setUpEventListeners() {
                   var _this = this;
 
-                  var hiddenItemsLabel = this.paginationConfig.hiddenItemsLabel,
-                    _this$selectors = this.selectors,
+                  var _this$selectors = this.selectors,
                     pageItem = _this$selectors.pageItem,
-                    activeItem = _this$selectors.activeItem;
+                    activeItem = _this$selectors.activeItem,
+                    hiddenPagesItem = _this$selectors.hiddenPagesItem;
                   this.$paginationContainer.click(function (event) {
                     event.preventDefault();
                     event.stopPropagation();
                     var $target = $(event.target); // Don't do anything if ... or active button is clicked
 
                     if (
-                      $target.closest(hiddenItemsLabel).length === 1 ||
+                      $target.closest(hiddenPagesItem).length === 1 ||
                       $target.closest(activeItem).length === 1
                     )
                       return;
@@ -4606,6 +4618,8 @@
                     activeItem = _this$paginationConfi.activeItem,
                     previousButton = _this$paginationConfi.previousButton,
                     nextButton = _this$paginationConfi.nextButton,
+                    hiddenItems = _this$paginationConfi.hiddenItems,
+                    hiddenPagesItem = _this$paginationConfi.hiddenPagesItem,
                     _this$selectors2 = this.selectors,
                     pageItem = _this$selectors2.pageItem,
                     pageNumber = _this$selectors2.pageNumber,
@@ -4685,43 +4699,163 @@
                     !this._isNavigationButtonShown('next')
                   ) {
                     this._addNavigationButton('next');
-                  }
+                  } // Check the presence of the hidden pages
+
+                  if (!this.arePagesHidden) return;
                   /**
-                   * Change visibility of the buttons
+                   * Change visibility of the buttons block
                    * If the active button is the first one or the last one
                    * Show maximum amount of pages
                    */
-                  //if (currentPage === 1 || currentPage === pagesAmount) {
-                  //  switch (currentPage) {
-                  //    case 1:
-                  //      console.log('The current page is the first one');
-                  //      break;
-                  //    case this.pagesAmount:
-                  //      console.log('The current page is the last one');
-                  //      // Hide pages in the begining
-                  //      //this._togglePageVisibility({
-                  //      //  indexFrom: 1,
-                  //      //  indexTo: pagesAmount - maxPages + 1,
-                  //      //  action: 'hide',
-                  //      //});
-                  //
-                  //      // Show pages in the end
-                  //      this._togglePageVisibility({
-                  //        indexFrom: pagesAmount - maxPages + 1,
-                  //        indexTo: pagesAmount - 1,
-                  //        action: 'show',
-                  //      });
-                  //
-                  //      // Hide pages in the beginning
-                  //      this._togglePageVisibility({
-                  //        indexFrom: 1,
-                  //        indexTo: pagesAmount - maxPages,
-                  //        action: 'hide',
-                  //      });
-                  //      break;
-                  //  }
-                  //}
-                  // Also, handle showing additional pages/moving ... button here
+
+                  if (currentPage === 1 || currentPage === pagesAmount) {
+                    switch (currentPage) {
+                      case 1:
+                        // Show pages in the beginning
+                        this._togglePageVisibility({
+                          indexFrom: 1,
+                          indexTo: pagesAmount - maxPages,
+                          action: 'show',
+                        }); // Hide pages in the end
+
+                        this._togglePageVisibility({
+                          indexFrom: pagesAmount - maxPages + 1,
+                          indexTo: pagesAmount - 2,
+                          action: 'hide',
+                        });
+
+                        break;
+
+                      case pagesAmount:
+                        // Show pages in the end
+                        this._togglePageVisibility({
+                          indexFrom: pagesAmount - maxPages + 1,
+                          indexTo: pagesAmount - 1,
+                          action: 'show',
+                        }); // Hide pages in the beginning
+
+                        this._togglePageVisibility({
+                          indexFrom: 1,
+                          indexTo: pagesAmount - maxPages,
+                          action: 'hide',
+                        });
+
+                        break;
+                    }
+                  } else {
+                    var isRightNeighbouringHidden, isLeftNeighbouringHidden;
+                    /**
+                     * Get visible items
+                     * By filtering out:
+                     * 1. navigation buttons (previous and next arrows)
+                     * 2. all the hidden items
+                     */
+
+                    var getVisibleItems = function getVisibleItems() {
+                      return Array.from(
+                        $paginationContainer.find(pageItem)
+                      ).filter(function (item) {
+                        return (
+                          !item.classList.contains(hiddenItems) &&
+                          !item.classList.contains(previousButton) &&
+                          !item.classList.contains(nextButton)
+                        );
+                      });
+                    };
+
+                    var visibleItems = getVisibleItems();
+                    /**
+                     * Iterate over currently visible items
+                     * Find the active item among visible items
+                     * And check if there is a '...' button next to it
+                     * isRightNeighbouringHidden representing the case when there is a '...' on the right
+                     * isLeftNeighbouringHidden representing the case when there is a '...' on the left
+                     */
+
+                    for (var i = 0; i < visibleItems.length; i++) {
+                      var $item = $(visibleItems[i]);
+
+                      if ($item.hasClass(activeItem)) {
+                        // Check if the right neighbouring is '...' button
+                        isRightNeighbouringHidden = $(
+                          visibleItems[i + 1]
+                        ).hasClass(hiddenPagesItem); // Check if the left neighbouring is '...' button
+
+                        isLeftNeighbouringHidden = $(
+                          visibleItems[i - 1]
+                        ).hasClass(hiddenPagesItem);
+                        break;
+                      }
+                    } // Don't do anything if the '...' button wasn't found next to the active item
+
+                    if (!isRightNeighbouringHidden && !isLeftNeighbouringHidden)
+                      return; // Remove the page representing hidden items
+
+                    var $hiddenItemsButton = $paginationContainer
+                      .find('.'.concat(hiddenPagesItem))
+                      .remove()
+                      .first();
+                    console.log($hiddenItemsButton);
+                    var $activeItem = $paginationContainer.find(
+                      '.'.concat(activeItem)
+                    );
+                    /**
+                     * Show new page item:
+                     * If the page item on the right is hidden:
+                     * 1. Show the item on the right
+                     * 2. Check if the next to the newly shown item is hidden
+                     * 3. If there is a hidden item to the right, show '...' button
+                     * ------------------------------------------------------------
+                     * If the page item on the left is hidden:
+                     * 1. Show the item on the left
+                     * 2. Check if the previous to the newly shown item is hidden
+                     * 3. If there is a hidden item to the left, show '...' button
+                     */
+
+                    if (isRightNeighbouringHidden) {
+                      var $nextToActiveItem = $activeItem
+                        .next()
+                        .removeClass(hiddenItems);
+
+                      if ($nextToActiveItem.next().hasClass(hiddenItems)) {
+                        $nextToActiveItem.after($hiddenItemsButton.clone(true));
+                      }
+                    } else if (isLeftNeighbouringHidden) {
+                      var $prevToActiveItem = $activeItem
+                        .prev()
+                        .removeClass(hiddenItems);
+
+                      if ($prevToActiveItem.prev().hasClass(hiddenItems)) {
+                        $prevToActiveItem.before(
+                          $hiddenItemsButton.clone(true)
+                        );
+                      }
+                    }
+                    /**
+                     * Get all the visible items after showing one hidden item
+                     * If there are more than five visible items, we need to hide one:
+                     * If the item on the right was shown, hide one item on the left
+                     * If the item on the left was shown, hide one item on the right
+                     */
+
+                    visibleItems = getVisibleItems();
+
+                    if (visibleItems.length > 5) {
+                      if (isRightNeighbouringHidden) {
+                        $activeItem
+                          .prev()
+                          .prev()
+                          .addClass(hiddenItems)
+                          .after($hiddenItemsButton.clone(true));
+                      } else if (isLeftNeighbouringHidden) {
+                        $activeItem
+                          .next()
+                          .next()
+                          .addClass(hiddenItems)
+                          .after($hiddenItemsButton.clone(true));
+                      }
+                    }
+                  }
                 },
               },
               {
@@ -4743,12 +4877,15 @@
                     this.selectors.pageNumber
                   ).length); // Hide extra pages if there is more than maximum allowed pages
 
-                  if (pagesAmount > maxPages)
+                  if (pagesAmount > maxPages) {
+                    this.arePagesHidden = true;
+
                     this._togglePageVisibility({
                       indexFrom: maxPages - 1,
                       indexTo: pagesAmount - 2,
                       action: 'hide',
-                    }); // Show "next" button if there is more than one page
+                    });
+                  } // Show "next" button if there is more than one page
 
                   if (pagesAmount > 1) this._addNavigationButton('next');
                 }, // Manipulating navigation buttons
@@ -4830,7 +4967,7 @@
                     if (index >= indexFrom && index <= indexTo) {
                       action === 'hide'
                         ? $(item).addClass(hiddenItems)
-                        : $(item).removeClass(hiddenItems); //console.log(item);
+                        : $(item).removeClass(hiddenItems);
                     }
                   }); // Show indicator representing the hidden buttons
 
@@ -4884,6 +5021,17 @@
                   if (!this._paginationTemplates) {
                     this._paginationTemplates = templates;
                   }
+                }, // Presense of hidden pages
+              },
+              {
+                key: 'arePagesHidden',
+                get: function get() {
+                  return this._arePagesHidden;
+                },
+                set: function set(areHidden) {
+                  if (typeof areHidden !== 'boolean')
+                    throw new Error('arePagesHidden should be boolean');
+                  this._arePagesHidden = areHidden;
                 }, // Profile template
               },
               {
