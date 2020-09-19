@@ -1,6 +1,7 @@
 //import paginationMixin from './paginationMixin.js';
 import prepareTemplates from './prepareTemplates.js';
 import ServerRequest from './requests.js';
+import Handlebars from 'handlebars';
 
 export default class Profiles extends ServerRequest {
   _arePagesHidden = false;
@@ -13,6 +14,7 @@ export default class Profiles extends ServerRequest {
     this._removeNavigationButton = this._removeNavigationButton.bind(this);
     this._togglePageVisibility = this._togglePageVisibility.bind(this);
     this._changePaginationState = this._changePaginationState.bind(this);
+    this._loadProfiles = this._loadProfiles.bind(this);
     this._isNavigationButtonShown = this._isNavigationButtonShown.bind(this);
 
     // Save config options for pagination
@@ -24,8 +26,9 @@ export default class Profiles extends ServerRequest {
       pagination: paginationTemplateIds,
     } = this.selectors.templateIds;
 
-    // Get templates for pagination
+    // Prepare templates
     this.paginationTemplates = prepareTemplates(paginationTemplateIds);
+    this.profileTemplate = prepareTemplates(profileTemplateId);
 
     // Get profiles template
     // Set it up a bit later
@@ -39,17 +42,26 @@ export default class Profiles extends ServerRequest {
     let selectors = this.selectors;
 
     this.$paginationContainer = $(selectors.pagination);
+    this.$skeleton = $(selectors.skeleton).hide();
+    this.$profilesContainer = $(selectors.profilesContainer);
   }
 
   _setUpEventListeners() {
     let { pageItem, activeItem, hiddenPagesItem } = this.selectors;
 
+    /**
+     * Enet handler for clicks on the pagination
+     * When '...' button or active button is clicked, nothing happens
+     * Otherwise, the event handler:
+     * 1. starts loading the profiles
+     * 2. changing the state of the pagination:
+     * showing/hiding next/previous buttons, changing active page item
+     */
     this.$paginationContainer.click(event => {
       event.preventDefault();
       event.stopPropagation();
       let $target = $(event.target);
 
-      // Don't do anything if ... or active button is clicked
       if (
         $target.closest(hiddenPagesItem).length === 1 ||
         $target.closest(activeItem).length === 1
@@ -57,7 +69,82 @@ export default class Profiles extends ServerRequest {
         return;
 
       let $clickedButton = $target.closest(pageItem);
+      this._loadProfiles({
+        page: parseInt($clickedButton.data('page')),
+        mode: 'get',
+      });
       this._changePaginationState($clickedButton);
+    });
+  }
+
+  _loadProfiles({ page = 1, mode }) {
+    this.$profilesContainer.hide().empty();
+    this.$skeleton.show();
+    /**
+     * get mode is dedicated for getting profiles on the next page
+     * on the initial step - when the user haven't searched the form
+     * search mode is dedicated for searching profiles either for the first time
+     * or on the next pages
+     */
+    if (mode === 'get') {
+      var { method, headers, endpoint } = this.requests.getProfiles;
+      endpoint.searchParams.set('page', page);
+      endpoint.searchParams.set(
+        'amount',
+        this.paginationConfig.profilesPerPage
+      );
+    }
+
+    /**
+     * Make request to the server to request profiles
+     * After getting the profiles, sort them in the following order:
+     * 1. Premium and online users
+     * 2. Premium users
+     * 3. Online users
+     * 4. Just users
+     * Then, append profiles to the container
+     * And then, show the profiles instead of skeleton screen
+     */
+    this.makeRequest({ headers, endpoint, method }).then(result => {
+      let { success, advertisementType, profiles, message } = result;
+
+      if (success) {
+        profiles
+          .sort((user1, user2) => {
+            return user1.premium.status
+              ? user1.online.status
+                ? user2.premium.status
+                  ? user2.online.status
+                    ? 0
+                    : -1
+                  : -1
+                : user2.premium.status
+                ? user2.online.status
+                  ? 1
+                  : 0
+                : -1
+              : user2.premium.status
+              ? 1
+              : user1.online.status
+              ? user2.online.status
+                ? 0
+                : -1
+              : user2.online.status
+              ? 1
+              : 0;
+          })
+          .forEach(profile => {
+            let template = Handlebars.compile(this.profileTemplate);
+            template = template(profile);
+
+            this.$profilesContainer.append(template);
+          });
+
+        this.$profilesContainer.show();
+        this.$skeleton.hide();
+      } else {
+        // Show empty message here
+      }
     });
   }
 
@@ -410,16 +497,6 @@ export default class Profiles extends ServerRequest {
   set selectors(selectors) {
     if (!this._selectors) {
       this._selectors = selectors;
-    }
-  }
-
-  // Requests
-  get requests() {
-    return this._request;
-  }
-  set requests(requests) {
-    if (!this._requests) {
-      this._requests = requests;
     }
   }
 
