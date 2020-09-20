@@ -1560,6 +1560,13 @@
           </span>
         </li>
       </template>
+
+      <!--Page number-->
+      <script id="pageItem-number" type="text/template">
+        <li class="page-item page-number" data-page={{page}}>
+          <a class="page-link" href="#">{{page}}</a>
+        </li>
+      </script>
       <!--Templates for pagination end-->
 
       <!--Pagination start-->
@@ -1606,9 +1613,19 @@
       </div>
       <!--Bottom ad end-->
 
-      <!--Profiles template start-->
-
-      <!--Profiles template end-->
+      <!--Template for empty results start-->
+      <script id="search-noResults" type="text/template">
+          <div class="col-12">
+          <div
+            class="no-results shadow-sm bg-white rounded text-center px-3 py-5"
+          >
+            <i class="fas fa-heart-broken"></i>
+            <h2 class="title">{{title}}</h2>
+            <p class="text-secondary">{{message}}</p>
+          </div>
+        </div>
+      </script>
+      <!--Template for empty results end-->
 
       <!--Ads template start-->
       <!--Default-->
@@ -1645,9 +1662,6 @@
 
       <!-- footer -->
       <footer class="footer">
-        <div class="loader" id="loader">
-          <div class="bar"></div>
-        </div>
         <div class="row no-gutters">
           <div class="col-auto mx-auto">
             <div class="row no-gutters justify-content-center">
@@ -1820,8 +1834,10 @@
                 previousItem: 'pageItem-previous',
                 nextItem: 'pageItem-next',
                 hiddenItems: 'pageItem-hidden',
+                pageNumber: 'pageItem-number',
               },
               profile: 'profileTemplate',
+              noResults: 'search-noResults',
             },
           },
           pagination: {
@@ -1838,16 +1854,8 @@
             },
           },
           requests: {
-            searchProfiles: {
+            profiles: {
               method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-custom',
-            },
-            getProfiles: {
-              method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
               },
@@ -1891,24 +1899,9 @@
             'dropdown-menu': '.dropdown-menu',
             age: '.age-select',
             locationLoadingIndicator: '.city-loader',
-            formLoadingIndicator: '#loader',
             resultsContainer: '#profiles-container',
           },
           requests: {
-            profiles: {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-custom',
-            },
-            preload: {
-              method: 'GET',
-              headers: {},
-              endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-preload',
-            },
             location: {
               method: 'GET',
               headers: {},

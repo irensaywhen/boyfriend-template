@@ -9322,15 +9322,10 @@
         /* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! ./modules/buyPremiumForm.js */ './js/modules/buyPremiumForm.js'
         );
-        !(function webpackMissingModule() {
-          var e = new Error("Cannot find module './modules/paginationPrev.js'");
-          e.code = 'MODULE_NOT_FOUND';
-          throw e;
-        })();
-        /* harmony import */ var _modules_ad_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _modules_ad_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! ./modules/ad.js */ './js/modules/ad.js'
         );
-        /* harmony import */ var _modules_profiles_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _modules_profiles_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./modules/profiles.js */ './js/modules/profiles.js'
         );
 
@@ -9346,14 +9341,9 @@
           ];
         window['BuyPremiumForm'] =
           _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__['default'];
-        window['Pagination'] = !(function webpackMissingModule() {
-          var e = new Error("Cannot find module './modules/paginationPrev.js'");
-          e.code = 'MODULE_NOT_FOUND';
-          throw e;
-        })();
-        window['Ad'] = _modules_ad_js__WEBPACK_IMPORTED_MODULE_6__['default'];
+        window['Ad'] = _modules_ad_js__WEBPACK_IMPORTED_MODULE_5__['default'];
         window['Profiles'] =
-          _modules_profiles_js__WEBPACK_IMPORTED_MODULE_7__['default'];
+          _modules_profiles_js__WEBPACK_IMPORTED_MODULE_6__['default'];
 
         /***/
       },
@@ -12346,6 +12336,14 @@
               false
             );
 
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_6___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              ),
+              '_isFormSearched',
+              false
+            );
+
             _this._addNavigationButton = _this._addNavigationButton.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
                 _this
@@ -12380,6 +12378,7 @@
             _this.paginationConfig = options.pagination; // Templates preparation
 
             var _this$selectors$templ = _this.selectors.templateIds,
+              noResultsTemplateId = _this$selectors$templ.noResults,
               profileTemplateId = _this$selectors$templ.profile,
               paginationTemplateIds = _this$selectors$templ.pagination; // Prepare templates
 
@@ -12388,7 +12387,10 @@
             )(paginationTemplateIds);
             _this.profileTemplate = Object(
               _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_7__['default']
-            )(profileTemplateId); // Get profiles template
+            )(profileTemplateId);
+            _this.noResultsTemplate = Object(
+              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_7__['default']
+            )(noResultsTemplateId); // Get profiles template
             // Set it up a bit later
 
             _this._cacheElements();
@@ -12441,26 +12443,40 @@
                       return;
                     var $clickedButton = $target.closest(pageItem);
 
-                    _this2._loadProfiles({
-                      page: parseInt($clickedButton.data('page')),
-                      mode: 'get',
-                    });
+                    _this2._loadProfiles(parseInt($clickedButton.data('page')));
 
                     _this2._changePaginationState($clickedButton);
                   });
-                  $(document).on('ad:afterInsert', function () {
-                    console.log('Showing profiles and hiding skeleton');
+                  /**
+                   * After form input is finished:
+                   * 1. Add flag describing that the search was performed at least once
+                   * 2. Add a flag describing that the pagination for this search
+                   * is not initialized yet
+                   * 3. Save input information to pass it with further iterations over pages
+                   * 4. Load profiles
+                   */
+
+                  $(document).on('searchForm:inputFinished', function (
+                    event,
+                    formData
+                  ) {
+                    _this2.isFormSearched = true;
+                    _this2.paginationInitialized = false;
+                    _this2.formData = formData;
+
+                    _this2._loadProfiles();
                   });
                 },
               },
               {
                 key: '_loadProfiles',
-                value: function _loadProfiles(_ref) {
+                value: function _loadProfiles() {
                   var _this3 = this;
 
-                  var _ref$page = _ref.page,
-                    page = _ref$page === void 0 ? 1 : _ref$page,
-                    mode = _ref.mode;
+                  var page =
+                    arguments.length > 0 && arguments[0] !== undefined
+                      ? arguments[0]
+                      : 1;
                   this.$profilesContainer.hide().empty();
                   this.$skeleton.show();
                   /**
@@ -12470,19 +12486,28 @@
                    * or on the next pages
                    */
 
-                  if (mode === 'get') {
-                    var _this$requests$getPro = this.requests.getProfiles,
-                      method = _this$requests$getPro.method,
-                      headers = _this$requests$getPro.headers,
-                      endpoint = _this$requests$getPro.endpoint;
-                    endpoint.searchParams.set('page', page);
-                    endpoint.searchParams.set(
-                      'amount',
-                      this.paginationConfig.profilesPerPage
-                    );
+                  var _this$requests$profil = this.requests.profiles,
+                    method = _this$requests$profil.method,
+                    headers = _this$requests$profil.headers,
+                    endpoint = _this$requests$profil.endpoint,
+                    profilesPerPage = this.paginationConfig.profilesPerPage;
+
+                  if (!this.isFormSearched) {
+                    // If the request is performed before any searches occured
+                    var body = JSON.stringify({
+                      page: page,
+                      profilesPerPage: profilesPerPage,
+                    });
+                  } else {
+                    // handle the case when the search was performed at the very least once
+                    this.formData['page'] = page;
+                    this.formData['profilesPerPage'] = profilesPerPage;
+                    var body = JSON.stringify(this.formData);
                   }
                   /**
                    * Make request to the server to request profiles
+                   * If there are profiles accoring to the search input,
+                   * re-initialize the pagination
                    * After getting the profiles, sort them in the following order:
                    * 1. Premium and online users
                    * 2. Premium users
@@ -12496,57 +12521,90 @@
                     headers: headers,
                     endpoint: endpoint,
                     method: method,
-                  }).then(function (result) {
-                    var success = result.success,
-                      advertisementType = result.advertisementType,
-                      profiles = result.profiles,
-                      message = result.message;
+                    body: body,
+                  })
+                    .then(function (result) {
+                      var success = result.success,
+                        advertisementType = result.advertisementType,
+                        profiles = result.profiles,
+                        title = result.title,
+                        message = result.message;
 
-                    if (success) {
-                      profiles
-                        .sort(function (user1, user2) {
-                          return user1.premium.status
-                            ? user1.online.status
-                              ? user2.premium.status
-                                ? user2.online.status
-                                  ? 0
+                      if (success) {
+                        if (
+                          _this3.isFormSearched &&
+                          !_this3.paginationInitialized
+                        ) {
+                          _this3._preparePagination(result.totalAmount);
+                        } // Sort profiles
+
+                        profiles
+                          .slice(0, _this3.paginationConfig.profilesPerPage)
+                          .sort(function (user1, user2) {
+                            return user1.premium.status
+                              ? user1.online.status
+                                ? user2.premium.status
+                                  ? user2.online.status
+                                    ? 0
+                                    : -1
                                   : -1
+                                : user2.premium.status
+                                ? user2.online.status
+                                  ? 1
+                                  : 0
                                 : -1
                               : user2.premium.status
+                              ? 1
+                              : user1.online.status
                               ? user2.online.status
-                                ? 1
-                                : 0
-                              : -1
-                            : user2.premium.status
-                            ? 1
-                            : user1.online.status
-                            ? user2.online.status
-                              ? 0
-                              : -1
-                            : user2.online.status
-                            ? 1
-                            : 0;
-                        })
-                        .forEach(function (profile) {
-                          var template = handlebars__WEBPACK_IMPORTED_MODULE_9___default.a.compile(
-                            _this3.profileTemplate
-                          );
-                          template = template(profile);
+                                ? 0
+                                : -1
+                              : user2.online.status
+                              ? 1
+                              : 0;
+                          })
+                          .forEach(function (profile) {
+                            // Display profiles
+                            var template = handlebars__WEBPACK_IMPORTED_MODULE_9___default.a.compile(
+                              _this3.profileTemplate
+                            );
+                            template = template(profile);
 
-                          _this3.$profilesContainer.append(template);
+                            _this3.$profilesContainer.append(template);
+                          }); // Insert add
+
+                        $(document).trigger(
+                          'profiles:afterInsert',
+                          advertisementType
+                        );
+
+                        _this3.$profilesContainer.show();
+
+                        _this3.$skeleton.hide();
+                      } else {
+                        // Display no result badge
+                        var template = handlebars__WEBPACK_IMPORTED_MODULE_9___default.a.compile(
+                          _this3.noResultsTemplate
+                        );
+                        template = template({
+                          title: title,
+                          message: message,
                         });
-                      $(document).trigger(
-                        'profiles:afterInsert',
-                        advertisementType
-                      );
 
-                      _this3.$profilesContainer.show();
+                        _this3.$paginationContainer.empty();
 
-                      _this3.$skeleton.hide();
-                    } else {
-                      // Show empty message here
-                    }
-                  });
+                        _this3.$profilesContainer.append(template).show();
+
+                        _this3.$skeleton.hide();
+                      }
+                    })
+                    ['catch'](function (error) {
+                      _this3.showRequestResult({
+                        title: error.name,
+                        text: error.message,
+                        icon: 'error',
+                      });
+                    });
                 },
               },
               {
@@ -12797,8 +12855,11 @@
               },
               {
                 key: '_preparePagination',
-                value: function _preparePagination() {
-                  var maxPages = this.paginationConfig.maxPages;
+                value: function _preparePagination(profilesTotalAmount) {
+                  var _this$paginationConfi2 = this.paginationConfig,
+                    maxPages = _this$paginationConfi2.maxPages,
+                    profilesPerPage = _this$paginationConfi2.profilesPerPage,
+                    classes = _this$paginationConfi2.classes;
 
                   if (maxPages < 3) {
                     throw new Error(
@@ -12808,11 +12869,48 @@
                     throw new Error(
                       'Showing more than five pages is not working yet'
                     );
-                  } // Cache
+                  }
 
-                  var pagesAmount = (this.pagesAmount = this.$paginationContainer.find(
-                    this.selectors.pageNumber
-                  ).length); // Hide extra pages if there is more than maximum allowed pages
+                  var isFormSearched = this.isFormSearched,
+                    $paginationContainer = this.$paginationContainer;
+                  /**
+                   * Save pages amount:
+                   * 1. If it is the initialization step, amount of pages
+                   * equals to the amount of buttons in the pagination container
+                   * 2. If the pages amount is determined after the search request
+                   * It is the the next largest integer of (total amount of profiles / profiles per page)
+                   */
+
+                  var pagesAmount = (this.pagesAmount = isFormSearched
+                    ? Math.ceil(profilesTotalAmount / profilesPerPage)
+                    : $paginationContainer.find(this.selectors.pageNumber)
+                        .length);
+                  /**
+                   * 1. Compile template for page number
+                   * 2. Empty the pagination container
+                   * 3. Insert page number buttons
+                   * 4. Set active item
+                   * 5. Toggle the flag indicating that the pagination is prepared after the search
+                   */
+
+                  if (isFormSearched) {
+                    var template = handlebars__WEBPACK_IMPORTED_MODULE_9___default.a.compile(
+                      this.paginationTemplates.pageNumber
+                    );
+                    $paginationContainer.empty();
+
+                    for (var i = 1; i <= pagesAmount; i++) {
+                      var pageTemplate = template({
+                        page: i,
+                      });
+                      $paginationContainer.append(pageTemplate);
+                    }
+
+                    $paginationContainer
+                      .find('[data-page=1]')
+                      .addClass(classes.activeItem);
+                    this.paginationInitialized = true;
+                  } // Hide extra pages if there is more than maximum allowed pages
 
                   if (pagesAmount > maxPages) {
                     this.arePagesHidden = true;
@@ -12882,10 +12980,10 @@
               },
               {
                 key: '_togglePageVisibility',
-                value: function _togglePageVisibility(_ref2) {
-                  var indexFrom = _ref2.indexFrom,
-                    indexTo = _ref2.indexTo,
-                    action = _ref2.action;
+                value: function _togglePageVisibility(_ref) {
+                  var indexFrom = _ref.indexFrom,
+                    indexTo = _ref.indexTo,
+                    action = _ref.action;
                   if (action !== 'hide' && action !== 'show') return;
                   var selectors = this.selectors,
                     $paginationContainer = this.$paginationContainer;
@@ -12969,6 +13067,16 @@
                   if (!this._profileTemplate) {
                     this._profileTemplate = template;
                   }
+                }, // Indicator specifying whether the form was search at least once
+              },
+              {
+                key: 'isFormSearched',
+                get: function get() {
+                  return this._isFormSearched;
+                },
+                set: function set(isFormSearched) {
+                  if (!isFormSearched) return;
+                  this._isFormSearched = true;
                 },
               },
             ]
@@ -13418,59 +13526,53 @@
         /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-          /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
-        );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! @babel/runtime/helpers/get */ '../node_modules/@babel/runtime/helpers/get.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2__
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__
         );
-        /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./form.js */ './js/modules/form.js'
         );
-        /* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./helper.js */ './js/modules/helper.js'
         );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
           return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
                 Derived
               ),
               result;
             if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
                 this
               ).constructor;
               result = Reflect.construct(Super, arguments, NewTarget);
             } else {
               result = Super.apply(this, arguments);
             }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default()(
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default()(
               this,
               result
             );
@@ -13493,7 +13595,7 @@
         }
 
         var SearchProfilesForm = /*#__PURE__*/ (function (_Form) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default()(
             SearchProfilesForm,
             _Form
           );
@@ -13508,46 +13610,30 @@
               SearchProfilesForm
             );
 
-            _this = _super.call(this, options); //Binding context
-
-            _this._generateAgeRange = _this._generateAgeRange.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
-                _this
-              )
-            );
-            _this._initializeSlider = _this._initializeSlider.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
-                _this
-              )
-            );
-            _this._createProfileView = _this._createProfileView.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
-                _this
-              )
-            );
-            _this._createProfileViews = _this._createProfileViews.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
-                _this
-              )
-            );
-            _this._createNoResultsBadge = _this._createNoResultsBadge.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
-                _this
-              )
-            );
-            _this._getProfiles = _this._getProfiles.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
-                _this
-              )
-            );
-            _this.searchFormOptions = options['searchFormOptions'];
+            _this = _super.call(this, options);
             _this.$resultsContainer = $(_this.selectors['resultsContainer']);
-            _this.slider = options['slider'];
+            /**
+             * Generate age range:
+             * 1. Get the initial and final range from the options
+             * 2. Generate <option> element in age selection element
+             */
 
-            _this._generateAgeRange();
+            var _options$searchFormOp = options.searchFormOptions,
+              ageFrom = _options$searchFormOp.ageFrom,
+              ageTo = _options$searchFormOp.ageTo;
 
-            _this._initializeSlider();
+            var $ageInputs = _this.$form.find(_this.selectors.age);
 
+            for (var i = ageFrom; i <= ageTo; i++) {
+              $('<option></option>')
+                .attr('value', i)
+                .text(i)
+                .appendTo($ageInputs);
+            } // Initialize slider
+
+            options.slider['noUiSlider'].on('change', function () {
+              _this.$inputs.first().trigger('input');
+            });
             return _this;
           }
 
@@ -13555,305 +13641,59 @@
             SearchProfilesForm,
             [
               {
-                key: '_initializeSlider',
-                value: function _initializeSlider() {
-                  var _this2 = this;
-
-                  this.slider['noUiSlider'].on('change', function () {
-                    _this2.$inputs.first().trigger('input');
-                  });
-                },
-              },
-              {
-                key: 'cacheElements',
-                value: function cacheElements() {
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
-                      SearchProfilesForm.prototype
-                    ),
-                    'cacheElements',
-                    this
-                  ).call(this);
-
-                  this.$formLoadingIndicator = $(
-                    this.selectors['formLoadingIndicator']
-                  ).fadeOut(0);
-                },
-              },
-              {
                 key: 'setUpEventListeners',
                 value: function setUpEventListeners() {
-                  var _this3 = this;
+                  var _this2 = this;
 
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
                       SearchProfilesForm.prototype
                     ),
                     'setUpEventListeners',
                     this
                   ).call(this);
+                  /**
+                   * Listen for inputs on the form
+                   * 1. Handle city input separately
+                   * 2. When the user changes something in the form,
+                   * signal that the input has finished
+                   */
 
                   this.$form.on('input', function (event) {
-                    // Listen to input to retrieve profiles
                     var target = event.target;
-                    if (target.name === 'city') return; // Indicate that the input has finished
+                    if (target.name === 'city') return;
 
-                    _this3.$form.trigger('inputFinished');
-                  }); // Handle the case when the city has been selected
+                    _this2.$form.trigger('inputFinished');
+                  });
+                  /**
+                   * After the city is selected from the dropdown
+                   * signal that the input is finished
+                   */
 
                   this.$locationInput.on('citySelected', function () {
-                    _this3.$form.trigger('inputFinished');
-                  }); // Retrieve new profiles when input has been finished
+                    _this2.$form.trigger('inputFinished');
+                  });
+                  /**
+                   * After input is finished:
+                   * 1. Save all the information from the form
+                   * 2. Delegate retrieving profiles
+                   */
 
                   this.$form.on('inputFinished', function (event) {
-                    // Show loading indicator
-                    _this3.$formLoadingIndicator.fadeIn(200); // Save inputed information
+                    _this2.collectFormInputs();
 
-                    _this3.collectFormInputs(); // Trigger hook
-
-                    _this3.$form.trigger('searchForm:beforeRequest'); // Get profiles from the server
-
-                    _this3._getProfiles('search'); // Hide loading indicator
-
-                    _this3.$formLoadingIndicator.fadeOut(200);
-                  }); // Preload profiles
-                  //$(document).ready(() => {
-                  //  this._getProfiles('initial');
-                  //});
-                },
-                /**
-                 * Function handling getting profiles from the server
-                 * @param {String} requestType - indicator whether we need to retrieve profiles
-                 * based on the search or preload profiles when the user enter the page
-                 */
-              },
-              {
-                key: '_getProfiles',
-                value: function _getProfiles(requestType) {
-                  var _this4 = this;
-
-                  var request =
-                    requestType === 'initial'
-                      ? this.requests.preload
-                      : this.requests.profiles;
-                  this.makeRequest({
-                    method: request.method,
-                    headers: request.headers,
-                    endpoint: request.endpoint,
-                    body: JSON.stringify(this.formData),
-                  })
-                    .then(function (response) {
-                      if (response.success) {
-                        // Cache
-                        var profiles = response.profiles; // Preview retrieved profiles
-
-                        _this4._createProfileViews(profiles, requestType);
-
-                        _this4.$form.trigger(
-                          'searchForm:afterSuccessfulRequest',
-                          response
-                        );
-                      } else {
-                        _this4._createNoResultsBadge(response);
-                      }
-                    })
-                    ['catch'](function (error) {
-                      _this4.showRequestResult({
-                        title: error.name,
-                        text: error.message,
-                        icon: 'error',
-                      });
-                    });
-                },
-              },
-              {
-                key: '_createProfileViews',
-                value: function _createProfileViews(profiles, requestType) {
-                  var _this5 = this;
-
-                  console.log(requestType); // Sort out all the premium and online users to be at the beginning
-
-                  profiles.sort(function (user1, user2) {
-                    return user1.premium.status
-                      ? user1.online.status
-                        ? user2.premium.status
-                          ? user2.online.status
-                            ? 0
-                            : -1
-                          : -1
-                        : user2.premium.status
-                        ? user2.online.status
-                          ? 1
-                          : 0
-                        : -1
-                      : user2.premium.status
-                      ? 1
-                      : user1.online.status
-                      ? user2.online.status
-                        ? 0
-                        : -1
-                      : user2.online.status
-                      ? 1
-                      : 0;
+                    $(document).trigger(
+                      'searchForm:inputFinished',
+                      _this2.formData
+                    );
                   });
-
-                  if (requestType === 'search') {
-                    $('html, body').animate(
-                      {
-                        scrollTop:
-                          this.$resultsContainer.offset().top -
-                          2 *
-                            _helper_js__WEBPACK_IMPORTED_MODULE_8__[
-                              'default'
-                            ].getHeaderHeight(),
-                      },
-                      1100
-                    );
-                  } // Display profile views
-
-                  profiles.forEach(function (profile) {
-                    _this5
-                      ._createProfileView(profile)
-                      .appendTo(_this5.$resultsContainer);
-                  });
-                },
-              },
-              {
-                key: '_generateAgeRange',
-                value: function _generateAgeRange() {
-                  // Cache range
-                  var ageFrom = this.searchFormOptions.ageFrom;
-                  var ageTo = this.searchFormOptions.ageTo;
-                  var $ageInputs = this.$form.find(this.selectors.age);
-
-                  for (var i = ageFrom; i <= ageTo; i++) {
-                    $('<option></option>')
-                      .attr('value', i)
-                      .text(i)
-                      .appendTo($ageInputs);
-                  }
-                },
-              },
-              {
-                key: '_createProfileView',
-                value: function _createProfileView(profileParameters) {
-                  var premium = profileParameters.premium,
-                    online = profileParameters.online,
-                    avatar = profileParameters.avatar,
-                    profile = profileParameters.profile;
-                  var $col = $('<div></div>')
-                    .addClass('col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2')
-                    .addClass('column mx-auto mx-sm-0 search-result');
-                  var $profileContainer = $('<div></div>').addClass(
-                    'card shadow-sm border-0 mb-4'
-                  );
-                  var $cardImage = $('<figure></figure>')
-                    .addClass('profile-image card-img-top')
-                    .append(
-                      $('<img>')
-                        .addClass('card-img-top')
-                        .attr('src', avatar.src)
-                        .attr('alt', avatar.alt)
-                    );
-
-                  if (premium.status) {
-                    $cardImage.addClass('premium').append(
-                      $('<span></span>')
-                        .addClass('badge badge-primary mb-1')
-                        .text(premium.text || 'Premium')
-                    );
-                  }
-
-                  var $cardBody = $('<div></div>').addClass('card-body');
-                  var $userName = $('<h3></h3>')
-                    .addClass('mb-0')
-                    .append(
-                      $('<a></a>')
-                        .addClass(
-                          'text-dark mb-1 mt-2 mr-2 h6 d-inline-block text-capitalize'
-                        )
-                        .attr('href', profile.url)
-                        .text(profile.name)
-                    );
-
-                  if (online.status) {
-                    $userName.addClass('name online').append(
-                      $('<span></span>')
-                        .addClass('badge badge-success mb-1 small')
-                        .text(online.text || 'online')
-                    );
-                  }
-
-                  var $city = $('<p>')
-                    .addClass('text-secondary small mb-2')
-                    .text(profile.city);
-                  $cardBody.append($userName).append($city);
-                  var $cardFooter = $('<div></div>')
-                    .addClass('card-footer')
-                    .append(
-                      $('<div></div>')
-                        .addClass('text-center mt-2')
-                        .append(
-                          $('<a></a>')
-                            .addClass('btn btn-default')
-                            .attr('href', profile.url)
-                            .text(profile.buttonText)
-                        )
-                    ); // Everything together
-
-                  return $col.append(
-                    $profileContainer
-                      .append($cardImage)
-                      .append($cardBody)
-                      .append($cardFooter)
-                  );
-                },
-              },
-              {
-                key: '_createNoResultsBadge',
-                value: function _createNoResultsBadge(content) {
-                  var title = content.title,
-                    message = content.message;
-                  $('<div></div>')
-                    .addClass(
-                      'col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3'
-                    )
-                    .append(
-                      $('<div></div>')
-                        .addClass(
-                          'no-results shadow-sm bg-white rounded text-center px-3 py-5'
-                        )
-                        .append($('<i></i>').addClass('fas fa-heart-broken'))
-                        .append($('<h2></h2>').addClass('title').text(title))
-                        .append(
-                          $('<p></p>').addClass('text-secondary').text(message)
-                        )
-                    )
-                    .css('opacity', '0')
-                    .appendTo(this.$resultsContainer)
-                    .animate(
-                      {
-                        opacity: 1,
-                      },
-                      800
-                    );
-                  $('html, body').animate(
-                    {
-                      scrollTop:
-                        this.$resultsContainer.offset().top -
-                        _helper_js__WEBPACK_IMPORTED_MODULE_8__[
-                          'default'
-                        ].getHeaderHeight(),
-                    },
-                    1100
-                  );
                 },
               },
             ]
           );
 
           return SearchProfilesForm;
-        })(_form_js__WEBPACK_IMPORTED_MODULE_7__['default']);
+        })(_form_js__WEBPACK_IMPORTED_MODULE_6__['default']);
 
         /***/
       },

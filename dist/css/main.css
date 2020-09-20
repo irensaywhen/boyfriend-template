@@ -1185,6 +1185,10 @@ article .header time {
   max-width: 100%;
   height: auto;
 }
+.profile-list .no-results {
+  max-width: 508px;
+  margin: 40px auto 0;
+}
 .profile-list .no-results .fa-heart-broken {
   color: #0c609a;
 }

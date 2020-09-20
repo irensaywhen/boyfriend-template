@@ -4,6 +4,7 @@ import Handlebars from 'handlebars';
 
 export default class Profiles extends ServerRequest {
   _arePagesHidden = false;
+  _isFormSearched = false;
 
   constructor(options) {
     super(options);
@@ -21,6 +22,7 @@ export default class Profiles extends ServerRequest {
 
     // Templates preparation
     let {
+      noResults: noResultsTemplateId,
       profile: profileTemplateId,
       pagination: paginationTemplateIds,
     } = this.selectors.templateIds;
@@ -28,6 +30,7 @@ export default class Profiles extends ServerRequest {
     // Prepare templates
     this.paginationTemplates = prepareTemplates(paginationTemplateIds);
     this.profileTemplate = prepareTemplates(profileTemplateId);
+    this.noResultsTemplate = prepareTemplates(noResultsTemplateId);
 
     // Get profiles template
     // Set it up a bit later
@@ -68,19 +71,28 @@ export default class Profiles extends ServerRequest {
         return;
 
       let $clickedButton = $target.closest(pageItem);
-      this._loadProfiles({
-        page: parseInt($clickedButton.data('page')),
-        mode: 'get',
-      });
+      this._loadProfiles(parseInt($clickedButton.data('page')));
       this._changePaginationState($clickedButton);
     });
 
-    $(document).on('ad:afterInsert', () => {
-      console.log('Showing profiles and hiding skeleton');
+    /**
+     * After form input is finished:
+     * 1. Add flag describing that the search was performed at least once
+     * 2. Add a flag describing that the pagination for this search
+     * is not initialized yet
+     * 3. Save input information to pass it with further iterations over pages
+     * 4. Load profiles
+     */
+    $(document).on('searchForm:inputFinished', (event, formData) => {
+      this.isFormSearched = true;
+      this.paginationInitialized = false;
+      this.formData = formData;
+
+      this._loadProfiles();
     });
   }
 
-  _loadProfiles({ page = 1, mode }) {
+  _loadProfiles(page = 1) {
     this.$profilesContainer.hide().empty();
     this.$skeleton.show();
     /**
@@ -89,17 +101,23 @@ export default class Profiles extends ServerRequest {
      * search mode is dedicated for searching profiles either for the first time
      * or on the next pages
      */
-    if (mode === 'get') {
-      var { method, headers, endpoint } = this.requests.getProfiles;
-      endpoint.searchParams.set('page', page);
-      endpoint.searchParams.set(
-        'amount',
-        this.paginationConfig.profilesPerPage
-      );
+    let { method, headers, endpoint } = this.requests.profiles,
+      profilesPerPage = this.paginationConfig.profilesPerPage;
+
+    if (!this.isFormSearched) {
+      // If the request is performed before any searches occured
+      var body = JSON.stringify({ page, profilesPerPage });
+    } else {
+      // handle the case when the search was performed at the very least once
+      this.formData['page'] = page;
+      this.formData['profilesPerPage'] = profilesPerPage;
+      var body = JSON.stringify(this.formData);
     }
 
     /**
      * Make request to the server to request profiles
+     * If there are profiles accoring to the search input,
+     * re-initialize the pagination
      * After getting the profiles, sort them in the following order:
      * 1. Premium and online users
      * 2. Premium users
@@ -108,48 +126,71 @@ export default class Profiles extends ServerRequest {
      * Then, append profiles to the container
      * And then, show the profiles instead of skeleton screen
      */
-    this.makeRequest({ headers, endpoint, method }).then(result => {
-      let { success, advertisementType, profiles, message } = result;
+    this.makeRequest({ headers, endpoint, method, body })
+      .then(result => {
+        let { success, advertisementType, profiles, title, message } = result;
 
-      if (success) {
-        profiles
-          .sort((user1, user2) => {
-            return user1.premium.status
-              ? user1.online.status
-                ? user2.premium.status
-                  ? user2.online.status
-                    ? 0
+        if (success) {
+          if (this.isFormSearched && !this.paginationInitialized) {
+            this._preparePagination(result.totalAmount);
+          }
+
+          // Sort profiles
+          profiles
+            .slice(0, this.paginationConfig.profilesPerPage)
+            .sort((user1, user2) => {
+              return user1.premium.status
+                ? user1.online.status
+                  ? user2.premium.status
+                    ? user2.online.status
+                      ? 0
+                      : -1
                     : -1
+                  : user2.premium.status
+                  ? user2.online.status
+                    ? 1
+                    : 0
                   : -1
                 : user2.premium.status
+                ? 1
+                : user1.online.status
                 ? user2.online.status
-                  ? 1
-                  : 0
-                : -1
-              : user2.premium.status
-              ? 1
-              : user1.online.status
-              ? user2.online.status
-                ? 0
-                : -1
-              : user2.online.status
-              ? 1
-              : 0;
-          })
-          .forEach(profile => {
-            let template = Handlebars.compile(this.profileTemplate);
-            template = template(profile);
+                  ? 0
+                  : -1
+                : user2.online.status
+                ? 1
+                : 0;
+            })
+            .forEach(profile => {
+              // Display profiles
+              let template = Handlebars.compile(this.profileTemplate);
+              template = template(profile);
 
-            this.$profilesContainer.append(template);
-          });
+              this.$profilesContainer.append(template);
+            });
 
-        $(document).trigger('profiles:afterInsert', advertisementType);
-        this.$profilesContainer.show();
-        this.$skeleton.hide();
-      } else {
-        // Show empty message here
-      }
-    });
+          // Insert add
+          $(document).trigger('profiles:afterInsert', advertisementType);
+          this.$profilesContainer.show();
+          this.$skeleton.hide();
+        } else {
+          // Display no result badge
+          let template = Handlebars.compile(this.noResultsTemplate);
+          template = template({ title, message });
+
+          this.$paginationContainer.empty();
+
+          this.$profilesContainer.append(template).show();
+          this.$skeleton.hide();
+        }
+      })
+      .catch(error => {
+        this.showRequestResult({
+          title: error.name,
+          text: error.message,
+          icon: 'error',
+        });
+      });
   }
 
   _changePaginationState($clickedButton) {
@@ -379,8 +420,8 @@ export default class Profiles extends ServerRequest {
     }
   }
 
-  _preparePagination() {
-    let { maxPages } = this.paginationConfig;
+  _preparePagination(profilesTotalAmount) {
+    let { maxPages, profilesPerPage, classes } = this.paginationConfig;
 
     if (maxPages < 3) {
       throw new Error('Cannot set maximum amount of pages to less than 3');
@@ -388,10 +429,41 @@ export default class Profiles extends ServerRequest {
       throw new Error('Showing more than five pages is not working yet');
     }
 
-    // Cache
-    let pagesAmount = (this.pagesAmount = this.$paginationContainer.find(
-      this.selectors.pageNumber
-    ).length);
+    let isFormSearched = this.isFormSearched,
+      $paginationContainer = this.$paginationContainer;
+
+    /**
+     * Save pages amount:
+     * 1. If it is the initialization step, amount of pages
+     * equals to the amount of buttons in the pagination container
+     * 2. If the pages amount is determined after the search request
+     * It is the the next largest integer of (total amount of profiles / profiles per page)
+     */
+    let pagesAmount = (this.pagesAmount = isFormSearched
+      ? Math.ceil(profilesTotalAmount / profilesPerPage)
+      : $paginationContainer.find(this.selectors.pageNumber).length);
+
+    /**
+     * 1. Compile template for page number
+     * 2. Empty the pagination container
+     * 3. Insert page number buttons
+     * 4. Set active item
+     * 5. Toggle the flag indicating that the pagination is prepared after the search
+     */
+    if (isFormSearched) {
+      let template = Handlebars.compile(this.paginationTemplates.pageNumber);
+
+      $paginationContainer.empty();
+
+      for (let i = 1; i <= pagesAmount; i++) {
+        let pageTemplate = template({ page: i });
+        $paginationContainer.append(pageTemplate);
+      }
+
+      $paginationContainer.find('[data-page=1]').addClass(classes.activeItem);
+
+      this.paginationInitialized = true;
+    }
 
     // Hide extra pages if there is more than maximum allowed pages
     if (pagesAmount > maxPages) {
@@ -532,5 +604,14 @@ export default class Profiles extends ServerRequest {
     if (!this._profileTemplate) {
       this._profileTemplate = template;
     }
+  }
+
+  // Indicator specifying whether the form was search at least once
+  get isFormSearched() {
+    return this._isFormSearched;
+  }
+  set isFormSearched(isFormSearched) {
+    if (!isFormSearched) return;
+    this._isFormSearched = true;
   }
 }
