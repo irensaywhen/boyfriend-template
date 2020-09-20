@@ -9322,9 +9322,11 @@
         /* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! ./modules/buyPremiumForm.js */ './js/modules/buyPremiumForm.js'
         );
-        /* harmony import */ var _modules_paginationPrev_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-          /*! ./modules/paginationPrev.js */ './js/modules/paginationPrev.js'
-        );
+        !(function webpackMissingModule() {
+          var e = new Error("Cannot find module './modules/paginationPrev.js'");
+          e.code = 'MODULE_NOT_FOUND';
+          throw e;
+        })();
         /* harmony import */ var _modules_ad_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./modules/ad.js */ './js/modules/ad.js'
         );
@@ -9344,8 +9346,11 @@
           ];
         window['BuyPremiumForm'] =
           _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_4__['default'];
-        window['Pagination'] =
-          _modules_paginationPrev_js__WEBPACK_IMPORTED_MODULE_5__['default'];
+        window['Pagination'] = !(function webpackMissingModule() {
+          var e = new Error("Cannot find module './modules/paginationPrev.js'");
+          e.code = 'MODULE_NOT_FOUND';
+          throw e;
+        })();
         window['Ad'] = _modules_ad_js__WEBPACK_IMPORTED_MODULE_6__['default'];
         window['Profiles'] =
           _modules_profiles_js__WEBPACK_IMPORTED_MODULE_7__['default'];
@@ -12056,197 +12061,6 @@
         /* harmony default export */ __webpack_exports__[
           'default'
         ] = EditorModal;
-
-        /***/
-      },
-
-    /***/ './js/modules/paginationPrev.js':
-      /*!**************************************!*\
-  !*** ./js/modules/paginationPrev.js ***!
-  \**************************************/
-      /*! exports provided: default */
-      /***/ function (module, __webpack_exports__, __webpack_require__) {
-        'use strict';
-        __webpack_require__.r(__webpack_exports__);
-        /* harmony export (binding) */ __webpack_require__.d(
-          __webpack_exports__,
-          'default',
-          function () {
-            return Pagination;
-          }
-        );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
-        );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-          /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
-        );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-          /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__
-        );
-        /* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-          /*! ./helper.js */ './js/modules/helper.js'
-        );
-
-        var Pagination = /*#__PURE__*/ (function () {
-          // This field is required to handle plugin re-initialization
-          // on page resize
-          function Pagination(config) {
-            var _this = this;
-
-            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
-              this,
-              Pagination
-            );
-
-            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(
-              this,
-              '_profilesShown',
-              false
-            );
-
-            var selectors = config.selectors; // Profiles container
-
-            this.$container = $(selectors.container); // Pagination container
-
-            this.$pagination = $(selectors.pagination); // Options for the pagination plugin
-
-            this.pluginOptions = config['pluginOptions']; // Configuration for breakpoints
-
-            this.perPageConfig = config['perPageConfig'];
-            this._init = false;
-            $(window).resize(function () {
-              // If there is no any profiles yet, don't do anything
-              if (!_this._profilesShown) return; // Get current viewport range
-
-              var viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_3__[
-                'default'
-              ].getViewportRange(); // If viewport range didn't change during resize operations
-
-              if (viewportRange === _this._viewportRange && _this._init) return; // Indicate that destroyment was caused by resize
-
-              _this.destroy({
-                resized: true,
-              }); // Re-initalize the plugin
-
-              _this.init();
-            });
-            var $document = $(document);
-            $document.on('searchForm:beforeRequest', function () {
-              // Delete previous results
-              _this.$container.empty(); // Indicate that destroyment wasn't caused by resize
-
-              _this.destroy({
-                resized: false,
-              });
-            });
-            $document.on('searchForm:afterSuccessfulRequest', function (
-              event,
-              data
-            ) {
-              _this._profilesShown = true;
-
-              _this.init(data);
-            });
-          }
-
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
-            Pagination,
-            [
-              {
-                key: 'init',
-                value: function init(data) {
-                  // Do not initialize pagination if it is already initiated
-                  if (this._init) return;
-                  this.$pagination.trigger('pagination:beforeInit', data); // Save current viewport range
-
-                  this._viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_3__[
-                    'default'
-                  ].getViewportRange(); // Pass current viewport range to plugin options
-
-                  this.pluginOptions['perPage'] = this.perPageConfig[
-                    this._viewportRange
-                  ]; // Initiate plugin
-
-                  this.$pagination.jPages(this.pluginOptions);
-                  this.$pagination.trigger('pagination:afterInit');
-                  this._init = true;
-                },
-              },
-              {
-                key: 'destroy',
-                value: function destroy(options) {
-                  if (this._init) {
-                    // Save passed parameters
-                    var resized = options.resized;
-
-                    if (resized) {
-                      // Trigger event if the destroyment was initiated by resizement
-                      this.$pagination.trigger(
-                        'pagination:beforeDestroyAfterResize'
-                      );
-                    } // destroy plugin instance
-
-                    this.$pagination.jPages('destroy');
-                    this._init = false;
-
-                    if (resized) {
-                      // Trigger event if the destroyment was initiated by resizement
-                      this.$pagination.trigger(
-                        'pagination:afterDestroyAfterResize'
-                      );
-                    }
-                  }
-                }, // Preventing resetting containers after initialization
-                // Items container
-              },
-              {
-                key: '$container',
-                get: function get() {
-                  return this._$container;
-                },
-                set: function set($container) {
-                  if (!this._$container) {
-                    this._$container = $container;
-                  }
-                }, // Pagination container
-              },
-              {
-                key: '$pagination',
-                get: function get() {
-                  return this._$pagination;
-                },
-                set: function set($container) {
-                  if (!this._$pagination) {
-                    this._$pagination = $container;
-                  }
-                }, // Breakpoints
-              },
-              {
-                key: 'breakpoints',
-                get: function get() {
-                  return this._breakpoints;
-                },
-                set: function set(breakpoints) {
-                  if (!this.breakpoints) {
-                    this._breakpoints = breakpoints;
-                  }
-                },
-              },
-            ]
-          );
-
-          return Pagination;
-        })();
 
         /***/
       },
