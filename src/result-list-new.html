@@ -1017,7 +1017,7 @@
                 <h3 class="mb-0">
                   <a
                     href="#"
-                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize user-profile"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
                     >Lukasz, 27
                   </a>
                 </h3>
@@ -1613,16 +1613,16 @@
       <!--Ads template start-->
       <!--Default-->
       <template id="default-content">
-        <div class="col-12 mt-4 mb-5">
-          <div class="content default-content" data-type="default"></div>
+        <div class="col-12 mt-4 mb-5 content">
+          <div class="default-content" data-type="default"></div>
         </div>
       </template>
 
       <!--Custom-->
       <template id="custom-content">
-        <div class="col-12 mt-4 mb-5">
+        <div class="col-12 mt-4 mb-5 content">
           <div
-            class="content custom-content d-sm-flex justify-content-around justify-content-lg-evenly align-items-center text-center text-sm-left py-4 px-3"
+            class="custom-content d-sm-flex justify-content-around justify-content-lg-evenly align-items-center text-center text-sm-left py-4 px-3"
             style="background: #ffc400; color: #fff"
             data-type="custom"
           >
@@ -1860,7 +1860,9 @@
         /*Advertisement initialization*/
         const ad = new Ad({
           selectors: {
+            profilesContainer: '#profiles-container',
             profiles: '.user-profile',
+            ads: '.content',
             templateIds: {
               default: 'default-content',
               custom: 'custom-content',
@@ -1874,7 +1876,7 @@
             lg: 8,
             xl: 12,
           },
-          displayOnLoad: 'custom',
+          displayOnLoad: 'default',
         });
 
         /* Advertisement initialization 

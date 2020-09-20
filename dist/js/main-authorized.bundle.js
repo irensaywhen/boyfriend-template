@@ -9396,22 +9396,31 @@
 
             // Bind context
             this._insertAds = this._insertAds.bind(this);
+            this._removeAds = this._removeAds.bind(this); // Save config
+
             var selectors = (this.selectors = options.selectors);
             this.requests = options.requests;
             this.placementConfig = options.placementConfig;
-            this.displayOnLoad = options.displayOnLoad;
+            this.adType = this.displayOnLoad = options.displayOnLoad; // Prepare templates for usage
+
             this.templates = Object(
               _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_2__['default']
             )(selectors.templateIds);
 
-            this._setUpEventListeners();
+            this._cacheElements();
 
-            this._insertAds('custom');
+            this._setUpEventListeners();
           }
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
             Ad,
             [
+              {
+                key: '_cacheElements',
+                value: function _cacheElements() {
+                  this.$profilesContainer = $(this.selectors.profilesContainer);
+                },
+              },
               {
                 key: '_setUpEventListeners',
                 value: function _setUpEventListeners() {
@@ -9422,23 +9431,53 @@
                       _this._insertAds(adType);
                     })
                     .ready(function () {
-                      console.log('Document is ready');
+                      _this._insertAds(_this.displayOnLoad);
                     });
+                  /**
+                   * 1. Get the current viewport range
+                   * 2. If it has changed, remove ads and re-insert them
+                   * 3. Save new viewport range
+                   */
+
+                  $(window).resize(function () {
+                    var viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_3__[
+                      'default'
+                    ].getViewportRange();
+
+                    if (viewportRange !== _this.viewportRange) {
+                      _this._removeAds();
+
+                      _this._insertAds(_this.adType);
+
+                      _this.viewportRange = viewportRange;
+                    }
+                  });
                 },
               },
               {
                 key: '_removeAds',
-                value: function _removeAds() {},
+                value: function _removeAds() {
+                  this.$profilesContainer.find(this.selectors.ads).remove();
+                },
+                /**
+                 * In order to insert ads, this function:
+                 * 1. Gets the current viewport range according to bootstrap breakpoints
+                 * 2. Checks after which profile it needs to insert ad for this viewport
+                 * 3. Iterates over profiles and if the conditions match, insert the ad
+                 *
+                 * @param {String} adType - representing the ad. It can be either 'custom' or 'default'
+                 * Depending on the provided value, the particular ad will be inserted in all the places
+                 */
               },
               {
                 key: '_insertAds',
                 value: function _insertAds(adType) {
-                  console.log('Inserting ads!');
-                  var viewport = _helper_js__WEBPACK_IMPORTED_MODULE_3__[
+                  var viewport = (this.viewportRange = _helper_js__WEBPACK_IMPORTED_MODULE_3__[
                       'default'
-                    ].getViewportRange(),
+                    ].getViewportRange()),
                     template = this.templates[adType];
                   var insertAfter = this.placementConfig[viewport];
+                  this.adType = adType;
                   var $profiles = $(this.selectors.profiles);
                   var profielsAmount = $profiles.length;
                   $profiles.each(function (index, profile) {
@@ -9447,14 +9486,7 @@
                     if (index % insertAfter === 0 && index !== profielsAmount) {
                       $(profile).after(template);
                     }
-                  }); // Get current screen size
-
-                  console.log(
-                    _helper_js__WEBPACK_IMPORTED_MODULE_3__[
-                      'default'
-                    ].getViewportRange()
-                  ); // Iterate over profiles
-                  // Insert ads in appropriate places
+                  });
                 },
               },
             ]

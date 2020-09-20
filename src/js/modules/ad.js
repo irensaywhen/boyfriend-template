@@ -5,16 +5,23 @@ export default class Ad {
   constructor(options) {
     // Bind context
     this._insertAds = this._insertAds.bind(this);
+    this._removeAds = this._removeAds.bind(this);
 
+    // Save config
     let selectors = (this.selectors = options.selectors);
     this.requests = options.requests;
     this.placementConfig = options.placementConfig;
-    this.displayOnLoad = options.displayOnLoad;
+    this.adType = this.displayOnLoad = options.displayOnLoad;
 
+    // Prepare templates for usage
     this.templates = prepareTemplates(selectors.templateIds);
 
+    this._cacheElements();
     this._setUpEventListeners();
-    this._insertAds('custom');
+  }
+
+  _cacheElements() {
+    this.$profilesContainer = $(this.selectors.profilesContainer);
   }
 
   _setUpEventListeners() {
@@ -23,17 +30,42 @@ export default class Ad {
         this._insertAds(adType);
       })
       .ready(() => {
-        console.log('Document is ready');
+        this._insertAds(this.displayOnLoad);
       });
+
+    /**
+     * 1. Get the current viewport range
+     * 2. If it has changed, remove ads and re-insert them
+     * 3. Save new viewport range
+     */
+    $(window).resize(() => {
+      let viewportRange = helper.getViewportRange();
+      if (viewportRange !== this.viewportRange) {
+        this._removeAds();
+        this._insertAds(this.adType);
+        this.viewportRange = viewportRange;
+      }
+    });
   }
 
-  _removeAds() {}
+  _removeAds() {
+    this.$profilesContainer.find(this.selectors.ads).remove();
+  }
 
+  /**
+   * In order to insert ads, this function:
+   * 1. Gets the current viewport range according to bootstrap breakpoints
+   * 2. Checks after which profile it needs to insert ad for this viewport
+   * 3. Iterates over profiles and if the conditions match, insert the ad
+   *
+   * @param {String} adType - representing the ad. It can be either 'custom' or 'default'
+   * Depending on the provided value, the particular ad will be inserted in all the places
+   */
   _insertAds(adType) {
-    console.log('Inserting ads!');
-    let viewport = helper.getViewportRange(),
+    let viewport = (this.viewportRange = helper.getViewportRange()),
       template = this.templates[adType];
     let insertAfter = this.placementConfig[viewport];
+    this.adType = adType;
 
     let $profiles = $(this.selectors.profiles);
     let profielsAmount = $profiles.length;
@@ -44,9 +76,5 @@ export default class Ad {
         $(profile).after(template);
       }
     });
-    // Get current screen size
-    console.log(helper.getViewportRange());
-    // Iterate over profiles
-    // Insert ads in appropriate places
   }
 }
