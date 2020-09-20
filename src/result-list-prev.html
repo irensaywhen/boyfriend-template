@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en" class="blue-theme">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="Maxartkiller" />
+
+    <title>Shop · GoFruit</title>
+
+    <!-- Material design icons CSS -->
+    <link rel="stylesheet" href="vendor/materializeicon/material-icons.css" />
+
+    <!-- Roboto fonts CSS -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--Fontawesome-->
+    <link rel="stylesheet" href="fontawesome/css/all.min.css" />
+
+    <!-- Bootstrap core CSS -->
+    <link
+      href="vendor/bootstrap-4.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- nouislider CSS -->
+    <link href="vendor/nouislider/nouislider.min.css" rel="stylesheet" />
+
+    <!--SweetAlert2-->
+    <link href="vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body>
+    <!--Loader start-->
+    <div class="row no-gutters vh-100 loader-screen">
+      <div class="col align-self-center text-white text-center">
+        <img src="img/logo.png" alt="logo" />
+        <h1><span class="font-weight-light">Boy</span>friend</h1>
+        <div class="laoderhorizontal">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+    <!--Loader end-->
+
+    <!-- sidebar -->
+    <div class="sidebar">
+      <div class="text-center">
+        <div class="figure-menu shadow">
+          <figure>
+            <img src="img/photo1.jpg" class="avatar-image" alt="Avatar" />
+          </figure>
+        </div>
+        <h5 class="mb-1">Lukasz</h5>
+      </div>
+      <br />
+      <div class="row mx-0">
+        <div class="col">
+          <div class="card mb-3 border-0 shadow-sm bg-template-light">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <p class="text-secondary small mb-0">Premium until:</p>
+                  <h6 class="text-dark my-0"><time>22/09/2019</time></h6>
+                </div>
+                <div class="col-auto">
+                  <a class="btn btn-default button-rounded-36 shadow">
+                    <i class="material-icons">add</i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h5 class="subtitle text-uppercase"><span>Menu</span></h5>
+          <div class="list-group main-menu">
+            <a href="index.html" class="list-group-item list-group-item-action"
+              >View profiles</a
+            >
+            <a
+              href="notification.html"
+              class="list-group-item list-group-item-action"
+              >Messages <span class="badge badge-pink ml-2">15</span></a
+            >
+            <a
+              href="all-products.html"
+              class="list-group-item list-group-item-action"
+              >Favourites</a
+            >
+            <a
+              href="likes-you.html"
+              class="list-group-item list-group-item-action"
+              >Who likes you <span class="badge badge-pink ml-2">7</span></a
+            >
+            <a
+              href="viewed-you.html"
+              class="list-group-item list-group-item-action"
+              >Who Visited you <span class="badge badge-pink ml-2">2</span></a
+            >
+            <a
+              href="setting.html"
+              class="list-group-item list-group-item-action mt-4"
+              >Settings</a
+            >
+            <a href="login.html" class="list-group-item list-group-item-action"
+              >Logout</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- sidebar ends -->
+
+    <div class="wrapper wrapper-padding">
+      <!-- header -->
+      <div class="private-header d-flex align-items-center">
+        <div class="container-fluid">
+          <div class="row no-gutters justify-content-between">
+            <!--Menu-->
+            <div class="col-4 d-flex">
+              <button class="btn btn-link text-dark menu-btn position-relative">
+                <img src="img/menu.png" alt="" /><span
+                  class="new-notification"
+                ></span>
+              </button>
+            </div>
+            <!--Logo-->
+            <div class="col-4 text-center">
+              <a href="index.html">
+                <img
+                  src="img/logo.png"
+                  alt=""
+                  class="private-header-logo d-none d-md-inline-block"
+                />
+              </a>
+            </div>
+            <!--Icons-->
+            <div class="col-4">
+              <div class="d-flex justify-content-end align-items-center">
+                <!--
+                      Data-amount attribute contains the number of available bonuses
+                    -->
+                <div
+                  class="boost d-flex justify-content-center"
+                  data-amount="2"
+                  data-type="boost"
+                  data-redirect="./pricing.html"
+                >
+                  <div class="timer text-center">
+                    <span class="hours"></span>: <span class="minutes"></span>:
+                    <span class="seconds"></span>
+                  </div>
+                  <div class="svg-wrapper">
+                    <!--Svg for boost start-->
+                    <svg
+                      version="1.1"
+                      class="svg-icon"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 500 500"
+                      style="enable-background: new 0 0 500 500"
+                    >
+                      <path
+                        id="XMLID_28_"
+                        class="heart"
+                        d="M396.9,228.1c-37.8-42.3-102.1-48.2-147.3-17C176.9,161.1,76.3,211.2,76,296c0,61.1,33.9,110.8,83.4,148.3
+                          c40,30.3,80.2,45.1,84.6,46.7c3.4,1.2,7.6,1.3,11.1,0c4.4-1.6,44.6-16.4,84.6-46.7c49.5-37.5,83.4-87.2,83.4-148.3
+                          C423.1,271.1,413.7,247,396.9,228.1L396.9,228.1z M249.6,470.4C230.2,463,98.2,408.6,98.2,296.1c0.3-71.1,87.8-109.6,144.2-63.3
+                          c4.1,3.4,10.3,3.4,14.4,0c57-46.7,144-7.2,144.2,63.3C401,408.5,269.2,462.9,249.6,470.4L249.6,470.4z"
+                      />
+                      <path
+                        id="XMLID_2_"
+                        class="heart"
+                        d="M353.8,256.6c-5.2,3.1-6.8,9.6-3.6,14.6c9.5,14.6,11,36.4,4.2,59.8c-2,6.8,3.4,13.4,10.7,13.4
+                   c4.9,0,9.3-3.1,10.7-7.8c8.5-29.6,6.1-56.8-6.8-76.7C365.8,255.1,359,253.5,353.8,256.6L353.8,256.6z"
+                      />
+                      <path
+                        id="XMLID_1_"
+                        class="st0 heart"
+                        d="M334.5,234.2c-5.5-1.7-11.5-2.8-17.7-3.2c-6.1-0.4-11.4,4-11.8,9.9c-0.4,5.8,4.2,10.9,10.3,11.3
+                   c4.4,0.3,8.6,1,12.4,2.2c5.8,1.8,12.1-1.3,13.9-6.8C343.5,242,340.3,236,334.5,234.2L334.5,234.2z"
+                      />
+                      <g id="XMLID_6_">
+                        <polygon
+                          id="XMLID_24_"
+                          class="st0"
+                          points="258.5,84 249.6,92.5 240.7,84 249.6,92.3 	"
+                        />
+                        <path
+                          id="XMLID_23_"
+                          class="st0 arrow-up"
+                          d="M318.2,157.9c-22.9-21.9-45.7-43.6-68.5-65.5l8.8-8.4l-8.9,8.3l-8.9-8.3l8.8,8.4
+                     c-22.8,21.9-45.7,43.7-68.5,65.6c-11.4,11-29.2-6.1-17.8-17.1c25.8-24.8,51.7-49.5,77.5-74.3c4.8-4.6,13-4.6,17.8,0
+                     c25.8,24.7,51.7,49.5,77.5,74.2C347.4,151.9,329.7,168.9,318.2,157.9z"
+                        />
+                        <path
+                          id="XMLID_17_"
+                          class="st0"
+                          d="M240.7,84l8.9,8.3c0,0-0.1,0.1-0.1,0.1L240.7,84z"
+                        />
+                        <path
+                          id="XMLID_18_"
+                          class="st0"
+                          d="M258.5,84l-8.8,8.4c0,0-0.1-0.1-0.1-0.1L258.5,84z"
+                        />
+                      </g>
+                      <g id="XMLID_7_">
+                        <polygon
+                          id="XMLID_22_"
+                          class="st0"
+                          points="258.5,29.2 249.6,37.7 240.7,29.2 249.6,37.7 	"
+                        />
+                        <path
+                          id="XMLID_20_"
+                          class="st0 arrow-up"
+                          d="M318.2,103.4l-68.6-65.7l8.9-8.5l-8.9,8.5l-8.9-8.5l8.9,8.5L181,103.4
+                     c-11.4,11-29.2-6.1-17.8-17c25.8-24.7,51.7-49.5,77.5-74.2c4.8-4.6,13-4.6,17.8,0c25.8,24.7,51.7,49.5,77.5,74.2
+                     C347.4,97.3,329.7,114.3,318.2,103.4z"
+                        />
+                        <polygon
+                          id="XMLID_16_"
+                          class="st0"
+                          points="249.6,37.7 249.6,37.7 240.7,29.2 	"
+                        />
+                        <polygon
+                          id="XMLID_15_"
+                          class="st0"
+                          points="258.5,29.2 249.6,37.7 249.6,37.7 	"
+                        />
+                      </g>
+                    </svg>
+                    <!--Svg for boost end-->
+                  </div>
+                </div>
+                <a href="#" class="btn btn-default text-white premium mr-3"
+                  >Premium</a
+                >
+                <a href="profile.html" class="btn blue-link text-white account"
+                  ><i class="material-icons">account_circle</i></a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- header ends -->
+
+      <!--Ad at the top start-->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 mt-4">
+            <div
+              class="content custom-content d-sm-flex justify-content-around justify-content-lg-evenly align-items-center text-center text-sm-left py-4 px-3"
+              style="background: #ffc400; color: #fff"
+              data-type="custom"
+            >
+              <div class="description">
+                <h2 class="text-uppercase mb-3 p-0">20% OFF Season Sale</h2>
+                <p class="mb-3">
+                  Use Coupan Code
+                  <span style="color: #000">DFR0020</span>
+                </p>
+                <p>Get the all new fresh bananas at very low price</p>
+              </div>
+              <figure class="d-none d-sm-block">
+                <img src="img/banana.png" alt="" />
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Ad at the top end-->
+
+      <!--Profiles start-->
+      <div class="container search-profiles-form">
+        <div class="row">
+          <div class="col-12">
+            <!--Profile search form start-->
+            <form
+              class="search-form mt-5 mb-4"
+              id="profile-search"
+              autocomplete="off"
+            >
+              <div class="container-fluid p-4">
+                <div class="row">
+                  <!--Form area - age start-->
+                  <div class="col-12 col-sm-6 col-lg-3 form-area-sm">
+                    <h3 class="group-label">Age:</h3>
+                    <div class="container-fluid px-0">
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label class="small" for="age-from">from:</label>
+                            <select
+                              class="form-control search-field age-select"
+                              name="age-from"
+                              id="age-from"
+                            ></select>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label class="small" for="age-from">to:</label>
+                            <select
+                              class="form-control search-field age-select"
+                              name="age-to"
+                              id="age-to"
+                            ></select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Form area - age end-->
+
+                  <!--Form area - preference start-->
+                  <div
+                    class="col-12 col-sm-6 col-lg-3 form-area-lg pt-4 pt-sm-0"
+                  >
+                    <h3 class="group-label">Preference:</h3>
+
+                    <!--Active-->
+                    <div class="custom-control custom-checkbox pb-2 form-group">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input search-field"
+                        id="active"
+                        name="active"
+                      />
+                      <label class="custom-control-label" for="active"
+                        >Active</label
+                      >
+                    </div>
+
+                    <!--Passive-->
+                    <div class="custom-control custom-checkbox pb-2 form-group">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input search-field"
+                        id="passive"
+                        name="passive"
+                      />
+                      <label class="custom-control-label" for="passive"
+                        >Passive</label
+                      >
+                    </div>
+
+                    <!--Both-->
+                    <div class="custom-control custom-checkbox form-group">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input search-field"
+                        id="both"
+                        name="both"
+                      />
+                      <label class="custom-control-label" for="both"
+                        >Both</label
+                      >
+                    </div>
+                  </div>
+                  <!--Form area - preference end-->
+
+                  <!--Form area - city start-->
+                  <div
+                    class="col-12 col-sm-6 col-lg-3 form-area-sm pt-4 pt-lg-0"
+                  >
+                    <!--City input start-->
+                    <div class="form-group position-relative">
+                      <label for="city">City</label>
+                      <input
+                        type="text"
+                        class="form-control location search-field"
+                        id="city"
+                        name="city"
+                      />
+                      <div class="spinner-border city-loader" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="dropdown location-dropdown">
+                        <button
+                          class="btn btn-primary dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          Cities dropdown
+                        </button>
+                        <ul class="dropdown-menu"></ul>
+                      </div>
+                    </div>
+                    <!--City input end-->
+
+                    <!--Distance input start-->
+                    <div class="form-group">
+                      <label class="form-control-lable"> Distance </label>
+                      <br />
+                      <div id="rangeslider" class="mt-2"></div>
+                    </div>
+                    <div class="form-group float-label pt-0">
+                      <div class="row">
+                        <div class="col">
+                          <input
+                            type="number"
+                            id="input-select"
+                            class="form-control search-field distance-from"
+                            name="distance-from"
+                          />
+                        </div>
+                        <div class="col-auto pt-2 px-0">to</div>
+                        <div class="col">
+                          <input
+                            type="number"
+                            id="input-number"
+                            class="form-control search-field distance-to"
+                            name="distance-to"
+                          />
+                        </div>
+                        <div class="col-auto pt-2 pl-0">km</div>
+                      </div>
+                    </div>
+                    <!--Distance input end-->
+                  </div>
+                  <!--Form area - city end-->
+
+                  <!--Form area - miscellaneous start-->
+                  <div class="col-12 col-sm-6 col-lg-3 pt-4 pt-lg-0">
+                    <h3 class="group-label">Account information:</h3>
+
+                    <!--Online now-->
+                    <div class="custom-control custom-checkbox pb-2 form-group">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input search-field"
+                        id="online"
+                        name="online"
+                      />
+                      <label class="custom-control-label" for="online"
+                        >Online now</label
+                      >
+                    </div>
+
+                    <!--Only with images-->
+                    <div class="custom-control custom-checkbox form-group">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input search-field"
+                        id="images"
+                        name="images"
+                      />
+                      <label class="custom-control-label" for="images"
+                        >Only with images</label
+                      >
+                    </div>
+                  </div>
+                  <!--Form area - miscellaneous end-->
+                </div>
+              </div>
+            </form>
+            <!--Profile search form end-->
+          </div>
+        </div>
+      </div>
+
+      <!--Profiles preview container start-->
+      <div class="container-fluid profile-list">
+        <div
+          id="profiles-container"
+          class="row profiles-row justify-content-center"
+        ></div>
+        <div
+          id="pagination-container"
+          class="pagination d-flex justify-content-center"
+        ></div>
+      </div>
+      <!--Profiles preview container end-->
+
+      <!--Bottom ad start-->
+      <div class="container-fluid mt-3">
+        <div class="row">
+          <div class="col-12 mt-3 mb-3">
+            <div class="content default-content" data-type="default"></div>
+          </div>
+        </div>
+      </div>
+      <!--Bottom ad end-->
+
+      <!--Ads start-->
+      <div class="container-fluid">
+        <div class="row" id="content-container">
+          <!--Default-->
+          <div class="col-12 mt-4 mb-5">
+            <div class="content default-content" data-type="default"></div>
+          </div>
+
+          <!--Custom-->
+          <div class="col-12 mt-4 mb-5">
+            <div
+              class="content custom-content d-sm-flex justify-content-around justify-content-lg-evenly align-items-center text-center text-sm-left py-4 px-3"
+              style="background: #ffc400; color: #fff"
+              data-type="custom"
+            >
+              <div class="description">
+                <h2 class="text-uppercase mb-3 p-0">20% OFF Season Sale</h2>
+                <p class="mb-3">
+                  Use Coupan Code
+                  <span style="color: #000">DFR0020</span>
+                </p>
+                <p>Get the all new fresh bananas at very low price</p>
+              </div>
+              <figure class="d-none d-sm-block">
+                <img src="img/banana.png" alt="" />
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Ads end-->
+
+      <!-- footer -->
+      <footer class="footer">
+        <div class="loader" id="loader">
+          <div class="bar"></div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-auto mx-auto">
+            <div class="row no-gutters justify-content-center">
+              <div class="col-auto">
+                <a href="index.html" class="btn btn-link-default active icon">
+                  <i class="fas fa-home"></i>
+                </a>
+              </div>
+              <div class="col-auto">
+                <a href="statistics.html" class="btn btn-link-default icon">
+                  <i class="far fa-eye"></i>
+                </a>
+              </div>
+              <div class="col-auto">
+                <a
+                  href="cart.html"
+                  class="btn btn-default shadow centerbutton d-flex justify-content-center align-items-center position-relative"
+                >
+                  <i class="far fa-envelope icon"></i>
+                  <span class="badge-circle badge-primary mb-1">3</span>
+                </a>
+              </div>
+              <div class="col-auto">
+                <a href="favorite-products.html" class="btn btn-link-default">
+                  <i class="material-icons">favorite</i>
+                </a>
+              </div>
+              <div class="col-auto">
+                <a href="profile.html" class="btn btn-link-default">
+                  <i class="material-icons">account_circle</i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- footer ends -->
+
+      <!-- notification -->
+      <div class="notification bg-white shadow border-primary">
+        <div class="row">
+          <div class="col-auto align-self-center pr-0">
+            <i class="material-icons text-primary md-36">fullscreen</i>
+          </div>
+          <div class="col">
+            <h6>Viewing in Phone?</h6>
+            <p class="mb-0 text-secondary">
+              Double tap to enter into fullscreen mode for each page.
+            </p>
+          </div>
+          <div class="col-auto align-self-center pl-0">
+            <button class="btn btn-link closenotification">
+              <i class="material-icons text-secondary text-mute md-18">close</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- notification ends -->
+    </div>
+
+    <!-- jquery, popper and bootstrap js -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
+
+    <!--jPages-->
+    <script src="vendor/jPages/jPages.min.js"></script>
+
+    <!--Sweetalert-->
+    <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
+
+    <!-- nouislider js -->
+    <script src="vendor/nouislider/nouislider.min.js"></script>
+
+    <!-- template custom js -->
+    <script src="js/main.bundle.js"></script>
+    <script src="js/main-authorized.bundle.js"></script>
+
+    <script>
+      $(window).on('load', function () {
+        /* notification view and hide */
+        setTimeout(function () {
+          $('.notification').addClass('active');
+          setTimeout(function () {
+            $('.notification').removeClass('active');
+          }, 3500);
+        }, 500);
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
+        });
+
+        /* range picker for filter */
+        var html5Slider = document.getElementById('rangeslider');
+        noUiSlider.create(html5Slider, {
+          start: [0, 100],
+          connect: true,
+          range: {
+            min: 0,
+            max: 500,
+          },
+        });
+
+        var inputNumber = document.getElementById('input-number');
+        var select = document.getElementById('input-select');
+
+        html5Slider.noUiSlider.on('update', function (values, handle) {
+          var value = values[handle];
+
+          if (handle) {
+            inputNumber.value = value;
+          } else {
+            select.value = Math.round(value);
+          }
+        });
+
+        select.addEventListener('change', function () {
+          html5Slider.noUiSlider.set([this.value, null]);
+        });
+        inputNumber.addEventListener('change', function () {
+          html5Slider.noUiSlider.set([null, this.value]);
+        });
+
+        /* Boost initialization */
+        const boost = new Boost({
+          selectors: {
+            bonus: '.boost',
+            timer: {
+              element: '.timer',
+              hours: '.hours',
+              minutes: '.minutes',
+              seconds: '.seconds',
+            },
+          },
+          requests: {
+            use: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus',
+            },
+          },
+          popupData: {
+            title: 'Do you want to use boost?',
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No',
+            imageUrl: 'img/boost.svg',
+            imageAlt: 'Boost icon',
+          },
+        });
+
+        /* Advertisement initialization */
+        const ad = new Ad({
+          selectors: {
+            container: '#content-container',
+            profilesContainer: '#profiles-container',
+            genericClass: '.content',
+          },
+          placementConfig: {
+            xs: 2,
+            sm: 4,
+            md: 3,
+            lg: 4,
+            xl: 6,
+          },
+          elementInsertAfter: {
+            element: 'div',
+            class: 'search-result',
+          },
+        });
+
+        /*Pagination initialization*/
+        const pagination = new Pagination({
+          pluginOptions: {
+            containerID: 'profiles-container',
+            minHeight: false,
+            perPage: 10,
+            previous: '«',
+            next: '»',
+          },
+          selectors: {
+            container: '#profiles-container',
+            pagination: '#pagination-container',
+          },
+          perPageConfig: {
+            xs: 5,
+            sm: 9,
+            md: 7,
+            lg: 9,
+            xl: 13,
+          },
+        });
+
+        /* Form initialization */
+        const searchProfilesForm = new SearchProfilesForm({
+          selectors: {
+            form: '#profile-search',
+            locationInput: '.location',
+            'input-wrapper': '.form-group',
+            inputs: '.search-field',
+            'location-dropdown': '.location-dropdown',
+            'dropdown-toggle': '.dropdown-toggle',
+            'dropdown-menu': '.dropdown-menu',
+            age: '.age-select',
+            locationLoadingIndicator: '.city-loader',
+            formLoadingIndicator: '#loader',
+            resultsContainer: '#profiles-container',
+          },
+          requests: {
+            profiles: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-custom',
+            },
+            preload: {
+              method: 'GET',
+              headers: {},
+              endpoint:
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/profiles-preload',
+            },
+            location: {
+              method: 'GET',
+              headers: {},
+              endpoint: 'https://nominatim.openstreetmap.org/search',
+              searchParams: {
+                format: 'json',
+                addressdetails: '1',
+                countrycodes: 'pl',
+                'accept-language': 'pl,en',
+              },
+            },
+          },
+          slider: html5Slider,
+          searchFormOptions: {
+            ageFrom: 18,
+            ageTo: 40,
+          },
+          location: true,
+          showSuccessPopup: false,
+          showFailPopup: false,
+          frontendValidation: true,
+          validatorOptions: {
+            errorElement: 'span',
+            rules: {
+              city: {
+                location: true,
+              },
+            },
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
