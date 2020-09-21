@@ -9,12 +9,6 @@ export default class Boost extends Bonus {
     // Bind context
     this._displayTime = this._displayTime.bind(this);
 
-    // Save popup data
-    this.popupData = options.popupData;
-
-    // Reference request information for the popup usage
-    this.popupData.request = this.requests.use;
-
     // Save initial state of the boost
     this.activated = false;
     this.finished = false;
@@ -34,9 +28,6 @@ export default class Boost extends Bonus {
 
     // Hide timer after caching
     this.$timer.fadeOut(0);
-
-    //Create expiration popup based on the generic popup
-    this.expirationPopupData = Object.assign({}, this.popupData);
   }
 
   _setUpEventListeners() {
@@ -55,6 +46,7 @@ export default class Boost extends Bonus {
     this._startTimer();
   }
 
+  // In this function, we're asking the server to approve bonus usage
   async _prepareBonusUsage() {
     let approved, timestamp, expirationTitle, expirationMessage;
 
@@ -65,7 +57,7 @@ export default class Boost extends Bonus {
         timestamp,
         expirationTitle,
         expirationMessage,
-      } = await this.askUsageApprovement(this.popupData));
+      } = await this.askUsageApprovement(this.popups.use));
     } else if (this.activated && this.finished) {
       // If the bonus has been activated and finished
       // Ask about using bonus again
@@ -74,7 +66,7 @@ export default class Boost extends Bonus {
         timestamp,
         expirationTitle,
         expirationMessage,
-      } = await this.askUsageApprovement(this.expirationPopupData));
+      } = await this.askUsageApprovement(this.popups.expire));
 
       if (!approved) {
         // If the user don't want to use boost again
@@ -87,17 +79,6 @@ export default class Boost extends Bonus {
       // If the boost usage was approved by the server
       // Save timestamp
       this.countDownTime = timestamp;
-
-      if (expirationTitle) {
-        // Change the title if provided
-        // For asking about futher usage
-        this.expirationPopupData.title = expirationTitle;
-      }
-      if (expirationMessage) {
-        // Change the message if provided
-        // For asking about futher usage
-        this.expirationPopupData.text = expirationMessage;
-      }
     } else {
       // If the boost usage wasn't approved by the server
       // Discard boost state

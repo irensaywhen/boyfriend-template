@@ -81,7 +81,6 @@ export default {
     cancelButtonText,
     imageUrl,
     imageAlt,
-    request,
   }) {
     return Swal.fire({
       title,
@@ -97,7 +96,23 @@ export default {
       imageHeight: '150px',
       showLoaderOnConfirm: true,
       // Request telling the server thas user wants to use the bonus
-      preConfirm: () => this.requestBonusUsage(request),
+      preConfirm: () => {
+        let { headers, endpoint, method, body } = this.requests.use;
+        return fetch(endpoint, {
+          method,
+          headers,
+          body,
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(response.statusText);
+            }
+            return response.json();
+          })
+          .catch(error => {
+            Swal.showValidationMessage(`Request failed: ${error}`);
+          });
+      },
       allowOutsideClick: () => !Swal.isLoading(),
     }).then(result => {
       if (result.value) {

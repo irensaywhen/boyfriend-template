@@ -927,12 +927,29 @@
                 'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus',
             },
           },
-          popupData: {
-            title: 'Do you want to use boost?',
-            confirmButtonText: 'Yes!',
-            cancelButtonText: 'No',
-            imageUrl: 'img/boost.svg',
-            imageAlt: 'Boost icon',
+          popups: {
+            buy: {
+              title: 'Oops!',
+              text:
+                "You don't have any photo bonuses available. Do you want to buy some?",
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+            },
+            use: {
+              title: 'Do you want to use boost?',
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+              imageUrl: 'img/boost.svg',
+              imageAlt: 'Boost icon',
+            },
+            expire: {
+              title: 'Oops! Your boost expired!',
+              text: 'Do you want to activate it again?',
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+              imageUrl: 'img/boost.svg',
+              imageAlt: 'Boost icon',
+            },
           },
         });
 

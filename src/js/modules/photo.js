@@ -71,11 +71,10 @@ export default class Photo extends Bonus {
      * What to add:
      * 3. Do the same stuff on drop
      */
-    //this.$photoInputs.change(event => {
-    //  this._discardChanges();
-    //});
 
-    this.$modal.on('change', () => {
+    this.$modal.on('change', event => {
+      if (!event.target.classList.contains(this.classes.input)) return;
+
       this._discardChanges();
     });
 

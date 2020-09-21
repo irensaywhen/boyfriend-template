@@ -5,12 +5,12 @@ export default class Bonus extends ServerRequest {
     super(options);
 
     this.classes = options.classes;
+    this.popups = options.popups;
 
     // Bind context
     this._cacheElements = this._cacheElements.bind(this);
     this._setUpEventListeners = this._setUpEventListeners.bind(this);
     this._useBonus = this._useBonus.bind(this);
-    this._startUsingBonus = this._startUsingBonus.bind(this);
     this._prepareBonusUsage = this._prepareBonusUsage.bind(this);
   }
 
@@ -28,51 +28,32 @@ export default class Bonus extends ServerRequest {
 
   _setUpEventListeners() {
     // Why the function is being called here?
-    this.$bonus.click(() => this._startUsingBonus());
-  }
+    //this.$bonus.click(() => this._startUsingBonus());
+    this.$bonus.click(async () => {
+      if (this.activated && !this.finished) {
+        // If the bonus has already been activated and not finished yet
+        // Forbid any actions with it
+        return;
+      } else if (this.amount === 0) {
+        // Fire alert
+        this.fireBuyingAlert(this.popups.buy).then(result => {
+          if (result.isConfirmed) {
+            // Redirect to buying page in case of the user approvement
+            window.location.href = this.redirect;
+          }
+        });
+      } else {
+        // If there are bonuses available
 
-  /**
-   * Asyncronous event handler for bonus usage
-   */
-  async _startUsingBonus() {
-    if (this.activated && !this.finished) {
-      // If the bonus has already been activated and not finished yet
-      // Forbid any actions with it
-      return;
-    } else if (this.amount === 0) {
-      // If there are no bonuses available
-      //let type = this.type;
-      //
-      //switch (type) {
-      //  case 'boost':
-      //    // Redirect
-      //    window.location.href = this.redirect;
-      //    break;
-      //
-      //  case 'superlike':
-      //  case 'photo':
-      //    // Ask the user to purchase bonuses
-      //    this._proposeBuyingBonus();
-      //    break;
-      //}
-      // Fire alert
-      this.fireBuyingAlert(this.popups.buy).then(result => {
-        if (result.isConfirmed) {
-          // Redirect to buying page in case of the user approvement
-          window.location.href = this.redirect;
+        // Negotiate bonus usage with the server
+        let approved = await this._prepareBonusUsage();
+
+        if (approved) {
+          // Start bonus usage
+          this._useBonus();
         }
-      });
-    } else {
-      // If there are bonuses available
-
-      // Negotiate bonus usage with the server
-      let approved = await this._prepareBonusUsage();
-
-      if (approved) {
-        // Start bonus usage
-        this._useBonus();
       }
-    }
+    });
   }
 
   _proposeBuyingBonus() {

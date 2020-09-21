@@ -1,8 +1,6 @@
 import swalAlert from './swalAlertMixin.js';
 import loadingIndicatorMixin from './requestsIndictorMixin.js';
 
-let $document = $(document);
-
 export default class ServerRequest {
   constructor(options) {
     // Bind context
@@ -11,7 +9,6 @@ export default class ServerRequest {
     );
     this.deletePhotoOnServer = this.deletePhotoOnServer.bind(this);
     this.getPhotosIds = this.getPhotosIds.bind(this);
-    this.requestBonusUsage = this.requestBonusUsage.bind(this);
 
     // Save passed options
     this.selectors = options.selectors;
@@ -150,22 +147,5 @@ export default class ServerRequest {
     }
 
     return await this.makeRequest({ headers, endpoint, method });
-  }
-
-  requestBonusUsage({ headers, endpoint, method, body }) {
-    return fetch(endpoint, {
-      method,
-      headers,
-      body,
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        return response.json();
-      })
-      .catch(error => {
-        Swal.showValidationMessage(`Request failed: ${error}`);
-      });
   }
 }

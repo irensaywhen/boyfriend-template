@@ -147,7 +147,7 @@ function _setUpEventListeners() {
   this.$form.on('change', event => {
     let files = event.target.files;
 
-    if (!files[0]) return;
+    if (!files || !files[0]) return;
 
     for (let i = 0; i < files.length; i++) {
       _saveAndPreviewFile(files[i]);
@@ -183,12 +183,10 @@ function _setUpEventListeners() {
 
     if (avatar || photoBonus) {
       _saveAndPreviewFile(droppedFiles[0]);
+
+      if (photoBonus) this._discardChanges();
     } else if (uploader) {
       console.log('We are in photo uploader!');
-    }
-
-    if (photoBonus) {
-      this._discardChanges();
     }
   });
 }

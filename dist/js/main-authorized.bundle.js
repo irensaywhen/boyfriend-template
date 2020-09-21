@@ -19952,7 +19952,8 @@
             );
 
             _this = _super.call(this, options);
-            _this.classes = options.classes; // Bind context
+            _this.classes = options.classes;
+            _this.popups = options.popups; // Bind context
 
             _this._cacheElements = _this._cacheElements.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
@@ -19965,11 +19966,6 @@
               )
             );
             _this._useBonus = _this._useBonus.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
-                _this
-              )
-            );
-            _this._startUsingBonus = _this._startUsingBonus.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
@@ -20004,110 +20000,82 @@
                   var _this2 = this;
 
                   // Why the function is being called here?
-                  this.$bonus.click(function () {
-                    return _this2._startUsingBonus();
-                  });
-                },
-                /**
-                 * Asyncronous event handler for bonus usage
-                 */
-              },
-              {
-                key: '_startUsingBonus',
-                value: (function () {
-                  var _startUsingBonus2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee() {
-                        var _this3 = this;
-
-                        var approved;
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee$(_context) {
-                            while (1) {
-                              switch ((_context.prev = _context.next)) {
-                                case 0:
-                                  if (!(this.activated && !this.finished)) {
-                                    _context.next = 4;
-                                    break;
-                                  }
-
-                                  return _context.abrupt('return');
-
-                                case 4:
-                                  if (!(this.amount === 0)) {
-                                    _context.next = 8;
-                                    break;
-                                  }
-
-                                  // If there are no bonuses available
-                                  //let type = this.type;
-                                  //
-                                  //switch (type) {
-                                  //  case 'boost':
-                                  //    // Redirect
-                                  //    window.location.href = this.redirect;
-                                  //    break;
-                                  //
-                                  //  case 'superlike':
-                                  //  case 'photo':
-                                  //    // Ask the user to purchase bonuses
-                                  //    this._proposeBuyingBonus();
-                                  //    break;
-                                  //}
-                                  // Fire alert
-                                  this.fireBuyingAlert(this.popups.buy).then(
-                                    function (result) {
-                                      if (result.isConfirmed) {
-                                        // Redirect to buying page in case of the user approvement
-                                        window.location.href = _this3.redirect;
-                                      }
+                  //this.$bonus.click(() => this._startUsingBonus());
+                  this.$bonus.click(
+                    /*#__PURE__*/ _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
+                      /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
+                        function _callee() {
+                          var approved;
+                          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
+                            function _callee$(_context) {
+                              while (1) {
+                                switch ((_context.prev = _context.next)) {
+                                  case 0:
+                                    if (
+                                      !(_this2.activated && !_this2.finished)
+                                    ) {
+                                      _context.next = 4;
+                                      break;
                                     }
-                                  );
-                                  _context.next = 12;
-                                  break;
 
-                                case 8:
-                                  _context.next = 10;
-                                  return this._prepareBonusUsage();
+                                    return _context.abrupt('return');
 
-                                case 10:
-                                  approved = _context.sent;
+                                  case 4:
+                                    if (!(_this2.amount === 0)) {
+                                      _context.next = 8;
+                                      break;
+                                    }
 
-                                  if (approved) {
-                                    // Start bonus usage
-                                    this._useBonus();
-                                  }
+                                    // Fire alert
+                                    _this2
+                                      .fireBuyingAlert(_this2.popups.buy)
+                                      .then(function (result) {
+                                        if (result.isConfirmed) {
+                                          // Redirect to buying page in case of the user approvement
+                                          window.location.href =
+                                            _this2.redirect;
+                                        }
+                                      });
 
-                                case 12:
-                                case 'end':
-                                  return _context.stop();
+                                    _context.next = 12;
+                                    break;
+
+                                  case 8:
+                                    _context.next = 10;
+                                    return _this2._prepareBonusUsage();
+
+                                  case 10:
+                                    approved = _context.sent;
+
+                                    if (approved) {
+                                      // Start bonus usage
+                                      _this2._useBonus();
+                                    }
+
+                                  case 12:
+                                  case 'end':
+                                    return _context.stop();
+                                }
                               }
-                            }
-                          },
-                          _callee,
-                          this
-                        );
-                      }
+                            },
+                            _callee
+                          );
+                        }
+                      )
                     )
                   );
-
-                  function _startUsingBonus() {
-                    return _startUsingBonus2.apply(this, arguments);
-                  }
-
-                  return _startUsingBonus;
-                })(),
+                },
               },
               {
                 key: '_proposeBuyingBonus',
                 value: function _proposeBuyingBonus() {
-                  var _this4 = this;
+                  var _this3 = this;
 
                   // Fire alert
                   this.fireBuyingAlert(this.popups.buy).then(function (result) {
                     if (result.isConfirmed) {
                       // Redirect to buying page in case of the user approvement
-                      window.location.href = _this4.redirect;
+                      window.location.href = _this3.redirect;
                     }
                   });
                 },
@@ -20274,11 +20242,7 @@
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
-            ); // Save popup data
-
-            _this.popupData = options.popupData; // Reference request information for the popup usage
-
-            _this.popupData.request = _this.requests.use; // Save initial state of the boost
+            ); // Save initial state of the boost
 
             _this.activated = false;
             _this.finished = false;
@@ -20313,9 +20277,7 @@
                     this.selectors.timer.seconds
                   ); // Hide timer after caching
 
-                  this.$timer.fadeOut(0); //Create expiration popup based on the generic popup
-
-                  this.expirationPopupData = Object.assign({}, this.popupData);
+                  this.$timer.fadeOut(0);
                 },
               },
               {
@@ -20340,7 +20302,7 @@
                   this._decreaseBonusAmountAvailable(); // Start timer
 
                   this._startTimer();
-                },
+                }, // In this function, we're asking the server to approve bonus usage
               },
               {
                 key: '_prepareBonusUsage',
@@ -20367,7 +20329,7 @@
 
                                   _context.next = 3;
                                   return this.askUsageApprovement(
-                                    this.popupData
+                                    this.popups.use
                                   );
 
                                 case 3:
@@ -20389,7 +20351,7 @@
 
                                   _context.next = 13;
                                   return this.askUsageApprovement(
-                                    this.expirationPopupData
+                                    this.popups.expire
                                   );
 
                                 case 13:
@@ -20412,18 +20374,6 @@
                                     // If the boost usage was approved by the server
                                     // Save timestamp
                                     this.countDownTime = timestamp;
-
-                                    if (expirationTitle) {
-                                      // Change the title if provided
-                                      // For asking about futher usage
-                                      this.expirationPopupData.title = expirationTitle;
-                                    }
-
-                                    if (expirationMessage) {
-                                      // Change the message if provided
-                                      // For asking about futher usage
-                                      this.expirationPopupData.text = expirationMessage;
-                                    }
                                   } else {
                                     // If the boost usage wasn't approved by the server
                                     // Discard boost state
@@ -21022,6 +20972,7 @@
                   this._sendMessageToServer(messageData) // Maybe we can handle successful/unsuccessful response here
                     .then(function (response) {
                       if (response.success) {
+                        console.log('Response after sending a message:');
                         console.log(response);
 
                         switch (response.type) {
@@ -24996,11 +24947,11 @@
                    * What to add:
                    * 3. Do the same stuff on drop
                    */
-                  //this.$photoInputs.change(event => {
-                  //  this._discardChanges();
-                  //});
 
-                  this.$modal.on('change', function () {
+                  this.$modal.on('change', function (event) {
+                    if (!event.target.classList.contains(_this2.classes.input))
+                      return;
+
                     _this2._discardChanges();
                   });
                   /**
@@ -25572,7 +25523,7 @@
            */
           this.$form.on('change', function (event) {
             var files = event.target.files;
-            if (!files[0]) return;
+            if (!files || !files[0]) return;
 
             for (var i = 0; i < files.length; i++) {
               _saveAndPreviewFile(files[i]);
@@ -25604,12 +25555,10 @@
 
             if (avatar || photoBonus) {
               _saveAndPreviewFile(droppedFiles[0]);
+
+              if (photoBonus) _this2._discardChanges();
             } else if (uploader) {
               console.log('We are in photo uploader!');
-            }
-
-            if (photoBonus) {
-              _this2._discardChanges();
             }
           });
         }
@@ -25924,8 +25873,6 @@
           /*! ./requestsIndictorMixin.js */ './js/modules/requestsIndictorMixin.js'
         );
 
-        var $document = $(document);
-
         var ServerRequest = /*#__PURE__*/ (function () {
           function ServerRequest(options) {
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(
@@ -25938,8 +25885,7 @@
               this
             );
             this.deletePhotoOnServer = this.deletePhotoOnServer.bind(this);
-            this.getPhotosIds = this.getPhotosIds.bind(this);
-            this.requestBonusUsage = this.requestBonusUsage.bind(this); // Save passed options
+            this.getPhotosIds = this.getPhotosIds.bind(this); // Save passed options
 
             this.selectors = options.selectors;
             this.requests = options.requests;
@@ -26268,32 +26214,6 @@
                   return getPrice;
                 })(),
               },
-              {
-                key: 'requestBonusUsage',
-                value: function requestBonusUsage(_ref6) {
-                  var headers = _ref6.headers,
-                    endpoint = _ref6.endpoint,
-                    method = _ref6.method,
-                    body = _ref6.body;
-                  return fetch(endpoint, {
-                    method: method,
-                    headers: headers,
-                    body: body,
-                  })
-                    .then(function (response) {
-                      if (!response.ok) {
-                        throw new Error(response.statusText);
-                      }
-
-                      return response.json();
-                    })
-                    ['catch'](function (error) {
-                      Swal.showValidationMessage(
-                        'Request failed: '.concat(error)
-                      );
-                    });
-                },
-              },
             ]
           );
 
@@ -26331,7 +26251,7 @@
 
             $form.submit(function () {
               // Don't show loading indicator if the form isn't valid
-              if (!_this.$form.valid()) return;
+              if (jQuery.validator && !_this.$form.valid()) return;
               var spinner = template.content.cloneNode(true),
                 loading = _this.loading,
                 $submitButton = _this.$submitButton; // Preserve width and get rid of the previous content
@@ -27389,8 +27309,7 @@
               confirmButtonText = _ref5.confirmButtonText,
               cancelButtonText = _ref5.cancelButtonText,
               imageUrl = _ref5.imageUrl,
-              imageAlt = _ref5.imageAlt,
-              request = _ref5.request;
+              imageAlt = _ref5.imageAlt;
             return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a
               .fire({
                 title: title,
@@ -27407,7 +27326,28 @@
                 showLoaderOnConfirm: true,
                 // Request telling the server thas user wants to use the bonus
                 preConfirm: function preConfirm() {
-                  return _this2.requestBonusUsage(request);
+                  var _this2$requests$use = _this2.requests.use,
+                    headers = _this2$requests$use.headers,
+                    endpoint = _this2$requests$use.endpoint,
+                    method = _this2$requests$use.method,
+                    body = _this2$requests$use.body;
+                  return fetch(endpoint, {
+                    method: method,
+                    headers: headers,
+                    body: body,
+                  })
+                    .then(function (response) {
+                      if (!response.ok) {
+                        throw new Error(response.statusText);
+                      }
+
+                      return response.json();
+                    })
+                    ['catch'](function (error) {
+                      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showValidationMessage(
+                        'Request failed: '.concat(error)
+                      );
+                    });
                 },
                 allowOutsideClick: function allowOutsideClick() {
                   return !sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.isLoading();

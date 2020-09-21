@@ -22138,7 +22138,7 @@
            */
           this.$form.on('change', function (event) {
             var files = event.target.files;
-            if (!files[0]) return;
+            if (!files || !files[0]) return;
 
             for (var i = 0; i < files.length; i++) {
               _saveAndPreviewFile(files[i]);
@@ -22170,12 +22170,10 @@
 
             if (avatar || photoBonus) {
               _saveAndPreviewFile(droppedFiles[0]);
+
+              if (photoBonus) _this2._discardChanges();
             } else if (uploader) {
               console.log('We are in photo uploader!');
-            }
-
-            if (photoBonus) {
-              _this2._discardChanges();
             }
           });
         }
@@ -22407,8 +22405,6 @@
           /*! ./requestsIndictorMixin.js */ './js/modules/requestsIndictorMixin.js'
         );
 
-        var $document = $(document);
-
         var ServerRequest = /*#__PURE__*/ (function () {
           function ServerRequest(options) {
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(
@@ -22421,8 +22417,7 @@
               this
             );
             this.deletePhotoOnServer = this.deletePhotoOnServer.bind(this);
-            this.getPhotosIds = this.getPhotosIds.bind(this);
-            this.requestBonusUsage = this.requestBonusUsage.bind(this); // Save passed options
+            this.getPhotosIds = this.getPhotosIds.bind(this); // Save passed options
 
             this.selectors = options.selectors;
             this.requests = options.requests;
@@ -22751,32 +22746,6 @@
                   return getPrice;
                 })(),
               },
-              {
-                key: 'requestBonusUsage',
-                value: function requestBonusUsage(_ref6) {
-                  var headers = _ref6.headers,
-                    endpoint = _ref6.endpoint,
-                    method = _ref6.method,
-                    body = _ref6.body;
-                  return fetch(endpoint, {
-                    method: method,
-                    headers: headers,
-                    body: body,
-                  })
-                    .then(function (response) {
-                      if (!response.ok) {
-                        throw new Error(response.statusText);
-                      }
-
-                      return response.json();
-                    })
-                    ['catch'](function (error) {
-                      Swal.showValidationMessage(
-                        'Request failed: '.concat(error)
-                      );
-                    });
-                },
-              },
             ]
           );
 
@@ -22814,7 +22783,7 @@
 
             $form.submit(function () {
               // Don't show loading indicator if the form isn't valid
-              if (!_this.$form.valid()) return;
+              if (jQuery.validator && !_this.$form.valid()) return;
               var spinner = template.content.cloneNode(true),
                 loading = _this.loading,
                 $submitButton = _this.$submitButton; // Preserve width and get rid of the previous content
@@ -23254,8 +23223,7 @@
               confirmButtonText = _ref5.confirmButtonText,
               cancelButtonText = _ref5.cancelButtonText,
               imageUrl = _ref5.imageUrl,
-              imageAlt = _ref5.imageAlt,
-              request = _ref5.request;
+              imageAlt = _ref5.imageAlt;
             return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a
               .fire({
                 title: title,
@@ -23272,7 +23240,28 @@
                 showLoaderOnConfirm: true,
                 // Request telling the server thas user wants to use the bonus
                 preConfirm: function preConfirm() {
-                  return _this2.requestBonusUsage(request);
+                  var _this2$requests$use = _this2.requests.use,
+                    headers = _this2$requests$use.headers,
+                    endpoint = _this2$requests$use.endpoint,
+                    method = _this2$requests$use.method,
+                    body = _this2$requests$use.body;
+                  return fetch(endpoint, {
+                    method: method,
+                    headers: headers,
+                    body: body,
+                  })
+                    .then(function (response) {
+                      if (!response.ok) {
+                        throw new Error(response.statusText);
+                      }
+
+                      return response.json();
+                    })
+                    ['catch'](function (error) {
+                      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showValidationMessage(
+                        'Request failed: '.concat(error)
+                      );
+                    });
                 },
                 allowOutsideClick: function allowOutsideClick() {
                   return !sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.isLoading();
