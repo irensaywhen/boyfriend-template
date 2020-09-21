@@ -186,6 +186,10 @@ function _setUpEventListeners() {
     } else if (uploader) {
       console.log('We are in photo uploader!');
     }
+
+    if (photoBonus) {
+      this._discardChanges();
+    }
   });
 }
 

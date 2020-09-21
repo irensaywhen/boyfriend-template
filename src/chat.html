@@ -56,6 +56,17 @@
     </div>
     <!--Loader end-->
 
+    <!--Spinner template start-->
+    <template id="spinner-template">
+      <span
+        class="spinner-border spinner-border-sm mr-1"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      <span class="sr-only">Loading...</span>
+    </template>
+    <!--Spinner template end-->
+
     <!--Modals start-->
 
     <!--Profile modals start-->
@@ -182,47 +193,6 @@
               </script>
               <!--Template for progress indicator end-->
 
-              <!--Photo Upload
-              <ul class="pl-1">
-                <li class="position-relative">
-                  <label
-                    for="photo-file-input"
-                    class="upload-photo-label text-center"
-                  >
-                    <img src="img/upload.svg" alt="Upload photo" />
-                  </label>
-                  <input
-                    type="file"
-                    id="photo-file-input"
-                    name="photos-file-input"
-                    class="invisible position-absolute photo-input"
-                    accept="image/*"
-                  />
-                  <p class="d-inline-block pl-3">
-                    Upload your photos from your device
-                  </p>
-                </li>
-                <li class="position-relative d-lg-none">
-                  <label
-                    for="make-photo"
-                    class="upload-photo-label text-center"
-                  >
-                    <i class="fas fa-camera-retro"></i>
-                  </label>
-                  <input
-                    type="file"
-                    id="make-photo"
-                    name="make-photo"
-                    class="invisible position-absolute photo-input"
-                    accept="image/*"
-                    capture
-                  />
-                  <p class="d-inline-block pl-3">
-                    Make photo from your camera
-                  </p>
-                </li>
-              </ul>-->
-
               <!--Photo upload and drag'n'drop start-->
               <div class="photo-upload" id="dragNDropUploadContainer">
                 <!--Drag'n'drop start-->
@@ -298,6 +268,7 @@
                 <button
                   type="submit"
                   class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
+                  id="submitButton-photo"
                 >
                   <span>Submit</span><i class="material-icons">arrow_forward</i>
                 </button>
@@ -1240,6 +1211,12 @@
             previewContainer: '#photo-preview-container',
             input: '.photo-input',
             form: '#photo-uploader',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitButton-photo',
+              spinner: '.spinner-border',
+              text: 'Saving avatar...',
+            },
             closeModalButton: '.close',
             photoDescription: '#photo-upload-description',
             // Photo upload selectors
@@ -1271,7 +1248,7 @@
           },
           classes: {
             // Input for files upload
-            input: 'avatar-input',
+            input: 'photo-input',
             // Drag'n'Drop
             dragNDrop: 'advanced-upload',
             dragOver: 'is-dragover',

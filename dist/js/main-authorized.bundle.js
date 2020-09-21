@@ -19951,7 +19951,8 @@
               Bonus
             );
 
-            _this = _super.call(this, options); // Bind context
+            _this = _super.call(this, options);
+            _this.classes = options.classes; // Bind context
 
             _this._cacheElements = _this._cacheElements.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
@@ -24771,65 +24772,77 @@
         /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! @babel/runtime/helpers/get */ '../node_modules/@babel/runtime/helpers/get.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2__
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__
         );
-        /* harmony import */ var _bonus_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+          /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7__
+        );
+        /* harmony import */ var _bonus_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
           /*! ./bonus.js */ './js/modules/bonus.js'
         );
-        /* harmony import */ var _photoAnimation_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _photoAnimation_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
           /*! ./photoAnimation.js */ './js/modules/photoAnimation.js'
         );
-        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
           /*! handlebars */ '../node_modules/handlebars/dist/cjs/handlebars.js'
         );
-        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/ __webpack_require__.n(
-          handlebars__WEBPACK_IMPORTED_MODULE_8__
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/ __webpack_require__.n(
+          handlebars__WEBPACK_IMPORTED_MODULE_10__
         );
-        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
           /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
         );
-        /* harmony import */ var _photoUploadMixin__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+        /* harmony import */ var _photoUploadMixin__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
           /*! ./photoUploadMixin */ './js/modules/photoUploadMixin.js'
         );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
           return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                 Derived
               ),
               result;
             if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                 this
               ).constructor;
               result = Reflect.construct(Super, arguments, NewTarget);
             } else {
               result = Super.apply(this, arguments);
             }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default()(
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default()(
               this,
               result
             );
@@ -24852,13 +24865,15 @@
         }
 
         var Photo = /*#__PURE__*/ (function (_Bonus) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default()(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(
             Photo,
             _Bonus
           );
 
           var _super = _createSuper(Photo);
 
+          // Uploaded photo information to show it in the chat
+          // Uploaded photo information to send it to the server
           function Photo(options) {
             var _this;
 
@@ -24867,24 +24882,62 @@
               Photo
             );
 
-            _this = _super.call(this, options);
+            _this = _super.call(this, options); // Bind context
+
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              ),
+              'photoData',
+              {
+                type: 'photo',
+              }
+            );
+
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              ),
+              'formData',
+              new FormData()
+            );
+
+            _this._discardChanges = _this._discardChanges.bind(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              )
+            );
             _this.configuration = {
               photoBonus: true,
             }; // Save popups
 
             _this.popups = options.popups; // Initiate animation for icon in popup
 
-            _this.animation = new _photoAnimation_js__WEBPACK_IMPORTED_MODULE_7__[
+            _this.animation = new _photoAnimation_js__WEBPACK_IMPORTED_MODULE_9__[
               'default'
             ](options.animation); // Prepare photo preview template
 
             _this.photoTemplates = Object(
-              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_9__['default']
+              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_11__['default']
             )(options.photoTemplates);
 
             _this._cacheElements();
 
             _this._setUpEventListeners();
+            /**
+             * Prepare bonus for photo upload:
+             * 1. Initialize photo upload (FileReader, photo preview, drag'n'drop)
+             * 2. Initialize loading indicator
+             */
+
+            Object.assign(
+              Photo.prototype,
+              _photoUploadMixin__WEBPACK_IMPORTED_MODULE_12__['default']
+            );
+
+            _this.initializePhotoUpload();
+
+            _this.initializeLoadingIndicators(_this.$form);
 
             return _this;
           }
@@ -24895,8 +24948,8 @@
               {
                 key: '_cacheElements',
                 value: function _cacheElements() {
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                       Photo.prototype
                     ),
                     '_cacheElements',
@@ -24926,8 +24979,8 @@
                 value: function _setUpEventListeners() {
                   var _this2 = this;
 
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                       Photo.prototype
                     ),
                     '_setUpEventListeners',
@@ -24935,24 +24988,58 @@
                   ).call(this); // Cache document element
 
                   var $document = $(document);
-                  this.$photoInputs.change(function (event) {
-                    // Delete previously loaded photo
-                    _this2.$previewContainer.empty(); // Delete previously saved src
+                  /**
+                   * When the photo input changes:
+                   * 1. Delete previous photo previews
+                   * 2. Delete information about previous photo
+                   * -------------------------------------------
+                   * What to add:
+                   * 3. Do the same stuff on drop
+                   */
+                  //this.$photoInputs.change(event => {
+                  //  this._discardChanges();
+                  //});
 
-                    _this2._discardPhotoInformation();
+                  this.$modal.on('change', function () {
+                    _this2._discardChanges();
                   });
-                  this.$photoInputs.change(function (event) {
-                    // When new photo is uploaded - preview it
-                    _this2._loadPhoto(event.target);
-                  });
+                  /**
+                   * Handle photo submission from the photo upload modal:
+                   * 1. Change the amount of available bonuses on markup
+                   * 2. Save photo description to show it in the chat
+                   * 3. Prepare formData object to send photo and description to the server
+                   * 4. Close modal
+                   * 5. Show bonus animation
+                   * -----------------------------------------------
+                   * Maybe, before changing amount of bonuses on the markup,
+                   * We need to ensure that the server recieved the usage information
+                   */
+
                   this.$form.submit(function (event) {
                     // When the photo is sent by the user
-                    event.preventDefault(); // Start using bonus
+                    event.preventDefault(); // Change the amount of bonuses available
 
-                    _this2._sendPhoto();
+                    _this2._decreaseBonusAmountAvailable();
+
+                    _this2._updateAmountOnMarkup(); // Save description to photoData object
+
+                    _this2.photoData['description'] = $(
+                      _this2.selectors.photoDescription
+                    ).val(); // Prepare formData to send photo information to the server
+
+                    _this2._generateFormData(); // Generate event to send the photo to the user
+
+                    $(document).trigger(
+                      'present:send',
+                      _this2.photoData,
+                      _this2.formData
+                    ); // Close modal
+
+                    _this2.$closeButton.click(); // Call alert here with custom animation for photo icon
+
+                    _this2.fireSendAlert(_this2.popups.send);
                   });
                   this.$closeButton.click(function () {
-                    // Delete all the temporary changes if the user doesn't submit the form
                     _this2._discardChanges();
                   });
                   $document.on('photoModal:onBeforeOpen', function (
@@ -24975,6 +25062,25 @@
                     // Prepare animation for further use
                   });
                 },
+                /**
+                 * 1. Delete previews
+                 * 2. Hide modal footer
+                 * 3. Delete saved photo information
+                 */
+              },
+              {
+                key: '_discardChanges',
+                value: function _discardChanges() {
+                  // Delete preview
+                  this.$previewContainer.empty(); // Hide modal footer
+
+                  this.$modalFooter.fadeOut(0); // Delete photo information
+
+                  this.photoData = {
+                    type: 'photo',
+                  };
+                  this.formData = new FormData();
+                },
               },
               {
                 key: '_useBonus',
@@ -24992,29 +25098,6 @@
                 },
               },
               {
-                key: '_sendPhoto',
-                value: function _sendPhoto() {
-                  // Change the amount of bonuses available
-                  this._decreaseBonusAmountAvailable();
-
-                  this._updateAmountOnMarkup(); // Save description to photoData object
-
-                  this._savePhotoDescription(); // Prepare formData to send photo information to the server
-
-                  this._generateFormData(); // Generate event to send the photo to the user
-
-                  $(document).trigger(
-                    'present:send',
-                    this.photoData,
-                    this.formData
-                  ); // Close modal
-
-                  this.$closeButton.click(); // Call alert here with custom animation for photo icon
-
-                  this.fireSendAlert(this.popups.send);
-                },
-              },
-              {
                 key: '_generateFormData',
                 value: function _generateFormData() {
                   // Cache
@@ -25023,16 +25106,8 @@
                   for (var item in photoData) {
                     // Save photo information except src
                     if (item === 'src') continue;
-                    this.formData.set(item, photoData[item]);
+                    this.formData.append(item, photoData[item]);
                   }
-                },
-              },
-              {
-                key: '_savePhotoDescription',
-                value: function _savePhotoDescription() {
-                  this.photoData['description'] = $(
-                    this.selectors.photoDescription
-                  ).val();
                 },
               },
               {
@@ -25043,11 +25118,16 @@
                   // Send it to the user
                   // Temporary return true for debuggins purposes
                   return true;
-                },
+                }, //----------------------------------------------------
+                // Functions specific to classes utilizing PhotoUploadMixin
+                //----------------------------------------------------
+
                 /**
-                 * Function specific to classes using FileReader Mixin.
-                 * It handles class-specific functionality required for preview
-                 * Here, it saves src and sets the loaded photo in preview container
+                 * Handles class-specific functionality required for preview
+                 * 1. Get the src from the filereader
+                 * 2. Save src for further usage in chat
+                 * 3. Compile template for photo preview
+                 * 4. Append template to the preview container
                  * @param {FileReader Object} fileReader - the resulting fileReader object
                  * to preview loaded photo
                  */
@@ -25055,16 +25135,18 @@
               {
                 key: '_preview',
                 value: function _preview(fileReader) {
-                  // cache
-                  //let src = fileReader.result;
-                  //// update preview
-                  //this.$avatarPreview.attr('src', src);
-                  //// save src to update markup
-                  //this.newAvatarLink = src;
-                  console.log('Previewing...');
+                  var src = fileReader.result;
+                  this.photoData['src'] = src;
+                  var compiledPhotoTemplate = handlebars__WEBPACK_IMPORTED_MODULE_10___default.a.compile(
+                    this.photoTemplates.preview
+                  );
+                  compiledPhotoTemplate = compiledPhotoTemplate({
+                    src: src,
+                  }); // Append template
+
+                  this.$previewContainer.append(compiledPhotoTemplate);
                 },
                 /**
-                 * Function specific to classes using FileReader Mixin.
                  * It saves file to allow futher upload in case of submitting the form
                  * @param {File Object} file - reference to the file in the system
                  */
@@ -25072,112 +25154,14 @@
               {
                 key: '_saveFile',
                 value: function _saveFile(file) {
-                  //this.avatar = file;
-                  console.log('Saving file...');
-                }, //----------------------------------------------------------
-              },
-              {
-                key: '_loadPhoto',
-                value: function _loadPhoto(photoInput) {
-                  var files = photoInput.files;
-                  if (!files[0]) return;
-
-                  this._readFile(files[0]);
-                },
-              },
-              {
-                key: '_readFile',
-                value: function _readFile(file) {
-                  // Save the currently selected photo
-                  this.formData.set('photo', file); // Instantiate a FileReader instance to handle photo upload
-
-                  var reader = new FileReader(); // Prepare event listeners to listen to photo upload events
-
-                  this._setReaderEventListeners(reader); // Start uploading photo
-
-                  reader.readAsDataURL(file);
-                },
-              },
-              {
-                key: '_setReaderEventListeners',
-                value: function _setReaderEventListeners(reader) {
-                  var _this3 = this;
-
-                  // Show loading indicator when the read has started
-                  reader.onloadstart = function (event) {
-                    // Set progress indicator here
-                  }; // Hide loading indicator when the read has finished
-
-                  reader.onloadend = function (event) {
-                    //Delete progress indicator here
-                  }; // Preview photos when it is readed successfully
-
-                  reader.onload = function (event) {
-                    // Cache
-                    var target = event.target,
-                      src = target.result; // Save src for preview
-
-                    _this3.photoData['src'] = src; // Preview photo in the preview container
-
-                    _this3._previewPhoto({
-                      src: src,
-                    }); // Show submit button
-
-                    _this3.$modalFooter.fadeIn(0);
-                  }; // Show error popup when an error occured while whoto loading
-
-                  reader.onerror = function () {
-                    // Get text information for error popup
-                    var _this3$popups$uploadE = _this3.popups.uploadError,
-                      title = _this3$popups$uploadE.title,
-                      text = _this3$popups$uploadE.text; // Show error popup
-
-                    _this3.showRequestResult({
-                      title: title,
-                      text: text,
-                      icon: 'error',
-                    });
-                  };
-                },
-              },
-              {
-                key: '_previewPhoto',
-                value: function _previewPhoto(data) {
-                  // Prepare template for compilation
-                  var compiledPhotoTemplate = handlebars__WEBPACK_IMPORTED_MODULE_8___default.a.compile(
-                    this.photoTemplates.preview
-                  ); // Set photo preview data in template
-
-                  compiledPhotoTemplate = compiledPhotoTemplate(data); // Append template
-
-                  this.$previewContainer.append(compiledPhotoTemplate);
-                },
-              },
-              {
-                key: '_discardChanges',
-                value: function _discardChanges() {
-                  // Delete preview
-                  this.$previewContainer.empty(); // Hide modal footer
-
-                  this.$modalFooter.fadeOut(0); // Delete photo information
-
-                  this._discardPhotoInformation();
-                },
-              },
-              {
-                key: '_discardPhotoInformation',
-                value: function _discardPhotoInformation() {
-                  this.photoData = {
-                    type: 'photo',
-                  };
-                  this.formData = new FormData();
+                  this.formData.append('photo', file);
                 },
               },
             ]
           );
 
           return Photo;
-        })(_bonus_js__WEBPACK_IMPORTED_MODULE_6__['default']);
+        })(_bonus_js__WEBPACK_IMPORTED_MODULE_8__['default']);
 
         /***/
       },
@@ -25578,6 +25562,8 @@
          */
 
         function _setUpEventListeners() {
+          var _this2 = this;
+
           /**
            * Handling photo upload using file input:
            * 1. Save target of the change event and its FileList property value
@@ -25620,6 +25606,10 @@
               _saveAndPreviewFile(droppedFiles[0]);
             } else if (uploader) {
               console.log('We are in photo uploader!');
+            }
+
+            if (photoBonus) {
+              _this2._discardChanges();
             }
           });
         }

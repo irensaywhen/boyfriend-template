@@ -4,6 +4,8 @@ export default class Bonus extends ServerRequest {
   constructor(options) {
     super(options);
 
+    this.classes = options.classes;
+
     // Bind context
     this._cacheElements = this._cacheElements.bind(this);
     this._setUpEventListeners = this._setUpEventListeners.bind(this);

@@ -22128,6 +22128,8 @@
          */
 
         function _setUpEventListeners() {
+          var _this2 = this;
+
           /**
            * Handling photo upload using file input:
            * 1. Save target of the change event and its FileList property value
@@ -22170,6 +22172,10 @@
               _saveAndPreviewFile(droppedFiles[0]);
             } else if (uploader) {
               console.log('We are in photo uploader!');
+            }
+
+            if (photoBonus) {
+              _this2._discardChanges();
             }
           });
         }
