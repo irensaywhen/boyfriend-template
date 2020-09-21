@@ -26899,8 +26899,7 @@
                         if (!result) return;
                         var success = result.success,
                           title = result.title,
-                          text = result.text,
-                          timestamp = result.timestamp; // Set icon and show popup with it
+                          text = result.text; // Set icon and show popup with it
 
                         var icon = success ? 'success' : 'error';
 

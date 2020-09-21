@@ -49,7 +49,7 @@ export default class Superlike extends Bonus {
         .then(result => {
           if (!result) return;
 
-          let { success, title, text, timestamp } = result;
+          let { success, title, text } = result;
 
           // Set icon and show popup with it
           let icon = success ? 'success' : 'error';
