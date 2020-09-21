@@ -141,12 +141,4 @@ export default class ServerRequest {
       method,
     });
   }
-
-  async getPrice({ headers, endpoint, method }) {
-    for (let name in this.formData) {
-      endpoint.searchParams.set(name, this.formData[name]);
-    }
-
-    return await this.makeRequest({ headers, endpoint, method });
-  }
 }

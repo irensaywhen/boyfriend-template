@@ -22693,62 +22693,6 @@
                   return getPhotosIds;
                 })(),
               },
-              {
-                key: 'getPrice',
-                value: (function () {
-                  var _getPrice = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee4(_ref5) {
-                        var headers, endpoint, method, name;
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee4$(_context4) {
-                            while (1) {
-                              switch ((_context4.prev = _context4.next)) {
-                                case 0:
-                                  (headers = _ref5.headers),
-                                    (endpoint = _ref5.endpoint),
-                                    (method = _ref5.method);
-
-                                  for (name in this.formData) {
-                                    endpoint.searchParams.set(
-                                      name,
-                                      this.formData[name]
-                                    );
-                                  }
-
-                                  _context4.next = 4;
-                                  return this.makeRequest({
-                                    headers: headers,
-                                    endpoint: endpoint,
-                                    method: method,
-                                  });
-
-                                case 4:
-                                  return _context4.abrupt(
-                                    'return',
-                                    _context4.sent
-                                  );
-
-                                case 5:
-                                case 'end':
-                                  return _context4.stop();
-                              }
-                            }
-                          },
-                          _callee4,
-                          this
-                        );
-                      }
-                    )
-                  );
-
-                  function getPrice(_x4) {
-                    return _getPrice.apply(this, arguments);
-                  }
-
-                  return getPrice;
-                })(),
-              },
             ]
           );
 

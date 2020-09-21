@@ -64,42 +64,58 @@ export default class BuyPremiumForm extends Form {
     });
   }
 
-  async setPrice() {
-    let response;
-
-    try {
-      // Make request here
-      response = await this.getPrice({
-        headers: this.requests.price.headers,
-        endpoint: this.requests.price.endpoint,
-        method: this.requests.price.method,
-      });
-    } catch (error) {
-      // Unsuccessful Popup
-      this.showRequestResult({
-        title: error.name,
-        text: error.message,
-        icon: 'error',
-      });
+  /**
+   * Get price for the selected bonuses and plan from the server
+   * 1. Set selected options as search parameters
+   * 2. Start making request
+   */
+  getPrice({ headers, endpoint, method }) {
+    for (let name in this.formData) {
+      endpoint.searchParams.set(name, this.formData[name]);
     }
 
-    if (response.success) {
-      let total = response['total'];
+    return this.makeRequest({ headers, endpoint, method });
+  }
 
-      // Show price
-      this.$priceContainer.text(total);
-      this.$discountContainer.text(response['discount']);
+  /**
+   * Set retrieved price for the currently selected plans and bonuses
+   * 1. Get the price from the server
+   *
+   */
+  setPrice() {
+    let { headers, endpoint, method } = this.requests.price;
 
-      total > 0 ? this.$checkout.fadeIn(400) : this.$checkout.fadeOut(400);
-    } else {
-      if (this.showFailPopup) {
-        // Unsuccessful Popup
+    // Make request to the server
+    this.getPrice({ headers, endpoint, method })
+      .then(response => {
+        if (response.success) {
+          let total = response['total'];
+
+          let { totalPrice };
+
+          // Show price
+          this.$priceContainer.text(total);
+          this.$discountContainer.text(response['discount']);
+
+          total > 0 ? this.$checkout.fadeIn(400) : this.$checkout.fadeOut(400);
+        } else {
+          if (this.showFailPopup) {
+            // Unsuccessful Popup
+            this.showRequestResult({
+              title: response.title,
+              text: response.message,
+              icon: 'error',
+            });
+          }
+        }
+      })
+      .catch(error => {
+        // Fail popup
         this.showRequestResult({
-          title: response.title,
-          text: response.message,
+          title: error.name,
+          text: error.message,
           icon: 'error',
         });
-      }
-    }
+      });
   }
 }
