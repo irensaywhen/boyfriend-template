@@ -33,7 +33,7 @@ export default class Bonus extends ServerRequest {
      * 2. If there are bonuses available, delegate starting bonuses usage to their
      * specific classes
      */
-    this.$bonus.click(() => {
+    this.$bonus.click(event => {
       if (this.amount === 0) {
         // Fire alert
         this.fireBuyingAlert(this.popups.buy).then(result => {
@@ -43,7 +43,7 @@ export default class Bonus extends ServerRequest {
           }
         });
       } else {
-        $(document).trigger('bonus:startUsage');
+        $(document).trigger('bonus:startUsage', this.$bonus.data('type'));
       }
     });
   }

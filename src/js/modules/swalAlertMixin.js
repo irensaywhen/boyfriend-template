@@ -12,6 +12,7 @@ export default {
       title: title,
       text: text,
       icon: icon,
+      timer: 2000,
       showConfirmButton: false,
       showCloseButton: true,
     });

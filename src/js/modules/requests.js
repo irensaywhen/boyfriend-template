@@ -92,6 +92,7 @@ export default class ServerRequest {
           return json;
         })
         .catch(error => {
+          $(this).trigger('failedRequest');
           // Unsuccessful Popup
           this.showRequestResult({
             title: error.name,

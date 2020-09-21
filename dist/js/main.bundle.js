@@ -22518,7 +22518,8 @@
                         return json;
                       })
                       ['catch'](function (error) {
-                        // Unsuccessful Popup
+                        $(_this).trigger('failedRequest'); // Unsuccessful Popup
+
                         _this.showRequestResult({
                           title: error.name,
                           text: error.message,
@@ -22798,7 +22799,7 @@
 
               $submitButton.attr('disabled', true)[0].prepend(spinner);
             });
-            $(this).on('successfulRequest', function () {
+            $(this).on('successfulRequest failedRequest', function () {
               // Change button and remove spinner
               _this.$submitButton
                 .attr('disabled', false)
@@ -23138,6 +23139,7 @@
               title: title,
               text: text,
               icon: icon,
+              timer: 2000,
               showConfirmButton: false,
               showCloseButton: true,
             });

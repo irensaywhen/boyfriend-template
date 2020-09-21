@@ -19989,7 +19989,7 @@
                    * 2. If there are bonuses available, delegate starting bonuses usage to their
                    * specific classes
                    */
-                  this.$bonus.click(function () {
+                  this.$bonus.click(function (event) {
                     if (_this2.amount === 0) {
                       // Fire alert
                       _this2
@@ -20001,7 +20001,10 @@
                           }
                         });
                     } else {
-                      $(document).trigger('bonus:startUsage');
+                      $(document).trigger(
+                        'bonus:startUsage',
+                        _this2.$bonus.data('type')
+                      );
                     }
                   });
                 },
@@ -20232,7 +20235,8 @@
                    *     - Deactivate boost
                    */
 
-                  $(document).on('bonus:startUsage', function () {
+                  $(document).on('bonus:startUsage', function (event, type) {
+                    if (type !== 'boost') return;
                     if (_this2.activated && !_this2.finished) return; // Choose config for popup
 
                     if (!_this2.activated && !_this2.finished) {
@@ -24849,39 +24853,44 @@
                   });
                   /**
                    * Handle photo submission from the photo upload modal:
-                   * 1. Change the amount of available bonuses on markup
-                   * 2. Save photo description to show it in the chat
-                   * 3. Prepare formData object to send photo and description to the server
-                   * 4. Close modal
-                   * 5. Show bonus animation
-                   * -----------------------------------------------
-                   * Maybe, before changing amount of bonuses on the markup,
-                   * We need to ensure that the server recieved the usage information
+                   * 1. Make a request to the server to ask if the bonus can be used
+                   * 2. If the bonus can be used, start using it
+                   * 3. If success = false or an unexpected error occured, show error popup
                    */
 
                   this.$form.submit(function (event) {
                     // When the photo is sent by the user
-                    event.preventDefault(); // Change the amount of bonuses available
+                    event.preventDefault(); // Here, instead of starting using the bonus, ask server
 
-                    _this2._decreaseBonusAmountAvailable();
+                    _this2
+                      .makeRequest(_this2.requests.use)
+                      .then(function (response) {
+                        var success = response.success,
+                          title = response.title,
+                          text = response.text;
 
-                    _this2._updateAmountOnMarkup(); // Save description to photoData object
+                        if (success) {
+                          _this2._useBonus();
+                        } else {
+                          _this2.showRequestResult({
+                            title: title,
+                            text: text,
+                            icon: 'error',
+                          });
+                        }
+                      })
+                      ['catch'](function (error) {
+                        _this2.showRequestResult({
+                          title: error.name,
+                          text: error.message,
+                          icon: 'error',
+                        });
+                      });
+                  });
+                  $(document).on('bonus:startUsage', function (event, type) {
+                    if (type !== 'photo') return;
 
-                    _this2.photoData['description'] = $(
-                      _this2.selectors.photoDescription
-                    ).val(); // Prepare formData to send photo information to the server
-
-                    _this2._generateFormData(); // Generate event to send the photo to the user
-
-                    $(document).trigger(
-                      'present:send',
-                      _this2.photoData,
-                      _this2.formData
-                    ); // Close modal
-
-                    _this2.$closeButton.click(); // Call alert here with custom animation for photo icon
-
-                    _this2.fireSendAlert(_this2.popups.send);
+                    _this2.$modal.modal('show');
                   });
                   this.$closeButton.click(function () {
                     _this2._discardChanges();
@@ -24925,20 +24934,37 @@
                   };
                   this.formData = new FormData();
                 },
+                /**
+                 * 1. Change the amount of available bonuses on markup
+                 * 2. Save photo description to show it in the chat
+                 * 3. Prepare formData object to send photo and description to the server
+                 * 4. Close modal
+                 * 5. Show bonus animation
+                 */
               },
               {
                 key: '_useBonus',
                 value: function _useBonus() {
-                  // In use bonus function we'll need to trigger modal opening programically
-                  // After usage approvement
-                  this.$modal.modal('show'); // Delete previou
-                  //this._discardPhotoInformation()
-                  // Here we need to ask the user to make a photo or upload it
-                  // And then send the message with it
-                  // Also, if the user discard photo changes, we need to add amount of bonuses available
-                  // Maybe, we can change the amount of bonuses available only if the user finishes the usage
-                  // As well as in the superlike usage
                   // Change the amount of bonuses available
+                  this._decreaseBonusAmountAvailable();
+
+                  this._updateAmountOnMarkup(); // Save description to photoData object
+
+                  this.photoData['description'] = $(
+                    this.selectors.photoDescription
+                  ).val(); // Prepare formData to send photo information to the server
+
+                  this._generateFormData(); // Generate event to send the photo to the user
+
+                  $(document).trigger(
+                    'present:send',
+                    this.photoData,
+                    this.formData
+                  ); // Close modal
+
+                  this.$closeButton.click(); // Call alert here with custom animation for photo icon
+
+                  this.fireSendAlert(this.popups.send);
                 },
               },
               {
@@ -24953,18 +24979,9 @@
                     this.formData.append(item, photoData[item]);
                   }
                 },
-              },
-              {
-                key: '_prepareBonusUsage',
-                value: function _prepareBonusUsage() {
-                  // Ask server about sending superlike
-                  // If the server will approve usage
-                  // Send it to the user
-                  // Temporary return true for debuggins purposes
-                  return true;
-                }, //----------------------------------------------------
-                // Functions specific to classes utilizing PhotoUploadMixin
-                //----------------------------------------------------
+                /**----------------------------------------------------
+    /* Functions specific to classes utilizing PhotoUploadMixin
+    /* ----------------------------------------------------*/
 
                 /**
                  * Handles class-specific functionality required for preview
@@ -25879,7 +25896,8 @@
                         return json;
                       })
                       ['catch'](function (error) {
-                        // Unsuccessful Popup
+                        $(_this).trigger('failedRequest'); // Unsuccessful Popup
+
                         _this.showRequestResult({
                           title: error.name,
                           text: error.message,
@@ -26159,7 +26177,7 @@
 
               $submitButton.attr('disabled', true)[0].prepend(spinner);
             });
-            $(this).on('successfulRequest', function () {
+            $(this).on('successfulRequest failedRequest', function () {
               // Change button and remove spinner
               _this.$submitButton
                 .attr('disabled', false)
@@ -27117,6 +27135,7 @@
               title: title,
               text: text,
               icon: icon,
+              timer: 2000,
               showConfirmButton: false,
               showCloseButton: true,
             });

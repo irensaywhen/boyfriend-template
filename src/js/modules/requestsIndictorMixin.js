@@ -35,7 +35,7 @@ export default {
       $submitButton.attr('disabled', true)[0].prepend(spinner);
     });
 
-    $(this).on('successfulRequest', () => {
+    $(this).on('successfulRequest failedRequest', () => {
       // Change button and remove spinner
       this.$submitButton
         .attr('disabled', false)

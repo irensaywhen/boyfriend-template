@@ -80,37 +80,37 @@ export default class Photo extends Bonus {
 
     /**
      * Handle photo submission from the photo upload modal:
-     * 1. Change the amount of available bonuses on markup
-     * 2. Save photo description to show it in the chat
-     * 3. Prepare formData object to send photo and description to the server
-     * 4. Close modal
-     * 5. Show bonus animation
-     * -----------------------------------------------
-     * Maybe, before changing amount of bonuses on the markup,
-     * We need to ensure that the server recieved the usage information
+     * 1. Make a request to the server to ask if the bonus can be used
+     * 2. If the bonus can be used, start using it
+     * 3. If success = false or an unexpected error occured, show error popup
      */
     this.$form.submit(event => {
       // When the photo is sent by the user
       event.preventDefault();
 
-      // Change the amount of bonuses available
-      this._decreaseBonusAmountAvailable();
-      this._updateAmountOnMarkup();
+      // Here, instead of starting using the bonus, ask server
+      this.makeRequest(this.requests.use)
+        .then(response => {
+          let { success, title, text } = response;
 
-      // Save description to photoData object
-      this.photoData['description'] = $(this.selectors.photoDescription).val();
+          if (success) {
+            this._useBonus();
+          } else {
+            this.showRequestResult({ title, text, icon: 'error' });
+          }
+        })
+        .catch(error => {
+          this.showRequestResult({
+            title: error.name,
+            text: error.message,
+            icon: 'error',
+          });
+        });
+    });
 
-      // Prepare formData to send photo information to the server
-      this._generateFormData();
-
-      // Generate event to send the photo to the user
-      $(document).trigger('present:send', this.photoData, this.formData);
-
-      // Close modal
-      this.$closeButton.click();
-
-      // Call alert here with custom animation for photo icon
-      this.fireSendAlert(this.popups.send);
+    $(document).on('bonus:startUsage', (event, type) => {
+      if (type !== 'photo') return;
+      this.$modal.modal('show');
     });
 
     this.$closeButton.click(() => {
@@ -149,19 +149,32 @@ export default class Photo extends Bonus {
     this.formData = new FormData();
   }
 
+  /**
+   * 1. Change the amount of available bonuses on markup
+   * 2. Save photo description to show it in the chat
+   * 3. Prepare formData object to send photo and description to the server
+   * 4. Close modal
+   * 5. Show bonus animation
+   */
   _useBonus() {
-    // In use bonus function we'll need to trigger modal opening programically
-    // After usage approvement
-    this.$modal.modal('show');
-
-    // Delete previou
-    //this._discardPhotoInformation()
-    // Here we need to ask the user to make a photo or upload it
-    // And then send the message with it
-    // Also, if the user discard photo changes, we need to add amount of bonuses available
-    // Maybe, we can change the amount of bonuses available only if the user finishes the usage
-    // As well as in the superlike usage
     // Change the amount of bonuses available
+    this._decreaseBonusAmountAvailable();
+    this._updateAmountOnMarkup();
+
+    // Save description to photoData object
+    this.photoData['description'] = $(this.selectors.photoDescription).val();
+
+    // Prepare formData to send photo information to the server
+    this._generateFormData();
+
+    // Generate event to send the photo to the user
+    $(document).trigger('present:send', this.photoData, this.formData);
+
+    // Close modal
+    this.$closeButton.click();
+
+    // Call alert here with custom animation for photo icon
+    this.fireSendAlert(this.popups.send);
   }
 
   _generateFormData() {
@@ -175,18 +188,9 @@ export default class Photo extends Bonus {
     }
   }
 
-  _prepareBonusUsage() {
-    // Ask server about sending superlike
-    // If the server will approve usage
-    // Send it to the user
-
-    // Temporary return true for debuggins purposes
-    return true;
-  }
-
-  //----------------------------------------------------
-  // Functions specific to classes utilizing PhotoUploadMixin
-  //----------------------------------------------------
+  /**----------------------------------------------------
+  /* Functions specific to classes utilizing PhotoUploadMixin
+  /* ----------------------------------------------------*/
 
   /**
    * Handles class-specific functionality required for preview
