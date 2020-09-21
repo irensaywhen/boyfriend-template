@@ -8705,7 +8705,7 @@
       /***/ function (module, exports, __webpack_require__) {
         /* WEBPACK VAR INJECTION */ (function (module) {
           var require; //! moment.js
-          //! version : 2.27.0
+          //! version : 2.28.0
           //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
           //! license : MIT
           //! momentjs.com
@@ -13265,7 +13265,7 @@
                 eras = this.localeData().eras();
               for (i = 0, l = eras.length; i < l; ++i) {
                 // truncate time
-                val = this.startOf('day').valueOf();
+                val = this.clone().startOf('day').valueOf();
 
                 if (eras[i].since <= val && val <= eras[i].until) {
                   return eras[i].name;
@@ -13285,7 +13285,7 @@
                 eras = this.localeData().eras();
               for (i = 0, l = eras.length; i < l; ++i) {
                 // truncate time
-                val = this.startOf('day').valueOf();
+                val = this.clone().startOf('day').valueOf();
 
                 if (eras[i].since <= val && val <= eras[i].until) {
                   return eras[i].narrow;
@@ -13305,7 +13305,7 @@
                 eras = this.localeData().eras();
               for (i = 0, l = eras.length; i < l; ++i) {
                 // truncate time
-                val = this.startOf('day').valueOf();
+                val = this.clone().startOf('day').valueOf();
 
                 if (eras[i].since <= val && val <= eras[i].until) {
                   return eras[i].abbr;
@@ -13328,7 +13328,7 @@
                 dir = eras[i].since <= eras[i].until ? +1 : -1;
 
                 // truncate time
-                val = this.startOf('day').valueOf();
+                val = this.clone().startOf('day').valueOf();
 
                 if (
                   (eras[i].since <= val && val <= eras[i].until) ||
@@ -14536,7 +14536,7 @@
 
             //! moment.js
 
-            hooks.version = '2.27.0';
+            hooks.version = '2.28.0';
 
             setHookCallback(createLocal);
 
@@ -19661,14 +19661,19 @@
 
             _this._cacheElements();
 
-            _this._setUpEventListeners(); // Prepare avatar for using FileReader to load and preview photos
+            _this._setUpEventListeners();
+            /**
+             * Prepare avatar for photo upload:
+             * 1. Initialize photo upload (FileReader, photo preview, drag'n'drop)
+             * 2. Initialize loading indicator
+             */
 
             Object.assign(
               Avatar.prototype,
               _photoUploadMixin__WEBPACK_IMPORTED_MODULE_8__['default']
-            ); // Initialization of the photo upload for avatar
+            );
 
-            _this.initializePhotoUpload(); // Loading indicator initialization
+            _this.initializePhotoUpload();
 
             _this.initializeLoadingIndicators(_this.$form);
 
@@ -19766,7 +19771,7 @@
                   this.$errorContainer.empty();
                 },
                 /**
-                 * Function to show newly uploaded avatar
+                 * Show newly uploaded avatar
                  */
               },
               {
@@ -21503,6 +21508,7 @@
               avatar: false,
               uploader: false,
               editor: false,
+              photoBonus: false,
             };
 
             if (_this.configuration.avatar || _this.configuration.uploader) {
@@ -21956,7 +21962,6 @@
                             _insertProgressBar = _insertProgressBar.bind(_this);
                             _showProgress = _showProgress.bind(_this);
                             _generateRandomId = _generateRandomId.bind(_this);
-                            _loadfromInput = _loadfromInput.bind(_this);
                             _saveAndPreviewFile = _saveAndPreviewFile.bind(
                               _this
                             );
@@ -21974,37 +21979,45 @@
                             _this$configuration = _this.configuration;
                             avatar = _this$configuration.avatar;
                             uploader = _this$configuration.uploader;
+                            photoBonus = _this$configuration.photoBonus;
 
-                            // Perform preparations to handle photo upload
-                            _cacheElements(); // Check for browser APIs that should be presented to handle
-                            // sending photos via FormData and getting it via FileReader
+                            _cacheElements();
+                            /**
+                             *  Check for browser support of FormData and FileReader
+                             *  FileReader is used to preview files,
+                             *  while FormData - to send data to server
+                             */
 
                             isAjaxUpload = (function () {
                               return (
                                 'FormData' in window && 'FileReader' in window
                               );
-                            })();
+                            })(); // Detect whether to show camera capturing for mobile and tablet devices
 
-                            if (!isAjaxUpload) {
-                              // Let the user know that his browser is outdated
-                              _handleLegacyBrowsers();
-                            } // Detect whether to show camera capturing for mobile and tablet devices
-
-                            _context.next = 23;
+                            _context.next = 22;
                             return _helper_js__WEBPACK_IMPORTED_MODULE_4__[
                               'default'
                             ].isShowCameraCapturing.call(
                               _helper_js__WEBPACK_IMPORTED_MODULE_4__['default']
                             );
 
-                          case 23:
+                          case 22:
                             isShowCameraCapturing = _context.sent;
 
-                            if (!isShowCameraCapturing) {
-                              // Hide mobile capturing as a precaution
+                            /**
+                             * If we're dealing with mobile devices:
+                             * Don't show Drag'n'drop, and add icon of mobile photo upload
+                             * Else, check for support of drag'n'drop API
+                             */
+                            if (isShowCameraCapturing) {
+                              isAdvancedUpload = false;
+                              $photoUploadContainer.addClass(
+                                classes.mobilePhotoUpload
+                              );
+                            } else {
                               $photoUploadContainer.removeClass(
                                 classes.mobilePhotoUpload
-                              ); // Check for browser APIs that should be presented to handle Drag'n'Drop
+                              ); // Detect support of Drag'n'Drop
 
                               isAdvancedUpload = (function () {
                                 var div = document.createElement('div');
@@ -22015,13 +22028,6 @@
                                   isAjaxUpload
                                 );
                               })();
-                            } else {
-                              // Don't show drag'n'drop for mobile devices
-                              isAdvancedUpload = false; // Add photo capturing on mobile devices
-
-                              $photoUploadContainer.addClass(
-                                classes.mobilePhotoUpload
-                              );
                             }
 
                             if (isAjaxUpload) {
@@ -22036,6 +22042,8 @@
                               _this.initializeFileReader({
                                 errorText: errorText,
                               });
+                            } else {
+                              _handleLegacyBrowsers();
                             }
 
                             if (isAdvancedUpload) {
@@ -22059,7 +22067,7 @@
                             _this._preview = _this._preview.bind(_this);
                             _this._saveFile = _this._saveFile.bind(_this);
 
-                          case 30:
+                          case 29:
                           case 'end':
                             return _context.stop();
                         }
@@ -22089,6 +22097,7 @@
           $errorContainer,
           progressTemplate,
           $photoUploadContainer,
+          photoBonus,
           droppedFiles = false;
         /**Private functions */
 
@@ -22119,34 +22128,84 @@
          */
 
         function _setUpEventListeners() {
-          // Start loading from input using FileReader
+          /**
+           * Handling photo upload using file input:
+           * 1. Save target of the change event and its FileList property value
+           * 2. Don't do anything if it doesn't have files
+           * 3. For each file in the file list, load it
+           */
           this.$form.on('change', function (event) {
-            var target = event.target; // Stop execution if the target is not for photo upload
+            var files = event.target.files;
+            if (!files[0]) return;
 
-            if (!target.classList.contains(classes.input)) return; // Load files for preview
-
-            _loadfromInput(target);
-          }); // Hide loading indicator after transition
+            for (var i = 0; i < files.length; i++) {
+              _saveAndPreviewFile(files[i]);
+            }
+          });
+          /**
+           * Handling hiding loading indicator after the animation is ended
+           * 1. Remove progress indicator
+           * 2. Enable buttons that waere disabled while loading
+           */
 
           this.$modal.on('transitionend', function (event) {
             var $target = $(event.target);
-            if (!$target.hasClass('loadend')) return; // Remove progress indicator
-
-            $target.closest(progressSelectors.fileProgressWrapper).remove(); // Enable button
-
+            if (!$target.hasClass('loadend')) return;
+            $target.closest(progressSelectors.fileProgressWrapper).remove();
             $disableWhileLoad.attr('disabled', false);
           });
-          if (!isAdvancedUpload) return; // Handler to save and preview dropped file
+          if (!isAdvancedUpload) return;
+          /**
+           * Handle photo upload via Drag'n'Drop:
+           * 1. Get the dropped files
+           * 2. Save and preview only the first file in case of photo bonus and avatar
+           * 3. Preview all the files in case of photo upload in profile
+           */
 
           $photoUploadContainer.on('drop', function (event) {
             droppedFiles = event.originalEvent.dataTransfer.files;
             if (droppedFiles.length === 0) return;
 
-            if (avatar) {
+            if (avatar || photoBonus) {
               _saveAndPreviewFile(droppedFiles[0]);
             } else if (uploader) {
               console.log('We are in photo uploader!');
             }
+          });
+        }
+        /**
+         * Function saving the file for further upload
+         * and initializing reading and previewing the file:
+         * 1. Allow only image files
+         * 2. Disable buttons while uploading
+         * 3. Call class-specific method to save file for further upload
+         * 4. Show progress bar
+         * 5. Start reading the file
+         * @param {File Object} file - file to save and preview
+         */
+
+        function _saveAndPreviewFile(file) {
+          var isImage = _helper_js__WEBPACK_IMPORTED_MODULE_4__[
+            'default'
+          ].MIMETypeIsImage(file);
+
+          if (!isImage) {
+            _showError(errorText.wrongFileType);
+
+            return;
+          } // Prepare for file read
+
+          $disableWhileLoad.attr('disabled', true);
+
+          this._saveFile(file);
+
+          var $progressBar = _insertProgressBar({
+            fileName: file.name,
+          }); // Read file
+
+          this._readFile({
+            file: file,
+            $progressBar: $progressBar,
           });
         }
         /**
@@ -22172,52 +22231,6 @@
 
         function _hideError() {
           $errorContainer.empty();
-        }
-        /**
-         * The function to load files from input.
-         * It checks if there is at least one file,
-         * and if so, start file loading
-         * @param {DOMElement} input - input element from which all the files are loaded
-         */
-
-        function _loadfromInput(input) {
-          var files = input.files;
-          if (!files[0]) return;
-
-          for (var i = 0; i < files.length; i++) {
-            _saveAndPreviewFile(files[i]);
-          }
-        }
-        /**
-         * Function saving the file for further upload
-         * and initializing reading and previewing the file
-         * @param {File Object} file - file to save and preview
-         */
-
-        function _saveAndPreviewFile(file) {
-          // Restrict allowed file types
-          var isImage = _helper_js__WEBPACK_IMPORTED_MODULE_4__[
-            'default'
-          ].MIMETypeIsImage(file);
-
-          if (!isImage) {
-            _showError(errorText.wrongFileType);
-
-            return;
-          } // Disable buttons
-
-          $disableWhileLoad.attr('disabled', true); // Save file to upload it in the future - this method is unique to each class using file upload
-
-          this._saveFile(file); // Insert progress bar
-
-          var $progressBar = _insertProgressBar({
-            fileName: file.name,
-          }); // Read file and connect it with progress bar
-
-          this._readFile({
-            file: file,
-            $progressBar: $progressBar,
-          });
         }
         /**
          * Function copying template
@@ -22272,7 +22285,8 @@
         }
         /**
          * Function showing progress of photo read
-         * in the progress bar
+         * 1. Calculate progress amount
+         * 2. Update the visual indicator of the progress
          * @param {Number} loaded - amount of loaded bytes
          * @param {Number} total - amount of total bytes to load
          */

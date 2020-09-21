@@ -159,8 +159,4 @@ export default class Boost extends Bonus {
     this.$minutes.text(minutes);
     this.$seconds.text(seconds);
   }
-
-  _decreaseBonusAmountAvailable() {
-    super._decreaseBonusAmountAvailable();
-  }
 }

@@ -2044,22 +2044,22 @@ article .header time {
   color: #bcc1c6;
   border-color: #bcc1c6;
 }
-.upload-avatar .upload-progress .progress-bar {
+.upload-progress .progress-bar {
   transition: all 0.5s ease-out;
 }
-.upload-avatar .upload-photo-label {
+.upload-photo-label {
   vertical-align: middle;
 }
-.upload-avatar .upload-photo-label i {
+.upload-photo-label i {
   display: inline-block;
   font-size: 32px;
   padding-right: 4px;
   padding-left: 5px;
 }
-.upload-avatar .avatar-requirements ul {
+.avatar-requirements ul {
   list-style: none;
 }
-.upload-avatar .avatar-requirements ul li {
+.avatar-requirements ul li {
   font-weight: 300;
   font-size: 14px;
 }

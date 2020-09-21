@@ -2,11 +2,13 @@ import Bonus from './bonus.js';
 import PhotoAnimation from './photoAnimation.js';
 import Handlebars from 'handlebars';
 import prepareTemplates from './prepareTemplates.js';
+import photoUploadMixin from './photoUploadMixin';
 
 export default class Photo extends Bonus {
   constructor(options) {
     super(options);
 
+    this.configuration = { photoBonus: true };
     // Save popups
     this.popups = options.popups;
 
@@ -22,26 +24,18 @@ export default class Photo extends Bonus {
 
   _cacheElements() {
     super._cacheElements();
-    // Cache reference
+
     let selectors = this.selectors;
 
     // Amount element
     this.$amount = this.$bonus.find(selectors.amount);
 
-    /**
-     * Photo upload and preview specific
-     */
-    // Modal for photo preview
+    // Photo upload and preview
     this.$modal = $(selectors.modal);
-    //Closing button
     this.$closeButton = this.$modal.find(selectors.closeModalButton);
-    // Find modal footer and hide it
     this.$modalFooter = this.$modal.find('.modal-footer').fadeOut(0);
-    // Container to preview photos
     this.$previewContainer = this.$modal.find(selectors.previewContainer);
-    // Photo inputs
     this.$photoInputs = this.$modal.find(selectors.input);
-    // Form
     this.$form = this.$modal.find(selectors.form);
   }
 
@@ -73,7 +67,7 @@ export default class Photo extends Bonus {
 
     this.$closeButton.click(() => {
       // Delete all the temporary changes if the user doesn't submit the form
-      this.__discardChanges();
+      this._discardChanges();
     });
 
     $document.on('photoModal:onBeforeOpen', (event, modal) => {
@@ -88,7 +82,6 @@ export default class Photo extends Bonus {
 
     $document.on('photoModal:onAfterClose', (event, modal) => {
       // Prepare animation for further use
-      console.log('Modal closed');
     });
   }
 
@@ -96,7 +89,6 @@ export default class Photo extends Bonus {
     // In use bonus function we'll need to trigger modal opening programically
     // After usage approvement
     this.$modal.modal('show');
-    console.log('Using photo bonus...');
 
     // Delete previou
     //this._discardPhotoInformation()
@@ -111,19 +103,20 @@ export default class Photo extends Bonus {
   _sendPhoto() {
     // Change the amount of bonuses available
     this._decreaseBonusAmountAvailable();
+    this._updateAmountOnMarkup();
     // Save description to photoData object
     this._savePhotoDescription();
     // Prepare formData to send photo information to the server
-    this.__generateFormData();
+    this._generateFormData();
     // Generate event to send the photo to the user
     $(document).trigger('present:send', this.photoData, this.formData);
     // Close modal
     this.$closeButton.click();
-    // Call alert here with custom animation for superlike icon
+    // Call alert here with custom animation for photo icon
     this.fireSendAlert(this.popups.send);
   }
 
-  __generateFormData() {
+  _generateFormData() {
     // Cache
     let photoData = this.photoData;
 
@@ -139,7 +132,6 @@ export default class Photo extends Bonus {
   }
 
   _prepareBonusUsage() {
-    console.log('Preparing photo bonus usage...');
     // Ask server about sending superlike
     // If the server will approve usage
     // Send it to the user
@@ -147,6 +139,35 @@ export default class Photo extends Bonus {
     // Temporary return true for debuggins purposes
     return true;
   }
+
+  /**
+   * Function specific to classes using FileReader Mixin.
+   * It handles class-specific functionality required for preview
+   * Here, it saves src and sets the loaded photo in preview container
+   * @param {FileReader Object} fileReader - the resulting fileReader object
+   * to preview loaded photo
+   */
+  _preview(fileReader) {
+    // cache
+    //let src = fileReader.result;
+    //// update preview
+    //this.$avatarPreview.attr('src', src);
+    //// save src to update markup
+    //this.newAvatarLink = src;
+    console.log('Previewing...');
+  }
+
+  /**
+   * Function specific to classes using FileReader Mixin.
+   * It saves file to allow futher upload in case of submitting the form
+   * @param {File Object} file - reference to the file in the system
+   */
+  _saveFile(file) {
+    //this.avatar = file;
+    console.log('Saving file...');
+  }
+
+  //----------------------------------------------------------
 
   _loadPhoto(photoInput) {
     let files = photoInput.files;
@@ -171,15 +192,11 @@ export default class Photo extends Bonus {
     // Show loading indicator when the read has started
     reader.onloadstart = event => {
       // Set progress indicator here
-      console.log('Loading start');
-      console.log(event);
     };
 
     // Hide loading indicator when the read has finished
     reader.onloadend = event => {
       //Delete progress indicator here
-      console.log('Loading end');
-      console.log(event);
     };
 
     // Preview photos when it is readed successfully
@@ -217,7 +234,7 @@ export default class Photo extends Bonus {
     this.$previewContainer.append(compiledPhotoTemplate);
   }
 
-  __discardChanges() {
+  _discardChanges() {
     // Delete preview
     this.$previewContainer.empty();
     // Hide modal footer
@@ -229,10 +246,5 @@ export default class Photo extends Bonus {
   _discardPhotoInformation() {
     this.photoData = { type: 'photo' };
     this.formData = new FormData();
-  }
-
-  _decreaseBonusAmountAvailable() {
-    super._decreaseBonusAmountAvailable();
-    super._updateAmountOnMarkup();
   }
 }

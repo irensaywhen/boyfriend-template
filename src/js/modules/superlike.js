@@ -49,6 +49,7 @@ export default class Superlike extends Bonus {
 
     // Change the amount of bonuses available
     this._decreaseBonusAmountAvailable();
+    this._updateAmountOnMarkup();
 
     $(document).trigger('present:send', { type: 'superlike' });
   }
@@ -61,10 +62,5 @@ export default class Superlike extends Bonus {
 
     // Temporary return true for debuggins purposes
     return true;
-  }
-
-  _decreaseBonusAmountAvailable() {
-    super._decreaseBonusAmountAvailable();
-    super._updateAmountOnMarkup();
   }
 }

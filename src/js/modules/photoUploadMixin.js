@@ -12,7 +12,6 @@ export default {
     _insertProgressBar = _insertProgressBar.bind(this);
     _showProgress = _showProgress.bind(this);
     _generateRandomId = _generateRandomId.bind(this);
-    _loadfromInput = _loadfromInput.bind(this);
     _saveAndPreviewFile = _saveAndPreviewFile.bind(this);
     _handleLegacyBrowsers = _handleLegacyBrowsers.bind(this);
     _showError = _showError.bind(this);
@@ -23,31 +22,36 @@ export default {
     errorText = this.errorText.photoUpload;
     classes = this.classes;
     progressSelectors = selectors.progress;
-    // Save configuration
-    ({ avatar, uploader } = this.configuration);
 
-    // Perform preparations to handle photo upload
+    // Save configuration
+    ({ avatar, uploader, photoBonus } = this.configuration);
+
     _cacheElements();
 
-    // Check for browser APIs that should be presented to handle
-    // sending photos via FormData and getting it via FileReader
+    /**
+     *  Check for browser support of FormData and FileReader
+     *  FileReader is used to preview files,
+     *  while FormData - to send data to server
+     */
     isAjaxUpload = (function () {
       return 'FormData' in window && 'FileReader' in window;
     })();
 
-    if (!isAjaxUpload) {
-      // Let the user know that his browser is outdated
-      _handleLegacyBrowsers();
-    }
-
     // Detect whether to show camera capturing for mobile and tablet devices
     let isShowCameraCapturing = await helper.isShowCameraCapturing.call(helper);
 
-    if (!isShowCameraCapturing) {
-      // Hide mobile capturing as a precaution
+    /**
+     * If we're dealing with mobile devices:
+     * Don't show Drag'n'drop, and add icon of mobile photo upload
+     * Else, check for support of drag'n'drop API
+     */
+    if (isShowCameraCapturing) {
+      isAdvancedUpload = false;
+      $photoUploadContainer.addClass(classes.mobilePhotoUpload);
+    } else {
       $photoUploadContainer.removeClass(classes.mobilePhotoUpload);
 
-      // Check for browser APIs that should be presented to handle Drag'n'Drop
+      // Detect support of Drag'n'Drop
       isAdvancedUpload = (function () {
         let div = document.createElement('div');
         return (
@@ -55,25 +59,25 @@ export default {
           isAjaxUpload
         );
       })();
-    } else {
-      // Don't show drag'n'drop for mobile devices
-      isAdvancedUpload = false;
-      // Add photo capturing on mobile devices
-      $photoUploadContainer.addClass(classes.mobilePhotoUpload);
     }
 
     if (isAjaxUpload) {
       // Assign fileReaderMixin to the prototype of the current class
       Object.assign(this.__proto__, fileReaderMixin);
+
       // Initializing File Reader handler
       this.initializeFileReader({ errorText });
+    } else {
+      _handleLegacyBrowsers();
     }
 
     if (isAdvancedUpload) {
       // Change container visual appearance
       $photoUploadContainer.addClass(classes.dragNDrop);
+
       // Assign drag'n'drop methods to the prototype
       Object.assign(this.__proto__, dragNDropMixin);
+
       // Initialize drag'n'drop
       this.initializeDragNDrop({ $container: $photoUploadContainer });
     }
@@ -103,6 +107,7 @@ let selectors,
   $errorContainer,
   progressTemplate,
   $photoUploadContainer,
+  photoBonus,
   droppedFiles = false;
 
 /**Private functions */
@@ -133,42 +138,82 @@ function _cacheElements() {
  * Helper function to set event listeners
  */
 function _setUpEventListeners() {
-  // Start loading from input using FileReader
+  /**
+   * Handling photo upload using file input:
+   * 1. Save target of the change event and its FileList property value
+   * 2. Don't do anything if it doesn't have files
+   * 3. For each file in the file list, load it
+   */
   this.$form.on('change', event => {
-    let target = event.target;
+    let files = event.target.files;
 
-    // Stop execution if the target is not for photo upload
-    if (!target.classList.contains(classes.input)) return;
+    if (!files[0]) return;
 
-    // Load files for preview
-    _loadfromInput(target);
+    for (let i = 0; i < files.length; i++) {
+      _saveAndPreviewFile(files[i]);
+    }
   });
 
-  // Hide loading indicator after transition
+  /**
+   * Handling hiding loading indicator after the animation is ended
+   * 1. Remove progress indicator
+   * 2. Enable buttons that waere disabled while loading
+   */
   this.$modal.on('transitionend', event => {
     let $target = $(event.target);
 
     if (!$target.hasClass('loadend')) return;
-    // Remove progress indicator
+
     $target.closest(progressSelectors.fileProgressWrapper).remove();
-    // Enable button
     $disableWhileLoad.attr('disabled', false);
   });
 
   if (!isAdvancedUpload) return;
 
-  // Handler to save and preview dropped file
+  /**
+   * Handle photo upload via Drag'n'Drop:
+   * 1. Get the dropped files
+   * 2. Save and preview only the first file in case of photo bonus and avatar
+   * 3. Preview all the files in case of photo upload in profile
+   */
   $photoUploadContainer.on('drop', event => {
     droppedFiles = event.originalEvent.dataTransfer.files;
 
     if (droppedFiles.length === 0) return;
 
-    if (avatar) {
+    if (avatar || photoBonus) {
       _saveAndPreviewFile(droppedFiles[0]);
     } else if (uploader) {
       console.log('We are in photo uploader!');
     }
   });
+}
+
+/**
+ * Function saving the file for further upload
+ * and initializing reading and previewing the file:
+ * 1. Allow only image files
+ * 2. Disable buttons while uploading
+ * 3. Call class-specific method to save file for further upload
+ * 4. Show progress bar
+ * 5. Start reading the file
+ * @param {File Object} file - file to save and preview
+ */
+function _saveAndPreviewFile(file) {
+  let isImage = helper.MIMETypeIsImage(file);
+
+  if (!isImage) {
+    _showError(errorText.wrongFileType);
+    return;
+  }
+
+  // Prepare for file read
+  $disableWhileLoad.attr('disabled', true);
+  this._saveFile(file);
+  let $progressBar = _insertProgressBar({ fileName: file.name });
+
+  // Read file
+  this._readFile({ file, $progressBar });
 }
 
 /**
@@ -192,45 +237,6 @@ function _showError(errorMessage) {
  */
 function _hideError() {
   $errorContainer.empty();
-}
-
-/**
- * The function to load files from input.
- * It checks if there is at least one file,
- * and if so, start file loading
- * @param {DOMElement} input - input element from which all the files are loaded
- */
-function _loadfromInput(input) {
-  let files = input.files;
-  if (!files[0]) return;
-
-  for (let i = 0; i < files.length; i++) {
-    _saveAndPreviewFile(files[i]);
-  }
-}
-
-/**
- * Function saving the file for further upload
- * and initializing reading and previewing the file
- * @param {File Object} file - file to save and preview
- */
-function _saveAndPreviewFile(file) {
-  // Restrict allowed file types
-  let isImage = helper.MIMETypeIsImage(file);
-
-  if (!isImage) {
-    _showError(errorText.wrongFileType);
-    return;
-  }
-
-  // Disable buttons
-  $disableWhileLoad.attr('disabled', true);
-  // Save file to upload it in the future - this method is unique to each class using file upload
-  this._saveFile(file);
-  // Insert progress bar
-  let $progressBar = _insertProgressBar({ fileName: file.name });
-  // Read file and connect it with progress bar
-  this._readFile({ file, $progressBar });
 }
 
 /**
@@ -267,8 +273,10 @@ function _generateRandomId() {
 function _insertProgressBar({ fileName }) {
   // Prepare template for insertion
   let { template, id } = _prepareTemplate(fileName);
+
   // Insert the template into the progress container
   $progressContainer.append(template);
+
   // Save progress bar
   let $progressBar = $progressContainer.find(`#${id}`);
 
@@ -277,13 +285,15 @@ function _insertProgressBar({ fileName }) {
 
 /**
  * Function showing progress of photo read
- * in the progress bar
+ * 1. Calculate progress amount
+ * 2. Update the visual indicator of the progress
  * @param {Number} loaded - amount of loaded bytes
  * @param {Number} total - amount of total bytes to load
  */
 function _showProgress({ loaded, total, $progressBar }) {
   // Calculate progress
   let progress = Math.round((loaded / total) * 100);
+
   // Update progress
   $progressBar.css('width', `${progress}%`);
 }

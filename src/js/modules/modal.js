@@ -10,6 +10,7 @@ class EditorModal extends ServerRequest {
       avatar: false,
       uploader: false,
       editor: false,
+      photoBonus: false,
     };
 
     if (this.configuration.avatar || this.configuration.uploader) {

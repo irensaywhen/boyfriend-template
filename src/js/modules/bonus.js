@@ -25,6 +25,7 @@ export default class Bonus extends ServerRequest {
   }
 
   _setUpEventListeners() {
+    // Why the function is being called here?
     this.$bonus.click(() => this._startUsingBonus());
   }
 
@@ -33,25 +34,32 @@ export default class Bonus extends ServerRequest {
    */
   async _startUsingBonus() {
     if (this.activated && !this.finished) {
-      // If the bonus - boost has already been activated and not finished yet
+      // If the bonus has already been activated and not finished yet
       // Forbid any actions with it
       return;
     } else if (this.amount === 0) {
       // If there are no bonuses available
-      let type = this.type;
-
-      switch (type) {
-        case 'boost':
-          // Redirect
+      //let type = this.type;
+      //
+      //switch (type) {
+      //  case 'boost':
+      //    // Redirect
+      //    window.location.href = this.redirect;
+      //    break;
+      //
+      //  case 'superlike':
+      //  case 'photo':
+      //    // Ask the user to purchase bonuses
+      //    this._proposeBuyingBonus();
+      //    break;
+      //}
+      // Fire alert
+      this.fireBuyingAlert(this.popups.buy).then(result => {
+        if (result.isConfirmed) {
+          // Redirect to buying page in case of the user approvement
           window.location.href = this.redirect;
-          break;
-
-        case 'superlike':
-        case 'photo':
-          // Ask the user to purchase bonuses
-          this._proposeBuyingBonus();
-          break;
-      }
+        }
+      });
     } else {
       // If there are bonuses available
 
@@ -76,11 +84,7 @@ export default class Bonus extends ServerRequest {
   }
 
   _decreaseBonusAmountAvailable() {
-    // Decrease the saved amount of bonuses available
-    this.amount = --this.amount;
-
-    // Update markup
-    this.$bonus.attr('data-amount', this.amount);
+    this.$bonus.attr('data-amount', --this.amount);
   }
 
   _updateAmountOnMarkup() {

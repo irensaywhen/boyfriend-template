@@ -8854,7 +8854,7 @@
       /***/ function (module, exports, __webpack_require__) {
         /* WEBPACK VAR INJECTION */ (function (module) {
           var require; //! moment.js
-          //! version : 2.27.0
+          //! version : 2.28.0
           //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
           //! license : MIT
           //! momentjs.com
@@ -13414,7 +13414,7 @@
                 eras = this.localeData().eras();
               for (i = 0, l = eras.length; i < l; ++i) {
                 // truncate time
-                val = this.startOf('day').valueOf();
+                val = this.clone().startOf('day').valueOf();
 
                 if (eras[i].since <= val && val <= eras[i].until) {
                   return eras[i].name;
@@ -13434,7 +13434,7 @@
                 eras = this.localeData().eras();
               for (i = 0, l = eras.length; i < l; ++i) {
                 // truncate time
-                val = this.startOf('day').valueOf();
+                val = this.clone().startOf('day').valueOf();
 
                 if (eras[i].since <= val && val <= eras[i].until) {
                   return eras[i].narrow;
@@ -13454,7 +13454,7 @@
                 eras = this.localeData().eras();
               for (i = 0, l = eras.length; i < l; ++i) {
                 // truncate time
-                val = this.startOf('day').valueOf();
+                val = this.clone().startOf('day').valueOf();
 
                 if (eras[i].since <= val && val <= eras[i].until) {
                   return eras[i].abbr;
@@ -13477,7 +13477,7 @@
                 dir = eras[i].since <= eras[i].until ? +1 : -1;
 
                 // truncate time
-                val = this.startOf('day').valueOf();
+                val = this.clone().startOf('day').valueOf();
 
                 if (
                   (eras[i].since <= val && val <= eras[i].until) ||
@@ -14685,7 +14685,7 @@
 
             //! moment.js
 
-            hooks.version = '2.27.0';
+            hooks.version = '2.28.0';
 
             setHookCallback(createLocal);
 
@@ -20002,6 +20002,7 @@
                 value: function _setUpEventListeners() {
                   var _this2 = this;
 
+                  // Why the function is being called here?
                   this.$bonus.click(function () {
                     return _this2._startUsingBonus();
                   });
@@ -20016,7 +20017,9 @@
                   var _startUsingBonus2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
                     /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
                       function _callee() {
-                        var type, approved;
+                        var _this3 = this;
+
+                        var approved;
                         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
                           function _callee$(_context) {
                             while (1) {
@@ -20031,43 +20034,42 @@
 
                                 case 4:
                                   if (!(this.amount === 0)) {
-                                    _context.next = 15;
+                                    _context.next = 8;
                                     break;
                                   }
 
                                   // If there are no bonuses available
-                                  type = this.type;
-                                  _context.t0 = type;
-                                  _context.next =
-                                    _context.t0 === 'boost'
-                                      ? 9
-                                      : _context.t0 === 'superlike'
-                                      ? 11
-                                      : _context.t0 === 'photo'
-                                      ? 11
-                                      : 13;
+                                  //let type = this.type;
+                                  //
+                                  //switch (type) {
+                                  //  case 'boost':
+                                  //    // Redirect
+                                  //    window.location.href = this.redirect;
+                                  //    break;
+                                  //
+                                  //  case 'superlike':
+                                  //  case 'photo':
+                                  //    // Ask the user to purchase bonuses
+                                  //    this._proposeBuyingBonus();
+                                  //    break;
+                                  //}
+                                  // Fire alert
+                                  this.fireBuyingAlert(this.popups.buy).then(
+                                    function (result) {
+                                      if (result.isConfirmed) {
+                                        // Redirect to buying page in case of the user approvement
+                                        window.location.href = _this3.redirect;
+                                      }
+                                    }
+                                  );
+                                  _context.next = 12;
                                   break;
 
-                                case 9:
-                                  // Redirect
-                                  window.location.href = this.redirect;
-                                  return _context.abrupt('break', 13);
-
-                                case 11:
-                                  // Ask the user to purchase bonuses
-                                  this._proposeBuyingBonus();
-
-                                  return _context.abrupt('break', 13);
-
-                                case 13:
-                                  _context.next = 19;
-                                  break;
-
-                                case 15:
-                                  _context.next = 17;
+                                case 8:
+                                  _context.next = 10;
                                   return this._prepareBonusUsage();
 
-                                case 17:
+                                case 10:
                                   approved = _context.sent;
 
                                   if (approved) {
@@ -20075,7 +20077,7 @@
                                     this._useBonus();
                                   }
 
-                                case 19:
+                                case 12:
                                 case 'end':
                                   return _context.stop();
                               }
@@ -20098,13 +20100,13 @@
               {
                 key: '_proposeBuyingBonus',
                 value: function _proposeBuyingBonus() {
-                  var _this3 = this;
+                  var _this4 = this;
 
                   // Fire alert
                   this.fireBuyingAlert(this.popups.buy).then(function (result) {
                     if (result.isConfirmed) {
                       // Redirect to buying page in case of the user approvement
-                      window.location.href = _this3.redirect;
+                      window.location.href = _this4.redirect;
                     }
                   });
                 },
@@ -20112,10 +20114,7 @@
               {
                 key: '_decreaseBonusAmountAvailable',
                 value: function _decreaseBonusAmountAvailable() {
-                  // Decrease the saved amount of bonuses available
-                  this.amount = --this.amount; // Update markup
-
-                  this.$bonus.attr('data-amount', this.amount);
+                  this.$bonus.attr('data-amount', --this.amount);
                 },
               },
               {
@@ -20506,18 +20505,6 @@
                   this.$hours.text(hours);
                   this.$minutes.text(minutes);
                   this.$seconds.text(seconds);
-                },
-              },
-              {
-                key: '_decreaseBonusAmountAvailable',
-                value: function _decreaseBonusAmountAvailable() {
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
-                      Boost.prototype
-                    ),
-                    '_decreaseBonusAmountAvailable',
-                    this
-                  ).call(this);
                 },
               },
             ]
@@ -22366,6 +22353,85 @@
         /***/
       },
 
+    /***/ './js/modules/fileReaderMixin.js':
+      /*!***************************************!*\
+  !*** ./js/modules/fileReaderMixin.js ***!
+  \***************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony default export */ __webpack_exports__['default'] = {
+          initializeFileReader: function initializeFileReader(config) {
+            // Save passed information
+            errorText = config.errorText;
+            // Bind context
+            _setReaderEventListeners = _setReaderEventListeners.bind(this);
+            _readFile = _readFile.bind(this);
+          },
+          _readFile: _readFile,
+        }; // Private varibles
+
+        var errorText;
+        /** Private functions */
+
+        /**
+         * Function to read file and start loading it
+         * It instantiates a FileReader Object for the current file
+         * Sets event listeners to listen to events on reader
+         * And then, starts reading it to generate URL
+         * @param {File Object} file
+         */
+
+        function _readFile(_ref) {
+          var file = _ref.file,
+            $progressBar = _ref.$progressBar;
+          var reader = new FileReader(); // Save progress bar for the current reader
+
+          reader.$progressBar = $progressBar; // Prepare reader fo reading file
+
+          _setReaderEventListeners(reader); // Read file
+
+          reader.readAsDataURL(file);
+        }
+        /**
+         * Function setting event listeners to the current reader
+         * @param {FileReader Object} reader - reader to set event listeners to
+         */
+
+        function _setReaderEventListeners(reader) {
+          var _this = this;
+
+          reader.addEventListener('loadstart', function (event) {
+            _this._hideError();
+          });
+          reader.addEventListener('progress', function (event) {
+            // Show progress for the current reader
+            _this._showProgress({
+              loaded: event.loaded,
+              total: event.total,
+              $progressBar: event.target.$progressBar,
+            });
+          });
+          reader.addEventListener('loadend', function (event) {
+            var target = event.target; // Indicate that the file related to the current progress bar was loaded
+
+            target.$progressBar.addClass('loadend');
+          });
+          reader.addEventListener('load', function (event) {
+            var target = event.target;
+            setTimeout(_this._preview, 500, target); // Show submit button
+
+            _this.$modalFooter.show();
+          });
+          reader.addEventListener('error', function () {
+            _this._showError(errorText.read);
+          });
+        }
+
+        /***/
+      },
+
     /***/ './js/modules/form.js':
       /*!****************************!*\
   !*** ./js/modules/form.js ***!
@@ -24098,6 +24164,7 @@
               avatar: false,
               uploader: false,
               editor: false,
+              photoBonus: false,
             };
 
             if (_this.configuration.avatar || _this.configuration.uploader) {
@@ -24743,6 +24810,9 @@
         /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
           /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
         );
+        /* harmony import */ var _photoUploadMixin__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+          /*! ./photoUploadMixin */ './js/modules/photoUploadMixin.js'
+        );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -24797,7 +24867,10 @@
               Photo
             );
 
-            _this = _super.call(this, options); // Save popups
+            _this = _super.call(this, options);
+            _this.configuration = {
+              photoBonus: true,
+            }; // Save popups
 
             _this.popups = options.popups; // Initiate animation for icon in popup
 
@@ -24828,32 +24901,23 @@
                     ),
                     '_cacheElements',
                     this
-                  ).call(this); // Cache reference
+                  ).call(this);
 
                   var selectors = this.selectors; // Amount element
 
-                  this.$amount = this.$bonus.find(selectors.amount);
-                  /**
-                   * Photo upload and preview specific
-                   */
-                  // Modal for photo preview
+                  this.$amount = this.$bonus.find(selectors.amount); // Photo upload and preview
 
-                  this.$modal = $(selectors.modal); //Closing button
-
+                  this.$modal = $(selectors.modal);
                   this.$closeButton = this.$modal.find(
                     selectors.closeModalButton
-                  ); // Find modal footer and hide it
-
+                  );
                   this.$modalFooter = this.$modal
                     .find('.modal-footer')
-                    .fadeOut(0); // Container to preview photos
-
+                    .fadeOut(0);
                   this.$previewContainer = this.$modal.find(
                     selectors.previewContainer
-                  ); // Photo inputs
-
-                  this.$photoInputs = this.$modal.find(selectors.input); // Form
-
+                  );
+                  this.$photoInputs = this.$modal.find(selectors.input);
                   this.$form = this.$modal.find(selectors.form);
                 },
               },
@@ -24889,7 +24953,7 @@
                   });
                   this.$closeButton.click(function () {
                     // Delete all the temporary changes if the user doesn't submit the form
-                    _this2.__discardChanges();
+                    _this2._discardChanges();
                   });
                   $document.on('photoModal:onBeforeOpen', function (
                     event,
@@ -24909,7 +24973,6 @@
                     modal
                   ) {
                     // Prepare animation for further use
-                    console.log('Modal closed');
                   });
                 },
               },
@@ -24918,8 +24981,7 @@
                 value: function _useBonus() {
                   // In use bonus function we'll need to trigger modal opening programically
                   // After usage approvement
-                  this.$modal.modal('show');
-                  console.log('Using photo bonus...'); // Delete previou
+                  this.$modal.modal('show'); // Delete previou
                   //this._discardPhotoInformation()
                   // Here we need to ask the user to make a photo or upload it
                   // And then send the message with it
@@ -24933,11 +24995,13 @@
                 key: '_sendPhoto',
                 value: function _sendPhoto() {
                   // Change the amount of bonuses available
-                  this._decreaseBonusAmountAvailable(); // Save description to photoData object
+                  this._decreaseBonusAmountAvailable();
+
+                  this._updateAmountOnMarkup(); // Save description to photoData object
 
                   this._savePhotoDescription(); // Prepare formData to send photo information to the server
 
-                  this.__generateFormData(); // Generate event to send the photo to the user
+                  this._generateFormData(); // Generate event to send the photo to the user
 
                   $(document).trigger(
                     'present:send',
@@ -24945,14 +25009,14 @@
                     this.formData
                   ); // Close modal
 
-                  this.$closeButton.click(); // Call alert here with custom animation for superlike icon
+                  this.$closeButton.click(); // Call alert here with custom animation for photo icon
 
                   this.fireSendAlert(this.popups.send);
                 },
               },
               {
-                key: '__generateFormData',
-                value: function __generateFormData() {
+                key: '_generateFormData',
+                value: function _generateFormData() {
                   // Cache
                   var photoData = this.photoData;
 
@@ -24974,13 +25038,43 @@
               {
                 key: '_prepareBonusUsage',
                 value: function _prepareBonusUsage() {
-                  console.log('Preparing photo bonus usage...'); // Ask server about sending superlike
+                  // Ask server about sending superlike
                   // If the server will approve usage
                   // Send it to the user
                   // Temporary return true for debuggins purposes
-
                   return true;
                 },
+                /**
+                 * Function specific to classes using FileReader Mixin.
+                 * It handles class-specific functionality required for preview
+                 * Here, it saves src and sets the loaded photo in preview container
+                 * @param {FileReader Object} fileReader - the resulting fileReader object
+                 * to preview loaded photo
+                 */
+              },
+              {
+                key: '_preview',
+                value: function _preview(fileReader) {
+                  // cache
+                  //let src = fileReader.result;
+                  //// update preview
+                  //this.$avatarPreview.attr('src', src);
+                  //// save src to update markup
+                  //this.newAvatarLink = src;
+                  console.log('Previewing...');
+                },
+                /**
+                 * Function specific to classes using FileReader Mixin.
+                 * It saves file to allow futher upload in case of submitting the form
+                 * @param {File Object} file - reference to the file in the system
+                 */
+              },
+              {
+                key: '_saveFile',
+                value: function _saveFile(file) {
+                  //this.avatar = file;
+                  console.log('Saving file...');
+                }, //----------------------------------------------------------
               },
               {
                 key: '_loadPhoto',
@@ -25012,14 +25106,10 @@
                   // Show loading indicator when the read has started
                   reader.onloadstart = function (event) {
                     // Set progress indicator here
-                    console.log('Loading start');
-                    console.log(event);
                   }; // Hide loading indicator when the read has finished
 
                   reader.onloadend = function (event) {
                     //Delete progress indicator here
-                    console.log('Loading end');
-                    console.log(event);
                   }; // Preview photos when it is readed successfully
 
                   reader.onload = function (event) {
@@ -25064,8 +25154,8 @@
                 },
               },
               {
-                key: '__discardChanges',
-                value: function __discardChanges() {
+                key: '_discardChanges',
+                value: function _discardChanges() {
                   // Delete preview
                   this.$previewContainer.empty(); // Hide modal footer
 
@@ -25081,26 +25171,6 @@
                     type: 'photo',
                   };
                   this.formData = new FormData();
-                },
-              },
-              {
-                key: '_decreaseBonusAmountAvailable',
-                value: function _decreaseBonusAmountAvailable() {
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
-                      Photo.prototype
-                    ),
-                    '_decreaseBonusAmountAvailable',
-                    this
-                  ).call(this);
-
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
-                      Photo.prototype
-                    ),
-                    '_updateAmountOnMarkup',
-                    this
-                  ).call(this);
                 },
               },
             ]
@@ -25283,6 +25353,458 @@
         /***/
       },
 
+    /***/ './js/modules/photoUploadMixin.js':
+      /*!****************************************!*\
+  !*** ./js/modules/photoUploadMixin.js ***!
+  \****************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/regenerator */ '../node_modules/@babel/runtime/regenerator/index.js'
+        );
+        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/asyncToGenerator */ '../node_modules/@babel/runtime/helpers/asyncToGenerator.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _fileReaderMixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! ./fileReaderMixin */ './js/modules/fileReaderMixin.js'
+        );
+        /* harmony import */ var _photosDragnDropMixin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! ./photosDragnDropMixin */ './js/modules/photosDragnDropMixin.js'
+        );
+        /* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! ./helper.js */ './js/modules/helper.js'
+        );
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! handlebars */ '../node_modules/handlebars/dist/cjs/handlebars.js'
+        );
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          handlebars__WEBPACK_IMPORTED_MODULE_5__
+        );
+
+        /* harmony default export */ __webpack_exports__['default'] = {
+          initializePhotoUpload: function initializePhotoUpload() {
+            var _this = this;
+
+            return _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
+              /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
+                function _callee() {
+                  var _this$configuration, isShowCameraCapturing;
+
+                  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
+                    function _callee$(_context) {
+                      while (1) {
+                        switch ((_context.prev = _context.next)) {
+                          case 0:
+                            // Bind context
+                            _cacheElements = _cacheElements.bind(_this);
+                            _setUpEventListeners = _setUpEventListeners.bind(
+                              _this
+                            );
+                            _prepareTemplate = _prepareTemplate.bind(_this);
+                            _insertProgressBar = _insertProgressBar.bind(_this);
+                            _showProgress = _showProgress.bind(_this);
+                            _generateRandomId = _generateRandomId.bind(_this);
+                            _saveAndPreviewFile = _saveAndPreviewFile.bind(
+                              _this
+                            );
+                            _handleLegacyBrowsers = _handleLegacyBrowsers.bind(
+                              _this
+                            );
+                            _showError = _showError.bind(_this);
+                            _hideError = _hideError.bind(_this); // Cache
+
+                            selectors = _this.selectors.photoUpload;
+                            errorText = _this.errorText.photoUpload;
+                            classes = _this.classes;
+                            progressSelectors = selectors.progress; // Save configuration
+
+                            _this$configuration = _this.configuration;
+                            avatar = _this$configuration.avatar;
+                            uploader = _this$configuration.uploader;
+                            photoBonus = _this$configuration.photoBonus;
+
+                            _cacheElements();
+                            /**
+                             *  Check for browser support of FormData and FileReader
+                             *  FileReader is used to preview files,
+                             *  while FormData - to send data to server
+                             */
+
+                            isAjaxUpload = (function () {
+                              return (
+                                'FormData' in window && 'FileReader' in window
+                              );
+                            })(); // Detect whether to show camera capturing for mobile and tablet devices
+
+                            _context.next = 22;
+                            return _helper_js__WEBPACK_IMPORTED_MODULE_4__[
+                              'default'
+                            ].isShowCameraCapturing.call(
+                              _helper_js__WEBPACK_IMPORTED_MODULE_4__['default']
+                            );
+
+                          case 22:
+                            isShowCameraCapturing = _context.sent;
+
+                            /**
+                             * If we're dealing with mobile devices:
+                             * Don't show Drag'n'drop, and add icon of mobile photo upload
+                             * Else, check for support of drag'n'drop API
+                             */
+                            if (isShowCameraCapturing) {
+                              isAdvancedUpload = false;
+                              $photoUploadContainer.addClass(
+                                classes.mobilePhotoUpload
+                              );
+                            } else {
+                              $photoUploadContainer.removeClass(
+                                classes.mobilePhotoUpload
+                              ); // Detect support of Drag'n'Drop
+
+                              isAdvancedUpload = (function () {
+                                var div = document.createElement('div');
+                                return (
+                                  ('draggable' in div ||
+                                    ('ondragstart' in div &&
+                                      'ondrop' in div)) &&
+                                  isAjaxUpload
+                                );
+                              })();
+                            }
+
+                            if (isAjaxUpload) {
+                              // Assign fileReaderMixin to the prototype of the current class
+                              Object.assign(
+                                _this.__proto__,
+                                _fileReaderMixin__WEBPACK_IMPORTED_MODULE_2__[
+                                  'default'
+                                ]
+                              ); // Initializing File Reader handler
+
+                              _this.initializeFileReader({
+                                errorText: errorText,
+                              });
+                            } else {
+                              _handleLegacyBrowsers();
+                            }
+
+                            if (isAdvancedUpload) {
+                              // Change container visual appearance
+                              $photoUploadContainer.addClass(classes.dragNDrop); // Assign drag'n'drop methods to the prototype
+
+                              Object.assign(
+                                _this.__proto__,
+                                _photosDragnDropMixin__WEBPACK_IMPORTED_MODULE_3__[
+                                  'default'
+                                ]
+                              ); // Initialize drag'n'drop
+
+                              _this.initializeDragNDrop({
+                                $container: $photoUploadContainer,
+                              });
+                            }
+
+                            _setUpEventListeners(); // Binding functions from the Class
+
+                            _this._preview = _this._preview.bind(_this);
+                            _this._saveFile = _this._saveFile.bind(_this);
+
+                          case 29:
+                          case 'end':
+                            return _context.stop();
+                        }
+                      }
+                    },
+                    _callee
+                  );
+                }
+              )
+            )();
+          },
+          _showProgress: _showProgress,
+          _showError: _showError,
+          _hideError: _hideError,
+        }; // Private variables
+
+        var selectors,
+          errorText,
+          avatar,
+          uploader,
+          classes,
+          isAjaxUpload,
+          isAdvancedUpload,
+          progressSelectors,
+          $progressContainer,
+          $disableWhileLoad,
+          $errorContainer,
+          progressTemplate,
+          $photoUploadContainer,
+          photoBonus,
+          droppedFiles = false;
+        /**Private functions */
+
+        /**
+         * Helper function to cache elements:
+         * progress container, progress template
+         */
+
+        function _cacheElements() {
+          // Buttons to disable while file is being read
+          $disableWhileLoad = this.$modal.find(selectors.disableWhileLoad); // Containers
+          // Progress
+
+          $progressContainer = this.$modal.find(progressSelectors.progress); // Error
+
+          this.$errorContainer = $errorContainer = this.$modal.find(
+            selectors.errorContainer
+          ); // Photo upload
+
+          $photoUploadContainer = this.$modal.find(selectors.uploadContainer); // Template
+
+          progressTemplate = document.getElementById(
+            progressSelectors.templateId
+          );
+        }
+        /**
+         * Helper function to set event listeners
+         */
+
+        function _setUpEventListeners() {
+          /**
+           * Handling photo upload using file input:
+           * 1. Save target of the change event and its FileList property value
+           * 2. Don't do anything if it doesn't have files
+           * 3. For each file in the file list, load it
+           */
+          this.$form.on('change', function (event) {
+            var files = event.target.files;
+            if (!files[0]) return;
+
+            for (var i = 0; i < files.length; i++) {
+              _saveAndPreviewFile(files[i]);
+            }
+          });
+          /**
+           * Handling hiding loading indicator after the animation is ended
+           * 1. Remove progress indicator
+           * 2. Enable buttons that waere disabled while loading
+           */
+
+          this.$modal.on('transitionend', function (event) {
+            var $target = $(event.target);
+            if (!$target.hasClass('loadend')) return;
+            $target.closest(progressSelectors.fileProgressWrapper).remove();
+            $disableWhileLoad.attr('disabled', false);
+          });
+          if (!isAdvancedUpload) return;
+          /**
+           * Handle photo upload via Drag'n'Drop:
+           * 1. Get the dropped files
+           * 2. Save and preview only the first file in case of photo bonus and avatar
+           * 3. Preview all the files in case of photo upload in profile
+           */
+
+          $photoUploadContainer.on('drop', function (event) {
+            droppedFiles = event.originalEvent.dataTransfer.files;
+            if (droppedFiles.length === 0) return;
+
+            if (avatar || photoBonus) {
+              _saveAndPreviewFile(droppedFiles[0]);
+            } else if (uploader) {
+              console.log('We are in photo uploader!');
+            }
+          });
+        }
+        /**
+         * Function saving the file for further upload
+         * and initializing reading and previewing the file:
+         * 1. Allow only image files
+         * 2. Disable buttons while uploading
+         * 3. Call class-specific method to save file for further upload
+         * 4. Show progress bar
+         * 5. Start reading the file
+         * @param {File Object} file - file to save and preview
+         */
+
+        function _saveAndPreviewFile(file) {
+          var isImage = _helper_js__WEBPACK_IMPORTED_MODULE_4__[
+            'default'
+          ].MIMETypeIsImage(file);
+
+          if (!isImage) {
+            _showError(errorText.wrongFileType);
+
+            return;
+          } // Prepare for file read
+
+          $disableWhileLoad.attr('disabled', true);
+
+          this._saveFile(file);
+
+          var $progressBar = _insertProgressBar({
+            fileName: file.name,
+          }); // Read file
+
+          this._readFile({
+            file: file,
+            $progressBar: $progressBar,
+          });
+        }
+        /**
+         * Function to notify the user that his browser is outdated
+         * And it will not support file upload
+         */
+
+        function _handleLegacyBrowsers() {
+          $photoUploadContainer.hide();
+
+          _showError(errorText.legacyBrowser);
+        }
+        /**
+         * Function showing errors that are not handled via alerts in error container
+         */
+
+        function _showError(errorMessage) {
+          $errorContainer.text(errorMessage);
+        }
+        /**
+         * Function hiding previously displayed error in the error container
+         */
+
+        function _hideError() {
+          $errorContainer.empty();
+        }
+        /**
+         * Function copying template
+         * and compiling it with provided filename
+         * This function will be assigned to editor prototype,
+         * but it is only for internal use of it in fileReader Mixin and photos Drag'n'Drop mixin
+         * @param {String} fileName - name of the file being loaded
+         */
+
+        function _prepareTemplate(fileName) {
+          // Get template content
+          var progress = progressTemplate.innerHTML,
+            id = _generateRandomId(); // Compile template with provided filename
+
+          progress = handlebars__WEBPACK_IMPORTED_MODULE_5___default.a.compile(
+            progress
+          );
+          progress = progress({
+            name: fileName,
+            id: id,
+          });
+          return {
+            template: progress,
+            id: id,
+          };
+        }
+        /**
+         * Function to generate random number that can be used as id.
+         * Here it will be used to pass it to the template for further reference
+         */
+
+        function _generateRandomId() {
+          return Math.round(Math.random() * 1000);
+        }
+        /**
+         * Function inserting progress bar
+         * @param {String} fileName - name of the file being loaded
+         */
+
+        function _insertProgressBar(_ref) {
+          var fileName = _ref.fileName;
+
+          // Prepare template for insertion
+          var _prepareTemplate2 = _prepareTemplate(fileName),
+            template = _prepareTemplate2.template,
+            id = _prepareTemplate2.id; // Insert the template into the progress container
+
+          $progressContainer.append(template); // Save progress bar
+
+          var $progressBar = $progressContainer.find('#'.concat(id));
+          return $progressBar;
+        }
+        /**
+         * Function showing progress of photo read
+         * 1. Calculate progress amount
+         * 2. Update the visual indicator of the progress
+         * @param {Number} loaded - amount of loaded bytes
+         * @param {Number} total - amount of total bytes to load
+         */
+
+        function _showProgress(_ref2) {
+          var loaded = _ref2.loaded,
+            total = _ref2.total,
+            $progressBar = _ref2.$progressBar;
+          // Calculate progress
+          var progress = Math.round((loaded / total) * 100); // Update progress
+
+          $progressBar.css('width', ''.concat(progress, '%'));
+        }
+
+        /***/
+      },
+
+    /***/ './js/modules/photosDragnDropMixin.js':
+      /*!********************************************!*\
+  !*** ./js/modules/photosDragnDropMixin.js ***!
+  \********************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony default export */ __webpack_exports__['default'] = {
+          initializeDragNDrop: function initializeDragNDrop(_ref) {
+            var $container = _ref.$container;
+            // Save reference to drag'n'drop container
+            $dragNDropContainer = $container; // Save classes
+
+            classes = this.classes; // Bind context
+
+            _setUpEventListeners = _setUpEventListeners.bind(this); // Prepare drag'n'drop for usage
+
+            _setUpEventListeners();
+          },
+        }; // Private variables
+
+        var $dragNDropContainer,
+          classes,
+          droppedFiles = false;
+        /**
+         * Helper function to setup drag'n'drop event listeners
+         */
+
+        function _setUpEventListeners() {
+          $dragNDropContainer
+            .on(
+              'drag dragstart dragend dragover dragenter dragleave drop',
+              function (event) {
+                // Prevent browser default behavior
+                event.preventDefault();
+                event.stopPropagation();
+              }
+            ) // Handle dragover indicator to let the user know about ability
+            // to safety drop files
+            .on('dragover dragenter', function () {
+              $dragNDropContainer.addClass(classes.dragOver);
+            })
+            .on('dragleave dragend drop', function () {
+              $dragNDropContainer.removeClass(classes.dragOver);
+            });
+        }
+
+        /***/
+      },
+
     /***/ './js/modules/preparePhotoModal.js':
       /*!*****************************************!*\
   !*** ./js/modules/preparePhotoModal.js ***!
@@ -25305,7 +25827,6 @@
           var $modal = $(modal);
           var $animateOnShown = $modal.find(animateOnShown).fadeOut(0);
           var shown = false;
-          console.log($animateOnShown);
 
           function _setUpEventListeners() {
             // Here you can prepare modal
@@ -26559,6 +27080,8 @@
 
                   this._decreaseBonusAmountAvailable();
 
+                  this._updateAmountOnMarkup();
+
                   $(document).trigger('present:send', {
                     type: 'superlike',
                   });
@@ -26573,26 +27096,6 @@
                   // Temporary return true for debuggins purposes
 
                   return true;
-                },
-              },
-              {
-                key: '_decreaseBonusAmountAvailable',
-                value: function _decreaseBonusAmountAvailable() {
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
-                      Superlike.prototype
-                    ),
-                    '_decreaseBonusAmountAvailable',
-                    this
-                  ).call(this);
-
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
-                      Superlike.prototype
-                    ),
-                    '_updateAmountOnMarkup',
-                    this
-                  ).call(this);
                 },
               },
             ]
@@ -26726,7 +27229,10 @@
                     function (event) {
                       var animationName = event.originalEvent.animationName,
                         target = event.target,
-                        iconElements = _this.iconElements;
+                        iconElements = _this.iconElements; // Temporary block superlike animation execution
+                      // Then, later, make return statement more specific
+
+                      return;
                       if (!target.closest(_this.selectors.popup)) return;
                       console.log(target);
 

@@ -116,7 +116,7 @@
 
     <!--Modal for photo upload start-->
     <div
-      class="modal fade upload-avatar"
+      class="modal fade upload-avatar pr-0"
       id="photo-bonus"
       tabindex="-1"
       role="dialog"
@@ -124,12 +124,13 @@
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <!--Modal content start-->
         <div class="modal-content">
-          <form action="fill-profile.html" id="photo-uploader">
+          <form action="" id="photo-uploader">
             <!--Modal header start-->
             <div class="modal-header">
               <h3 class="title">
-                Upload your photos:
+                Upload your photo:
               </h3>
               <button
                 type="button"
@@ -152,9 +153,37 @@
                 ></div>
               </div>
               <!--Photos preview end-->
-              <!--Photo Upload-->
+
+              <!--Container holding read and legacy errors-->
+              <p id="uploadErrorContainer" class="upload-error"></p>
+
+              <!--Upload progress indicator start-->
+              <div class="upload-progress" id="fileRead-progress"></div>
+              <!--Upload progress indicator end-->
+
+              <!--Template for progress indicator start-->
+              <script id="progress-template" type="text/template">
+                <div class="fileProgress-wrapper">
+                  <div class="filename text-muted">
+                    <span class="name d-inline-block pb-1">{{name}}</span>
+                  </div>
+                  <div class="progress mb-3 h-4">
+                    <div
+                      class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                      id={{id}}
+                      role="progressbar"
+                      style="width: 0%"
+                      aria-valuenow="0"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </div>
+              </script>
+              <!--Template for progress indicator end-->
+
+              <!--Photo Upload
               <ul class="pl-1">
-                <!--Upload photos from your device-->
                 <li class="position-relative">
                   <label
                     for="photo-file-input"
@@ -173,7 +202,6 @@
                     Upload your photos from your device
                   </p>
                 </li>
-                <!--Capture photo-->
                 <li class="position-relative d-lg-none">
                   <label
                     for="make-photo"
@@ -193,7 +221,62 @@
                     Make photo from your camera
                   </p>
                 </li>
-              </ul>
+              </ul>-->
+
+              <!--Photo upload and drag'n'drop start-->
+              <div class="photo-upload" id="dragNDropUploadContainer">
+                <!--Drag'n'drop start-->
+                <div class="drag-n-drop">
+                  <div class="icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </div>
+                  <p class="text-center text-uppercase info d-flex flex-column">
+                    <strong class="title">Drag & drop</strong>
+                    <span class="pt-2">to upload, or</span>
+                  </p>
+                </div>
+                <!--Drag'n'drop end-->
+
+                <div class="d-flex flex-column align-items-center py-4">
+                  <!--Select file from device start-->
+                  <div class="position-relative">
+                    <input
+                      type="file"
+                      id="photo-file-input"
+                      name="photo-file-input"
+                      class="invisible position-absolute photo-input disable-while-load"
+                      accept="image/*"
+                    />
+                    <label
+                      for="photo-file-input"
+                      class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm select"
+                    >
+                      <i class="fas fa-file-upload"></i> select file
+                    </label>
+                  </div>
+                  <!--Select file from device end-->
+
+                  <!--Capture photo start-->
+                  <div class="position-relative">
+                    <input
+                      type="file"
+                      id="make-photo"
+                      name="make-photo"
+                      class="invisible position-absolute photo-input disable-while-load"
+                      accept="image/*"
+                      capture
+                    />
+                    <label
+                      for="make-photo"
+                      class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm capture"
+                    >
+                      <i class="fas fa-camera-retro"></i> take photo
+                    </label>
+                  </div>
+                  <!--Capture photo end-->
+                </div>
+              </div>
+              <!--Photo upload and drag'n'drop end-->
 
               <!--Photo requirements-->
               <div class="avatar-requirements border-top">
@@ -223,6 +306,7 @@
             <!--Modal footer end-->
           </form>
         </div>
+        <!--Modal content end-->
       </div>
     </div>
     <!--Modal for photo upload end-->
@@ -1058,7 +1142,6 @@
 
     <script>
       $(window).on('load', function () {
-        /* notification view and hide */
         setTimeout(function () {
           $('.notification').addClass('active');
           setTimeout(function () {
@@ -1069,7 +1152,6 @@
           $(this).closest('.notification').removeClass('active');
         });
 
-        /*chat*/
         const chat = new Chat({
           debug: true,
           selectors: {
@@ -1150,7 +1232,6 @@
           },
         });
 
-        /*Photo bonus initialization*/
         const photo = new Photo({
           selectors: {
             bonus: '#photo',
@@ -1161,6 +1242,41 @@
             form: '#photo-uploader',
             closeModalButton: '.close',
             photoDescription: '#photo-upload-description',
+            // Photo upload selectors
+            photoUpload: {
+              disableWhileLoad: '.disable-while-load',
+              uploadContainer: '#dragNDropUploadContainer',
+              errorContainer: '#uploadErrorContainer',
+              // Progress bar selectors
+              progress: {
+                progress: '#fileRead-progress',
+                progressBar: '.progress-bar',
+                templateId: 'progress-template',
+                fileProgressWrapper: '.fileProgress-wrapper',
+              },
+            },
+          },
+          // Predefined error texts
+          errorText: {
+            photoUpload: {
+              // Read error while uploading photo
+              read:
+                'Something went wrong while reading the file. Please, try again',
+              // Too old browser
+              legacyBrowser:
+                'Your browser is outdated. Please, update your browser and try again',
+              // Unsupported image file type
+              wrongFileType: 'Please, upload image file',
+            },
+          },
+          classes: {
+            // Input for files upload
+            input: 'avatar-input',
+            // Drag'n'Drop
+            dragNDrop: 'advanced-upload',
+            dragOver: 'is-dragover',
+            // To show mobile photo capturing
+            mobilePhotoUpload: 'mobile',
           },
           photoTemplates: {
             preview: 'template-photoPreview',
@@ -1215,7 +1331,6 @@
           },
         });
 
-        /*enlarge photo*/
         const enlargePhoto = new EnlargePhoto({
           selectors: {
             modal: '#photoModal',
@@ -1227,8 +1342,6 @@
             exit: 'animate__zoomOut',
           },
         });
-
-        /*bonuses*/
       });
     </script>
   </body>

@@ -98,9 +98,10 @@
                 </button>
               </div>
               <!--Modal header end-->
+
               <!--Modal body start-->
               <div class="modal-body">
-                <!--Current avatar and preview-->
+                <!--Current avatar and preview start-->
                 <div class="text-center">
                   <div class="figure-profile shadow my-4">
                     <figure>
@@ -112,14 +113,16 @@
                     </figure>
                   </div>
                 </div>
+                <!--Current avatar and preview end-->
 
                 <!--Container holding read and legacy errors-->
-                <p id="avatarUploadError" class="upload-error"></p>
+                <p id="uploadErrorContainer" class="upload-error"></p>
 
                 <!--Upload progress indicator start-->
                 <div class="upload-progress" id="fileRead-progress"></div>
                 <!--Upload progress indicator end-->
 
+                <!--Template for progress indicator start-->
                 <script id="progress-template" type="text/template">
                   <div class="fileProgress-wrapper">
                     <div class="filename text-muted">
@@ -138,6 +141,7 @@
                     </div>
                   </div>
                 </script>
+                <!--Template for progress indicator end-->
 
                 <!--Avatar upload and drag'n'drop start-->
                 <div class="photo-upload" id="dragNDropUploadContainer">
@@ -945,6 +949,8 @@
             },
           },
         });
+
+        /* Avatar initializaiton */
         const avatar = new Avatar({
           selectors: {
             elementSelector: '.avatar-image',
@@ -959,10 +965,12 @@
               spinner: '.spinner-border',
               text: 'Saving avatar...',
             },
+            // Photo upload selectors
             photoUpload: {
               disableWhileLoad: '.disable-while-load',
               uploadContainer: '#dragNDropUploadContainer',
-              errorContainer: '#avatarUploadError',
+              errorContainer: '#uploadErrorContainer',
+              // Progress bar selectors
               progress: {
                 progress: '#fileRead-progress',
                 progressBar: '.progress-bar',
@@ -971,19 +979,26 @@
               },
             },
           },
+          // Predefined error texts
           errorText: {
             photoUpload: {
+              // Read error while uploading photo
               read:
                 'Something went wrong while reading the file. Please, try again',
+              // Too old browser
               legacyBrowser:
                 'Your browser is outdated. Please, update your browser and try again',
+              // Unsupported image file type
               wrongFileType: 'Please, upload image file',
             },
           },
           classes: {
+            // Input for files upload
             input: 'avatar-input',
+            // Drag'n'Drop
             dragNDrop: 'advanced-upload',
             dragOver: 'is-dragover',
+            // To show mobile photo capturing
             mobilePhotoUpload: 'mobile',
           },
           requests: {
@@ -998,7 +1013,7 @@
           },
         });
 
-        /* forms chainer initialization*/
+        /* forms chainer initialization
         const chainedForms = new ChainedForms({
           selectors: {
             formsContainer: '#forms-signup',
@@ -1022,7 +1037,7 @@
               further: 'step-further',
             },
           },
-        });
+        });*/
 
         $('#continue').click(event => {
           event.preventDefault();

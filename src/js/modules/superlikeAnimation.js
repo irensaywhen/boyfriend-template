@@ -13,6 +13,9 @@ export default class SuperlikeAnimation extends IconAnimation {
           target = event.target,
           iconElements = this.iconElements;
 
+        // Temporary block superlike animation execution
+        // Then, later, make return statement more specific
+        return;
         if (!target.closest(this.selectors.popup)) return;
         console.log(target);
 
