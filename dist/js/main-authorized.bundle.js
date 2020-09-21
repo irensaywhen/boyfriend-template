@@ -19557,9 +19557,6 @@
         /* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./modules/buyPremiumForm.js */ './js/modules/buyPremiumForm.js'
         );
-        /* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
-          _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_6__
-        );
         /* harmony import */ var _modules_chatList_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./modules/chatList.js */ './js/modules/chatList.js'
         );
@@ -19594,7 +19591,7 @@
             'default'
           ];
         window['BuyPremiumForm'] =
-          _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_6___default.a;
+          _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_6__['default'];
         window['ChatList'] =
           _modules_chatList_js__WEBPACK_IMPORTED_MODULE_7__['default'];
         window['Pagination'] =
@@ -20370,11 +20367,308 @@
       /*!**************************************!*\
   !*** ./js/modules/buyPremiumForm.js ***!
   \**************************************/
-      /*! no static exports found */
-      /***/ function (module, exports) {
-        throw new Error(
-          "Module build failed (from ../node_modules/babel-loader/lib/index.js):\nSyntaxError: D:\\My projects\\boyfriend\\boyfriend\\src\\js\\modules\\buyPremiumForm.js: Complex binding patterns require an initialization value (94:28)\n\n\u001b[0m \u001b[90m 92 | \u001b[39m          let total \u001b[33m=\u001b[39m response[\u001b[32m'total'\u001b[39m]\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 93 | \u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 94 | \u001b[39m          let { totalPrice }\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 95 | \u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 96 | \u001b[39m          \u001b[90m// Show price\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 97 | \u001b[39m          \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39m$priceContainer\u001b[33m.\u001b[39mtext(total)\u001b[33m;\u001b[39m\u001b[0m\n    at Parser._raise (D:\\My projects\\boyfriend\\boyfriend\\node_modules\\@babel\\parser\\lib\\index.js:757:17)\n    at Parser.raiseWithData (D:\\My projects\\boyfriend\\boyfriend\\node_modules\\@babel\\parser\\lib\\index.js:750:17)\n    at Parser.raise (D:\\My projects\\boyfriend\\boyfriend\\node_modules\\@babel\\parser\\lib\\index.js:744:17)\n    at Parser.parseVar (D:\\My projects\\boyfriend\\boyfriend\\node_modules\\@babel\\parser\\lib\\index.js:11869:16)\n    at Parser.parseVarStatement (D:\\My projects\\boyfriend\\boyfriend\\node_modules\\@babel\\parser\\lib\\index.js:11671:10)\n    at Parser.parseStatementContent (D:\\My projects\\boyfriend\\boyfriend\\node_modules\\@babel\\parser\\lib\\index.js:11270:21)\n    at Parser.parseStatement (D:\\My projects\\boyfriend\\boyfriend\\node_modules\\@babel\\parser\\lib\\index.js:11203:17)\n    at Parser.parseBlockOrModuleBlockBody (D:\\My projects\\boyfriend\\boyfriend\\node_modules\\@babel\\parser\\lib\\index.js:11778:25)\n    at Parser.parseBlockBody (D:\\My projects\\boyfriend\\boyfriend\\node_modules\\@babel\\parser\\lib\\index.js:11764:10)\n    at Parser.parseBlock (D:\\My projects\\boyfriend\\boyfriend\\node_modules\\@babel\\parser\\lib\\index.js:11748:10)"
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return BuyPremiumForm;
+          }
         );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/get */ '../node_modules/@babel/runtime/helpers/get.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__
+        );
+        /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+          /*! ./form.js */ './js/modules/form.js'
+        );
+
+        function _createSuper(Derived) {
+          var hasNativeReflectConstruct = _isNativeReflectConstruct();
+          return function _createSuperInternal() {
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+                Derived
+              ),
+              result;
+            if (hasNativeReflectConstruct) {
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+                this
+              ).constructor;
+              result = Reflect.construct(Super, arguments, NewTarget);
+            } else {
+              result = Super.apply(this, arguments);
+            }
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default()(
+              this,
+              result
+            );
+          };
+        }
+
+        function _isNativeReflectConstruct() {
+          if (typeof Reflect === 'undefined' || !Reflect.construct)
+            return false;
+          if (Reflect.construct.sham) return false;
+          if (typeof Proxy === 'function') return true;
+          try {
+            Date.prototype.toString.call(
+              Reflect.construct(Date, [], function () {})
+            );
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        var BuyPremiumForm = /*#__PURE__*/ (function (_Form) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(
+            BuyPremiumForm,
+            _Form
+          );
+
+          var _super = _createSuper(BuyPremiumForm);
+
+          function BuyPremiumForm(options) {
+            var _this;
+
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              BuyPremiumForm
+            );
+
+            _this = _super.call(this, options); // Binding context
+
+            _this.setPrice = _this.setPrice.bind(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              )
+            );
+            return _this;
+          }
+
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
+            BuyPremiumForm,
+            [
+              {
+                key: '_cacheElements',
+                value: function _cacheElements() {
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+                      BuyPremiumForm.prototype
+                    ),
+                    '_cacheElements',
+                    this
+                  ).call(this); // Price containers
+
+                  this.$cardPriceContainer = $(
+                    this.selectors['card-total-price']
+                  );
+                  this.$cardDiscountContainer = $(
+                    this.selectors['card-discount-price']
+                  );
+                  this.$priceContainer = $(this.selectors['total-price']);
+                  this.$previousPrice = $(this.selectors['previous-price']);
+                  this.$previousPriceContainer = this.$previousPrice
+                    .closest('del')
+                    .fadeOut(0); // Checkout area
+
+                  this.$checkout = this.$form
+                    .find(this.selectors.checkout)
+                    .fadeOut(0);
+                },
+              },
+              {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
+                  var _this2 = this;
+
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+                      BuyPremiumForm.prototype
+                    ),
+                    '_setUpEventListeners',
+                    this
+                  ).call(this); // Adding and removing bonuses
+
+                  this.$form
+                    .find(this.selectors['bonus-inputs'])
+                    .on('click', function (event) {
+                      var $target = $(event.target); // Get the -/+ button to remove/add bonuses
+
+                      var $buttonWrapper = $target.closest(
+                        _this2.selectors['bonus-control']
+                      );
+                      if ($buttonWrapper.length === 0) return; // Figure out what operation to perform
+
+                      var operation = $buttonWrapper.hasClass(
+                        _this2.selectors['add-bonus-input-className']
+                      )
+                        ? 'add'
+                        : 'remove'; // Find closest input group containing current button
+
+                      var $input = $target
+                        .closest(_this2.selectors['bonus-inputs'])
+                        .find(_this2.selectors.inputs); // Current input value
+
+                      var value = parseInt($input.val());
+
+                      if (operation === 'add') {
+                        $input.val(++value);
+                      } else {
+                        $input.val(--value < 0 ? 0 : value);
+                      }
+
+                      $input.trigger('input');
+                    }); // Setting price
+
+                  this.$inputs.on('input', function (event) {
+                    _this2.collectFormInputs();
+
+                    console.log(_this2.formData);
+
+                    _this2.setPrice();
+                  });
+                },
+                /**
+                 * Get price for the selected bonuses and plan from the server
+                 * 1. Set selected options as search parameters
+                 * 2. Start making request
+                 */
+              },
+              {
+                key: 'getPrice',
+                value: function getPrice(_ref) {
+                  var headers = _ref.headers,
+                    endpoint = _ref.endpoint,
+                    method = _ref.method;
+
+                  for (var name in this.formData) {
+                    endpoint.searchParams.set(name, this.formData[name]);
+                  }
+
+                  return this.makeRequest({
+                    headers: headers,
+                    endpoint: endpoint,
+                    method: method,
+                  });
+                },
+                /**
+                 * Set retrieved price for the currently selected plans and bonuses
+                 * 1. Get the price from the server
+                 *
+                 */
+              },
+              {
+                key: 'setPrice',
+                value: function setPrice() {
+                  var _this3 = this;
+
+                  var _this$requests$price = this.requests.price,
+                    headers = _this$requests$price.headers,
+                    endpoint = _this$requests$price.endpoint,
+                    method = _this$requests$price.method; // Make request to the server
+
+                  this.getPrice({
+                    headers: headers,
+                    endpoint: endpoint,
+                    method: method,
+                  })
+                    .then(function (response) {
+                      if (response.success) {
+                        var initialCardPrice = response.initialCardPrice,
+                          discountCardPrice = response.discountCardPrice,
+                          hasPromo = response.hasPromo,
+                          totalPrice = response.totalPrice,
+                          totalDiscountPrice = response.totalDiscountPrice;
+                        totalPrice > 0
+                          ? _this3.$checkout.fadeIn(400)
+                          : _this3.$checkout.fadeOut(400); // Handle promotion price
+
+                        if (hasPromo) {
+                          _this3.$priceContainer.text(totalDiscountPrice);
+
+                          _this3.$previousPrice.text(totalPrice);
+
+                          _this3.$previousPriceContainer.fadeIn(400);
+                        } else {
+                          _this3.$priceContainer.text(totalPrice);
+
+                          _this3.$previousPrice.text(0);
+
+                          _this3.$previousPriceContainer.fadeOut(400);
+                        } // Handle card payment price
+
+                        _this3.$cardPriceContainer.text(initialCardPrice);
+
+                        _this3.$cardDiscountContainer.text(discountCardPrice);
+                      } else {
+                        if (_this3.showFailPopup) {
+                          // Unsuccessful Popup
+                          _this3.showRequestResult({
+                            title: response.title,
+                            text: response.message,
+                            icon: 'error',
+                          });
+                        }
+                      }
+                    })
+                    ['catch'](function (error) {
+                      if (_this3.showFailPopup) {
+                        _this3.showRequestResult({
+                          title: error.name,
+                          text: error.message,
+                          icon: 'error',
+                        });
+                      }
+                    });
+                },
+              },
+            ]
+          );
+
+          return BuyPremiumForm;
+        })(_form_js__WEBPACK_IMPORTED_MODULE_7__['default']);
 
         /***/
       },

@@ -276,11 +276,14 @@
             >
               <i class="fas fa-money-check-alt icon"></i>
               <div class="d-inline-flex flex-column pl-4">
-                <p class="mb-0">
+                <div class="mb-0">
                   <span>Price:</span>
                   <strong class="total-price text-success">0 </strong>
-                  <span class="text-success">zł</span>
-                </p>
+                  <span class="text-success">zł </span> &nbsp;
+                  <del class="text-secondary small">
+                    <span class="previous-price">0 </span>zł
+                  </del>
+                </div>
                 <small class="d-block text-secondary">total</small>
               </div>
             </div>
@@ -682,7 +685,10 @@
                     <p class="text-secondary my-1">Total amount to pay:</p>
                     <div class="h3 mb-4">
                       <span class="total-price">0 </span>
-                      <span>zł</span>
+                      <span>zł</span> &nbsp;
+                      <del class="text-secondary small">
+                        <span class="previous-price">0 </span>zł
+                      </del>
                     </div>
                     <button
                       type="submit"
@@ -729,11 +735,11 @@
                 </h3>
                 <div class="price font-weight-normal mb-0 pt-1">
                   <span class="small text-secondary">total:</span>
-                  <span class="text-success discount-price">0 </span>
+                  <span class="text-success card-discount-price">0 </span>
                   <span class="text-success">zł</span>
                   &nbsp;
                   <del class="text-secondary small">
-                    <span class="total-price">0 </span>zł
+                    <span class="card-total-price">0 </span>zł
                   </del>
                 </div>
                 <p class="text-secondary small pt-3">
@@ -764,7 +770,10 @@
                 <div class="price font-weight-normal mb-0 pt-1">
                   <span class="small text-secondary">total:</span>
                   <span class="text-secondary total-price">0 </span>
-                  <span class="text-secondary">zł</span>
+                  <span class="text-secondary">zł</span> &nbsp;
+                  <del class="text-secondary small">
+                    <span class="previous-price">0 </span>zł
+                  </del>
                 </div>
 
                 <!--Hidden form for bank transfer start-->
@@ -783,8 +792,26 @@
                 <!--Hidden form for bank transfer end-->
               </div>
             </div>
+
             <!--Bank transfer end-->
           </div>
+
+          <!--Arrow back start-->
+          <div class="container">
+            <div class="row">
+              <div class="col-auto pt-2">
+                <div
+                  class="backward blue-link text-secondary d-flex align-items-center"
+                >
+                  <i class="material-icons">
+                    arrow_back
+                  </i>
+                  back
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Arrow back end-->
         </div>
         <!--Payment selection end-->
 
@@ -792,7 +819,7 @@
 
         <div class="form-wrapper">
           <form
-            class="row credit-card buy-premium-step mx-auto bg-white shadow-sm rounded my-4 py-5 px-3 px-sm-5"
+            class="row credit-card buy-premium-step mx-auto bg-white shadow-sm rounded mt-4 mb-1 py-5 px-3 px-sm-5"
             id="credit-card"
             data-step="2"
           >
@@ -888,7 +915,7 @@
                 id="paymentForm-checkout"
                 class="mb-2 btn btn-block btn-rounded btn-default submit"
               >
-                Pay: <span class="total-price">0 </span>zł / month
+                Pay: <span class="card-discount-price">0 </span>zł / month
               </button>
               <p class="text-center small text-secondary">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -896,6 +923,23 @@
             </div>
             <!--Submission button end-->
           </form>
+
+          <!--Arrow back start-->
+          <div class="container px-0">
+            <div class="row no-gutters">
+              <div class="col-auto p-0">
+                <div
+                  class="backward blue-link text-secondary d-flex align-items-center"
+                >
+                  <i class="material-icons">
+                    arrow_back
+                  </i>
+                  back
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Arrow back end-->
         </div>
         <!--Card payment input end-->
       </div>
@@ -1059,8 +1103,10 @@
             // + and - buttons to add/remove bonuses
             'bonus-control': '.bonus-control',
             'add-bonus-input-className': 'input-group-append',
-            price: '.total-price',
-            'card-payment-price': '.discount-price',
+            'card-total-price': '.card-total-price',
+            'card-discount-price': '.card-discount-price',
+            'total-price': '.total-price',
+            'previous-price': '.previous-price',
             checkout: '.plan-and-bonuses-checkout',
             loading: {
               spinnerTemplateId: 'spinner-template',
@@ -1158,6 +1204,7 @@
             formsContainer: '#checkout',
             forms: '.buy-premium-step',
             forward: '.forward',
+            backward: '.backward',
             wrapper: '.form-wrapper',
           },
         });
