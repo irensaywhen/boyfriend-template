@@ -11,7 +11,6 @@ export default class Bonus extends ServerRequest {
     this._cacheElements = this._cacheElements.bind(this);
     this._setUpEventListeners = this._setUpEventListeners.bind(this);
     this._useBonus = this._useBonus.bind(this);
-    this._prepareBonusUsage = this._prepareBonusUsage.bind(this);
   }
 
   _cacheElements() {
@@ -27,49 +26,41 @@ export default class Bonus extends ServerRequest {
   }
 
   _setUpEventListeners() {
-    // Why the function is being called here?
-    //this.$bonus.click(() => this._startUsingBonus());
-    this.$bonus.click(async () => {
-      if (this.activated && !this.finished) {
-        // If the bonus has already been activated and not finished yet
-        // Forbid any actions with it
-        return;
-      } else if (this.amount === 0) {
+    /**
+     * When the bonus is clicked:
+     * 1. Check if there are any bonuses available
+     * if not, propose buying some
+     * 2. If there are bonuses available, delegate starting bonuses usage to their
+     * specific classes
+     */
+    this.$bonus.click(() => {
+      if (this.amount === 0) {
         // Fire alert
         this.fireBuyingAlert(this.popups.buy).then(result => {
           if (result.isConfirmed) {
-            // Redirect to buying page in case of the user approvement
+            // Redirect to buying page
             window.location.href = this.redirect;
           }
         });
       } else {
-        // If there are bonuses available
-
-        // Negotiate bonus usage with the server
-        let approved = await this._prepareBonusUsage();
-
-        if (approved) {
-          // Start bonus usage
-          this._useBonus();
-        }
+        $(document).trigger('bonus:startUsage');
       }
     });
   }
 
-  _proposeBuyingBonus() {
-    // Fire alert
-    this.fireBuyingAlert(this.popups.buy).then(result => {
-      if (result.isConfirmed) {
-        // Redirect to buying page in case of the user approvement
-        window.location.href = this.redirect;
-      }
-    });
-  }
-
+  /**
+   * Update amount of bonuses in the each specific class
+   * and on markup data-attribute
+   */
   _decreaseBonusAmountAvailable() {
     this.$bonus.attr('data-amount', --this.amount);
   }
 
+  /**
+   * Update visual parts of the bonus amount:
+   * 1. The text showcasing how many bonuses the user have
+   * 2. The text (red if no bonuses available, green if there are at least one bonus)
+   */
   _updateAmountOnMarkup() {
     // Update visual indicator of amount
     this.$amount.text(this.amount);

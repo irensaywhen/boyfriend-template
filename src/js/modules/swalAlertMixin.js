@@ -95,7 +95,13 @@ export default {
       imageWidth: '150px',
       imageHeight: '150px',
       showLoaderOnConfirm: true,
-      // Request telling the server thas user wants to use the bonus
+      /**
+       * After the user confirms that he wants to use bonus:
+       * 1. Make a request to the server
+       * 2. In case of successful response:
+       *  1) Show popup depending on the value of 'success'
+       *  2) Return recieved data
+       */
       preConfirm: () => {
         let { headers, endpoint, method, body } = this.requests.use;
         return fetch(endpoint, {
@@ -115,37 +121,24 @@ export default {
       },
       allowOutsideClick: () => !Swal.isLoading(),
     }).then(result => {
-      if (result.value) {
-        // If the server answered
-        let json = result.value;
+      let json = result.value;
 
-        if (json.success) {
-          // If the server approved bonus usage
-          // Show popup about success
-          this.showRequestResult({
-            title: json.title,
-            text: json.message,
-            icon: 'success',
-          });
-        } else {
-          // If the server restricted bonus usage
-          // Show success about error
-          this.showRequestResult({
-            title: json.title,
-            text: json.message,
-            icon: 'error',
-          });
-        }
+      if (json) {
+        let { title, text, success } = result.value;
+
+        // Set the icon for popup
+        let icon = success ? 'success' : 'error';
+
+        // Show request result
+        this.showRequestResult({ title, text, icon });
 
         // Maybe change to switch statement when other bonuses will be added
         if (this.type === 'boost') {
           return {
-            approved: json.success,
+            approved: success,
             title: json.title,
             message: json.message,
             timestamp: json.timestamp,
-            expirationTitle: json.expirationTitle,
-            expirationMessage: json.expirationMessage,
           };
         }
       } else {

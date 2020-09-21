@@ -19846,74 +19846,62 @@
             return Bonus;
           }
         );
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-          /*! @babel/runtime/regenerator */ '../node_modules/@babel/runtime/regenerator/index.js'
-        );
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-          /*! @babel/runtime/helpers/asyncToGenerator */ '../node_modules/@babel/runtime/helpers/asyncToGenerator.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__
-        );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
           /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
           /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__
         );
-        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./requests.js */ './js/modules/requests.js'
         );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
           return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
                 Derived
               ),
               result;
             if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
                 this
               ).constructor;
               result = Reflect.construct(Super, arguments, NewTarget);
             } else {
               result = Super.apply(this, arguments);
             }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default()(
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default()(
               this,
               result
             );
@@ -19936,7 +19924,7 @@
         }
 
         var Bonus = /*#__PURE__*/ (function (_ServerRequest) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default()(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default()(
             Bonus,
             _ServerRequest
           );
@@ -19946,7 +19934,7 @@
           function Bonus(options) {
             var _this;
 
-            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               Bonus
             );
@@ -19956,29 +19944,24 @@
             _this.popups = options.popups; // Bind context
 
             _this._cacheElements = _this._cacheElements.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
                 _this
               )
             );
             _this._setUpEventListeners = _this._setUpEventListeners.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
                 _this
               )
             );
             _this._useBonus = _this._useBonus.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
-                _this
-              )
-            );
-            _this._prepareBonusUsage = _this._prepareBonusUsage.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
                 _this
               )
             );
             return _this;
           }
 
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
             Bonus,
             [
               {
@@ -19999,92 +19982,44 @@
                 value: function _setUpEventListeners() {
                   var _this2 = this;
 
-                  // Why the function is being called here?
-                  //this.$bonus.click(() => this._startUsingBonus());
-                  this.$bonus.click(
-                    /*#__PURE__*/ _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                      /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                        function _callee() {
-                          var approved;
-                          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                            function _callee$(_context) {
-                              while (1) {
-                                switch ((_context.prev = _context.next)) {
-                                  case 0:
-                                    if (
-                                      !(_this2.activated && !_this2.finished)
-                                    ) {
-                                      _context.next = 4;
-                                      break;
-                                    }
-
-                                    return _context.abrupt('return');
-
-                                  case 4:
-                                    if (!(_this2.amount === 0)) {
-                                      _context.next = 8;
-                                      break;
-                                    }
-
-                                    // Fire alert
-                                    _this2
-                                      .fireBuyingAlert(_this2.popups.buy)
-                                      .then(function (result) {
-                                        if (result.isConfirmed) {
-                                          // Redirect to buying page in case of the user approvement
-                                          window.location.href =
-                                            _this2.redirect;
-                                        }
-                                      });
-
-                                    _context.next = 12;
-                                    break;
-
-                                  case 8:
-                                    _context.next = 10;
-                                    return _this2._prepareBonusUsage();
-
-                                  case 10:
-                                    approved = _context.sent;
-
-                                    if (approved) {
-                                      // Start bonus usage
-                                      _this2._useBonus();
-                                    }
-
-                                  case 12:
-                                  case 'end':
-                                    return _context.stop();
-                                }
-                              }
-                            },
-                            _callee
-                          );
-                        }
-                      )
-                    )
-                  );
-                },
-              },
-              {
-                key: '_proposeBuyingBonus',
-                value: function _proposeBuyingBonus() {
-                  var _this3 = this;
-
-                  // Fire alert
-                  this.fireBuyingAlert(this.popups.buy).then(function (result) {
-                    if (result.isConfirmed) {
-                      // Redirect to buying page in case of the user approvement
-                      window.location.href = _this3.redirect;
+                  /**
+                   * When the bonus is clicked:
+                   * 1. Check if there are any bonuses available
+                   * if not, propose buying some
+                   * 2. If there are bonuses available, delegate starting bonuses usage to their
+                   * specific classes
+                   */
+                  this.$bonus.click(function () {
+                    if (_this2.amount === 0) {
+                      // Fire alert
+                      _this2
+                        .fireBuyingAlert(_this2.popups.buy)
+                        .then(function (result) {
+                          if (result.isConfirmed) {
+                            // Redirect to buying page
+                            window.location.href = _this2.redirect;
+                          }
+                        });
+                    } else {
+                      $(document).trigger('bonus:startUsage');
                     }
                   });
                 },
+                /**
+                 * Update amount of bonuses in the each specific class
+                 * and on markup data-attribute
+                 */
               },
               {
                 key: '_decreaseBonusAmountAvailable',
                 value: function _decreaseBonusAmountAvailable() {
                   this.$bonus.attr('data-amount', --this.amount);
                 },
+                /**
+                 * Update visual parts of the bonus amount:
+                 * 1. The text showcasing how many bonuses the user have
+                 * 2. The text (red if no bonuses available, green if there are at least one bonus)
+                 */
               },
               {
                 key: '_updateAmountOnMarkup',
@@ -20104,7 +20039,7 @@
           );
 
           return Bonus;
-        })(_requests_js__WEBPACK_IMPORTED_MODULE_8__['default']);
+        })(_requests_js__WEBPACK_IMPORTED_MODULE_6__['default']);
 
         /***/
       },
@@ -20283,6 +20218,8 @@
               {
                 key: '_setUpEventListeners',
                 value: function _setUpEventListeners() {
+                  var _this2 = this;
+
                   _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
                     _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
                       Boost.prototype
@@ -20290,6 +20227,85 @@
                     '_setUpEventListeners',
                     this
                   ).call(this);
+                  /**
+                   * If there are at least one bonus available, handle its usage
+                   * 1. If the boost is activated, don't do anything
+                   * 2. If the boost is not activated:
+                   *  1) Choose between 'use' and 'expire' popup.
+                   *     - Show use popup when the user activates boost for the first time
+                   *     - Show expire popup when the popup was expired
+                   *       and the user is being asked about reusing it
+                   *  2) Get the approvement and the timestamp from the server
+                   *  3) If the usage is approved:
+                   *     - Start using the boost
+                   *  4) If the usage is not approved:
+                   *     - Hide timer
+                   *     - Deactivate boost
+                   */
+
+                  $(document).on(
+                    'bonus:startUsage',
+                    /*#__PURE__*/ _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
+                      /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
+                        function _callee() {
+                          var approved, timestamp, popup, _yield$_this2$askUsag;
+
+                          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
+                            function _callee$(_context) {
+                              while (1) {
+                                switch ((_context.prev = _context.next)) {
+                                  case 0:
+                                    if (
+                                      !(_this2.activated && !_this2.finished)
+                                    ) {
+                                      _context.next = 2;
+                                      break;
+                                    }
+
+                                    return _context.abrupt('return');
+
+                                  case 2:
+                                    // Choose config for popup
+                                    if (!_this2.activated && !_this2.finished) {
+                                      popup = _this2.popups.use;
+                                    } else if (
+                                      _this2.activated &&
+                                      _this2.finished
+                                    ) {
+                                      popup = _this2.popups.expire;
+                                    } // Get expiration timestamp and approvement from the server
+
+                                    _context.next = 5;
+                                    return _this2.askUsageApprovement(popup);
+
+                                  case 5:
+                                    _yield$_this2$askUsag = _context.sent;
+                                    approved = _yield$_this2$askUsag.approved;
+                                    timestamp = _yield$_this2$askUsag.timestamp;
+
+                                    if (approved) {
+                                      _this2.countDownTime = timestamp;
+
+                                      _this2._useBonus();
+                                    } else {
+                                      if (_this2.activated && _this2.finished)
+                                        _this2.$timer.fadeOut(400);
+                                      _this2.activated = false;
+                                      _this2.finished = false;
+                                    }
+
+                                  case 9:
+                                  case 'end':
+                                    return _context.stop();
+                                }
+                              }
+                            },
+                            _callee
+                          );
+                        }
+                      )
+                    )
+                  );
                 },
               },
               {
@@ -20302,129 +20318,30 @@
                   this._decreaseBonusAmountAvailable(); // Start timer
 
                   this._startTimer();
-                }, // In this function, we're asking the server to approve bonus usage
-              },
-              {
-                key: '_prepareBonusUsage',
-                value: (function () {
-                  var _prepareBonusUsage2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee() {
-                        var approved,
-                          timestamp,
-                          expirationTitle,
-                          expirationMessage,
-                          _yield$this$askUsageA,
-                          _yield$this$askUsageA2;
-
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee$(_context) {
-                            while (1) {
-                              switch ((_context.prev = _context.next)) {
-                                case 0:
-                                  if (!(!this.activated && !this.finished)) {
-                                    _context.next = 10;
-                                    break;
-                                  }
-
-                                  _context.next = 3;
-                                  return this.askUsageApprovement(
-                                    this.popups.use
-                                  );
-
-                                case 3:
-                                  _yield$this$askUsageA = _context.sent;
-                                  approved = _yield$this$askUsageA.approved;
-                                  timestamp = _yield$this$askUsageA.timestamp;
-                                  expirationTitle =
-                                    _yield$this$askUsageA.expirationTitle;
-                                  expirationMessage =
-                                    _yield$this$askUsageA.expirationMessage;
-                                  _context.next = 19;
-                                  break;
-
-                                case 10:
-                                  if (!(this.activated && this.finished)) {
-                                    _context.next = 19;
-                                    break;
-                                  }
-
-                                  _context.next = 13;
-                                  return this.askUsageApprovement(
-                                    this.popups.expire
-                                  );
-
-                                case 13:
-                                  _yield$this$askUsageA2 = _context.sent;
-                                  approved = _yield$this$askUsageA2.approved;
-                                  timestamp = _yield$this$askUsageA2.timestamp;
-                                  expirationTitle =
-                                    _yield$this$askUsageA2.expirationTitle;
-                                  expirationMessage =
-                                    _yield$this$askUsageA2.expirationMessage;
-
-                                  if (!approved) {
-                                    // If the user don't want to use boost again
-                                    // Hide the timer
-                                    this.$timer.fadeOut(400);
-                                  }
-
-                                case 19:
-                                  if (approved) {
-                                    // If the boost usage was approved by the server
-                                    // Save timestamp
-                                    this.countDownTime = timestamp;
-                                  } else {
-                                    // If the boost usage wasn't approved by the server
-                                    // Discard boost state
-                                    this.activated = false;
-                                    this.finished = false;
-                                  }
-
-                                  return _context.abrupt('return', approved);
-
-                                case 21:
-                                case 'end':
-                                  return _context.stop();
-                              }
-                            }
-                          },
-                          _callee,
-                          this
-                        );
-                      }
-                    )
-                  );
-
-                  function _prepareBonusUsage() {
-                    return _prepareBonusUsage2.apply(this, arguments);
-                  }
-
-                  return _prepareBonusUsage;
-                })(),
+                },
               },
               {
                 key: '_startTimer',
                 value: function _startTimer() {
-                  var _this2 = this;
+                  var _this3 = this;
 
                   var intervalId = setInterval(function () {
                     // Get today's date and time
                     var now = new Date().getTime(); // Find the distance between now and the count down date
 
-                    var distance = _this2.countDownTime - now; // If the count down is finished
+                    var distance = _this3.countDownTime - now; // If the count down is finished
 
                     if (distance <= 1000) {
-                      _this2._displayTime(0, 0, 0);
+                      _this3._displayTime(0, 0, 0);
 
                       clearInterval(intervalId); // Change the state of the bonus
 
-                      _this2.activated = true;
-                      _this2.finished = true; // Clear timestamp
+                      _this3.activated = true;
+                      _this3.finished = true; // Clear timestamp
 
-                      _this2.timestamp = null; // Ask user to use more
+                      _this3.timestamp = null; // Ask user to use more
 
-                      _this2.$bonus.click();
+                      _this3.$bonus.click();
                     } // Time calculations for hours, minutes and seconds
 
                     var hours = Math.floor(
@@ -20435,9 +20352,9 @@
                     );
                     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                    _this2._displayTime(hours, minutes, seconds);
+                    _this3._displayTime(hours, minutes, seconds);
 
-                    _this2.$timer.fadeIn(400);
+                    _this3.$timer.fadeIn(400);
                   }, 1000);
                 },
               },
@@ -27324,7 +27241,14 @@
                 imageWidth: '150px',
                 imageHeight: '150px',
                 showLoaderOnConfirm: true,
-                // Request telling the server thas user wants to use the bonus
+
+                /**
+                 * After the user confirms that he wants to use bonus:
+                 * 1. Make a request to the server
+                 * 2. In case of successful response:
+                 *  1) Show popup depending on the value of 'success'
+                 *  2) Return recieved data
+                 */
                 preConfirm: function preConfirm() {
                   var _this2$requests$use = _this2.requests.use,
                     headers = _this2$requests$use.headers,
@@ -27354,36 +27278,28 @@
                 },
               })
               .then(function (result) {
-                if (result.value) {
-                  // If the server answered
-                  var json = result.value;
+                var json = result.value;
 
-                  if (json.success) {
-                    // If the server approved bonus usage
-                    // Show popup about success
-                    _this2.showRequestResult({
-                      title: json.title,
-                      text: json.message,
-                      icon: 'success',
-                    });
-                  } else {
-                    // If the server restricted bonus usage
-                    // Show success about error
-                    _this2.showRequestResult({
-                      title: json.title,
-                      text: json.message,
-                      icon: 'error',
-                    });
-                  } // Maybe change to switch statement when other bonuses will be added
+                if (json) {
+                  var _result$value = result.value,
+                    _title = _result$value.title,
+                    _text = _result$value.text,
+                    success = _result$value.success; // Set the icon for popup
+
+                  var _icon = success ? 'success' : 'error'; // Show request result
+
+                  _this2.showRequestResult({
+                    title: _title,
+                    text: _text,
+                    icon: _icon,
+                  }); // Maybe change to switch statement when other bonuses will be added
 
                   if (_this2.type === 'boost') {
                     return {
-                      approved: json.success,
+                      approved: success,
                       title: json.title,
                       message: json.message,
                       timestamp: json.timestamp,
-                      expirationTitle: json.expirationTitle,
-                      expirationMessage: json.expirationMessage,
                     };
                   }
                 } else {
