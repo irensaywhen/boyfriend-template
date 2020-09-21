@@ -23242,9 +23242,7 @@
                 /**
                  * After the user confirms that he wants to use bonus:
                  * 1. Make a request to the server
-                 * 2. In case of successful response:
-                 *  1) Show popup depending on the value of 'success'
-                 *  2) Return recieved data
+                 * 2. If the server is responded, return the response
                  */
                 preConfirm: function preConfirm() {
                   var _this2$requests$use = _this2.requests.use,
@@ -23275,35 +23273,15 @@
                 },
               })
               .then(function (result) {
-                var json = result.value;
-
-                if (json) {
-                  var _result$value = result.value,
-                    _title = _result$value.title,
-                    _text = _result$value.text,
-                    success = _result$value.success; // Set the icon for popup
-
-                  var _icon = success ? 'success' : 'error'; // Show request result
-
-                  _this2.showRequestResult({
-                    title: _title,
-                    text: _text,
-                    icon: _icon,
-                  }); // Maybe change to switch statement when other bonuses will be added
-
-                  if (_this2.type === 'boost') {
-                    return {
-                      approved: success,
-                      title: json.title,
-                      message: json.message,
-                      timestamp: json.timestamp,
-                    };
-                  }
-                } else {
-                  return {
-                    approved: false,
-                  };
-                }
+                return result.value;
+              })
+              ['catch'](function (error) {
+                // Handle errors here
+                _this2.showRequestResult({
+                  title: error.name,
+                  text: error.message,
+                  icon: 'error',
+                });
               });
           },
         };

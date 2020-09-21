@@ -20059,80 +20059,68 @@
             return Boost;
           }
         );
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-          /*! @babel/runtime/regenerator */ '../node_modules/@babel/runtime/regenerator/index.js'
-        );
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-          /*! @babel/runtime/helpers/asyncToGenerator */ '../node_modules/@babel/runtime/helpers/asyncToGenerator.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__
-        );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
           /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
           /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
         );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! @babel/runtime/helpers/get */ '../node_modules/@babel/runtime/helpers/get.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__
         );
-        /* harmony import */ var _bonus_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+        /* harmony import */ var _bonus_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./bonus.js */ './js/modules/bonus.js'
         );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
           return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                 Derived
               ),
               result;
             if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                 this
               ).constructor;
               result = Reflect.construct(Super, arguments, NewTarget);
             } else {
               result = Super.apply(this, arguments);
             }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default()(
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default()(
               this,
               result
             );
@@ -20155,7 +20143,7 @@
         }
 
         var Boost = /*#__PURE__*/ (function (_Bonus) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default()(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(
             Boost,
             _Bonus
           );
@@ -20165,7 +20153,7 @@
           function Boost(options) {
             var _this;
 
-            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               Boost
             );
@@ -20174,7 +20162,7 @@
             _this.type = 'boost'; // Bind context
 
             _this._displayTime = _this._displayTime.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
                 _this
               )
             ); // Save initial state of the boost
@@ -20189,14 +20177,14 @@
             return _this;
           }
 
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
             Boost,
             [
               {
                 key: '_cacheElements',
                 value: function _cacheElements() {
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                       Boost.prototype
                     ),
                     '_cacheElements',
@@ -20220,8 +20208,8 @@
                 value: function _setUpEventListeners() {
                   var _this2 = this;
 
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                       Boost.prototype
                     ),
                     '_setUpEventListeners',
@@ -20236,6 +20224,7 @@
                    *     - Show expire popup when the popup was expired
                    *       and the user is being asked about reusing it
                    *  2) Get the approvement and the timestamp from the server
+                   *     - Check timestamp for validity. If it is invalid, throw error
                    *  3) If the usage is approved:
                    *     - Start using the boost
                    *  4) If the usage is not approved:
@@ -20243,69 +20232,56 @@
                    *     - Deactivate boost
                    */
 
-                  $(document).on(
-                    'bonus:startUsage',
-                    /*#__PURE__*/ _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                      /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                        function _callee() {
-                          var approved, timestamp, popup, _yield$_this2$askUsag;
+                  $(document).on('bonus:startUsage', function () {
+                    if (_this2.activated && !_this2.finished) return; // Choose config for popup
 
-                          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                            function _callee$(_context) {
-                              while (1) {
-                                switch ((_context.prev = _context.next)) {
-                                  case 0:
-                                    if (
-                                      !(_this2.activated && !_this2.finished)
-                                    ) {
-                                      _context.next = 2;
-                                      break;
-                                    }
+                    if (!_this2.activated && !_this2.finished) {
+                      var popup = _this2.popups.use;
+                    } else if (_this2.activated && _this2.finished) {
+                      var popup = _this2.popups.expire;
+                    }
 
-                                    return _context.abrupt('return');
+                    _this2
+                      .askUsageApprovement(popup)
+                      .then(function (result) {
+                        if (!result) return;
+                        var success = result.success,
+                          title = result.title,
+                          text = result.text,
+                          timestamp = result.timestamp; // Temporary use Date object here
+                        // Handle the case with negative timestamp
 
-                                  case 2:
-                                    // Choose config for popup
-                                    if (!_this2.activated && !_this2.finished) {
-                                      popup = _this2.popups.use;
-                                    } else if (
-                                      _this2.activated &&
-                                      _this2.finished
-                                    ) {
-                                      popup = _this2.popups.expire;
-                                    } // Get expiration timestamp and approvement from the server
+                        var distance = timestamp - new Date().getTime();
+                        if (distance <= 0)
+                          throw new RangeError('Negative time!'); // Set icon and show popup with it
 
-                                    _context.next = 5;
-                                    return _this2.askUsageApprovement(popup);
+                        var icon = success ? 'success' : 'error';
 
-                                  case 5:
-                                    _yield$_this2$askUsag = _context.sent;
-                                    approved = _yield$_this2$askUsag.approved;
-                                    timestamp = _yield$_this2$askUsag.timestamp;
+                        _this2.showRequestResult({
+                          title: title,
+                          text: text,
+                          icon: icon,
+                        });
 
-                                    if (approved) {
-                                      _this2.countDownTime = timestamp;
+                        if (success) {
+                          _this2.countDownTime = timestamp;
 
-                                      _this2._useBonus();
-                                    } else {
-                                      if (_this2.activated && _this2.finished)
-                                        _this2.$timer.fadeOut(400);
-                                      _this2.activated = false;
-                                      _this2.finished = false;
-                                    }
-
-                                  case 9:
-                                  case 'end':
-                                    return _context.stop();
-                                }
-                              }
-                            },
-                            _callee
-                          );
+                          _this2._useBonus();
+                        } else {
+                          if (_this2.activated && _this2.finished)
+                            _this2.$timer.fadeOut(400);
+                          _this2.activated = false;
+                          _this2.finished = false;
                         }
-                      )
-                    )
-                  );
+                      })
+                      ['catch'](function (error) {
+                        _this2.showRequestResult({
+                          title: error.name,
+                          text: error.message,
+                          icon: 'error',
+                        });
+                      });
+                  });
                 },
               },
               {
@@ -20379,7 +20355,7 @@
           );
 
           return Boost;
-        })(_bonus_js__WEBPACK_IMPORTED_MODULE_9__['default']);
+        })(_bonus_js__WEBPACK_IMPORTED_MODULE_7__['default']);
 
         /***/
       },
@@ -27245,9 +27221,7 @@
                 /**
                  * After the user confirms that he wants to use bonus:
                  * 1. Make a request to the server
-                 * 2. In case of successful response:
-                 *  1) Show popup depending on the value of 'success'
-                 *  2) Return recieved data
+                 * 2. If the server is responded, return the response
                  */
                 preConfirm: function preConfirm() {
                   var _this2$requests$use = _this2.requests.use,
@@ -27278,35 +27252,15 @@
                 },
               })
               .then(function (result) {
-                var json = result.value;
-
-                if (json) {
-                  var _result$value = result.value,
-                    _title = _result$value.title,
-                    _text = _result$value.text,
-                    success = _result$value.success; // Set the icon for popup
-
-                  var _icon = success ? 'success' : 'error'; // Show request result
-
-                  _this2.showRequestResult({
-                    title: _title,
-                    text: _text,
-                    icon: _icon,
-                  }); // Maybe change to switch statement when other bonuses will be added
-
-                  if (_this2.type === 'boost') {
-                    return {
-                      approved: success,
-                      title: json.title,
-                      message: json.message,
-                      timestamp: json.timestamp,
-                    };
-                  }
-                } else {
-                  return {
-                    approved: false,
-                  };
-                }
+                return result.value;
+              })
+              ['catch'](function (error) {
+                // Handle errors here
+                _this2.showRequestResult({
+                  title: error.name,
+                  text: error.message,
+                  icon: 'error',
+                });
               });
           },
         };

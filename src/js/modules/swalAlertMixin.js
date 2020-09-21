@@ -98,9 +98,7 @@ export default {
       /**
        * After the user confirms that he wants to use bonus:
        * 1. Make a request to the server
-       * 2. In case of successful response:
-       *  1) Show popup depending on the value of 'success'
-       *  2) Return recieved data
+       * 2. If the server is responded, return the response
        */
       preConfirm: () => {
         let { headers, endpoint, method, body } = this.requests.use;
@@ -120,30 +118,15 @@ export default {
           });
       },
       allowOutsideClick: () => !Swal.isLoading(),
-    }).then(result => {
-      let json = result.value;
-
-      if (json) {
-        let { title, text, success } = result.value;
-
-        // Set the icon for popup
-        let icon = success ? 'success' : 'error';
-
-        // Show request result
-        this.showRequestResult({ title, text, icon });
-
-        // Maybe change to switch statement when other bonuses will be added
-        if (this.type === 'boost') {
-          return {
-            approved: success,
-            title: json.title,
-            message: json.message,
-            timestamp: json.timestamp,
-          };
-        }
-      } else {
-        return { approved: false };
-      }
-    });
+    })
+      .then(result => result.value)
+      .catch(error => {
+        // Handle errors here
+        this.showRequestResult({
+          title: error.name,
+          text: error.message,
+          icon: 'error',
+        });
+      });
   },
 };

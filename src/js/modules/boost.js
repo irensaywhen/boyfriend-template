@@ -42,36 +42,54 @@ export default class Boost extends Bonus {
      *     - Show expire popup when the popup was expired
      *       and the user is being asked about reusing it
      *  2) Get the approvement and the timestamp from the server
+     *     - Check timestamp for validity. If it is invalid, throw error
      *  3) If the usage is approved:
      *     - Start using the boost
      *  4) If the usage is not approved:
      *     - Hide timer
      *     - Deactivate boost
      */
-    $(document).on('bonus:startUsage', async () => {
+    $(document).on('bonus:startUsage', () => {
       if (this.activated && !this.finished) return;
-
-      let approved, timestamp, popup;
 
       // Choose config for popup
       if (!this.activated && !this.finished) {
-        popup = this.popups.use;
+        var popup = this.popups.use;
       } else if (this.activated && this.finished) {
-        popup = this.popups.expire;
+        var popup = this.popups.expire;
       }
 
-      // Get expiration timestamp and approvement from the server
-      ({ approved, timestamp } = await this.askUsageApprovement(popup));
+      this.askUsageApprovement(popup)
+        .then(result => {
+          if (!result) return;
 
-      if (approved) {
-        this.countDownTime = timestamp;
-        this._useBonus();
-      } else {
-        if (this.activated && this.finished) this.$timer.fadeOut(400);
+          let { success, title, text, timestamp } = result;
+          // Temporary use Date object here
+          // Handle the case with negative timestamp
+          let distance = timestamp - new Date().getTime();
+          if (distance <= 0) throw new RangeError('Negative time!');
 
-        this.activated = false;
-        this.finished = false;
-      }
+          // Set icon and show popup with it
+          let icon = success ? 'success' : 'error';
+          this.showRequestResult({ title, text, icon });
+
+          if (success) {
+            this.countDownTime = timestamp;
+            this._useBonus();
+          } else {
+            if (this.activated && this.finished) this.$timer.fadeOut(400);
+
+            this.activated = false;
+            this.finished = false;
+          }
+        })
+        .catch(error => {
+          this.showRequestResult({
+            title: error.name,
+            text: error.message,
+            icon: 'error',
+          });
+        });
     });
   }
 
