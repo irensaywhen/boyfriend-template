@@ -53,6 +53,17 @@
     </div>
     <!--Loader end-->
 
+    <!--Spinner template start-->
+    <template id="spinner-template">
+      <span
+        class="spinner-border spinner-border-sm mr-1"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      <span class="sr-only">Loading...</span>
+    </template>
+    <!--Spinner template end-->
+
     <!-- sidebar -->
     <div class="sidebar">
       <div class="text-center">
@@ -495,7 +506,7 @@
                               type="text"
                               name="super-like"
                               id="super-like"
-                              class="form-control w-35 buy-premium-input"
+                              class="form-control w-35 buy-premium-input preserve"
                               value="0"
                             />
 
@@ -566,7 +577,7 @@
                               type="text"
                               name="boost"
                               id="boost"
-                              class="form-control w-35 buy-premium-input"
+                              class="form-control w-35 buy-premium-input preserve"
                               value="0"
                             />
 
@@ -637,7 +648,7 @@
                               type="text"
                               name="photo-card"
                               id="photo-card"
-                              class="form-control w-35 buy-premium-input"
+                              class="form-control w-35 buy-premium-input preserve"
                               value="0"
                             />
 
@@ -675,6 +686,7 @@
                     </div>
                     <button
                       type="submit"
+                      id="buyPremium-checkout"
                       class="mb-2 mx-auto btn btn-block btn-lg btn-rounded btn-default"
                     >
                       Checkout <i class="material-icons">arrow_forward</i>
@@ -873,6 +885,7 @@
             <div class="col-12 col-lg-8 offset-lg-2 py-4">
               <button
                 type="submit"
+                id="paymentForm-checkout"
                 class="mb-2 btn btn-block btn-rounded btn-default submit"
               >
                 Pay: <span class="total-price">0 </span>zł / month
@@ -1009,12 +1022,29 @@
                 'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus',
             },
           },
-          popupData: {
-            title: 'Do you want to use boost?',
-            confirmButtonText: 'Yes!',
-            cancelButtonText: 'No',
-            imageUrl: 'img/boost.svg',
-            imageAlt: 'Boost icon',
+          popups: {
+            buy: {
+              title: 'Oops!',
+              text:
+                "You don't have any photo bonuses available. Do you want to buy some?",
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+            },
+            use: {
+              title: 'Do you want to use boost?',
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+              imageUrl: 'img/boost.svg',
+              imageAlt: 'Boost icon',
+            },
+            expire: {
+              title: 'Oops! Your boost expired!',
+              text: 'Do you want to activate it again?',
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+              imageUrl: 'img/boost.svg',
+              imageAlt: 'Boost icon',
+            },
           },
         });
 
@@ -1032,6 +1062,12 @@
             price: '.total-price',
             'card-payment-price': '.discount-price',
             checkout: '.plan-and-bonuses-checkout',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#buyPremium-checkout',
+              spinner: '.spinner-border',
+              text: 'Saving avatar...',
+            },
           },
           requests: {
             price: {
@@ -1069,6 +1105,12 @@
             form: '#credit-card',
             'input-wrapper': '.form-group',
             inputs: '.payment-input',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#paymentForm-checkout',
+              spinner: '.spinner-border',
+              text: 'Saving avatar...',
+            },
           },
           requests: {
             submit: {

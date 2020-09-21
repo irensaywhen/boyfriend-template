@@ -6,8 +6,6 @@ export default class BuyPremiumForm extends Form {
 
     // Binding context
     this.setPrice = this.setPrice.bind(this);
-
-    this.$checkout.fadeOut(0);
   }
 
   _cacheElements() {
@@ -18,15 +16,17 @@ export default class BuyPremiumForm extends Form {
     this.$discountContainer = $(this.selectors['card-payment-price']);
 
     // Checkout area
-    this.$checkout = this.$form.find(this.selectors.checkout);
+    this.$checkout = this.$form.find(this.selectors.checkout).fadeOut(0);
   }
 
   _setUpEventListeners() {
     super._setUpEventListeners();
 
-    // Additiong and removing bonuses
+    // Adding and removing bonuses
     this.$form.find(this.selectors['bonus-inputs']).on('click', event => {
       let $target = $(event.target);
+
+      // Get the -/+ button to remove/add bonuses
       let $buttonWrapper = $target.closest(this.selectors['bonus-control']);
 
       if ($buttonWrapper.length === 0) return;
@@ -58,6 +58,7 @@ export default class BuyPremiumForm extends Form {
     // Setting price
     this.$inputs.on('input', event => {
       this.collectFormInputs();
+      console.log(this.formData);
 
       this.setPrice();
     });

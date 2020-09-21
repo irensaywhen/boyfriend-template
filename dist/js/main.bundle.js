@@ -20721,7 +20721,9 @@
                     })
                     .ready(function () {
                       _this2.$inputs.each(function (index, elem) {
-                        if ($(elem).is('select')) return;
+                        var $elem = $(elem);
+                        if ($elem.is('select') || $elem.hasClass('preserve'))
+                          return;
                         elem.value = '';
                       });
                     });

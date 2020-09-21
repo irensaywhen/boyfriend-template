@@ -20496,9 +20496,6 @@
                 _this
               )
             );
-
-            _this.$checkout.fadeOut(0);
-
             return _this;
           }
 
@@ -20521,7 +20518,9 @@
                     this.selectors['card-payment-price']
                   ); // Checkout area
 
-                  this.$checkout = this.$form.find(this.selectors.checkout);
+                  this.$checkout = this.$form
+                    .find(this.selectors.checkout)
+                    .fadeOut(0);
                 },
               },
               {
@@ -20535,12 +20534,13 @@
                     ),
                     '_setUpEventListeners',
                     this
-                  ).call(this); // Additiong and removing bonuses
+                  ).call(this); // Adding and removing bonuses
 
                   this.$form
                     .find(this.selectors['bonus-inputs'])
                     .on('click', function (event) {
-                      var $target = $(event.target);
+                      var $target = $(event.target); // Get the -/+ button to remove/add bonuses
+
                       var $buttonWrapper = $target.closest(
                         _this2.selectors['bonus-control']
                       );
@@ -20569,6 +20569,8 @@
 
                   this.$inputs.on('input', function (event) {
                     _this2.collectFormInputs();
+
+                    console.log(_this2.formData);
 
                     _this2.setPrice();
                   });
@@ -22629,7 +22631,9 @@
                     })
                     .ready(function () {
                       _this2.$inputs.each(function (index, elem) {
-                        if ($(elem).is('select')) return;
+                        var $elem = $(elem);
+                        if ($elem.is('select') || $elem.hasClass('preserve'))
+                          return;
                         elem.value = '';
                       });
                     });
