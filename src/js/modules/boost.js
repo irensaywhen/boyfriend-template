@@ -66,7 +66,7 @@ export default class Boost extends Bonus {
           if (!result) return;
 
           let { success, title, text, timestamp } = result;
-          // Temporary use Date object here
+
           // Handle the case with negative timestamp
           let distance = timestamp - new Date().getTime();
           if (distance <= 0) throw new RangeError('Negative time!');

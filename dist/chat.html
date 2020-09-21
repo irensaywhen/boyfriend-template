@@ -1148,7 +1148,7 @@
               method: 'POST',
               headers: {},
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/send-photo',
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/send-superlike',
             },
           },
           classNames: {
@@ -1174,7 +1174,7 @@
                 'Content-Type': 'application/json',
               },
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/send-superlike',
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-superlike',
             },
           },
           popups: {
@@ -1184,6 +1184,13 @@
                 "You don't have any superlikes available. Do you want to buy some?",
               confirmButtonText: 'Yes!',
               cancelButtonText: 'No',
+            },
+            use: {
+              title: 'Do you want to send a superlike?',
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+              imageUrl: 'img/superlike.svg',
+              imageAlt: 'Superlike icon',
             },
             send: {
               title: 'Hurray!',

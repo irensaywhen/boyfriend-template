@@ -20252,8 +20252,7 @@
                         var success = result.success,
                           title = result.title,
                           text = result.text,
-                          timestamp = result.timestamp; // Temporary use Date object here
-                        // Handle the case with negative timestamp
+                          timestamp = result.timestamp; // Handle the case with negative timestamp
 
                         var distance = timestamp - new Date().getTime();
                         if (distance <= 0)
@@ -26849,7 +26848,7 @@
                     ),
                     '_cacheElements',
                     this
-                  ).call(this); // Save amount element
+                  ).call(this); // Amount of bonuses available
 
                   this.$amount = this.$bonus.find(this.selectors.amount);
                 },
@@ -26891,6 +26890,36 @@
                     // Prepare animation for further use
                     console.log('Modal closed');
                   });
+                  $(document).on('bonus:startUsage', function (event, type) {
+                    if (type !== 'superlike') return;
+
+                    _this2
+                      .askUsageApprovement(_this2.popups.use)
+                      .then(function (result) {
+                        if (!result) return;
+                        var success = result.success,
+                          title = result.title,
+                          text = result.text,
+                          timestamp = result.timestamp; // Set icon and show popup with it
+
+                        var icon = success ? 'success' : 'error';
+
+                        _this2.showRequestResult({
+                          title: title,
+                          text: text,
+                          icon: icon,
+                        });
+
+                        if (success) _this2._useBonus();
+                      })
+                      ['catch'](function (error) {
+                        _this2.showRequestResult({
+                          title: error.name,
+                          text: error.message,
+                          icon: 'error',
+                        });
+                      });
+                  });
                 },
               },
               {
@@ -26906,17 +26935,6 @@
                   $(document).trigger('present:send', {
                     type: 'superlike',
                   });
-                },
-              },
-              {
-                key: '_prepareBonusUsage',
-                value: function _prepareBonusUsage() {
-                  console.log('Preparing bonus usage...'); // Ask server about sending superlike
-                  // If the server will approve usage
-                  // Send it to the user
-                  // Temporary return true for debuggins purposes
-
-                  return true;
                 },
               },
             ]
@@ -27050,12 +27068,10 @@
                     function (event) {
                       var animationName = event.originalEvent.animationName,
                         target = event.target,
-                        iconElements = _this.iconElements; // Temporary block superlike animation execution
-                      // Then, later, make return statement more specific
+                        iconElements = _this.iconElements; // Add more specific statement here
+                      // to not to calculate all the if statemests for all animations together
 
-                      return;
                       if (!target.closest(_this.selectors.popup)) return;
-                      console.log(target);
 
                       if (animationName === 'superlike-stars') {
                         // Add final color to the stars
@@ -27151,6 +27167,7 @@
               showCloseButton: true,
             });
           },
+          // Alert to show when there is no bonuses available
           fireBuyingAlert: function fireBuyingAlert(_ref3) {
             var title = _ref3.title,
               text = _ref3.text,
@@ -27166,6 +27183,7 @@
               cancelButtonColor: '#bbb',
             });
           },
+          // Alert for bonus usage animation
           fireSendAlert: function fireSendAlert(_ref4) {
             var _this = this;
 

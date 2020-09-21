@@ -28,6 +28,7 @@ export default {
     });
   },
 
+  // Alert to show when there is no bonuses available
   fireBuyingAlert({ title, text, confirmButtonText, cancelButtonText }) {
     return Swal.fire({
       title,
@@ -40,6 +41,7 @@ export default {
     });
   },
 
+  // Alert for bonus usage animation
   fireSendAlert({ title, text, timer, customClass }) {
     // Cache document element
     let $document = $(document);

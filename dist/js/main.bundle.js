@@ -23155,6 +23155,7 @@
               showCloseButton: true,
             });
           },
+          // Alert to show when there is no bonuses available
           fireBuyingAlert: function fireBuyingAlert(_ref3) {
             var title = _ref3.title,
               text = _ref3.text,
@@ -23170,6 +23171,7 @@
               cancelButtonColor: '#bbb',
             });
           },
+          // Alert for bonus usage animation
           fireSendAlert: function fireSendAlert(_ref4) {
             var _this = this;
 
