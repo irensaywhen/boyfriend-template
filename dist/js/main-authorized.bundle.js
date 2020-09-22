@@ -19551,28 +19551,31 @@
         /* harmony import */ var _modules_photo_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! ./modules/photo.js */ './js/modules/photo.js'
         );
-        /* harmony import */ var _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _modules_sponsorPremium_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! ./modules/sponsorPremium.js */ './js/modules/sponsorPremium.js'
+        );
+        /* harmony import */ var _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./modules/search-profiles-form.js */ './js/modules/search-profiles-form.js'
         );
-        /* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./modules/buyPremiumForm.js */ './js/modules/buyPremiumForm.js'
         );
-        /* harmony import */ var _modules_chatList_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _modules_chatList_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
           /*! ./modules/chatList.js */ './js/modules/chatList.js'
         );
-        /* harmony import */ var _modules_pagination_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var _modules_pagination_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
           /*! ./modules/pagination.js */ './js/modules/pagination.js'
         );
-        /* harmony import */ var _modules_ad_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+        /* harmony import */ var _modules_ad_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
           /*! ./modules/ad.js */ './js/modules/ad.js'
         );
-        /* harmony import */ var _modules_gallery_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+        /* harmony import */ var _modules_gallery_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
           /*! ./modules/gallery.js */ './js/modules/gallery.js'
         );
-        /* harmony import */ var _modules_chat_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+        /* harmony import */ var _modules_chat_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
           /*! ./modules/chat.js */ './js/modules/chat.js'
         );
-        /* harmony import */ var _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+        /* harmony import */ var _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
           /*! ./modules/enlargePhoto.js */ './js/modules/enlargePhoto.js'
         );
 
@@ -19587,22 +19590,24 @@
         window['Photo'] =
           _modules_photo_js__WEBPACK_IMPORTED_MODULE_4__['default'];
         window['SearchProfilesForm'] =
-          _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_5__[
+          _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_6__[
             'default'
           ];
         window['BuyPremiumForm'] =
-          _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_6__['default'];
+          _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_7__['default'];
         window['ChatList'] =
-          _modules_chatList_js__WEBPACK_IMPORTED_MODULE_7__['default'];
+          _modules_chatList_js__WEBPACK_IMPORTED_MODULE_8__['default'];
         window['Pagination'] =
-          _modules_pagination_js__WEBPACK_IMPORTED_MODULE_8__['default'];
-        window['Ad'] = _modules_ad_js__WEBPACK_IMPORTED_MODULE_9__['default'];
+          _modules_pagination_js__WEBPACK_IMPORTED_MODULE_9__['default'];
+        window['Ad'] = _modules_ad_js__WEBPACK_IMPORTED_MODULE_10__['default'];
         window['Gallery'] =
-          _modules_gallery_js__WEBPACK_IMPORTED_MODULE_10__['default'];
+          _modules_gallery_js__WEBPACK_IMPORTED_MODULE_11__['default'];
         window['Chat'] =
-          _modules_chat_js__WEBPACK_IMPORTED_MODULE_11__['default'];
+          _modules_chat_js__WEBPACK_IMPORTED_MODULE_12__['default'];
         window['EnlargePhoto'] =
-          _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_12__['default'];
+          _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_13__['default'];
+        window['SponsorPremium'] =
+          _modules_sponsorPremium_js__WEBPACK_IMPORTED_MODULE_5__['default'];
 
         /***/
       },
@@ -20526,13 +20531,18 @@
                   var selectors = this.selectors; // Price containers
                   // Price container to show/hide when the price is being loaded from the server
 
-                  this.$outerPriceContainer = $(selectors.priceContainer);
-                  this.$cardPriceContainer = $(selectors['card-total-price']);
+                  this.$outerPriceContainer = $(selectors.priceContainer); // Initial price for card payment method
+
+                  this.$cardPriceContainer = $(selectors['card-total-price']); // Discount price for card payment method
+
                   this.$cardDiscountContainer = $(
                     selectors['card-discount-price']
-                  );
-                  this.$priceContainer = $(selectors['total-price']);
-                  this.$previousPrice = $(selectors['previous-price']);
+                  ); // Total price to pay without discount - displayed on the first step
+
+                  this.$priceContainer = $(selectors['total-price']); // Total price to pay with the discount - displayed on the first step
+
+                  this.$previousPrice = $(selectors['previous-price']); // Container that holds the previous price
+
                   this.$previousPriceContainer = this.$previousPrice
                     .closest('del')
                     .fadeOut(0); // Buttons to disable on request
@@ -26712,6 +26722,117 @@
 
           return SearchProfilesForm;
         })(_form_js__WEBPACK_IMPORTED_MODULE_7__['default']);
+
+        /***/
+      },
+
+    /***/ './js/modules/sponsorPremium.js':
+      /*!**************************************!*\
+  !*** ./js/modules/sponsorPremium.js ***!
+  \**************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return SponsorPremium;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _bonus_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! ./bonus.js */ './js/modules/bonus.js'
+        );
+
+        function _createSuper(Derived) {
+          var hasNativeReflectConstruct = _isNativeReflectConstruct();
+          return function _createSuperInternal() {
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+                Derived
+              ),
+              result;
+            if (hasNativeReflectConstruct) {
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+                this
+              ).constructor;
+              result = Reflect.construct(Super, arguments, NewTarget);
+            } else {
+              result = Super.apply(this, arguments);
+            }
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(
+              this,
+              result
+            );
+          };
+        }
+
+        function _isNativeReflectConstruct() {
+          if (typeof Reflect === 'undefined' || !Reflect.construct)
+            return false;
+          if (Reflect.construct.sham) return false;
+          if (typeof Proxy === 'function') return true;
+          try {
+            Date.prototype.toString.call(
+              Reflect.construct(Date, [], function () {})
+            );
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        // Lets store everything required for the buy premium forms in templates
+        // And display these templates in modals or on a separate page
+        // With a "back" button at the top
+
+        var SponsorPremium = /*#__PURE__*/ (function (_Bonus) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default()(
+            SponsorPremium,
+            _Bonus
+          );
+
+          var _super = _createSuper(SponsorPremium);
+
+          function SponsorPremium(options) {
+            var _this;
+
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              SponsorPremium
+            );
+
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(
+              _this
+            );
+          }
+
+          return SponsorPremium;
+        })(_bonus_js__WEBPACK_IMPORTED_MODULE_4__['default']);
 
         /***/
       },

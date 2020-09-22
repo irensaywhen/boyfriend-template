@@ -39,11 +39,17 @@ export default class BuyPremiumForm extends Form {
     // Price container to show/hide when the price is being loaded from the server
     this.$outerPriceContainer = $(selectors.priceContainer);
 
+    // Initial price for card payment method
     this.$cardPriceContainer = $(selectors['card-total-price']);
+    // Discount price for card payment method
     this.$cardDiscountContainer = $(selectors['card-discount-price']);
+
+    // Total price to pay without discount - displayed on the first step
     this.$priceContainer = $(selectors['total-price']);
+    // Total price to pay with the discount - displayed on the first step
     this.$previousPrice = $(selectors['previous-price']);
 
+    // Container that holds the previous price
     this.$previousPriceContainer = this.$previousPrice
       .closest('del')
       .fadeOut(0);

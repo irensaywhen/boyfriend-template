@@ -2472,6 +2472,26 @@ article .header time {
 }
 .checkout .credit-card {
   max-width: 720px;
+  border-radius: 15px;
+}
+.checkout .credit-card .title {
+  font-weight: 500;
+}
+.checkout .credit-card .title {
+  font-size: 18px;
+}
+@media screen and (min-width: 320px) {
+  .checkout .credit-card .title {
+    font-size: calc(18px + 4 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .checkout .credit-card .title {
+    font-size: 22px;
+  }
+}
+.checkout .jp-card {
+  min-width: 0;
 }
 .checkout .price-container {
   display: inline-flex;
@@ -2479,6 +2499,60 @@ article .header time {
 }
 .checkout .plan-and-bonuses-checkout .price-container {
   display: block;
+}
+.checkout .order-details .detail {
+  background: #fff;
+  border-radius: 15px;
+  margin: 10px auto;
+}
+.checkout .order-details .plan {
+  height: 100%;
+}
+.checkout .order-details .title {
+  font-weight: bold !important;
+}
+.checkout .order-details .title {
+  font-size: 18px;
+}
+@media screen and (min-width: 320px) {
+  .checkout .order-details .title {
+    font-size: calc(18px + 4 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .checkout .order-details .title {
+    font-size: 22px;
+  }
+}
+.checkout .order-details .plan-details {
+  list-style: none;
+  line-height: 25px;
+}
+.checkout .bonus-title {
+  font-size: 16px;
+}
+@media screen and (min-width: 320px) {
+  .checkout .bonus-title {
+    font-size: calc(16px + 4 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .checkout .bonus-title {
+    font-size: 20px;
+  }
+}
+.checkout .bonus-amount {
+  font-size: 14px;
+}
+@media screen and (min-width: 320px) {
+  .checkout .bonus-amount {
+    font-size: calc(14px + 2 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .checkout .bonus-amount {
+    font-size: 16px;
+  }
 }
 .chat-list {
   position: relative;
