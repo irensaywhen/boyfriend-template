@@ -6,23 +6,56 @@ export default class BuyPremiumForm extends Form {
 
     // Binding context
     this.setPrice = this.setPrice.bind(this);
+
+    /**
+     * mode can be 'show' or 'hide'
+     * When the mode is 'show':
+     * 1. Hide price container
+     * 2. Show spinner
+     * When the mode is 'hide':
+     * 1. Hide spinner
+     * 2. Show price container
+     */
+    this.$spinner.toggle = mode => {
+      if (mode === 'show') {
+        this.$outerPriceContainer.fadeOut(100, () => {
+          this.$spinner.fadeIn(100);
+        });
+      } else if (mode === 'hide') {
+        this.$spinner.fadeOut(100, () => {
+          this.$outerPriceContainer.fadeIn(100);
+        });
+      }
+    };
   }
 
   _cacheElements() {
     super._cacheElements();
 
+    let selectors = this.selectors;
+
     // Price containers
-    this.$cardPriceContainer = $(this.selectors['card-total-price']);
-    this.$cardDiscountContainer = $(this.selectors['card-discount-price']);
-    this.$priceContainer = $(this.selectors['total-price']);
-    this.$previousPrice = $(this.selectors['previous-price']);
+
+    // Price container to show/hide when the price is being loaded from the server
+    this.$outerPriceContainer = $(selectors.priceContainer);
+
+    this.$cardPriceContainer = $(selectors['card-total-price']);
+    this.$cardDiscountContainer = $(selectors['card-discount-price']);
+    this.$priceContainer = $(selectors['total-price']);
+    this.$previousPrice = $(selectors['previous-price']);
 
     this.$previousPriceContainer = this.$previousPrice
       .closest('del')
       .fadeOut(0);
 
+    // Buttons to disable on request
+    this.$disableButtonsOnRequest = $(selectors.disableButtonsOnRequest);
+
+    // spinner
+    this.$spinner = $(selectors.spinner).fadeOut(0);
+
     // Checkout area
-    this.$checkout = this.$form.find(this.selectors.checkout).fadeOut(0);
+    this.$checkout = this.$form.find(selectors.checkout).fadeOut(0);
   }
 
   _setUpEventListeners() {
@@ -64,7 +97,6 @@ export default class BuyPremiumForm extends Form {
     // Setting price
     this.$inputs.on('input', event => {
       this.collectFormInputs();
-      console.log(this.formData);
 
       this.setPrice();
     });
@@ -90,10 +122,14 @@ export default class BuyPremiumForm extends Form {
    */
   setPrice() {
     let { headers, endpoint, method } = this.requests.price;
+    // Hide previous price and show spinner
+    this.$spinner.toggle('show');
 
     // Make request to the server
     this.getPrice({ headers, endpoint, method })
       .then(response => {
+        this.$spinner.toggle('hide');
+
         if (response.success) {
           let {
             initialCardPrice,
@@ -111,11 +147,11 @@ export default class BuyPremiumForm extends Form {
           if (hasPromo) {
             this.$priceContainer.text(totalDiscountPrice);
             this.$previousPrice.text(totalPrice);
-            this.$previousPriceContainer.fadeIn(400);
+            this.$previousPriceContainer.show();
           } else {
             this.$priceContainer.text(totalPrice);
             this.$previousPrice.text(0);
-            this.$previousPriceContainer.fadeOut(400);
+            this.$previousPriceContainer.hide();
           }
 
           // Handle card payment price

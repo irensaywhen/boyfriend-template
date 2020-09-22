@@ -268,23 +268,63 @@
       <!-- header ends -->
 
       <div class="container checkout" id="checkout">
+        <!--Checkout steps start-->
+        <div class="form-steps checkout-form py-3 mx-auto mb-5">
+          <div class="progress h-2">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              aria-valuenow="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+          <div class="steps d-flex justify-content-between">
+            <div class="step step-current" data-step="0">
+              <i class="fas fa-check passed"></i>
+              <div class="current-mark"></div>
+              <p class="label">Choose bonuses</p>
+            </div>
+            <div class="step step-further" data-step="1">
+              <i class="fas fa-check passed"></i>
+              <div class="current-mark"></div>
+              <p class="label">Choose payment method</p>
+            </div>
+            <div class="step step-further" data-step="2">
+              <i class="fas fa-check passed"></i>
+              <div class="current-mark"></div>
+              <p class="label">Pay</p>
+            </div>
+          </div>
+        </div>
+        <!--Checkout steps end-->
+
         <!--Upper price badge start-->
-        <div class="row">
+        <div class="row pt-4">
           <div class="col-12 col-sm-6 col-lg-4 offset-sm-6 offset-lg-8">
             <div
               class="d-flex align-items-center mx-auto mr-md-0 price-badge bg-white py-3 px-3"
             >
               <i class="fas fa-money-check-alt icon"></i>
-              <div class="d-inline-flex flex-column pl-4">
-                <div class="mb-0">
-                  <span>Price:</span>
-                  <strong class="total-price text-success">0 </strong>
-                  <span class="text-success">zł </span> &nbsp;
+              <div class="mb-0 line-height-sm pl-4">
+                <span class="d-inline-flex flex-column">
+                  Price:
+                  <small class="d-block text-secondary">total</small></span
+                >
+                <div class="price-container">
+                  <div>
+                    <strong class="total-price text-success">0 </strong>
+                    <span class="text-success">zł </span>
+                  </div>
                   <del class="text-secondary small">
                     <span class="previous-price">0 </span>zł
                   </del>
                 </div>
-                <small class="d-block text-secondary">total</small>
+                <div
+                  class="spinner-border spinner-border-sm text-dark ml-1"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
               </div>
             </div>
           </div>
@@ -295,6 +335,7 @@
         <div class="form-wrapper">
           <form id="buy-premium" class="buy-premium-step" data-step="0">
             <div class="row my-3 text-center">
+              <!--Plan start-->
               <div class="col-12 col-sm-6 col-lg-3">
                 <div class="card mb-4 shadow-sm border-0">
                   <div class="card-header">
@@ -317,7 +358,7 @@
                         name="plan"
                         id="oneMonth"
                         value="oneMonth"
-                        class="position-absolute d-none plan-input buy-premium-input"
+                        class="position-absolute d-none plan-input buy-premium-input preserve"
                       />
                       <label
                         for="oneMonth"
@@ -330,6 +371,9 @@
                   </div>
                 </div>
               </div>
+              <!--Plan end-->
+
+              <!--Plan start-->
               <div class="col-12 col-sm-6 col-lg-3">
                 <div class="card mb-4 shadow-sm border-0">
                   <div class="card-header">
@@ -352,7 +396,7 @@
                         name="plan"
                         id="threeMonths"
                         value="threeMonths"
-                        class="position-absolute d-none plan-input buy-premium-input"
+                        class="position-absolute d-none plan-input buy-premium-input preserve"
                       />
                       <label
                         for="threeMonths"
@@ -365,6 +409,9 @@
                   </div>
                 </div>
               </div>
+              <!--Plan end-->
+
+              <!--Plan start-->
               <div class="col-12 col-sm-6 col-lg-3">
                 <div class="card mb-4 shadow-sm border-0">
                   <div class="card-header">
@@ -387,7 +434,7 @@
                         name="plan"
                         id="sixMonths"
                         value="sixMonths"
-                        class="position-absolute d-none plan-input buy-premium-input"
+                        class="position-absolute d-none plan-input buy-premium-input preserve"
                       />
                       <label
                         for="sixMonths"
@@ -400,6 +447,9 @@
                   </div>
                 </div>
               </div>
+              <!--Plan end-->
+
+              <!--Plan start-->
               <div class="col-12 col-sm-6 col-lg-3">
                 <div class="card mb-4 shadow-sm border-0">
                   <div class="card-header">
@@ -422,7 +472,7 @@
                         name="plan"
                         id="twelveMonths"
                         value="twelveMonths"
-                        class="position-absolute d-none plan-input buy-premium-input"
+                        class="position-absolute d-none plan-input buy-premium-input preserve"
                       />
                       <label
                         for="twelveMonths"
@@ -435,6 +485,7 @@
                   </div>
                 </div>
               </div>
+              <!--Plan end-->
             </div>
 
             <!--Bonuses selection start-->
@@ -683,17 +734,20 @@
                 <div class="card mb-4 border-0 shadow-sm">
                   <div class="card-body text-center">
                     <p class="text-secondary my-1">Total amount to pay:</p>
-                    <div class="h3 mb-4">
+                    <div class="price-container h3 mb-4">
                       <span class="total-price">0 </span>
                       <span>zł</span> &nbsp;
                       <del class="text-secondary small">
                         <span class="previous-price">0 </span>zł
                       </del>
                     </div>
+                    <div class="spinner-border text-dark mb-4" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
                     <button
                       type="submit"
                       id="buyPremium-checkout"
-                      class="mb-2 mx-auto btn btn-block btn-lg btn-rounded btn-default"
+                      class="mb-2 mx-auto btn btn-block btn-lg btn-rounded btn-default disable-on-request"
                     >
                       Checkout <i class="material-icons">arrow_forward</i>
                     </button>
@@ -1096,6 +1150,10 @@
         const buyPremiumForm = new BuyPremiumForm({
           selectors: {
             form: '#buy-premium',
+            disableButtonsOnRequest: '.disable-on-request',
+            // Spinner to show when the price is being loaded
+            spinner: '.spinner-border',
+            priceContainer: '.price-container',
             'input-wrapper': '.form-group',
             inputs: '.buy-premium-input',
             // Wrapper of the bonus input
@@ -1112,7 +1170,7 @@
               spinnerTemplateId: 'spinner-template',
               submitButton: '#buyPremium-checkout',
               spinner: '.spinner-border',
-              text: 'Saving avatar...',
+              text: 'Checking out...',
             },
           },
           requests: {
@@ -1206,6 +1264,22 @@
             forward: '.forward',
             backward: '.backward',
             wrapper: '.form-wrapper',
+          },
+          showSteps: true,
+          stepsConfig: {
+            selectors: {
+              wrapper: '.form-steps',
+              steps: '.step',
+              progressBar: '.progress-bar',
+              labels: '.label',
+              current: '.current-mark',
+              passed: '.passed',
+            },
+            classes: {
+              passed: 'step-passed',
+              current: 'step-current',
+              further: 'step-further',
+            },
           },
         });
       });

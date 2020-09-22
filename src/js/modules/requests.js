@@ -20,6 +20,19 @@ export default class ServerRequest {
 
     Object.assign(ServerRequest.prototype, swalAlert);
     Object.assign(ServerRequest.prototype, loadingIndicatorMixin);
+
+    /**
+     * If selector for disabling buttons is not empty, disable buttons on request
+     */
+    if (this.selectors.disableButtonsOnRequest) {
+      $(this)
+        .on('beforeRequest', () => {
+          this.$disableButtonsOnRequest.attr('disabled', true);
+        })
+        .on('successfulRequest failedRequest', () => {
+          this.$disableButtonsOnRequest.attr('disabled', false);
+        });
+    }
   }
 
   /**
@@ -38,6 +51,7 @@ export default class ServerRequest {
    * Function checks whether the method is GET and if so, sends request without body
    */
   makeRequest({ headers, endpoint, method, body }) {
+    $(this).trigger('beforeRequest');
     if (method === 'GET') {
       return fetch(endpoint, {
         headers,

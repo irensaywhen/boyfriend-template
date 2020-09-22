@@ -28,6 +28,9 @@
 .default-scale {
   transform: scale3d(1, 1, 1) !important;
 }
+.line-height-sm {
+  line-height: 1.2;
+}
 .swal2-close:focus {
   outline: none !important;
 }
@@ -2129,6 +2132,21 @@ article .header time {
   background: #0a5182;
   border: 1x solid #094b79;
 }
+.form-steps.checkout-form .progress .progress-bar {
+  background: #fff;
+}
+.form-steps.checkout-form .step .label {
+  color: #094b79;
+}
+.form-steps.checkout-form .step.step-passed {
+  text-align: center;
+}
+.form-steps.checkout-form .step.step-current .current-mark {
+  background: #0f75bb;
+}
+.form-steps.checkout-form .step.step-further {
+  background: #fff;
+}
 .top-section {
   background-image: url('../img/main-bg.jpg');
   background-size: cover;
@@ -2454,6 +2472,13 @@ article .header time {
 }
 .checkout .credit-card {
   max-width: 720px;
+}
+.checkout .price-container {
+  display: inline-flex;
+  flex-direction: column;
+}
+.checkout .plan-and-bonuses-checkout .price-container {
+  display: block;
 }
 .chat-list {
   position: relative;

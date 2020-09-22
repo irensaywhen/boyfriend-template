@@ -2,6 +2,7 @@
   width: 90%;
   position: relative;
 
+  // Progress bar styles
   .progress {
     .progress-bar {
       @include ease-out;
@@ -48,6 +49,36 @@
       &.step-further {
         background: darken($main-blue, 5);
         border: 1x solid darken($main-blue, 7);
+      }
+    }
+  }
+
+  &.checkout-form {
+    // Apply styles for checkout form here
+    // Progress bar styles
+    .progress {
+      .progress-bar {
+        background: #fff;
+      }
+    }
+
+    .step {
+      .label {
+        color: darken($main-blue, 7);
+      }
+
+      &.step-passed {
+        text-align: center;
+      }
+
+      &.step-current {
+        .current-mark {
+          background: lighten($main-blue, 7);
+        }
+      }
+
+      &.step-further {
+        background: #fff;
       }
     }
   }

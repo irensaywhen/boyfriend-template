@@ -54,6 +54,15 @@
   .credit-card {
     max-width: 720px;
   }
-}
 
-/* Credit card styles */
+  .price-container {
+    display: inline-flex;
+    flex-direction: column;
+  }
+
+  .plan-and-bonuses-checkout {
+    .price-container {
+      display: block;
+    }
+  }
+}

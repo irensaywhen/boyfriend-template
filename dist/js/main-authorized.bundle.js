@@ -20484,6 +20484,28 @@
                 _this
               )
             );
+            /**
+             * mode can be 'show' or 'hide'
+             * When the mode is 'show':
+             * 1. Hide price container
+             * 2. Show spinner
+             * When the mode is 'hide':
+             * 1. Hide spinner
+             * 2. Show price container
+             */
+
+            _this.$spinner.toggle = function (mode) {
+              if (mode === 'show') {
+                _this.$outerPriceContainer.fadeOut(100, function () {
+                  _this.$spinner.fadeIn(100);
+                });
+              } else if (mode === 'hide') {
+                _this.$spinner.fadeOut(100, function () {
+                  _this.$outerPriceContainer.fadeIn(100);
+                });
+              }
+            };
+
             return _this;
           }
 
@@ -20499,22 +20521,30 @@
                     ),
                     '_cacheElements',
                     this
-                  ).call(this); // Price containers
+                  ).call(this);
 
-                  this.$cardPriceContainer = $(
-                    this.selectors['card-total-price']
-                  );
+                  var selectors = this.selectors; // Price containers
+                  // Price container to show/hide when the price is being loaded from the server
+
+                  this.$outerPriceContainer = $(selectors.priceContainer);
+                  this.$cardPriceContainer = $(selectors['card-total-price']);
                   this.$cardDiscountContainer = $(
-                    this.selectors['card-discount-price']
+                    selectors['card-discount-price']
                   );
-                  this.$priceContainer = $(this.selectors['total-price']);
-                  this.$previousPrice = $(this.selectors['previous-price']);
+                  this.$priceContainer = $(selectors['total-price']);
+                  this.$previousPrice = $(selectors['previous-price']);
                   this.$previousPriceContainer = this.$previousPrice
                     .closest('del')
-                    .fadeOut(0); // Checkout area
+                    .fadeOut(0); // Buttons to disable on request
+
+                  this.$disableButtonsOnRequest = $(
+                    selectors.disableButtonsOnRequest
+                  ); // spinner
+
+                  this.$spinner = $(selectors.spinner).fadeOut(0); // Checkout area
 
                   this.$checkout = this.$form
-                    .find(this.selectors.checkout)
+                    .find(selectors.checkout)
                     .fadeOut(0);
                 },
               },
@@ -20565,8 +20595,6 @@
                   this.$inputs.on('input', function (event) {
                     _this2.collectFormInputs();
 
-                    console.log(_this2.formData);
-
                     _this2.setPrice();
                   });
                 },
@@ -20607,7 +20635,9 @@
                   var _this$requests$price = this.requests.price,
                     headers = _this$requests$price.headers,
                     endpoint = _this$requests$price.endpoint,
-                    method = _this$requests$price.method; // Make request to the server
+                    method = _this$requests$price.method; // Hide previous price and show spinner
+
+                  this.$spinner.toggle('show'); // Make request to the server
 
                   this.getPrice({
                     headers: headers,
@@ -20615,6 +20645,8 @@
                     method: method,
                   })
                     .then(function (response) {
+                      _this3.$spinner.toggle('hide');
+
                       if (response.success) {
                         var initialCardPrice = response.initialCardPrice,
                           discountCardPrice = response.discountCardPrice,
@@ -20630,13 +20662,13 @@
 
                           _this3.$previousPrice.text(totalPrice);
 
-                          _this3.$previousPriceContainer.fadeIn(400);
+                          _this3.$previousPriceContainer.show();
                         } else {
                           _this3.$priceContainer.text(totalPrice);
 
                           _this3.$previousPrice.text(0);
 
-                          _this3.$previousPriceContainer.fadeOut(400);
+                          _this3.$previousPriceContainer.hide();
                         } // Handle card payment price
 
                         _this3.$cardPriceContainer.text(initialCardPrice);
@@ -25798,6 +25830,8 @@
 
         var ServerRequest = /*#__PURE__*/ (function () {
           function ServerRequest(options) {
+            var _this = this;
+
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(
               this,
               ServerRequest
@@ -25823,6 +25857,19 @@
               ServerRequest.prototype,
               _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_5__['default']
             );
+            /**
+             * If selector for disabling buttons is not empty, disable buttons on request
+             */
+
+            if (this.selectors.disableButtonsOnRequest) {
+              $(this)
+                .on('beforeRequest', function () {
+                  _this.$disableButtonsOnRequest.attr('disabled', true);
+                })
+                .on('successfulRequest failedRequest', function () {
+                  _this.$disableButtonsOnRequest.attr('disabled', false);
+                });
+            }
           }
           /**
            * Transform endpoints into URL objects
@@ -25848,12 +25895,13 @@
               {
                 key: 'makeRequest',
                 value: function makeRequest(_ref) {
-                  var _this = this;
+                  var _this2 = this;
 
                   var headers = _ref.headers,
                     endpoint = _ref.endpoint,
                     method = _ref.method,
                     body = _ref.body;
+                  $(this).trigger('beforeRequest');
 
                   if (method === 'GET') {
                     return fetch(endpoint, {
@@ -25864,7 +25912,7 @@
                           return response.json();
                         } else {
                           // Unsuccessful Popup
-                          _this.showRequestResult({
+                          _this2.showRequestResult({
                             title: response.status,
                             text: response.statusText,
                             icon: 'error',
@@ -25873,12 +25921,12 @@
                       })
                       .then(function (json) {
                         // this === current Form here
-                        $(_this).trigger('successfulRequest');
+                        $(_this2).trigger('successfulRequest');
                         return json;
                       })
                       ['catch'](function (error) {
                         // Unsuccessful Popup
-                        _this.showRequestResult({
+                        _this2.showRequestResult({
                           title: error.name,
                           text: error.message,
                           icon: 'error',
@@ -25896,7 +25944,7 @@
                           return response.json();
                         } else {
                           // Unsuccessful Popup
-                          _this.showRequestResult({
+                          _this2.showRequestResult({
                             title: response.status,
                             text: response.statusText,
                             icon: 'error',
@@ -25905,13 +25953,13 @@
                       })
                       .then(function (json) {
                         // this === current Form here
-                        $(_this).trigger('successfulRequest');
+                        $(_this2).trigger('successfulRequest');
                         return json;
                       })
                       ['catch'](function (error) {
-                        $(_this).trigger('failedRequest'); // Unsuccessful Popup
+                        $(_this2).trigger('failedRequest'); // Unsuccessful Popup
 
-                        _this.showRequestResult({
+                        _this2.showRequestResult({
                           title: error.name,
                           text: error.message,
                           icon: 'error',

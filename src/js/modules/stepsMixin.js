@@ -59,14 +59,20 @@ function _cacheElements() {
 }
 
 function _setUpEventListeners() {
-  $(document).on('chainedForms:switchForm', (event, direction) => {
-    _changeProgressIndicator(direction);
-  });
+  // Change the width of the progress indicator when the form is being switched
+  $(document)
+    .on('chainedForms:switchForm', (event, direction) => {
+      _changeProgressIndicator(direction);
+    })
+    .on('avatar:submitted', event => {
+      formFulfilled = true;
 
-  $(document).on('avatar:submitted', event => {
-    formFulfilled = true;
+      _changeProgressIndicator('forward');
+    });
 
-    _changeProgressIndicator('forward');
+  $(window).resize(() => {
+    // Change indicator length here
+    $progressBar.css('width', _calculateProgressBarWidth());
   });
 }
 
@@ -113,6 +119,18 @@ function _changeStepsIndicators(direction) {
   }
 }
 
+/**
+ * 1. Detect the previous and the current step based on the direction
+ * 2. If moving forward:
+ *  1) Add indicator that the previous step is passed through data-passed attribute
+ *  2) If the current step was passed earlier, add an indicator about success
+ *  3) If the current step wasn't passed earlier, add an indicator symboling the current step
+ * 3. If moving backward:
+ *  1) If the previous step wasn't passed, display the previous step as a future step
+ *  2) If the previous step was passed, leave success indicator
+ * @param {String} direction - 'forward' or 'backward'
+ * Signaling to where the overall flow is moving
+ */
 function _changeSteps(direction) {
   // Cache
   let currentStep = this.step,

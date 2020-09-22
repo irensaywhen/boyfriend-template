@@ -22409,6 +22409,8 @@
 
         var ServerRequest = /*#__PURE__*/ (function () {
           function ServerRequest(options) {
+            var _this = this;
+
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(
               this,
               ServerRequest
@@ -22434,6 +22436,19 @@
               ServerRequest.prototype,
               _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_5__['default']
             );
+            /**
+             * If selector for disabling buttons is not empty, disable buttons on request
+             */
+
+            if (this.selectors.disableButtonsOnRequest) {
+              $(this)
+                .on('beforeRequest', function () {
+                  _this.$disableButtonsOnRequest.attr('disabled', true);
+                })
+                .on('successfulRequest failedRequest', function () {
+                  _this.$disableButtonsOnRequest.attr('disabled', false);
+                });
+            }
           }
           /**
            * Transform endpoints into URL objects
@@ -22459,12 +22474,13 @@
               {
                 key: 'makeRequest',
                 value: function makeRequest(_ref) {
-                  var _this = this;
+                  var _this2 = this;
 
                   var headers = _ref.headers,
                     endpoint = _ref.endpoint,
                     method = _ref.method,
                     body = _ref.body;
+                  $(this).trigger('beforeRequest');
 
                   if (method === 'GET') {
                     return fetch(endpoint, {
@@ -22475,7 +22491,7 @@
                           return response.json();
                         } else {
                           // Unsuccessful Popup
-                          _this.showRequestResult({
+                          _this2.showRequestResult({
                             title: response.status,
                             text: response.statusText,
                             icon: 'error',
@@ -22484,12 +22500,12 @@
                       })
                       .then(function (json) {
                         // this === current Form here
-                        $(_this).trigger('successfulRequest');
+                        $(_this2).trigger('successfulRequest');
                         return json;
                       })
                       ['catch'](function (error) {
                         // Unsuccessful Popup
-                        _this.showRequestResult({
+                        _this2.showRequestResult({
                           title: error.name,
                           text: error.message,
                           icon: 'error',
@@ -22507,7 +22523,7 @@
                           return response.json();
                         } else {
                           // Unsuccessful Popup
-                          _this.showRequestResult({
+                          _this2.showRequestResult({
                             title: response.status,
                             text: response.statusText,
                             icon: 'error',
@@ -22516,13 +22532,13 @@
                       })
                       .then(function (json) {
                         // this === current Form here
-                        $(_this).trigger('successfulRequest');
+                        $(_this2).trigger('successfulRequest');
                         return json;
                       })
                       ['catch'](function (error) {
-                        $(_this).trigger('failedRequest'); // Unsuccessful Popup
+                        $(_this2).trigger('failedRequest'); // Unsuccessful Popup
 
-                        _this.showRequestResult({
+                        _this2.showRequestResult({
                           title: error.name,
                           text: error.message,
                           icon: 'error',
@@ -22904,16 +22920,19 @@
         }
 
         function _setUpEventListeners() {
-          $(document).on('chainedForms:switchForm', function (
-            event,
-            direction
-          ) {
-            _changeProgressIndicator(direction);
-          });
-          $(document).on('avatar:submitted', function (event) {
-            formFulfilled = true;
+          // Change the width of the progress indicator when the form is being switched
+          $(document)
+            .on('chainedForms:switchForm', function (event, direction) {
+              _changeProgressIndicator(direction);
+            })
+            .on('avatar:submitted', function (event) {
+              formFulfilled = true;
 
-            _changeProgressIndicator('forward');
+              _changeProgressIndicator('forward');
+            });
+          $(window).resize(function () {
+            // Change indicator length here
+            $progressBar.css('width', _calculateProgressBarWidth());
           });
         }
         /**
@@ -22961,6 +22980,18 @@
             _changeSteps(direction);
           }
         }
+        /**
+         * 1. Detect the previous and the current step based on the direction
+         * 2. If moving forward:
+         *  1) Add indicator that the previous step is passed through data-passed attribute
+         *  2) If the current step was passed earlier, add an indicator about success
+         *  3) If the current step wasn't passed earlier, add an indicator symboling the current step
+         * 3. If moving backward:
+         *  1) If the previous step wasn't passed, display the previous step as a future step
+         *  2) If the previous step was passed, leave success indicator
+         * @param {String} direction - 'forward' or 'backward'
+         * Signaling to where the overall flow is moving
+         */
 
         function _changeSteps(direction) {
           // Cache
