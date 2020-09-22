@@ -85,7 +85,9 @@
     }
 
     .plan {
-      height: 100%;
+      @include screen-md {
+        height: 100%;
+      }
     }
 
     .title {

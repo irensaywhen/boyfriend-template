@@ -2505,8 +2505,10 @@ article .header time {
   border-radius: 15px;
   margin: 10px auto;
 }
-.checkout .order-details .plan {
-  height: 100%;
+@media (min-width: 768px) {
+  .checkout .order-details .plan {
+    height: 100%;
+  }
 }
 .checkout .order-details .title {
   font-weight: bold !important;
