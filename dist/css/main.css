@@ -31,6 +31,21 @@
 .line-height-sm {
   line-height: 1.2;
 }
+.p-15 {
+  padding: 15px !important;
+}
+.pr-15 {
+  padding-right: 15px !important;
+}
+.pl-15 {
+  padding-left: 15px !important;
+}
+.pt-15 {
+  padding-top: 15px !important;
+}
+.pb-15 {
+  padding-bottom: 15px !important;
+}
 .swal2-close:focus {
   outline: none !important;
 }
@@ -612,6 +627,62 @@ select.form-control optgroup {
   font-weight: 300;
   font-size: 14px;
 }
+.order-details .detail {
+  background: #fff;
+  border-radius: 15px;
+  margin: 10px auto;
+}
+@media (min-width: 768px) {
+  .order-details .plan {
+    height: 100%;
+  }
+}
+.order-details .title {
+  font-weight: bold !important;
+}
+.order-details .title {
+  font-size: 18px;
+}
+@media screen and (min-width: 320px) {
+  .order-details .title {
+    font-size: calc(18px + 4 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .order-details .title {
+    font-size: 22px;
+  }
+}
+.order-details .plan-details {
+  list-style: none;
+  line-height: 25px;
+}
+.bonus-title {
+  font-size: 16px;
+}
+@media screen and (min-width: 320px) {
+  .bonus-title {
+    font-size: calc(16px + 4 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .bonus-title {
+    font-size: 20px;
+  }
+}
+.bonus-amount {
+  font-size: 14px;
+}
+@media screen and (min-width: 320px) {
+  .bonus-amount {
+    font-size: calc(14px + 2 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .bonus-amount {
+    font-size: 16px;
+  }
+}
 html {
   height: 100%;
 }
@@ -782,6 +853,13 @@ nav ul {
 .blue-theme .bg-pink,
 .blue-theme .badge-pink {
   background-color: #ff0068 !important;
+}
+.blue-theme .text-primary {
+  color: #ff0068 !important;
+}
+.blue-theme a.text-primary:hover,
+.blue-theme a.text-primary:focus {
+  color: #dd015b !important;
 }
 .blue-theme .btn-outline-white {
   border-color: #fff;
@@ -2500,62 +2578,6 @@ article .header time {
 .checkout .plan-and-bonuses-checkout .price-container {
   display: block;
 }
-.checkout .order-details .detail {
-  background: #fff;
-  border-radius: 15px;
-  margin: 10px auto;
-}
-@media (min-width: 768px) {
-  .checkout .order-details .plan {
-    height: 100%;
-  }
-}
-.checkout .order-details .title {
-  font-weight: bold !important;
-}
-.checkout .order-details .title {
-  font-size: 18px;
-}
-@media screen and (min-width: 320px) {
-  .checkout .order-details .title {
-    font-size: calc(18px + 4 * ((100vw - 320px) / 880));
-  }
-}
-@media screen and (min-width: 1200px) {
-  .checkout .order-details .title {
-    font-size: 22px;
-  }
-}
-.checkout .order-details .plan-details {
-  list-style: none;
-  line-height: 25px;
-}
-.checkout .bonus-title {
-  font-size: 16px;
-}
-@media screen and (min-width: 320px) {
-  .checkout .bonus-title {
-    font-size: calc(16px + 4 * ((100vw - 320px) / 880));
-  }
-}
-@media screen and (min-width: 1200px) {
-  .checkout .bonus-title {
-    font-size: 20px;
-  }
-}
-.checkout .bonus-amount {
-  font-size: 14px;
-}
-@media screen and (min-width: 320px) {
-  .checkout .bonus-amount {
-    font-size: calc(14px + 2 * ((100vw - 320px) / 880));
-  }
-}
-@media screen and (min-width: 1200px) {
-  .checkout .bonus-amount {
-    font-size: 16px;
-  }
-}
 .chat-list {
   position: relative;
   margin-top: 15px;
@@ -2901,6 +2923,19 @@ article .header time {
 }
 .profile-modals .present .amount {
   max-width: 150px;
+}
+.thank-you {
+  background: #fff;
+}
+.thank-you .description {
+  font-size: 14px;
+}
+.thank-you .summary-title {
+  font-weight: 600;
+  padding-top: 20px;
+}
+.thank-you .detail {
+  font-size: 14px;
 }
 
 /*# sourceMappingURL=main.css.map */

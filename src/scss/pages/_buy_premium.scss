@@ -75,37 +75,4 @@
       display: block;
     }
   }
-
-  /* order details section */
-  .order-details {
-    .detail {
-      background: #fff;
-      border-radius: 15px;
-      margin: 10px auto;
-    }
-
-    .plan {
-      @include screen-md {
-        height: 100%;
-      }
-    }
-
-    .title {
-      @include fluid-type($screen-xs, $screen-xl, 18px, 22px);
-      font-weight: bold !important;
-    }
-
-    .plan-details {
-      list-style: none;
-      line-height: 25px;
-    }
-  }
-
-  .bonus-title {
-    @include fluid-type($screen-xs, $screen-xl, 16px, 20px);
-  }
-
-  .bonus-amount {
-    @include fluid-type($screen-xs, $screen-xl, 14px, 16px);
-  }
 }
