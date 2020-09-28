@@ -875,139 +875,173 @@
           <h2 class="h3 mx-3 py-4 text-center">
             Review and pay:
           </h2>
-          <div class="row order-details justify-content-center">
-            <div class="col-12 col-md-6 text-center text-md-left">
-              <div class="card mb-4 shadow-sm border-0 plan">
-                <div class="card-header">
-                  <h4 class="my-0 font-weight-normal title">Plan details:</h4>
+          <div class="row order-details" id="order-details">
+            <!--Template for plan details start-->
+            <script type="text/template" id="template-planDetails">
+
+                <!--Plan summary start-->
+              <div class="col-12 col-md-6 text-center text-md-left">
+                <div class="card mb-4 shadow-sm border-0 plan">
+                  <div class="card-header text-left">
+                    <h4 class="my-0 h6 font-weight-normal title">
+                      Plan details:
+                    </h4>
+                  </div>
+
+                  <!--Plan details start-->
+                  <div class="card-body text-left">
+                    <ul class="list-unstyled">
+                      {{#each details}}
+                      <li class="text-capitalize">{{this}}</li>
+                      {{/each}}
+                    </ul>
+                  </div>
+                  <!--Plan details end-->
+
+                  <div class="card-footer text-left">
+                    <div class="row no-gutters">
+                      <div class="col-8">
+                        Plan cost:
+                      </div>
+                      <div class="col-4 font-weight-bolder text-right">
+                        <span class="pl-1">
+                          <span>{{price}}</span> zł <small class="text-muted">/ mo</small>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--Plan summary end-->
+            </script>
+            <!--Template for plan details end-->
+
+            <!--Template for bonuses start-->
+            <script type="text/template" id="template-orderedBonuses">
+              <div class="col-12 col-md-6 text-center text-md-left">
+                <div class="card shadow-sm border-0 plan">
+
+                  <!--Card title start-->
+                  <div class="card-header text-left">
+                    <h4 class="my-0 h6 font-weight-normal title">Bonuses:</h4>
+                  </div>
+                  <!--Card title end-->
+
+                  <!--Bonuses information start-->
+                  <div class="card-body py-0">
+                    <ul class="list-group text-left list-group-flush">
+                      {{#each details}}
+                      <!--Bonus start-->
+                      <li class="list-group-item px-0 py-1">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col-4 col-md-2 align-self-center">
+                            <figure class="product-image h-auto">
+                              <img src={{imgSrc}} alt="" class="vm" />
+                            </figure>
+                          </div>
+                          <div class="col-6 col-md-7 pl-md-4 text-left pl-3">
+                            <h3 class="text-dark text-capitalize mb-1 h4 d-block bonus-title">
+                              {{name}}
+                            </h3>
+
+                            <div
+                              class="bonus-amount text-secondary font-weight-normal mb-0 pt-1"
+                            >
+                              amount: <span>{{amount}}</span>
+                            </div>
+                          </div>
+                          <div class="col-2 col-md-3 text-right">
+                            <span class="font-weight-normal mb-0 pt-1"
+                              >{{totalPrice}} zł</span
+                            >
+                          </div>
+                        </div>
+                      </li>
+                      <!--Bonus end-->
+                      {{/each}}
+                    </ul>
+                  </div>
+                  <!--Bonuses information end-->
+
+                  <!--Total price section start-->
+                  <div class="card-footer text-left pr-15">
+                    <div class="row no-gutters">
+                      <div class="col-10 col-md-9">
+                        Bonuses total:
+                      </div>
+                      <div class="col-2 col-md-3 font-weight-bolder text-right">
+                        <span class="pl-1">
+                          {{price}} zł
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Total price section end-->
+                </div>
+              </div>
+            </script>
+            <!--Template for bonuses end-->
+          </div>
+
+          <div class="row order-details pt-4">
+            <!--Cost summary start-->
+            <div class="col-12 text-left">
+              <div class="card border-0 shadow-sm">
+                <div class="card-header text-left">
+                  <h4 class="my-0 h6 font-weight-normal title">
+                    Summary:
+                  </h4>
                 </div>
 
-                <!--Plan details start-->
-                <div class="card-body">
-                  <ul class="list-unstyled">
-                    <li>3 months</li>
-                    <li>Unlimited chat time</li>
-                    <li>Email support</li>
-                    <li>Email support</li>
+                <!--Summary details start-->
+                <div class="card-body text-left">
+                  <ul class="text-left pl-1 list-unstyled mb-0">
+                    <li class="px-0 py-1">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-10 col-md-9 align-self-center">
+                          Sub-total
+                        </div>
+                        <div class="col-2 col-md-3 text-right">
+                          <span class="font-weight-normal mb-0 pt-1"
+                            >59.99 zł</span
+                          >
+                        </div>
+                      </div>
+                    </li>
+
+                    <li class="px-0 py-1">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-10 col-md-9 align-self-center">
+                          Discount
+                          <span class="badge badge-success ml-1">15%</span>
+                        </div>
+                        <div class="col-2 col-md-3 text-right">
+                          <span class="font-weight-normal mb-0 pt-1"
+                            >-9 zł</span
+                          >
+                        </div>
+                      </div>
+                    </li>
                   </ul>
                 </div>
-                <!--Plan details end-->
+                <!--Summary details end-->
 
-                <div class="card-footer text-left">
+                <div class="card-footer text-left pr-15">
                   <div class="row no-gutters">
-                    <div class="col-8">
-                      Plan cost:
+                    <div class="col-10 col-md-9 font-weight-bold">
+                      Total:
                     </div>
-                    <div class="col-4 font-weight-bolder text-right">
+                    <div class="col-2 col-md-3 font-weight-bolder text-right">
                       <span class="pl-1">
-                        14.99 zł <small class="text-muted">/ mo</small>
+                        50.99 zł
                       </span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
-            <!--Bonuses start-->
-            <div class="col-12 col-md-6 text-center text-md-left">
-              <div class="card shadow-sm border-0">
-                <div class="card-header">
-                  <h4 class="my-0 font-weight-normal title">Bonuses:</h4>
-                </div>
-                <div class="card-body py-0">
-                  <ul class="list-group list-group-flush">
-                    <!--Superlike start-->
-                    <li class="list-group-item px-0 py-1">
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-4 col-md-2 align-self-center">
-                          <figure class="product-image h-auto">
-                            <img src="img/superlike.svg" alt="" class="vm" />
-                          </figure>
-                        </div>
-                        <div class="col-6 col-md-7 pl-md-4 text-left pl-3">
-                          <h3 class="text-dark mb-1 h4 d-block bonus-title">
-                            Super Like
-                          </h3>
-
-                          <div
-                            class="bonus-amount text-secondary font-weight-normal mb-0 pt-1"
-                          >
-                            amount: <span>2</span>
-                          </div>
-                        </div>
-                        <div class="col-2 text-center">
-                          <span class="font-weight-normal mb-0 pt-1"
-                            >30 zł</span
-                          >
-                        </div>
-                      </div>
-                    </li>
-                    <!--Superlike end-->
-
-                    <!--Boost start-->
-                    <li class="list-group-item px-0 py-1">
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-4 col-md-2 align-self-center">
-                          <figure class="product-image h-auto">
-                            <img src="img/boost-static.svg" alt="" class="vm" />
-                          </figure>
-                        </div>
-                        <div class="col-6 col-md-7 pl-md-4 text-left pl-3">
-                          <h3 class="text-dark mb-1 h4 d-block bonus-title">
-                            Boost
-                          </h3>
-
-                          <div
-                            class="bonus-amount text-secondary font-weight-normal mb-0 pt-1"
-                          >
-                            amount: <span>1</span>
-                          </div>
-                        </div>
-                        <div class="col-2 text-center">
-                          <span class="font-weight-normal mb-0 pt-1"
-                            >15 zł</span
-                          >
-                        </div>
-                      </div>
-                    </li>
-                    <!--Boost end-->
-                  </ul>
-                </div>
-                <div class="card-footer text-left">
-                  <div class="row no-gutters">
-                    <div class="col-10 col-md-9">
-                      Bonuses total:
-                    </div>
-                    <div class="col-2 col-md-3 font-weight-bolder text-center">
-                      <span class="pl-1">
-                        45 zł
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--Bonuses end-->
+            <!--Cost summary end-->
           </div>
-
-          <!--Button for total price start-->
-          <div class="row plan-and-bonuses-checkout mt-4">
-            <div class="col-12">
-              <div class="card mb-4 border-0 shadow-sm">
-                <div class="card-body text-center">
-                  <p class="text-secondary my-1">Total amount to pay:</p>
-                  <div class="price-container h3">
-                    <span class="total-price">0 </span>
-                    <span>zł</span> &nbsp;
-                    <del class="text-secondary small">
-                      <span class="previous-price">0 </span>zł
-                    </del>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!--Button for total price end-->
 
           <form
             class="row credit-card buy-premium-step mx-auto bg-white shadow-sm mt-4 mb-1 py-3 px-3 px-sm-5"
@@ -1304,12 +1338,17 @@
             'card-discount-price': '.card-discount-price',
             'total-price': '.total-price',
             'previous-price': '.previous-price',
-            checkout: '.plan-and-bonuses-checkout',
+            // Container to preview order details
+            orderDetails: '#order-details',
             loading: {
               spinnerTemplateId: 'spinner-template',
               submitButton: '#buyPremium-checkout',
               spinner: '.spinner-border',
               text: 'Checking out...',
+            },
+            templateIds: {
+              plan: 'template-planDetails',
+              bonuses: 'template-orderedBonuses',
             },
           },
           requests: {

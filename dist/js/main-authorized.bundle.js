@@ -17911,7 +17911,7 @@
               !isScrollable(container) &&
               target.tagName !== 'INPUT' && // #1603
               !(
-                isScrollable(getContent()) && getContent().contains(target) // #1944
+                (isScrollable(getContent()) && getContent().contains(target)) // #1944
               )
             ) {
               return true;
@@ -20428,6 +20428,15 @@
         /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./form.js */ './js/modules/form.js'
         );
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+          /*! handlebars */ '../node_modules/handlebars/dist/cjs/handlebars.js'
+        );
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/ __webpack_require__.n(
+          handlebars__WEBPACK_IMPORTED_MODULE_8__
+        );
+        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+          /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
+        );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -20484,7 +20493,7 @@
 
             _this = _super.call(this, options); // Binding context
 
-            _this.setPrice = _this.setPrice.bind(
+            _this._setOrderDetails = _this._setOrderDetails.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
                 _this
               )
@@ -20509,8 +20518,11 @@
                   _this.$outerPriceContainer.fadeIn(100);
                 });
               }
-            };
+            }; // Prepare message templates to render them in the future
 
+            _this.templates = Object(
+              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_9__['default']
+            )(options.selectors.templateIds);
             return _this;
           }
 
@@ -20528,7 +20540,9 @@
                     this
                   ).call(this);
 
-                  var selectors = this.selectors; // Price containers
+                  var selectors = this.selectors; // Container to preview order details
+
+                  this.$orderDetails = $(selectors.orderDetails); // Price containers
                   // Price container to show/hide when the price is being loaded from the server
 
                   this.$outerPriceContainer = $(selectors.priceContainer); // Initial price for card payment method
@@ -20551,11 +20565,11 @@
                     selectors.disableButtonsOnRequest
                   ); // spinner
 
-                  this.$spinner = $(selectors.spinner).fadeOut(0); // Checkout area
+                  this.$spinner = $(selectors.spinner).fadeOut(0); // Disable checkout button until price is being shown
 
                   this.$checkout = this.$form
-                    .find(selectors.checkout)
-                    .fadeOut(0);
+                    .find(selectors.loading.submitButton)
+                    .attr('disabled', true);
                 },
               },
               {
@@ -20605,7 +20619,7 @@
                   this.$inputs.on('input', function (event) {
                     _this2.collectFormInputs();
 
-                    _this2.setPrice();
+                    _this2._setOrderDetails();
                   });
                 },
                 /**
@@ -20638,8 +20652,8 @@
                  */
               },
               {
-                key: 'setPrice',
-                value: function setPrice() {
+                key: '_setOrderDetails',
+                value: function _setOrderDetails() {
                   var _this3 = this;
 
                   var _this$requests$price = this.requests.price,
@@ -20662,10 +20676,11 @@
                           discountCardPrice = response.discountCardPrice,
                           hasPromo = response.hasPromo,
                           totalPrice = response.totalPrice,
-                          totalDiscountPrice = response.totalDiscountPrice;
+                          totalDiscountPrice = response.totalDiscountPrice,
+                          order = response.order;
                         totalPrice > 0
-                          ? _this3.$checkout.fadeIn(400)
-                          : _this3.$checkout.fadeOut(400); // Handle promotion price
+                          ? _this3.$checkout.attr('disabled', false)
+                          : _this3.$checkout.attr('disabled', true); // Handle promotion price
 
                         if (hasPromo) {
                           _this3.$priceContainer.text(totalDiscountPrice);
@@ -20684,6 +20699,30 @@
                         _this3.$cardPriceContainer.text(initialCardPrice);
 
                         _this3.$cardDiscountContainer.text(discountCardPrice);
+
+                        _this3.$orderDetails.empty(); // Preview plan details
+
+                        if ('plan' in order) {
+                          // Compile template
+                          var template = handlebars__WEBPACK_IMPORTED_MODULE_8___default.a.compile(
+                            _this3.templates.plan
+                          ); // Pass json data to the template
+
+                          template = template(order.plan); // Show template
+
+                          _this3.$orderDetails.append(template);
+                        }
+
+                        if ('bonuses' in order) {
+                          // Compile template
+                          var _template = handlebars__WEBPACK_IMPORTED_MODULE_8___default.a.compile(
+                            _this3.templates.bonuses
+                          ); // Pass json data to the template
+
+                          _template = _template(order.bonuses); // Show template
+
+                          _this3.$orderDetails.append(_template);
+                        }
                       } else {
                         if (_this3.showFailPopup) {
                           // Unsuccessful Popup

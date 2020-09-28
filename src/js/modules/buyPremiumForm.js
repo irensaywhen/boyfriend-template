@@ -1,11 +1,13 @@
 import Form from './form.js';
+import Handlebars from 'handlebars';
+import prepareTemplates from './prepareTemplates.js';
 
 export default class BuyPremiumForm extends Form {
   constructor(options) {
     super(options);
 
     // Binding context
-    this.setPrice = this.setPrice.bind(this);
+    this._setOrderDetails = this._setOrderDetails.bind(this);
 
     /**
      * mode can be 'show' or 'hide'
@@ -27,12 +29,18 @@ export default class BuyPremiumForm extends Form {
         });
       }
     };
+
+    // Prepare message templates to render them in the future
+    this.templates = prepareTemplates(options.selectors.templateIds);
   }
 
   _cacheElements() {
     super._cacheElements();
 
     let selectors = this.selectors;
+
+    // Container to preview order details
+    this.$orderDetails = $(selectors.orderDetails);
 
     // Price containers
 
@@ -60,8 +68,10 @@ export default class BuyPremiumForm extends Form {
     // spinner
     this.$spinner = $(selectors.spinner).fadeOut(0);
 
-    // Checkout area
-    this.$checkout = this.$form.find(selectors.checkout).fadeOut(0);
+    // Disable checkout button until price is being shown
+    this.$checkout = this.$form
+      .find(selectors.loading.submitButton)
+      .attr('disabled', true);
   }
 
   _setUpEventListeners() {
@@ -104,7 +114,7 @@ export default class BuyPremiumForm extends Form {
     this.$inputs.on('input', event => {
       this.collectFormInputs();
 
-      this.setPrice();
+      this._setOrderDetails();
     });
   }
 
@@ -126,7 +136,7 @@ export default class BuyPremiumForm extends Form {
    * 1. Get the price from the server
    *
    */
-  setPrice() {
+  _setOrderDetails() {
     let { headers, endpoint, method } = this.requests.price;
     // Hide previous price and show spinner
     this.$spinner.toggle('show');
@@ -143,11 +153,12 @@ export default class BuyPremiumForm extends Form {
             hasPromo,
             totalPrice,
             totalDiscountPrice,
+            order,
           } = response;
 
           totalPrice > 0
-            ? this.$checkout.fadeIn(400)
-            : this.$checkout.fadeOut(400);
+            ? this.$checkout.attr('disabled', false)
+            : this.$checkout.attr('disabled', true);
 
           // Handle promotion price
           if (hasPromo) {
@@ -163,6 +174,29 @@ export default class BuyPremiumForm extends Form {
           // Handle card payment price
           this.$cardPriceContainer.text(initialCardPrice);
           this.$cardDiscountContainer.text(discountCardPrice);
+
+          this.$orderDetails.empty();
+
+          // Preview plan details
+          if ('plan' in order) {
+            // Compile template
+            let template = Handlebars.compile(this.templates.plan);
+            // Pass json data to the template
+            template = template(order.plan);
+
+            // Show template
+            this.$orderDetails.append(template);
+          }
+
+          if ('bonuses' in order) {
+            // Compile template
+            let template = Handlebars.compile(this.templates.bonuses);
+            // Pass json data to the template
+            template = template(order.bonuses);
+
+            // Show template
+            this.$orderDetails.append(template);
+          }
         } else {
           if (this.showFailPopup) {
             // Unsuccessful Popup
