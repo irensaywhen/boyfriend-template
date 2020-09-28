@@ -17911,7 +17911,7 @@
               !isScrollable(container) &&
               target.tagName !== 'INPUT' && // #1603
               !(
-                (isScrollable(getContent()) && getContent().contains(target)) // #1944
+                isScrollable(getContent()) && getContent().contains(target) // #1944
               )
             ) {
               return true;
@@ -20569,7 +20569,10 @@
 
                   this.$checkout = this.$form
                     .find(selectors.loading.submitButton)
-                    .attr('disabled', true);
+                    .attr('disabled', true); // Discount
+
+                  this.$discountType = $(selectors.discount.type);
+                  this.$discountAmount = $(selectors.discount.amount);
                 },
               },
               {
@@ -20675,6 +20678,7 @@
                         var initialCardPrice = response.initialCardPrice,
                           discountCardPrice = response.discountCardPrice,
                           hasPromo = response.hasPromo,
+                          cardDiscount = response.cardDiscount,
                           totalPrice = response.totalPrice,
                           totalDiscountPrice = response.totalDiscountPrice,
                           order = response.order;
@@ -20698,7 +20702,11 @@
 
                         _this3.$cardPriceContainer.text(initialCardPrice);
 
-                        _this3.$cardDiscountContainer.text(discountCardPrice);
+                        _this3.$cardDiscountContainer.text(discountCardPrice); // Set card discount amount
+
+                        _this3.$discountType.text(cardDiscount.type);
+
+                        _this3.$discountAmount.text(cardDiscount.amount);
 
                         _this3.$orderDetails.empty(); // Preview plan details
 

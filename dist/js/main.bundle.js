@@ -17762,7 +17762,7 @@
               !isScrollable(container) &&
               target.tagName !== 'INPUT' && // #1603
               !(
-                (isScrollable(getContent()) && getContent().contains(target)) // #1944
+                isScrollable(getContent()) && getContent().contains(target) // #1944
               )
             ) {
               return true;

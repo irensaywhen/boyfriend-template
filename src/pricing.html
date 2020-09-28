@@ -872,7 +872,7 @@
         <!--Card payment input start-->
 
         <div class="form-wrapper">
-          <h2 class="h3 mx-3 py-4 text-center">
+          <h2 class="h3 mx-3 pt-4 text-center">
             Review and pay:
           </h2>
           <div class="row order-details" id="order-details">
@@ -880,8 +880,8 @@
             <script type="text/template" id="template-planDetails">
 
                 <!--Plan summary start-->
-              <div class="col-12 col-md-6 text-center text-md-left">
-                <div class="card mb-4 shadow-sm border-0 plan">
+              <div class="col-12 col-md-6 text-center text-md-left pt-4">
+                <div class="card shadow-sm border-0 plan">
                   <div class="card-header text-left">
                     <h4 class="my-0 h6 font-weight-normal title">
                       Plan details:
@@ -918,7 +918,7 @@
 
             <!--Template for bonuses start-->
             <script type="text/template" id="template-orderedBonuses">
-              <div class="col-12 col-md-6 text-center text-md-left">
+              <div class="col-12 col-md-6 text-center text-md-left pt-4">
                 <div class="card shadow-sm border-0 plan">
 
                   <!--Card title start-->
@@ -1002,9 +1002,10 @@
                           Sub-total
                         </div>
                         <div class="col-2 col-md-3 text-right">
-                          <span class="font-weight-normal mb-0 pt-1"
-                            >59.99 zł</span
-                          >
+                          <span
+                            class="font-weight-normal mb-0 pt-1 card-total-price"
+                            >0 </span
+                          >zł
                         </div>
                       </div>
                     </li>
@@ -1013,11 +1014,15 @@
                       <div class="row no-gutters align-items-center">
                         <div class="col-10 col-md-9 align-self-center">
                           Discount
-                          <span class="badge badge-success ml-1">15%</span>
+                          <span
+                            class="badge badge-success ml-1"
+                            id="discount-type"
+                            >15%</span
+                          >
                         </div>
                         <div class="col-2 col-md-3 text-right">
                           <span class="font-weight-normal mb-0 pt-1"
-                            >-9 zł</span
+                            >-<span id="discount-amount">0</span> zł</span
                           >
                         </div>
                       </div>
@@ -1033,7 +1038,7 @@
                     </div>
                     <div class="col-2 col-md-3 font-weight-bolder text-right">
                       <span class="pl-1">
-                        50.99 zł
+                        <span class="card-discount-price">0</span> zł
                       </span>
                     </div>
                   </div>
@@ -1153,8 +1158,8 @@
 
           <!--Arrow back start-->
           <div class="container px-0">
-            <div class="row no-gutters">
-              <div class="col-auto p-0">
+            <div class="row no-gutters justify-content-center">
+              <div class="col-12 p-0 credit-card">
                 <div
                   class="backward blue-link text-secondary d-flex align-items-center"
                 >
@@ -1340,6 +1345,11 @@
             'previous-price': '.previous-price',
             // Container to preview order details
             orderDetails: '#order-details',
+            // Discount
+            discount: {
+              type: '#discount-type',
+              amount: '#discount-amount',
+            },
             loading: {
               spinnerTemplateId: 'spinner-template',
               submitButton: '#buyPremium-checkout',
@@ -1434,7 +1444,7 @@
           },
         });
 
-        /* forms chainer initialization 
+        /* forms chainer initialization */
         const chainedForms = new ChainedForms({
           selectors: {
             formsContainer: '#checkout',
@@ -1459,7 +1469,7 @@
               further: 'step-further',
             },
           },
-        });*/
+        });
       });
     </script>
   </body>

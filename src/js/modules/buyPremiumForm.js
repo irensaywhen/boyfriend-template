@@ -72,6 +72,10 @@ export default class BuyPremiumForm extends Form {
     this.$checkout = this.$form
       .find(selectors.loading.submitButton)
       .attr('disabled', true);
+
+    // Discount
+    this.$discountType = $(selectors.discount.type);
+    this.$discountAmount = $(selectors.discount.amount);
   }
 
   _setUpEventListeners() {
@@ -151,6 +155,7 @@ export default class BuyPremiumForm extends Form {
             initialCardPrice,
             discountCardPrice,
             hasPromo,
+            cardDiscount,
             totalPrice,
             totalDiscountPrice,
             order,
@@ -174,6 +179,10 @@ export default class BuyPremiumForm extends Form {
           // Handle card payment price
           this.$cardPriceContainer.text(initialCardPrice);
           this.$cardDiscountContainer.text(discountCardPrice);
+
+          // Set card discount amount
+          this.$discountType.text(cardDiscount.type);
+          this.$discountAmount.text(cardDiscount.amount);
 
           this.$orderDetails.empty();
 
