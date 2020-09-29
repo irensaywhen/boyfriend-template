@@ -25,46 +25,38 @@ export default class Superlike extends Bonus {
   _setUpEventListeners() {
     super._setUpEventListeners();
 
-    let $document = $(document);
+    $(document)
+      .on('superlikeModal:onBeforeOpen', (event, modal) => {
+        // Start modal preparation
+        this.animationPreparation = this.animation.prepareAnimation(modal);
+      })
+      .on('superlikeModal:onOpen', (event, modal) => {
+        // Run animation
+        this.animation.startAnimation();
+      })
+      .on('bonus:startUsage', (event, type) => {
+        if (type !== 'superlike') return;
 
-    $document.on('superlikeModal:onBeforeOpen', (event, modal) => {
-      // Start modal preparation
-      this.animationPreparation = this.animation.prepareAnimation(modal);
-    });
+        this.askUsageApprovement(this.popups.use)
+          .then(result => {
+            if (!result) return;
 
-    $document.on('superlikeModal:onOpen', (event, modal) => {
-      // Run animation
-      this.animation.startAnimation();
-    });
+            let { success, title, text } = result;
 
-    $document.on('superlikeModal:onAfterClose', (event, modal) => {
-      // Prepare animation for further use
-      console.log('Modal closed');
-    });
+            // Set icon and show popup with it
+            let icon = success ? 'success' : 'error';
+            this.showRequestResult({ title, text, icon });
 
-    $(document).on('bonus:startUsage', (event, type) => {
-      if (type !== 'superlike') return;
-
-      this.askUsageApprovement(this.popups.use)
-        .then(result => {
-          if (!result) return;
-
-          let { success, title, text } = result;
-
-          // Set icon and show popup with it
-          let icon = success ? 'success' : 'error';
-          this.showRequestResult({ title, text, icon });
-
-          if (success) this._useBonus();
-        })
-        .catch(error => {
-          this.showRequestResult({
-            title: error.name,
-            text: error.message,
-            icon: 'error',
+            if (success) this._useBonus();
+          })
+          .catch(error => {
+            this.showRequestResult({
+              title: error.name,
+              text: error.message,
+              icon: 'error',
+            });
           });
-        });
-    });
+      });
   }
 
   _useBonus() {

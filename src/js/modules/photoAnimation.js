@@ -3,6 +3,8 @@ import IconAnimation from './animatedIcons.js';
 export default class PhotoAnimation extends IconAnimation {
   constructor(options) {
     super(options);
+
+    this.type = 'photoAnimation';
   }
 
   _setUpEventListeners() {
@@ -10,6 +12,8 @@ export default class PhotoAnimation extends IconAnimation {
     $(document).on(
       'webkitAnimationEnd oAnimationEnd msAnimationEnd animationend',
       event => {
+        if (this.type !== 'photoAnimation') return;
+
         let animationName = event.originalEvent.animationName,
           target = event.target,
           iconElements = this.iconElements;
