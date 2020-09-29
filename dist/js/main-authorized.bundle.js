@@ -82080,14 +82080,25 @@
             );
 
             this.entrance = options.animationClasses.entrance;
-            this.exit = options.animationClasses.exit; // Get class or setup default class
+            this.exit = options.animationClasses.exit; // Bind context
+
+            this._changePhotoModalContent = this._changePhotoModalContent.bind(
+              this
+            ); // Get class or setup default class
 
             this.enlargeClass = options.enlargeClass || 'enlarge';
-            this.selectors = options.selectors;
-            var _options$selectors = options.selectors,
-              modal = _options$selectors.modal,
-              animateOnShown = _options$selectors.animateOnShown;
-            this.$modal = $(modal); // Initialize module preparation
+            var selectors = (this.selectors = options.selectors);
+            var modal = selectors.modal,
+              animateOnShown = selectors.animateOnShown; // Cache elements
+
+            var $modal = (this.$modal = $(modal));
+            this.$img = $modal.find(selectors.img);
+            this.$description = $modal.find(selectors.description);
+            /**
+             * Initialize module preparation
+             * In this module, the event listeners to change the visual appearance
+             * of the overlay and close button animation is being set up
+             */
 
             Object(
               _preparePhotoModal_js__WEBPACK_IMPORTED_MODULE_2__['default']
@@ -82095,12 +82106,31 @@
               modal: modal,
               animateOnShown: animateOnShown,
             }).init();
+            /**
+             * Event handler handling photo enlargement. On click event:
+             * 1. It checks whether enlarge class is presented on the closest image
+             * 2. Changes the modal content
+             * 3. Opens the modal
+             */
+
             $(document).click(function (event) {
-              var $target = $(event.target);
-              if (!$target.hasClass(_this.enlargeClass)) return;
-              event.preventDefault();
+              event.preventDefault(); // Find the closest image
+
+              var $img = $(event.target).closest('img');
+              if (!$img.hasClass(_this.enlargeClass)) return; // Change photo modal content so that it contains information about the clicked image
+
+              _this._changePhotoModalContent($img);
 
               _this.$modal.modal('show');
+            });
+            /**
+             * On closing modal, delete the previously saved image src and the description
+             */
+
+            $modal.on('hidden.bs.modal', function () {
+              _this.$img.attr('src', '');
+
+              _this.$description.text('');
             });
           }
 
@@ -82108,19 +82138,10 @@
             EnlargePhoto,
             [
               {
-                key: '_showPhoto',
-                value: function _showPhoto() {}, // This function works almost the same as the one in the gallery
-                // So consider make a single function to handle this functionality
-              },
-              {
-                key: '_getPhotoInfo',
-                value: function _getPhotoInfo(target) {
-                  var description = target.dataset.description;
-                  var src = target.src;
-                  return {
-                    description: description,
-                    src: src,
-                  };
+                key: '_changePhotoModalContent',
+                value: function _changePhotoModalContent($img) {
+                  this.$img.attr('src', $img.attr('src'));
+                  this.$description.text($img.data('description'));
                 },
               },
             ]
@@ -85805,9 +85826,9 @@
         function preparePhotoModal(_ref) {
           var modal = _ref.modal,
             animateOnShown = _ref.animateOnShown;
-          var $body = $('body');
-          var $modal = $(modal);
-          var $animateOnShown = $modal.find(animateOnShown).fadeOut(0);
+          var $body = $('body'),
+            $modal = $(modal),
+            $animateOnShown = $modal.find(animateOnShown).fadeOut(0);
           var shown = false;
 
           function _setUpEventListeners() {
@@ -85834,7 +85855,6 @@
           }
 
           return {
-            generateModal: function generateModal(img, animation) {},
             init: function init() {
               _setUpEventListeners();
             },

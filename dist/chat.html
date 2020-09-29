@@ -71,7 +71,7 @@
 
     <!--Profile modals start-->
     <div class="profile-modals">
-      <!--Modal for photos start-->
+      <!--Modal for enlarged photos start-->
 
       <div
         class="modal fade gallery-modal"
@@ -92,6 +92,7 @@
                 <img
                   src="img/profile.jpg"
                   class="modal-image"
+                  id="usePhoto-enlarge"
                   alt="Profile photo"
                   tabindex="-1"
                 />
@@ -104,7 +105,9 @@
                 <p
                   class="d-block w-100 pt-4 pb-3 px-2 mb-0"
                   id="photo-description"
-                ></p>
+                >
+                  Here the photo description goes
+                </p>
               </div>
               <!--Description and button end-->
 
@@ -1504,7 +1507,13 @@
                 <!--Postcard photo start-->
                 <figure class="photo">
                   <!--Photo-->
-                  <img src="img/photo1.jpg" alt="Photo 1" />
+                  <img
+                    src="img/photo1.jpg"
+                    class="enlarge"
+                    data-description="This is my favorite photo. Take a look! This is my favorite
+                  photo. Take a look! This is my favorite photo. Take a look!"
+                    alt="Photo 1"
+                  />
 
                   <!--Photo description-->
                   <figcaption class="pt-2 pl-2">
@@ -1540,7 +1549,13 @@
                 <!--Postcard photo start-->
                 <figure class="photo">
                   <!--Photo-->
-                  <img src="img/photo1.jpg" alt="Photo 1" />
+                  <img
+                    src="img/photo1.jpg"
+                    class="enlarge"
+                    data-description="This is my favorite photo. Take a look! This is my favorite
+                  photo. Take a look! This is my favorite photo. Take a look!"
+                    alt="Photo 1"
+                  />
 
                   <!--Photo description-->
                   <figcaption class="pt-2 pl-2">
@@ -1640,7 +1655,12 @@
                   photo
                 </p>
                 <figure class="photo">
-                  <img src="img/photo1.jpg" class="enlarge" alt="Photo 1" />
+                  <img
+                    src="img/photo1.jpg"
+                    class="enlarge"
+                    data-description="My private photo"
+                    alt="Photo 1"
+                  />
                   <figcaption
                     class="pt-2 d-inline-flex justify-content-center flex-wrap"
                   >
@@ -1673,7 +1693,12 @@
                   Lukasz allowed you to see his private photo!
                 </p>
                 <figure class="photo">
-                  <img src="img/photo1.jpg" class="enlarge" alt="Photo 1" />
+                  <img
+                    src="img/photo1.jpg"
+                    class="enlarge"
+                    data-description="This is the description of my photo"
+                    alt="Photo 1"
+                  />
                   <figcaption class="pt-2 pl-2">
                     This is the description of my photo
                   </figcaption>
@@ -1824,7 +1849,7 @@
 
       {{#if photo}}
       <figure class="photo">
-        <img src="{{src}}" class="enlarge" alt="Photo 1" />
+        <img src="{{src}}" class="enlarge" data-description={{description}} alt="Photo 1" />
         {{#if photocard}}
         <figcaption class="pt-2 pl-2">
           {{description}}
@@ -2104,7 +2129,7 @@
               method: 'POST',
               headers: {},
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/send-premium',
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/send-photo',
             },
           },
           classNames: {
@@ -2448,9 +2473,10 @@
         const enlargePhoto = new EnlargePhoto({
           selectors: {
             modal: '#photoModal',
+            img: '#usePhoto-enlarge',
+            description: '#photo-description',
             animateOnShown: '.animate',
           },
-          enlargeClass: 'enlarge',
           animationClasses: {
             entrance: 'animate__zoomIn',
             exit: 'animate__zoomOut',

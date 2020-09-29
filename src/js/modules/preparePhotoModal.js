@@ -1,7 +1,8 @@
 export default function preparePhotoModal({ modal, animateOnShown }) {
-  const $body = $('body');
-  const $modal = $(modal);
-  const $animateOnShown = $modal.find(animateOnShown).fadeOut(0);
+  const $body = $('body'),
+    $modal = $(modal),
+    $animateOnShown = $modal.find(animateOnShown).fadeOut(0);
+
   let shown = false;
 
   function _setUpEventListeners() {
@@ -31,7 +32,6 @@ export default function preparePhotoModal({ modal, animateOnShown }) {
     });
   }
   return {
-    generateModal(img, animation) {},
     init() {
       _setUpEventListeners();
     },
