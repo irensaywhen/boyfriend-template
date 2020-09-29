@@ -1982,6 +1982,8 @@ article .header time {
 }
 .chat {
   min-height: 100vh;
+  height: 100vh;
+  overflow-y: scroll;
 }
 .chat .chat-header {
   background: #fff;
@@ -2028,7 +2030,7 @@ article .header time {
 }
 .chat .chat-content {
   padding-top: 77px;
-  padding-bottom: 175px;
+  padding-bottom: 165px;
   background: #fff;
   max-width: 576px;
   min-height: 100vh;
@@ -2047,7 +2049,7 @@ article .header time {
 @media (min-width: 992px) {
   .chat .chat-content {
     max-width: 800px;
-    padding-bottom: 160px;
+    padding-bottom: 190px !important;
   }
 }
 .chat .chat-content .message-general {

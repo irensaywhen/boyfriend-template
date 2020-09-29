@@ -1,5 +1,7 @@
 .chat {
   min-height: 100vh;
+  height: 100vh;
+  overflow-y: scroll;
 
   /*Chat header start*/
   .chat-header {
@@ -48,7 +50,7 @@
 
     @include screen-lg {
       max-width: $chat-width-lg;
-      padding-bottom: $chat-bottom-spacing-lg;
+      padding-bottom: $chat-bottom-spacing-lg !important;
     }
 
     /* General message start*/
