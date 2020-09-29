@@ -80985,6 +80985,15 @@
         /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/ __webpack_require__.n(
           moment__WEBPACK_IMPORTED_MODULE_9__
         );
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+          /*! handlebars */ '../node_modules/handlebars/dist/cjs/handlebars.js'
+        );
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/ __webpack_require__.n(
+          handlebars__WEBPACK_IMPORTED_MODULE_10__
+        );
+        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+          /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
+        );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -81098,7 +81107,12 @@
             _this.requests.messages.endpoint.searchParams.set(
               'amount',
               String(options.messagesAmount)
-            ); // Initialization call to the functions
+            );
+
+            _this.messageTemplate = Object(
+              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_11__['default']
+            )(options.selectors.templateId);
+            console.log(_this.messageTemplate); // Initialization call to the functions
 
             _this._cacheElements();
 

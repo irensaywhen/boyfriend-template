@@ -1,5 +1,8 @@
 import ServerRequest from './requests.js';
 import moment from 'moment';
+import Handlebars from 'handlebars';
+import prepareTemplates from './prepareTemplates.js';
+
 // Adding localization
 moment.locale('pl');
 
@@ -31,6 +34,9 @@ export default class ChatList extends ServerRequest {
       'amount',
       String(options.messagesAmount)
     );
+
+    this.messageTemplate = prepareTemplates(options.selectors.templateId);
+    console.log(this.messageTemplate);
 
     // Initialization call to the functions
     this._cacheElements();

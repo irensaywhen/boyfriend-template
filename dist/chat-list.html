@@ -267,9 +267,37 @@
                   Chat
                 </h2>
               </div>
+
+              <!--Messages template start-->
+              <script type="text/template" id="messageTemplate">
+                  {{#if unread}}
+                  <div
+                  class="chatList-message unread border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3">
+                  {{else}}
+                  <div
+                  class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3">
+                  {{/if}}
+                  <figure class="avatar">
+                    <img src="{{avatar}}" alt="Profile image" />
+                  </figure>
+                  <div class="pl-1 pl-sm-3 w-100">
+                    <div class="d-flex justify-content-between">
+                      <h3 class="name">
+                        {{userName}} <span class="badge badge-info ml-2">{{amount}}</span>
+                      </h3>
+                      <time class="date small text-secondary">{{time}}</time>
+                    </div>
+                    <p class="text text-secondary">
+                      {{text}}
+                    </p>
+                  </div>
+                </div>
+              </script>
+              <!--Messages template end-->
+
               <!--New message-->
               <div
-                class="message unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-3"
+                class="chatList-message unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-3"
               >
                 <!--Avatar-->
                 <figure class="avatar">
@@ -293,7 +321,7 @@
               </div>
               <!--New message-->
               <div
-                class="message unread border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+                class="chatList-message unread border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
               >
                 <figure class="avatar">
                   <img src="img/profile.jpg" alt="Profile image" />
@@ -316,7 +344,7 @@
 
               <!--Just message-->
               <div
-                class="message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+                class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
               >
                 <figure class="avatar">
                   <img src="img/profile.jpg" alt="Profile image" />
@@ -339,7 +367,7 @@
 
               <!--Just message-->
               <div
-                class="message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+                class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
               >
                 <figure class="avatar">
                   <img src="img/profile.jpg" alt="Profile image" />
@@ -362,7 +390,7 @@
 
               <!--Just message-->
               <div
-                class="message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+                class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
               >
                 <figure class="avatar">
                   <img src="img/profile.jpg" alt="Profile image" />
@@ -385,7 +413,7 @@
 
               <!--Just message-->
               <div
-                class="message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+                class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
               >
                 <figure class="avatar">
                   <img src="img/profile.jpg" alt="Profile image" />
@@ -408,7 +436,7 @@
 
               <!--Just message-->
               <div
-                class="message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+                class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
               >
                 <figure class="avatar">
                   <img src="img/profile.jpg" alt="Profile image" />
@@ -431,7 +459,7 @@
 
               <!--Just message-->
               <div
-                class="message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+                class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
               >
                 <figure class="avatar">
                   <img src="img/profile.jpg" alt="Profile image" />
@@ -587,6 +615,7 @@
           selectors: {
             chatList: '#chat-list',
             message: '.message',
+            templateId: 'messageTemplate',
           },
           requests: {
             messages: {
