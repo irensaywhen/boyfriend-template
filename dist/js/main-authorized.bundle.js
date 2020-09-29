@@ -85687,7 +85687,7 @@
                         var animationName = event.originalEvent.animationName,
                           iconElements = _this2.iconElements;
 
-                        if (animationName === 'zoomIn') {
+                        if (animationName === 'zoom') {
                           iconElements.$premiumIcon.removeClass(
                             'premium-person'
                           );
@@ -85705,7 +85705,7 @@
                         var animationName = event.originalEvent.animationName,
                           iconElements = _this2.iconElements;
 
-                        if (animationName === 'zoomIn') {
+                        if (animationName === 'zoom') {
                           iconElements.$star
                             .removeClass('default-scale fill-pink')
                             .addClass('premium-star-animation');

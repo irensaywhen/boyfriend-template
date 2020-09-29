@@ -17,7 +17,7 @@ export default class PremiumAnimation extends IconAnimation {
           let animationName = event.originalEvent.animationName,
             iconElements = this.iconElements;
 
-          if (animationName === 'zoomIn') {
+          if (animationName === 'zoom') {
             iconElements.$premiumIcon.removeClass('premium-person');
           } else if (animationName === 'premium-star-animation') {
             iconElements.$star
@@ -34,7 +34,7 @@ export default class PremiumAnimation extends IconAnimation {
           let animationName = event.originalEvent.animationName,
             iconElements = this.iconElements;
 
-          if (animationName === 'zoomIn') {
+          if (animationName === 'zoom') {
             iconElements.$star
               .removeClass('default-scale fill-pink')
               .addClass('premium-star-animation');
