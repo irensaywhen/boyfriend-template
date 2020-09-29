@@ -48,7 +48,6 @@ export default class SponsorPremium extends Bonus {
         if (type !== 'premium') return;
 
         // Start showing modals here with buying premium forms
-        console.log('Starting using premium...');
         this.$modal.modal('show');
       })
       .on('form:submitted', (event, data) => {

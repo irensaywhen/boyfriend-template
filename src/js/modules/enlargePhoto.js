@@ -2,9 +2,6 @@ import preparePhotoModal from './preparePhotoModal.js';
 
 export default class EnlargePhoto {
   constructor(options) {
-    this.entrance = options.animationClasses.entrance;
-    this.exit = options.animationClasses.exit;
-
     // Bind context
     this._changePhotoModalContent = this._changePhotoModalContent.bind(this);
 
@@ -34,12 +31,11 @@ export default class EnlargePhoto {
      * 3. Opens the modal
      */
     $(document).click(event => {
-      event.preventDefault();
-
       // Find the closest image
       let $img = $(event.target).closest('img');
 
       if (!$img.hasClass(this.enlargeClass)) return;
+      event.preventDefault();
 
       // Change photo modal content so that it contains information about the clicked image
       this._changePhotoModalContent($img);
@@ -58,6 +54,7 @@ export default class EnlargePhoto {
 
   _changePhotoModalContent($img) {
     this.$img.attr('src', $img.attr('src'));
+
     this.$description.text($img.data('description'));
   }
 }

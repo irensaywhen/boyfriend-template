@@ -82079,9 +82079,7 @@
               EnlargePhoto
             );
 
-            this.entrance = options.animationClasses.entrance;
-            this.exit = options.animationClasses.exit; // Bind context
-
+            // Bind context
             this._changePhotoModalContent = this._changePhotoModalContent.bind(
               this
             ); // Get class or setup default class
@@ -82114,10 +82112,10 @@
              */
 
             $(document).click(function (event) {
-              event.preventDefault(); // Find the closest image
-
+              // Find the closest image
               var $img = $(event.target).closest('img');
-              if (!$img.hasClass(_this.enlargeClass)) return; // Change photo modal content so that it contains information about the clicked image
+              if (!$img.hasClass(_this.enlargeClass)) return;
+              event.preventDefault(); // Change photo modal content so that it contains information about the clicked image
 
               _this._changePhotoModalContent($img);
 
@@ -84771,7 +84769,6 @@
                   this.$previewContainer = this.$modal.find(
                     selectors.previewContainer
                   );
-                  this.$photoInputs = this.$modal.find(selectors.input);
                   this.$form = this.$modal.find(selectors.form);
                 },
               },
@@ -87001,8 +86998,6 @@
                     })
                     .on('bonus:startUsage', function (event, type) {
                       if (type !== 'premium') return; // Start showing modals here with buying premium forms
-
-                      console.log('Starting using premium...');
 
                       _this2.$modal.modal('show');
                     })

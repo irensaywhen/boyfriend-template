@@ -1849,7 +1849,7 @@
 
       {{#if photo}}
       <figure class="photo">
-        <img src="{{src}}" class="enlarge" data-description={{description}} alt="Photo 1" />
+        <img src="{{src}}" class="enlarge" data-description="{{description}}" alt="Photo 1" />
         {{#if photocard}}
         <figcaption class="pt-2 pl-2">
           {{description}}
@@ -2476,10 +2476,6 @@
             img: '#usePhoto-enlarge',
             description: '#photo-description',
             animateOnShown: '.animate',
-          },
-          animationClasses: {
-            entrance: 'animate__zoomIn',
-            exit: 'animate__zoomOut',
           },
         });
       });

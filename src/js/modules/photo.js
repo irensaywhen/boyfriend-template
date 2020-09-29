@@ -54,7 +54,6 @@ export default class Photo extends Bonus {
     this.$closeButton = this.$modal.find(selectors.closeModalButton);
     this.$modalFooter = this.$modal.find('.modal-footer').fadeOut(0);
     this.$previewContainer = this.$modal.find(selectors.previewContainer);
-    this.$photoInputs = this.$modal.find(selectors.input);
     this.$form = this.$modal.find(selectors.form);
   }
 
