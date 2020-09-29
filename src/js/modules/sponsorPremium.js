@@ -44,8 +44,8 @@ export default class SponsorPremium extends Bonus {
         // Run animation
         this.animation.startAnimation();
       })
-      .on('bonus:startUsage', event => {
-        if (this.type !== 'premium') return;
+      .on('bonus:startUsage', (event, type) => {
+        if (type !== 'premium') return;
 
         // Start showing modals here with buying premium forms
         console.log('Starting using premium...');

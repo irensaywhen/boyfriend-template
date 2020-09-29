@@ -86979,8 +86979,8 @@
                       // Run animation
                       _this2.animation.startAnimation();
                     })
-                    .on('bonus:startUsage', function (event) {
-                      if (_this2.type !== 'premium') return; // Start showing modals here with buying premium forms
+                    .on('bonus:startUsage', function (event, type) {
+                      if (type !== 'premium') return; // Start showing modals here with buying premium forms
 
                       console.log('Starting using premium...');
 
