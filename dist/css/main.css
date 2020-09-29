@@ -603,6 +603,9 @@ select.form-control optgroup {
 .send-bonus-title {
   margin: 10px auto 5px !important;
 }
+.modal {
+  padding-right: 0 !important;
+}
 .modal .modal-lg {
   max-width: 600px !important;
 }
@@ -698,6 +701,50 @@ select.form-control optgroup {
   .bonus-amount {
     font-size: 16px;
   }
+}
+.sponsorePremium-modal .modal-dialog {
+  margin: 0 !important;
+}
+.sponsorePremium-modal .modal-dialog .modal-content {
+  width: 100vw !important;
+  min-height: 100vh !important;
+  border-radius: 0px !important;
+}
+@media (min-width: 576px) {
+  .sponsorePremium-modal .modal-dialog {
+    margin: 1.75rem auto !important;
+  }
+  .sponsorePremium-modal .modal-dialog .modal-content {
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 15px !important;
+  }
+}
+.sponsorePremium-modal .close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+.sponsorePremium-modal .profile-avatar {
+  display: block;
+  width: 100%;
+  max-width: 77px;
+  height: auto;
+  border-radius: 50%;
+  background-color: #fff;
+  overflow: hidden;
+  border: 3px solid #fff;
+  text-align: center;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
+  cursor: pointer;
+}
+.sponsorePremium-modal .profile-avatar img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  line-height: 77px;
+  vertical-align: middle;
 }
 html {
   height: 100%;

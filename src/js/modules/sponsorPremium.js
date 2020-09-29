@@ -21,6 +21,10 @@ export default class SponsorPremium extends Bonus {
 
   _cacheElements() {
     super._cacheElements();
+
+    let selectors = this.selectors;
+
+    this.$modal = $(selectors.modal);
   }
 
   _setUpEventListeners() {
@@ -28,7 +32,7 @@ export default class SponsorPremium extends Bonus {
 
     // For setting up animation
     this.$bonus.click(() => {
-      this._useBonus();
+      //this._useBonus();
     });
 
     $(document)
@@ -39,6 +43,13 @@ export default class SponsorPremium extends Bonus {
       .on('premiumModal:onOpen', (event, modal) => {
         // Run animation
         this.animation.startAnimation();
+      })
+      .on('bonus:startUsage', event => {
+        if (this.type !== 'premium') return;
+
+        // Start showing modals here with buying premium forms
+        console.log('Starting using premium...');
+        this.$modal.modal('show');
       });
   }
 
@@ -47,6 +58,6 @@ export default class SponsorPremium extends Bonus {
     this.fireSendAlert(this.popups.send);
 
     // Show sponsoring premium in the chat
-    //$(document).trigger('present:send', { type: 'premium' });
+    $(document).trigger('present:send', { type: 'premium' });
   }
 }

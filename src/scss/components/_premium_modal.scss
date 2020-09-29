@@ -1,0 +1,30 @@
+.sponsorePremium-modal {
+  .modal-dialog {
+    margin: $modal-dialog-mobile-margin;
+
+    .modal-content {
+      width: $modal-dialog-mobile-width;
+      min-height: $modal-dialog-mobile-min-height;
+      border-radius: $modal-mobile-border-radius;
+    }
+  }
+
+  @include screen-sm {
+    .modal-dialog {
+      margin: $modal-dialog-margin;
+
+      .modal-content {
+        width: $modal-dialog-width;
+        height: $modal-dialog-height;
+        border-radius: $modal-border-radius;
+      }
+    }
+  }
+  .close {
+    @include modal-close(15px, 15px);
+  }
+
+  .profile-avatar {
+    @include avatar($chat-header-height, $chat-header-height, true);
+  }
+}

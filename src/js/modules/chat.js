@@ -104,7 +104,7 @@ export default class Chat {
     });
 
     // Send bonus message to the server
-    $document.on('present:send', (event, bonusData, formData = null) => {
+    $document.on('present:send', (event, bonusData = null, formData = null) => {
       // Prepare information to send it to the server
       let messageData = this._prepareMessage(bonusData, formData);
       // Send message data to the server
@@ -113,7 +113,25 @@ export default class Chat {
     });
   }
 
+  /**
+   * This method prepares information to send it to the server
+   *
+   * With general messages:
+   * 1. Get the message text from the message textarea
+   * 2. Return stringified json with type = general, message text,
+   * and indicator that the message is mine
+   *
+   * With superlike, return stringified json with type = superlike
+   * and indicator that the message is mine
+   *
+   * With ptoho, return formData object, which can be send to the server
+   * formData object contains all the information about the sent photo
+   *
+   * @param {Object} bonusData - information about the bonus - ex. type
+   * @param {FormData object} formData - photo information to send it to the server
+   */
   _prepareMessage(bonusData, formData) {
+    // Get the bonus type
     let type = bonusData.type;
 
     switch (type) {
@@ -128,6 +146,7 @@ export default class Chat {
         });
 
       case 'superlike':
+      case 'premium':
         return JSON.stringify({
           type: type,
           mine: true,
@@ -157,10 +176,12 @@ export default class Chat {
               if (response['photo']) {
                 // Get src and description
                 let { src, description } = bonusData;
+
                 // Save src and description
                 response['src'] = src;
                 response['description'] = description;
               }
+
               // Show message after a delay to not to distract the user
               setTimeout(this._displayMessage, 1000, response);
               break;
@@ -175,6 +196,13 @@ export default class Chat {
       });
   }
 
+  /**
+   * This method is used to imulate client-server communication
+   * Will be changed to WebSockets
+   *
+   * @param {String or FormData} messageData - information to send to the server
+   * about the current bonus
+   */
   _sendMessageToServer(messageData) {
     let { method, headers, endpoint } = this.requests.send;
 
@@ -196,6 +224,9 @@ export default class Chat {
       });
   }
 
+  /**
+   * Get inputed message text from the message textarea
+   */
   _getMessageText() {
     return this.$sendMessageTextarea.val();
   }

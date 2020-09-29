@@ -80709,7 +80709,11 @@
                     }
                   }); // Send bonus message to the server
 
-                  $document.on('present:send', function (event, bonusData) {
+                  $document.on('present:send', function (event) {
+                    var bonusData =
+                      arguments.length > 1 && arguments[1] !== undefined
+                        ? arguments[1]
+                        : null;
                     var formData =
                       arguments.length > 2 && arguments[2] !== undefined
                         ? arguments[2]
@@ -80724,10 +80728,28 @@
                     _this._sendMessage(messageData, bonusData);
                   });
                 },
+                /**
+                 * This method prepares information to send it to the server
+                 *
+                 * With general messages:
+                 * 1. Get the message text from the message textarea
+                 * 2. Return stringified json with type = general, message text,
+                 * and indicator that the message is mine
+                 *
+                 * With superlike, return stringified json with type = superlike
+                 * and indicator that the message is mine
+                 *
+                 * With ptoho, return formData object, which can be send to the server
+                 * formData object contains all the information about the sent photo
+                 *
+                 * @param {Object} bonusData - information about the bonus - ex. type
+                 * @param {FormData object} formData - photo information to send it to the server
+                 */
               },
               {
                 key: '_prepareMessage',
                 value: function _prepareMessage(bonusData, formData) {
+                  // Get the bonus type
                   var type = bonusData.type;
 
                   switch (type) {
@@ -80742,6 +80764,7 @@
                       });
 
                     case 'superlike':
+                    case 'premium':
                       return JSON.stringify({
                         type: type,
                         mine: true,
@@ -80798,6 +80821,13 @@
                       console.log(error);
                     });
                 },
+                /**
+                 * This method is used to imulate client-server communication
+                 * Will be changed to WebSockets
+                 *
+                 * @param {String or FormData} messageData - information to send to the server
+                 * about the current bonus
+                 */
               },
               {
                 key: '_sendMessageToServer',
@@ -80825,6 +80855,9 @@
                       return json;
                     });
                 },
+                /**
+                 * Get inputed message text from the message textarea
+                 */
               },
               {
                 key: '_getMessageText',
@@ -86914,6 +86947,9 @@
                     '_cacheElements',
                     this
                   ).call(this);
+
+                  var selectors = this.selectors;
+                  this.$modal = $(selectors.modal);
                 },
               },
               {
@@ -86930,7 +86966,7 @@
                   ).call(this); // For setting up animation
 
                   this.$bonus.click(function () {
-                    _this2._useBonus();
+                    //this._useBonus();
                   });
                   $(document)
                     .on('premiumModal:onBeforeOpen', function (event, modal) {
@@ -86942,6 +86978,13 @@
                     .on('premiumModal:onOpen', function (event, modal) {
                       // Run animation
                       _this2.animation.startAnimation();
+                    })
+                    .on('bonus:startUsage', function (event) {
+                      if (_this2.type !== 'premium') return; // Start showing modals here with buying premium forms
+
+                      console.log('Starting using premium...');
+
+                      _this2.$modal.modal('show');
                     });
                 },
               },
@@ -86950,7 +86993,10 @@
                 value: function _useBonus() {
                   // Call alert here with custom animation for premium icon
                   this.fireSendAlert(this.popups.send); // Show sponsoring premium in the chat
-                  //$(document).trigger('present:send', { type: 'premium' });
+
+                  $(document).trigger('present:send', {
+                    type: 'premium',
+                  });
                 },
               },
             ]
