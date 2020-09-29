@@ -702,6 +702,9 @@ select.form-control optgroup {
     font-size: 16px;
   }
 }
+.sponsorePremium-modal {
+  padding: 0 !important;
+}
 .sponsorePremium-modal .modal-dialog {
   margin: 0 !important;
 }
@@ -712,7 +715,7 @@ select.form-control optgroup {
 }
 @media (min-width: 576px) {
   .sponsorePremium-modal .modal-dialog {
-    margin: 1.75rem auto !important;
+    margin: 0.5rem auto !important;
   }
   .sponsorePremium-modal .modal-dialog .modal-content {
     width: 100% !important;
@@ -720,10 +723,69 @@ select.form-control optgroup {
     border-radius: 15px !important;
   }
 }
+.sponsorePremium-modal .card {
+  min-height: 100%;
+}
+.sponsorePremium-modal .card .card-title {
+  margin-bottom: 0;
+}
+.sponsorePremium-modal .card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.sponsorePremium-modal .card .card-body .form-group {
+  margin-bottom: 0;
+}
+.sponsorePremium-modal .modal-title {
+  font-size: 18px;
+}
+@media screen and (min-width: 320px) {
+  .sponsorePremium-modal .modal-title {
+    font-size: calc(18px + 8 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .sponsorePremium-modal .modal-title {
+    font-size: 26px;
+  }
+}
+.sponsorePremium-modal .section-title {
+  font-size: 20px;
+}
+@media screen and (min-width: 320px) {
+  .sponsorePremium-modal .section-title {
+    font-size: calc(20px + 8 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .sponsorePremium-modal .section-title {
+    font-size: 28px;
+  }
+}
+.sponsorePremium-modal .section-subtitle {
+  font-size: 18px;
+}
+@media screen and (min-width: 320px) {
+  .sponsorePremium-modal .section-subtitle {
+    font-size: calc(18px + 6 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .sponsorePremium-modal .section-subtitle {
+    font-size: 24px;
+  }
+}
 .sponsorePremium-modal .close {
   position: absolute;
   top: 15px;
   right: 15px;
+}
+.sponsorePremium-modal .close-mobile {
+  font-size: 20px;
+  position: absolute;
+  top: 15px;
+  left: 15px;
 }
 .sponsorePremium-modal .profile-avatar {
   display: block;
@@ -2288,6 +2350,24 @@ article .header time {
 .form-steps.checkout-form .step.step-further {
   background: #fff;
 }
+.payment {
+  transition: all 0.5s ease-out;
+  transform: translate3d(0, 0, 0);
+  cursor: pointer;
+}
+.payment:hover {
+  transform: translate3d(0, -10px, 0);
+}
+.payment .title {
+  font-size: 18px;
+}
+.payment .material-icons {
+  font-size: 80px;
+  color: #0c609a;
+}
+.payment .price {
+  font-size: 20px;
+}
 .top-section {
   background-image: url('../img/main-bg.jpg');
   background-size: cover;
@@ -2592,24 +2672,6 @@ article .header time {
 }
 .checkout .plan-and-bonuses-checkout .btn {
   max-width: 400px;
-}
-.checkout .payment {
-  transition: all 0.5s ease-out;
-  transform: translate3d(0, 0, 0);
-  cursor: pointer;
-}
-.checkout .payment:hover {
-  transform: translate3d(0, -10px, 0);
-}
-.checkout .payment .title {
-  font-size: 18px;
-}
-.checkout .payment .material-icons {
-  font-size: 80px;
-  color: #0c609a;
-}
-.checkout .payment .price {
-  font-size: 20px;
 }
 .checkout .credit-card {
   max-width: 720px;

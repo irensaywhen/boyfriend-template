@@ -1,4 +1,7 @@
 .sponsorePremium-modal {
+  padding: 0 !important;
+
+  /*modal styles*/
   .modal-dialog {
     margin: $modal-dialog-mobile-margin;
 
@@ -20,8 +23,49 @@
       }
     }
   }
+
+  .card {
+    min-height: 100%;
+
+    .card-title {
+      margin-bottom: 0;
+    }
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .form-group {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .modal-title {
+    @include fluid-type($screen-xs, $screen-xl, 18px, 26px);
+    //text-align: center;
+    //width: 100%;
+  }
+
+  .section-title {
+    @include fluid-type($screen-xs, $screen-xl, 20px, 28px);
+  }
+
+  .section-subtitle {
+    @include fluid-type($screen-xs, $screen-xl, 18px, 24px);
+  }
+
+  /*Close buttons*/
   .close {
     @include modal-close(15px, 15px);
+  }
+
+  .close-mobile {
+    font-size: 20px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
   }
 
   .profile-avatar {
