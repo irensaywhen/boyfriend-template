@@ -19,6 +19,7 @@
       .modal-content {
         width: $modal-dialog-width;
         height: $modal-dialog-height;
+        min-height: $modal-dialog-min-height;
         border-radius: $modal-border-radius;
       }
     }
@@ -44,8 +45,6 @@
 
   .modal-title {
     @include fluid-type($screen-xs, $screen-xl, 18px, 26px);
-    //text-align: center;
-    //width: 100%;
   }
 
   .section-title {
@@ -65,7 +64,7 @@
     font-size: 20px;
     position: absolute;
     top: 15px;
-    left: 15px;
+    left: 0px;
   }
 
   .profile-avatar {
