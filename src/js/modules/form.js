@@ -228,6 +228,7 @@ export default class Form extends ServerRequest {
       this.$form.find('.error').remove();
     }
     if (response.success) {
+      // Generate submit event on the form
       if (this.generateSubmitEvent) {
         // Make custom event for form submission
         let customSubmittedEvent = new CustomEvent('submitted');
@@ -235,6 +236,8 @@ export default class Form extends ServerRequest {
         // Dispatch custom event
         this.$form[0].dispatchEvent(customSubmittedEvent);
       }
+
+      $(document).trigger('form:submitted', { response, $form: this.$form });
 
       if (this.showSuccessPopup) {
         // Successful Popup

@@ -50,6 +50,16 @@ export default class SponsorPremium extends Bonus {
         // Start showing modals here with buying premium forms
         console.log('Starting using premium...');
         this.$modal.modal('show');
+      })
+      .on('form:submitted', (event, data) => {
+        let { $form, response } = data;
+
+        // Handle only the case when this is the form inside sponsoring premium modal dialog
+        if (!$form.closest(this.selectors.modal)) return;
+
+        this.$modal.modal('hide');
+
+        setTimeout(this._useBonus, 300);
       });
   }
 

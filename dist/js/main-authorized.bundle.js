@@ -82651,6 +82651,7 @@
 
                                 case 12:
                                   if (response.success) {
+                                    // Generate submit event on the form
                                     if (this.generateSubmitEvent) {
                                       // Make custom event for form submission
                                       customSubmittedEvent = new CustomEvent(
@@ -82661,6 +82662,11 @@
                                         customSubmittedEvent
                                       );
                                     }
+
+                                    $(document).trigger('form:submitted', {
+                                      response: response,
+                                      $form: this.$form,
+                                    });
 
                                     if (this.showSuccessPopup) {
                                       // Successful Popup
@@ -84506,12 +84512,6 @@
                 return false;
             }
 
-            console.log('currentYear === year:');
-            console.log(currentYear === year);
-            console.log('currentMonth < month');
-            console.log(currentMonth < month);
-            console.log('currentYear > year');
-            console.log(currentYear > year);
             return currentYear === year
               ? currentMonth < month
                 ? true
@@ -86985,6 +86985,16 @@
                       console.log('Starting using premium...');
 
                       _this2.$modal.modal('show');
+                    })
+                    .on('form:submitted', function (event, data) {
+                      var $form = data.$form,
+                        response = data.response; // Handle only the case when this is the form inside sponsoring premium modal dialog
+
+                      if (!$form.closest(_this2.selectors.modal)) return;
+
+                      _this2.$modal.modal('hide');
+
+                      setTimeout(_this2._useBonus, 300);
                     });
                 },
               },

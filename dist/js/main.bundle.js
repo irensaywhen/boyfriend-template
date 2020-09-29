@@ -20812,6 +20812,7 @@
 
                                 case 12:
                                   if (response.success) {
+                                    // Generate submit event on the form
                                     if (this.generateSubmitEvent) {
                                       // Make custom event for form submission
                                       customSubmittedEvent = new CustomEvent(
@@ -20822,6 +20823,11 @@
                                         customSubmittedEvent
                                       );
                                     }
+
+                                    $(document).trigger('form:submitted', {
+                                      response: response,
+                                      $form: this.$form,
+                                    });
 
                                     if (this.showSuccessPopup) {
                                       // Successful Popup
@@ -21886,12 +21892,6 @@
                 return false;
             }
 
-            console.log('currentYear === year:');
-            console.log(currentYear === year);
-            console.log('currentMonth < month');
-            console.log(currentMonth < month);
-            console.log('currentYear > year');
-            console.log(currentYear > year);
             return currentYear === year
               ? currentMonth < month
                 ? true
