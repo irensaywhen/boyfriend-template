@@ -80629,16 +80629,7 @@
               }
             } // Save selectors
 
-            this.selectors = options.selectors; // Prepare testdata for displaying messages
-
-            this.testData = {
-              type: 'general',
-              mine: false,
-              text: 'Testing templating',
-              time: '13:55',
-              id: 125,
-              seen: false,
-            }; // Save class names
+            this.selectors = options.selectors; // Save class names
 
             this.classNames = options.classNames; // Prepare message templates to render them in the future
 
@@ -80648,7 +80639,9 @@
 
             this._cacheElements();
 
-            this._setUpEventListeners(); //this._displayMessage(this.testData);
+            this._setUpEventListeners(); //this.$messagesContainer.scrollTop(300);
+
+            this.$chatContent.scrollTop(this.$messagesContainer.outerHeight());
           }
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
@@ -80658,10 +80651,13 @@
                 key: '_cacheElements',
                 value: function _cacheElements() {
                   var selectors = this.selectors;
-                  this.$chat = $(selectors.chat);
+                  this.$chat = $(selectors.chat); // Container in which the messages will be displayed
+
                   this.$messagesContainer = this.$chat.find(
                     selectors.messagesContainer
-                  );
+                  ); // Container with everything in the chat except header
+
+                  this.$chatContent = this.$chat.find(selectors.chatContent);
                   this.$sendButton = this.$chat
                     .find(selectors.sendButton)
                     .fadeOut(0);
@@ -80716,24 +80712,78 @@
                     }
                   }); // Send bonus message to the server
 
-                  $document.on('present:send', function (event) {
-                    var bonusData =
-                      arguments.length > 1 && arguments[1] !== undefined
-                        ? arguments[1]
-                        : null;
-                    var formData =
-                      arguments.length > 2 && arguments[2] !== undefined
-                        ? arguments[2]
-                        : null;
+                  $document
+                    .on('present:send', function (event) {
+                      var bonusData =
+                        arguments.length > 1 && arguments[1] !== undefined
+                          ? arguments[1]
+                          : null;
+                      var formData =
+                        arguments.length > 2 && arguments[2] !== undefined
+                          ? arguments[2]
+                          : null;
 
-                    // Prepare information to send it to the server
-                    var messageData = _this._prepareMessage(
-                      bonusData,
-                      formData
-                    ); // Send message data to the server
+                      // Prepare information to send it to the server
+                      var messageData = _this._prepareMessage(
+                        bonusData,
+                        formData
+                      ); // Send message data to the server
 
-                    _this._sendMessage(messageData, bonusData);
-                  });
+                      _this._sendMessage(messageData, bonusData);
+                    })
+                    .on('lazyLoading:messagesReady', function (event) {
+                      for (
+                        var _len = arguments.length,
+                          messages = new Array(_len > 1 ? _len - 1 : 0),
+                          _key = 1;
+                        _key < _len;
+                        _key++
+                      ) {
+                        messages[_key - 1] = arguments[_key];
+                      }
+
+                      /**
+                       * 1. Get all the retrieved messages from the server
+                       * 2. Compile template
+                       * 3. Display messages in the Chat List container
+                       * 4. Scroll the first message into view
+                       * 5. Signal that the messages are displayed to re-init the observed target
+                       */
+                      //let template = Handlebars.compile(this.messageTemplate);
+                      //messages.forEach(message => this.$chatList.append(template(message)));
+                      //
+                      //this.$chatList.animate({
+                      //  scrollTop: '+=' + messageHeight,
+                      //});
+                      console.log(messages);
+                      var generalMessageTemplate = handlebars__WEBPACK_IMPORTED_MODULE_2___default.a.compile(
+                          _this.messageTemplates.general
+                        ),
+                        specialMessageTemplate = handlebars__WEBPACK_IMPORTED_MODULE_2___default.a.compile(
+                          _this.messageTemplates.special
+                        ); // Listen to this event, too, and re-observe the messages
+
+                      $document.trigger('messages:afterDisplay');
+                    })
+                    .on(
+                      'lazyLoading:beforeObserve messages:afterDisplay',
+                      function () {
+                        /**
+                         * 1. Get the last message from the currently displayed messages
+                         * 2. Pass it with event signaling that the last message was get
+                         */
+                        var lastMessage = _this.$chat
+                          .find(_this.selectors.allMessages)
+                          .first()[0];
+
+                        console.log('Lastm essage');
+                        console.log(lastMessage);
+                        $document.trigger(
+                          'messages:afterGettingLastMessage',
+                          lastMessage
+                        );
+                      }
+                    );
                 },
                 /**
                  * This method prepares information to send it to the server
@@ -83684,6 +83734,7 @@
               MessagesLazyLoading
             );
 
+            console.log('Initializing!');
             _this = _super.call(this, options); // Binding context
 
             _this._getMessages = _this._getMessages.bind(
@@ -83702,6 +83753,8 @@
                 searchParams[key]
               );
             }
+
+            console.log(_this.requests.messages.endpoint);
             /**
              * 1. Save observer options
              * 2. Get the root element
@@ -83753,7 +83806,8 @@
                         _this2
                           ._getMessages()
                           .then(function (messages) {
-                            // Prepare messages
+                            console.log(messages); // Prepare messages
+
                             messages
                               .sort(function (firstMessage, secondMessage) {
                                 return firstMessage.timestamp <

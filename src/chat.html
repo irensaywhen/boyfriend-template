@@ -1362,7 +1362,7 @@
         </div>
         <!--Chat header end-->
 
-        <div class="row chat-content mx-auto">
+        <div class="row chat-content mx-auto" id="chat-content">
           <!--Chat body start-->
           <div class="col-12 align-self-start">
             <div class="d-flex flex-column" id="messages-container">
@@ -2119,10 +2119,13 @@
           selectors: {
             enlargePhoto: '.enlarge',
             chat: '#chat',
+            // Selector to select all the messages independant of the type
+            allMessages: '.message',
             sendButton: '#send',
             sendMessageForm: '#send-message-form',
             message: '.message-textarea',
             messagesContainer: '#messages-container',
+            chatContent: '#chat-content',
           },
           requests: {
             send: {
@@ -2478,6 +2481,27 @@
             animateOnShown: '.animate',
           },
         });
+
+        /* Initializing lazy loading 
+        const messagesLazyLoading = new MessagesLazyLoading({
+          selectors: {},
+          observerOptions: {
+            // Id of the root element to use as a observer container
+            root: 'chat',
+            rootMargin: '0px',
+            // Whenever message is at least a bit visible, intersection occurs
+            threshold: 0,
+          },
+          searchParams: { chat: true, amount: 20 },
+          requests: {
+            messages: {
+              headers: {},
+              method: 'GET',
+              endpoint:
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/messages',
+            },
+          },
+        });*/
       });
     </script>
   </body>

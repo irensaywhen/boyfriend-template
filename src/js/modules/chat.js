@@ -25,16 +25,6 @@ export default class Chat {
     // Save selectors
     this.selectors = options.selectors;
 
-    // Prepare testdata for displaying messages
-    this.testData = {
-      type: 'general',
-      mine: false,
-      text: 'Testing templating',
-      time: '13:55',
-      id: 125,
-      seen: false,
-    };
-
     // Save class names
     this.classNames = options.classNames;
 
@@ -44,14 +34,20 @@ export default class Chat {
     this._cacheElements();
     this._setUpEventListeners();
 
-    //this._displayMessage(this.testData);
+    //this.$messagesContainer.scrollTop(300);
+    this.$chatContent.scrollTop(this.$messagesContainer.outerHeight());
   }
 
   _cacheElements() {
     let selectors = this.selectors;
 
     this.$chat = $(selectors.chat);
+
+    // Container in which the messages will be displayed
     this.$messagesContainer = this.$chat.find(selectors.messagesContainer);
+
+    // Container with everything in the chat except header
+    this.$chatContent = this.$chat.find(selectors.chatContent);
     this.$sendButton = this.$chat.find(selectors.sendButton).fadeOut(0);
     this.$sendMessageForm = this.$chat.find(selectors.sendMessageForm);
     this.$sendMessageTextarea = this.$chat.find(selectors.message);
@@ -104,13 +100,54 @@ export default class Chat {
     });
 
     // Send bonus message to the server
-    $document.on('present:send', (event, bonusData = null, formData = null) => {
-      // Prepare information to send it to the server
-      let messageData = this._prepareMessage(bonusData, formData);
-      // Send message data to the server
+    $document
+      .on('present:send', (event, bonusData = null, formData = null) => {
+        // Prepare information to send it to the server
+        let messageData = this._prepareMessage(bonusData, formData);
+        // Send message data to the server
 
-      this._sendMessage(messageData, bonusData);
-    });
+        this._sendMessage(messageData, bonusData);
+      })
+      .on('lazyLoading:messagesReady', (event, ...messages) => {
+        /**
+         * 1. Get all the retrieved messages from the server
+         * 2. Compile template
+         * 3. Display messages in the Chat List container
+         * 4. Scroll the first message into view
+         * 5. Signal that the messages are displayed to re-init the observed target
+         */
+        //let template = Handlebars.compile(this.messageTemplate);
+        //messages.forEach(message => this.$chatList.append(template(message)));
+        //
+        //this.$chatList.animate({
+        //  scrollTop: '+=' + messageHeight,
+        //});
+        console.log(messages);
+
+        let generalMessageTemplate = Handlebars.compile(
+            this.messageTemplates.general
+          ),
+          specialMessageTemplate = Handlebars.compile(
+            this.messageTemplates.special
+          );
+
+        // Listen to this event, too, and re-observe the messages
+        $document.trigger('messages:afterDisplay');
+      })
+      .on('lazyLoading:beforeObserve messages:afterDisplay', () => {
+        /**
+         * 1. Get the last message from the currently displayed messages
+         * 2. Pass it with event signaling that the last message was get
+         */
+        let lastMessage = this.$chat
+          .find(this.selectors.allMessages)
+          .first()[0];
+
+        console.log('Lastm essage');
+        console.log(lastMessage);
+
+        $document.trigger('messages:afterGettingLastMessage', lastMessage);
+      });
   }
 
   /**

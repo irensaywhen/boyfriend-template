@@ -1983,14 +1983,12 @@ article .header time {
 .chat {
   min-height: 100vh;
   height: 100vh;
-  overflow-y: scroll;
 }
 .chat .chat-header {
   background: #fff;
   height: 77px;
   width: 100%;
-  position: fixed;
-  top: 0;
+  position: relative;
   z-index: 2000;
 }
 .chat .chat-header .chat-header_content {
@@ -2029,11 +2027,10 @@ article .header time {
   height: 60px;
 }
 .chat .chat-content {
-  padding-top: 77px;
-  padding-bottom: 165px;
   background: #fff;
   max-width: 576px;
-  min-height: 100vh;
+  height: calc(100vh - 77px - 71px - 45px);
+  overflow-y: scroll;
 }
 @media (min-width: 576px) {
   .chat .chat-content {
@@ -2049,7 +2046,7 @@ article .header time {
 @media (min-width: 992px) {
   .chat .chat-content {
     max-width: 800px;
-    padding-bottom: 190px !important;
+    height: calc(100vh - 77px - 83px - 60px);
   }
 }
 .chat .chat-content .message-general {
