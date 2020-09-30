@@ -8705,7 +8705,7 @@
       /***/ function (module, exports, __webpack_require__) {
         /* WEBPACK VAR INJECTION */ (function (module) {
           var require; //! moment.js
-          //! version : 2.27.0
+          //! version : 2.28.0
           //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
           //! license : MIT
           //! momentjs.com
@@ -13265,7 +13265,7 @@
                 eras = this.localeData().eras();
               for (i = 0, l = eras.length; i < l; ++i) {
                 // truncate time
-                val = this.startOf('day').valueOf();
+                val = this.clone().startOf('day').valueOf();
 
                 if (eras[i].since <= val && val <= eras[i].until) {
                   return eras[i].name;
@@ -13285,7 +13285,7 @@
                 eras = this.localeData().eras();
               for (i = 0, l = eras.length; i < l; ++i) {
                 // truncate time
-                val = this.startOf('day').valueOf();
+                val = this.clone().startOf('day').valueOf();
 
                 if (eras[i].since <= val && val <= eras[i].until) {
                   return eras[i].narrow;
@@ -13305,7 +13305,7 @@
                 eras = this.localeData().eras();
               for (i = 0, l = eras.length; i < l; ++i) {
                 // truncate time
-                val = this.startOf('day').valueOf();
+                val = this.clone().startOf('day').valueOf();
 
                 if (eras[i].since <= val && val <= eras[i].until) {
                   return eras[i].abbr;
@@ -13328,7 +13328,7 @@
                 dir = eras[i].since <= eras[i].until ? +1 : -1;
 
                 // truncate time
-                val = this.startOf('day').valueOf();
+                val = this.clone().startOf('day').valueOf();
 
                 if (
                   (eras[i].since <= val && val <= eras[i].until) ||
@@ -14536,7 +14536,7 @@
 
             //! moment.js
 
-            hooks.version = '2.27.0';
+            hooks.version = '2.28.0';
 
             setHookCallback(createLocal);
 
