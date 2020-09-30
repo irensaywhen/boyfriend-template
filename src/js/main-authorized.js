@@ -12,6 +12,7 @@ import Ad from './modules/ad.js';
 import Gallery from './modules/gallery.js';
 import Chat from './modules/chat.js';
 import EnlargePhoto from './modules/enlargePhoto.js';
+import MessagesLazyLoading from './modules/messagesLazyLoading.js';
 
 window['PhotoUploader'] = PhotoUploader;
 window['PhotoEditor'] = PhotoEditor;
@@ -27,3 +28,4 @@ window['Gallery'] = Gallery;
 window['Chat'] = Chat;
 window['EnlargePhoto'] = EnlargePhoto;
 window['SponsorPremium'] = SponsorPremium;
+window['MessagesLazyLoading'] = MessagesLazyLoading;

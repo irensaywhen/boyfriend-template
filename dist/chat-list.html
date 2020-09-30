@@ -576,7 +576,7 @@
         });
 
         /* text truncation */
-        $('.message .text').succinct({
+        $('.chatList-message .text').succinct({
           size: 120,
         });
 
@@ -614,9 +614,22 @@
         const chatList = new ChatList({
           selectors: {
             chatList: '#chat-list',
-            message: '.message',
+            message: '.chatList-message',
             templateId: 'messageTemplate',
           },
+        });
+
+        /* Initializing lazy loading */
+        const messagesLazyLoading = new MessagesLazyLoading({
+          selectors: {},
+          observerOptions: {
+            // Id of the root element to use as a observer container
+            root: 'chat-list',
+            rootMargin: '0px',
+            // Whenever message is at least a bit visible, intersection occurs
+            threshold: 0,
+          },
+          messagesAmount: 20,
           requests: {
             messages: {
               headers: {},
@@ -625,7 +638,6 @@
                 'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/messages',
             },
           },
-          messagesAmount: 20,
         });
       });
     </script>
