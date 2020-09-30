@@ -34,8 +34,11 @@ export default class Chat {
     this._cacheElements();
     this._setUpEventListeners();
 
-    //this.$messagesContainer.scrollTop(300);
+    // Scroll to the bottom on the initialization step
     this.$chatContent.scrollTop(this.$messagesContainer.outerHeight());
+
+    // Indicator signaling that the initial scroll was performed
+    this.initialScroll = true;
   }
 
   _cacheElements() {
@@ -48,8 +51,14 @@ export default class Chat {
 
     // Container with everything in the chat except header
     this.$chatContent = this.$chat.find(selectors.chatContent);
+
+    // Button to send typed message
     this.$sendButton = this.$chat.find(selectors.sendButton).fadeOut(0);
+
+    // Form containing textarea for typing messages
     this.$sendMessageForm = this.$chat.find(selectors.sendMessageForm);
+
+    // Textarea to type message
     this.$sendMessageTextarea = this.$chat.find(selectors.message);
   }
 
@@ -110,26 +119,12 @@ export default class Chat {
       })
       .on('lazyLoading:messagesReady', (event, ...messages) => {
         /**
-         * 1. Get all the retrieved messages from the server
-         * 2. Compile template
-         * 3. Display messages in the Chat List container
-         * 4. Scroll the first message into view
-         * 5. Signal that the messages are displayed to re-init the observed target
+         * 1. Display messages
+         * 2. Signal that the messages are displayed to re-init the observed target
          */
-        //let template = Handlebars.compile(this.messageTemplate);
-        //messages.forEach(message => this.$chatList.append(template(message)));
-        //
-        //this.$chatList.animate({
-        //  scrollTop: '+=' + messageHeight,
-        //});
         console.log(messages);
 
-        let generalMessageTemplate = Handlebars.compile(
-            this.messageTemplates.general
-          ),
-          specialMessageTemplate = Handlebars.compile(
-            this.messageTemplates.special
-          );
+        messages.forEach(message => this._displayMessage(message, true));
 
         // Listen to this event, too, and re-observe the messages
         $document.trigger('messages:afterDisplay');
@@ -139,15 +134,26 @@ export default class Chat {
          * 1. Get the last message from the currently displayed messages
          * 2. Pass it with event signaling that the last message was get
          */
-        let lastMessage = this.$chat
+        let lastMessage = (this.lastMessage = this.$chat
           .find(this.selectors.allMessages)
-          .first()[0];
-
-        console.log('Lastm essage');
-        console.log(lastMessage);
+          .first()[0]);
 
         $document.trigger('messages:afterGettingLastMessage', lastMessage);
       });
+
+    /**
+     * Event handler to preserve scroll position on prepend
+     * 1. Get the current scroll of the chat container
+     * 2. If it is 0, and initial scroll was performed, preserve the position
+     *    of the last message
+     */
+    this.$chatContent.on('scroll', () => {
+      let scroll = this.$chatContent.scrollTop();
+
+      if (scroll < 1 && this.initialScroll) {
+        this.$chatContent.scrollTop(2);
+      }
+    });
   }
 
   /**
@@ -268,17 +274,24 @@ export default class Chat {
     return this.$sendMessageTextarea.val();
   }
 
-  _displayMessage(data) {
+  _displayMessage(data, lazy = false) {
     // Prepare template for compilation - for general or special message type
     let compiled = Handlebars.compile(this.messageTemplates[data.type]);
 
     // Compile template with passed data
     compiled = compiled(data);
 
-    $(compiled)
-      .appendTo(this.$messagesContainer)
-      .addClass('visible')[0]
-      .scrollIntoView({ behavior: 'smooth' });
+    if (!lazy) {
+      // Default message displaying
+      $(compiled)
+        .appendTo(this.$messagesContainer)
+        .addClass('visible')[0]
+        .scrollIntoView({ behavior: 'smooth' });
+    } else {
+      let initialHeight = this.$messagesContainer.outerHeight();
+
+      $(compiled).prependTo(this.$messagesContainer).addClass('visible');
+    }
 
     // Change message status after a second for general message type
     // for testing purposes

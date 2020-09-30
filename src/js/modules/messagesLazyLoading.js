@@ -3,7 +3,6 @@ import formatTime from './formatTime.js';
 
 export default class MessagesLazyLoading extends ServerRequest {
   constructor(options) {
-    console.log('Initializing!');
     super(options);
 
     // Binding context
@@ -15,7 +14,6 @@ export default class MessagesLazyLoading extends ServerRequest {
     for (let key in searchParams) {
       this.requests.messages.endpoint.searchParams.set(key, searchParams[key]);
     }
-    console.log(this.requests.messages.endpoint);
 
     /**
      * 1. Save observer options
@@ -57,7 +55,6 @@ export default class MessagesLazyLoading extends ServerRequest {
            */
           this._getMessages()
             .then(messages => {
-              console.log(messages);
               // Prepare messages
               messages
                 .sort((firstMessage, secondMessage) => {

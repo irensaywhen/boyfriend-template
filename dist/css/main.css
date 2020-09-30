@@ -2992,11 +2992,11 @@ article .header time {
 .profile .bonus:hover {
   background: #11a4ef;
 }
-.profile .chat {
+.profile .chat-button {
   display: block;
   background: #ff0068;
 }
-.profile .chat:hover {
+.profile .chat-button:hover {
   background: #cc0053;
 }
 .profile-modals .modal-content {

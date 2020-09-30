@@ -80639,9 +80639,11 @@
 
             this._cacheElements();
 
-            this._setUpEventListeners(); //this.$messagesContainer.scrollTop(300);
+            this._setUpEventListeners(); // Scroll to the bottom on the initialization step
 
-            this.$chatContent.scrollTop(this.$messagesContainer.outerHeight());
+            this.$chatContent.scrollTop(this.$messagesContainer.outerHeight()); // Indicator signaling that the initial scroll was performed
+
+            this.initialScroll = true;
           }
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
@@ -80657,13 +80659,16 @@
                     selectors.messagesContainer
                   ); // Container with everything in the chat except header
 
-                  this.$chatContent = this.$chat.find(selectors.chatContent);
+                  this.$chatContent = this.$chat.find(selectors.chatContent); // Button to send typed message
+
                   this.$sendButton = this.$chat
                     .find(selectors.sendButton)
-                    .fadeOut(0);
+                    .fadeOut(0); // Form containing textarea for typing messages
+
                   this.$sendMessageForm = this.$chat.find(
                     selectors.sendMessageForm
-                  );
+                  ); // Textarea to type message
+
                   this.$sendMessageTextarea = this.$chat.find(
                     selectors.message
                   );
@@ -80743,25 +80748,13 @@
                       }
 
                       /**
-                       * 1. Get all the retrieved messages from the server
-                       * 2. Compile template
-                       * 3. Display messages in the Chat List container
-                       * 4. Scroll the first message into view
-                       * 5. Signal that the messages are displayed to re-init the observed target
+                       * 1. Display messages
+                       * 2. Signal that the messages are displayed to re-init the observed target
                        */
-                      //let template = Handlebars.compile(this.messageTemplate);
-                      //messages.forEach(message => this.$chatList.append(template(message)));
-                      //
-                      //this.$chatList.animate({
-                      //  scrollTop: '+=' + messageHeight,
-                      //});
                       console.log(messages);
-                      var generalMessageTemplate = handlebars__WEBPACK_IMPORTED_MODULE_2___default.a.compile(
-                          _this.messageTemplates.general
-                        ),
-                        specialMessageTemplate = handlebars__WEBPACK_IMPORTED_MODULE_2___default.a.compile(
-                          _this.messageTemplates.special
-                        ); // Listen to this event, too, and re-observe the messages
+                      messages.forEach(function (message) {
+                        return _this._displayMessage(message, true);
+                      }); // Listen to this event, too, and re-observe the messages
 
                       $document.trigger('messages:afterDisplay');
                     })
@@ -80772,18 +80765,30 @@
                          * 1. Get the last message from the currently displayed messages
                          * 2. Pass it with event signaling that the last message was get
                          */
-                        var lastMessage = _this.$chat
+                        var lastMessage = (_this.lastMessage = _this.$chat
                           .find(_this.selectors.allMessages)
-                          .first()[0];
+                          .first()[0]);
 
-                        console.log('Lastm essage');
-                        console.log(lastMessage);
                         $document.trigger(
                           'messages:afterGettingLastMessage',
                           lastMessage
                         );
                       }
                     );
+                  /**
+                   * Event handler to preserve scroll position on prepend
+                   * 1. Get the current scroll of the chat container
+                   * 2. If it is 0, and initial scroll was performed, preserve the position
+                   *    of the last message
+                   */
+
+                  this.$chatContent.on('scroll', function () {
+                    var scroll = _this.$chatContent.scrollTop();
+
+                    if (scroll < 1 && _this.initialScroll) {
+                      _this.$chatContent.scrollTop(2);
+                    }
+                  });
                 },
                 /**
                  * This method prepares information to send it to the server
@@ -80925,18 +80930,31 @@
               {
                 key: '_displayMessage',
                 value: function _displayMessage(data) {
+                  var lazy =
+                    arguments.length > 1 && arguments[1] !== undefined
+                      ? arguments[1]
+                      : false;
                   // Prepare template for compilation - for general or special message type
                   var compiled = handlebars__WEBPACK_IMPORTED_MODULE_2___default.a.compile(
                     this.messageTemplates[data.type]
                   ); // Compile template with passed data
 
                   compiled = compiled(data);
-                  $(compiled)
-                    .appendTo(this.$messagesContainer)
-                    .addClass('visible')[0]
-                    .scrollIntoView({
-                      behavior: 'smooth',
-                    }); // Change message status after a second for general message type
+
+                  if (!lazy) {
+                    // Default message displaying
+                    $(compiled)
+                      .appendTo(this.$messagesContainer)
+                      .addClass('visible')[0]
+                      .scrollIntoView({
+                        behavior: 'smooth',
+                      });
+                  } else {
+                    var initialHeight = this.$messagesContainer.outerHeight();
+                    $(compiled)
+                      .prependTo(this.$messagesContainer)
+                      .addClass('visible');
+                  } // Change message status after a second for general message type
                   // for testing purposes
 
                   setTimeout(this._setMessageStatus, 1000, {
@@ -83734,7 +83752,6 @@
               MessagesLazyLoading
             );
 
-            console.log('Initializing!');
             _this = _super.call(this, options); // Binding context
 
             _this._getMessages = _this._getMessages.bind(
@@ -83753,8 +83770,6 @@
                 searchParams[key]
               );
             }
-
-            console.log(_this.requests.messages.endpoint);
             /**
              * 1. Save observer options
              * 2. Get the root element
@@ -83806,8 +83821,7 @@
                         _this2
                           ._getMessages()
                           .then(function (messages) {
-                            console.log(messages); // Prepare messages
-
+                            // Prepare messages
                             messages
                               .sort(function (firstMessage, secondMessage) {
                                 return firstMessage.timestamp <

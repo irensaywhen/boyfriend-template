@@ -1838,6 +1838,11 @@
         {{#if premium}}
         <img src="img/premium.svg" alt="photo" />
         {{/if}}
+
+        {{! Permission icon}}
+        {{#if permission}}
+        <img src="img/crop.svg" alt="photo" />
+        {{/if}}
       </figure>
       {{! Message icon end}}
 
@@ -1854,7 +1859,9 @@
         <figcaption class="pt-2 pl-2">
           {{description}}
         </figcaption>
-        {{else}}
+        {{/if}}
+
+        {{#if permission}}
         <figcaption
           class="pt-2 d-inline-flex justify-content-center flex-wrap"
         >
@@ -2482,7 +2489,7 @@
           },
         });
 
-        /* Initializing lazy loading 
+        /* Initializing lazy loading */
         const messagesLazyLoading = new MessagesLazyLoading({
           selectors: {},
           observerOptions: {
@@ -2498,10 +2505,10 @@
               headers: {},
               method: 'GET',
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/messages',
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/messages',
             },
           },
-        });*/
+        });
       });
     </script>
   </body>
