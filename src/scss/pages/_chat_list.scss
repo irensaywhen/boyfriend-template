@@ -1,9 +1,15 @@
 .chat-list {
   position: relative;
-  margin-top: 15px;
   overflow-y: auto;
-  height: 80vh;
-  max-height: 80vh;
+  height: calc(100% - $private-header-height - $chat-footer-height);
+
+  @include screen-lg {
+    height: calc(100% - $private-header-height - $chat-footer-height-lg);
+  }
+
+  .title {
+    @include fluid-type($screen-xs, $screen-xl, 22px, 26px);
+  }
 
   .chatList-message {
     /* All the messages' styles */
@@ -12,10 +18,10 @@
 
       @include circular-badge(80px);
       @include screen-sm {
-        @include circular-badge(110px);
+        @include circular-badge(90px);
       }
       @include screen-md {
-        @include circular-badge(150px);
+        @include circular-badge(100px);
       }
 
       img {
@@ -24,11 +30,11 @@
     }
 
     .name {
-      @include fluid-type($screen-xs, $screen-xl, 16px, 20px);
+      @include fluid-type($screen-xs, $screen-xl, 16px, 18px);
     }
 
     .text {
-      @include fluid-type($screen-xs, $screen-xl, 14px, 16px);
+      @include fluid-type($screen-xs, $screen-xl, 14px, 15px);
       max-width: calc(100% - 34px);
     }
 

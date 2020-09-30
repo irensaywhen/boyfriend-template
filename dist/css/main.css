@@ -2708,10 +2708,26 @@ article .header time {
 }
 .chat-list {
   position: relative;
-  margin-top: 15px;
   overflow-y: auto;
-  height: 80vh;
-  max-height: 80vh;
+  height: calc(100% - $private-header-height - $chat-footer-height);
+}
+@media (min-width: 992px) {
+  .chat-list {
+    height: calc(100% - $private-header-height - $chat-footer-height-lg);
+  }
+}
+.chat-list .title {
+  font-size: 22px;
+}
+@media screen and (min-width: 320px) {
+  .chat-list .title {
+    font-size: calc(22px + 4 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .chat-list .title {
+    font-size: 26px;
+  }
 }
 .chat-list .chatList-message .avatar {
   margin: 0;
@@ -2725,22 +2741,22 @@ article .header time {
 }
 @media (min-width: 576px) {
   .chat-list .chatList-message .avatar {
-    width: 110px;
-    height: 110px;
-    min-width: 110px;
-    min-height: 110px;
-    line-height: 110px;
+    width: 90px;
+    height: 90px;
+    min-width: 90px;
+    min-height: 90px;
+    line-height: 90px;
     vertical-align: middle;
     border-radius: 50%;
   }
 }
 @media (min-width: 768px) {
   .chat-list .chatList-message .avatar {
-    width: 150px;
-    height: 150px;
-    min-width: 150px;
-    min-height: 150px;
-    line-height: 150px;
+    width: 100px;
+    height: 100px;
+    min-width: 100px;
+    min-height: 100px;
+    line-height: 100px;
     vertical-align: middle;
     border-radius: 50%;
   }
@@ -2755,12 +2771,12 @@ article .header time {
 }
 @media screen and (min-width: 320px) {
   .chat-list .chatList-message .name {
-    font-size: calc(16px + 4 * ((100vw - 320px) / 880));
+    font-size: calc(16px + 2 * ((100vw - 320px) / 880));
   }
 }
 @media screen and (min-width: 1200px) {
   .chat-list .chatList-message .name {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 .chat-list .chatList-message .text {
@@ -2771,12 +2787,12 @@ article .header time {
 }
 @media screen and (min-width: 320px) {
   .chat-list .chatList-message .text {
-    font-size: calc(14px + 2 * ((100vw - 320px) / 880));
+    font-size: calc(14px + 1 * ((100vw - 320px) / 880));
   }
 }
 @media screen and (min-width: 1200px) {
   .chat-list .chatList-message .text {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
 .chat-list .chatList-message.unread .name {
