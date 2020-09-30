@@ -10,11 +10,10 @@ export default class MessagesLazyLoading extends ServerRequest {
 
     this._setUpEventListeners();
 
-    // Save messages amount to retrieve as a search parameters for the endpoint
-    this.requests.messages.endpoint.searchParams.set(
-      'amount',
-      options.messagesAmount
-    );
+    let searchParams = options.searchParams;
+    for (let key in searchParams) {
+      this.requests.messages.endpoint.searchParams.set(key, searchParams[key]);
+    }
 
     /**
      * 1. Save observer options

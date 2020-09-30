@@ -123,7 +123,7 @@
     </div>
     <!-- sidebar ends -->
 
-    <div class="wrapper wrapper-padding">
+    <div class="wrapper wrapper-padding-top pb-0">
       <!-- header -->
       <div class="private-header d-flex align-items-center">
         <div class="container-fluid">
@@ -270,12 +270,12 @@
 
               <!--Messages template start-->
               <script type="text/template" id="messageTemplate">
-                  {{#if unread}}
-                  <div
-                  class="chatList-message unread border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3">
-                  {{else}}
+                  {{#if seen}}
                   <div
                   class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3">
+                  {{else}}
+                  <div
+                  class="chatList-message unread border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3">
                   {{/if}}
                   <figure class="avatar">
                     <img src="{{avatar}}" alt="Profile image" />
@@ -638,7 +638,7 @@
             // Whenever message is at least a bit visible, intersection occurs
             threshold: 0,
           },
-          messagesAmount: 20,
+          searchParams: { chatList: true, messagesAmount: 20 },
           requests: {
             messages: {
               headers: {},

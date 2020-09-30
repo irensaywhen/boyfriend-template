@@ -83692,12 +83692,16 @@
               )
             );
 
-            _this._setUpEventListeners(); // Save messages amount to retrieve as a search parameters for the endpoint
+            _this._setUpEventListeners();
 
-            _this.requests.messages.endpoint.searchParams.set(
-              'amount',
-              options.messagesAmount
-            );
+            var searchParams = options.searchParams;
+
+            for (var key in searchParams) {
+              _this.requests.messages.endpoint.searchParams.set(
+                key,
+                searchParams[key]
+              );
+            }
             /**
              * 1. Save observer options
              * 2. Get the root element

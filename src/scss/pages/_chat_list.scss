@@ -1,10 +1,10 @@
 .chat-list {
   position: relative;
-  overflow-y: auto;
-  height: calc(100% - $private-header-height - $chat-footer-height);
+  overflow-y: scroll;
+  height: calc(100vh - 70px - 45px);
 
   @include screen-lg {
-    height: calc(100% - $private-header-height - $chat-footer-height-lg);
+    height: calc(100vh - 70px - 60px);
   }
 
   .title {
