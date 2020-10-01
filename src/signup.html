@@ -57,9 +57,20 @@
       </div>
       <!--Loader end-->
 
+      <!--Spinner template start-->
+      <template id="spinner-template">
+        <span
+          class="spinner-border spinner-border-sm mr-1"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        <span class="sr-only">Loading...</span>
+      </template>
+      <!--Spinner template end-->
+
       <!--Modal for uploading avatar start-->
       <div
-        class="modal fade upload-avatar"
+        class="modal fade upload-avatar pr-0"
         id="upload-avatar"
         tabindex="-1"
         role="dialog"
@@ -100,49 +111,86 @@
                   </div>
                 </div>
 
-                <!--Avatar Upload-->
-                <ul class="pl-1">
-                  <!--Avatar upload from the computer-->
-                  <li class="position-relative">
-                    <label
-                      for="avatar-file-input"
-                      class="upload-photo-label text-center"
-                    >
-                      <img src="img/upload.svg" alt="Upload photo" />
-                    </label>
-                    <input
-                      type="file"
-                      id="avatar-file-input"
-                      name="avatar-file-input"
-                      class="invisible position-absolute avatar-input"
-                      accept="image/*"
-                    />
-                    <p class="d-inline-block pl-3">
-                      Upload your avatar from your computer
-                    </p>
-                  </li>
+                <!--Container holding read and legacy errors-->
+                <p id="avatarUploadError" class="upload-error"></p>
 
-                  <!--Capturing avatar from device-->
-                  <li class="position-relative d-lg-none">
-                    <label
-                      for="make-avatar"
-                      class="upload-photo-label text-center"
+                <!--Upload progress indicator start-->
+                <div class="upload-progress" id="fileRead-progress"></div>
+                <!--Upload progress indicator end-->
+
+                <script id="progress-template" type="text/template">
+                  <div class="fileProgress-wrapper">
+                    <div class="filename text-muted">
+                      <span class="name d-inline-block pb-1">{{name}}</span>
+                    </div>
+                    <div class="progress mb-3 h-4">
+                      <div
+                        class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                        id={{id}}
+                        role="progressbar"
+                        style="width: 0%"
+                        aria-valuenow="0"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                    </div>
+                  </div>
+                </script>
+
+                <!--Avatar upload and drag'n'drop start-->
+                <div class="photo-upload" id="dragNDropUploadContainer">
+                  <div class="drag-n-drop">
+                    <div class="icon">
+                      <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <p
+                      class="text-center text-uppercase info d-flex flex-column"
                     >
-                      <i class="fas fa-camera-retro"></i>
-                    </label>
-                    <input
-                      type="file"
-                      id="make-avatar"
-                      name="make-avatar"
-                      class="invisible position-absolute avatar-input"
-                      accept="image/*"
-                      capture
-                    />
-                    <p class="d-inline-block pl-3">
-                      Make photo from your camera
+                      <strong class="title">Drag & drop</strong>
+                      <span class="pt-2">to upload, or</span>
                     </p>
-                  </li>
-                </ul>
+                  </div>
+
+                  <div class="d-flex flex-column align-items-center py-4">
+                    <!--Select file from device start-->
+                    <div class="position-relative">
+                      <input
+                        type="file"
+                        id="avatar-file-input"
+                        name="avatar-file-input"
+                        class="invisible position-absolute avatar-input disable-while-load"
+                        accept="image/*"
+                      />
+                      <label
+                        for="avatar-file-input"
+                        class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm select"
+                      >
+                        <i class="fas fa-file-upload"></i> select file
+                      </label>
+                    </div>
+                    <!--Select file from device end-->
+
+                    <!--Capture photo start-->
+                    <div class="position-relative">
+                      <input
+                        type="file"
+                        id="make-avatar"
+                        name="make-avatar"
+                        class="invisible position-absolute avatar-input disable-while-load"
+                        accept="image/*"
+                        capture
+                      />
+                      <label
+                        for="make-avatar"
+                        class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm capture"
+                      >
+                        <i class="fas fa-camera-retro"></i> take photo
+                      </label>
+                    </div>
+                    <!--Capture photo end-->
+                  </div>
+                </div>
+                <!--Avatar upload and drag'n'drop end-->
 
                 <!--Avatar requirements-->
                 <div class="avatar-requirements border-top">
@@ -160,7 +208,8 @@
                 <div class="px-0 py-3 text-center w-100">
                   <button
                     type="submit"
-                    class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
+                    class="btn btn-lg btn-default text-white btn-rounded shadow disable-while-load"
+                    id="submitButton-avatar"
                   >
                     <span>Submit</span
                     ><i class="material-icons">arrow_forward</i>
@@ -186,10 +235,16 @@
             <div
               class="col-md-7 col-12 d-flex align-items-center justify-content-center justify-content-xs-between justify-content-md-end"
             >
-              <a href="register.html" class="mx-3 btn btn-lg btn-default">
+              <a
+                href="register.html"
+                class="mx-3 btn btn-lg btn-default text-white"
+              >
                 Zarejestruj
               </a>
-              <a href="login.html" class="btn btn-lg btn-outline-white mx-3">
+              <a
+                href="login.html"
+                class="btn btn-lg btn-outline-white mx-3 text-white"
+              >
                 Zaloguj
               </a>
             </div>
@@ -198,21 +253,58 @@
       </header>
       <!--Header end-->
 
-      <!--Login section start-->
-      <section class="container">
-        <div class="row no-gutters vh-100 proh bg-template">
-          <div class="col align-self-center px-3 text-center">
-            <h2 class="text-white">
-              <span class="font-weight-light">Sign</span>Up
-            </h2>
-            <div id="forms-signup">
+      <div
+        id="forms-signup"
+        class="login-and-registration pb-5 d-flex align-items-sm-center align-items-start"
+      >
+        <!--Registration section start-->
+        <section class="container">
+          <div class="row no-gutters proh bg-template">
+            <div class="col-12 align-self-center px-0 px-sm-3 text-center">
+              <h2 class="text-white pb-4">
+                <span class="font-weight-light">Sign</span>Up
+              </h2>
+
+              <div class="form-steps py-3 mx-auto mb-5">
+                <div class="progress h-2">
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    aria-valuenow="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+                <div class="steps d-flex justify-content-around">
+                  <div class="step step-current" data-step="0">
+                    <i class="fas fa-check passed"></i>
+                    <div class="current-mark"></div>
+                    <p class="label">General information</p>
+                  </div>
+                  <div class="step step-further" data-step="1">
+                    <i class="fas fa-check passed"></i>
+                    <div class="current-mark"></div>
+                    <p class="label">Write about yourself</p>
+                  </div>
+                  <div class="step step-further" data-step="2">
+                    <i class="fas fa-check passed"></i>
+                    <div class="current-mark"></div>
+                    <p class="label">Physical data</p>
+                  </div>
+                  <div class="step step-further" data-step="3">
+                    <i class="fas fa-check passed"></i>
+                    <div class="current-mark"></div>
+                    <p class="label">Select avatar</p>
+                  </div>
+                </div>
+              </div>
               <!--Form step 1 start-->
-              <div class="form-wrapper">
+              <div class="form-wrapper pt-3">
                 <form
-                  class="form-signin shadow text-left"
+                  class="form-step form-signin shadow text-left"
                   id="signup-1"
                   data-step="0"
                 >
+                  <div class="general-error" id="general-error-signup-1"></div>
                   <!--Name-->
                   <div class="form-group float-label">
                     <input
@@ -271,10 +363,11 @@
 
                   <!--Signup button-->
                   <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 text-center">
                       <button
                         type="submit"
                         class="btn btn-lg btn-default btn-rounded shadow"
+                        id="btn-firstStep"
                       >
                         <span>Sign Up</span
                         ><i class="material-icons">arrow_forward</i>
@@ -286,12 +379,13 @@
               <!--Form step 1 end-->
 
               <!--Form step 2 start-->
-              <div class="form-wrapper">
+              <div class="form-wrapper pt-3">
                 <form
-                  class="form-signin shadow text-left"
+                  class="form-step form-signin shadow text-left"
                   id="signup-2"
                   data-step="1"
                 >
+                  <div class="general-error" id="general-error-signup-2"></div>
                   <!--Name-->
                   <div class="form-group float-label">
                     <input
@@ -318,10 +412,11 @@
 
                   <!--Submit button-->
                   <div class="row">
-                    <div class="col-6 offset-5 offset-sm-6">
+                    <div class="col-12 text-right">
                       <button
                         type="submit"
                         class="btn btn-lg btn-default btn-rounded shadow"
+                        id="btn-secondStep"
                       >
                         <span>Next</span
                         ><i class="material-icons">arrow_forward</i>
@@ -333,15 +428,17 @@
               <!--Form step 2 start-->
 
               <!--Form step 3 start-->
-              <div class="form-wrapper" id="signup-3-wrapper">
+              <div class="form-wrapper pt-3" id="signup-3-wrapper">
                 <form
-                  class="form-signin shadow text-left"
+                  class="form-step form-signin-lg shadow text-left"
                   id="signup-3"
                   data-step="2"
-                  autocomplete="off"
                 >
+                  <div class="general-error" id="general-error-signup-3"></div>
                   <!--City input start-->
-                  <div class="form-group float-label position-relative">
+                  <div
+                    class="form-group float-label position-relative input-wrapper"
+                  >
                     <input
                       type="text"
                       name="city"
@@ -371,35 +468,55 @@
                   <h4 class="section-subtitle">Date of birth</h4>
                   <div class="container">
                     <div class="row">
-                      <div class="col-12 col-sm-4 pl-0">
-                        <div class="form-group float-label">
+                      <div class="col-12 col-sm-4 px-0 pr-sm-2">
+                        <div class="form-group float-label mb-1 input-wrapper">
                           <input
-                            type="number"
+                            type="text"
                             name="day"
-                            min="1"
-                            max="31"
+                            id="day"
+                            data-restrictLength="true"
+                            data-maxlength="2"
+                            data-date="true"
                             class="form-control signup-input"
                           />
                           <label class="form-control-label">Day</label>
                         </div>
                       </div>
-                      <div class="col-12 col-sm-4 pl-0 pl-sm-1">
-                        <div class="form-group float-label">
-                          <input
-                            type="number"
-                            name="month"
-                            min="1"
-                            max="12"
+                      <div class="col-12 col-sm-4 px-0 pl-sm-1 pr-sm-2">
+                        <div class="form-group float-label mb-1 input-wrapper">
+                          <select
                             class="form-control signup-input"
-                          />
+                            name="month"
+                            data-date="true"
+                            data-day="true"
+                            id="month"
+                          >
+                            <option value="null" disabled selected></option>
+                            <option value="01">January</option>
+                            <option value="02">February</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="06">June</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                          </select>
                           <label class="form-control-label">Month</label>
                         </div>
                       </div>
                       <div class="col-12 col-sm-4 pr-0 pl-0 pl-sm-1">
-                        <div class="form-group float-label">
+                        <div class="form-group float-label mb-1 input-wrapper">
                           <input
-                            type="number"
+                            type="text"
                             name="year"
+                            id="year"
+                            data-restrictLength="true"
+                            data-maxlength="4"
+                            data-day="true"
                             class="form-control signup-input"
                           />
                           <label class="form-control-label">Year</label>
@@ -413,22 +530,27 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-6 pl-0">
-                        <div class="form-group float-label">
+                        <div class="form-group float-label input-wrapper">
                           <input
                             type="number"
                             name="weight"
                             id="weight"
+                            data-restrictLength="true"
+                            data-maxlength="3"
                             class="form-control signup-input"
                           />
                           <label class="form-control-label">Weight</label>
                         </div>
                       </div>
                       <div class="col-6 pr-0">
-                        <div class="form-group float-label">
+                        <div class="form-group float-label input-wrapper">
                           <input
                             type="number"
                             name="height"
+                            maxlength="3"
                             id="height"
+                            data-restrictLength="true"
+                            data-maxlength="3"
                             class="form-control signup-input"
                           />
                           <label class="form-control-label">Height</label>
@@ -440,7 +562,7 @@
 
                   <!--Preference start-->
 
-                  <div class="form-group">
+                  <div class="form-group input-wrapper">
                     <label for="preference" class="section-subtitle"
                       >Preference</label
                     >
@@ -460,10 +582,11 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-6 offset-5 offset-sm-6">
+                    <div class="col-12 text-right">
                       <button
                         type="submit"
                         class="btn btn-lg btn-default btn-rounded shadow"
+                        id="btn-thirdStep"
                       >
                         <span>Next</span
                         ><i class="material-icons">arrow_forward</i>
@@ -472,7 +595,7 @@
                   </div>
                 </form>
                 <div
-                  class="back blue-link text-white d-flex align-items-center"
+                  class="backward back-lg blue-link text-white d-flex align-items-center"
                 >
                   <i class="material-icons"> arrow_back </i>
                   back
@@ -481,8 +604,13 @@
               <!--Form step 3 end-->
 
               <!--Form step 4 start-->
-              <div class="form-wrapper text-left">
-                <div class="form-signin shadow" id="signup-4" data-step="3">
+              <div class="form-wrapper pt-3 text-left">
+                <div
+                  class="form-step form-signin shadow"
+                  id="signup-4"
+                  data-step="3"
+                >
+                  <div class="general-error" id="general-error-signup-4"></div>
                   <!--Profile photo upload start-->
                   <div class="text-center pb-5">
                     <h3 class="section-title">Upload your avatar</h3>
@@ -510,7 +638,7 @@
                       <a
                         href="#"
                         id="continue"
-                        class="btn btn-lg btn-default btn-rounded shadow"
+                        class="btn btn-lg btn-default text-white btn-rounded shadow"
                       >
                         <span>Continue</span
                         ><i class="material-icons">arrow_forward</i>
@@ -519,24 +647,26 @@
                   </div>
                 </div>
                 <div
-                  class="back blue-link text-white d-flex align-items-center"
+                  class="backward back blue-link text-white d-flex align-items-center"
                 >
                   <i class="material-icons"> arrow_back </i>
                   back
                 </div>
               </div>
               <!--Form step 4 end-->
-            </div>
 
-            <p class="text-center text-white pt-4">
-              Already have account?<br />
-              <a href="login.html" class="blue-link text-underline">Sign In</a>
-              here.
-            </p>
+              <p class="text-center text-white pt-4">
+                Already have account?<br />
+                <a href="login.html" class="blue-link text-underline"
+                  >Sign In</a
+                >
+                here.
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
-      <!--Login section end-->
+        </section>
+        <!--Registration section end-->
+      </div>
     </div>
 
     <!--Footer start-->
@@ -615,14 +745,20 @@
           $(this).closest('.notification').removeClass('active');
         });
 
-        /* signup form functionality start */
+        var $document = $(document);
 
-        // First step
         const signupFirstStep = new Form({
           selectors: {
             form: '#signup-1',
             'input-wrapper': '.form-group',
             inputs: '.signup-input',
+            generalError: '#general-error-signup-1',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#btn-firstStep',
+              spinner: '.spinner-border',
+              text: 'Finishing the first step...',
+            },
           },
           requests: {
             submit: {
@@ -631,7 +767,7 @@
                 'Content-Type': 'application/json',
               },
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin',
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/signin',
             },
           },
           location: false,
@@ -659,12 +795,18 @@
           },
         });
 
-        // Second step
         const signupSecondStep = new Form({
           selectors: {
             form: '#signup-2',
             'input-wrapper': '.form-group',
             inputs: '.signup-input',
+            generalError: '#general-error-signup-2',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#btn-secondStep',
+              spinner: '.spinner-border',
+              text: 'Finishing the second step...',
+            },
           },
           requests: {
             submit: {
@@ -673,7 +815,7 @@
                 'Content-Type': 'application/json',
               },
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin',
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/signin',
             },
           },
           location: false,
@@ -696,17 +838,28 @@
           },
         });
 
-        // Third step
         const signupThirdStep = new Form({
           selectors: {
             form: '#signup-3',
-            'input-wrapper': '.form-group',
+            'input-wrapper': '.input-wrapper',
             inputs: '.signup-input',
             locationInput: '.location',
             'location-dropdown': '.location-dropdown',
             'dropdown-toggle': '.dropdown-toggle',
             'dropdown-menu': '.dropdown-menu',
             locationLoadingIndicator: '.city-loader',
+            generalError: '#general-error-signup-3',
+            date: {
+              day: '#day',
+              month: '#month',
+              year: '#year',
+            },
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#btn-thirdStep',
+              spinner: '.spinner-border',
+              text: 'Finishing the third step...',
+            },
           },
           requests: {
             submit: {
@@ -715,7 +868,7 @@
                 'Content-Type': 'application/json',
               },
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signup-fail',
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/signin',
             },
             location: {
               method: 'GET',
@@ -729,6 +882,15 @@
               },
             },
           },
+          restrictInputLength: true,
+          errorMessages: {
+            year: {
+              emptyDayAndMonth: 'Please, fill out day and month fields first',
+              age: 'You should be 18 to register',
+              format: 'Please enter year in YY or YYYY format',
+            },
+          },
+          date: true,
           location: true,
           showSuccessPopup: false,
           showFailPopup: false,
@@ -736,31 +898,42 @@
           generateSubmitEvent: true,
           validatorOptions: {
             errorElement: 'span',
+            showErrors: function (errorMap) {
+              this.defaultShowErrors();
+              if ('year' in errorMap) {
+                $document.trigger('validator:yearIsInvalid');
+              }
+            },
             rules: {
               city: {
                 required: true,
                 location: true,
               },
+
               day: {
                 required: true,
                 min: 1,
                 max: 31,
+                day: true,
               },
-              month: {
+              month: 'required',
+              year: {
                 required: true,
-                min: 1,
-                max: 12,
+                year: true,
+                max: 2020,
               },
-              year: 'required',
               weight: 'required',
               height: 'required',
               preference: 'required',
             },
+            messages: {
+              city: {
+                required: 'Please, provide your city',
+                location: 'Enter a valid city',
+              },
+            },
           },
         });
-        /* signup form functionality end*/
-
-        /* avatar handling start */
         const avatar = new Avatar({
           selectors: {
             elementSelector: '.avatar-image',
@@ -769,6 +942,38 @@
             input: '.avatar-input',
             preview: '#avatar-preview',
             form: '#avatar-editor',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitButton-avatar',
+              spinner: '.spinner-border',
+              text: 'Saving avatar...',
+            },
+            photoUpload: {
+              disableWhileLoad: '.disable-while-load',
+              uploadContainer: '#dragNDropUploadContainer',
+              errorContainer: '#avatarUploadError',
+              progress: {
+                progress: '#fileRead-progress',
+                progressBar: '.progress-bar',
+                templateId: 'progress-template',
+                fileProgressWrapper: '.fileProgress-wrapper',
+              },
+            },
+          },
+          errorText: {
+            photoUpload: {
+              read:
+                'Something went wrong while reading the file. Please, try again',
+              legacyBrowser:
+                'Your browser is outdated. Please, update your browser and try again',
+              wrongFileType: 'Please, upload image file',
+            },
+          },
+          classes: {
+            input: 'avatar-input',
+            dragNDrop: 'advanced-upload',
+            dragOver: 'is-dragover',
+            mobilePhotoUpload: 'mobile',
           },
           requests: {
             saveAvatar: {
@@ -777,22 +982,36 @@
                 'Content-Type': 'multipart/form-data',
               },
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar',
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/save-avatar',
             },
           },
         });
-        /* avatar handling end */
 
-        /* forms chainer initialization start */
+        /* forms chainer initialization*/
         const chainedForms = new ChainedForms({
           selectors: {
             formsContainer: '#forms-signup',
-            forms: '.form-signin',
-            backward: '.back',
+            forms: '.form-step',
+            backward: '.backward',
             wrapper: '.form-wrapper',
           },
+          showSteps: true,
+          stepsConfig: {
+            selectors: {
+              wrapper: '.form-steps',
+              steps: '.step',
+              progressBar: '.progress-bar',
+              labels: '.label',
+              current: '.current-mark',
+              passed: '.passed',
+            },
+            classes: {
+              passed: 'step-passed',
+              current: 'step-current',
+              further: 'step-further',
+            },
+          },
         });
-        /* forms chainer initialization end */
 
         $('#continue').click(event => {
           event.preventDefault();

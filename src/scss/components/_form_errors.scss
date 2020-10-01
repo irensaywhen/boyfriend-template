@@ -4,3 +4,12 @@
   padding-top: 7px;
   font-size: 16px !important;
 }
+
+.general-error {
+  color: $main-pink;
+  text-align: center !important;
+}
+
+.upload-error {
+  @extend .general-error;
+}

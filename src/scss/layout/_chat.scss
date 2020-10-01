@@ -1,0 +1,205 @@
+.chat {
+  min-height: 100vh;
+
+  /*Chat header start*/
+  .chat-header {
+    background: #fff;
+    height: $chat-header-height;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 2000;
+
+    .chat-header_content {
+      max-width: $chat-width;
+
+      @include screen-lg {
+        max-width: $chat-width-lg;
+      }
+    }
+
+    .profile-avatar {
+      @include avatar($chat-header-height, $chat-header-height, true);
+    }
+
+    .chat-present {
+      min-width: 25px;
+    }
+
+    .user-info {
+      height: 60px;
+    }
+  }
+  /*Chat header end*/
+
+  /*Chat content start*/
+  .chat-content {
+    @include bs-sm-shadow;
+    padding-top: $chat-header-height;
+    padding-bottom: $chat-bottom-spacing;
+    background: #fff;
+    max-width: $chat-width;
+    min-height: 100vh;
+
+    @include screen-sm {
+      border-left: 1px solid $label-border;
+      border-right: 1px solid $label-border;
+    }
+
+    @include screen-lg {
+      max-width: $chat-width-lg;
+      padding-bottom: $chat-bottom-spacing-lg;
+    }
+
+    /* General message start*/
+    .message-general {
+      @include ease-out;
+      transform: translate3d(0, 50px, 0);
+      opacity: 0.5;
+
+      &.visible {
+        @include visible-message;
+      }
+
+      &.mine {
+        background: #fff;
+        align-self: flex-end;
+      }
+
+      &.alien {
+        align-self: flex-start;
+        background: linear-gradient(
+          to right,
+          lighten($main-pink, 8),
+          $main-pink
+        );
+        color: #fff;
+      }
+    }
+    /* General message end*/
+
+    /*superlike message start*/
+    .message-special {
+      font-style: italic;
+
+      .icon {
+        @include circular-badge($icon-width);
+        @include bs-shadow-sm;
+        top: -$icon-width / 2;
+        background: #fff;
+        position: absolute;
+
+        img {
+          @include image;
+          max-width: 50px;
+        }
+      }
+
+      &.mine {
+        margin-right: $icon-width / 2 - 15px;
+        background: #fff;
+        align-self: flex-end;
+
+        .icon {
+          right: -$icon-width / 2;
+        }
+      }
+
+      &.alien {
+        margin-left: $icon-width / 2 - 15px;
+        align-self: flex-start;
+        background: #fff;
+        color: #000;
+
+        .icon {
+          left: -$icon-width / 2;
+        }
+
+        .text {
+          padding-left: $icon-width / 2 - 12px;
+        }
+      }
+
+      .photo {
+        width: 100%;
+        padding-top: 1rem;
+        font-style: normal;
+        border-radius: $message-border-radius;
+        cursor: pointer;
+        text-align: center;
+
+        img {
+          @include image;
+          max-width: $photo-max-width;
+          border-radius: $message-border-radius;
+        }
+
+        figcaption {
+          max-width: $photo-max-width;
+        }
+      }
+    }
+    /* Superlike message end*/
+
+    /*photo message start*/
+
+    /*photo message end*/
+
+    /*send message area start*/
+    .send-message {
+      position: fixed;
+      bottom: $chat-footer-height;
+      background: #fff;
+      border-top: 1px solid $label-border;
+      min-height: $chat-message-height;
+      line-height: 1.25;
+      max-width: $chat-width - 4px;
+
+      @include screen-lg {
+        max-width: $chat-width-lg - 2px;
+        min-height: $chat-message-height-lg;
+        bottom: $chat-footer-height-lg;
+      }
+
+      .message-textarea {
+        border: none;
+        outline: 0px;
+        line-height: 1.25;
+        background: #fff;
+
+        @include screen-lg {
+          padding: 10px 15px;
+        }
+      }
+
+      .send {
+        @include ease-out;
+        --animate-duration: 0.4s;
+        display: flex;
+        width: 24px;
+        height: 100%;
+        color: $main-pink;
+        cursor: pointer;
+        font-size: 20px;
+
+        @include screen-lg {
+          width: auto;
+          .material-icons {
+            font-size: 29px;
+          }
+        }
+
+        &:hover {
+          color: $hover-pink;
+        }
+
+        img {
+          width: 32px;
+          height: auto;
+        }
+      }
+    }
+    /*send message area end*/
+  }
+  /*Chat content end*/
+}

@@ -1,15 +1,7 @@
 import EditorModal from './modal.js';
+import photoUploadMixin from './photoUploadMixin';
 
 export default class Avatar extends EditorModal {
-  // Currently selected avatar. Data type - blob or file
-  avatar = null;
-
-  // Generated link pointing to the avatar locally in the browser
-  newAvatarLink = null;
-
-  // Previous avatar link
-  prevAvatarLink = null;
-
   /**
    * Constructor accepts options object which contains:
    * jQuery Object containing DOM Element for avatar preview,
@@ -20,142 +12,71 @@ export default class Avatar extends EditorModal {
    */
   constructor(options) {
     super(options);
-
+    // Set configuration for upload type
     this.configuration.avatar = true;
 
-    // FormData object containing avatar
-    this.formData = null;
-
-    // Array containing avatar input elements
-    this.$avatarInputs = null;
-
-    // Create FileReader instance to handle reading image data
-    this.reader = new FileReader();
-
     // Binding context
-    this.cacheElements = this.cacheElements.bind(this);
-    this.setUpEventListeners = this.setUpEventListeners.bind(this);
-    this.previewAvatar = this.previewAvatar.bind(this);
-    this.submitAvatar = this.submitAvatar.bind(this);
-    this.updateMarkup = this.updateMarkup.bind(this);
-    this.generateFormData = this.generateFormData.bind(this);
+    this._submitAvatar = this._submitAvatar.bind(this);
+    this._updateMarkup = this._updateMarkup.bind(this);
 
-    // Cache elements according to passed selectors
-    this.cacheElements();
+    // Class usage preparation
+    this._cacheElements();
+    this._setUpEventListeners();
 
-    // Setup event listeners
-    this.setUpEventListeners();
+    // Prepare avatar for using FileReader to load and preview photos
+    Object.assign(Avatar.prototype, photoUploadMixin);
+    // Initialization of the photo upload for avatar
+    this.initializePhotoUpload();
+    // Loading indicator initialization
+    this.initializeLoadingIndicators(this.$form);
   }
 
-  /**
-   * Function caches elements according to passed options.
-   */
-  cacheElements() {
-    super.cacheElements();
+  _cacheElements() {
+    super._cacheElements();
+    let selectors = this.selectors;
 
     // Avatar elements in the markup
-    this.$avatar = $(this.selectors.elementSelector);
-
+    this.$avatar = $(selectors.elementSelector);
     // Avatar preview
-    this.$avatarPreview = this.$modal.find(this.selectors.preview);
-
+    this.$avatarPreview = this.$modal.find(selectors.preview);
     // Save previous avatar to discard changes if user doesn't submit the form
     this.prevAvatarLink = this.$avatarPreview.attr('src');
-
-    // Form
-    this.$avatarForm = this.$modal.find(this.selectors.form);
-
-    // Inputs
-    this.$avatarInputs = this.$modal.find(this.selectors.input);
   }
 
-  /**
-   * Function setup event listeners on the initialization stage of the object creation
-   */
-  setUpEventListeners() {
-    super.setUpEventListeners();
-    // Setup event handler for loading of the image data event
-    this.reader.onload = e => {
-      // Show avatar preview
-      this.$avatarPreview.attr('src', e.target.result);
+  _setUpEventListeners() {
+    super._setUpEventListeners();
 
-      this.$modalFooter.slideDown();
-
-      this.newAvatarLink = e.target.result;
-    };
-
-    // Listen to changes on the input elements
-    this.$avatarInputs.change(event => {
-      this.previewAvatar(event.target);
-    });
-
-    // Submit avatar
-    this.$avatarForm.submit(event => {
+    // Here we need to listen to submit event also
+    this.$form.submit(event => {
       event.preventDefault();
 
-      this.submitAvatar();
+      this._submitAvatar();
     });
   }
 
   /**
-   * This function is called when the process of avatar preview is occuring.
-   * It accepts the input field from which the avatar is being upload
-   * The function starts loading the image
-   * @param {DOMElement} input
+   * Function specific to classes using FileReader Mixin.
+   * It handles class-specific functionality required for preview
+   * Here, it saves src and sets the loaded photo in preview container
+   * @param {FileReader Object} fileReader - the resulting fileReader object
+   * to preview loaded photo
    */
-  previewAvatar(input) {
-    if (input.files && input.files[0]) {
-      //Save the currently selected avatar
-      this.avatar = input.files[0];
-
-      //Start reading the image from the input
-      this.reader.readAsDataURL(input.files[0]);
-    }
+  _preview(fileReader) {
+    // cache
+    let src = fileReader.result;
+    // update preview
+    this.$avatarPreview.attr('src', src);
+    // save src to update markup
+    this.newAvatarLink = src;
   }
 
-  async submitAvatar() {
-    this.generateFormData();
-
-    let response;
-
-    try {
-      // Make server request to save avatar
-      response = await this.makeRequest({
-        headers: this.requests.saveAvatar.headers,
-        endpoint: this.requests.saveAvatar.endpoint,
-        method: this.requests.saveAvatar.method,
-        body: this.formData,
-      });
-    } catch (error) {
-      // Unsuccessful Popup
-      this.showRequestResult({
-        title: error.name,
-        text: error.message,
-        icon: 'error',
-      });
-    }
-
-    if (response.success) {
-      this.uploaded = true;
-      this.updateMarkup();
-
-      // Successful Popup
-      this.showRequestResult({
-        title: response.title,
-        text: response.message,
-        icon: 'success',
-      });
-
-      this.closeModal();
-      this.clean();
-    } else {
-      // Unsuccessful Popup
-      this.showRequestResult({
-        title: response.title,
-        text: response.message,
-        icon: 'error',
-      });
-    }
+  /**
+   * Function specific to classes using FileReader Mixin.
+   * It saves file to allow futher upload in case of submitting the form
+   * @param {File Object} file - reference to the file in the system
+   */
+  _saveFile(file) {
+    this.avatar = file;
   }
 
   /**
@@ -165,29 +86,86 @@ export default class Avatar extends EditorModal {
   clean() {
     // Delete formData object
     this.formData = null;
-
     // Update previous avatar link
     this.prevAvatarLink = this.$avatarPreview.attr('src');
-
     // Discard new link
     this.newAvatarLink = null;
-
     // Return the previous avatar status
     this.uploaded = false;
+    // Empty error container
+    this.$errorContainer.empty();
   }
 
   /**
-   * Function updates the avatar in the editing area and in the menu
+   * Function to show newly uploaded avatar
    */
-  updateMarkup() {
+  _updateMarkup() {
     this.$avatar.attr('src', this.newAvatarLink);
   }
 
   /**
-   * Function delete the newly uploaded avatar
-   * If user didn't submit the form
+   * Show previous avatar
    */
-  discardChanges() {
+  _discardChanges() {
     this.$avatarPreview.attr('src', this.prevAvatarLink);
+  }
+
+  /**
+   * Function to generate formData object to send avatar to the server
+   */
+  _generateFormData() {
+    super._generateFormData();
+    this.formData.append('avatar', this.avatar, this.avatar.name);
+  }
+
+  /**
+   * Function to submit avatar to the server
+   */
+  _submitAvatar() {
+    let { headers, endpoint, method } = this.requests.saveAvatar;
+    this._generateFormData();
+
+    this.makeRequest({
+      headers,
+      endpoint,
+      method,
+      body: this.formData,
+    })
+      .then(response => {
+        if (response.success) {
+          // Save uploaded progress
+          this.uploaded = true;
+          // Update markup
+          this._updateMarkup();
+
+          // Show successful Popup
+          this.showRequestResult({
+            title: response.title,
+            text: response.message,
+            icon: 'success',
+          });
+
+          this.closeModal();
+          $(document).trigger('avatar:submitted');
+          // Delete cached data about the file
+          this.clean();
+        } else {
+          // Show unsuccessful Popup
+          this.showRequestResult({
+            title: response.title,
+            text: response.message,
+            icon: 'error',
+          });
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        // Unsuccessful Popup
+        this.showRequestResult({
+          title: error.name,
+          text: error.message,
+          icon: 'error',
+        });
+      });
   }
 }

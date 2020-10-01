@@ -1,4 +1,7 @@
 import swalAlert from './swalAlertMixin.js';
+import loadingIndicatorMixin from './requestsIndictorMixin.js';
+
+let $document = $(document);
 
 export default class ServerRequest {
   constructor(options) {
@@ -13,11 +16,13 @@ export default class ServerRequest {
     // Save passed options
     this.selectors = options.selectors;
     this.requests = options.requests;
+    this.errorText = options.errorText;
 
     // Transform endpoints into URL Objects
     this.makeURLObjects();
 
     Object.assign(ServerRequest.prototype, swalAlert);
+    Object.assign(ServerRequest.prototype, loadingIndicatorMixin);
   }
 
   /**
@@ -53,6 +58,8 @@ export default class ServerRequest {
           }
         })
         .then(json => {
+          // this === current Form here
+          $(this).trigger('successfulRequest');
           return json;
         })
         .catch(error => {
@@ -83,6 +90,8 @@ export default class ServerRequest {
           }
         })
         .then(json => {
+          // this === current Form here
+          $(this).trigger('successfulRequest');
           return json;
         })
         .catch(error => {
