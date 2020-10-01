@@ -80,7 +80,11 @@ export default class Form extends ServerRequest {
       };
 
       if (this.location) {
-        let errorMessage = errorMessages.city || 'No such city';
+        if (errorMessages && errorMessages.city) {
+          var errorMessage = errorMessages.city;
+        } else {
+          var errorMessage = 'No such city';
+        }
         // Add custom frontend validation for location field
         jQuery.validator.addMethod(
           'location',

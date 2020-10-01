@@ -23,10 +23,19 @@ export default class SearchProfilesForm extends Form {
     options.slider['noUiSlider'].on('change', () => {
       this.$inputs.first().trigger('input');
     });
+
+    this._cacheElements();
+    this._setUpEventListeners();
   }
 
-  setUpEventListeners() {
-    super.setUpEventListeners();
+  _cacheElements() {
+    super._cacheElements();
+
+    this.$locationInput = $(this.selectors.locationInput);
+  }
+
+  _setUpEventListeners() {
+    super._setUpEventListeners();
 
     /**
      * Listen for inputs on the form

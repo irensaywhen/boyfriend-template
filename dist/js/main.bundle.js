@@ -20612,7 +20612,11 @@
               };
 
               if (_this.location) {
-                var errorMessage = errorMessages.city || 'No such city'; // Add custom frontend validation for location field
+                if (errorMessages && errorMessages.city) {
+                  var errorMessage = errorMessages.city;
+                } else {
+                  var errorMessage = 'No such city';
+                } // Add custom frontend validation for location field
 
                 jQuery.validator.addMethod(
                   'location',
