@@ -1,36 +1,63 @@
-import Form from "./form.js";
+import Form from './form.js';
+import helper from './helper.js';
 
 export default class SearchProfilesForm extends Form {
   constructor(options) {
     super(options);
 
-    //Binding context
-    this.generateAgeRange = this.generateAgeRange.bind(this);
+    this.$resultsContainer = $(this.selectors['resultsContainer']);
 
-    this.searchFormOptions = options.searchFormOptions;
+    /**
+     * Generate age range:
+     * 1. Get the initial and final range from the options
+     * 2. Generate <option> element in age selection element
+     */
+    let { ageFrom, ageTo } = options.searchFormOptions;
+    let $ageInputs = this.$form.find(this.selectors.age);
 
-    this.generateAgeRange();
+    for (let i = ageFrom; i <= ageTo; i++) {
+      $('<option></option>').attr('value', i).text(i).appendTo($ageInputs);
+    }
+
+    // Initialize slider
+    options.slider['noUiSlider'].on('change', () => {
+      this.$inputs.first().trigger('input');
+    });
   }
 
   setUpEventListeners() {
     super.setUpEventListeners();
 
-    this.$inputs.on("input", (event) => {
-      event.stopPropagation();
+    /**
+     * Listen for inputs on the form
+     * 1. Handle city input separately
+     * 2. When the user changes something in the form,
+     * signal that the input has finished
+     */
+    this.$form.on('input', event => {
+      let target = event.target;
+      if (target.name === 'city') return;
 
-      this.$form.submit();
+      this.$form.trigger('inputFinished');
     });
-  }
 
-  generateAgeRange() {
-    // Cache range
-    let ageFrom = this.searchFormOptions.ageFrom;
-    let ageTo = this.searchFormOptions.ageTo;
+    /**
+     * After the city is selected from the dropdown
+     * signal that the input is finished
+     */
+    this.$locationInput.on('citySelected', () => {
+      this.$form.trigger('inputFinished');
+    });
 
-    let $ageInputs = this.$form.find(this.selectors.age);
+    /**
+     * After input is finished:
+     * 1. Save all the information from the form
+     * 2. Delegate retrieving profiles
+     */
+    this.$form.on('inputFinished', event => {
+      this.collectFormInputs();
 
-    for (let i = ageFrom; i <= ageTo; i++) {
-      $("<option></option>").attr("value", i).text(i).appendTo($ageInputs);
-    }
+      $(document).trigger('searchForm:inputFinished', this.formData);
+    });
   }
 }

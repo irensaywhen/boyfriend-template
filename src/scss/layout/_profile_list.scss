@@ -1,5 +1,11 @@
 .profile-list {
-  padding: 120px 0 50px;
+  position: relative;
+
+  .profiles-row,
+  .skeleton {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+  }
 
   h2 {
     @include fluid-type(320px, 1200px, 25px, 32px);
@@ -8,7 +14,23 @@
 
   /* Profiles layout */
   .column {
-    max-width: 300px;
+    max-width: 270px;
+
+    @include screen-sm {
+      width: 245px;
+    }
+
+    @include screen-md {
+      width: 233px;
+    }
+
+    @include screen-lg {
+      width: 227.5px;
+    }
+
+    @include screen-xl {
+      width: 182px;
+    }
 
     .card {
       max-height: 300px;
@@ -47,16 +69,13 @@
       }
     }
 
-    /* Online status */
     .name.online {
-      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
 
       .badge {
         font-size: 12px;
-        position: absolute;
-        top: -5px;
-        right: -58px;
-        left: auto;
       }
     }
   }
@@ -69,6 +88,21 @@
       img {
         @include image;
       }
+    }
+  }
+
+  .no-results {
+    max-width: 508px;
+    margin: 40px auto 0;
+
+    .fa-heart-broken {
+      @include fluid-type(320px, 1200px, 70px, 100px);
+      color: $main-blue;
+    }
+
+    .title {
+      @include fluid-type(320px, 1200px, 22px, 28px);
+      padding: 15px 0 0;
     }
   }
 }

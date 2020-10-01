@@ -66,9 +66,7 @@
             <div
               class="col-md-7 col-12 d-flex align-items-center justify-content-center justify-content-xs-between justify-content-md-end"
             >
-              <a href="#" class="mx-3 btn btn-lg btn-default">
-                Zarejestruj
-              </a>
+              <a href="#" class="mx-3 btn btn-lg btn-default"> Zarejestruj </a>
               <a href="#" class="btn btn-lg btn-outline-white mx-3">
                 Zaloguj
               </a>
@@ -104,12 +102,8 @@
       <article class="pb-5 pt-3 pt-md-5">
         <div class="bg-light rounded shadow-sm container-md py-4 px-md-5">
           <div class="header bg-light text-center text-sm-left">
-            <h1>
-              Article Title
-            </h1>
-            <h2 class="text-secondary font-weight-light">
-              Article Subtitle
-            </h2>
+            <h1>Article Title</h1>
+            <h2 class="text-secondary font-weight-light">Article Subtitle</h2>
             <div class="social text-sm-right pb-3 pb-sm-0">
               <a href="#" class="blue-link"><i class="fab fa-reddit"></i></a>
               <a href="#" class="blue-link"><i class="fab fa-twitter"></i></a>
@@ -150,9 +144,7 @@
 
       <!--Articles section start-->
       <section>
-        <h2 class="w-100 text-center text-white py-5">
-          The latest articles
-        </h2>
+        <h2 class="w-100 text-center text-white py-5">The latest articles</h2>
         <!-- Swiper -->
         <div class="swiper-container news-slide">
           <div class="swiper-wrapper">
@@ -169,12 +161,8 @@
                   >
                     <i class="material-icons md-18">arrow_forward</i>
                   </a>
-                  <h3 class="mb-0">
-                    Article title
-                  </h3>
-                  <time class="small mb-1">
-                    22/10/2019
-                  </time>
+                  <h3 class="mb-0">Article title</h3>
+                  <time class="small mb-1"> 22/10/2019 </time>
                   <p class="text-mute small">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Maxime veritatis quisquam quis iste unde quaerat eaque
@@ -199,12 +187,8 @@
                   >
                     <i class="material-icons md-18">arrow_forward</i>
                   </a>
-                  <h3 class="mb-0">
-                    Article title
-                  </h3>
-                  <time class="small mb-1">
-                    22/10/2019
-                  </time>
+                  <h3 class="mb-0">Article title</h3>
+                  <time class="small mb-1"> 22/10/2019 </time>
                   <p class="text-mute small">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Maxime veritatis quisquam quis iste unde quaerat eaque
@@ -229,12 +213,8 @@
                   >
                     <i class="material-icons md-18">arrow_forward</i>
                   </a>
-                  <h3 class="mb-0">
-                    Article title
-                  </h3>
-                  <time class="small mb-1">
-                    22/10/2019
-                  </time>
+                  <h3 class="mb-0">Article title</h3>
+                  <time class="small mb-1"> 22/10/2019 </time>
                   <p class="text-mute small">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Maxime veritatis quisquam quis iste unde quaerat eaque
@@ -259,12 +239,8 @@
                   >
                     <i class="material-icons md-18">arrow_forward</i>
                   </a>
-                  <h3 class="mb-0">
-                    Article title
-                  </h3>
-                  <time class="small mb-1">
-                    22/10/2019
-                  </time>
+                  <h3 class="mb-0">Article title</h3>
+                  <time class="small mb-1"> 22/10/2019 </time>
                   <p class="text-mute small">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Maxime veritatis quisquam quis iste unde quaerat eaque
@@ -289,12 +265,8 @@
                   >
                     <i class="material-icons md-18">arrow_forward</i>
                   </a>
-                  <h3 class="mb-0">
-                    Article title
-                  </h3>
-                  <time class="small mb-1">
-                    22/10/2019
-                  </time>
+                  <h3 class="mb-0">Article title</h3>
+                  <time class="small mb-1"> 22/10/2019 </time>
                   <p class="text-mute small">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Maxime veritatis quisquam quis iste unde quaerat eaque
@@ -319,12 +291,8 @@
                   >
                     <i class="material-icons md-18">arrow_forward</i>
                   </a>
-                  <h3 class="mb-0">
-                    Article title
-                  </h3>
-                  <time class="small mb-1">
-                    22/10/2019
-                  </time>
+                  <h3 class="mb-0">Article title</h3>
+                  <time class="small mb-1"> 22/10/2019 </time>
                   <p class="text-mute small">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Maxime veritatis quisquam quis iste unde quaerat eaque
@@ -409,18 +377,18 @@
 
     <!-- page level script -->
     <script>
-      $(window).on("load", function () {
+      $(window).on('load', function () {
         /* swiper slider carousel */
-        var swiper = new Swiper(".small-slide", {
-          slidesPerView: "auto",
+        var swiper = new Swiper('.small-slide', {
+          slidesPerView: 'auto',
           spaceBetween: 0,
         });
 
-        var swiper = new Swiper(".news-slide", {
+        var swiper = new Swiper('.news-slide', {
           slidesPerView: 5,
           spaceBetween: 0,
           pagination: {
-            el: ".swiper-pagination",
+            el: '.swiper-pagination',
           },
           breakpoints: {
             1024: {
@@ -448,13 +416,13 @@
 
         /* notification view and hide */
         setTimeout(function () {
-          $(".notification").addClass("active");
+          $('.notification').addClass('active');
           setTimeout(function () {
-            $(".notification").removeClass("active");
+            $('.notification').removeClass('active');
           }, 3500);
         }, 500);
-        $(".closenotification").on("click", function () {
-          $(this).closest(".notification").removeClass("active");
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
       });
     </script>

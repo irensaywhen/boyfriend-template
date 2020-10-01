@@ -16,9 +16,15 @@
   "dependencies": {
     "@babel/runtime": "^7.10.4",
     "card": "^2.4.0",
+    "handlebars": "^4.7.6",
     "jquery-validation": "^1.19.2",
     "node-sass": "^4.14.1",
     "sweetalert2": "^9.15.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   },
   "devDependencies": {
     "@babel/cli": "^7.10.4",
@@ -34,6 +40,9 @@
     "gulp-autoprefixer": "^7.0.1",
     "gulp-sass": "^4.1.0",
     "gulp-svgmin": "^3.0.0",
+    "husky": "^4.3.0",
+    "prettier": "2.1.1",
+    "pretty-quick": "^3.0.0",
     "raw-loader": "^4.0.1",
     "webpack": "^4.43.0",
     "webpack-dev-middleware": "^3.7.2",

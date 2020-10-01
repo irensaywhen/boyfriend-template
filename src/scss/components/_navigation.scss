@@ -1,0 +1,7 @@
+.page-item {
+  &.navigation-hidden {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+  }
+}

@@ -1,4 +1,5 @@
-.ad {
+/* Default ad styles */
+.default-content {
   width: 253px;
   height: 60px;
   background: #fff;
@@ -8,5 +9,26 @@
   @include screen-sm {
     width: 475px;
     height: 59px;
+  }
+}
+
+/* Custom ad styles */
+.custom-content {
+  margin-left: -25px !important;
+  margin-right: -25px !important;
+  figure {
+    width: 25%;
+    max-width: 175px;
+
+    img {
+      @include image;
+    }
+  }
+}
+
+.profile-list {
+  .custom-content {
+    margin-left: -40px !important;
+    margin-right: -40px !important;
   }
 }

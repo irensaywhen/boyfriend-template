@@ -167,7 +167,7 @@
                       x="0px"
                       y="0px"
                       viewBox="0 0 500 500"
-                      style="enable-background: new 0 0 500 500;"
+                      style="enable-background: new 0 0 500 500"
                     >
                       <path
                         id="XMLID_28_"
@@ -455,9 +455,7 @@
                         <div
                           class="col-12 col-md-7 pl-md-4 text-center text-md-left"
                         >
-                          <h3 class="text-dark mb-1 h4 d-block">
-                            Super Like
-                          </h3>
+                          <h3 class="text-dark mb-1 h4 d-block">Super Like</h3>
 
                           <div
                             class="text-secondary font-weight-normal mb-0 pt-1"
@@ -526,9 +524,7 @@
                         <div
                           class="col-12 col-md-7 pl-md-4 text-center text-md-left"
                         >
-                          <h3 class="text-dark mb-1 h4 d-block">
-                            Boost
-                          </h3>
+                          <h3 class="text-dark mb-1 h4 d-block">Boost</h3>
 
                           <div
                             class="text-secondary font-weight-normal mb-0 pt-1"
@@ -597,9 +593,7 @@
                         <div
                           class="col-12 col-md-7 pl-md-4 text-center text-md-left"
                         >
-                          <h3 class="text-dark mb-1 h4 d-block">
-                            Photo Card
-                          </h3>
+                          <h3 class="text-dark mb-1 h4 d-block">Photo Card</h3>
 
                           <div
                             class="text-secondary font-weight-normal mb-0 pt-1"
@@ -705,9 +699,7 @@
               <div
                 class="col-12 col-sm-4 col-md-2 d-none d-sm-block text-center"
               >
-                <span class="material-icons align-middle">
-                  payment
-                </span>
+                <span class="material-icons align-middle"> payment </span>
               </div>
               <div
                 class="col-12 col-sm-7 d-flex flex-column justify-content-center align-items-center align-items-sm-start"
@@ -724,9 +716,7 @@
                     <span class="total-price">0 </span>zł
                   </del>
                 </div>
-                <p class="text-secondary small pt-3">
-                  subscription
-                </p>
+                <p class="text-secondary small pt-3">subscription</p>
               </div>
             </div>
             <!--Card payment end-->
@@ -739,16 +729,12 @@
               <div
                 class="col-12 col-sm-4 col-md-2 d-none d-sm-block text-center"
               >
-                <span class="material-icons">
-                  account_balance
-                </span>
+                <span class="material-icons"> account_balance </span>
               </div>
               <div
                 class="col-12 col-sm-7 d-flex flex-column justify-content-center align-items-center align-items-sm-start"
               >
-                <h3 class="title">
-                  Bank transfer
-                </h3>
+                <h3 class="title">Bank transfer</h3>
                 <div class="price font-weight-normal mb-0 pt-1">
                   <span class="small text-secondary">total:</span>
                   <span class="text-secondary total-price">0 </span>
@@ -785,9 +771,7 @@
             data-step="2"
           >
             <div class="col-12 text-center">
-              <h2 class="h3 mx-3 py-4">
-                Fill your card information
-              </h2>
+              <h2 class="h3 mx-3 py-4">Fill your card information</h2>
             </div>
             <div class="col-12 card-wrapper pb-4"></div>
             <!--Card number start-->
@@ -969,86 +953,86 @@
     <script src="js/main-authorized.bundle.js"></script>
 
     <script>
-      $(window).on("load", function () {
+      $(window).on('load', function () {
         /* notification view and hide */
         setTimeout(function () {
-          $(".notification").addClass("active");
+          $('.notification').addClass('active');
           setTimeout(function () {
-            $(".notification").removeClass("active");
+            $('.notification').removeClass('active');
           }, 3500);
         }, 500);
-        $(".closenotification").on("click", function () {
-          $(this).closest(".notification").removeClass("active");
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
 
         /* Credit card initialization */
         var card = new Card({
-          form: "#credit-card",
-          container: ".card-wrapper",
+          form: '#credit-card',
+          container: '.card-wrapper',
           debug: true,
         });
 
         /* Boost initialization */
         const boost = new Boost({
           selectors: {
-            bonus: ".boost",
+            bonus: '.boost',
             timer: {
-              element: ".timer",
-              hours: ".hours",
-              minutes: ".minutes",
-              seconds: ".seconds",
+              element: '.timer',
+              hours: '.hours',
+              minutes: '.minutes',
+              seconds: '.seconds',
             },
           },
           requests: {
             use: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus',
             },
           },
           popupData: {
-            title: "Do you want to use boost?",
-            confirmButtonText: "Yes!",
-            cancelButtonText: "No",
-            imageUrl: "img/boost.svg",
-            imageAlt: "Boost icon",
+            title: 'Do you want to use boost?',
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No',
+            imageUrl: 'img/boost.svg',
+            imageAlt: 'Boost icon',
           },
         });
 
         /* Buy premium form initialization */
         const buyPremiumForm = new BuyPremiumForm({
           selectors: {
-            form: "#buy-premium",
-            "input-wrapper": ".form-group",
-            inputs: ".buy-premium-input",
+            form: '#buy-premium',
+            'input-wrapper': '.form-group',
+            inputs: '.buy-premium-input',
             // Wrapper of the bonus input
-            "bonus-inputs": ".input-group",
+            'bonus-inputs': '.input-group',
             // + and - buttons to add/remove bonuses
-            "bonus-control": ".bonus-control",
-            "add-bonus-input-className": "input-group-append",
-            price: ".total-price",
-            "card-payment-price": ".discount-price",
-            checkout: ".plan-and-bonuses-checkout",
+            'bonus-control': '.bonus-control',
+            'add-bonus-input-className': 'input-group-append',
+            price: '.total-price',
+            'card-payment-price': '.discount-price',
+            checkout: '.plan-and-bonuses-checkout',
           },
           requests: {
             price: {
-              method: "GET",
+              method: 'GET',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/price",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/price',
             },
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/price",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/price',
             },
           },
           location: false,
@@ -1059,25 +1043,25 @@
         });
 
         /* Bank transfer handling */
-        $("#bank-transfer").click(function () {
-          $(this).find("#bank-transfer-form").submit();
+        $('#bank-transfer').click(function () {
+          $(this).find('#bank-transfer-form').submit();
         });
 
         /* Payment with credit card form initialization */
         const paymentForm = new Form({
           selectors: {
-            form: "#credit-card",
-            "input-wrapper": ".form-group",
-            inputs: ".payment-input",
+            form: '#credit-card',
+            'input-wrapper': '.form-group',
+            inputs: '.payment-input',
           },
           requests: {
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/card",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/card',
             },
           },
           location: false,
@@ -1087,9 +1071,9 @@
           frontendValidation: true,
           redirectOnSubmit: true,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
-              terms: "required",
+              terms: 'required',
               name: {
                 required: true,
                 minlength: 5,
@@ -1113,10 +1097,10 @@
         /* forms chainer initialization */
         const chainedForms = new ChainedForms({
           selectors: {
-            formsContainer: "#checkout",
-            forms: ".buy-premium-step",
-            forward: ".forward",
-            wrapper: ".form-wrapper",
+            formsContainer: '#checkout',
+            forms: '.buy-premium-step',
+            forward: '.forward',
+            wrapper: '.form-wrapper',
           },
         });
       });

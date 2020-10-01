@@ -21,6 +21,18 @@
   border-radius: 50%;
 }
 
+/* small pagination link */
+@mixin pagination-link {
+  @include ease-out;
+  display: inline-block;
+  padding: 8px 12px;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-right: none;
+  color: $main-pink;
+  cursor: pointer;
+}
+
 /*Responsize font size*/
 
 @mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {

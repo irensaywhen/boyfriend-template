@@ -29,9 +29,6 @@
       rel="stylesheet"
     />
 
-    <!-- Swiper CSS min-->
-    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" />
-
     <!-- nouislider CSS -->
     <link href="vendor/nouislider/nouislider.min.css" rel="stylesheet" />
 
@@ -126,7 +123,7 @@
     </div>
     <!-- sidebar ends -->
 
-    <div class="wrapper">
+    <div class="wrapper wrapper-padding">
       <!-- header -->
       <div class="private-header d-flex align-items-center">
         <div class="container-fluid">
@@ -260,20 +257,43 @@
       </div>
       <!-- header ends -->
 
-      <!--Profiles start-->
-      <div class="container profile-list">
-        <!-- Ad -->
-        <div class="ad"></div>
+      <!--Ad at the top start-->
+      <div class="container-fluid profile-list">
+        <div class="row profiles-row">
+          <div class="col-12 mt-4">
+            <div
+              class="content custom-content d-sm-flex justify-content-around justify-content-lg-evenly align-items-center text-center text-sm-left py-4 px-3"
+              style="background: #ffc400; color: #fff;"
+              data-type="custom"
+            >
+              <div class="description">
+                <h2 class="text-uppercase mb-3 p-0">20% OFF Season Sale</h2>
+                <p class="mb-3">
+                  Use Coupan Code
+                  <span style="color: #000;">DFR0020</span>
+                </p>
+                <p>Get the all new fresh bananas at very low price</p>
+              </div>
+              <figure class="d-none d-sm-block">
+                <img src="img/banana.png" alt="" />
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Ad at the top end-->
 
+      <!--Profiles start-->
+      <div class="container search-profiles-form">
         <div class="row">
           <div class="col-12">
             <!--Profile search form start-->
             <form
-              class="search-form p-4 my-5"
+              class="search-form mt-5 mb-4"
               id="profile-search"
               autocomplete="off"
             >
-              <div class="container-fluid">
+              <div class="container-fluid p-4">
                 <div class="row">
                   <!--Form area - age start-->
                   <div class="col-12 col-sm-6 col-lg-3 form-area-sm">
@@ -285,8 +305,9 @@
                             <label class="small" for="age-from">from:</label>
                             <select
                               class="form-control search-field age-select"
-                            >
-                            </select>
+                              name="age-from"
+                              id="age-from"
+                            ></select>
                           </div>
                         </div>
                         <div class="col-6">
@@ -294,8 +315,9 @@
                             <label class="small" for="age-from">to:</label>
                             <select
                               class="form-control search-field age-select"
-                            >
-                            </select>
+                              name="age-to"
+                              id="age-to"
+                            ></select>
                           </div>
                         </div>
                       </div>
@@ -355,7 +377,7 @@
                     class="col-12 col-sm-6 col-lg-3 form-area-sm pt-4 pt-lg-0"
                   >
                     <!--City input start-->
-                    <div class="form-group">
+                    <div class="form-group position-relative">
                       <label for="city">City</label>
                       <input
                         type="text"
@@ -363,6 +385,9 @@
                         id="city"
                         name="city"
                       />
+                      <div class="spinner-border city-loader" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
                       <div class="dropdown location-dropdown">
                         <button
                           class="btn btn-primary dropdown-toggle"
@@ -381,9 +406,7 @@
 
                     <!--Distance input start-->
                     <div class="form-group">
-                      <label class="form-control-lable">
-                        Distance
-                      </label>
+                      <label class="form-control-lable"> Distance </label>
                       <br />
                       <div id="rangeslider" class="mt-2"></div>
                     </div>
@@ -392,12 +415,8 @@
                         <div class="col">
                           <input
                             type="number"
-                            min="0"
-                            max="500"
-                            value="100"
-                            step="1"
                             id="input-select"
-                            class="form-control search-field"
+                            class="form-control search-field distance-from"
                             name="distance-from"
                           />
                         </div>
@@ -405,12 +424,8 @@
                         <div class="col">
                           <input
                             type="number"
-                            min="0"
-                            max="500"
-                            value="100"
-                            step="1"
                             id="input-number"
-                            class="form-control search-field"
+                            class="form-control search-field distance-to"
                             name="distance-to"
                           />
                         </div>
@@ -458,156 +473,1052 @@
             <!--Profile search form end-->
           </div>
         </div>
-        <div class="row">
+      </div>
+
+      <!--Profiles preview container start-->
+      <div class="container-fluid profile-list">
+        <!--Skeleton screen start-->
+        <div id="skeleton" class="row skeleton justify-content-center">
+          <!--Skeleton card start-->
           <div
             class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
           >
             <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+          <!--Skeleton card start-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <span class="skeleton-element skeleton-badge"></span>
+              <span class="skeleton-element skeleton-title"></span>
+              <span class="skeleton-element skeleton-subtitle"></span>
+              <span class="skeleton-element skeleton-button"></span>
+            </div>
+          </div>
+          <!--Skeleton card end-->
+        </div>
+        <!--Skeleton screen end-->
+
+        <script type="text/template" id="profileTemplate">
+              <!--Online and premium user-->
+            <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image premium card-img-top">
+                  {{#with premium}}
+                    {{#if status}}
+                <span class="badge badge-primary mb-1">{{text}}</span>
+                    {{/if}}
+                  {{/with}}
+
+                  {{#with avatar}}
+                <img src={{src}} alt={{alt}} class="card-img-top" />
+                  {{/with}}
               </figure>
-              <div class="card-body pt-0 premium">
+
+              <div class="card-body">
+                <h3 class="mb-0 name online">
+                    {{#with profile}}
+                  <a
+                    href={{url}}
+                    class="text-dark mb-1 mt-2 mr-2 h6 d-inline-block text-capitalize"
+                    >{{name}}
+                  </a>
+                  {{/with}}
+
+                  {{#with online}}
+                    {{#if status}}
+                  <span class="badge badge-success mb-1 small">{{text}}</span>
+                    {{/if}}
+                  {{/with}}
+                </h3>
+
+                {{#with profile}}
+                <p class="text-secondary small mb-2">{{city}}</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href={{url}} class="btn btn-default">
+                    {{buttonText}}
+                  </a>
+                </div>
+              </div>
+                {{/with}}
+
+            </div>
+          </div>
+        </script>
+
+        <!--Profiles container start-->
+        <div
+          id="profiles-container"
+          class="row profiles-row justify-content-center"
+        >
+          <!--Online and premium user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image premium card-img-top">
                 <span class="badge badge-primary mb-1">Premium</span>
-                <h3 class="name online d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
+                <img src="img/photo1.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0 name online">
+                  <a
+                    href="#"
+                    class="text-dark mb-1 mt-2 mr-2 h6 d-inline-block text-capitalize"
                     >Michail, 27
                   </a>
+                  <span class="badge badge-success mb-1 small">online</span>
                 </h3>
                 <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
                 <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
+                  <a href="profile.html" class="btn btn-default">
                     View Profile
                   </a>
                 </div>
               </div>
             </div>
           </div>
+
+          <!--Premium user-->
           <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
           >
             <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
+              <figure class="profile-image premium card-img-top">
+                <span class="badge badge-primary mb-1">Premium</span>
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
               </figure>
-              <div class="card-body pt-0">
-                <h3 class="name online d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
-                    >Michail, 27
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
                   </a>
                 </h3>
                 <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
                 <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
+                  <a href="profile.html" class="btn btn-default">
                     View Profile
                   </a>
                 </div>
               </div>
             </div>
           </div>
+
+          <!--Online user-->
           <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
           >
             <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image boosted">
-                <img src="img/photo1.jpg" alt="" class="" />
+              <figure class="profile-image card-img-top">
+                <img src="img/photo1.jpg" alt="" class="card-img-top" />
               </figure>
-              <div class="card-body pt-0">
-                <h3 class="name d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
+              <div class="card-body">
+                <h3 class="mb-0 name online">
+                  <a
+                    href="#"
+                    class="text-dark mb-1 mt-2 mr-2 h6 d-inline-block text-capitalize"
                     >Michail, 27
                   </a>
+                  <span class="badge badge-success mb-1 small">online</span>
                 </h3>
                 <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
                 <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
+                  <a href="profile.html" class="btn btn-default">
                     View Profile
                   </a>
                 </div>
               </div>
             </div>
           </div>
+          <!--Just user-->
           <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
           >
             <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
               </figure>
-              <div class="card-body pt-0">
-                <h3 class="name d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
-                    >Michail, 27
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
                   </a>
                 </h3>
                 <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
                 <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
+                  <a href="profile.html" class="btn btn-default">
                     View Profile
                   </a>
                 </div>
               </div>
             </div>
           </div>
+
+          <!--Just user-->
           <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
           >
             <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
               </figure>
-              <div class="card-body pt-0">
-                <h3 class="name d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
-                    >Michail, 27
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
                   </a>
                 </h3>
                 <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
                 <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
+                  <a href="profile.html" class="btn btn-default">
                     View Profile
                   </a>
                 </div>
               </div>
             </div>
           </div>
+
+          <!--Just user-->
           <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
           >
             <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
               </figure>
-              <div class="card-body pt-0">
-                <h3 class="name d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
-                    >Michail, 27
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
                   </a>
                 </h3>
                 <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
                 <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
+                  <a href="profile.html" class="btn btn-default">
                     View Profile
                   </a>
                 </div>
               </div>
             </div>
           </div>
+
+          <!--Just user-->
           <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0"
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
           >
             <div class="card shadow-sm border-0 mb-4">
-              <figure class="profile-image">
-                <img src="img/photo1.jpg" alt="" class="" />
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
               </figure>
-              <div class="card-body pt-0">
-                <h3 class="name d-inline-block mb-0">
-                  <a href="#" class="text-dark mb-1 mt-2 h6 d-block"
-                    >Michail, 27
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
                   </a>
                 </h3>
                 <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
                 <div class="text-center mt-2">
-                  <a href="profile.html" class="mb-2 btn btn-default">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
+                  </a>
+                </h3>
+                <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
+                  </a>
+                </h3>
+                <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
+                  </a>
+                </h3>
+                <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
+                  </a>
+                </h3>
+                <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
+                  </a>
+                </h3>
+                <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
+                  </a>
+                </h3>
+                <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
+                  </a>
+                </h3>
+                <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
+                  </a>
+                </h3>
+                <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
+                  </a>
+                </h3>
+                <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
+                  </a>
+                </h3>
+                <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
+                  </a>
+                </h3>
+                <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
+                  </a>
+                </h3>
+                <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
+                  </a>
+                </h3>
+                <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
+                  </a>
+                </h3>
+                <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
+                  </a>
+                </h3>
+                <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
+                  </a>
+                </h3>
+                <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
+                    View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Just user-->
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 column mx-auto mx-sm-0 user-profile"
+            data-profile="true"
+          >
+            <div class="card shadow-sm border-0 mb-4">
+              <figure class="profile-image card-img-top">
+                <img src="img/photo2.jpg" alt="" class="card-img-top" />
+              </figure>
+              <div class="card-body">
+                <h3 class="mb-0">
+                  <a
+                    href="#"
+                    class="name text-dark mb-1 mt-2 h6 d-inline-block text-capitalize"
+                    >Lukasz, 27
+                  </a>
+                </h3>
+                <p class="text-secondary small mb-2">Wroclaw</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mt-2">
+                  <a href="profile.html" class="btn btn-default">
                     View Profile
                   </a>
                 </div>
@@ -616,39 +1527,142 @@
           </div>
         </div>
       </div>
-      <!--Profiles end-->
+      <!--Profiles container end-->
+
+      <!--Templates for pagination start-->
+
+      <!--Previous-->
+      <template id="pageItem-previous">
+        <li class="page-item previous" data-navigation="true">
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">«</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+      </template>
+
+      <!--Next-->
+      <template id="pageItem-next">
+        <li class="page-item next" data-navigation="true">
+          <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">»</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </template>
+
+      <!--Hidden-->
+      <template id="pageItem-hidden">
+        <li class="page-item hidden-pages">
+          <span class="page-link disabled">
+            <span aria-hidden="true">...</span>
+            <span class="sr-only">hidden</span>
+          </span>
+        </li>
+      </template>
+
+      <!--Page number-->
+      <script id="pageItem-number" type="text/template">
+        <li class="page-item page-number" data-page={{page}}>
+          <a class="page-link" href="#">{{page}}</a>
+        </li>
+      </script>
+      <!--Templates for pagination end-->
 
       <!--Pagination start-->
       <nav class="d-flex justify-content-center my-3">
-        <ul class="pagination w-auto">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">«</span>
-              <span class="sr-only">Previous</span>
-            </a>
-          </li>
-          <li class="page-item active">
+        <ul
+          class="pagination w-auto position-relative"
+          id="profiles-paginaition"
+        >
+          <li class="page-item page-number active" data-page="1">
             <a class="page-link" href="#">1</a>
           </li>
-          <li class="page-item">
+          <li class="page-item page-number" data-page="2">
             <a class="page-link" href="#">2</a>
           </li>
-          <li class="page-item">
+          <li class="page-item page-number" data-page="3">
             <a class="page-link" href="#">3</a>
           </li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">»</span>
-              <span class="sr-only">Next</span>
-            </a>
+          <li class="page-item page-number" data-page="4">
+            <a class="page-link" href="#">4</a>
+          </li>
+          <li class="page-item page-number" data-page="5">
+            <a class="page-link" href="#">5</a>
+          </li>
+          <li class="page-item page-number" data-page="6">
+            <a class="page-link" href="#">6</a>
+          </li>
+          <li class="page-item page-number" data-page="7">
+            <a class="page-link" href="#">7</a>
+          </li>
+          <li class="page-item page-number" data-page="8">
+            <a class="page-link" href="#">8</a>
           </li>
         </ul>
       </nav>
       <!--Pagination end-->
 
+      <!--Bottom ad start-->
+      <div class="container-fluid mt-3 profile-list">
+        <div class="row profiles-row">
+          <div class="col-12 mt-3 mb-3">
+            <div class="content default-content" data-type="default"></div>
+          </div>
+        </div>
+      </div>
+      <!--Bottom ad end-->
+
+      <!--Template for empty results start-->
+      <script id="search-noResults" type="text/template">
+          <div class="col-12">
+          <div
+            class="no-results shadow-sm bg-white rounded text-center px-3 py-5"
+          >
+            <i class="fas fa-heart-broken"></i>
+            <h2 class="title">{{title}}</h2>
+            <p class="text-secondary">{{message}}</p>
+          </div>
+        </div>
+      </script>
+      <!--Template for empty results end-->
+
+      <!--Ads template start-->
+      <!--Default-->
+      <template id="default-content">
+        <div class="col-12 mt-4 mb-5 content">
+          <div class="default-content" data-type="default"></div>
+        </div>
+      </template>
+
+      <!--Custom-->
+      <template id="custom-content">
+        <div class="col-12 mt-4 mb-5 content">
+          <div
+            class="custom-content d-sm-flex justify-content-around justify-content-lg-evenly align-items-center text-center text-sm-left py-4 px-3"
+            style="background: #ffc400; color: #fff;"
+            data-type="custom"
+          >
+            <div class="description">
+              <h2 class="text-uppercase mb-3 p-0">20% OFF Season Sale</h2>
+              <p class="mb-3">
+                Use Coupan Code
+                <span style="color: #000;">DFR0020</span>
+              </p>
+              <p>Get the all new fresh bananas at very low price</p>
+            </div>
+            <figure class="d-none d-sm-block">
+              <img src="img/banana.png" alt="" />
+            </figure>
+          </div>
+        </div>
+      </template>
+
+      <!--Ads template end-->
+
       <!-- footer -->
       <footer class="footer">
-        <div class="no-gutters">
+        <div class="row no-gutters">
           <div class="col-auto mx-auto">
             <div class="row no-gutters justify-content-center">
               <div class="col-auto">
@@ -714,8 +1728,10 @@
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
     <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
 
-    <!-- swiper js -->
-    <script src="vendor/swiper/js/swiper.min.js"></script>
+    <!--jPages-->
+    <script src="vendor/jPages/jPages.min.js"></script>
+
+    <!--Sweetalert-->
     <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
 
     <!-- nouislider js -->
@@ -726,20 +1742,22 @@
     <script src="js/main-authorized.bundle.js"></script>
 
     <script>
-      $(window).on("load", function () {
+      $(window).on('load', function () {
         /* notification view and hide */
         setTimeout(function () {
-          $(".notification").addClass("active");
+          $('.notification').addClass('active');
           setTimeout(function () {
-            $(".notification").removeClass("active");
+            $('.notification').removeClass('active');
           }, 3500);
         }, 500);
-        $(".closenotification").on("click", function () {
-          $(this).closest(".notification").removeClass("active");
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
 
+        // Maybe, we can put all these initializations for sliders
+        // Somewhere in search form
         /* range picker for filter */
-        var html5Slider = document.getElementById("rangeslider");
+        var html5Slider = document.getElementById('rangeslider');
         noUiSlider.create(html5Slider, {
           start: [0, 100],
           connect: true,
@@ -749,10 +1767,10 @@
           },
         });
 
-        var inputNumber = document.getElementById("input-number");
-        var select = document.getElementById("input-select");
+        var inputNumber = document.getElementById('input-number');
+        var select = document.getElementById('input-select');
 
-        html5Slider.noUiSlider.on("update", function (values, handle) {
+        html5Slider.noUiSlider.on('update', function (values, handle) {
           var value = values[handle];
 
           if (handle) {
@@ -761,76 +1779,142 @@
             select.value = Math.round(value);
           }
         });
-        select.addEventListener("change", function () {
+
+        select.addEventListener('change', function () {
           html5Slider.noUiSlider.set([this.value, null]);
         });
-        inputNumber.addEventListener("change", function () {
+        inputNumber.addEventListener('change', function () {
           html5Slider.noUiSlider.set([null, this.value]);
         });
 
         /* Boost initialization */
         const boost = new Boost({
           selectors: {
-            bonus: ".boost",
+            bonus: '.boost',
             timer: {
-              element: ".timer",
-              hours: ".hours",
-              minutes: ".minutes",
-              seconds: ".seconds",
+              element: '.timer',
+              hours: '.hours',
+              minutes: '.minutes',
+              seconds: '.seconds',
             },
           },
           requests: {
             use: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus",
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/use-boost',
             },
           },
           popupData: {
-            title: "Do you want to use boost?",
-            confirmButtonText: "Yes!",
-            cancelButtonText: "No",
-            imageUrl: "img/boost.svg",
-            imageAlt: "Boost icon",
+            title: 'Do you want to use boost?',
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No',
+            imageUrl: 'img/boost.svg',
+            imageAlt: 'Boost icon',
           },
+        });
+
+        /*Profiles handling initialization*/
+        const profiles = new Profiles({
+          selectors: {
+            profilesContainer: '#profiles-container',
+            pageItem: '.page-item',
+            pageNumber: '.page-number',
+            pagination: '#profiles-paginaition',
+            previousButton: '.previous',
+            activeItem: '.active',
+            hiddenPagesItem: '.hidden-pages',
+            nextButton: '.next',
+            skeleton: '#skeleton',
+            templateIds: {
+              pagination: {
+                previousItem: 'pageItem-previous',
+                nextItem: 'pageItem-next',
+                hiddenItems: 'pageItem-hidden',
+                pageNumber: 'pageItem-number',
+              },
+              profile: 'profileTemplate',
+              noResults: 'search-noResults',
+            },
+          },
+          pagination: {
+            maxPages: 5,
+            profilesPerPage: 24,
+            classes: {
+              // The actual buttons which are hidden
+              hiddenItems: 'navigation-hidden',
+              activeItem: 'active',
+              previousButton: 'previous',
+              nextButton: 'next',
+              // Button representing hidden items
+              hiddenPagesItem: 'hidden-pages',
+            },
+          },
+          requests: {
+            profiles: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/profiles-custom',
+            },
+          },
+        });
+
+        /*Advertisement initialization*/
+        const ad = new Ad({
+          selectors: {
+            profilesContainer: '#profiles-container',
+            profiles: '.user-profile',
+            ads: '.content',
+            templateIds: {
+              default: 'default-content',
+              custom: 'custom-content',
+            },
+          },
+          requests: {},
+          placementConfig: {
+            xs: 4,
+            sm: 6,
+            md: 6,
+            lg: 8,
+            xl: 12,
+          },
+          displayOnLoad: 'default',
         });
 
         /* Form initialization */
         const searchProfilesForm = new SearchProfilesForm({
           selectors: {
-            form: "#profile-search",
-            locationInput: ".location",
-            "input-wrapper": ".form-group",
-            inputs: ".search-field",
-            "location-dropdown": ".location-dropdown",
-            "dropdown-toggle": ".dropdown-toggle",
-            "dropdown-menu": ".dropdown-menu",
-            age: ".age-select",
+            form: '#profile-search',
+            locationInput: '.location',
+            'input-wrapper': '.form-group',
+            inputs: '.search-field',
+            'location-dropdown': '.location-dropdown',
+            'dropdown-toggle': '.dropdown-toggle',
+            'dropdown-menu': '.dropdown-menu',
+            age: '.age-select',
+            locationLoadingIndicator: '.city-loader',
+            resultsContainer: '#profiles-container',
           },
           requests: {
-            submit: {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/submit-profile",
-            },
             location: {
-              method: "GET",
+              method: 'GET',
               headers: {},
-              endpoint: "https://nominatim.openstreetmap.org/search",
+              endpoint: 'https://nominatim.openstreetmap.org/search',
               searchParams: {
-                format: "json",
-                addressdetails: "1",
-                countrycodes: "pl",
-                "accept-language": "pl,en",
+                format: 'json',
+                addressdetails: '1',
+                countrycodes: 'pl',
+                'accept-language': 'pl,en',
               },
             },
           },
+          slider: html5Slider,
           searchFormOptions: {
             ageFrom: 18,
             ageTo: 40,
@@ -840,7 +1924,7 @@
           showFailPopup: false,
           frontendValidation: true,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
               city: {
                 location: true,

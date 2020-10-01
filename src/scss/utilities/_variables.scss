@@ -1,4 +1,4 @@
-$front-page-background: url("../img/main-bg.jpg");
+$front-page-background: url('../img/main-bg.jpg');
 
 /*Colors*/
 
@@ -35,3 +35,16 @@ $screen-sm: 576px;
 $screen-md: 768px;
 $screen-lg: 992px;
 $screen-xl: 1200px;
+
+/*bootstrap container width*/
+$container-xs: auto;
+$container-sm: 540px;
+$container-md: 720px;
+$container-lg: 960px;
+$container-xl: 1140px;
+
+/* Skeleton card */
+$skeleton-base-color: #ddd;
+$skeleton-shine-color: #e8e8e8;
+
+$card-height: 300px;

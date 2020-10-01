@@ -81,80 +81,131 @@
       </header>
       <!--Header end-->
 
-      <!--Login section start-->
-      <section class="container">
-        <div class="row no-gutters vh-100 proh bg-template">
-          <div class="col align-self-center px-3 text-center">
-            <h2 class="text-white">
-              <span class="font-weight-light">Sign</span>
-              In
-            </h2>
-            <form class="form-signin shadow" id="form-signin">
-              <div class="form-group float-label text-left">
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  class="form-control signin-input"
-                  autofocus
-                />
-                <label for="email" class="form-control-label"
-                  >Email address</label
-                >
-              </div>
-
-              <div class="form-group float-label text-left">
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  class="form-control signin-input"
-                />
-                <label for="password" class="form-control-label"
-                  >Password</label
-                >
-              </div>
-
-              <div class="form-group my-4 text-left">
-                <div class="custom-control custom-checkbox">
+      <div id="forms-container">
+        <section class="container">
+          <div class="row no-gutters vh-100 proh bg-template">
+            <!--Login section start-->
+            <div class="col-12 align-self-center px-3 text-center form-wrapper">
+              <h2 class="text-white">
+                <span class="font-weight-light">Sign</span>
+                In
+              </h2>
+              <form class="form-signin shadow" id="form-signin" data-step="0">
+                <div class="form-group float-label text-left">
                   <input
-                    type="checkbox"
-                    class="custom-control-input signin-input"
-                    id="rememberme"
-                    name="rememberme"
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-control signin-input"
+                    autofocus
                   />
-                  <label class="custom-control-label" for="rememberme"
-                    >Remember Me</label
+                  <label for="email" class="form-control-label"
+                    >Email address</label
                   >
                 </div>
-              </div>
 
-              <div class="row">
-                <div class="col-12">
-                  <button
-                    type="submit"
-                    class="btn btn-lg btn-default btn-rounded shadow"
+                <div class="form-group float-label text-left">
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="form-control signin-input"
+                  />
+                  <label for="password" class="form-control-label"
+                    >Password</label
                   >
-                    <span>Sign in</span
-                    ><i class="material-icons">arrow_forward</i>
-                  </button>
                 </div>
-                <div class="col-12 align-self-center text-center pt-2">
-                  <a href="forgot-password.html" class="blue-link"
-                    >Forgot Password?</a
+
+                <div class="form-group my-4 text-left">
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input signin-input"
+                      id="rememberme"
+                      name="rememberme"
+                    />
+                    <label class="custom-control-label" for="rememberme"
+                      >Remember Me</label
+                    >
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <button
+                      type="submit"
+                      class="btn btn-lg btn-default btn-rounded shadow"
+                    >
+                      <span>Sign in</span
+                      ><i class="material-icons">arrow_forward</i>
+                    </button>
+                  </div>
+                  <div class="col-12 align-self-center text-center pt-2">
+                    <span class="blue-link pointer forward"
+                      >Forgot Password?</span
+                    >
+                  </div>
+                </div>
+              </form>
+              <p class="text-center text-white">
+                Don't have account yet?<br />
+                <a href="signup.html" class="blue-link text-underline"
+                  >Sign Up</a
+                >
+                here.
+              </p>
+            </div>
+            <!--Login section end-->
+
+            <!--Password recovery section start-->
+            <div class="col-12 align-self-center px-3 text-center form-wrapper">
+              <h2 class="text-white font-weight-light">Password Recovery</h2>
+              <form
+                class="form-signin shadow"
+                id="form-forgot-password"
+                data-step="1"
+              >
+                <p class="text-secondary small">
+                  Please provide email adress to recieve password recovery link
+                </p>
+                <div class="form-group float-label text-left">
+                  <input
+                    type="email"
+                    id="email-recovery"
+                    name="email"
+                    class="form-control"
+                    autofocus
+                  />
+                  <label for="email-recovery" class="form-control-label"
+                    >Email address</label
                   >
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <button
+                      type="submit"
+                      class="btn btn-lg btn-default btn-rounded shadow"
+                    >
+                      <span>Reset password</span
+                      ><i class="material-icons">arrow_forward</i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <div class="back text-left">
+                <div
+                  class="backward pointer blue-link text-white d-inline-flex align-items-center"
+                >
+                  <i class="material-icons"> arrow_back </i>
+                  back
                 </div>
               </div>
-            </form>
-            <p class="text-center text-white">
-              Don't have account yet?<br />
-              <a href="signup.html" class="blue-link text-underline">Sign Up</a>
-              here.
-            </p>
+            </div>
+            <!--Password recovery section end-->
           </div>
-        </div>
-      </section>
-      <!--Login section end-->
+        </section>
+      </div>
     </div>
 
     <!--Footer start-->
@@ -211,8 +262,7 @@
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
     <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
 
-    <!-- swiper js -->
-    <script src="vendor/swiper/js/swiper.min.js"></script>
+    <!--Sweetalert2-->
     <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
 
     <!-- template custom js -->
@@ -220,33 +270,33 @@
 
     <!-- page level script -->
     <script>
-      $(window).on("load", function () {
+      $(window).on('load', function () {
         /* notification view and hide */
         setTimeout(function () {
-          $(".notification").addClass("active");
+          $('.notification').addClass('active');
           setTimeout(function () {
-            $(".notification").removeClass("active");
+            $('.notification').removeClass('active');
           }, 3500);
         }, 500);
-        $(".closenotification").on("click", function () {
-          $(this).closest(".notification").removeClass("active");
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
 
         /* login form functionality start */
         const signinFOrm = new Form({
           selectors: {
-            form: "#form-signin",
-            "input-wrapper": ".form-group",
-            inputs: ".signin-input",
+            form: '#form-signin',
+            'input-wrapper': '.form-group',
+            inputs: '.signin-input',
           },
           requests: {
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail',
             },
           },
           location: false,
@@ -255,7 +305,7 @@
           frontendValidation: true,
           redirectOnSubmit: true,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
               email: {
                 required: true,
@@ -269,6 +319,50 @@
           },
         });
         /* login form functionality end */
+
+        /* Password recovery form */
+        const passwordRecoveryForm = new Form({
+          selectors: {
+            form: '#form-forgot-password',
+            'input-wrapper': '.form-group',
+            inputs: '.form-control',
+          },
+          requests: {
+            submit: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin',
+            },
+          },
+          location: false,
+          showSuccessPopup: true,
+          showFailPopup: true,
+          frontendValidation: true,
+          redirectOnSubmit: false,
+          validatorOptions: {
+            errorElement: 'span',
+            rules: {
+              email: {
+                required: true,
+                email: true,
+              },
+            },
+          },
+        });
+
+        /* forms chainer initialization */
+        const chainedForms = new ChainedForms({
+          selectors: {
+            formsContainer: '#forms-container',
+            forward: '.forward',
+            backward: '.backward',
+            forms: '.form-signin',
+            wrapper: '.form-wrapper',
+          },
+        });
       });
     </script>
   </body>

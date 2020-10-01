@@ -1,0 +1,38 @@
+.spinner-border {
+  &.city-loader {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    color: $primary-blue;
+  }
+}
+
+/*Animation for horizontal loading indicator*/
+@keyframes loading {
+  0% {
+    transform: translate3d(-140%, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(240%, 0, 0);
+  }
+}
+
+/* Horizontal loading indicator */
+.loader {
+  height: 3px;
+  background: $main-background-color;
+
+  .bar {
+    width: 40%;
+    height: 100%;
+    background: $main-blue;
+    border-radius: 4px;
+    transform: translate3d(-40%, 0, 0);
+    animation-name: loading;
+    animation-duration: 1.2s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+  }
+}

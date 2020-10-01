@@ -1,4 +1,4 @@
-import Form from "./form.js";
+import Form from './form.js';
 
 export default class BuyPremiumForm extends Form {
   constructor(options) {
@@ -15,7 +15,7 @@ export default class BuyPremiumForm extends Form {
 
     // Price containers
     this.$priceContainer = $(this.selectors.price);
-    this.$discountContainer = $(this.selectors["card-payment-price"]);
+    this.$discountContainer = $(this.selectors['card-payment-price']);
 
     // Checkout area
     this.$checkout = this.$form.find(this.selectors.checkout);
@@ -25,38 +25,38 @@ export default class BuyPremiumForm extends Form {
     super.setUpEventListeners();
 
     // Additiong and removing bonuses
-    this.$form.find(this.selectors["bonus-inputs"]).on("click", (event) => {
+    this.$form.find(this.selectors['bonus-inputs']).on('click', event => {
       let $target = $(event.target);
-      let $buttonWrapper = $target.closest(this.selectors["bonus-control"]);
+      let $buttonWrapper = $target.closest(this.selectors['bonus-control']);
 
       if ($buttonWrapper.length === 0) return;
 
       // Figure out what operation to perform
       let operation = $buttonWrapper.hasClass(
-        this.selectors["add-bonus-input-className"]
+        this.selectors['add-bonus-input-className']
       )
-        ? "add"
-        : "remove";
+        ? 'add'
+        : 'remove';
 
       // Find closest input group containing current button
       let $input = $target
-        .closest(this.selectors["bonus-inputs"])
+        .closest(this.selectors['bonus-inputs'])
         .find(this.selectors.inputs);
 
       // Current input value
       let value = parseInt($input.val());
 
-      if (operation === "add") {
+      if (operation === 'add') {
         $input.val(++value);
       } else {
         $input.val(--value < 0 ? 0 : value);
       }
 
-      $input.trigger("input");
+      $input.trigger('input');
     });
 
     // Setting price
-    this.$inputs.on("input", (event) => {
+    this.$inputs.on('input', event => {
       this.collectFormInputs();
 
       this.setPrice();
@@ -78,16 +78,16 @@ export default class BuyPremiumForm extends Form {
       this.showRequestResult({
         title: error.name,
         text: error.message,
-        icon: "error",
+        icon: 'error',
       });
     }
 
     if (response.success) {
-      let total = response["total"];
+      let total = response['total'];
 
       // Show price
       this.$priceContainer.text(total);
-      this.$discountContainer.text(response["discount"]);
+      this.$discountContainer.text(response['discount']);
 
       total > 0 ? this.$checkout.fadeIn(400) : this.$checkout.fadeOut(400);
     } else {
@@ -96,7 +96,7 @@ export default class BuyPremiumForm extends Form {
         this.showRequestResult({
           title: response.title,
           text: response.message,
-          icon: "error",
+          icon: 'error',
         });
       }
     }

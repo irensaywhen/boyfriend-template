@@ -74,9 +74,7 @@
             <form action="" id="avatar-editor">
               <!--Modal header start-->
               <div class="modal-header">
-                <h3 class="title">
-                  Upload your avatar:
-                </h3>
+                <h3 class="title">Upload your avatar:</h3>
                 <button
                   type="button"
                   class="close"
@@ -148,9 +146,7 @@
 
                 <!--Avatar requirements-->
                 <div class="avatar-requirements border-top">
-                  <h4 class="section-title pt-3">
-                    Avatar requirements
-                  </h4>
+                  <h4 class="section-title pt-3">Avatar requirements</h4>
                   <ul class="pl-1">
                     <li>Rozmiar: 500x500px</li>
                     <li>Dostępne rozszerzenia</li>
@@ -345,13 +341,16 @@
                   autocomplete="off"
                 >
                   <!--City input start-->
-                  <div class="form-group float-label">
+                  <div class="form-group float-label position-relative">
                     <input
                       type="text"
                       name="city"
                       class="form-control location signup-input"
                     />
                     <label class="form-control-label">City</label>
+                    <div class="spinner-border city-loader" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
                     <div class="dropdown location-dropdown">
                       <button
                         class="btn btn-primary dropdown-toggle"
@@ -369,9 +368,7 @@
                   <!--City input end-->
 
                   <!--Date input start-->
-                  <h4 class="section-subtitle">
-                    Date of birth
-                  </h4>
+                  <h4 class="section-subtitle">Date of birth</h4>
                   <div class="container">
                     <div class="row">
                       <div class="col-12 col-sm-4 pl-0">
@@ -452,9 +449,9 @@
                       id="preference"
                       name="preference"
                     >
-                      <option value="" disabled selected hidden
-                        >Choose you preference</option
-                      >
+                      <option value="" disabled selected hidden>
+                        Choose you preference
+                      </option>
                       <option value="active">Active</option>
                       <option value="passive">Passive</option>
                       <option value="both">Both</option>
@@ -477,9 +474,7 @@
                 <div
                   class="back blue-link text-white d-flex align-items-center"
                 >
-                  <i class="material-icons">
-                    arrow_back
-                  </i>
+                  <i class="material-icons"> arrow_back </i>
                   back
                 </div>
               </div>
@@ -490,9 +485,7 @@
                 <div class="form-signin shadow" id="signup-4" data-step="3">
                   <!--Profile photo upload start-->
                   <div class="text-center pb-5">
-                    <h3 class="section-title">
-                      Upload your avatar
-                    </h3>
+                    <h3 class="section-title">Upload your avatar</h3>
                     <div class="figure-profile shadow my-4">
                       <figure>
                         <img
@@ -528,9 +521,7 @@
                 <div
                   class="back blue-link text-white d-flex align-items-center"
                 >
-                  <i class="material-icons">
-                    arrow_back
-                  </i>
+                  <i class="material-icons"> arrow_back </i>
                   back
                 </div>
               </div>
@@ -612,16 +603,16 @@
 
     <!-- page level script -->
     <script>
-      $(window).on("load", function () {
+      $(window).on('load', function () {
         /* notification view and hide */
         setTimeout(function () {
-          $(".notification").addClass("active");
+          $('.notification').addClass('active');
           setTimeout(function () {
-            $(".notification").removeClass("active");
+            $('.notification').removeClass('active');
           }, 3500);
         }, 500);
-        $(".closenotification").on("click", function () {
-          $(this).closest(".notification").removeClass("active");
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
         });
 
         /* signup form functionality start */
@@ -629,18 +620,18 @@
         // First step
         const signupFirstStep = new Form({
           selectors: {
-            form: "#signup-1",
-            "input-wrapper": ".form-group",
-            inputs: ".signup-input",
+            form: '#signup-1',
+            'input-wrapper': '.form-group',
+            inputs: '.signup-input',
           },
           requests: {
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin',
             },
           },
           location: false,
@@ -649,7 +640,7 @@
           frontendValidation: true,
           generateSubmitEvent: true,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
               login: {
                 required: true,
@@ -663,7 +654,7 @@
                 required: true,
                 minlength: 4,
               },
-              terms: "required",
+              terms: 'required',
             },
           },
         });
@@ -671,18 +662,18 @@
         // Second step
         const signupSecondStep = new Form({
           selectors: {
-            form: "#signup-2",
-            "input-wrapper": ".form-group",
-            inputs: ".signup-input",
+            form: '#signup-2',
+            'input-wrapper': '.form-group',
+            inputs: '.signup-input',
           },
           requests: {
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin',
             },
           },
           location: false,
@@ -691,7 +682,7 @@
           frontendValidation: true,
           generateSubmitEvent: true,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
               name: {
                 required: true,
@@ -708,32 +699,33 @@
         // Third step
         const signupThirdStep = new Form({
           selectors: {
-            form: "#signup-3",
-            "input-wrapper": ".form-group",
-            inputs: ".signup-input",
-            locationInput: ".location",
-            "location-dropdown": ".location-dropdown",
-            "dropdown-toggle": ".dropdown-toggle",
-            "dropdown-menu": ".dropdown-menu",
+            form: '#signup-3',
+            'input-wrapper': '.form-group',
+            inputs: '.signup-input',
+            locationInput: '.location',
+            'location-dropdown': '.location-dropdown',
+            'dropdown-toggle': '.dropdown-toggle',
+            'dropdown-menu': '.dropdown-menu',
+            locationLoadingIndicator: '.city-loader',
           },
           requests: {
             submit: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signup-fail',
             },
             location: {
-              method: "GET",
+              method: 'GET',
               headers: {},
-              endpoint: "https://nominatim.openstreetmap.org/search",
+              endpoint: 'https://nominatim.openstreetmap.org/search',
               searchParams: {
-                format: "json",
-                addressdetails: "1",
-                countrycodes: "pl",
-                "accept-language": "pl,en",
+                format: 'json',
+                addressdetails: '1',
+                countrycodes: 'pl',
+                'accept-language': 'pl,en',
               },
             },
           },
@@ -743,7 +735,7 @@
           frontendValidation: true,
           generateSubmitEvent: true,
           validatorOptions: {
-            errorElement: "span",
+            errorElement: 'span',
             rules: {
               city: {
                 required: true,
@@ -759,10 +751,10 @@
                 min: 1,
                 max: 12,
               },
-              year: "required",
-              weight: "required",
-              height: "required",
-              preference: "required",
+              year: 'required',
+              weight: 'required',
+              height: 'required',
+              preference: 'required',
             },
           },
         });
@@ -771,21 +763,21 @@
         /* avatar handling start */
         const avatar = new Avatar({
           selectors: {
-            elementSelector: ".avatar-image",
-            modal: "#upload-avatar",
-            "modal-footer": ".modal-footer",
-            input: ".avatar-input",
-            preview: "#avatar-preview",
-            form: "#avatar-editor",
+            elementSelector: '.avatar-image',
+            modal: '#upload-avatar',
+            'modal-footer': '.modal-footer',
+            input: '.avatar-input',
+            preview: '#avatar-preview',
+            form: '#avatar-editor',
           },
           requests: {
             saveAvatar: {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "multipart/form-data",
+                'Content-Type': 'multipart/form-data',
               },
               endpoint:
-                "https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar",
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar',
             },
           },
         });
@@ -794,17 +786,17 @@
         /* forms chainer initialization start */
         const chainedForms = new ChainedForms({
           selectors: {
-            formsContainer: "#forms-signup",
-            forms: ".form-signin",
-            backward: ".back",
-            wrapper: ".form-wrapper",
+            formsContainer: '#forms-signup',
+            forms: '.form-signin',
+            backward: '.back',
+            wrapper: '.form-wrapper',
           },
         });
         /* forms chainer initialization end */
 
-        $("#continue").click((event) => {
+        $('#continue').click(event => {
           event.preventDefault();
-          window.location.replace("./profile.html");
+          window.location.replace('./profile.html');
         });
       });
     </script>

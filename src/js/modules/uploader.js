@@ -1,4 +1,4 @@
-import EditorModal from "./modal.js";
+import EditorModal from './modal.js';
 
 export default class PhotoUploader extends EditorModal {
   /**
@@ -44,11 +44,11 @@ export default class PhotoUploader extends EditorModal {
   setUpEventListeners() {
     super.setUpEventListeners();
     // Listen to changes on the input elements
-    this.$photoInputs.change((event) => {
+    this.$photoInputs.change(event => {
       this.previewPhotos(event.target);
     });
 
-    this.$form.submit((event) => {
+    this.$form.submit(event => {
       event.preventDefault();
 
       // Make server request here
@@ -79,18 +79,18 @@ export default class PhotoUploader extends EditorModal {
     } catch (error) {
       // Unsuccessful Popup
       this.showRequestResult({
-        title: "Oops!",
+        title: 'Oops!',
         text: error.message,
-        icon: "error",
+        icon: 'error',
       });
     }
 
     if (response.success) {
       // Successful Popup
       this.showRequestResult({
-        title: "Success!",
+        title: 'Success!',
         text: response.message,
-        icon: "success",
+        icon: 'success',
       });
 
       // Update markup according to photoData object
@@ -110,9 +110,9 @@ export default class PhotoUploader extends EditorModal {
     } else {
       // Unsuccessful Popup
       this.showRequestResult({
-        title: "Oops!",
+        title: 'Oops!',
         text: response.message,
-        icon: "error",
+        icon: 'error',
       });
     }
   }
@@ -135,9 +135,9 @@ export default class PhotoUploader extends EditorModal {
     } catch (error) {
       // Unsuccessful Popup
       this.showRequestResult({
-        title: "Oops!",
+        title: 'Oops!',
         text: error.message,
-        icon: "error",
+        icon: 'error',
       });
     }
 
@@ -146,9 +146,9 @@ export default class PhotoUploader extends EditorModal {
     } else {
       // Unsuccessful Popup
       this.showRequestResult({
-        title: "Oops!",
+        title: 'Oops!',
         text: response.message,
-        icon: "error",
+        icon: 'error',
       });
     }
   }
@@ -169,9 +169,9 @@ export default class PhotoUploader extends EditorModal {
       } catch (error) {
         // Unsuccessful Popup
         this.showRequestResult({
-          title: "Oops!",
+          title: 'Oops!',
           text: error.message,
-          icon: "error",
+          icon: 'error',
         });
       }
 
@@ -207,7 +207,7 @@ export default class PhotoUploader extends EditorModal {
    */
   setReaderEventListeners(reader) {
     // Preview photos when it is loaded
-    reader.onload = (event) => {
+    reader.onload = event => {
       // Cache
       let [id, src] = [event.target.id, event.target.result];
 
@@ -221,7 +221,7 @@ export default class PhotoUploader extends EditorModal {
       this.showRequestResult({
         title: this.error.name,
         text: this.error.message,
-        icon: "error",
+        icon: 'error',
       });
     };
   }
@@ -240,73 +240,73 @@ export default class PhotoUploader extends EditorModal {
    */
   generatePreviewHTML({ id, src }) {
     // Preparing ids for preview
-    let privacyId = "photo-upload-privacy-" + id;
-    let descriptionId = "upload-description" + id;
+    let privacyId = 'photo-upload-privacy-' + id;
+    let descriptionId = 'upload-description' + id;
 
     // Privacy checkbox control
-    let $privacyControl = $("<div></div>")
-      .addClass("custom-control custom-switch")
+    let $privacyControl = $('<div></div>')
+      .addClass('custom-control custom-switch')
       .append(
-        $("<input>")
-          .attr("type", "checkbox")
-          .attr("id", privacyId)
-          .addClass("custom-control-input privacy-input")
+        $('<input>')
+          .attr('type', 'checkbox')
+          .attr('id', privacyId)
+          .addClass('custom-control-input privacy-input')
       )
       .append(
-        $("<label></label>")
-          .attr("for", privacyId)
-          .addClass("custom-control-label privacy-label")
+        $('<label></label>')
+          .attr('for', privacyId)
+          .addClass('custom-control-label privacy-label')
       )
-      .appendTo("body");
+      .appendTo('body');
 
     // Privacy box
-    let $privacyBox = $("<div></div>")
+    let $privacyBox = $('<div></div>')
       .addClass(
-        "privacy bg-white rounded d-flex justify-content-between align-items-center px-1"
+        'privacy bg-white rounded d-flex justify-content-between align-items-center px-1'
       )
-      .append($("<h4></h4>").addClass("m-0").text("Privacy"))
+      .append($('<h4></h4>').addClass('m-0').text('Privacy'))
       .append($privacyControl);
 
     // Figure
-    let $figure = $("<figure></figure>")
-      .append($("<img>").attr("src", src).attr("alt", ""))
+    let $figure = $('<figure></figure>')
+      .append($('<img>').attr('src', src).attr('alt', ''))
       .append($privacyBox)
       .append(
-        $("<button></button>")
-          .attr("type", "button")
+        $('<button></button>')
+          .attr('type', 'button')
           .addClass(
-            "delete bg-white rounded d-flex justify-content-between align-items-center px-1"
+            'delete bg-white rounded d-flex justify-content-between align-items-center px-1'
           )
-          .text("Delete")
-          .click((event) => {
+          .text('Delete')
+          .click(event => {
             this.deletePhoto(event);
           })
           .append($('<i class="fas fa-trash-alt"></i>'))
       );
 
     // Description textarea
-    let $descriptionTextarea = $("<div></div>")
-      .addClass("form-group")
+    let $descriptionTextarea = $('<div></div>')
+      .addClass('form-group')
       .append(
-        $("<label></label>")
-          .attr("for", descriptionId)
-          .text("Add photo description")
+        $('<label></label>')
+          .attr('for', descriptionId)
+          .text('Add photo description')
       )
       .append(
-        $("<textarea></textarea>")
-          .attr("id", descriptionId)
-          .attr("rows", "4")
-          .attr("placeholder", "Photo description")
-          .addClass("form-control new-photo-description")
+        $('<textarea></textarea>')
+          .attr('id', descriptionId)
+          .attr('rows', '4')
+          .attr('placeholder', 'Photo description')
+          .addClass('form-control new-photo-description')
       );
 
     // Photo container
-    $("<div></div>")
-      .addClass("col-12 col-sm-6 col-md-4 col-xl-3 photo-container")
-      .attr("data-id", id)
+    $('<div></div>')
+      .addClass('col-12 col-sm-6 col-md-4 col-xl-3 photo-container')
+      .attr('data-id', id)
       .append(
-        $("<div></div>")
-          .addClass("photo-description")
+        $('<div></div>')
+          .addClass('photo-description')
           .append([$figure, $descriptionTextarea])
       )
       .appendTo(this.$previewContainer);
@@ -317,8 +317,8 @@ export default class PhotoUploader extends EditorModal {
       let id = element.dataset.id;
 
       let privacy = $(element)
-        .find(this.selectors["privacy-input"])
-        .is(":checked");
+        .find(this.selectors['privacy-input'])
+        .is(':checked');
 
       let description = $(element).find(this.selectors.description).val();
 
@@ -330,20 +330,20 @@ export default class PhotoUploader extends EditorModal {
     });
   }
 
-  updateMarkup({ id = null, src = null, privacy = false, description = "" }) {
+  updateMarkup({ id = null, src = null, privacy = false, description = '' }) {
     this.$gallery.append(
-      $("<div></div>")
-        .addClass("swiper-slide gallery-slide")
+      $('<div></div>')
+        .addClass('swiper-slide gallery-slide')
         .append(
-          $("<img>")
-            .attr("src", src)
-            .attr("alt", description)
-            .attr("data-toggle", "modal")
-            .attr("data-target", "#edit-photo")
-            .attr("data-id", id)
-            .attr("data-description", description)
-            .attr("data-privacy", privacy)
-            .addClass("gallery-photo")
+          $('<img>')
+            .attr('src', src)
+            .attr('alt', description)
+            .attr('data-toggle', 'modal')
+            .attr('data-target', '#edit-photo')
+            .attr('data-id', id)
+            .attr('data-description', description)
+            .attr('data-privacy', privacy)
+            .addClass('gallery-photo')
         )
     );
   }

@@ -1,10 +1,10 @@
-import Bonus from "./bonus.js";
+import Bonus from './bonus.js';
 
 export default class Boost extends Bonus {
   constructor(options) {
     super(options);
 
-    this.type = "boost";
+    this.type = 'boost';
 
     // Bind context
     this.displayTime = this.displayTime.bind(this);
@@ -140,10 +140,10 @@ export default class Boost extends Bonus {
   displayTime(hours, minutes, seconds) {
     // Add zeros for better displaying
     if (minutes < 10) {
-      minutes = "0" + String(minutes);
+      minutes = '0' + String(minutes);
     }
     if (seconds < 10) {
-      seconds = "0" + String(seconds);
+      seconds = '0' + String(seconds);
     }
     // Display results
     this.$hours.text(hours);
