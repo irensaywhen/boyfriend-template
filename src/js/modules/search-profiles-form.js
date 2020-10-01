@@ -45,7 +45,6 @@ export default class SearchProfilesForm extends Form {
       let target = event.target;
       if (target.name === 'city') return;
 
-      console.log('Input occured');
       this.$form.trigger('inputFinished');
     });
 
@@ -64,7 +63,7 @@ export default class SearchProfilesForm extends Form {
      */
     this.$form.on('inputFinished', event => {
       this.collectFormInputs();
-      console.log('Input finished');
+
       $(document).trigger('searchForm:inputFinished', this.formData);
     });
   }
