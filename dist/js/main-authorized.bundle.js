@@ -22613,7 +22613,11 @@
               };
 
               if (_this.location) {
-                var errorMessage = errorMessages.city || 'No such city'; // Add custom frontend validation for location field
+                if (errorMessages && errorMessages.city) {
+                  var errorMessage = errorMessages.city;
+                } else {
+                  var errorMessage = 'No such city';
+                } // Add custom frontend validation for location field
 
                 jQuery.validator.addMethod(
                   'location',
@@ -26141,8 +26145,6 @@
           /*! ./requestsIndictorMixin.js */ './js/modules/requestsIndictorMixin.js'
         );
 
-        var $document = $(document);
-
         var ServerRequest = /*#__PURE__*/ (function () {
           function ServerRequest(options) {
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(
@@ -26799,15 +26801,29 @@
             SearchProfilesForm,
             [
               {
-                key: 'setUpEventListeners',
-                value: function setUpEventListeners() {
+                key: '_cacheElements',
+                value: function _cacheElements() {
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+                      SearchProfilesForm.prototype
+                    ),
+                    '_cacheElements',
+                    this
+                  ).call(this);
+
+                  this.$locationInput = $(this.selectors.locationInput);
+                },
+              },
+              {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
                   var _this2 = this;
 
                   _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
                     _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
                       SearchProfilesForm.prototype
                     ),
-                    'setUpEventListeners',
+                    '_setUpEventListeners',
                     this
                   ).call(this);
                   /**

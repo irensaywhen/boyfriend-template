@@ -1,8 +1,6 @@
 import swalAlert from './swalAlertMixin.js';
 import loadingIndicatorMixin from './requestsIndictorMixin.js';
 
-let $document = $(document);
-
 export default class ServerRequest {
   constructor(options) {
     // Bind context

@@ -20612,7 +20612,11 @@
               };
 
               if (_this.location) {
-                var errorMessage = errorMessages.city || 'No such city'; // Add custom frontend validation for location field
+                if (errorMessages && errorMessages.city) {
+                  var errorMessage = errorMessages.city;
+                } else {
+                  var errorMessage = 'No such city';
+                } // Add custom frontend validation for location field
 
                 jQuery.validator.addMethod(
                   'location',
@@ -22390,8 +22394,6 @@
         /* harmony import */ var _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! ./requestsIndictorMixin.js */ './js/modules/requestsIndictorMixin.js'
         );
-
-        var $document = $(document);
 
         var ServerRequest = /*#__PURE__*/ (function () {
           function ServerRequest(options) {

@@ -207,6 +207,11 @@ select.form-control optgroup {
 .modal .swiper-profile-photos {
   height: auto !important;
 }
+.page-item.navigation-hidden {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+}
 .spinner-border.city-loader {
   position: absolute;
   top: 15px;
