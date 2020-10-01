@@ -18,7 +18,7 @@ export default class Superlike extends Bonus {
   _cacheElements() {
     super._cacheElements();
 
-    // Save amount element
+    // Amount of bonuses available
     this.$amount = this.$bonus.find(this.selectors.amount);
   }
 
@@ -41,6 +41,30 @@ export default class Superlike extends Bonus {
       // Prepare animation for further use
       console.log('Modal closed');
     });
+
+    $(document).on('bonus:startUsage', (event, type) => {
+      if (type !== 'superlike') return;
+
+      this.askUsageApprovement(this.popups.use)
+        .then(result => {
+          if (!result) return;
+
+          let { success, title, text } = result;
+
+          // Set icon and show popup with it
+          let icon = success ? 'success' : 'error';
+          this.showRequestResult({ title, text, icon });
+
+          if (success) this._useBonus();
+        })
+        .catch(error => {
+          this.showRequestResult({
+            title: error.name,
+            text: error.message,
+            icon: 'error',
+          });
+        });
+    });
   }
 
   _useBonus() {
@@ -49,22 +73,8 @@ export default class Superlike extends Bonus {
 
     // Change the amount of bonuses available
     this._decreaseBonusAmountAvailable();
+    this._updateAmountOnMarkup();
 
     $(document).trigger('present:send', { type: 'superlike' });
-  }
-
-  _prepareBonusUsage() {
-    console.log('Preparing bonus usage...');
-    // Ask server about sending superlike
-    // If the server will approve usage
-    // Send it to the user
-
-    // Temporary return true for debuggins purposes
-    return true;
-  }
-
-  _decreaseBonusAmountAvailable() {
-    super._decreaseBonusAmountAvailable();
-    super._updateAmountOnMarkup();
   }
 }

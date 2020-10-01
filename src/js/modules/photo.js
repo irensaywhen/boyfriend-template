@@ -2,10 +2,22 @@ import Bonus from './bonus.js';
 import PhotoAnimation from './photoAnimation.js';
 import Handlebars from 'handlebars';
 import prepareTemplates from './prepareTemplates.js';
+import photoUploadMixin from './photoUploadMixin';
 
 export default class Photo extends Bonus {
+  // Uploaded photo information to show it in the chat
+  photoData = { type: 'photo' };
+
+  // Uploaded photo information to send it to the server
+  formData = new FormData();
+
   constructor(options) {
     super(options);
+
+    // Bind context
+    this._discardChanges = this._discardChanges.bind(this);
+
+    this.configuration = { photoBonus: true };
 
     // Save popups
     this.popups = options.popups;
@@ -18,30 +30,31 @@ export default class Photo extends Bonus {
 
     this._cacheElements();
     this._setUpEventListeners();
+
+    /**
+     * Prepare bonus for photo upload:
+     * 1. Initialize photo upload (FileReader, photo preview, drag'n'drop)
+     * 2. Initialize loading indicator
+     */
+    Object.assign(Photo.prototype, photoUploadMixin);
+    this.initializePhotoUpload();
+    this.initializeLoadingIndicators(this.$form);
   }
 
   _cacheElements() {
     super._cacheElements();
-    // Cache reference
+
     let selectors = this.selectors;
 
     // Amount element
     this.$amount = this.$bonus.find(selectors.amount);
 
-    /**
-     * Photo upload and preview specific
-     */
-    // Modal for photo preview
+    // Photo upload and preview
     this.$modal = $(selectors.modal);
-    //Closing button
     this.$closeButton = this.$modal.find(selectors.closeModalButton);
-    // Find modal footer and hide it
     this.$modalFooter = this.$modal.find('.modal-footer').fadeOut(0);
-    // Container to preview photos
     this.$previewContainer = this.$modal.find(selectors.previewContainer);
-    // Photo inputs
     this.$photoInputs = this.$modal.find(selectors.input);
-    // Form
     this.$form = this.$modal.find(selectors.form);
   }
 
@@ -50,30 +63,58 @@ export default class Photo extends Bonus {
     // Cache document element
     let $document = $(document);
 
-    this.$photoInputs.change(event => {
-      // Delete previously loaded photo
-      this.$previewContainer.empty();
+    /**
+     * When the photo input changes:
+     * 1. Delete previous photo previews
+     * 2. Delete information about previous photo
+     * -------------------------------------------
+     * What to add:
+     * 3. Do the same stuff on drop
+     */
 
-      // Delete previously saved src
-      this._discardPhotoInformation();
+    this.$modal.on('change', event => {
+      if (!event.target.classList.contains(this.classes.input)) return;
+
+      this._discardChanges();
     });
 
-    this.$photoInputs.change(event => {
-      // When new photo is uploaded - preview it
-      this._loadPhoto(event.target);
-    });
-
+    /**
+     * Handle photo submission from the photo upload modal:
+     * 1. Make a request to the server to ask if the bonus can be used
+     * 2. If the bonus can be used, start using it
+     * 3. If success = false or an unexpected error occured, show error popup
+     */
     this.$form.submit(event => {
       // When the photo is sent by the user
       event.preventDefault();
 
-      // Start using bonus
-      this._sendPhoto();
+      // Here, instead of starting using the bonus, ask server
+      this.makeRequest(this.requests.use)
+        .then(response => {
+          let { success, title, text } = response;
+
+          if (success) {
+            this._useBonus();
+          } else {
+            this.showRequestResult({ title, text, icon: 'error' });
+          }
+        })
+        .catch(error => {
+          this.showRequestResult({
+            title: error.name,
+            text: error.message,
+            icon: 'error',
+          });
+        });
+    });
+
+    $(document).on('bonus:startUsage', (event, type) => {
+      if (type !== 'photo') return;
+      this.$modal.modal('show');
     });
 
     this.$closeButton.click(() => {
-      // Delete all the temporary changes if the user doesn't submit the form
-      this.__discardChanges();
+      this._discardChanges();
     });
 
     $document.on('photoModal:onBeforeOpen', (event, modal) => {
@@ -88,151 +129,95 @@ export default class Photo extends Bonus {
 
     $document.on('photoModal:onAfterClose', (event, modal) => {
       // Prepare animation for further use
-      console.log('Modal closed');
     });
   }
 
-  _useBonus() {
-    // In use bonus function we'll need to trigger modal opening programically
-    // After usage approvement
-    this.$modal.modal('show');
-    console.log('Using photo bonus...');
+  /**
+   * 1. Delete previews
+   * 2. Hide modal footer
+   * 3. Delete saved photo information
+   */
+  _discardChanges() {
+    // Delete preview
+    this.$previewContainer.empty();
 
-    // Delete previou
-    //this._discardPhotoInformation()
-    // Here we need to ask the user to make a photo or upload it
-    // And then send the message with it
-    // Also, if the user discard photo changes, we need to add amount of bonuses available
-    // Maybe, we can change the amount of bonuses available only if the user finishes the usage
-    // As well as in the superlike usage
-    // Change the amount of bonuses available
+    // Hide modal footer
+    this.$modalFooter.fadeOut(0);
+
+    // Delete photo information
+    this.photoData = { type: 'photo' };
+    this.formData = new FormData();
   }
 
-  _sendPhoto() {
+  /**
+   * 1. Change the amount of available bonuses on markup
+   * 2. Save photo description to show it in the chat
+   * 3. Prepare formData object to send photo and description to the server
+   * 4. Close modal
+   * 5. Show bonus animation
+   */
+  _useBonus() {
     // Change the amount of bonuses available
     this._decreaseBonusAmountAvailable();
+    this._updateAmountOnMarkup();
+
     // Save description to photoData object
-    this._savePhotoDescription();
+    this.photoData['description'] = $(this.selectors.photoDescription).val();
+
     // Prepare formData to send photo information to the server
-    this.__generateFormData();
+    this._generateFormData();
+
     // Generate event to send the photo to the user
     $(document).trigger('present:send', this.photoData, this.formData);
+
     // Close modal
     this.$closeButton.click();
-    // Call alert here with custom animation for superlike icon
+
+    // Call alert here with custom animation for photo icon
     this.fireSendAlert(this.popups.send);
   }
 
-  __generateFormData() {
+  _generateFormData() {
     // Cache
     let photoData = this.photoData;
 
     for (let item in photoData) {
       // Save photo information except src
       if (item === 'src') continue;
-      this.formData.set(item, photoData[item]);
+      this.formData.append(item, photoData[item]);
     }
   }
 
-  _savePhotoDescription() {
-    this.photoData['description'] = $(this.selectors.photoDescription).val();
-  }
+  /**----------------------------------------------------
+  /* Functions specific to classes utilizing PhotoUploadMixin
+  /* ----------------------------------------------------*/
 
-  _prepareBonusUsage() {
-    console.log('Preparing photo bonus usage...');
-    // Ask server about sending superlike
-    // If the server will approve usage
-    // Send it to the user
+  /**
+   * Handles class-specific functionality required for preview
+   * 1. Get the src from the filereader
+   * 2. Save src for further usage in chat
+   * 3. Compile template for photo preview
+   * 4. Append template to the preview container
+   * @param {FileReader Object} fileReader - the resulting fileReader object
+   * to preview loaded photo
+   */
+  _preview(fileReader) {
+    let src = fileReader.result;
 
-    // Temporary return true for debuggins purposes
-    return true;
-  }
+    this.photoData['src'] = src;
 
-  _loadPhoto(photoInput) {
-    let files = photoInput.files;
-
-    if (!files[0]) return;
-
-    this._readFile(files[0]);
-  }
-
-  _readFile(file) {
-    // Save the currently selected photo
-    this.formData.set('photo', file);
-    // Instantiate a FileReader instance to handle photo upload
-    let reader = new FileReader();
-    // Prepare event listeners to listen to photo upload events
-    this._setReaderEventListeners(reader);
-    // Start uploading photo
-    reader.readAsDataURL(file);
-  }
-
-  _setReaderEventListeners(reader) {
-    // Show loading indicator when the read has started
-    reader.onloadstart = event => {
-      // Set progress indicator here
-      console.log('Loading start');
-      console.log(event);
-    };
-
-    // Hide loading indicator when the read has finished
-    reader.onloadend = event => {
-      //Delete progress indicator here
-      console.log('Loading end');
-      console.log(event);
-    };
-
-    // Preview photos when it is readed successfully
-    reader.onload = event => {
-      // Cache
-      let target = event.target,
-        src = target.result;
-      // Save src for preview
-      this.photoData['src'] = src;
-      // Preview photo in the preview container
-      this._previewPhoto({ src });
-      // Show submit button
-      this.$modalFooter.fadeIn(0);
-    };
-
-    // Show error popup when an error occured while whoto loading
-    reader.onerror = () => {
-      // Get text information for error popup
-      let { title, text } = this.popups.uploadError;
-      // Show error popup
-      this.showRequestResult({
-        title,
-        text,
-        icon: 'error',
-      });
-    };
-  }
-
-  _previewPhoto(data) {
-    // Prepare template for compilation
     let compiledPhotoTemplate = Handlebars.compile(this.photoTemplates.preview);
-    // Set photo preview data in template
-    compiledPhotoTemplate = compiledPhotoTemplate(data);
+    compiledPhotoTemplate = compiledPhotoTemplate({ src });
+
     // Append template
     this.$previewContainer.append(compiledPhotoTemplate);
   }
 
-  __discardChanges() {
-    // Delete preview
-    this.$previewContainer.empty();
-    // Hide modal footer
-    this.$modalFooter.fadeOut(0);
-    // Delete photo information
-    this._discardPhotoInformation();
-  }
-
-  _discardPhotoInformation() {
-    this.photoData = { type: 'photo' };
-    this.formData = new FormData();
-  }
-
-  _decreaseBonusAmountAvailable() {
-    super._decreaseBonusAmountAvailable();
-    super._updateAmountOnMarkup();
+  /**
+   * It saves file to allow futher upload in case of submitting the form
+   * @param {File Object} file - reference to the file in the system
+   */
+  _saveFile(file) {
+    this.formData.append('photo', file);
   }
 }

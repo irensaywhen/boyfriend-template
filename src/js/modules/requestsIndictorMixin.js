@@ -17,7 +17,7 @@ export default {
     // Event handling
     $form.submit(() => {
       // Don't show loading indicator if the form isn't valid
-      if (!this.$form.valid()) return;
+      if (jQuery.validator && !this.$form.valid()) return;
 
       let spinner = template.content.cloneNode(true),
         loading = this.loading,
@@ -35,7 +35,7 @@ export default {
       $submitButton.attr('disabled', true)[0].prepend(spinner);
     });
 
-    $(this).on('successfulRequest', () => {
+    $(this).on('successfulRequest failedRequest', () => {
       // Change button and remove spinner
       this.$submitButton
         .attr('disabled', false)

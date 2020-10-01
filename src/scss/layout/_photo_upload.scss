@@ -69,33 +69,30 @@
   }
 }
 
-/* Avatar upload */
-.upload-avatar {
-  /*upload progress indicator*/
-  .upload-progress {
-    .progress-bar {
-      @include ease-out;
-    }
+/*upload progress indicator*/
+.upload-progress {
+  .progress-bar {
+    @include ease-out;
   }
+}
 
-  .upload-photo-label {
-    vertical-align: middle;
-    i {
-      display: inline-block;
-      font-size: 32px;
-      padding-right: 4px;
-      padding-left: 5px;
-    }
+.upload-photo-label {
+  vertical-align: middle;
+  i {
+    display: inline-block;
+    font-size: 32px;
+    padding-right: 4px;
+    padding-left: 5px;
   }
+}
 
-  .avatar-requirements {
-    ul {
-      list-style: none;
+.avatar-requirements {
+  ul {
+    list-style: none;
 
-      li {
-        font-weight: 300;
-        font-size: $paragraph-size;
-      }
+    li {
+      font-weight: 300;
+      font-size: $paragraph-size;
     }
   }
 }

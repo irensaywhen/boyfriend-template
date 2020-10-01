@@ -144,6 +144,7 @@ export default class Chat {
       // Maybe we can handle successful/unsuccessful response here
       .then(response => {
         if (response.success) {
+          console.log('Response after sending a message:');
           console.log(response);
 
           switch (response.type) {

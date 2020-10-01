@@ -19662,14 +19662,19 @@
 
             _this._cacheElements();
 
-            _this._setUpEventListeners(); // Prepare avatar for using FileReader to load and preview photos
+            _this._setUpEventListeners();
+            /**
+             * Prepare avatar for photo upload:
+             * 1. Initialize photo upload (FileReader, photo preview, drag'n'drop)
+             * 2. Initialize loading indicator
+             */
 
             Object.assign(
               Avatar.prototype,
               _photoUploadMixin__WEBPACK_IMPORTED_MODULE_8__['default']
-            ); // Initialization of the photo upload for avatar
+            );
 
-            _this.initializePhotoUpload(); // Loading indicator initialization
+            _this.initializePhotoUpload();
 
             _this.initializeLoadingIndicators(_this.$form);
 
@@ -19767,7 +19772,7 @@
                   this.$errorContainer.empty();
                 },
                 /**
-                 * Function to show newly uploaded avatar
+                 * Show newly uploaded avatar
                  */
               },
               {
@@ -20724,7 +20729,9 @@
                     })
                     .ready(function () {
                       _this2.$inputs.each(function (index, elem) {
-                        if ($(elem).is('select')) return;
+                        var $elem = $(elem);
+                        if ($elem.is('select') || $elem.hasClass('preserve'))
+                          return;
                         elem.value = '';
                       });
                     });
@@ -21511,6 +21518,7 @@
               avatar: false,
               uploader: false,
               editor: false,
+              photoBonus: false,
             };
 
             if (_this.configuration.avatar || _this.configuration.uploader) {
@@ -21964,7 +21972,6 @@
                             _insertProgressBar = _insertProgressBar.bind(_this);
                             _showProgress = _showProgress.bind(_this);
                             _generateRandomId = _generateRandomId.bind(_this);
-                            _loadfromInput = _loadfromInput.bind(_this);
                             _saveAndPreviewFile = _saveAndPreviewFile.bind(
                               _this
                             );
@@ -21982,37 +21989,45 @@
                             _this$configuration = _this.configuration;
                             avatar = _this$configuration.avatar;
                             uploader = _this$configuration.uploader;
+                            photoBonus = _this$configuration.photoBonus;
 
-                            // Perform preparations to handle photo upload
-                            _cacheElements(); // Check for browser APIs that should be presented to handle
-                            // sending photos via FormData and getting it via FileReader
+                            _cacheElements();
+                            /**
+                             *  Check for browser support of FormData and FileReader
+                             *  FileReader is used to preview files,
+                             *  while FormData - to send data to server
+                             */
 
                             isAjaxUpload = (function () {
                               return (
                                 'FormData' in window && 'FileReader' in window
                               );
-                            })();
+                            })(); // Detect whether to show camera capturing for mobile and tablet devices
 
-                            if (!isAjaxUpload) {
-                              // Let the user know that his browser is outdated
-                              _handleLegacyBrowsers();
-                            } // Detect whether to show camera capturing for mobile and tablet devices
-
-                            _context.next = 23;
+                            _context.next = 22;
                             return _helper_js__WEBPACK_IMPORTED_MODULE_4__[
                               'default'
                             ].isShowCameraCapturing.call(
                               _helper_js__WEBPACK_IMPORTED_MODULE_4__['default']
                             );
 
-                          case 23:
+                          case 22:
                             isShowCameraCapturing = _context.sent;
 
-                            if (!isShowCameraCapturing) {
-                              // Hide mobile capturing as a precaution
+                            /**
+                             * If we're dealing with mobile devices:
+                             * Don't show Drag'n'drop, and add icon of mobile photo upload
+                             * Else, check for support of drag'n'drop API
+                             */
+                            if (isShowCameraCapturing) {
+                              isAdvancedUpload = false;
+                              $photoUploadContainer.addClass(
+                                classes.mobilePhotoUpload
+                              );
+                            } else {
                               $photoUploadContainer.removeClass(
                                 classes.mobilePhotoUpload
-                              ); // Check for browser APIs that should be presented to handle Drag'n'Drop
+                              ); // Detect support of Drag'n'Drop
 
                               isAdvancedUpload = (function () {
                                 var div = document.createElement('div');
@@ -22023,13 +22038,6 @@
                                   isAjaxUpload
                                 );
                               })();
-                            } else {
-                              // Don't show drag'n'drop for mobile devices
-                              isAdvancedUpload = false; // Add photo capturing on mobile devices
-
-                              $photoUploadContainer.addClass(
-                                classes.mobilePhotoUpload
-                              );
                             }
 
                             if (isAjaxUpload) {
@@ -22044,6 +22052,8 @@
                               _this.initializeFileReader({
                                 errorText: errorText,
                               });
+                            } else {
+                              _handleLegacyBrowsers();
                             }
 
                             if (isAdvancedUpload) {
@@ -22067,7 +22077,7 @@
                             _this._preview = _this._preview.bind(_this);
                             _this._saveFile = _this._saveFile.bind(_this);
 
-                          case 30:
+                          case 29:
                           case 'end':
                             return _context.stop();
                         }
@@ -22097,6 +22107,7 @@
           $errorContainer,
           progressTemplate,
           $photoUploadContainer,
+          photoBonus,
           droppedFiles = false;
         /**Private functions */
 
@@ -22127,34 +22138,88 @@
          */
 
         function _setUpEventListeners() {
-          // Start loading from input using FileReader
+          var _this2 = this;
+
+          /**
+           * Handling photo upload using file input:
+           * 1. Save target of the change event and its FileList property value
+           * 2. Don't do anything if it doesn't have files
+           * 3. For each file in the file list, load it
+           */
           this.$form.on('change', function (event) {
-            var target = event.target; // Stop execution if the target is not for photo upload
+            var files = event.target.files;
+            if (!files || !files[0]) return;
 
-            if (!target.classList.contains(classes.input)) return; // Load files for preview
-
-            _loadfromInput(target);
-          }); // Hide loading indicator after transition
+            for (var i = 0; i < files.length; i++) {
+              _saveAndPreviewFile(files[i]);
+            }
+          });
+          /**
+           * Handling hiding loading indicator after the animation is ended
+           * 1. Remove progress indicator
+           * 2. Enable buttons that waere disabled while loading
+           */
 
           this.$modal.on('transitionend', function (event) {
             var $target = $(event.target);
-            if (!$target.hasClass('loadend')) return; // Remove progress indicator
-
-            $target.closest(progressSelectors.fileProgressWrapper).remove(); // Enable button
-
+            if (!$target.hasClass('loadend')) return;
+            $target.closest(progressSelectors.fileProgressWrapper).remove();
             $disableWhileLoad.attr('disabled', false);
           });
-          if (!isAdvancedUpload) return; // Handler to save and preview dropped file
+          if (!isAdvancedUpload) return;
+          /**
+           * Handle photo upload via Drag'n'Drop:
+           * 1. Get the dropped files
+           * 2. Save and preview only the first file in case of photo bonus and avatar
+           * 3. Preview all the files in case of photo upload in profile
+           */
 
           $photoUploadContainer.on('drop', function (event) {
             droppedFiles = event.originalEvent.dataTransfer.files;
             if (droppedFiles.length === 0) return;
 
-            if (avatar) {
+            if (avatar || photoBonus) {
               _saveAndPreviewFile(droppedFiles[0]);
+
+              if (photoBonus) _this2._discardChanges();
             } else if (uploader) {
               console.log('We are in photo uploader!');
             }
+          });
+        }
+        /**
+         * Function saving the file for further upload
+         * and initializing reading and previewing the file:
+         * 1. Allow only image files
+         * 2. Disable buttons while uploading
+         * 3. Call class-specific method to save file for further upload
+         * 4. Show progress bar
+         * 5. Start reading the file
+         * @param {File Object} file - file to save and preview
+         */
+
+        function _saveAndPreviewFile(file) {
+          var isImage = _helper_js__WEBPACK_IMPORTED_MODULE_4__[
+            'default'
+          ].MIMETypeIsImage(file);
+
+          if (!isImage) {
+            _showError(errorText.wrongFileType);
+
+            return;
+          } // Prepare for file read
+
+          $disableWhileLoad.attr('disabled', true);
+
+          this._saveFile(file);
+
+          var $progressBar = _insertProgressBar({
+            fileName: file.name,
+          }); // Read file
+
+          this._readFile({
+            file: file,
+            $progressBar: $progressBar,
           });
         }
         /**
@@ -22180,52 +22245,6 @@
 
         function _hideError() {
           $errorContainer.empty();
-        }
-        /**
-         * The function to load files from input.
-         * It checks if there is at least one file,
-         * and if so, start file loading
-         * @param {DOMElement} input - input element from which all the files are loaded
-         */
-
-        function _loadfromInput(input) {
-          var files = input.files;
-          if (!files[0]) return;
-
-          for (var i = 0; i < files.length; i++) {
-            _saveAndPreviewFile(files[i]);
-          }
-        }
-        /**
-         * Function saving the file for further upload
-         * and initializing reading and previewing the file
-         * @param {File Object} file - file to save and preview
-         */
-
-        function _saveAndPreviewFile(file) {
-          // Restrict allowed file types
-          var isImage = _helper_js__WEBPACK_IMPORTED_MODULE_4__[
-            'default'
-          ].MIMETypeIsImage(file);
-
-          if (!isImage) {
-            _showError(errorText.wrongFileType);
-
-            return;
-          } // Disable buttons
-
-          $disableWhileLoad.attr('disabled', true); // Save file to upload it in the future - this method is unique to each class using file upload
-
-          this._saveFile(file); // Insert progress bar
-
-          var $progressBar = _insertProgressBar({
-            fileName: file.name,
-          }); // Read file and connect it with progress bar
-
-          this._readFile({
-            file: file,
-            $progressBar: $progressBar,
-          });
         }
         /**
          * Function copying template
@@ -22280,7 +22299,8 @@
         }
         /**
          * Function showing progress of photo read
-         * in the progress bar
+         * 1. Calculate progress amount
+         * 2. Update the visual indicator of the progress
          * @param {Number} loaded - amount of loaded bytes
          * @param {Number} total - amount of total bytes to load
          */
@@ -22397,6 +22417,8 @@
 
         var ServerRequest = /*#__PURE__*/ (function () {
           function ServerRequest(options) {
+            var _this = this;
+
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(
               this,
               ServerRequest
@@ -22407,8 +22429,7 @@
               this
             );
             this.deletePhotoOnServer = this.deletePhotoOnServer.bind(this);
-            this.getPhotosIds = this.getPhotosIds.bind(this);
-            this.requestBonusUsage = this.requestBonusUsage.bind(this); // Save passed options
+            this.getPhotosIds = this.getPhotosIds.bind(this); // Save passed options
 
             this.selectors = options.selectors;
             this.requests = options.requests;
@@ -22423,6 +22444,19 @@
               ServerRequest.prototype,
               _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_5__['default']
             );
+            /**
+             * If selector for disabling buttons is not empty, disable buttons on request
+             */
+
+            if (this.selectors.disableButtonsOnRequest) {
+              $(this)
+                .on('beforeRequest', function () {
+                  _this.$disableButtonsOnRequest.attr('disabled', true);
+                })
+                .on('successfulRequest failedRequest', function () {
+                  _this.$disableButtonsOnRequest.attr('disabled', false);
+                });
+            }
           }
           /**
            * Transform endpoints into URL objects
@@ -22448,12 +22482,13 @@
               {
                 key: 'makeRequest',
                 value: function makeRequest(_ref) {
-                  var _this = this;
+                  var _this2 = this;
 
                   var headers = _ref.headers,
                     endpoint = _ref.endpoint,
                     method = _ref.method,
                     body = _ref.body;
+                  $(this).trigger('beforeRequest');
 
                   if (method === 'GET') {
                     return fetch(endpoint, {
@@ -22464,7 +22499,7 @@
                           return response.json();
                         } else {
                           // Unsuccessful Popup
-                          _this.showRequestResult({
+                          _this2.showRequestResult({
                             title: response.status,
                             text: response.statusText,
                             icon: 'error',
@@ -22473,12 +22508,12 @@
                       })
                       .then(function (json) {
                         // this === current Form here
-                        $(_this).trigger('successfulRequest');
+                        $(_this2).trigger('successfulRequest');
                         return json;
                       })
                       ['catch'](function (error) {
                         // Unsuccessful Popup
-                        _this.showRequestResult({
+                        _this2.showRequestResult({
                           title: error.name,
                           text: error.message,
                           icon: 'error',
@@ -22496,7 +22531,7 @@
                           return response.json();
                         } else {
                           // Unsuccessful Popup
-                          _this.showRequestResult({
+                          _this2.showRequestResult({
                             title: response.status,
                             text: response.statusText,
                             icon: 'error',
@@ -22505,12 +22540,13 @@
                       })
                       .then(function (json) {
                         // this === current Form here
-                        $(_this).trigger('successfulRequest');
+                        $(_this2).trigger('successfulRequest');
                         return json;
                       })
                       ['catch'](function (error) {
-                        // Unsuccessful Popup
-                        _this.showRequestResult({
+                        $(_this2).trigger('failedRequest'); // Unsuccessful Popup
+
+                        _this2.showRequestResult({
                           title: error.name,
                           text: error.message,
                           icon: 'error',
@@ -22681,88 +22717,6 @@
                   return getPhotosIds;
                 })(),
               },
-              {
-                key: 'getPrice',
-                value: (function () {
-                  var _getPrice = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee4(_ref5) {
-                        var headers, endpoint, method, name;
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee4$(_context4) {
-                            while (1) {
-                              switch ((_context4.prev = _context4.next)) {
-                                case 0:
-                                  (headers = _ref5.headers),
-                                    (endpoint = _ref5.endpoint),
-                                    (method = _ref5.method);
-
-                                  for (name in this.formData) {
-                                    endpoint.searchParams.set(
-                                      name,
-                                      this.formData[name]
-                                    );
-                                  }
-
-                                  _context4.next = 4;
-                                  return this.makeRequest({
-                                    headers: headers,
-                                    endpoint: endpoint,
-                                    method: method,
-                                  });
-
-                                case 4:
-                                  return _context4.abrupt(
-                                    'return',
-                                    _context4.sent
-                                  );
-
-                                case 5:
-                                case 'end':
-                                  return _context4.stop();
-                              }
-                            }
-                          },
-                          _callee4,
-                          this
-                        );
-                      }
-                    )
-                  );
-
-                  function getPrice(_x4) {
-                    return _getPrice.apply(this, arguments);
-                  }
-
-                  return getPrice;
-                })(),
-              },
-              {
-                key: 'requestBonusUsage',
-                value: function requestBonusUsage(_ref6) {
-                  var headers = _ref6.headers,
-                    endpoint = _ref6.endpoint,
-                    method = _ref6.method,
-                    body = _ref6.body;
-                  return fetch(endpoint, {
-                    method: method,
-                    headers: headers,
-                    body: body,
-                  })
-                    .then(function (response) {
-                      if (!response.ok) {
-                        throw new Error(response.statusText);
-                      }
-
-                      return response.json();
-                    })
-                    ['catch'](function (error) {
-                      Swal.showValidationMessage(
-                        'Request failed: '.concat(error)
-                      );
-                    });
-                },
-              },
             ]
           );
 
@@ -22800,7 +22754,7 @@
 
             $form.submit(function () {
               // Don't show loading indicator if the form isn't valid
-              if (!_this.$form.valid()) return;
+              if (jQuery.validator && !_this.$form.valid()) return;
               var spinner = template.content.cloneNode(true),
                 loading = _this.loading,
                 $submitButton = _this.$submitButton; // Preserve width and get rid of the previous content
@@ -22815,7 +22769,7 @@
 
               $submitButton.attr('disabled', true)[0].prepend(spinner);
             });
-            $(this).on('successfulRequest', function () {
+            $(this).on('successfulRequest failedRequest', function () {
               // Change button and remove spinner
               _this.$submitButton
                 .attr('disabled', false)
@@ -22974,16 +22928,19 @@
         }
 
         function _setUpEventListeners() {
-          $(document).on('chainedForms:switchForm', function (
-            event,
-            direction
-          ) {
-            _changeProgressIndicator(direction);
-          });
-          $(document).on('avatar:submitted', function (event) {
-            formFulfilled = true;
+          // Change the width of the progress indicator when the form is being switched
+          $(document)
+            .on('chainedForms:switchForm', function (event, direction) {
+              _changeProgressIndicator(direction);
+            })
+            .on('avatar:submitted', function (event) {
+              formFulfilled = true;
 
-            _changeProgressIndicator('forward');
+              _changeProgressIndicator('forward');
+            });
+          $(window).resize(function () {
+            // Change indicator length here
+            $progressBar.css('width', _calculateProgressBarWidth());
           });
         }
         /**
@@ -23031,6 +22988,18 @@
             _changeSteps(direction);
           }
         }
+        /**
+         * 1. Detect the previous and the current step based on the direction
+         * 2. If moving forward:
+         *  1) Add indicator that the previous step is passed through data-passed attribute
+         *  2) If the current step was passed earlier, add an indicator about success
+         *  3) If the current step wasn't passed earlier, add an indicator symboling the current step
+         * 3. If moving backward:
+         *  1) If the previous step wasn't passed, display the previous step as a future step
+         *  2) If the previous step was passed, leave success indicator
+         * @param {String} direction - 'forward' or 'backward'
+         * Signaling to where the overall flow is moving
+         */
 
         function _changeSteps(direction) {
           // Cache
@@ -23155,6 +23124,7 @@
               title: title,
               text: text,
               icon: icon,
+              timer: 2000,
               showConfirmButton: false,
               showCloseButton: true,
             });
@@ -23170,6 +23140,7 @@
               showCloseButton: true,
             });
           },
+          // Alert to show when there is no bonuses available
           fireBuyingAlert: function fireBuyingAlert(_ref3) {
             var title = _ref3.title,
               text = _ref3.text,
@@ -23185,6 +23156,7 @@
               cancelButtonColor: '#bbb',
             });
           },
+          // Alert for bonus usage animation
           fireSendAlert: function fireSendAlert(_ref4) {
             var _this = this;
 
@@ -23240,8 +23212,7 @@
               confirmButtonText = _ref5.confirmButtonText,
               cancelButtonText = _ref5.cancelButtonText,
               imageUrl = _ref5.imageUrl,
-              imageAlt = _ref5.imageAlt,
-              request = _ref5.request;
+              imageAlt = _ref5.imageAlt;
             return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a
               .fire({
                 title: title,
@@ -23256,52 +23227,50 @@
                 imageWidth: '150px',
                 imageHeight: '150px',
                 showLoaderOnConfirm: true,
-                // Request telling the server thas user wants to use the bonus
+
+                /**
+                 * After the user confirms that he wants to use bonus:
+                 * 1. Make a request to the server
+                 * 2. If the server is responded, return the response
+                 */
                 preConfirm: function preConfirm() {
-                  return _this2.requestBonusUsage(request);
+                  var _this2$requests$use = _this2.requests.use,
+                    headers = _this2$requests$use.headers,
+                    endpoint = _this2$requests$use.endpoint,
+                    method = _this2$requests$use.method,
+                    body = _this2$requests$use.body;
+                  return fetch(endpoint, {
+                    method: method,
+                    headers: headers,
+                    body: body,
+                  })
+                    .then(function (response) {
+                      if (!response.ok) {
+                        throw new Error(response.statusText);
+                      }
+
+                      return response.json();
+                    })
+                    ['catch'](function (error) {
+                      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showValidationMessage(
+                        'Request failed: '.concat(error)
+                      );
+                    });
                 },
                 allowOutsideClick: function allowOutsideClick() {
                   return !sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.isLoading();
                 },
               })
               .then(function (result) {
-                if (result.value) {
-                  // If the server answered
-                  var json = result.value;
-
-                  if (json.success) {
-                    // If the server approved bonus usage
-                    // Show popup about success
-                    _this2.showRequestResult({
-                      title: json.title,
-                      text: json.message,
-                      icon: 'success',
-                    });
-                  } else {
-                    // If the server restricted bonus usage
-                    // Show success about error
-                    _this2.showRequestResult({
-                      title: json.title,
-                      text: json.message,
-                      icon: 'error',
-                    });
-                  } // Maybe change to switch statement when other bonuses will be added
-
-                  if (_this2.type === 'boost') {
-                    return {
-                      approved: json.success,
-                      title: json.title,
-                      message: json.message,
-                      timestamp: json.timestamp,
-                      expirationTitle: json.expirationTitle,
-                      expirationMessage: json.expirationMessage,
-                    };
-                  }
-                } else {
-                  return {
-                    approved: false,
-                  };
-                }
+                return result.value;
+              })
+              ['catch'](function (error) {
+                // Handle errors here
+                _this2.showRequestResult({
+                  title: error.name,
+                  text: error.message,
+                  icon: 'error',
+                });
               });
           },
         };

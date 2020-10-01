@@ -23,11 +23,13 @@ export default class Avatar extends EditorModal {
     this._cacheElements();
     this._setUpEventListeners();
 
-    // Prepare avatar for using FileReader to load and preview photos
+    /**
+     * Prepare avatar for photo upload:
+     * 1. Initialize photo upload (FileReader, photo preview, drag'n'drop)
+     * 2. Initialize loading indicator
+     */
     Object.assign(Avatar.prototype, photoUploadMixin);
-    // Initialization of the photo upload for avatar
     this.initializePhotoUpload();
-    // Loading indicator initialization
     this.initializeLoadingIndicators(this.$form);
   }
 
@@ -97,7 +99,7 @@ export default class Avatar extends EditorModal {
   }
 
   /**
-   * Function to show newly uploaded avatar
+   * Show newly uploaded avatar
    */
   _updateMarkup() {
     this.$avatar.attr('src', this.newAvatarLink);

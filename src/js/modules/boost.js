@@ -9,12 +9,6 @@ export default class Boost extends Bonus {
     // Bind context
     this._displayTime = this._displayTime.bind(this);
 
-    // Save popup data
-    this.popupData = options.popupData;
-
-    // Reference request information for the popup usage
-    this.popupData.request = this.requests.use;
-
     // Save initial state of the boost
     this.activated = false;
     this.finished = false;
@@ -34,13 +28,71 @@ export default class Boost extends Bonus {
 
     // Hide timer after caching
     this.$timer.fadeOut(0);
-
-    //Create expiration popup based on the generic popup
-    this.expirationPopupData = Object.assign({}, this.popupData);
   }
 
   _setUpEventListeners() {
     super._setUpEventListeners();
+
+    /**
+     * If there are at least one bonus available, handle its usage
+     * 1. If the boost is activated, don't do anything
+     * 2. If the boost is not activated:
+     *  1) Choose between 'use' and 'expire' popup.
+     *     - Show use popup when the user activates boost for the first time
+     *     - Show expire popup when the popup was expired
+     *       and the user is being asked about reusing it
+     *  2) Get the approvement and the timestamp from the server
+     *     - Check timestamp for validity. If it is invalid, throw error
+     *  3) If the usage is approved:
+     *     - Start using the boost
+     *  4) If the usage is not approved:
+     *     - Hide timer
+     *     - Deactivate boost
+     */
+    $(document).on('bonus:startUsage', (event, type) => {
+      if (type !== 'boost') return;
+
+      if (this.activated && !this.finished) return;
+
+      // Choose config for popup
+      if (!this.activated && !this.finished) {
+        var popup = this.popups.use;
+      } else if (this.activated && this.finished) {
+        var popup = this.popups.expire;
+      }
+
+      this.askUsageApprovement(popup)
+        .then(result => {
+          if (!result) return;
+
+          let { success, title, text, timestamp } = result;
+
+          // Handle the case with negative timestamp
+          let distance = timestamp - new Date().getTime();
+          if (distance <= 0) throw new RangeError('Negative time!');
+
+          // Set icon and show popup with it
+          let icon = success ? 'success' : 'error';
+          this.showRequestResult({ title, text, icon });
+
+          if (success) {
+            this.countDownTime = timestamp;
+            this._useBonus();
+          } else {
+            if (this.activated && this.finished) this.$timer.fadeOut(400);
+
+            this.activated = false;
+            this.finished = false;
+          }
+        })
+        .catch(error => {
+          this.showRequestResult({
+            title: error.name,
+            text: error.message,
+            icon: 'error',
+          });
+        });
+    });
   }
 
   _useBonus() {
@@ -53,59 +105,6 @@ export default class Boost extends Bonus {
 
     // Start timer
     this._startTimer();
-  }
-
-  async _prepareBonusUsage() {
-    let approved, timestamp, expirationTitle, expirationMessage;
-
-    if (!this.activated && !this.finished) {
-      // If the bonus hasn't been activated and finished yet
-      ({
-        approved,
-        timestamp,
-        expirationTitle,
-        expirationMessage,
-      } = await this.askUsageApprovement(this.popupData));
-    } else if (this.activated && this.finished) {
-      // If the bonus has been activated and finished
-      // Ask about using bonus again
-      ({
-        approved,
-        timestamp,
-        expirationTitle,
-        expirationMessage,
-      } = await this.askUsageApprovement(this.expirationPopupData));
-
-      if (!approved) {
-        // If the user don't want to use boost again
-        // Hide the timer
-        this.$timer.fadeOut(400);
-      }
-    }
-
-    if (approved) {
-      // If the boost usage was approved by the server
-      // Save timestamp
-      this.countDownTime = timestamp;
-
-      if (expirationTitle) {
-        // Change the title if provided
-        // For asking about futher usage
-        this.expirationPopupData.title = expirationTitle;
-      }
-      if (expirationMessage) {
-        // Change the message if provided
-        // For asking about futher usage
-        this.expirationPopupData.text = expirationMessage;
-      }
-    } else {
-      // If the boost usage wasn't approved by the server
-      // Discard boost state
-      this.activated = false;
-      this.finished = false;
-    }
-
-    return approved;
   }
 
   _startTimer() {
@@ -158,9 +157,5 @@ export default class Boost extends Bonus {
     this.$hours.text(hours);
     this.$minutes.text(minutes);
     this.$seconds.text(seconds);
-  }
-
-  _decreaseBonusAmountAvailable() {
-    super._decreaseBonusAmountAvailable();
   }
 }

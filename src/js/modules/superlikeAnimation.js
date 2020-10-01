@@ -13,8 +13,10 @@ export default class SuperlikeAnimation extends IconAnimation {
           target = event.target,
           iconElements = this.iconElements;
 
+        // Add more specific statement here
+        // to not to calculate all the if statemests for all animations together
+
         if (!target.closest(this.selectors.popup)) return;
-        console.log(target);
 
         if (animationName === 'superlike-stars') {
           // Add final color to the stars

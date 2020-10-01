@@ -170,6 +170,19 @@
     background-color: $main-pink !important;
   }
 
+  .text-primary {
+    color: $main-pink !important;
+  }
+
+  a {
+    &.text-primary {
+      &:hover,
+      &:focus {
+        color: $hover-pink !important;
+      }
+    }
+  }
+
   /*Transparent white button*/
   .btn-outline-white {
     border-color: #fff;
@@ -211,6 +224,7 @@
   /*Link effects*/
   .blue-link {
     @include ease-out;
+    cursor: pointer;
 
     &:focus,
     &:hover {

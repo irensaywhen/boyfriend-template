@@ -19552,28 +19552,31 @@
         /* harmony import */ var _modules_photo_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! ./modules/photo.js */ './js/modules/photo.js'
         );
-        /* harmony import */ var _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _modules_sponsorPremium_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! ./modules/sponsorPremium.js */ './js/modules/sponsorPremium.js'
+        );
+        /* harmony import */ var _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./modules/search-profiles-form.js */ './js/modules/search-profiles-form.js'
         );
-        /* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./modules/buyPremiumForm.js */ './js/modules/buyPremiumForm.js'
         );
-        /* harmony import */ var _modules_chatList_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _modules_chatList_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
           /*! ./modules/chatList.js */ './js/modules/chatList.js'
         );
-        /* harmony import */ var _modules_ad_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var _modules_ad_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
           /*! ./modules/ad.js */ './js/modules/ad.js'
         );
-        /* harmony import */ var _modules_gallery_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+        /* harmony import */ var _modules_gallery_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
           /*! ./modules/gallery.js */ './js/modules/gallery.js'
         );
-        /* harmony import */ var _modules_chat_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+        /* harmony import */ var _modules_chat_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
           /*! ./modules/chat.js */ './js/modules/chat.js'
         );
-        /* harmony import */ var _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+        /* harmony import */ var _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
           /*! ./modules/enlargePhoto.js */ './js/modules/enlargePhoto.js'
         );
-        /* harmony import */ var _modules_profiles_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+        /* harmony import */ var _modules_profiles_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
           /*! ./modules/profiles.js */ './js/modules/profiles.js'
         );
 
@@ -19588,22 +19591,24 @@
         window['Photo'] =
           _modules_photo_js__WEBPACK_IMPORTED_MODULE_4__['default'];
         window['SearchProfilesForm'] =
-          _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_5__[
+          _modules_search_profiles_form_js__WEBPACK_IMPORTED_MODULE_6__[
             'default'
           ];
         window['BuyPremiumForm'] =
-          _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_6__['default'];
+          _modules_buyPremiumForm_js__WEBPACK_IMPORTED_MODULE_7__['default'];
         window['ChatList'] =
-          _modules_chatList_js__WEBPACK_IMPORTED_MODULE_7__['default'];
-        window['Ad'] = _modules_ad_js__WEBPACK_IMPORTED_MODULE_8__['default'];
+          _modules_chatList_js__WEBPACK_IMPORTED_MODULE_8__['default'];
+        window['Ad'] = _modules_ad_js__WEBPACK_IMPORTED_MODULE_9__['default'];
         window['Gallery'] =
-          _modules_gallery_js__WEBPACK_IMPORTED_MODULE_9__['default'];
+          _modules_gallery_js__WEBPACK_IMPORTED_MODULE_10__['default'];
         window['Chat'] =
-          _modules_chat_js__WEBPACK_IMPORTED_MODULE_10__['default'];
+          _modules_chat_js__WEBPACK_IMPORTED_MODULE_11__['default'];
         window['EnlargePhoto'] =
-          _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_11__['default'];
+          _modules_enlargePhoto_js__WEBPACK_IMPORTED_MODULE_12__['default'];
         window['Profiles'] =
-          _modules_profiles_js__WEBPACK_IMPORTED_MODULE_12__['default'];
+          _modules_profiles_js__WEBPACK_IMPORTED_MODULE_13__['default'];
+        window['SponsorPremium'] =
+          _modules_sponsorPremium_js__WEBPACK_IMPORTED_MODULE_5__['default'];
 
         /***/
       },
@@ -19849,74 +19854,62 @@
             return Bonus;
           }
         );
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-          /*! @babel/runtime/regenerator */ '../node_modules/@babel/runtime/regenerator/index.js'
-        );
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-          /*! @babel/runtime/helpers/asyncToGenerator */ '../node_modules/@babel/runtime/helpers/asyncToGenerator.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__
-        );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
           /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
           /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__
         );
-        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./requests.js */ './js/modules/requests.js'
         );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
           return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
                 Derived
               ),
               result;
             if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
                 this
               ).constructor;
               result = Reflect.construct(Super, arguments, NewTarget);
             } else {
               result = Super.apply(this, arguments);
             }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default()(
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default()(
               this,
               result
             );
@@ -19939,7 +19932,7 @@
         }
 
         var Bonus = /*#__PURE__*/ (function (_ServerRequest) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default()(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default()(
             Bonus,
             _ServerRequest
           );
@@ -19949,42 +19942,34 @@
           function Bonus(options) {
             var _this;
 
-            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               Bonus
             );
 
-            _this = _super.call(this, options); // Bind context
+            _this = _super.call(this, options);
+            _this.classes = options.classes;
+            _this.popups = options.popups; // Bind context
 
             _this._cacheElements = _this._cacheElements.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
                 _this
               )
             );
             _this._setUpEventListeners = _this._setUpEventListeners.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
                 _this
               )
             );
             _this._useBonus = _this._useBonus.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
-                _this
-              )
-            );
-            _this._startUsingBonus = _this._startUsingBonus.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
-                _this
-              )
-            );
-            _this._prepareBonusUsage = _this._prepareBonusUsage.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
                 _this
               )
             );
             return _this;
           }
 
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
             Bonus,
             [
               {
@@ -20005,121 +19990,47 @@
                 value: function _setUpEventListeners() {
                   var _this2 = this;
 
-                  this.$bonus.click(function () {
-                    return _this2._startUsingBonus();
-                  });
-                },
-                /**
-                 * Asyncronous event handler for bonus usage
-                 */
-              },
-              {
-                key: '_startUsingBonus',
-                value: (function () {
-                  var _startUsingBonus2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee() {
-                        var type, approved;
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee$(_context) {
-                            while (1) {
-                              switch ((_context.prev = _context.next)) {
-                                case 0:
-                                  if (!(this.activated && !this.finished)) {
-                                    _context.next = 4;
-                                    break;
-                                  }
-
-                                  return _context.abrupt('return');
-
-                                case 4:
-                                  if (!(this.amount === 0)) {
-                                    _context.next = 15;
-                                    break;
-                                  }
-
-                                  // If there are no bonuses available
-                                  type = this.type;
-                                  _context.t0 = type;
-                                  _context.next =
-                                    _context.t0 === 'boost'
-                                      ? 9
-                                      : _context.t0 === 'superlike'
-                                      ? 11
-                                      : _context.t0 === 'photo'
-                                      ? 11
-                                      : 13;
-                                  break;
-
-                                case 9:
-                                  // Redirect
-                                  window.location.href = this.redirect;
-                                  return _context.abrupt('break', 13);
-
-                                case 11:
-                                  // Ask the user to purchase bonuses
-                                  this._proposeBuyingBonus();
-
-                                  return _context.abrupt('break', 13);
-
-                                case 13:
-                                  _context.next = 19;
-                                  break;
-
-                                case 15:
-                                  _context.next = 17;
-                                  return this._prepareBonusUsage();
-
-                                case 17:
-                                  approved = _context.sent;
-
-                                  if (approved) {
-                                    // Start bonus usage
-                                    this._useBonus();
-                                  }
-
-                                case 19:
-                                case 'end':
-                                  return _context.stop();
-                              }
-                            }
-                          },
-                          _callee,
-                          this
-                        );
-                      }
-                    )
-                  );
-
-                  function _startUsingBonus() {
-                    return _startUsingBonus2.apply(this, arguments);
-                  }
-
-                  return _startUsingBonus;
-                })(),
-              },
-              {
-                key: '_proposeBuyingBonus',
-                value: function _proposeBuyingBonus() {
-                  var _this3 = this;
-
-                  // Fire alert
-                  this.fireBuyingAlert(this.popups.buy).then(function (result) {
-                    if (result.isConfirmed) {
-                      // Redirect to buying page in case of the user approvement
-                      window.location.href = _this3.redirect;
+                  /**
+                   * When the bonus is clicked:
+                   * 1. Check if there are any bonuses available
+                   * if not, propose buying some
+                   * 2. If there are bonuses available, delegate starting bonuses usage to their
+                   * specific classes
+                   */
+                  this.$bonus.click(function (event) {
+                    if (_this2.amount === 0) {
+                      // Fire alert
+                      _this2
+                        .fireBuyingAlert(_this2.popups.buy)
+                        .then(function (result) {
+                          if (result.isConfirmed) {
+                            // Redirect to buying page
+                            window.location.href = _this2.redirect;
+                          }
+                        });
+                    } else {
+                      $(document).trigger(
+                        'bonus:startUsage',
+                        _this2.$bonus.data('type')
+                      );
                     }
                   });
                 },
+                /**
+                 * Update amount of bonuses in the each specific class
+                 * and on markup data-attribute
+                 */
               },
               {
                 key: '_decreaseBonusAmountAvailable',
                 value: function _decreaseBonusAmountAvailable() {
-                  // Decrease the saved amount of bonuses available
-                  this.amount = --this.amount; // Update markup
-
-                  this.$bonus.attr('data-amount', this.amount);
+                  this.$bonus.attr('data-amount', --this.amount);
                 },
+                /**
+                 * Update visual parts of the bonus amount:
+                 * 1. The text showcasing how many bonuses the user have
+                 * 2. The text (red if no bonuses available, green if there are at least one bonus)
+                 */
               },
               {
                 key: '_updateAmountOnMarkup',
@@ -20139,7 +20050,7 @@
           );
 
           return Bonus;
-        })(_requests_js__WEBPACK_IMPORTED_MODULE_8__['default']);
+        })(_requests_js__WEBPACK_IMPORTED_MODULE_6__['default']);
 
         /***/
       },
@@ -20159,80 +20070,68 @@
             return Boost;
           }
         );
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-          /*! @babel/runtime/regenerator */ '../node_modules/@babel/runtime/regenerator/index.js'
-        );
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-          /*! @babel/runtime/helpers/asyncToGenerator */ '../node_modules/@babel/runtime/helpers/asyncToGenerator.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__
-        );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
           /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
           /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
         );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! @babel/runtime/helpers/get */ '../node_modules/@babel/runtime/helpers/get.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__
         );
-        /* harmony import */ var _bonus_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+        /* harmony import */ var _bonus_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./bonus.js */ './js/modules/bonus.js'
         );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
           return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                 Derived
               ),
               result;
             if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                 this
               ).constructor;
               result = Reflect.construct(Super, arguments, NewTarget);
             } else {
               result = Super.apply(this, arguments);
             }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default()(
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default()(
               this,
               result
             );
@@ -20255,7 +20154,7 @@
         }
 
         var Boost = /*#__PURE__*/ (function (_Bonus) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default()(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(
             Boost,
             _Bonus
           );
@@ -20265,7 +20164,7 @@
           function Boost(options) {
             var _this;
 
-            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               Boost
             );
@@ -20274,14 +20173,10 @@
             _this.type = 'boost'; // Bind context
 
             _this._displayTime = _this._displayTime.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
                 _this
               )
-            ); // Save popup data
-
-            _this.popupData = options.popupData; // Reference request information for the popup usage
-
-            _this.popupData.request = _this.requests.use; // Save initial state of the boost
+            ); // Save initial state of the boost
 
             _this.activated = false;
             _this.finished = false;
@@ -20293,14 +20188,14 @@
             return _this;
           }
 
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
             Boost,
             [
               {
                 key: '_cacheElements',
                 value: function _cacheElements() {
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                       Boost.prototype
                     ),
                     '_cacheElements',
@@ -20316,21 +20211,88 @@
                     this.selectors.timer.seconds
                   ); // Hide timer after caching
 
-                  this.$timer.fadeOut(0); //Create expiration popup based on the generic popup
-
-                  this.expirationPopupData = Object.assign({}, this.popupData);
+                  this.$timer.fadeOut(0);
                 },
               },
               {
                 key: '_setUpEventListeners',
                 value: function _setUpEventListeners() {
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+                  var _this2 = this;
+
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                       Boost.prototype
                     ),
                     '_setUpEventListeners',
                     this
                   ).call(this);
+                  /**
+                   * If there are at least one bonus available, handle its usage
+                   * 1. If the boost is activated, don't do anything
+                   * 2. If the boost is not activated:
+                   *  1) Choose between 'use' and 'expire' popup.
+                   *     - Show use popup when the user activates boost for the first time
+                   *     - Show expire popup when the popup was expired
+                   *       and the user is being asked about reusing it
+                   *  2) Get the approvement and the timestamp from the server
+                   *     - Check timestamp for validity. If it is invalid, throw error
+                   *  3) If the usage is approved:
+                   *     - Start using the boost
+                   *  4) If the usage is not approved:
+                   *     - Hide timer
+                   *     - Deactivate boost
+                   */
+
+                  $(document).on('bonus:startUsage', function (event, type) {
+                    if (type !== 'boost') return;
+                    if (_this2.activated && !_this2.finished) return; // Choose config for popup
+
+                    if (!_this2.activated && !_this2.finished) {
+                      var popup = _this2.popups.use;
+                    } else if (_this2.activated && _this2.finished) {
+                      var popup = _this2.popups.expire;
+                    }
+
+                    _this2
+                      .askUsageApprovement(popup)
+                      .then(function (result) {
+                        if (!result) return;
+                        var success = result.success,
+                          title = result.title,
+                          text = result.text,
+                          timestamp = result.timestamp; // Handle the case with negative timestamp
+
+                        var distance = timestamp - new Date().getTime();
+                        if (distance <= 0)
+                          throw new RangeError('Negative time!'); // Set icon and show popup with it
+
+                        var icon = success ? 'success' : 'error';
+
+                        _this2.showRequestResult({
+                          title: title,
+                          text: text,
+                          icon: icon,
+                        });
+
+                        if (success) {
+                          _this2.countDownTime = timestamp;
+
+                          _this2._useBonus();
+                        } else {
+                          if (_this2.activated && _this2.finished)
+                            _this2.$timer.fadeOut(400);
+                          _this2.activated = false;
+                          _this2.finished = false;
+                        }
+                      })
+                      ['catch'](function (error) {
+                        _this2.showRequestResult({
+                          title: error.name,
+                          text: error.message,
+                          icon: 'error',
+                        });
+                      });
+                  });
                 },
               },
               {
@@ -20346,138 +20308,27 @@
                 },
               },
               {
-                key: '_prepareBonusUsage',
-                value: (function () {
-                  var _prepareBonusUsage2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee() {
-                        var approved,
-                          timestamp,
-                          expirationTitle,
-                          expirationMessage,
-                          _yield$this$askUsageA,
-                          _yield$this$askUsageA2;
-
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee$(_context) {
-                            while (1) {
-                              switch ((_context.prev = _context.next)) {
-                                case 0:
-                                  if (!(!this.activated && !this.finished)) {
-                                    _context.next = 10;
-                                    break;
-                                  }
-
-                                  _context.next = 3;
-                                  return this.askUsageApprovement(
-                                    this.popupData
-                                  );
-
-                                case 3:
-                                  _yield$this$askUsageA = _context.sent;
-                                  approved = _yield$this$askUsageA.approved;
-                                  timestamp = _yield$this$askUsageA.timestamp;
-                                  expirationTitle =
-                                    _yield$this$askUsageA.expirationTitle;
-                                  expirationMessage =
-                                    _yield$this$askUsageA.expirationMessage;
-                                  _context.next = 19;
-                                  break;
-
-                                case 10:
-                                  if (!(this.activated && this.finished)) {
-                                    _context.next = 19;
-                                    break;
-                                  }
-
-                                  _context.next = 13;
-                                  return this.askUsageApprovement(
-                                    this.expirationPopupData
-                                  );
-
-                                case 13:
-                                  _yield$this$askUsageA2 = _context.sent;
-                                  approved = _yield$this$askUsageA2.approved;
-                                  timestamp = _yield$this$askUsageA2.timestamp;
-                                  expirationTitle =
-                                    _yield$this$askUsageA2.expirationTitle;
-                                  expirationMessage =
-                                    _yield$this$askUsageA2.expirationMessage;
-
-                                  if (!approved) {
-                                    // If the user don't want to use boost again
-                                    // Hide the timer
-                                    this.$timer.fadeOut(400);
-                                  }
-
-                                case 19:
-                                  if (approved) {
-                                    // If the boost usage was approved by the server
-                                    // Save timestamp
-                                    this.countDownTime = timestamp;
-
-                                    if (expirationTitle) {
-                                      // Change the title if provided
-                                      // For asking about futher usage
-                                      this.expirationPopupData.title = expirationTitle;
-                                    }
-
-                                    if (expirationMessage) {
-                                      // Change the message if provided
-                                      // For asking about futher usage
-                                      this.expirationPopupData.text = expirationMessage;
-                                    }
-                                  } else {
-                                    // If the boost usage wasn't approved by the server
-                                    // Discard boost state
-                                    this.activated = false;
-                                    this.finished = false;
-                                  }
-
-                                  return _context.abrupt('return', approved);
-
-                                case 21:
-                                case 'end':
-                                  return _context.stop();
-                              }
-                            }
-                          },
-                          _callee,
-                          this
-                        );
-                      }
-                    )
-                  );
-
-                  function _prepareBonusUsage() {
-                    return _prepareBonusUsage2.apply(this, arguments);
-                  }
-
-                  return _prepareBonusUsage;
-                })(),
-              },
-              {
                 key: '_startTimer',
                 value: function _startTimer() {
-                  var _this2 = this;
+                  var _this3 = this;
 
                   var intervalId = setInterval(function () {
                     // Get today's date and time
                     var now = new Date().getTime(); // Find the distance between now and the count down date
 
-                    var distance = _this2.countDownTime - now; // If the count down is finished
+                    var distance = _this3.countDownTime - now; // If the count down is finished
 
                     if (distance <= 1000) {
-                      _this2._displayTime(0, 0, 0);
+                      _this3._displayTime(0, 0, 0);
 
                       clearInterval(intervalId); // Change the state of the bonus
 
-                      _this2.activated = true;
-                      _this2.finished = true; // Clear timestamp
+                      _this3.activated = true;
+                      _this3.finished = true; // Clear timestamp
 
-                      _this2.timestamp = null; // Ask user to use more
+                      _this3.timestamp = null; // Ask user to use more
 
-                      _this2.$bonus.click();
+                      _this3.$bonus.click();
                     } // Time calculations for hours, minutes and seconds
 
                     var hours = Math.floor(
@@ -20488,9 +20339,9 @@
                     );
                     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                    _this2._displayTime(hours, minutes, seconds);
+                    _this3._displayTime(hours, minutes, seconds);
 
-                    _this2.$timer.fadeIn(400);
+                    _this3.$timer.fadeIn(400);
                   }, 1000);
                 },
               },
@@ -20511,23 +20362,11 @@
                   this.$seconds.text(seconds);
                 },
               },
-              {
-                key: '_decreaseBonusAmountAvailable',
-                value: function _decreaseBonusAmountAvailable() {
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
-                      Boost.prototype
-                    ),
-                    '_decreaseBonusAmountAvailable',
-                    this
-                  ).call(this);
-                },
-              },
             ]
           );
 
           return Boost;
-        })(_bonus_js__WEBPACK_IMPORTED_MODULE_9__['default']);
+        })(_bonus_js__WEBPACK_IMPORTED_MODULE_7__['default']);
 
         /***/
       },
@@ -20547,80 +20386,77 @@
             return BuyPremiumForm;
           }
         );
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-          /*! @babel/runtime/regenerator */ '../node_modules/@babel/runtime/regenerator/index.js'
-        );
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-          /*! @babel/runtime/helpers/asyncToGenerator */ '../node_modules/@babel/runtime/helpers/asyncToGenerator.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__
-        );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
           /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
           /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
         );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! @babel/runtime/helpers/get */ '../node_modules/@babel/runtime/helpers/get.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__
         );
-        /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+        /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./form.js */ './js/modules/form.js'
+        );
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+          /*! handlebars */ '../node_modules/handlebars/dist/cjs/handlebars.js'
+        );
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/ __webpack_require__.n(
+          handlebars__WEBPACK_IMPORTED_MODULE_8__
+        );
+        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+          /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
         );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
           return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                 Derived
               ),
               result;
             if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                 this
               ).constructor;
               result = Reflect.construct(Super, arguments, NewTarget);
             } else {
               result = Super.apply(this, arguments);
             }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default()(
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default()(
               this,
               result
             );
@@ -20643,7 +20479,7 @@
         }
 
         var BuyPremiumForm = /*#__PURE__*/ (function (_Form) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default()(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(
             BuyPremiumForm,
             _Form
           );
@@ -20653,44 +20489,93 @@
           function BuyPremiumForm(options) {
             var _this;
 
-            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               BuyPremiumForm
             );
 
             _this = _super.call(this, options); // Binding context
 
-            _this.setPrice = _this.setPrice.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
+            _this._setOrderDetails = _this._setOrderDetails.bind(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
                 _this
               )
             );
+            /**
+             * mode can be 'show' or 'hide'
+             * When the mode is 'show':
+             * 1. Hide price container
+             * 2. Show spinner
+             * When the mode is 'hide':
+             * 1. Hide spinner
+             * 2. Show price container
+             */
 
-            _this.$checkout.fadeOut(0);
+            _this.$spinner.toggle = function (mode) {
+              if (mode === 'show') {
+                _this.$outerPriceContainer.fadeOut(100, function () {
+                  _this.$spinner.fadeIn(100);
+                });
+              } else if (mode === 'hide') {
+                _this.$spinner.fadeOut(100, function () {
+                  _this.$outerPriceContainer.fadeIn(100);
+                });
+              }
+            }; // Prepare message templates to render them in the future
 
+            _this.templates = Object(
+              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_9__['default']
+            )(options.selectors.templateIds);
             return _this;
           }
 
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
             BuyPremiumForm,
             [
               {
                 key: '_cacheElements',
                 value: function _cacheElements() {
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                       BuyPremiumForm.prototype
                     ),
                     '_cacheElements',
                     this
-                  ).call(this); // Price containers
+                  ).call(this);
 
-                  this.$priceContainer = $(this.selectors.price);
-                  this.$discountContainer = $(
-                    this.selectors['card-payment-price']
-                  ); // Checkout area
+                  var selectors = this.selectors; // Container to preview order details
 
-                  this.$checkout = this.$form.find(this.selectors.checkout);
+                  this.$orderDetails = $(selectors.orderDetails); // Price containers
+                  // Price container to show/hide when the price is being loaded from the server
+
+                  this.$outerPriceContainer = $(selectors.priceContainer); // Initial price for card payment method
+
+                  this.$cardPriceContainer = $(selectors['card-total-price']); // Discount price for card payment method
+
+                  this.$cardDiscountContainer = $(
+                    selectors['card-discount-price']
+                  ); // Total price to pay without discount - displayed on the first step
+
+                  this.$priceContainer = $(selectors['total-price']); // Total price to pay with the discount - displayed on the first step
+
+                  this.$previousPrice = $(selectors['previous-price']); // Container that holds the previous price
+
+                  this.$previousPriceContainer = this.$previousPrice
+                    .closest('del')
+                    .fadeOut(0); // Buttons to disable on request
+
+                  this.$disableButtonsOnRequest = $(
+                    selectors.disableButtonsOnRequest
+                  ); // spinner
+
+                  this.$spinner = $(selectors.spinner).fadeOut(0); // Disable checkout button until price is being shown
+
+                  this.$checkout = this.$form
+                    .find(selectors.loading.submitButton)
+                    .attr('disabled', true); // Discount
+
+                  this.$discountType = $(selectors.discount.type);
+                  this.$discountAmount = $(selectors.discount.amount);
                 },
               },
               {
@@ -20698,18 +20583,19 @@
                 value: function _setUpEventListeners() {
                   var _this2 = this;
 
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                       BuyPremiumForm.prototype
                     ),
                     '_setUpEventListeners',
                     this
-                  ).call(this); // Additiong and removing bonuses
+                  ).call(this); // Adding and removing bonuses
 
                   this.$form
                     .find(this.selectors['bonus-inputs'])
                     .on('click', function (event) {
-                      var $target = $(event.target);
+                      var $target = $(event.target); // Get the -/+ button to remove/add bonuses
+
                       var $buttonWrapper = $target.closest(
                         _this2.selectors['bonus-control']
                       );
@@ -20739,93 +20625,142 @@
                   this.$inputs.on('input', function (event) {
                     _this2.collectFormInputs();
 
-                    _this2.setPrice();
+                    _this2._setOrderDetails();
                   });
                 },
+                /**
+                 * Get price for the selected bonuses and plan from the server
+                 * 1. Set selected options as search parameters
+                 * 2. Start making request
+                 */
               },
               {
-                key: 'setPrice',
-                value: (function () {
-                  var _setPrice = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee() {
-                        var response, total;
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee$(_context) {
-                            while (1) {
-                              switch ((_context.prev = _context.next)) {
-                                case 0:
-                                  _context.prev = 0;
-                                  _context.next = 3;
-                                  return this.getPrice({
-                                    headers: this.requests.price.headers,
-                                    endpoint: this.requests.price.endpoint,
-                                    method: this.requests.price.method,
-                                  });
+                key: 'getPrice',
+                value: function getPrice(_ref) {
+                  var headers = _ref.headers,
+                    endpoint = _ref.endpoint,
+                    method = _ref.method;
 
-                                case 3:
-                                  response = _context.sent;
-                                  _context.next = 9;
-                                  break;
-
-                                case 6:
-                                  _context.prev = 6;
-                                  _context.t0 = _context['catch'](0);
-                                  // Unsuccessful Popup
-                                  this.showRequestResult({
-                                    title: _context.t0.name,
-                                    text: _context.t0.message,
-                                    icon: 'error',
-                                  });
-
-                                case 9:
-                                  if (response.success) {
-                                    total = response['total']; // Show price
-
-                                    this.$priceContainer.text(total);
-                                    this.$discountContainer.text(
-                                      response['discount']
-                                    );
-                                    total > 0
-                                      ? this.$checkout.fadeIn(400)
-                                      : this.$checkout.fadeOut(400);
-                                  } else {
-                                    if (this.showFailPopup) {
-                                      // Unsuccessful Popup
-                                      this.showRequestResult({
-                                        title: response.title,
-                                        text: response.message,
-                                        icon: 'error',
-                                      });
-                                    }
-                                  }
-
-                                case 10:
-                                case 'end':
-                                  return _context.stop();
-                              }
-                            }
-                          },
-                          _callee,
-                          this,
-                          [[0, 6]]
-                        );
-                      }
-                    )
-                  );
-
-                  function setPrice() {
-                    return _setPrice.apply(this, arguments);
+                  for (var name in this.formData) {
+                    endpoint.searchParams.set(name, this.formData[name]);
                   }
 
-                  return setPrice;
-                })(),
+                  return this.makeRequest({
+                    headers: headers,
+                    endpoint: endpoint,
+                    method: method,
+                  });
+                },
+                /**
+                 * Set retrieved price for the currently selected plans and bonuses
+                 * 1. Get the price from the server
+                 *
+                 */
+              },
+              {
+                key: '_setOrderDetails',
+                value: function _setOrderDetails() {
+                  var _this3 = this;
+
+                  var _this$requests$price = this.requests.price,
+                    headers = _this$requests$price.headers,
+                    endpoint = _this$requests$price.endpoint,
+                    method = _this$requests$price.method; // Hide previous price and show spinner
+
+                  this.$spinner.toggle('show'); // Make request to the server
+
+                  this.getPrice({
+                    headers: headers,
+                    endpoint: endpoint,
+                    method: method,
+                  })
+                    .then(function (response) {
+                      _this3.$spinner.toggle('hide');
+
+                      if (response.success) {
+                        var initialCardPrice = response.initialCardPrice,
+                          discountCardPrice = response.discountCardPrice,
+                          hasPromo = response.hasPromo,
+                          cardDiscount = response.cardDiscount,
+                          totalPrice = response.totalPrice,
+                          totalDiscountPrice = response.totalDiscountPrice,
+                          order = response.order;
+                        totalPrice > 0
+                          ? _this3.$checkout.attr('disabled', false)
+                          : _this3.$checkout.attr('disabled', true); // Handle promotion price
+
+                        if (hasPromo) {
+                          _this3.$priceContainer.text(totalDiscountPrice);
+
+                          _this3.$previousPrice.text(totalPrice);
+
+                          _this3.$previousPriceContainer.show();
+                        } else {
+                          _this3.$priceContainer.text(totalPrice);
+
+                          _this3.$previousPrice.text(0);
+
+                          _this3.$previousPriceContainer.hide();
+                        } // Handle card payment price
+
+                        _this3.$cardPriceContainer.text(initialCardPrice);
+
+                        _this3.$cardDiscountContainer.text(discountCardPrice); // Set card discount amount
+
+                        _this3.$discountType.text(cardDiscount.type);
+
+                        _this3.$discountAmount.text(cardDiscount.amount);
+
+                        _this3.$orderDetails.empty(); // Preview plan details
+
+                        if ('plan' in order) {
+                          // Compile template
+                          var template = handlebars__WEBPACK_IMPORTED_MODULE_8___default.a.compile(
+                            _this3.templates.plan
+                          ); // Pass json data to the template
+
+                          template = template(order.plan); // Show template
+
+                          _this3.$orderDetails.append(template);
+                        }
+
+                        if ('bonuses' in order) {
+                          // Compile template
+                          var _template = handlebars__WEBPACK_IMPORTED_MODULE_8___default.a.compile(
+                            _this3.templates.bonuses
+                          ); // Pass json data to the template
+
+                          _template = _template(order.bonuses); // Show template
+
+                          _this3.$orderDetails.append(_template);
+                        }
+                      } else {
+                        if (_this3.showFailPopup) {
+                          // Unsuccessful Popup
+                          _this3.showRequestResult({
+                            title: response.title,
+                            text: response.message,
+                            icon: 'error',
+                          });
+                        }
+                      }
+                    })
+                    ['catch'](function (error) {
+                      if (_this3.showFailPopup) {
+                        _this3.showRequestResult({
+                          title: error.name,
+                          text: error.message,
+                          icon: 'error',
+                        });
+                      }
+                    });
+                },
               },
             ]
           );
 
           return BuyPremiumForm;
-        })(_form_js__WEBPACK_IMPORTED_MODULE_9__['default']);
+        })(_form_js__WEBPACK_IMPORTED_MODULE_7__['default']);
 
         /***/
       },
@@ -21037,6 +20972,7 @@
                   this._sendMessageToServer(messageData) // Maybe we can handle successful/unsuccessful response here
                     .then(function (response) {
                       if (response.success) {
+                        console.log('Response after sending a message:');
                         console.log(response);
 
                         switch (response.type) {
@@ -22369,6 +22305,85 @@
         /***/
       },
 
+    /***/ './js/modules/fileReaderMixin.js':
+      /*!***************************************!*\
+  !*** ./js/modules/fileReaderMixin.js ***!
+  \***************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony default export */ __webpack_exports__['default'] = {
+          initializeFileReader: function initializeFileReader(config) {
+            // Save passed information
+            errorText = config.errorText;
+            // Bind context
+            _setReaderEventListeners = _setReaderEventListeners.bind(this);
+            _readFile = _readFile.bind(this);
+          },
+          _readFile: _readFile,
+        }; // Private varibles
+
+        var errorText;
+        /** Private functions */
+
+        /**
+         * Function to read file and start loading it
+         * It instantiates a FileReader Object for the current file
+         * Sets event listeners to listen to events on reader
+         * And then, starts reading it to generate URL
+         * @param {File Object} file
+         */
+
+        function _readFile(_ref) {
+          var file = _ref.file,
+            $progressBar = _ref.$progressBar;
+          var reader = new FileReader(); // Save progress bar for the current reader
+
+          reader.$progressBar = $progressBar; // Prepare reader fo reading file
+
+          _setReaderEventListeners(reader); // Read file
+
+          reader.readAsDataURL(file);
+        }
+        /**
+         * Function setting event listeners to the current reader
+         * @param {FileReader Object} reader - reader to set event listeners to
+         */
+
+        function _setReaderEventListeners(reader) {
+          var _this = this;
+
+          reader.addEventListener('loadstart', function (event) {
+            _this._hideError();
+          });
+          reader.addEventListener('progress', function (event) {
+            // Show progress for the current reader
+            _this._showProgress({
+              loaded: event.loaded,
+              total: event.total,
+              $progressBar: event.target.$progressBar,
+            });
+          });
+          reader.addEventListener('loadend', function (event) {
+            var target = event.target; // Indicate that the file related to the current progress bar was loaded
+
+            target.$progressBar.addClass('loadend');
+          });
+          reader.addEventListener('load', function (event) {
+            var target = event.target;
+            setTimeout(_this._preview, 500, target); // Show submit button
+
+            _this.$modalFooter.show();
+          });
+          reader.addEventListener('error', function () {
+            _this._showError(errorText.read);
+          });
+        }
+
+        /***/
+      },
+
     /***/ './js/modules/form.js':
       /*!****************************!*\
   !*** ./js/modules/form.js ***!
@@ -22725,7 +22740,9 @@
                     })
                     .ready(function () {
                       _this2.$inputs.each(function (index, elem) {
-                        if ($(elem).is('select')) return;
+                        var $elem = $(elem);
+                        if ($elem.is('select') || $elem.hasClass('preserve'))
+                          return;
                         elem.value = '';
                       });
                     });
@@ -24108,6 +24125,7 @@
               avatar: false,
               uploader: false,
               editor: false,
+              photoBonus: false,
             };
 
             if (_this.configuration.avatar || _this.configuration.uploader) {
@@ -24529,62 +24547,77 @@
         /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! @babel/runtime/helpers/get */ '../node_modules/@babel/runtime/helpers/get.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2__
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__
         );
-        /* harmony import */ var _bonus_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+          /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7__
+        );
+        /* harmony import */ var _bonus_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
           /*! ./bonus.js */ './js/modules/bonus.js'
         );
-        /* harmony import */ var _photoAnimation_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _photoAnimation_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
           /*! ./photoAnimation.js */ './js/modules/photoAnimation.js'
         );
-        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
           /*! handlebars */ '../node_modules/handlebars/dist/cjs/handlebars.js'
         );
-        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/ __webpack_require__.n(
-          handlebars__WEBPACK_IMPORTED_MODULE_8__
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/ __webpack_require__.n(
+          handlebars__WEBPACK_IMPORTED_MODULE_10__
         );
-        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
           /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
+        );
+        /* harmony import */ var _photoUploadMixin__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+          /*! ./photoUploadMixin */ './js/modules/photoUploadMixin.js'
         );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
           return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                 Derived
               ),
               result;
             if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                 this
               ).constructor;
               result = Reflect.construct(Super, arguments, NewTarget);
             } else {
               result = Super.apply(this, arguments);
             }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default()(
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default()(
               this,
               result
             );
@@ -24607,13 +24640,15 @@
         }
 
         var Photo = /*#__PURE__*/ (function (_Bonus) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default()(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(
             Photo,
             _Bonus
           );
 
           var _super = _createSuper(Photo);
 
+          // Uploaded photo information to show it in the chat
+          // Uploaded photo information to send it to the server
           function Photo(options) {
             var _this;
 
@@ -24622,21 +24657,62 @@
               Photo
             );
 
-            _this = _super.call(this, options); // Save popups
+            _this = _super.call(this, options); // Bind context
+
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              ),
+              'photoData',
+              {
+                type: 'photo',
+              }
+            );
+
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              ),
+              'formData',
+              new FormData()
+            );
+
+            _this._discardChanges = _this._discardChanges.bind(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              )
+            );
+            _this.configuration = {
+              photoBonus: true,
+            }; // Save popups
 
             _this.popups = options.popups; // Initiate animation for icon in popup
 
-            _this.animation = new _photoAnimation_js__WEBPACK_IMPORTED_MODULE_7__[
+            _this.animation = new _photoAnimation_js__WEBPACK_IMPORTED_MODULE_9__[
               'default'
             ](options.animation); // Prepare photo preview template
 
             _this.photoTemplates = Object(
-              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_9__['default']
+              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_11__['default']
             )(options.photoTemplates);
 
             _this._cacheElements();
 
             _this._setUpEventListeners();
+            /**
+             * Prepare bonus for photo upload:
+             * 1. Initialize photo upload (FileReader, photo preview, drag'n'drop)
+             * 2. Initialize loading indicator
+             */
+
+            Object.assign(
+              Photo.prototype,
+              _photoUploadMixin__WEBPACK_IMPORTED_MODULE_12__['default']
+            );
+
+            _this.initializePhotoUpload();
+
+            _this.initializeLoadingIndicators(_this.$form);
 
             return _this;
           }
@@ -24647,38 +24723,29 @@
               {
                 key: '_cacheElements',
                 value: function _cacheElements() {
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                       Photo.prototype
                     ),
                     '_cacheElements',
                     this
-                  ).call(this); // Cache reference
+                  ).call(this);
 
                   var selectors = this.selectors; // Amount element
 
-                  this.$amount = this.$bonus.find(selectors.amount);
-                  /**
-                   * Photo upload and preview specific
-                   */
-                  // Modal for photo preview
+                  this.$amount = this.$bonus.find(selectors.amount); // Photo upload and preview
 
-                  this.$modal = $(selectors.modal); //Closing button
-
+                  this.$modal = $(selectors.modal);
                   this.$closeButton = this.$modal.find(
                     selectors.closeModalButton
-                  ); // Find modal footer and hide it
-
+                  );
                   this.$modalFooter = this.$modal
                     .find('.modal-footer')
-                    .fadeOut(0); // Container to preview photos
-
+                    .fadeOut(0);
                   this.$previewContainer = this.$modal.find(
                     selectors.previewContainer
-                  ); // Photo inputs
-
-                  this.$photoInputs = this.$modal.find(selectors.input); // Form
-
+                  );
+                  this.$photoInputs = this.$modal.find(selectors.input);
                   this.$form = this.$modal.find(selectors.form);
                 },
               },
@@ -24687,8 +24754,8 @@
                 value: function _setUpEventListeners() {
                   var _this2 = this;
 
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                       Photo.prototype
                     ),
                     '_setUpEventListeners',
@@ -24696,25 +24763,64 @@
                   ).call(this); // Cache document element
 
                   var $document = $(document);
-                  this.$photoInputs.change(function (event) {
-                    // Delete previously loaded photo
-                    _this2.$previewContainer.empty(); // Delete previously saved src
+                  /**
+                   * When the photo input changes:
+                   * 1. Delete previous photo previews
+                   * 2. Delete information about previous photo
+                   * -------------------------------------------
+                   * What to add:
+                   * 3. Do the same stuff on drop
+                   */
 
-                    _this2._discardPhotoInformation();
+                  this.$modal.on('change', function (event) {
+                    if (!event.target.classList.contains(_this2.classes.input))
+                      return;
+
+                    _this2._discardChanges();
                   });
-                  this.$photoInputs.change(function (event) {
-                    // When new photo is uploaded - preview it
-                    _this2._loadPhoto(event.target);
-                  });
+                  /**
+                   * Handle photo submission from the photo upload modal:
+                   * 1. Make a request to the server to ask if the bonus can be used
+                   * 2. If the bonus can be used, start using it
+                   * 3. If success = false or an unexpected error occured, show error popup
+                   */
+
                   this.$form.submit(function (event) {
                     // When the photo is sent by the user
-                    event.preventDefault(); // Start using bonus
+                    event.preventDefault(); // Here, instead of starting using the bonus, ask server
 
-                    _this2._sendPhoto();
+                    _this2
+                      .makeRequest(_this2.requests.use)
+                      .then(function (response) {
+                        var success = response.success,
+                          title = response.title,
+                          text = response.text;
+
+                        if (success) {
+                          _this2._useBonus();
+                        } else {
+                          _this2.showRequestResult({
+                            title: title,
+                            text: text,
+                            icon: 'error',
+                          });
+                        }
+                      })
+                      ['catch'](function (error) {
+                        _this2.showRequestResult({
+                          title: error.name,
+                          text: error.message,
+                          icon: 'error',
+                        });
+                      });
+                  });
+                  $(document).on('bonus:startUsage', function (event, type) {
+                    if (type !== 'photo') return;
+
+                    _this2.$modal.modal('show');
                   });
                   this.$closeButton.click(function () {
-                    // Delete all the temporary changes if the user doesn't submit the form
-                    _this2.__discardChanges();
+                    _this2._discardChanges();
                   });
                   $document.on('photoModal:onBeforeOpen', function (
                     event,
@@ -24734,35 +24840,48 @@
                     modal
                   ) {
                     // Prepare animation for further use
-                    console.log('Modal closed');
                   });
                 },
+                /**
+                 * 1. Delete previews
+                 * 2. Hide modal footer
+                 * 3. Delete saved photo information
+                 */
+              },
+              {
+                key: '_discardChanges',
+                value: function _discardChanges() {
+                  // Delete preview
+                  this.$previewContainer.empty(); // Hide modal footer
+
+                  this.$modalFooter.fadeOut(0); // Delete photo information
+
+                  this.photoData = {
+                    type: 'photo',
+                  };
+                  this.formData = new FormData();
+                },
+                /**
+                 * 1. Change the amount of available bonuses on markup
+                 * 2. Save photo description to show it in the chat
+                 * 3. Prepare formData object to send photo and description to the server
+                 * 4. Close modal
+                 * 5. Show bonus animation
+                 */
               },
               {
                 key: '_useBonus',
                 value: function _useBonus() {
-                  // In use bonus function we'll need to trigger modal opening programically
-                  // After usage approvement
-                  this.$modal.modal('show');
-                  console.log('Using photo bonus...'); // Delete previou
-                  //this._discardPhotoInformation()
-                  // Here we need to ask the user to make a photo or upload it
-                  // And then send the message with it
-                  // Also, if the user discard photo changes, we need to add amount of bonuses available
-                  // Maybe, we can change the amount of bonuses available only if the user finishes the usage
-                  // As well as in the superlike usage
                   // Change the amount of bonuses available
-                },
-              },
-              {
-                key: '_sendPhoto',
-                value: function _sendPhoto() {
-                  // Change the amount of bonuses available
-                  this._decreaseBonusAmountAvailable(); // Save description to photoData object
+                  this._decreaseBonusAmountAvailable();
 
-                  this._savePhotoDescription(); // Prepare formData to send photo information to the server
+                  this._updateAmountOnMarkup(); // Save description to photoData object
 
-                  this.__generateFormData(); // Generate event to send the photo to the user
+                  this.photoData['description'] = $(
+                    this.selectors.photoDescription
+                  ).val(); // Prepare formData to send photo information to the server
+
+                  this._generateFormData(); // Generate event to send the photo to the user
 
                   $(document).trigger(
                     'present:send',
@@ -24770,169 +24889,67 @@
                     this.formData
                   ); // Close modal
 
-                  this.$closeButton.click(); // Call alert here with custom animation for superlike icon
+                  this.$closeButton.click(); // Call alert here with custom animation for photo icon
 
                   this.fireSendAlert(this.popups.send);
                 },
               },
               {
-                key: '__generateFormData',
-                value: function __generateFormData() {
+                key: '_generateFormData',
+                value: function _generateFormData() {
                   // Cache
                   var photoData = this.photoData;
 
                   for (var item in photoData) {
                     // Save photo information except src
                     if (item === 'src') continue;
-                    this.formData.set(item, photoData[item]);
+                    this.formData.append(item, photoData[item]);
                   }
                 },
+                /**----------------------------------------------------
+    /* Functions specific to classes utilizing PhotoUploadMixin
+    /* ----------------------------------------------------*/
+
+                /**
+                 * Handles class-specific functionality required for preview
+                 * 1. Get the src from the filereader
+                 * 2. Save src for further usage in chat
+                 * 3. Compile template for photo preview
+                 * 4. Append template to the preview container
+                 * @param {FileReader Object} fileReader - the resulting fileReader object
+                 * to preview loaded photo
+                 */
               },
               {
-                key: '_savePhotoDescription',
-                value: function _savePhotoDescription() {
-                  this.photoData['description'] = $(
-                    this.selectors.photoDescription
-                  ).val();
-                },
-              },
-              {
-                key: '_prepareBonusUsage',
-                value: function _prepareBonusUsage() {
-                  console.log('Preparing photo bonus usage...'); // Ask server about sending superlike
-                  // If the server will approve usage
-                  // Send it to the user
-                  // Temporary return true for debuggins purposes
-
-                  return true;
-                },
-              },
-              {
-                key: '_loadPhoto',
-                value: function _loadPhoto(photoInput) {
-                  var files = photoInput.files;
-                  if (!files[0]) return;
-
-                  this._readFile(files[0]);
-                },
-              },
-              {
-                key: '_readFile',
-                value: function _readFile(file) {
-                  // Save the currently selected photo
-                  this.formData.set('photo', file); // Instantiate a FileReader instance to handle photo upload
-
-                  var reader = new FileReader(); // Prepare event listeners to listen to photo upload events
-
-                  this._setReaderEventListeners(reader); // Start uploading photo
-
-                  reader.readAsDataURL(file);
-                },
-              },
-              {
-                key: '_setReaderEventListeners',
-                value: function _setReaderEventListeners(reader) {
-                  var _this3 = this;
-
-                  // Show loading indicator when the read has started
-                  reader.onloadstart = function (event) {
-                    // Set progress indicator here
-                    console.log('Loading start');
-                    console.log(event);
-                  }; // Hide loading indicator when the read has finished
-
-                  reader.onloadend = function (event) {
-                    //Delete progress indicator here
-                    console.log('Loading end');
-                    console.log(event);
-                  }; // Preview photos when it is readed successfully
-
-                  reader.onload = function (event) {
-                    // Cache
-                    var target = event.target,
-                      src = target.result; // Save src for preview
-
-                    _this3.photoData['src'] = src; // Preview photo in the preview container
-
-                    _this3._previewPhoto({
-                      src: src,
-                    }); // Show submit button
-
-                    _this3.$modalFooter.fadeIn(0);
-                  }; // Show error popup when an error occured while whoto loading
-
-                  reader.onerror = function () {
-                    // Get text information for error popup
-                    var _this3$popups$uploadE = _this3.popups.uploadError,
-                      title = _this3$popups$uploadE.title,
-                      text = _this3$popups$uploadE.text; // Show error popup
-
-                    _this3.showRequestResult({
-                      title: title,
-                      text: text,
-                      icon: 'error',
-                    });
-                  };
-                },
-              },
-              {
-                key: '_previewPhoto',
-                value: function _previewPhoto(data) {
-                  // Prepare template for compilation
-                  var compiledPhotoTemplate = handlebars__WEBPACK_IMPORTED_MODULE_8___default.a.compile(
+                key: '_preview',
+                value: function _preview(fileReader) {
+                  var src = fileReader.result;
+                  this.photoData['src'] = src;
+                  var compiledPhotoTemplate = handlebars__WEBPACK_IMPORTED_MODULE_10___default.a.compile(
                     this.photoTemplates.preview
-                  ); // Set photo preview data in template
-
-                  compiledPhotoTemplate = compiledPhotoTemplate(data); // Append template
+                  );
+                  compiledPhotoTemplate = compiledPhotoTemplate({
+                    src: src,
+                  }); // Append template
 
                   this.$previewContainer.append(compiledPhotoTemplate);
                 },
+                /**
+                 * It saves file to allow futher upload in case of submitting the form
+                 * @param {File Object} file - reference to the file in the system
+                 */
               },
               {
-                key: '__discardChanges',
-                value: function __discardChanges() {
-                  // Delete preview
-                  this.$previewContainer.empty(); // Hide modal footer
-
-                  this.$modalFooter.fadeOut(0); // Delete photo information
-
-                  this._discardPhotoInformation();
-                },
-              },
-              {
-                key: '_discardPhotoInformation',
-                value: function _discardPhotoInformation() {
-                  this.photoData = {
-                    type: 'photo',
-                  };
-                  this.formData = new FormData();
-                },
-              },
-              {
-                key: '_decreaseBonusAmountAvailable',
-                value: function _decreaseBonusAmountAvailable() {
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
-                      Photo.prototype
-                    ),
-                    '_decreaseBonusAmountAvailable',
-                    this
-                  ).call(this);
-
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
-                      Photo.prototype
-                    ),
-                    '_updateAmountOnMarkup',
-                    this
-                  ).call(this);
+                key: '_saveFile',
+                value: function _saveFile(file) {
+                  this.formData.append('photo', file);
                 },
               },
             ]
           );
 
           return Photo;
-        })(_bonus_js__WEBPACK_IMPORTED_MODULE_6__['default']);
+        })(_bonus_js__WEBPACK_IMPORTED_MODULE_8__['default']);
 
         /***/
       },
@@ -25108,6 +25125,462 @@
         /***/
       },
 
+    /***/ './js/modules/photoUploadMixin.js':
+      /*!****************************************!*\
+  !*** ./js/modules/photoUploadMixin.js ***!
+  \****************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/regenerator */ '../node_modules/@babel/runtime/regenerator/index.js'
+        );
+        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/asyncToGenerator */ '../node_modules/@babel/runtime/helpers/asyncToGenerator.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _fileReaderMixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! ./fileReaderMixin */ './js/modules/fileReaderMixin.js'
+        );
+        /* harmony import */ var _photosDragnDropMixin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! ./photosDragnDropMixin */ './js/modules/photosDragnDropMixin.js'
+        );
+        /* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! ./helper.js */ './js/modules/helper.js'
+        );
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! handlebars */ '../node_modules/handlebars/dist/cjs/handlebars.js'
+        );
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          handlebars__WEBPACK_IMPORTED_MODULE_5__
+        );
+
+        /* harmony default export */ __webpack_exports__['default'] = {
+          initializePhotoUpload: function initializePhotoUpload() {
+            var _this = this;
+
+            return _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
+              /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
+                function _callee() {
+                  var _this$configuration, isShowCameraCapturing;
+
+                  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
+                    function _callee$(_context) {
+                      while (1) {
+                        switch ((_context.prev = _context.next)) {
+                          case 0:
+                            // Bind context
+                            _cacheElements = _cacheElements.bind(_this);
+                            _setUpEventListeners = _setUpEventListeners.bind(
+                              _this
+                            );
+                            _prepareTemplate = _prepareTemplate.bind(_this);
+                            _insertProgressBar = _insertProgressBar.bind(_this);
+                            _showProgress = _showProgress.bind(_this);
+                            _generateRandomId = _generateRandomId.bind(_this);
+                            _saveAndPreviewFile = _saveAndPreviewFile.bind(
+                              _this
+                            );
+                            _handleLegacyBrowsers = _handleLegacyBrowsers.bind(
+                              _this
+                            );
+                            _showError = _showError.bind(_this);
+                            _hideError = _hideError.bind(_this); // Cache
+
+                            selectors = _this.selectors.photoUpload;
+                            errorText = _this.errorText.photoUpload;
+                            classes = _this.classes;
+                            progressSelectors = selectors.progress; // Save configuration
+
+                            _this$configuration = _this.configuration;
+                            avatar = _this$configuration.avatar;
+                            uploader = _this$configuration.uploader;
+                            photoBonus = _this$configuration.photoBonus;
+
+                            _cacheElements();
+                            /**
+                             *  Check for browser support of FormData and FileReader
+                             *  FileReader is used to preview files,
+                             *  while FormData - to send data to server
+                             */
+
+                            isAjaxUpload = (function () {
+                              return (
+                                'FormData' in window && 'FileReader' in window
+                              );
+                            })(); // Detect whether to show camera capturing for mobile and tablet devices
+
+                            _context.next = 22;
+                            return _helper_js__WEBPACK_IMPORTED_MODULE_4__[
+                              'default'
+                            ].isShowCameraCapturing.call(
+                              _helper_js__WEBPACK_IMPORTED_MODULE_4__['default']
+                            );
+
+                          case 22:
+                            isShowCameraCapturing = _context.sent;
+
+                            /**
+                             * If we're dealing with mobile devices:
+                             * Don't show Drag'n'drop, and add icon of mobile photo upload
+                             * Else, check for support of drag'n'drop API
+                             */
+                            if (isShowCameraCapturing) {
+                              isAdvancedUpload = false;
+                              $photoUploadContainer.addClass(
+                                classes.mobilePhotoUpload
+                              );
+                            } else {
+                              $photoUploadContainer.removeClass(
+                                classes.mobilePhotoUpload
+                              ); // Detect support of Drag'n'Drop
+
+                              isAdvancedUpload = (function () {
+                                var div = document.createElement('div');
+                                return (
+                                  ('draggable' in div ||
+                                    ('ondragstart' in div &&
+                                      'ondrop' in div)) &&
+                                  isAjaxUpload
+                                );
+                              })();
+                            }
+
+                            if (isAjaxUpload) {
+                              // Assign fileReaderMixin to the prototype of the current class
+                              Object.assign(
+                                _this.__proto__,
+                                _fileReaderMixin__WEBPACK_IMPORTED_MODULE_2__[
+                                  'default'
+                                ]
+                              ); // Initializing File Reader handler
+
+                              _this.initializeFileReader({
+                                errorText: errorText,
+                              });
+                            } else {
+                              _handleLegacyBrowsers();
+                            }
+
+                            if (isAdvancedUpload) {
+                              // Change container visual appearance
+                              $photoUploadContainer.addClass(classes.dragNDrop); // Assign drag'n'drop methods to the prototype
+
+                              Object.assign(
+                                _this.__proto__,
+                                _photosDragnDropMixin__WEBPACK_IMPORTED_MODULE_3__[
+                                  'default'
+                                ]
+                              ); // Initialize drag'n'drop
+
+                              _this.initializeDragNDrop({
+                                $container: $photoUploadContainer,
+                              });
+                            }
+
+                            _setUpEventListeners(); // Binding functions from the Class
+
+                            _this._preview = _this._preview.bind(_this);
+                            _this._saveFile = _this._saveFile.bind(_this);
+
+                          case 29:
+                          case 'end':
+                            return _context.stop();
+                        }
+                      }
+                    },
+                    _callee
+                  );
+                }
+              )
+            )();
+          },
+          _showProgress: _showProgress,
+          _showError: _showError,
+          _hideError: _hideError,
+        }; // Private variables
+
+        var selectors,
+          errorText,
+          avatar,
+          uploader,
+          classes,
+          isAjaxUpload,
+          isAdvancedUpload,
+          progressSelectors,
+          $progressContainer,
+          $disableWhileLoad,
+          $errorContainer,
+          progressTemplate,
+          $photoUploadContainer,
+          photoBonus,
+          droppedFiles = false;
+        /**Private functions */
+
+        /**
+         * Helper function to cache elements:
+         * progress container, progress template
+         */
+
+        function _cacheElements() {
+          // Buttons to disable while file is being read
+          $disableWhileLoad = this.$modal.find(selectors.disableWhileLoad); // Containers
+          // Progress
+
+          $progressContainer = this.$modal.find(progressSelectors.progress); // Error
+
+          this.$errorContainer = $errorContainer = this.$modal.find(
+            selectors.errorContainer
+          ); // Photo upload
+
+          $photoUploadContainer = this.$modal.find(selectors.uploadContainer); // Template
+
+          progressTemplate = document.getElementById(
+            progressSelectors.templateId
+          );
+        }
+        /**
+         * Helper function to set event listeners
+         */
+
+        function _setUpEventListeners() {
+          var _this2 = this;
+
+          /**
+           * Handling photo upload using file input:
+           * 1. Save target of the change event and its FileList property value
+           * 2. Don't do anything if it doesn't have files
+           * 3. For each file in the file list, load it
+           */
+          this.$form.on('change', function (event) {
+            var files = event.target.files;
+            if (!files || !files[0]) return;
+
+            for (var i = 0; i < files.length; i++) {
+              _saveAndPreviewFile(files[i]);
+            }
+          });
+          /**
+           * Handling hiding loading indicator after the animation is ended
+           * 1. Remove progress indicator
+           * 2. Enable buttons that waere disabled while loading
+           */
+
+          this.$modal.on('transitionend', function (event) {
+            var $target = $(event.target);
+            if (!$target.hasClass('loadend')) return;
+            $target.closest(progressSelectors.fileProgressWrapper).remove();
+            $disableWhileLoad.attr('disabled', false);
+          });
+          if (!isAdvancedUpload) return;
+          /**
+           * Handle photo upload via Drag'n'Drop:
+           * 1. Get the dropped files
+           * 2. Save and preview only the first file in case of photo bonus and avatar
+           * 3. Preview all the files in case of photo upload in profile
+           */
+
+          $photoUploadContainer.on('drop', function (event) {
+            droppedFiles = event.originalEvent.dataTransfer.files;
+            if (droppedFiles.length === 0) return;
+
+            if (avatar || photoBonus) {
+              _saveAndPreviewFile(droppedFiles[0]);
+
+              if (photoBonus) _this2._discardChanges();
+            } else if (uploader) {
+              console.log('We are in photo uploader!');
+            }
+          });
+        }
+        /**
+         * Function saving the file for further upload
+         * and initializing reading and previewing the file:
+         * 1. Allow only image files
+         * 2. Disable buttons while uploading
+         * 3. Call class-specific method to save file for further upload
+         * 4. Show progress bar
+         * 5. Start reading the file
+         * @param {File Object} file - file to save and preview
+         */
+
+        function _saveAndPreviewFile(file) {
+          var isImage = _helper_js__WEBPACK_IMPORTED_MODULE_4__[
+            'default'
+          ].MIMETypeIsImage(file);
+
+          if (!isImage) {
+            _showError(errorText.wrongFileType);
+
+            return;
+          } // Prepare for file read
+
+          $disableWhileLoad.attr('disabled', true);
+
+          this._saveFile(file);
+
+          var $progressBar = _insertProgressBar({
+            fileName: file.name,
+          }); // Read file
+
+          this._readFile({
+            file: file,
+            $progressBar: $progressBar,
+          });
+        }
+        /**
+         * Function to notify the user that his browser is outdated
+         * And it will not support file upload
+         */
+
+        function _handleLegacyBrowsers() {
+          $photoUploadContainer.hide();
+
+          _showError(errorText.legacyBrowser);
+        }
+        /**
+         * Function showing errors that are not handled via alerts in error container
+         */
+
+        function _showError(errorMessage) {
+          $errorContainer.text(errorMessage);
+        }
+        /**
+         * Function hiding previously displayed error in the error container
+         */
+
+        function _hideError() {
+          $errorContainer.empty();
+        }
+        /**
+         * Function copying template
+         * and compiling it with provided filename
+         * This function will be assigned to editor prototype,
+         * but it is only for internal use of it in fileReader Mixin and photos Drag'n'Drop mixin
+         * @param {String} fileName - name of the file being loaded
+         */
+
+        function _prepareTemplate(fileName) {
+          // Get template content
+          var progress = progressTemplate.innerHTML,
+            id = _generateRandomId(); // Compile template with provided filename
+
+          progress = handlebars__WEBPACK_IMPORTED_MODULE_5___default.a.compile(
+            progress
+          );
+          progress = progress({
+            name: fileName,
+            id: id,
+          });
+          return {
+            template: progress,
+            id: id,
+          };
+        }
+        /**
+         * Function to generate random number that can be used as id.
+         * Here it will be used to pass it to the template for further reference
+         */
+
+        function _generateRandomId() {
+          return Math.round(Math.random() * 1000);
+        }
+        /**
+         * Function inserting progress bar
+         * @param {String} fileName - name of the file being loaded
+         */
+
+        function _insertProgressBar(_ref) {
+          var fileName = _ref.fileName;
+
+          // Prepare template for insertion
+          var _prepareTemplate2 = _prepareTemplate(fileName),
+            template = _prepareTemplate2.template,
+            id = _prepareTemplate2.id; // Insert the template into the progress container
+
+          $progressContainer.append(template); // Save progress bar
+
+          var $progressBar = $progressContainer.find('#'.concat(id));
+          return $progressBar;
+        }
+        /**
+         * Function showing progress of photo read
+         * 1. Calculate progress amount
+         * 2. Update the visual indicator of the progress
+         * @param {Number} loaded - amount of loaded bytes
+         * @param {Number} total - amount of total bytes to load
+         */
+
+        function _showProgress(_ref2) {
+          var loaded = _ref2.loaded,
+            total = _ref2.total,
+            $progressBar = _ref2.$progressBar;
+          // Calculate progress
+          var progress = Math.round((loaded / total) * 100); // Update progress
+
+          $progressBar.css('width', ''.concat(progress, '%'));
+        }
+
+        /***/
+      },
+
+    /***/ './js/modules/photosDragnDropMixin.js':
+      /*!********************************************!*\
+  !*** ./js/modules/photosDragnDropMixin.js ***!
+  \********************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony default export */ __webpack_exports__['default'] = {
+          initializeDragNDrop: function initializeDragNDrop(_ref) {
+            var $container = _ref.$container;
+            // Save reference to drag'n'drop container
+            $dragNDropContainer = $container; // Save classes
+
+            classes = this.classes; // Bind context
+
+            _setUpEventListeners = _setUpEventListeners.bind(this); // Prepare drag'n'drop for usage
+
+            _setUpEventListeners();
+          },
+        }; // Private variables
+
+        var $dragNDropContainer,
+          classes,
+          droppedFiles = false;
+        /**
+         * Helper function to setup drag'n'drop event listeners
+         */
+
+        function _setUpEventListeners() {
+          $dragNDropContainer
+            .on(
+              'drag dragstart dragend dragover dragenter dragleave drop',
+              function (event) {
+                // Prevent browser default behavior
+                event.preventDefault();
+                event.stopPropagation();
+              }
+            ) // Handle dragover indicator to let the user know about ability
+            // to safety drop files
+            .on('dragover dragenter', function () {
+              $dragNDropContainer.addClass(classes.dragOver);
+            })
+            .on('dragleave dragend drop', function () {
+              $dragNDropContainer.removeClass(classes.dragOver);
+            });
+        }
+
+        /***/
+      },
+
     /***/ './js/modules/preparePhotoModal.js':
       /*!*****************************************!*\
   !*** ./js/modules/preparePhotoModal.js ***!
@@ -25130,7 +25603,6 @@
           var $modal = $(modal);
           var $animateOnShown = $modal.find(animateOnShown).fadeOut(0);
           var shown = false;
-          console.log($animateOnShown);
 
           function _setUpEventListeners() {
             // Here you can prepare modal
@@ -26147,6 +26619,8 @@
 
         var ServerRequest = /*#__PURE__*/ (function () {
           function ServerRequest(options) {
+            var _this = this;
+
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(
               this,
               ServerRequest
@@ -26157,8 +26631,7 @@
               this
             );
             this.deletePhotoOnServer = this.deletePhotoOnServer.bind(this);
-            this.getPhotosIds = this.getPhotosIds.bind(this);
-            this.requestBonusUsage = this.requestBonusUsage.bind(this); // Save passed options
+            this.getPhotosIds = this.getPhotosIds.bind(this); // Save passed options
 
             this.selectors = options.selectors;
             this.requests = options.requests;
@@ -26173,6 +26646,19 @@
               ServerRequest.prototype,
               _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_5__['default']
             );
+            /**
+             * If selector for disabling buttons is not empty, disable buttons on request
+             */
+
+            if (this.selectors.disableButtonsOnRequest) {
+              $(this)
+                .on('beforeRequest', function () {
+                  _this.$disableButtonsOnRequest.attr('disabled', true);
+                })
+                .on('successfulRequest failedRequest', function () {
+                  _this.$disableButtonsOnRequest.attr('disabled', false);
+                });
+            }
           }
           /**
            * Transform endpoints into URL objects
@@ -26198,12 +26684,13 @@
               {
                 key: 'makeRequest',
                 value: function makeRequest(_ref) {
-                  var _this = this;
+                  var _this2 = this;
 
                   var headers = _ref.headers,
                     endpoint = _ref.endpoint,
                     method = _ref.method,
                     body = _ref.body;
+                  $(this).trigger('beforeRequest');
 
                   if (method === 'GET') {
                     return fetch(endpoint, {
@@ -26214,7 +26701,7 @@
                           return response.json();
                         } else {
                           // Unsuccessful Popup
-                          _this.showRequestResult({
+                          _this2.showRequestResult({
                             title: response.status,
                             text: response.statusText,
                             icon: 'error',
@@ -26223,12 +26710,12 @@
                       })
                       .then(function (json) {
                         // this === current Form here
-                        $(_this).trigger('successfulRequest');
+                        $(_this2).trigger('successfulRequest');
                         return json;
                       })
                       ['catch'](function (error) {
                         // Unsuccessful Popup
-                        _this.showRequestResult({
+                        _this2.showRequestResult({
                           title: error.name,
                           text: error.message,
                           icon: 'error',
@@ -26246,7 +26733,7 @@
                           return response.json();
                         } else {
                           // Unsuccessful Popup
-                          _this.showRequestResult({
+                          _this2.showRequestResult({
                             title: response.status,
                             text: response.statusText,
                             icon: 'error',
@@ -26255,12 +26742,13 @@
                       })
                       .then(function (json) {
                         // this === current Form here
-                        $(_this).trigger('successfulRequest');
+                        $(_this2).trigger('successfulRequest');
                         return json;
                       })
                       ['catch'](function (error) {
-                        // Unsuccessful Popup
-                        _this.showRequestResult({
+                        $(_this2).trigger('failedRequest'); // Unsuccessful Popup
+
+                        _this2.showRequestResult({
                           title: error.name,
                           text: error.message,
                           icon: 'error',
@@ -26431,88 +26919,6 @@
                   return getPhotosIds;
                 })(),
               },
-              {
-                key: 'getPrice',
-                value: (function () {
-                  var _getPrice = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee4(_ref5) {
-                        var headers, endpoint, method, name;
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee4$(_context4) {
-                            while (1) {
-                              switch ((_context4.prev = _context4.next)) {
-                                case 0:
-                                  (headers = _ref5.headers),
-                                    (endpoint = _ref5.endpoint),
-                                    (method = _ref5.method);
-
-                                  for (name in this.formData) {
-                                    endpoint.searchParams.set(
-                                      name,
-                                      this.formData[name]
-                                    );
-                                  }
-
-                                  _context4.next = 4;
-                                  return this.makeRequest({
-                                    headers: headers,
-                                    endpoint: endpoint,
-                                    method: method,
-                                  });
-
-                                case 4:
-                                  return _context4.abrupt(
-                                    'return',
-                                    _context4.sent
-                                  );
-
-                                case 5:
-                                case 'end':
-                                  return _context4.stop();
-                              }
-                            }
-                          },
-                          _callee4,
-                          this
-                        );
-                      }
-                    )
-                  );
-
-                  function getPrice(_x4) {
-                    return _getPrice.apply(this, arguments);
-                  }
-
-                  return getPrice;
-                })(),
-              },
-              {
-                key: 'requestBonusUsage',
-                value: function requestBonusUsage(_ref6) {
-                  var headers = _ref6.headers,
-                    endpoint = _ref6.endpoint,
-                    method = _ref6.method,
-                    body = _ref6.body;
-                  return fetch(endpoint, {
-                    method: method,
-                    headers: headers,
-                    body: body,
-                  })
-                    .then(function (response) {
-                      if (!response.ok) {
-                        throw new Error(response.statusText);
-                      }
-
-                      return response.json();
-                    })
-                    ['catch'](function (error) {
-                      Swal.showValidationMessage(
-                        'Request failed: '.concat(error)
-                      );
-                    });
-                },
-              },
             ]
           );
 
@@ -26550,7 +26956,7 @@
 
             $form.submit(function () {
               // Don't show loading indicator if the form isn't valid
-              if (!_this.$form.valid()) return;
+              if (jQuery.validator && !_this.$form.valid()) return;
               var spinner = template.content.cloneNode(true),
                 loading = _this.loading,
                 $submitButton = _this.$submitButton; // Preserve width and get rid of the previous content
@@ -26565,7 +26971,7 @@
 
               $submitButton.attr('disabled', true)[0].prepend(spinner);
             });
-            $(this).on('successfulRequest', function () {
+            $(this).on('successfulRequest failedRequest', function () {
               // Change button and remove spinner
               _this.$submitButton
                 .attr('disabled', false)
@@ -26872,6 +27278,117 @@
         /***/
       },
 
+    /***/ './js/modules/sponsorPremium.js':
+      /*!**************************************!*\
+  !*** ./js/modules/sponsorPremium.js ***!
+  \**************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return SponsorPremium;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _bonus_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! ./bonus.js */ './js/modules/bonus.js'
+        );
+
+        function _createSuper(Derived) {
+          var hasNativeReflectConstruct = _isNativeReflectConstruct();
+          return function _createSuperInternal() {
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+                Derived
+              ),
+              result;
+            if (hasNativeReflectConstruct) {
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+                this
+              ).constructor;
+              result = Reflect.construct(Super, arguments, NewTarget);
+            } else {
+              result = Super.apply(this, arguments);
+            }
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(
+              this,
+              result
+            );
+          };
+        }
+
+        function _isNativeReflectConstruct() {
+          if (typeof Reflect === 'undefined' || !Reflect.construct)
+            return false;
+          if (Reflect.construct.sham) return false;
+          if (typeof Proxy === 'function') return true;
+          try {
+            Date.prototype.toString.call(
+              Reflect.construct(Date, [], function () {})
+            );
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        // Lets store everything required for the buy premium forms in templates
+        // And display these templates in modals or on a separate page
+        // With a "back" button at the top
+
+        var SponsorPremium = /*#__PURE__*/ (function (_Bonus) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default()(
+            SponsorPremium,
+            _Bonus
+          );
+
+          var _super = _createSuper(SponsorPremium);
+
+          function SponsorPremium(options) {
+            var _this;
+
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              SponsorPremium
+            );
+
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(
+              _this
+            );
+          }
+
+          return SponsorPremium;
+        })(_bonus_js__WEBPACK_IMPORTED_MODULE_4__['default']);
+
+        /***/
+      },
+
     /***/ './js/modules/superlike.js':
       /*!*********************************!*\
   !*** ./js/modules/superlike.js ***!
@@ -27010,7 +27527,7 @@
                     ),
                     '_cacheElements',
                     this
-                  ).call(this); // Save amount element
+                  ).call(this); // Amount of bonuses available
 
                   this.$amount = this.$bonus.find(this.selectors.amount);
                 },
@@ -27052,6 +27569,35 @@
                     // Prepare animation for further use
                     console.log('Modal closed');
                   });
+                  $(document).on('bonus:startUsage', function (event, type) {
+                    if (type !== 'superlike') return;
+
+                    _this2
+                      .askUsageApprovement(_this2.popups.use)
+                      .then(function (result) {
+                        if (!result) return;
+                        var success = result.success,
+                          title = result.title,
+                          text = result.text; // Set icon and show popup with it
+
+                        var icon = success ? 'success' : 'error';
+
+                        _this2.showRequestResult({
+                          title: title,
+                          text: text,
+                          icon: icon,
+                        });
+
+                        if (success) _this2._useBonus();
+                      })
+                      ['catch'](function (error) {
+                        _this2.showRequestResult({
+                          title: error.name,
+                          text: error.message,
+                          icon: 'error',
+                        });
+                      });
+                  });
                 },
               },
               {
@@ -27062,40 +27608,11 @@
 
                   this._decreaseBonusAmountAvailable();
 
+                  this._updateAmountOnMarkup();
+
                   $(document).trigger('present:send', {
                     type: 'superlike',
                   });
-                },
-              },
-              {
-                key: '_prepareBonusUsage',
-                value: function _prepareBonusUsage() {
-                  console.log('Preparing bonus usage...'); // Ask server about sending superlike
-                  // If the server will approve usage
-                  // Send it to the user
-                  // Temporary return true for debuggins purposes
-
-                  return true;
-                },
-              },
-              {
-                key: '_decreaseBonusAmountAvailable',
-                value: function _decreaseBonusAmountAvailable() {
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
-                      Superlike.prototype
-                    ),
-                    '_decreaseBonusAmountAvailable',
-                    this
-                  ).call(this);
-
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_2___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
-                      Superlike.prototype
-                    ),
-                    '_updateAmountOnMarkup',
-                    this
-                  ).call(this);
                 },
               },
             ]
@@ -27229,9 +27746,10 @@
                     function (event) {
                       var animationName = event.originalEvent.animationName,
                         target = event.target,
-                        iconElements = _this.iconElements;
+                        iconElements = _this.iconElements; // Add more specific statement here
+                      // to not to calculate all the if statemests for all animations together
+
                       if (!target.closest(_this.selectors.popup)) return;
-                      console.log(target);
 
                       if (animationName === 'superlike-stars') {
                         // Add final color to the stars
@@ -27311,6 +27829,7 @@
               title: title,
               text: text,
               icon: icon,
+              timer: 2000,
               showConfirmButton: false,
               showCloseButton: true,
             });
@@ -27326,6 +27845,7 @@
               showCloseButton: true,
             });
           },
+          // Alert to show when there is no bonuses available
           fireBuyingAlert: function fireBuyingAlert(_ref3) {
             var title = _ref3.title,
               text = _ref3.text,
@@ -27341,6 +27861,7 @@
               cancelButtonColor: '#bbb',
             });
           },
+          // Alert for bonus usage animation
           fireSendAlert: function fireSendAlert(_ref4) {
             var _this = this;
 
@@ -27396,8 +27917,7 @@
               confirmButtonText = _ref5.confirmButtonText,
               cancelButtonText = _ref5.cancelButtonText,
               imageUrl = _ref5.imageUrl,
-              imageAlt = _ref5.imageAlt,
-              request = _ref5.request;
+              imageAlt = _ref5.imageAlt;
             return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a
               .fire({
                 title: title,
@@ -27412,52 +27932,50 @@
                 imageWidth: '150px',
                 imageHeight: '150px',
                 showLoaderOnConfirm: true,
-                // Request telling the server thas user wants to use the bonus
+
+                /**
+                 * After the user confirms that he wants to use bonus:
+                 * 1. Make a request to the server
+                 * 2. If the server is responded, return the response
+                 */
                 preConfirm: function preConfirm() {
-                  return _this2.requestBonusUsage(request);
+                  var _this2$requests$use = _this2.requests.use,
+                    headers = _this2$requests$use.headers,
+                    endpoint = _this2$requests$use.endpoint,
+                    method = _this2$requests$use.method,
+                    body = _this2$requests$use.body;
+                  return fetch(endpoint, {
+                    method: method,
+                    headers: headers,
+                    body: body,
+                  })
+                    .then(function (response) {
+                      if (!response.ok) {
+                        throw new Error(response.statusText);
+                      }
+
+                      return response.json();
+                    })
+                    ['catch'](function (error) {
+                      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showValidationMessage(
+                        'Request failed: '.concat(error)
+                      );
+                    });
                 },
                 allowOutsideClick: function allowOutsideClick() {
                   return !sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.isLoading();
                 },
               })
               .then(function (result) {
-                if (result.value) {
-                  // If the server answered
-                  var json = result.value;
-
-                  if (json.success) {
-                    // If the server approved bonus usage
-                    // Show popup about success
-                    _this2.showRequestResult({
-                      title: json.title,
-                      text: json.message,
-                      icon: 'success',
-                    });
-                  } else {
-                    // If the server restricted bonus usage
-                    // Show success about error
-                    _this2.showRequestResult({
-                      title: json.title,
-                      text: json.message,
-                      icon: 'error',
-                    });
-                  } // Maybe change to switch statement when other bonuses will be added
-
-                  if (_this2.type === 'boost') {
-                    return {
-                      approved: json.success,
-                      title: json.title,
-                      message: json.message,
-                      timestamp: json.timestamp,
-                      expirationTitle: json.expirationTitle,
-                      expirationMessage: json.expirationMessage,
-                    };
-                  }
-                } else {
-                  return {
-                    approved: false,
-                  };
-                }
+                return result.value;
+              })
+              ['catch'](function (error) {
+                // Handle errors here
+                _this2.showRequestResult({
+                  title: error.name,
+                  text: error.message,
+                  icon: 'error',
+                });
               });
           },
         };

@@ -4,8 +4,6 @@ export default function preparePhotoModal({ modal, animateOnShown }) {
   const $animateOnShown = $modal.find(animateOnShown).fadeOut(0);
   let shown = false;
 
-  console.log($animateOnShown);
-
   function _setUpEventListeners() {
     // Here you can prepare modal
     // Adjust background opacity for gallery modal

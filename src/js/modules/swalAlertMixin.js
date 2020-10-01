@@ -12,6 +12,7 @@ export default {
       title: title,
       text: text,
       icon: icon,
+      timer: 2000,
       showConfirmButton: false,
       showCloseButton: true,
     });
@@ -27,6 +28,7 @@ export default {
     });
   },
 
+  // Alert to show when there is no bonuses available
   fireBuyingAlert({ title, text, confirmButtonText, cancelButtonText }) {
     return Swal.fire({
       title,
@@ -39,6 +41,7 @@ export default {
     });
   },
 
+  // Alert for bonus usage animation
   fireSendAlert({ title, text, timer, customClass }) {
     // Cache document element
     let $document = $(document);
@@ -81,7 +84,6 @@ export default {
     cancelButtonText,
     imageUrl,
     imageAlt,
-    request,
   }) {
     return Swal.fire({
       title,
@@ -96,46 +98,38 @@ export default {
       imageWidth: '150px',
       imageHeight: '150px',
       showLoaderOnConfirm: true,
-      // Request telling the server thas user wants to use the bonus
-      preConfirm: () => this.requestBonusUsage(request),
+      /**
+       * After the user confirms that he wants to use bonus:
+       * 1. Make a request to the server
+       * 2. If the server is responded, return the response
+       */
+      preConfirm: () => {
+        let { headers, endpoint, method, body } = this.requests.use;
+        return fetch(endpoint, {
+          method,
+          headers,
+          body,
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(response.statusText);
+            }
+            return response.json();
+          })
+          .catch(error => {
+            Swal.showValidationMessage(`Request failed: ${error}`);
+          });
+      },
       allowOutsideClick: () => !Swal.isLoading(),
-    }).then(result => {
-      if (result.value) {
-        // If the server answered
-        let json = result.value;
-
-        if (json.success) {
-          // If the server approved bonus usage
-          // Show popup about success
-          this.showRequestResult({
-            title: json.title,
-            text: json.message,
-            icon: 'success',
-          });
-        } else {
-          // If the server restricted bonus usage
-          // Show success about error
-          this.showRequestResult({
-            title: json.title,
-            text: json.message,
-            icon: 'error',
-          });
-        }
-
-        // Maybe change to switch statement when other bonuses will be added
-        if (this.type === 'boost') {
-          return {
-            approved: json.success,
-            title: json.title,
-            message: json.message,
-            timestamp: json.timestamp,
-            expirationTitle: json.expirationTitle,
-            expirationMessage: json.expirationMessage,
-          };
-        }
-      } else {
-        return { approved: false };
-      }
-    });
+    })
+      .then(result => result.value)
+      .catch(error => {
+        // Handle errors here
+        this.showRequestResult({
+          title: error.name,
+          text: error.message,
+          icon: 'error',
+        });
+      });
   },
 };

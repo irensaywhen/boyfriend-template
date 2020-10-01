@@ -9,7 +9,6 @@ export default class ServerRequest {
     );
     this.deletePhotoOnServer = this.deletePhotoOnServer.bind(this);
     this.getPhotosIds = this.getPhotosIds.bind(this);
-    this.requestBonusUsage = this.requestBonusUsage.bind(this);
 
     // Save passed options
     this.selectors = options.selectors;
@@ -21,6 +20,19 @@ export default class ServerRequest {
 
     Object.assign(ServerRequest.prototype, swalAlert);
     Object.assign(ServerRequest.prototype, loadingIndicatorMixin);
+
+    /**
+     * If selector for disabling buttons is not empty, disable buttons on request
+     */
+    if (this.selectors.disableButtonsOnRequest) {
+      $(this)
+        .on('beforeRequest', () => {
+          this.$disableButtonsOnRequest.attr('disabled', true);
+        })
+        .on('successfulRequest failedRequest', () => {
+          this.$disableButtonsOnRequest.attr('disabled', false);
+        });
+    }
   }
 
   /**
@@ -39,6 +51,7 @@ export default class ServerRequest {
    * Function checks whether the method is GET and if so, sends request without body
    */
   makeRequest({ headers, endpoint, method, body }) {
+    $(this).trigger('beforeRequest');
     if (method === 'GET') {
       return fetch(endpoint, {
         headers,
@@ -93,6 +106,7 @@ export default class ServerRequest {
           return json;
         })
         .catch(error => {
+          $(this).trigger('failedRequest');
           // Unsuccessful Popup
           this.showRequestResult({
             title: error.name,
@@ -140,30 +154,5 @@ export default class ServerRequest {
       endpoint,
       method,
     });
-  }
-
-  async getPrice({ headers, endpoint, method }) {
-    for (let name in this.formData) {
-      endpoint.searchParams.set(name, this.formData[name]);
-    }
-
-    return await this.makeRequest({ headers, endpoint, method });
-  }
-
-  requestBonusUsage({ headers, endpoint, method, body }) {
-    return fetch(endpoint, {
-      method,
-      headers,
-      body,
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        return response.json();
-      })
-      .catch(error => {
-        Swal.showValidationMessage(`Request failed: ${error}`);
-      });
   }
 }

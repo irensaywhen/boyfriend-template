@@ -53,7 +53,26 @@
   /* Credit card styles */
   .credit-card {
     max-width: 720px;
+    border-radius: 15px;
+
+    .title {
+      @include fluid-type($screen-xs, $screen-xl, 18px, 22px);
+      font-weight: 500;
+    }
+  }
+
+  .jp-card {
+    min-width: 0;
+  }
+
+  .price-container {
+    display: inline-flex;
+    flex-direction: column;
+  }
+
+  .plan-and-bonuses-checkout {
+    .price-container {
+      display: block;
+    }
   }
 }
-
-/* Credit card styles */

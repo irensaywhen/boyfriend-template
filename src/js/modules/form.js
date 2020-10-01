@@ -173,7 +173,8 @@ export default class Form extends ServerRequest {
       })
       .ready(() => {
         this.$inputs.each((index, elem) => {
-          if ($(elem).is('select')) return;
+          let $elem = $(elem);
+          if ($elem.is('select') || $elem.hasClass('preserve')) return;
 
           elem.value = '';
         });

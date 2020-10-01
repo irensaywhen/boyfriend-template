@@ -28,6 +28,24 @@
 .default-scale {
   transform: scale3d(1, 1, 1) !important;
 }
+.line-height-sm {
+  line-height: 1.2;
+}
+.p-15 {
+  padding: 15px !important;
+}
+.pr-15 {
+  padding-right: 15px !important;
+}
+.pl-15 {
+  padding-left: 15px !important;
+}
+.pt-15 {
+  padding-top: 15px !important;
+}
+.pb-15 {
+  padding-bottom: 15px !important;
+}
 .swal2-close:focus {
   outline: none !important;
 }
@@ -619,6 +637,62 @@ select.form-control optgroup {
   font-weight: 300;
   font-size: 14px;
 }
+.order-details .detail {
+  background: #fff;
+  border-radius: 15px;
+  margin: 10px auto;
+}
+@media (min-width: 768px) {
+  .order-details .plan {
+    height: 100%;
+  }
+}
+.order-details .title {
+  font-weight: bold !important;
+}
+.order-details .title {
+  font-size: 18px;
+}
+@media screen and (min-width: 320px) {
+  .order-details .title {
+    font-size: calc(18px + 4 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .order-details .title {
+    font-size: 22px;
+  }
+}
+.order-details .plan-details {
+  list-style: none;
+  line-height: 25px;
+}
+.bonus-title {
+  font-size: 16px;
+}
+@media screen and (min-width: 320px) {
+  .bonus-title {
+    font-size: calc(16px + 4 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .bonus-title {
+    font-size: 20px;
+  }
+}
+.bonus-amount {
+  font-size: 14px;
+}
+@media screen and (min-width: 320px) {
+  .bonus-amount {
+    font-size: calc(14px + 2 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .bonus-amount {
+    font-size: 16px;
+  }
+}
 html {
   height: 100%;
 }
@@ -790,6 +864,13 @@ nav ul {
 .blue-theme .badge-pink {
   background-color: #ff0068 !important;
 }
+.blue-theme .text-primary {
+  color: #ff0068 !important;
+}
+.blue-theme a.text-primary:hover,
+.blue-theme a.text-primary:focus {
+  color: #dd015b !important;
+}
 .blue-theme .btn-outline-white {
   border-color: #fff;
   background: transparent;
@@ -822,6 +903,7 @@ nav ul {
 }
 .blue-theme .blue-link {
   transition: all 0.5s ease-out;
+  cursor: pointer;
 }
 .blue-theme .blue-link:focus,
 .blue-theme .blue-link:hover {
@@ -2162,22 +2244,22 @@ article .header time {
   color: #bcc1c6;
   border-color: #bcc1c6;
 }
-.upload-avatar .upload-progress .progress-bar {
+.upload-progress .progress-bar {
   transition: all 0.5s ease-out;
 }
-.upload-avatar .upload-photo-label {
+.upload-photo-label {
   vertical-align: middle;
 }
-.upload-avatar .upload-photo-label i {
+.upload-photo-label i {
   display: inline-block;
   font-size: 32px;
   padding-right: 4px;
   padding-left: 5px;
 }
-.upload-avatar .avatar-requirements ul {
+.avatar-requirements ul {
   list-style: none;
 }
-.upload-avatar .avatar-requirements ul li {
+.avatar-requirements ul li {
   font-weight: 300;
   font-size: 14px;
 }
@@ -2236,6 +2318,21 @@ article .header time {
 .form-steps .steps .step.step-further {
   background: #0a5182;
   border: 1x solid #094b79;
+}
+.form-steps.checkout-form .progress .progress-bar {
+  background: #fff;
+}
+.form-steps.checkout-form .step .label {
+  color: #094b79;
+}
+.form-steps.checkout-form .step.step-passed {
+  text-align: center;
+}
+.form-steps.checkout-form .step.step-current .current-mark {
+  background: #0f75bb;
+}
+.form-steps.checkout-form .step.step-further {
+  background: #fff;
 }
 .top-section {
   background-image: url('../img/main-bg.jpg');
@@ -2562,6 +2659,33 @@ article .header time {
 }
 .checkout .credit-card {
   max-width: 720px;
+  border-radius: 15px;
+}
+.checkout .credit-card .title {
+  font-weight: 500;
+}
+.checkout .credit-card .title {
+  font-size: 18px;
+}
+@media screen and (min-width: 320px) {
+  .checkout .credit-card .title {
+    font-size: calc(18px + 4 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .checkout .credit-card .title {
+    font-size: 22px;
+  }
+}
+.checkout .jp-card {
+  min-width: 0;
+}
+.checkout .price-container {
+  display: inline-flex;
+  flex-direction: column;
+}
+.checkout .plan-and-bonuses-checkout .price-container {
+  display: block;
 }
 .chat-list {
   position: relative;
@@ -2908,6 +3032,19 @@ article .header time {
 }
 .profile-modals .present .amount {
   max-width: 150px;
+}
+.thank-you {
+  background: #fff;
+}
+.thank-you .description {
+  font-size: 14px;
+}
+.thank-you .summary-title {
+  font-weight: 600;
+  padding-top: 20px;
+}
+.thank-you .detail {
+  font-size: 14px;
 }
 
 /*# sourceMappingURL=main.css.map */
