@@ -57,6 +57,17 @@
       </div>
       <!--Loader end-->
 
+      <!--Spinner template start-->
+      <template id="spinner-template">
+        <span
+          class="spinner-border spinner-border-sm mr-1"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        <span class="sr-only">Loading...</span>
+      </template>
+      <!--Spinner template end-->
+
       <!--Header start-->
       <header class="public-header w-100 pb-4">
         <div class="container-lg">
@@ -69,10 +80,16 @@
             <div
               class="col-md-7 col-12 d-flex align-items-center justify-content-center justify-content-xs-between justify-content-md-end"
             >
-              <a href="register.html" class="mx-3 btn btn-lg btn-default">
+              <a
+                href="register.html"
+                class="mx-3 btn btn-lg btn-default text-white"
+              >
                 Zarejestruj
               </a>
-              <a href="login.html" class="btn btn-lg btn-outline-white mx-3">
+              <a
+                href="login.html"
+                class="btn btn-lg btn-outline-white mx-3 text-white"
+              >
                 Zaloguj
               </a>
             </div>
@@ -81,9 +98,12 @@
       </header>
       <!--Header end-->
 
-      <div id="forms-container">
+      <div
+        id="forms-container"
+        class="login-and-registration pb-5 d-flex align-items-sm-center align-items-start"
+      >
         <section class="container">
-          <div class="row no-gutters vh-100 proh bg-template">
+          <div class="row no-gutters proh bg-template">
             <!--Login section start-->
             <div class="col-12 align-self-center px-3 text-center form-wrapper">
               <h2 class="text-white">
@@ -91,6 +111,7 @@
                 In
               </h2>
               <form class="form-signin shadow" id="form-signin" data-step="0">
+                <div class="general-error" id="general-error-login"></div>
                 <div class="form-group float-label text-left">
                   <input
                     type="email"
@@ -135,6 +156,7 @@
                     <button
                       type="submit"
                       class="btn btn-lg btn-default btn-rounded shadow"
+                      id="btn-loginSubmit"
                     >
                       <span>Sign in</span
                       ><i class="material-icons">arrow_forward</i>
@@ -165,6 +187,10 @@
                 id="form-forgot-password"
                 data-step="1"
               >
+                <div
+                  class="general-error"
+                  id="general-error-passwordRecovery"
+                ></div>
                 <p class="text-secondary small">
                   Please provide email adress to recieve password recovery link
                 </p>
@@ -186,6 +212,7 @@
                     <button
                       type="submit"
                       class="btn btn-lg btn-default btn-rounded shadow"
+                      id="btn-passwordRecovery"
                     >
                       <span>Reset password</span
                       ><i class="material-icons">arrow_forward</i>
@@ -288,6 +315,13 @@
             form: '#form-signin',
             'input-wrapper': '.form-group',
             inputs: '.signin-input',
+            generalError: '#general-error-login',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#btn-loginSubmit',
+              spinner: '.spinner-border',
+              text: 'Login...',
+            },
           },
           requests: {
             submit: {
@@ -296,7 +330,7 @@
                 'Content-Type': 'application/json',
               },
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail',
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/signin',
             },
           },
           location: false,
@@ -326,6 +360,13 @@
             form: '#form-forgot-password',
             'input-wrapper': '.form-group',
             inputs: '.form-control',
+            generalError: '#general-error-passwordRecovery',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#btn-passwordRecovery',
+              spinner: '.spinner-border',
+              text: 'Login...',
+            },
           },
           requests: {
             submit: {
@@ -334,12 +375,12 @@
                 'Content-Type': 'application/json',
               },
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin',
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/signin-fail-general',
             },
           },
           location: false,
           showSuccessPopup: true,
-          showFailPopup: true,
+          showFailPopup: false,
           frontendValidation: true,
           redirectOnSubmit: false,
           validatorOptions: {
@@ -361,6 +402,7 @@
             backward: '.backward',
             forms: '.form-signin',
             wrapper: '.form-wrapper',
+            generalError: '.general-error',
           },
         });
       });

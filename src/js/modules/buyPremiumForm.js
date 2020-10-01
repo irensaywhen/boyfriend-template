@@ -10,8 +10,8 @@ export default class BuyPremiumForm extends Form {
     this.$checkout.fadeOut(0);
   }
 
-  cacheElements() {
-    super.cacheElements();
+  _cacheElements() {
+    super._cacheElements();
 
     // Price containers
     this.$priceContainer = $(this.selectors.price);
@@ -21,8 +21,8 @@ export default class BuyPremiumForm extends Form {
     this.$checkout = this.$form.find(this.selectors.checkout);
   }
 
-  setUpEventListeners() {
-    super.setUpEventListeners();
+  _setUpEventListeners() {
+    super._setUpEventListeners();
 
     // Additiong and removing bonuses
     this.$form.find(this.selectors['bonus-inputs']).on('click', event => {

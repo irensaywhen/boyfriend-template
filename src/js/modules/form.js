@@ -1,6 +1,8 @@
 import ServerRequest from './requests.js';
 import location from './locationMixin.js';
 import payment from './paymentMixin.js';
+import restrictLength from './restrictLengthMixin.js';
+import dateValidator from './dateMixin.js';
 
 export default class Form extends ServerRequest {
   constructor(options) {
@@ -10,22 +12,45 @@ export default class Form extends ServerRequest {
     this.formData = {};
 
     // Bind context
-    this.cacheElements = this.cacheElements.bind(this);
-    this.setUpEventListeners = this.setUpEventListeners.bind(this);
+    this._cacheElements = this._cacheElements.bind(this);
+    this._setUpEventListeners = this._setUpEventListeners.bind(this);
     this.collectLocationData = this.collectLocationData.bind(this);
     this.sendFormInformation = this.sendFormInformation.bind(this);
     this.showErrorMessages = this.showErrorMessages.bind(this);
     this.collectFormInputs = this.collectFormInputs.bind(this);
+    this.showGeneralError = this.showGeneralError.bind(this);
+    this.deleteGeneralError = this.deleteGeneralError.bind(this);
 
-    if (options.location) {
-      // Add location methods to the form object
-      Object.assign(Form.prototype, location);
-      this.location = true;
+    // cache
+    let selectors = this.selectors,
+      errorMessages = options.errorMessages;
+
+    // Save error messages if provided
+    this.errorMessages = options.errorMessages;
+
+    this._cacheElements();
+    this._setUpEventListeners();
+
+    if (selectors.loading) {
+      // Initializing loading indicator when the form is submitted
+      this.initializeLoadingIndicators(this.$form);
     }
 
-    this.cacheElements();
-    this.setUpEventListeners();
+    if (options.location) {
+      // Add location methods to the form prototype
+      Object.assign(Form.prototype, location);
+      this.location = true;
+      this.initializeLocationInput();
+    }
 
+    if (options.date) {
+      // Add date validation method to the form prototype
+      Object.assign(Form.prototype, dateValidator);
+      this.date = true;
+      this.initializeDateInput();
+    }
+
+    // Handle payment form
     if (options.payment) {
       Object.assign(Form.prototype, payment);
       this.payment = true;
@@ -43,6 +68,7 @@ export default class Form extends ServerRequest {
       );
     }
 
+    // Handle frontend validation
     if (options.frontendValidation) {
       // If this form requires frontend validation
       this.frontendValidation = true;
@@ -50,53 +76,68 @@ export default class Form extends ServerRequest {
       // Change where error messages occur
       // This is required for label to work properly when errors are shown
       options.validatorOptions['errorPlacement'] = (error, element) => {
-        element.closest(this.selectors['input-wrapper']).append(error);
+        element.closest(selectors['input-wrapper']).append(error);
       };
 
       if (this.location) {
+        let errorMessage = errorMessages.city || 'No such city';
         // Add custom frontend validation for location field
         jQuery.validator.addMethod(
           'location',
           this.frontendCityValidator,
-          'No such city'
+          errorMessage
+        );
+      }
+
+      if (this.date) {
+        jQuery.validator.addMethod('year', this.yearValidator, '');
+        jQuery.validator.addMethod(
+          'day',
+          this.dayValidator,
+          'Please enter valid day of month'
         );
       }
 
       // Add frontend validation
-      this.$form.validate(options.validatorOptions);
+      this.validator = this.$form.validate(options.validatorOptions);
     }
 
+    /**
+     * Form configuration for submit part
+     */
+    // Set redirect on submit option
     this.redirectOnSubmit = options.redirectOnSubmit ? true : false;
+    // Set generate submit event option
     this.generateSubmitEvent = options.generateSubmitEvent ? true : false;
-
-    // Clean fields after submission?
+    // Set cleaning fields after submission option
     this.cleanFields = options.cleanFields ? true : false;
-
     // Show popup after submission with successful result?
     this.showSuccessPopup = options.showSuccessPopup ? true : false;
-
     // Show popup after submission with failed result?
     this.showFailPopup = options.showFailPopup ? true : false;
+
+    // Restrict input length
+    if (options.restrictInputLength) {
+      restrictLength.init.call(this, this.$form);
+    }
   }
 
-  cacheElements() {
+  _cacheElements() {
     // Form
     this.$form = $(this.selectors.form);
 
+    // General error container
+    this.$generalError = this.$form.find(this.selectors.generalError);
+
     // Input fields
     this.$inputs = this.$form.find(this.selectors.inputs);
-
-    if (this.location) {
-      this.initializeLocationInput();
-    }
   }
 
-  setUpEventListeners() {
+  _setUpEventListeners() {
     // Form submission
     this.$form.submit(event => {
       event.preventDefault();
       event.stopPropagation();
-      console.log('Submitted!');
 
       if (!this.frontendValidation) {
         // If this form doesn't require frontend validation (as with checkboxes)
@@ -109,6 +150,7 @@ export default class Form extends ServerRequest {
       if (this.$form.valid()) {
         // If the form has frontend validation
         this.collectFormInputs();
+        this.deleteGeneralError();
         this.sendFormInformation();
       }
     });
@@ -120,6 +162,18 @@ export default class Form extends ServerRequest {
         .find('.custom-error')
         .remove();
     });
+
+    $(document)
+      .on('chainedForms:switchForm', () => {
+        this.deleteGeneralError();
+      })
+      .ready(() => {
+        this.$inputs.each((index, elem) => {
+          if ($(elem).is('select')) return;
+
+          elem.value = '';
+        });
+      });
   }
 
   collectLocationData(element) {
@@ -213,7 +267,14 @@ export default class Form extends ServerRequest {
         });
       }
 
-      this.showErrorMessages({ errors: response.errors });
+      let errors = response.errors;
+
+      // Show errors of the form fields
+      this.showErrorMessages({ errors });
+
+      if (errors.general) {
+        this.showGeneralError(errors.general);
+      }
     }
 
     this.formData = {};
@@ -234,5 +295,13 @@ export default class Form extends ServerRequest {
           );
       }
     });
+  }
+
+  showGeneralError(errorText) {
+    this.$generalError.append($('<p></p>').addClass('pb-4').text(errorText));
+  }
+
+  deleteGeneralError() {
+    this.$generalError.empty();
   }
 }

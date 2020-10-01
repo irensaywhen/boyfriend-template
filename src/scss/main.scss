@@ -9,9 +9,20 @@
 @import 'components/form_controls';
 @import 'components/form_errors';
 @import 'components/svg_icons';
+@import 'components/shadows';
+@import 'components/user_photos';
+@import 'components/navigation';
 @import 'components/loader_indicator';
 @import 'components/horizontal_loader';
-@import 'components/navigation';
+@import 'components/presents_dropdown';
+@import 'components/default_private_footer';
+@import 'components/messages';
+@import 'components/superlike';
+@import 'components/photo';
+@import 'components/premium';
+@import 'components/icons';
+@import 'components/icons_modal';
+@import 'components/modals';
 
 /*Themes*/
 @import 'themes/main_theme';
@@ -34,6 +45,10 @@
 @import 'layout/profile_list';
 @import 'layout/wrapper';
 @import 'layout/skeleton';
+@import 'layout/gallery';
+@import 'layout/chat';
+@import 'layout/photo_upload';
+@import 'layout/steps';
 
 /*Pages*/
 @import 'pages/front_page';
@@ -42,5 +57,7 @@
 @import 'pages/login_and_register';
 @import 'pages/result_list';
 @import 'pages/buy_premium';
+@import 'pages/chat_list';
+@import 'pages/profile';
 
 @import 'utilities/media';

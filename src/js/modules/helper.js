@@ -1,7 +1,9 @@
 export default (function () {
+  // Private variables and functions
   const breakpoints = [320, 576, 768, 992, 1200];
 
   return {
+    // Public variables and functions
     getScrollBarWidth() {
       var $outer = $('<div>')
           .css({ visibility: 'hidden', width: 100, overflow: 'scroll' })
@@ -45,6 +47,75 @@ export default (function () {
 
     getHeaderHeight(headerSelector = '.private-header') {
       return $(headerSelector).outerHeight();
+    },
+
+    hasTouchScreen() {
+      let hasTouchScreen = false;
+
+      if ('maxTouchPoints' in navigator) {
+        hasTouchScreen = navigator.maxTouchPoints > 0;
+      } else if ('msMaxTouchPoints' in navigator) {
+        hasTouchScreen = navigator.msMaxTouchPoints > 0;
+      } else {
+        var mQ = window.matchMedia && matchMedia('(pointer:coarse)');
+
+        if (mQ && mQ.media === '(pointer:coarse)') {
+          hasTouchScreen = !!mQ.matches;
+        } else if ('orientation' in window) {
+          // deprecated, but good fallback
+          hasTouchScreen = true;
+        } else {
+          // Only as a last resort, fall back to user agent sniffing
+          var UA = navigator.userAgent;
+          hasTouchScreen =
+            /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
+            /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA);
+        }
+      }
+
+      return hasTouchScreen;
+    },
+
+    hasWebCamera() {
+      let hasWebCam, supportMediaDevices;
+
+      // Check properties support in the browser
+      if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+        return { supportMediaDevices: false };
+      } else {
+        supportMediaDevices = true;
+      }
+
+      return navigator.mediaDevices
+        .enumerateDevices()
+        .then(function (devices) {
+          hasWebCam = devices.some(device => device.kind === 'videoinput');
+          return { supportMediaDevices, hasWebCam };
+        })
+        .catch(function (err) {
+          console.log(err.name + ': ' + err.message);
+        });
+    },
+
+    async isShowCameraCapturing() {
+      let hasTouchScreen = this.hasTouchScreen(),
+        { supportMediaDevices, hasWebCam } = await this.hasWebCamera();
+
+      if (!supportMediaDevices) {
+        // If navigator.mediaDevices property is not supported
+        return true;
+      } else if (hasTouchScreen && hasWebCam) {
+        // If navigator.mediaDevices property is supported
+        // and the device has touch screen and web camera
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+    MIMETypeIsImage(file) {
+      let regex = /^image\/*/i;
+      return regex.test(file.type.trim());
     },
   };
 })();

@@ -21,20 +21,20 @@ export default class PhotoEditor extends EditorModal {
 
     // Binding context
     this.prepareModal = this.prepareModal.bind(this);
-    this.updateMarkup = this.updateMarkup.bind(this);
+    this._updateMarkup = this._updateMarkup.bind(this);
     this.updatePhotoInformation = this.updatePhotoInformation.bind(this);
 
     // Prepare editor
-    this.cacheElements();
-    this.setUpEventListeners();
+    this._cacheElements();
+    this._setUpEventListeners();
   }
 
   /**
    * Function caches elements according to passed options.
    */
-  cacheElements() {
+  _cacheElements() {
     // Cache elements required for gallery to work
-    super.cacheElements();
+    super._cacheElements();
 
     // Description
     this.$description = this.$modal.find(this.selectors.description);
@@ -52,8 +52,8 @@ export default class PhotoEditor extends EditorModal {
     this.$gallery = $(this.selectors.gallery);
   }
 
-  setUpEventListeners() {
-    super.setUpEventListeners();
+  _setUpEventListeners() {
+    super._setUpEventListeners();
 
     this.$gallery.click(event => {
       let target = event.target;
@@ -123,7 +123,7 @@ export default class PhotoEditor extends EditorModal {
 
     if (response.success) {
       // Delete photo container
-      this.updateMarkup();
+      this._updateMarkup();
 
       // Successful Popup
       this.showRequestResult({

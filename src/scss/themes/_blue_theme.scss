@@ -189,11 +189,18 @@
     background: transparent;
   }
 
-  .btn-outline-primary:focus,
-  .btn-outline-primary:active,
   .btn-outline-primary:hover {
     color: #fff;
     background: $main-pink !important;
+  }
+
+  .btn-success {
+    @include ease-out;
+    background: $success-green;
+
+    &:hover {
+      background: darken($success-green, 5);
+    }
   }
 
   .plan-input:checked ~ .plan-label {
@@ -217,20 +224,18 @@
       color: $main-pink;
     }
 
-    &:hover,
-    &:focus,
+    &:hover .page-link,
+    &:focus .page-link {
+      color: #fff;
+      border-color: #fff;
+      background: $main-pink;
+    }
+
     &.active {
       .page-link {
-        &:not(.disabled) {
-          color: #fff;
-          border-color: #fff;
-          background: $main-pink;
-        }
-
-        &.disabled {
-          background: #fff !important;
-          cursor: default !important;
-        }
+        color: #fff;
+        background: $main-pink;
+        border-color: #fff;
       }
     }
   }
@@ -240,7 +245,6 @@
         @include pagination-link;
 
         &.jp-current,
-        &:active,
         &:focus,
         &:hover {
           background: $main-pink;

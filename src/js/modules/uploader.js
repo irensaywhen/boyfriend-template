@@ -19,17 +19,17 @@ export default class PhotoUploader extends EditorModal {
     // Binding context
     this.previewPhotos = this.previewPhotos.bind(this);
     this.generatePreviewHTML = this.generatePreviewHTML.bind(this);
-    this.updateMarkup = this.updateMarkup.bind(this);
+    this._updateMarkup = this._updateMarkup.bind(this);
     this.getPhotosIds = this.getPhotosIds.bind(this);
     this.uploadNewPhotos = this.uploadNewPhotos.bind(this);
 
     // Prepare Uploader
-    this.cacheElements();
-    this.setUpEventListeners();
+    this._cacheElements();
+    this._setUpEventListeners();
   }
 
-  cacheElements() {
-    super.cacheElements();
+  _cacheElements() {
+    super._cacheElements();
 
     // Container to preview uploaded images
     this.$previewContainer = this.$modal.find(this.selectors.previewContainer);
@@ -41,8 +41,8 @@ export default class PhotoUploader extends EditorModal {
     this.$gallery = $(this.selectors.gallery);
   }
 
-  setUpEventListeners() {
-    super.setUpEventListeners();
+  _setUpEventListeners() {
+    super._setUpEventListeners();
     // Listen to changes on the input elements
     this.$photoInputs.change(event => {
       this.previewPhotos(event.target);
@@ -64,7 +64,7 @@ export default class PhotoUploader extends EditorModal {
 
   async uploadNewPhotos() {
     this.collectData();
-    this.generateFormData();
+    this._generateFormData();
 
     let response;
 
@@ -98,7 +98,7 @@ export default class PhotoUploader extends EditorModal {
         let photoData = this.photoData[id];
 
         // Add each uploaded photo to the markup
-        this.updateMarkup({
+        this._updateMarkup({
           id: id,
           src: photoData.src,
           privacy: photoData.privacy,
@@ -158,47 +158,45 @@ export default class PhotoUploader extends EditorModal {
    * @param {DOM Element} input - input element from which to take the photo files
    */
   async previewPhotos(input) {
+    if (!input.files) return;
     let ids;
+    let filesAmount = input.files.length;
 
-    if (input.files) {
-      let filesAmount = input.files.length;
-
-      try {
-        // Wait until the server provide ids for photos
-        ids = await this.getPhotosIds(filesAmount);
-      } catch (error) {
-        // Unsuccessful Popup
-        this.showRequestResult({
-          title: 'Oops!',
-          text: error.message,
-          icon: 'error',
-        });
-      }
-
-      for (let i = 0; i < filesAmount; i++) {
-        // Make fileReader for each photo
-        let reader = new FileReader();
-
-        // Cache id of the loading photo
-        let id = ids[i];
-
-        // Initialize object to store information about this photo
-        this.photoData[id] = {};
-
-        // Save the id of the loading photo for reference
-        reader.id = id;
-
-        this.setReaderEventListeners(reader);
-
-        // Start reading photo
-        reader.readAsDataURL(input.files[i]);
-
-        // Save file
-        this.savePhotoInformation({ id: id, file: input.files[i] });
-      }
-
-      this.$modalFooter.show(0);
+    try {
+      // Wait until the server provide ids for photos
+      ids = await this.getPhotosIds(filesAmount);
+    } catch (error) {
+      // Unsuccessful Popup
+      this.showRequestResult({
+        title: 'Oops!',
+        text: error.message,
+        icon: 'error',
+      });
     }
+
+    for (let i = 0; i < filesAmount; i++) {
+      // Make fileReader for each photo
+      let reader = new FileReader();
+
+      // Cache id of the loading photo
+      let id = ids[i];
+
+      // Initialize object to store information about this photo
+      this.photoData[id] = {};
+
+      // Save the id of the loading photo for reference
+      reader.id = id;
+
+      this.setReaderEventListeners(reader);
+
+      // Start reading photo
+      reader.readAsDataURL(input.files[i]);
+
+      // Save file
+      this.savePhotoInformation({ id: id, file: input.files[i] });
+    }
+
+    this.$modalFooter.show(0);
   }
 
   /**
@@ -229,7 +227,7 @@ export default class PhotoUploader extends EditorModal {
   /**
    * Function deleting uploaded photos
    */
-  discardChanges() {
+  _discardChanges() {
     this.$previewContainer.empty();
   }
 
@@ -239,6 +237,7 @@ export default class PhotoUploader extends EditorModal {
    * @param {String} src - src of the image to preview
    */
   generatePreviewHTML({ id, src }) {
+    // Switch from previewing through generating markup to template using Handlebars
     // Preparing ids for preview
     let privacyId = 'photo-upload-privacy-' + id;
     let descriptionId = 'upload-description' + id;

@@ -1,0 +1,25 @@
+.message {
+  @include bs-sm-shadow;
+  border-radius: $message-border-radius;
+  max-width: $chat-message-max-width;
+
+  .meta {
+    position: absolute;
+    font-size: 12px;
+    bottom: -25px;
+    right: 20px;
+    color: $bootstrap-secondary;
+
+    i {
+      display: inline-block;
+      height: 14px;
+      font-size: 14px;
+      padding-right: 3px;
+      color: $success-green;
+    }
+  }
+
+  .text {
+    max-width: 95%;
+  }
+}

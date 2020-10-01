@@ -1,0 +1,112 @@
+/*responsive shadows*/
+
+/*small bootstrap shadow*/
+@mixin bs-shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+@mixin bs-sm-shadow-sm {
+  @include screen-sm {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  }
+}
+
+@mixin bs-md-shadow-sm {
+  @include screen-md {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  }
+}
+
+@mixin bs-lg-shadow-sm {
+  @include screen-lg {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  }
+}
+
+@mixin bs-xl-shadow-sm {
+  @include screen-xl {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  }
+}
+
+/*default bootstrap shadow*/
+
+@mixin bs-shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+@mixin bs-sm-shadow {
+  @include screen-sm {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+@mixin bs-md-shadow {
+  @include screen-md {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+@mixin bs-lg-shadow {
+  @include screen-lg {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+@mixin bs-xl-shadow {
+  @include screen-xl {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+/*large bootstrap shadow*/
+
+@mixin bs-shadow-lg {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+@mixin bs-sm-shadow-lg {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+@mixin bs-md-shadow-lg {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+@mixin bs-lg-shadow-lg {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+@mixin bs-xl-shadow-lg {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+/*get rid of bootstrap shadow*/
+
+@mixin bs-shadow-none {
+  box-shadow: none !important;
+}
+
+@mixin bs-sm-shadow-none {
+  @include screen-sm {
+    box-shadow: none !important;
+  }
+}
+
+@mixin bs-md-shadow-none {
+  @include screen-md {
+    box-shadow: none !important;
+  }
+}
+
+@mixin bs-lg-shadow-none {
+  @include screen-lg {
+    box-shadow: none !important;
+  }
+}
+
+@mixin bs-xl-shadow-none {
+  @include screen-xl {
+    box-shadow: none !important;
+  }
+}

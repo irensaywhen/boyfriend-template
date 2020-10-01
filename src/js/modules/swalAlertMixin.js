@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+
 export default {
   /**
    *
@@ -22,6 +24,45 @@ export default {
       icon: icon,
       showConfirmButton: false,
       showCloseButton: true,
+    });
+  },
+
+  fireBuyingAlert({ title, text, confirmButtonText, cancelButtonText }) {
+    return Swal.fire({
+      title,
+      text,
+      cancelButtonText,
+      confirmButtonText,
+      showCancelButton: true,
+      confirmButtonColor: '#ff0068',
+      cancelButtonColor: '#bbb',
+    });
+  },
+
+  fireSendAlert({ title, text, timer, customClass }) {
+    // Cache document element
+    let $document = $(document);
+
+    // Show popup
+    return Swal.fire({
+      title,
+      text,
+      showConfirmButton: false,
+      customClass,
+      timer,
+      showClass: {
+        popup: 'animate__bounceIn',
+      },
+      onBeforeOpen: modal => {
+        // Trigger event to prepare modal
+        $document.trigger(`${this.type}Modal:onBeforeOpen`, modal);
+      },
+      onOpen: modal => {
+        this.animationPreparation.then(() => {
+          // Run animation
+          $document.trigger(`${this.type}Modal:onOpen`, modal);
+        });
+      },
     });
   },
 
