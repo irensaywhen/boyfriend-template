@@ -92,9 +92,12 @@
     border-radius: 5px;
     line-height: 1.3;
     cursor: pointer;
+    text-transform: capitalize !important;
+    font-weight: normal;
 
     img {
       width: 30px;
+      min-width: 30px;
       height: auto;
     }
   }
