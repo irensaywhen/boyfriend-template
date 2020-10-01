@@ -23,9 +23,6 @@ export default class SearchProfilesForm extends Form {
     options.slider['noUiSlider'].on('change', () => {
       this.$inputs.first().trigger('input');
     });
-
-    this._cacheElements();
-    this._setUpEventListeners();
   }
 
   _cacheElements() {
@@ -43,10 +40,12 @@ export default class SearchProfilesForm extends Form {
      * 2. When the user changes something in the form,
      * signal that the input has finished
      */
+
     this.$form.on('input', event => {
       let target = event.target;
       if (target.name === 'city') return;
 
+      console.log('Input occured');
       this.$form.trigger('inputFinished');
     });
 
@@ -65,7 +64,7 @@ export default class SearchProfilesForm extends Form {
      */
     this.$form.on('inputFinished', event => {
       this.collectFormInputs();
-
+      console.log('Input finished');
       $(document).trigger('searchForm:inputFinished', this.formData);
     });
   }
