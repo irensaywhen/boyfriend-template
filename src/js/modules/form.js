@@ -31,8 +31,10 @@ export default class Form extends ServerRequest {
     this._cacheElements();
     this._setUpEventListeners();
 
-    // Initializing loading indicator when the form is submitted
-    this.initializeLoadingIndicators(this.$form);
+    if (selectors.loading) {
+      // Initializing loading indicator when the form is submitted
+      this.initializeLoadingIndicators(this.$form);
+    }
 
     if (options.location) {
       // Add location methods to the form prototype
