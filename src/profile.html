@@ -208,46 +208,6 @@
       <!--Complain modal end-->
     </div>
 
-    <!--Chat modal start-->
-    <!-- Modal -->
-    <div
-      class="modal"
-      id="exampleModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">...</div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--Chat modal end-->
-    <!--Modals end-->
-
     <!-- sidebar -->
     <div class="sidebar">
       <div class="text-center">
@@ -517,6 +477,7 @@
 
                 <!--Actions start-->
                 <div class="col-4 col-sm-12 col-md-6 px-0 pt-md-3 text-white">
+                  <!--Send supelrike-->
                   <div
                     id="superlike"
                     data-type="superlike"
@@ -528,26 +489,84 @@
                     <span>superlike</span>
                   </div>
                 </div>
+
                 <div class="col-4 col-sm-12 col-md-6 px-0 pt-md-3 text-white">
-                  <div
-                    class="bonus action ml-2 py-1 d-flex flex-column flex-sm-row justify-content-sm-left justify-content-md-center pl-sm-2 pl-md-0 align-items-center mt-sm-2"
-                  >
-                    <img src="img/gift.svg" alt="" />
-                    <span class="pl-sm-3 pr-sm-1">Give</span>
-                    <span>present</span>
+                  <div class="dropdown">
+                    <!--Send present-->
+                    <div
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      class="bonus action ml-2 py-1 d-flex flex-column flex-sm-row justify-content-sm-left justify-content-md-center pl-sm-2 pl-md-0 align-items-center mt-sm-2"
+                    >
+                      <img src="img/gift.svg" alt="" />
+                      <span class="pl-sm-3 pr-sm-1">Give</span>
+                      <span>present</span>
+                    </div>
+                    <!--Dropdown items-->
+                    <ul
+                      class="dropdown-menu dropdown-menu-right dropdown-menu-sm-left"
+                      aria-labelledby="dropdownMenu"
+                    >
+                      <li class="dropdown-divider"></li>
+
+                      <!--Photo start-->
+                      <li
+                        class="dropdown-item d-inline-flex align-items-center"
+                        id="photo"
+                        data-amount="1"
+                        data-type="photo"
+                        data-redirect="./pricing.html"
+                      >
+                        <img
+                          src="img/photo.svg"
+                          class="present"
+                          alt="superlike"
+                        />
+                        <div class="pl-3">
+                          <h3 class="h5">Photo</h3>
+                          <h4 class="small text-muted">
+                            Available:
+                            <span class="text-success amount">1</span>
+                          </h4>
+                        </div>
+                      </li>
+                      <!-- Photo end-->
+
+                      <li class="dropdown-divider"></li>
+
+                      <!--Buy premium start-->
+                      <li
+                        class="dropdown-item d-inline-flex align-items-center"
+                        id="premium"
+                        data-type="premium"
+                      >
+                        <img
+                          src="img/premium.svg"
+                          class="present"
+                          alt="superlike"
+                        />
+                        <div class="pl-3 mw-100 w-100 info">
+                          <h3 class="h5 title mb-1">Buy premium</h3>
+                          <p class="small text-muted subtitle m-0">
+                            You will recieve
+                            <span class="text-success">50%</span> of the premium
+                            time
+                          </p>
+                        </div>
+                      </li>
+                      <!--Buy premium end-->
+                    </ul>
                   </div>
                 </div>
+
                 <div class="col-4 col-sm-12 px-0 text-white">
-                  <button
-                    type="button"
-                    class="btn btn-default w-100 action mt-2"
-                    data-toggle="modal"
-                    data-target="#exampleModal"
-                  >
+                  <!--Start chat-->
+                  <a class="btn btn-default w-100 action mt-2" href="chat.html">
                     <img src="img/mail.svg" alt="" />
                     <span class="pl-sm-3 pr-sm-1">Start</span>
                     <span>chat</span>
-                  </button>
+                  </a>
                 </div>
                 <!--Actions end-->
               </div>
@@ -704,16 +723,11 @@
 
           <!--Send message-->
           <div class="col-12">
-            <button
-              type="button"
-              class="btn btn-default w-100 action mb-2"
-              data-toggle="modal"
-              data-target="#exampleModal"
-            >
+            <a href="chat.html" class="btn btn-default w-100 action mb-2">
               <img src="img/mail.svg" alt="" />
               <span class="pl-sm-3 pr-sm-1">Start</span>
               <span>chat</span>
-            </button>
+            </a>
           </div>
 
           <!--Complain button-->
@@ -796,6 +810,7 @@
 
     <!-- jquery, popper and bootstrap js -->
     <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
 
     <!--Swiper-->

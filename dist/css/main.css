@@ -263,36 +263,45 @@ select.form-control optgroup {
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
-.chat .dropdown-toggle::after {
+.chat .dropdown-toggle::after,
+.profile .dropdown-toggle::after {
   content: none;
 }
-.chat .dropdown-menu {
+.chat .dropdown-menu,
+.profile .dropdown-menu {
   padding-top: 0;
   padding-bottom: 0;
   width: 250px;
 }
-.chat .dropdown-item {
+.chat .dropdown-item,
+.profile .dropdown-item {
   padding: 10px 10px;
   cursor: pointer;
 }
-.chat .dropdown-item .info {
+.chat .dropdown-item .info,
+.profile .dropdown-item .info {
   overflow: hidden;
   width: 100%;
 }
 .chat .dropdown-item .info .title,
-.chat .dropdown-item .info .subtitle {
+.chat .dropdown-item .info .subtitle,
+.profile .dropdown-item .info .title,
+.profile .dropdown-item .info .subtitle {
   width: 100%;
   max-width: 100%;
   white-space: normal;
 }
-.chat .dropdown-item .info .subtitle {
+.chat .dropdown-item .info .subtitle,
+.profile .dropdown-item .info .subtitle {
   font-size: 80%;
   font-weight: 400;
 }
-.chat .dropdown-item .present {
+.chat .dropdown-item .present,
+.profile .dropdown-item .present {
   max-width: 70px;
 }
-.chat .dropdown-divider {
+.chat .dropdown-divider,
+.profile .dropdown-divider {
   margin: 0;
 }
 .message {

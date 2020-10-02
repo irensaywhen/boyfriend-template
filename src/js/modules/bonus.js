@@ -6,6 +6,7 @@ export default class Bonus extends ServerRequest {
 
     this.classes = options.classes;
     this.popups = options.popups;
+    this.redirectToUse = options.redirectToUse;
 
     // Bind context
     this._cacheElements = this._cacheElements.bind(this);

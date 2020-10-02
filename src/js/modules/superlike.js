@@ -59,7 +59,7 @@ export default class Superlike extends Bonus {
               this._useBonus();
             } else {
               // Redirect to chat to start using superlike there
-              window.location.assign('./chat.html?superlike=true');
+              window.location.assign(this.redirectToUse + '?superlike=true');
             }
           })
           .catch(error => {

@@ -79751,7 +79751,8 @@
 
             _this = _super.call(this, options);
             _this.classes = options.classes;
-            _this.popups = options.popups; // Bind context
+            _this.popups = options.popups;
+            _this.redirectToUse = options.redirectToUse; // Bind context
 
             _this._cacheElements = _this._cacheElements.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
@@ -87358,7 +87359,7 @@
                           } else {
                             // Redirect to chat to start using superlike there
                             window.location.assign(
-                              './chat.html?superlike=true'
+                              _this2.redirectToUse + '?superlike=true'
                             );
                           }
                         })
