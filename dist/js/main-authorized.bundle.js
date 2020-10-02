@@ -79695,6 +79695,9 @@
         /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./requests.js */ './js/modules/requests.js'
         );
+        /* harmony import */ var _getUrlParams_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+          /*! ./getUrlParams.js */ './js/modules/getUrlParams.js'
+        );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -79769,6 +79772,7 @@
                 _this
               )
             );
+            _this.isUsedOnThisPage = options.isUsedOnThisPage;
             return _this;
           }
 
@@ -79793,6 +79797,13 @@
                 value: function _setUpEventListeners() {
                   var _this2 = this;
 
+                  $(window).on('load', function () {
+                    var bonusType = Object(
+                      _getUrlParams_js__WEBPACK_IMPORTED_MODULE_7__['default']
+                    )('bonus');
+                    if (!bonusType) return;
+                    setTimeout(_this2._useBonus, 100, bonusType);
+                  });
                   /**
                    * When the bonus is clicked:
                    * 1. Check if there are any bonuses available
@@ -79800,6 +79811,7 @@
                    * 2. If there are bonuses available, delegate starting bonuses usage to their
                    * specific classes
                    */
+
                   this.$bonus.click(function (event) {
                     if (_this2.amount === 0) {
                       // Fire alert
@@ -80870,8 +80882,13 @@
                               // Get src and description
                               var src = bonusData.src,
                                 description = bonusData.description; // Save src and description
+                              //response['src'] = src;
+                              //response['description'] = description;
 
-                              response['src'] = src;
+                              if (!response.src) {
+                                response['src'] = src;
+                              }
+
                               response['description'] = description;
                             } // Show message after a delay to not to distract the user
 
@@ -80908,8 +80925,7 @@
                     endpoint = _this$requests$send.endpoint;
                   bonusData
                     ? endpoint.searchParams.set(bonusData.type, true)
-                    : endpoint.searchParams.set('general', true);
-                  console.log(endpoint); //Make a request here
+                    : endpoint.searchParams.set('general', true); //Make a request here
 
                   return fetch(endpoint, {
                     method: method,
@@ -84810,11 +84826,14 @@
               photoBonus: true,
             }; // Save popups
 
-            _this.popups = options.popups; // Initiate animation for icon in popup
+            _this.popups = options.popups;
 
-            _this.animation = new _photoAnimation_js__WEBPACK_IMPORTED_MODULE_9__[
-              'default'
-            ](options.animation); // Prepare photo preview template
+            if (_this.isUsedOnThisPage) {
+              // Initiate animation for icon in popup
+              _this.animation = new _photoAnimation_js__WEBPACK_IMPORTED_MODULE_9__[
+                'default'
+              ](options.animation);
+            } // Prepare photo preview template
 
             _this.photoTemplates = Object(
               _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_11__['default']
@@ -84920,7 +84939,14 @@
                           text = response.text;
 
                         if (success) {
-                          _this2._useBonus();
+                          if (_this2.isUsedOnThisPage) {
+                            _this2._useBonus();
+                          } else {
+                            // Redirect to chat to start using superlike there
+                            window.location.assign(
+                              _this2.redirectToUse + '?bonus=photo'
+                            );
+                          }
                         } else {
                           _this2.showRequestResult({
                             title: title,
@@ -84995,7 +85021,12 @@
               {
                 key: '_useBonus',
                 value: function _useBonus() {
-                  // Change the amount of bonuses available
+                  var type =
+                    arguments.length > 0 && arguments[0] !== undefined
+                      ? arguments[0]
+                      : this.type;
+                  if (type !== this.type) return; // Change the amount of bonuses available
+
                   this._decreaseBonusAmountAvailable();
 
                   this._updateAmountOnMarkup(); // Save description to photoData object
@@ -87138,7 +87169,12 @@
               {
                 key: '_useBonus',
                 value: function _useBonus() {
-                  // Call alert here with custom animation for premium icon
+                  var type =
+                    arguments.length > 0 && arguments[0] !== undefined
+                      ? arguments[0]
+                      : this.type;
+                  if (type !== this.type) return; // Call alert here with custom animation for premium icon
+
                   this.fireSendAlert(this.popups.send); // Show sponsoring premium in the chat
 
                   $(document).trigger('present:send', {
@@ -87269,13 +87305,11 @@
               Superlike
             );
 
-            _this = _super.call(this, options);
-            var isUsedOnThisPage = (_this.isUsedOnThisPage =
-              options.isUsedOnThisPage); // Save popups
+            _this = _super.call(this, options); // Save popups
 
             _this.popups = options.popups;
 
-            if (isUsedOnThisPage) {
+            if (_this.isUsedOnThisPage) {
               // Initiate animation for icon in popup
               _this.animation = new _superlikeAnimation_js__WEBPACK_IMPORTED_MODULE_7__[
                 'default'
@@ -87317,22 +87351,12 @@
                     ),
                     '_setUpEventListeners',
                     this
-                  ).call(this);
+                  ).call(this); //$(window).on('load', () => {
+                  //  if (!getUrlParams('superlike')) return;
+                  //
+                  //  setTimeout(this._useBonus, 100);
+                  //});
 
-                  $(window).on('load', function () {
-                    console.log(
-                      Object(
-                        _getUrlParams_js__WEBPACK_IMPORTED_MODULE_8__['default']
-                      )('superlike')
-                    );
-                    if (
-                      !Object(
-                        _getUrlParams_js__WEBPACK_IMPORTED_MODULE_8__['default']
-                      )('superlike')
-                    )
-                      return;
-                    setTimeout(_this2._useBonus, 100);
-                  });
                   $(document)
                     .on('superlikeModal:onBeforeOpen', function (event, modal) {
                       // Start modal preparation
@@ -87359,7 +87383,7 @@
                           } else {
                             // Redirect to chat to start using superlike there
                             window.location.assign(
-                              _this2.redirectToUse + '?superlike=true'
+                              _this2.redirectToUse + '?bonus=superlike'
                             );
                           }
                         })
@@ -87376,7 +87400,12 @@
               {
                 key: '_useBonus',
                 value: function _useBonus() {
-                  // Call alert here with custom animation for superlike icon
+                  var type =
+                    arguments.length > 0 && arguments[0] !== undefined
+                      ? arguments[0]
+                      : this.type;
+                  if (type !== this.type) return; // Call alert here with custom animation for superlike icon
+
                   this.fireSendAlert(this.popups.send); // Change the amount of bonuses available
 
                   this._decreaseBonusAmountAvailable();

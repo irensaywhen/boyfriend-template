@@ -228,7 +228,12 @@ export default class Chat {
                 let { src, description } = bonusData;
 
                 // Save src and description
-                response['src'] = src;
+                //response['src'] = src;
+                //response['description'] = description;
+
+                if (!response.src) {
+                  response['src'] = src;
+                }
                 response['description'] = description;
               }
 
@@ -259,7 +264,6 @@ export default class Chat {
     bonusData
       ? endpoint.searchParams.set(bonusData.type, true)
       : endpoint.searchParams.set('general', true);
-    console.log(endpoint);
 
     //Make a request here
     return fetch(endpoint, {

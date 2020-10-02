@@ -2117,7 +2117,6 @@
           amount: '.amount',
         },
         isUsedOnThisPage: true,
-        redirectToUse: './chat.html',
         requests: {
           use: {
             method: 'POST',
@@ -2174,6 +2173,7 @@
       /* Buying premium initialization */
 
       const sponsorPremium = new SponsorPremium({
+        isUsedOnThisPage: true,
         selectors: {
           bonus: '#premium',
           modal: '#premiumModal',
@@ -2207,6 +2207,7 @@
 
       /* Photo bonus initialization */
       const photo = new Photo({
+        isUsedOnThisPage: true,
         selectors: {
           bonus: '#photo',
           amount: '.amount',

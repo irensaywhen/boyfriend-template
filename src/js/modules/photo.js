@@ -22,8 +22,10 @@ export default class Photo extends Bonus {
     // Save popups
     this.popups = options.popups;
 
-    // Initiate animation for icon in popup
-    this.animation = new PhotoAnimation(options.animation);
+    if (this.isUsedOnThisPage) {
+      // Initiate animation for icon in popup
+      this.animation = new PhotoAnimation(options.animation);
+    }
 
     // Prepare photo preview template
     this.photoTemplates = prepareTemplates(options.photoTemplates);
@@ -93,7 +95,12 @@ export default class Photo extends Bonus {
           let { success, title, text } = response;
 
           if (success) {
-            this._useBonus();
+            if (this.isUsedOnThisPage) {
+              this._useBonus();
+            } else {
+              // Redirect to chat to start using superlike there
+              window.location.assign(this.redirectToUse + '?bonus=photo');
+            }
           } else {
             this.showRequestResult({ title, text, icon: 'error' });
           }
@@ -155,7 +162,9 @@ export default class Photo extends Bonus {
    * 4. Close modal
    * 5. Show bonus animation
    */
-  _useBonus() {
+  _useBonus(type = this.type) {
+    if (type !== this.type) return;
+
     // Change the amount of bonuses available
     this._decreaseBonusAmountAvailable();
     this._updateAmountOnMarkup();

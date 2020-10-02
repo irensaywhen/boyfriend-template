@@ -56,6 +56,17 @@
     </div>
     <!--Loader end-->
 
+    <!--Spinner template start-->
+    <template id="spinner-template">
+      <span
+        class="spinner-border spinner-border-sm mr-1"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      <span class="sr-only">Loading...</span>
+    </template>
+    <!--Spinner template end-->
+
     <!--Modals start-->
     <div class="profile-modals">
       <!--Avatar modal start-->
@@ -207,6 +218,186 @@
       </div>
       <!--Complain modal end-->
     </div>
+    <!--Profile-specific modals end-->
+
+    <!--Modal for photo upload start-->
+    <div
+      class="modal fade upload-avatar pr-0"
+      id="photo-bonus"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="addPhotosModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <!--Modal content start-->
+        <div class="modal-content">
+          <form action="" id="photo-uploader">
+            <!--Modal header start-->
+            <div class="modal-header">
+              <h3 class="title">Upload your photo:</h3>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <!--Modal header end-->
+
+            <!--Modal body start-->
+            <div class="modal-body">
+              <!--Photos preview start-->
+              <div class="container-fluid">
+                <div
+                  class="row justify-content-center"
+                  id="photo-preview-container"
+                ></div>
+              </div>
+              <!--Photos preview end-->
+
+              <!--Container holding read and legacy errors-->
+              <p id="uploadErrorContainer" class="upload-error"></p>
+
+              <!--Upload progress indicator start-->
+              <div class="upload-progress" id="fileRead-progress"></div>
+              <!--Upload progress indicator end-->
+
+              <!--Template for progress indicator start-->
+              <script id="progress-template" type="text/template">
+                <div class="fileProgress-wrapper">
+                  <div class="filename text-muted">
+                    <span class="name d-inline-block pb-1">{{name}}</span>
+                  </div>
+                  <div class="progress mb-3 h-4">
+                    <div
+                      class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                      id={{id}}
+                      role="progressbar"
+                      style="width: 0%"
+                      aria-valuenow="0"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </div>
+              </script>
+              <!--Template for progress indicator end-->
+
+              <!--Photo upload and drag'n'drop start-->
+              <div class="photo-upload" id="dragNDropUploadContainer">
+                <!--Drag'n'drop start-->
+                <div class="drag-n-drop">
+                  <div class="icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </div>
+                  <p class="text-center text-uppercase info d-flex flex-column">
+                    <strong class="title">Drag & drop</strong>
+                    <span class="pt-2">to upload, or</span>
+                  </p>
+                </div>
+                <!--Drag'n'drop end-->
+
+                <div class="d-flex flex-column align-items-center py-4">
+                  <!--Select file from device start-->
+                  <div class="position-relative">
+                    <input
+                      type="file"
+                      id="photo-file-input"
+                      name="photo-file-input"
+                      class="invisible position-absolute photo-input disable-while-load"
+                      accept="image/*"
+                    />
+                    <label
+                      for="photo-file-input"
+                      class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm select"
+                    >
+                      <i class="fas fa-file-upload"></i> select file
+                    </label>
+                  </div>
+                  <!--Select file from device end-->
+
+                  <!--Capture photo start-->
+                  <div class="position-relative">
+                    <input
+                      type="file"
+                      id="make-photo"
+                      name="make-photo"
+                      class="invisible position-absolute photo-input disable-while-load"
+                      accept="image/*"
+                      capture
+                    />
+                    <label
+                      for="make-photo"
+                      class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm capture"
+                    >
+                      <i class="fas fa-camera-retro"></i> take photo
+                    </label>
+                  </div>
+                  <!--Capture photo end-->
+                </div>
+              </div>
+              <!--Photo upload and drag'n'drop end-->
+
+              <!--Photo requirements-->
+              <div class="avatar-requirements border-top">
+                <h4 class="section-title pt-3">Photo requirements</h4>
+                <ul class="pl-1">
+                  <li>Rozmiar: 500x500px</li>
+                  <li>Dostępne rozszerzenia</li>
+                  <li>Lorem ipsum</li>
+                </ul>
+              </div>
+            </div>
+            <!--Modal body end-->
+
+            <!--Modal footer start-->
+            <div class="modal-footer">
+              <div class="px-0 py-3 text-center w-100">
+                <button
+                  type="submit"
+                  class="btn btn-lg btn-default text-white btn-rounded shadow w-50 disable-while-load"
+                  id="submitButton-photo"
+                >
+                  <span>Submit</span><i class="material-icons">arrow_forward</i>
+                </button>
+              </div>
+            </div>
+            <!--Modal footer end-->
+          </form>
+        </div>
+        <!--Modal content end-->
+      </div>
+    </div>
+    <!--Modal for photo upload end-->
+
+    <!--Template for photo preview start-->
+    <script id="template-photoPreview" type="text/template">
+      <div
+        class="col-12 col-sm-6 col-md-4 col-xl-3 photo-container"
+        data-id="121"
+      >
+        <div class="photo-description">
+          <figure>
+            <img src="{{src}}" alt="" />
+          </figure>
+          <div class="form-group">
+            <label for="photo-upload-description">
+              Add photo description
+            </label>
+            <textarea
+              id="photo-upload-description"
+              rows="4"
+              placeholder="Photo description"
+              class="form-control new-photo-description"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </script>
+    <!--Template for photo preview end-->
 
     <!-- sidebar -->
     <div class="sidebar">
@@ -932,14 +1123,14 @@
           },
         });
 
-        /* Superlike */
         /* Superlike initialization */
         const superlike = new Superlike({
+          isUsedOnThisPage: false,
+          redirectToUse: './chat.html',
           selectors: {
             bonus: '#superlike',
             amount: '.amount',
           },
-          isUsedOnThisPage: false,
           requests: {
             use: {
               method: 'POST',
@@ -964,6 +1155,90 @@
               cancelButtonText: 'No',
               imageUrl: 'img/superlike-animated.svg',
               imageAlt: 'Superlike icon',
+            },
+          },
+        });
+
+        /* Photo bonus initialization */
+        const photo = new Photo({
+          isUsedOnThisPage: false,
+          redirectToUse: './chat.html',
+          selectors: {
+            bonus: '#photo',
+            amount: '.amount',
+            modal: '#photo-bonus',
+            previewContainer: '#photo-preview-container',
+            input: '.photo-input',
+            form: '#photo-uploader',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitButton-photo',
+              spinner: '.spinner-border',
+              text: 'Saving avatar...',
+            },
+            closeModalButton: '.close',
+            photoDescription: '#photo-upload-description',
+            // Photo upload selectors
+            photoUpload: {
+              disableWhileLoad: '.disable-while-load',
+              uploadContainer: '#dragNDropUploadContainer',
+              errorContainer: '#uploadErrorContainer',
+              // Progress bar selectors
+              progress: {
+                progress: '#fileRead-progress',
+                progressBar: '.progress-bar',
+                templateId: 'progress-template',
+                fileProgressWrapper: '.fileProgress-wrapper',
+              },
+            },
+          },
+          // Predefined error texts
+          errorText: {
+            photoUpload: {
+              // Read error while uploading photo
+              read:
+                'Something went wrong while reading the file. Please, try again',
+              // Too old browser
+              legacyBrowser:
+                'Your browser is outdated. Please, update your browser and try again',
+              // Unsupported image file type
+              wrongFileType: 'Please, upload image file',
+            },
+          },
+          classes: {
+            // Input for files upload
+            input: 'photo-input',
+            // Drag'n'Drop
+            dragNDrop: 'advanced-upload',
+            dragOver: 'is-dragover',
+            // To show mobile photo capturing
+            mobilePhotoUpload: 'mobile',
+          },
+          photoTemplates: {
+            preview: 'template-photoPreview',
+          },
+          requests: {
+            use: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/use-photo',
+            },
+          },
+          popups: {
+            buy: {
+              title: 'Oops!',
+              text:
+                "You don't have any photo bonuses available. Do you want to buy some?",
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+            },
+            uploadError: {
+              title: 'Oops!',
+              text:
+                'Something went wrong while uploading your photo. Please, try again.',
             },
           },
         });

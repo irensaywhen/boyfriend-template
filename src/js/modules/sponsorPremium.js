@@ -62,7 +62,8 @@ export default class SponsorPremium extends Bonus {
       });
   }
 
-  _useBonus() {
+  _useBonus(type = this.type) {
+    if (type !== this.type) return;
     // Call alert here with custom animation for premium icon
     this.fireSendAlert(this.popups.send);
 

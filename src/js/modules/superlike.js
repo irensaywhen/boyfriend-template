@@ -6,12 +6,10 @@ export default class Superlike extends Bonus {
   constructor(options) {
     super(options);
 
-    let isUsedOnThisPage = (this.isUsedOnThisPage = options.isUsedOnThisPage);
-
     // Save popups
     this.popups = options.popups;
 
-    if (isUsedOnThisPage) {
+    if (this.isUsedOnThisPage) {
       // Initiate animation for icon in popup
       this.animation = new SuperlikeAnimation(options.animation);
     }
@@ -30,12 +28,11 @@ export default class Superlike extends Bonus {
   _setUpEventListeners() {
     super._setUpEventListeners();
 
-    $(window).on('load', () => {
-      console.log(getUrlParams('superlike'));
-      if (!getUrlParams('superlike')) return;
-
-      setTimeout(this._useBonus, 100);
-    });
+    //$(window).on('load', () => {
+    //  if (!getUrlParams('superlike')) return;
+    //
+    //  setTimeout(this._useBonus, 100);
+    //});
 
     $(document)
       .on('superlikeModal:onBeforeOpen', (event, modal) => {
@@ -59,7 +56,7 @@ export default class Superlike extends Bonus {
               this._useBonus();
             } else {
               // Redirect to chat to start using superlike there
-              window.location.assign(this.redirectToUse + '?superlike=true');
+              window.location.assign(this.redirectToUse + '?bonus=superlike');
             }
           })
           .catch(error => {
@@ -72,7 +69,9 @@ export default class Superlike extends Bonus {
       });
   }
 
-  _useBonus() {
+  _useBonus(type = this.type) {
+    if (type !== this.type) return;
+
     // Call alert here with custom animation for superlike icon
     this.fireSendAlert(this.popups.send);
 
