@@ -57825,7 +57825,7 @@
       /***/ function (module, exports, __webpack_require__) {
         /* WEBPACK VAR INJECTION */ (function (module) {
           var require; //! moment.js
-          //! version : 2.28.0
+          //! version : 2.27.0
           //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
           //! license : MIT
           //! momentjs.com
@@ -62385,7 +62385,7 @@
                 eras = this.localeData().eras();
               for (i = 0, l = eras.length; i < l; ++i) {
                 // truncate time
-                val = this.clone().startOf('day').valueOf();
+                val = this.startOf('day').valueOf();
 
                 if (eras[i].since <= val && val <= eras[i].until) {
                   return eras[i].name;
@@ -62405,7 +62405,7 @@
                 eras = this.localeData().eras();
               for (i = 0, l = eras.length; i < l; ++i) {
                 // truncate time
-                val = this.clone().startOf('day').valueOf();
+                val = this.startOf('day').valueOf();
 
                 if (eras[i].since <= val && val <= eras[i].until) {
                   return eras[i].narrow;
@@ -62425,7 +62425,7 @@
                 eras = this.localeData().eras();
               for (i = 0, l = eras.length; i < l; ++i) {
                 // truncate time
-                val = this.clone().startOf('day').valueOf();
+                val = this.startOf('day').valueOf();
 
                 if (eras[i].since <= val && val <= eras[i].until) {
                   return eras[i].abbr;
@@ -62448,7 +62448,7 @@
                 dir = eras[i].since <= eras[i].until ? +1 : -1;
 
                 // truncate time
-                val = this.clone().startOf('day').valueOf();
+                val = this.startOf('day').valueOf();
 
                 if (
                   (eras[i].since <= val && val <= eras[i].until) ||
@@ -63656,7 +63656,7 @@
 
             //! moment.js
 
-            hooks.version = '2.28.0';
+            hooks.version = '2.27.0';
 
             setHookCallback(createLocal);
 
@@ -77342,7 +77342,8 @@
               !isScrollable(container) &&
               target.tagName !== 'INPUT' && // #1603
               !(
-                isScrollable(getContent()) && getContent().contains(target) // #1944
+                isScrollable(getContent()) && // #1944
+                getContent().contains(target)
               )
             ) {
               return true;
@@ -80836,19 +80837,21 @@
                       return formData;
                   }
                 },
+                /**
+                 *
+                 * @param {Object or FormData Object} messageData - message information
+                 * which will be sent to the server
+                 *
+                 * @param {*} bonusData - additional bonus information
+                 */
               },
               {
                 key: '_sendMessage',
-                value: function _sendMessage(messageData) {
+                value: function _sendMessage(messageData, bonusData) {
                   var _this2 = this;
 
-                  var bonusData =
-                    arguments.length > 1 && arguments[1] !== undefined
-                      ? arguments[1]
-                      : null;
-
                   // Send message to server
-                  this._sendMessageToServer(messageData) // Maybe we can handle successful/unsuccessful response here
+                  this._sendMessageToServer(messageData, bonusData) // Maybe we can handle successful/unsuccessful response here
                     .then(function (response) {
                       if (response.success) {
                         console.log('Response after sending a message:');
@@ -80894,10 +80897,18 @@
               {
                 key: '_sendMessageToServer',
                 value: function _sendMessageToServer(messageData) {
+                  var bonusData =
+                    arguments.length > 1 && arguments[1] !== undefined
+                      ? arguments[1]
+                      : null;
                   var _this$requests$send = this.requests.send,
                     method = _this$requests$send.method,
                     headers = _this$requests$send.headers,
-                    endpoint = _this$requests$send.endpoint; //Make a request here
+                    endpoint = _this$requests$send.endpoint;
+                  bonusData
+                    ? endpoint.searchParams.set(bonusData.type, true)
+                    : endpoint.searchParams.set('general', true);
+                  console.log(endpoint); //Make a request here
 
                   return fetch(endpoint, {
                     method: method,
@@ -83079,6 +83090,39 @@
 
           return Gallery;
         })(_requests_js__WEBPACK_IMPORTED_MODULE_5__['default']);
+
+        /***/
+      },
+
+    /***/ './js/modules/getUrlParams.js':
+      /*!************************************!*\
+  !*** ./js/modules/getUrlParams.js ***!
+  \************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return getUrlParams;
+          }
+        );
+        function getUrlParams(variable) {
+          var query = window.location.search.substring(1);
+          var vars = query.split('&');
+
+          for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split('=');
+
+            if (pair[0] == variable) {
+              return pair[1];
+            }
+          }
+
+          return false;
+        }
 
         /***/
       },
@@ -87167,6 +87211,9 @@
         /* harmony import */ var _superlikeAnimation_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./superlikeAnimation.js */ './js/modules/superlikeAnimation.js'
         );
+        /* harmony import */ var _getUrlParams_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+          /*! ./getUrlParams.js */ './js/modules/getUrlParams.js'
+        );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -87221,13 +87268,18 @@
               Superlike
             );
 
-            _this = _super.call(this, options); // Save popups
+            _this = _super.call(this, options);
+            var isUsedOnThisPage = (_this.isUsedOnThisPage =
+              options.isUsedOnThisPage); // Save popups
 
-            _this.popups = options.popups; // Initiate animation for icon in popup
+            _this.popups = options.popups;
 
-            _this.animation = new _superlikeAnimation_js__WEBPACK_IMPORTED_MODULE_7__[
-              'default'
-            ](options.animation);
+            if (isUsedOnThisPage) {
+              // Initiate animation for icon in popup
+              _this.animation = new _superlikeAnimation_js__WEBPACK_IMPORTED_MODULE_7__[
+                'default'
+              ](options.animation);
+            }
 
             _this._cacheElements();
 
@@ -87266,6 +87318,20 @@
                     this
                   ).call(this);
 
+                  $(window).on('load', function () {
+                    console.log(
+                      Object(
+                        _getUrlParams_js__WEBPACK_IMPORTED_MODULE_8__['default']
+                      )('superlike')
+                    );
+                    if (
+                      !Object(
+                        _getUrlParams_js__WEBPACK_IMPORTED_MODULE_8__['default']
+                      )('superlike')
+                    )
+                      return;
+                    setTimeout(_this2._useBonus, 100);
+                  });
                   $(document)
                     .on('superlikeModal:onBeforeOpen', function (event, modal) {
                       // Start modal preparation
@@ -87284,19 +87350,17 @@
                         .askUsageApprovement(_this2.popups.use)
                         .then(function (result) {
                           if (!result) return;
-                          var success = result.success,
-                            title = result.title,
-                            text = result.text; // Set icon and show popup with it
+                          if (!result.success)
+                            throw new Error('Something went wrong :(');
 
-                          var icon = success ? 'success' : 'error';
-
-                          _this2.showRequestResult({
-                            title: title,
-                            text: text,
-                            icon: icon,
-                          });
-
-                          if (success) _this2._useBonus();
+                          if (_this2.isUsedOnThisPage) {
+                            _this2._useBonus();
+                          } else {
+                            // Redirect to chat to start using superlike there
+                            window.location.assign(
+                              './chat.html?superlike=true'
+                            );
+                          }
                         })
                         ['catch'](function (error) {
                           _this2.showRequestResult({

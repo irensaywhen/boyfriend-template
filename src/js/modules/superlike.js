@@ -1,15 +1,20 @@
 import Bonus from './bonus.js';
 import SuperlikeAnimation from './superlikeAnimation.js';
+import getUrlParams from './getUrlParams.js';
 
 export default class Superlike extends Bonus {
   constructor(options) {
     super(options);
 
+    let isUsedOnThisPage = (this.isUsedOnThisPage = options.isUsedOnThisPage);
+
     // Save popups
     this.popups = options.popups;
 
-    // Initiate animation for icon in popup
-    this.animation = new SuperlikeAnimation(options.animation);
+    if (isUsedOnThisPage) {
+      // Initiate animation for icon in popup
+      this.animation = new SuperlikeAnimation(options.animation);
+    }
 
     this._cacheElements();
     this._setUpEventListeners();
@@ -24,6 +29,13 @@ export default class Superlike extends Bonus {
 
   _setUpEventListeners() {
     super._setUpEventListeners();
+
+    $(window).on('load', () => {
+      console.log(getUrlParams('superlike'));
+      if (!getUrlParams('superlike')) return;
+
+      setTimeout(this._useBonus, 100);
+    });
 
     $(document)
       .on('superlikeModal:onBeforeOpen', (event, modal) => {
@@ -41,13 +53,14 @@ export default class Superlike extends Bonus {
           .then(result => {
             if (!result) return;
 
-            let { success, title, text } = result;
+            if (!result.success) throw new Error('Something went wrong :(');
 
-            // Set icon and show popup with it
-            let icon = success ? 'success' : 'error';
-            this.showRequestResult({ title, text, icon });
-
-            if (success) this._useBonus();
+            if (this.isUsedOnThisPage) {
+              this._useBonus();
+            } else {
+              // Redirect to chat to start using superlike there
+              window.location.assign('./chat.html?superlike=true');
+            }
           })
           .catch(error => {
             this.showRequestResult({

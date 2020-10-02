@@ -231,9 +231,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            ...
-          </div>
+          <div class="modal-body">...</div>
           <div class="modal-footer">
             <button
               type="button"
@@ -364,7 +362,7 @@
                       x="0px"
                       y="0px"
                       viewBox="0 0 500 500"
-                      style="enable-background: new 0 0 500 500;"
+                      style="enable-background: new 0 0 500 500"
                     >
                       <path
                         id="XMLID_28_"
@@ -476,9 +474,7 @@
                   <div
                     class="d-flex justify-content-center justify-content-sm-between align-items-center py-3 pt-sm-0"
                   >
-                    <h2 class="name text-center text-sm-left pr-3">
-                      Davidoff
-                    </h2>
+                    <h2 class="name text-center text-sm-left pr-3">Davidoff</h2>
                     <svg
                       viewBox="0 -28 512.001 512"
                       xmlns="http://www.w3.org/2000/svg"
@@ -522,6 +518,9 @@
                 <!--Actions start-->
                 <div class="col-4 col-sm-12 col-md-6 px-0 pt-md-3 text-white">
                   <div
+                    id="superlike"
+                    data-type="superlike"
+                    data-amount="1"
                     class="superlike action mr-2 py-1 d-flex flex-column flex-sm-row justify-content-sm-left justify-content-md-center pl-sm-2 pl-md-0 align-items-center mt-sm-2"
                   >
                     <img src="img/polygon.svg" alt="" />
@@ -685,9 +684,7 @@
 
           <!--Profile description-->
           <div class="col-12">
-            <h3 class="pl-2 about pt-3">
-              About me:
-            </h3>
+            <h3 class="pl-2 about pt-3">About me:</h3>
             <p class="px-2 pb-3 font-weight-lighter description">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Laudantium aperiam unde sapiente, nesciunt, voluptas perspiciatis
@@ -916,6 +913,42 @@
               headers: {},
               endpoint:
                 'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/permission',
+            },
+          },
+        });
+
+        /* Superlike */
+        /* Superlike initialization */
+        const superlike = new Superlike({
+          selectors: {
+            bonus: '#superlike',
+            amount: '.amount',
+          },
+          isUsedOnThisPage: false,
+          requests: {
+            use: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/use-superlike',
+            },
+          },
+          popups: {
+            buy: {
+              title: 'Oops!',
+              text:
+                "You don't have any superlikes available. Do you want to buy some?",
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+            },
+            use: {
+              title: 'Do you want to send a superlike?',
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+              imageUrl: 'img/superlike-animated.svg',
+              imageAlt: 'Superlike icon',
             },
           },
         });

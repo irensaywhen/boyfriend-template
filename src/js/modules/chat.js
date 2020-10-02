@@ -200,9 +200,16 @@ export default class Chat {
     }
   }
 
-  _sendMessage(messageData, bonusData = null) {
+  /**
+   *
+   * @param {Object or FormData Object} messageData - message information
+   * which will be sent to the server
+   *
+   * @param {*} bonusData - additional bonus information
+   */
+  _sendMessage(messageData, bonusData) {
     // Send message to server
-    this._sendMessageToServer(messageData)
+    this._sendMessageToServer(messageData, bonusData)
       // Maybe we can handle successful/unsuccessful response here
       .then(response => {
         if (response.success) {
@@ -246,8 +253,13 @@ export default class Chat {
    * @param {String or FormData} messageData - information to send to the server
    * about the current bonus
    */
-  _sendMessageToServer(messageData) {
+  _sendMessageToServer(messageData, bonusData = null) {
     let { method, headers, endpoint } = this.requests.send;
+
+    bonusData
+      ? endpoint.searchParams.set(bonusData.type, true)
+      : endpoint.searchParams.set('general', true);
+    console.log(endpoint);
 
     //Make a request here
     return fetch(endpoint, {
