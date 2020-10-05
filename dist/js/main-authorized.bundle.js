@@ -87069,10 +87069,6 @@
           }
         }
 
-        // Lets store everything required for the buy premium forms in templates
-        // And display these templates in modals or on a separate page
-        // With a "back" button at the top
-
         var SponsorPremium = /*#__PURE__*/ (function (_Bonus) {
           _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default()(
             SponsorPremium,
@@ -87091,11 +87087,14 @@
 
             _this = _super.call(this, options); // Save popups
 
-            _this.popups = options.popups; // Initiate animation for icon in popup
+            _this.popups = options.popups;
 
-            _this.animation = new _premiumAnimation_js__WEBPACK_IMPORTED_MODULE_7__[
-              'default'
-            ](options.animation);
+            if (_this.isUsedOnThisPage) {
+              // Initiate animation for icon in popup
+              _this.animation = new _premiumAnimation_js__WEBPACK_IMPORTED_MODULE_7__[
+                'default'
+              ](options.animation);
+            }
 
             _this._cacheElements();
 
@@ -87133,11 +87132,8 @@
                     ),
                     '_setUpEventListeners',
                     this
-                  ).call(this); // For setting up animation
+                  ).call(this);
 
-                  this.$bonus.click(function () {
-                    //this._useBonus();
-                  });
                   $(document)
                     .on('premiumModal:onBeforeOpen', function (event, modal) {
                       // Start modal preparation
@@ -87158,11 +87154,25 @@
                       var $form = data.$form,
                         response = data.response; // Handle only the case when this is the form inside sponsoring premium modal dialog
 
-                      if (!$form.closest(_this2.selectors.modal)) return;
+                      if (
+                        !$form.closest(_this2.selectors.modal) ||
+                        $form
+                          .closest(_this2.selectors.modal)
+                          .find('form')
+                          .last()[0] !== $form[0]
+                      )
+                        return;
 
                       _this2.$modal.modal('hide');
 
-                      setTimeout(_this2._useBonus, 300);
+                      if (_this2.isUsedOnThisPage) {
+                        setTimeout(_this2._useBonus, 300);
+                      } else {
+                        // Redirect to chat to start using superlike there
+                        window.location.assign(
+                          _this2.redirectToUse + '?bonus=premium'
+                        );
+                      }
                     });
                 },
               },
@@ -87351,11 +87361,7 @@
                     ),
                     '_setUpEventListeners',
                     this
-                  ).call(this); //$(window).on('load', () => {
-                  //  if (!getUrlParams('superlike')) return;
-                  //
-                  //  setTimeout(this._useBonus, 100);
-                  //});
+                  ).call(this);
 
                   $(document)
                     .on('superlikeModal:onBeforeOpen', function (event, modal) {

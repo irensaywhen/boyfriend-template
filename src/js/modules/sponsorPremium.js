@@ -1,10 +1,6 @@
 import Bonus from './bonus.js';
 import PremiumAnimation from './premiumAnimation.js';
 
-// Lets store everything required for the buy premium forms in templates
-// And display these templates in modals or on a separate page
-// With a "back" button at the top
-
 export default class SponsorPremium extends Bonus {
   constructor(options) {
     super(options);
@@ -12,8 +8,10 @@ export default class SponsorPremium extends Bonus {
     // Save popups
     this.popups = options.popups;
 
-    // Initiate animation for icon in popup
-    this.animation = new PremiumAnimation(options.animation);
+    if (this.isUsedOnThisPage) {
+      // Initiate animation for icon in popup
+      this.animation = new PremiumAnimation(options.animation);
+    }
 
     this._cacheElements();
     this._setUpEventListeners();
@@ -29,11 +27,6 @@ export default class SponsorPremium extends Bonus {
 
   _setUpEventListeners() {
     super._setUpEventListeners();
-
-    // For setting up animation
-    this.$bonus.click(() => {
-      //this._useBonus();
-    });
 
     $(document)
       .on('premiumModal:onBeforeOpen', (event, modal) => {
@@ -54,11 +47,21 @@ export default class SponsorPremium extends Bonus {
         let { $form, response } = data;
 
         // Handle only the case when this is the form inside sponsoring premium modal dialog
-        if (!$form.closest(this.selectors.modal)) return;
+        if (
+          !$form.closest(this.selectors.modal) ||
+          $form.closest(this.selectors.modal).find('form').last()[0] !==
+            $form[0]
+        )
+          return;
 
         this.$modal.modal('hide');
 
-        setTimeout(this._useBonus, 300);
+        if (this.isUsedOnThisPage) {
+          setTimeout(this._useBonus, 300);
+        } else {
+          // Redirect to chat to start using superlike there
+          window.location.assign(this.redirectToUse + '?bonus=premium');
+        }
       });
   }
 

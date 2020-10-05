@@ -28,12 +28,6 @@ export default class Superlike extends Bonus {
   _setUpEventListeners() {
     super._setUpEventListeners();
 
-    //$(window).on('load', () => {
-    //  if (!getUrlParams('superlike')) return;
-    //
-    //  setTimeout(this._useBonus, 100);
-    //});
-
     $(document)
       .on('superlikeModal:onBeforeOpen', (event, modal) => {
         // Start modal preparation
