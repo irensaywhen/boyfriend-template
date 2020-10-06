@@ -41,7 +41,10 @@ export default class Gallery extends ServerRequest {
     //Caching
     const $body = $('body');
 
-    // Adjust modal based on the clicked photo
+    /**
+     * Show modal with content based on the currently clicked photo
+     * This event handler opens gallery
+     */
     this.$gallery.click(event => {
       let target = event.target;
 
@@ -50,9 +53,12 @@ export default class Gallery extends ServerRequest {
       this._generateModal(target);
     });
 
-    // Add gallery behavior to modal
+    /**
+     * Change currently shown photo when the photo is clicked
+     * in the opened gallery
+     */
     this.$modal.click(event => {
-      // Show next photo when the photo is typed
+      // Show next photo when the photo is clicked
       let target = event.target;
 
       if (
@@ -85,6 +91,9 @@ export default class Gallery extends ServerRequest {
     // Touch support for mobile devices
     this._addTouchSupport();
 
+    /**
+     * Manipulation of the gallery using arrows
+     */
     this.$modal.on('keydown', event => {
       let key = event.key;
 
@@ -101,6 +110,22 @@ export default class Gallery extends ServerRequest {
     });
   }
 
+  /**
+   * Add support of the swipe for mobile devices
+   *
+   * When swipe is started:
+   * Get the initial swipe coordinates
+   *
+   * When swipe occurs:
+   * Save the current swipe coordinated
+   *
+   * When swipe is finished:
+   * Event handler to handle finishing the swiping of the image
+   * 1. calculate the distance of the swipe
+   * 2. Compare swipe distance and minimum distance to swipe.
+   * 3. Swipe to the right if it is not the last photo
+   * 4. Swipe to the left if it is not the first photo
+   */
   _addTouchSupport() {
     let clientXStart, clientXEnd, distance;
 
@@ -139,42 +164,11 @@ export default class Gallery extends ServerRequest {
     this._generateModal(newImage, true);
   }
 
-  _askPermission() {
-    let request = this.requests.permission;
-
-    // Add currentle selected photo id to the request
-    request.endpoint.searchParams.set('id', this.id);
-
-    this.makeRequest({
-      headers: request.headers,
-      endpoint: request.endpoint,
-      method: request.method,
-    })
-      .then(response => {
-        if (response.success) {
-          // Show popup about sucessfully sent request
-          this.showRequestResult({
-            title: response.title,
-            text: response.message,
-            icon: 'success',
-          });
-        } else {
-          // Show popup about unsucessfully sent request
-          this.showRequestResult({
-            title: response.title,
-            text: response.message,
-            icon: 'error',
-          });
-        }
-      })
-      .catch(error => {
-        // Show error popup here
-        this.showRequestResult({
-          title: error.name,
-          text: error.message,
-          icon: 'error',
-        });
-      });
+  /**
+   * Get the image with the current order
+   */
+  _getImage() {
+    return this.$gallery.find(`img[data-order="${this.order}"]`)[0];
   }
 
   _generateModal(target, animation) {
@@ -198,6 +192,44 @@ export default class Gallery extends ServerRequest {
     this.order === this.$slides.length
       ? this._hideNextArrow()
       : this._showNextArrow();
+  }
+
+  _askPermission() {
+    let request = this.requests.permission;
+
+    // Add currentle selected photo id to the request
+    request.endpoint.searchParams.set('id', this.id);
+
+    //this.makeRequest({
+    //  headers: request.headers,
+    //  endpoint: request.endpoint,
+    //  method: request.method,
+    //})
+    //  .then(response => {
+    //    if (response.success) {
+    //      // Show popup about sucessfully sent request
+    //      this.showRequestResult({
+    //        title: response.title,
+    //        text: response.message,
+    //        icon: 'success',
+    //      });
+    //    } else {
+    //      // Show popup about unsucessfully sent request
+    //      this.showRequestResult({
+    //        title: response.title,
+    //        text: response.message,
+    //        icon: 'error',
+    //      });
+    //    }
+    //  })
+    //  .catch(error => {
+    //    // Show error popup here
+    //    this.showRequestResult({
+    //      title: error.name,
+    //      text: error.message,
+    //      icon: 'error',
+    //    });
+    //  });
   }
 
   _animateModalContent(target) {
@@ -283,11 +315,6 @@ export default class Gallery extends ServerRequest {
     privacy
       ? this.$modal.addClass('private')
       : this.$modal.removeClass('private');
-  }
-
-  _getImage() {
-    // Find image
-    return this.$gallery.find(`img[data-order="${this.order}"]`)[0];
   }
 
   // Hiding and showing arrows

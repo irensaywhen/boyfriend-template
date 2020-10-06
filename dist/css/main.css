@@ -1900,7 +1900,6 @@ article .header time {
   position: absolute;
   top: 20px;
   right: 20px;
-  transition: all 0.5s ease-out;
   color: #545b62;
   position: fixed;
   text-shadow: unset;
@@ -1932,7 +1931,6 @@ article .header time {
   text-align: center;
 }
 .profile-modals .gallery-modal .photo .arrow {
-  transition: all 0.5s ease-out;
   cursor: pointer;
   position: fixed;
   z-index: 2000;
@@ -1940,7 +1938,7 @@ article .header time {
   height: 200px;
   line-height: 200px;
   vertical-align: middle;
-  opacity: 1;
+  opacity: 0;
 }
 .profile-modals .gallery-modal .photo .arrow {
   font-size: 28px;
@@ -3051,31 +3049,6 @@ article .header time {
 }
 .profile-modals .modal-button {
   max-width: 300px;
-}
-.profile-modals .superlike figure {
-  position: relative;
-}
-.profile-modals .superlike figure img {
-  max-width: 100px;
-}
-@media (min-width: 576px) {
-  .profile-modals .superlike figure img {
-    max-width: 150px;
-  }
-}
-.profile-modals .superlike figure .close {
-  position: absolute;
-  top: -20px;
-  right: 10px;
-}
-.profile-modals .superlike .amount {
-  max-width: 150px;
-}
-.profile-modals .present figure img {
-  max-width: 100px;
-}
-.profile-modals .present .amount {
-  max-width: 150px;
 }
 .thank-you {
   background: #fff;

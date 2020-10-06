@@ -26,7 +26,6 @@
     .close {
       @include modal-close(20px, 20px);
       @include fluid-type($screen-xs, $screen-xl, 28px, 36px);
-      @include ease-out;
       color: darken($bootstrap-secondary, 10);
       position: fixed;
       text-shadow: unset;
@@ -51,7 +50,6 @@
       /* Arrow for gallery manipulations */
       .arrow {
         @include fluid-type($screen-xs, $screen-xl, 28px, 36px);
-        @include ease-out;
         cursor: pointer;
         position: fixed;
         z-index: 2000;
@@ -59,7 +57,7 @@
         height: 200px;
         line-height: 200px;
         vertical-align: middle;
-        opacity: 1;
+        opacity: 0;
 
         &:hover {
           color: lighten($bootstrap-secondary, 20);

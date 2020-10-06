@@ -82796,17 +82796,25 @@
                   var _this2 = this;
 
                   //Caching
-                  var $body = $('body'); // Adjust modal based on the clicked photo
+                  var $body = $('body');
+                  /**
+                   * Show modal with content based on the currently clicked photo
+                   * This event handler opens gallery
+                   */
 
                   this.$gallery.click(function (event) {
                     var target = event.target;
                     if (target.tagName !== 'IMG') return;
 
                     _this2._generateModal(target);
-                  }); // Add gallery behavior to modal
+                  });
+                  /**
+                   * Change currently shown photo when the photo is clicked
+                   * in the opened gallery
+                   */
 
                   this.$modal.click(function (event) {
-                    // Show next photo when the photo is typed
+                    // Show next photo when the photo is clicked
                     var target = event.target;
                     if (
                       !$(target).hasClass(_this2.galleryConfig.arrowClass) &&
@@ -82838,6 +82846,9 @@
                     }); // Touch support for mobile devices
 
                   this._addTouchSupport();
+                  /**
+                   * Manipulation of the gallery using arrows
+                   */
 
                   this.$modal.on('keydown', function (event) {
                     var key = event.key;
@@ -82852,6 +82863,22 @@
                     _this2._updateGallery();
                   });
                 },
+                /**
+                 * Add support of the swipe for mobile devices
+                 *
+                 * When swipe is started:
+                 * Get the initial swipe coordinates
+                 *
+                 * When swipe occurs:
+                 * Save the current swipe coordinated
+                 *
+                 * When swipe is finished:
+                 * Event handler to handle finishing the swiping of the image
+                 * 1. calculate the distance of the swipe
+                 * 2. Compare swipe distance and minimum distance to swipe.
+                 * 3. Swipe to the right if it is not the last photo
+                 * 4. Swipe to the left if it is not the first photo
+                 */
               },
               {
                 key: '_addTouchSupport',
@@ -82891,45 +82918,16 @@
 
                   this._generateModal(newImage, true);
                 },
+                /**
+                 * Get the image with the current order
+                 */
               },
               {
-                key: '_askPermission',
-                value: function _askPermission() {
-                  var _this4 = this;
-
-                  var request = this.requests.permission; // Add currentle selected photo id to the request
-
-                  request.endpoint.searchParams.set('id', this.id);
-                  this.makeRequest({
-                    headers: request.headers,
-                    endpoint: request.endpoint,
-                    method: request.method,
-                  })
-                    .then(function (response) {
-                      if (response.success) {
-                        // Show popup about sucessfully sent request
-                        _this4.showRequestResult({
-                          title: response.title,
-                          text: response.message,
-                          icon: 'success',
-                        });
-                      } else {
-                        // Show popup about unsucessfully sent request
-                        _this4.showRequestResult({
-                          title: response.title,
-                          text: response.message,
-                          icon: 'error',
-                        });
-                      }
-                    })
-                    ['catch'](function (error) {
-                      // Show error popup here
-                      _this4.showRequestResult({
-                        title: error.name,
-                        text: error.message,
-                        icon: 'error',
-                      });
-                    });
+                key: '_getImage',
+                value: function _getImage() {
+                  return this.$gallery.find(
+                    'img[data-order="'.concat(this.order, '"]')
+                  )[0];
                 },
               },
               {
@@ -82960,9 +82958,46 @@
                 },
               },
               {
+                key: '_askPermission',
+                value: function _askPermission() {
+                  var request = this.requests.permission; // Add currentle selected photo id to the request
+
+                  request.endpoint.searchParams.set('id', this.id); //this.makeRequest({
+                  //  headers: request.headers,
+                  //  endpoint: request.endpoint,
+                  //  method: request.method,
+                  //})
+                  //  .then(response => {
+                  //    if (response.success) {
+                  //      // Show popup about sucessfully sent request
+                  //      this.showRequestResult({
+                  //        title: response.title,
+                  //        text: response.message,
+                  //        icon: 'success',
+                  //      });
+                  //    } else {
+                  //      // Show popup about unsucessfully sent request
+                  //      this.showRequestResult({
+                  //        title: response.title,
+                  //        text: response.message,
+                  //        icon: 'error',
+                  //      });
+                  //    }
+                  //  })
+                  //  .catch(error => {
+                  //    // Show error popup here
+                  //    this.showRequestResult({
+                  //      title: error.name,
+                  //      text: error.message,
+                  //      icon: 'error',
+                  //    });
+                  //  });
+                },
+              },
+              {
                 key: '_animateModalContent',
                 value: function _animateModalContent(target) {
-                  var _this5 = this;
+                  var _this4 = this;
 
                   var _this$_getPhotoInfo = this._getPhotoInfo(target),
                     description = _this$_getPhotoInfo.description,
@@ -82974,16 +83009,16 @@
                     queue: false,
                     complete: function complete() {
                       // Change src attribute of the photo
-                      _this5.$modalImage.attr('src', src); // Animate photo appearance
+                      _this4.$modalImage.attr('src', src); // Animate photo appearance
 
-                      _this5.$modalImage.fadeIn({
+                      _this4.$modalImage.fadeIn({
                         duration: 400,
                         queue: false,
                       });
 
                       if (privacy) {
                         // Animate button appearance
-                        _this5.$modalPermissionButton.fadeIn({
+                        _this4.$modalPermissionButton.fadeIn({
                           duration: 400,
                           queue: false,
                         });
@@ -82996,9 +83031,9 @@
                     queue: false,
                     complete: function complete() {
                       // Change description
-                      _this5._changeDescription(description, privacy); // Animate photo description appearance
+                      _this4._changeDescription(description, privacy); // Animate photo description appearance
 
-                      _this5.$modalDescription.fadeIn({
+                      _this4.$modalDescription.fadeIn({
                         duration: 400,
                         queue: false,
                       });
@@ -83061,15 +83096,6 @@
                   privacy
                     ? this.$modal.addClass('private')
                     : this.$modal.removeClass('private');
-                },
-              },
-              {
-                key: '_getImage',
-                value: function _getImage() {
-                  // Find image
-                  return this.$gallery.find(
-                    'img[data-order="'.concat(this.order, '"]')
-                  )[0];
                 }, // Hiding and showing arrows
               },
               {
@@ -85956,26 +85982,31 @@
             animateOnShown = _ref.animateOnShown;
           var $body = $('body'),
             $modal = $(modal),
-            $animateOnShown = $modal.find(animateOnShown).fadeOut(0);
+            //$animateOnShown = $modal.find(animateOnShown).fadeOut(0);
+            $animateOnShown = $modal.find(animateOnShown).css('opacity', '0');
+          console.log($animateOnShown);
           var shown = false;
 
           function _setUpEventListeners() {
-            // Here you can prepare modal
             // Adjust background opacity for gallery modal
             $modal.on('show.bs.modal', function () {
               $body.addClass('gallery');
             });
             $modal.on('shown.bs.modal', function () {
-              $animateOnShown.fadeIn(200, function () {
-                shown = true;
-              });
+              //$animateOnShown.fadeIn(200, () => {
+              //  shown = true;
+              //});
+              $animateOnShown.css('opacity', 1);
+              shown = true;
             });
             $modal.on('hide.bs.modal', function (event) {
               if (shown) event.preventDefault();
-              $animateOnShown.fadeOut(100, function () {
-                shown = false;
-                $modal.modal('hide');
-              });
+              console.log(shown);
+              shown = false;
+              $animateOnShown.css('opacity', 0);
+              setTimeout(function () {
+                return $modal.modal('hide');
+              }, 0);
             });
             $modal.on('hidden.bs.modal', function () {
               $body.removeClass('gallery');

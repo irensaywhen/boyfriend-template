@@ -177,41 +177,4 @@
   .modal-button {
     max-width: 300px;
   }
-
-  /* Superlike */
-  .superlike {
-    figure {
-      position: relative;
-
-      img {
-        max-width: 100px;
-      }
-
-      @include screen-sm {
-        img {
-          max-width: 150px;
-        }
-      }
-
-      .close {
-        @include modal-close(-20px, 10px);
-      }
-    }
-
-    .amount {
-      max-width: 150px;
-    }
-  }
-
-  /* Present */
-  .present {
-    figure {
-      img {
-        max-width: 100px;
-      }
-    }
-    .amount {
-      max-width: 150px;
-    }
-  }
 }
