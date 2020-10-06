@@ -1,6 +1,7 @@
 import Handlebars from 'handlebars';
 import HttpError from './httpError.js';
 import prepareTemplates from './prepareTemplates.js';
+import getAllUrlParams from './getAllUrlParams.js';
 
 export default class Chat {
   constructor(options) {
@@ -67,6 +68,31 @@ export default class Chat {
     let classNames = this.classNames,
       $document = $(document);
 
+    /**
+     * 1. Get query params
+     * 2. If there is no params, or if there is no need to send message, return
+     * 3. Get permission identifier from localStorage
+     * 4. If it is doesn't match with the passed with query params, return
+     * 5. Send asking permission message
+     */
+    $(window).on('load', () => {
+      // Get search params here
+      // And if we need to send message right after the chat is being opened, do it
+      let params = getAllUrlParams();
+      if (!params || !('sendMessage' in params)) return;
+
+      let type = params.type;
+
+      const permissionIdentifier = localStorage.getItem(type);
+
+      localStorage.removeItem(type);
+
+      if (params.identifier !== permissionIdentifier) return;
+
+      console.log(params);
+      $document.trigger('chat:sendMessageOnLoad', params);
+    });
+
     // View sending button if message input is not empty
     this.$chat.on('input', event => {
       let $target = $(event.target);
@@ -110,13 +136,17 @@ export default class Chat {
 
     // Send bonus message to the server
     $document
-      .on('present:send', (event, bonusData = null, formData = null) => {
-        // Prepare information to send it to the server
-        let messageData = this._prepareMessage(bonusData, formData);
-        // Send message data to the server
-
-        this._sendMessage(messageData, bonusData);
-      })
+      .on(
+        'present:send chat:sendMessageOnLoad',
+        (event, rawMessageData = null, formData = null) => {
+          // Prepare information to send it to the server
+          let messageData = this._prepareMessage(rawMessageData, formData);
+          // Send message data to the server
+          console.log('Message data to send:');
+          console.log(messageData);
+          this._sendMessage(messageData, rawMessageData);
+        }
+      )
       .on('lazyLoading:messagesReady', (event, ...messages) => {
         /**
          * 1. Display messages
@@ -173,9 +203,10 @@ export default class Chat {
    * @param {Object} bonusData - information about the bonus - ex. type
    * @param {FormData object} formData - photo information to send it to the server
    */
-  _prepareMessage(bonusData, formData) {
+  _prepareMessage(rawMessageData, formData) {
     // Get the bonus type
-    let type = bonusData.type;
+    let type = rawMessageData.type;
+    console.log(type);
 
     switch (type) {
       case 'general':
@@ -183,15 +214,19 @@ export default class Chat {
         let messageText = this._getMessageText();
 
         return JSON.stringify({
-          type: type,
+          type,
           mine: true,
           text: messageText,
         });
-
+      case 'permission':
+        return {
+          type,
+          mine: true,
+        };
       case 'superlike':
       case 'premium':
         return JSON.stringify({
-          type: type,
+          type,
           mine: true,
         });
 
@@ -207,7 +242,7 @@ export default class Chat {
    *
    * @param {*} bonusData - additional bonus information
    */
-  _sendMessage(messageData, bonusData) {
+  _sendMessage(messageData, bonusData = null) {
     // Send message to server
     this._sendMessageToServer(messageData, bonusData)
       // Maybe we can handle successful/unsuccessful response here
@@ -264,6 +299,9 @@ export default class Chat {
     bonusData
       ? endpoint.searchParams.set(bonusData.type, true)
       : endpoint.searchParams.set('general', true);
+
+    console.log('Bonus data in sending message to server:');
+    console.log(bonusData);
 
     //Make a request here
     return fetch(endpoint, {

@@ -1,14 +1,12 @@
-import ServerRequest from './requests.js';
-import HttpError from './httpError.js';
 import preparePhotoModal from './preparePhotoModal.js';
+import ServerRequest from './requests.js';
 
 export default class Gallery extends ServerRequest {
   constructor(options) {
     super(options);
 
-    // Bind context
-
-    this.galleryConfig = options['galleryManipulation'];
+    this.galleryConfig = options.galleryManipulation;
+    this.redirectForPermission = options.redirectForPermission;
 
     this._cacheElements();
     this._setUpEventListeners();
@@ -194,42 +192,34 @@ export default class Gallery extends ServerRequest {
       : this._showNextArrow();
   }
 
+  /**
+   * 1. Save request information
+   * 2. Make request to get unique identifier
+   * 3. Save it to local storage and pass to the chat via search params
+   * 4. In case of errors, show error popup
+   */
   _askPermission() {
-    let request = this.requests.permission;
+    let { method, headers, endpoint } = this.requests.permission;
 
-    // Add currentle selected photo id to the request
-    request.endpoint.searchParams.set('id', this.id);
+    this.makeRequest({ method, headers, endpoint })
+      .then(response => {
+        let { success, identifier } = response;
 
-    //this.makeRequest({
-    //  headers: request.headers,
-    //  endpoint: request.endpoint,
-    //  method: request.method,
-    //})
-    //  .then(response => {
-    //    if (response.success) {
-    //      // Show popup about sucessfully sent request
-    //      this.showRequestResult({
-    //        title: response.title,
-    //        text: response.message,
-    //        icon: 'success',
-    //      });
-    //    } else {
-    //      // Show popup about unsucessfully sent request
-    //      this.showRequestResult({
-    //        title: response.title,
-    //        text: response.message,
-    //        icon: 'error',
-    //      });
-    //    }
-    //  })
-    //  .catch(error => {
-    //    // Show error popup here
-    //    this.showRequestResult({
-    //      title: error.name,
-    //      text: error.message,
-    //      icon: 'error',
-    //    });
-    //  });
+        if (!success) throw new Error('Somehting went wrong');
+
+        localStorage.setItem('permission', identifier);
+
+        window.location.assign(
+          `${this.redirectForPermission}?sendMessage=true&type=permission&identifier=${identifier}`
+        );
+      })
+      .catch(error => {
+        this.showRequestResult({
+          title: error.name,
+          text: error.message,
+          icon: 'error',
+        });
+      });
   }
 
   _animateModalContent(target) {

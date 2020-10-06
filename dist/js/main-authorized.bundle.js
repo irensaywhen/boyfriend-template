@@ -80619,6 +80619,9 @@
         /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
         );
+        /* harmony import */ var _getAllUrlParams_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! ./getAllUrlParams.js */ './js/modules/getAllUrlParams.js'
+        );
 
         var Chat = /*#__PURE__*/ (function () {
           function Chat(options) {
@@ -80695,7 +80698,31 @@
 
                   // Cache
                   var classNames = this.classNames,
-                    $document = $(document); // View sending button if message input is not empty
+                    $document = $(document);
+                  /**
+                   * 1. Get query params
+                   * 2. If there is no params, or if there is no need to send message, return
+                   * 3. Get permission identifier from localStorage
+                   * 4. If it is doesn't match with the passed with query params, return
+                   * 5. Send asking permission message
+                   */
+
+                  $(window).on('load', function () {
+                    // Get search params here
+                    // And if we need to send message right after the chat is being opened, do it
+                    var params = Object(
+                      _getAllUrlParams_js__WEBPACK_IMPORTED_MODULE_5__[
+                        'default'
+                      ]
+                    )();
+                    if (!params || !('sendMessage' in params)) return;
+                    var type = params.type;
+                    var permissionIdentifier = localStorage.getItem(type);
+                    localStorage.removeItem(type);
+                    if (params.identifier !== permissionIdentifier) return;
+                    console.log(params);
+                    $document.trigger('chat:sendMessageOnLoad', params);
+                  }); // View sending button if message input is not empty
 
                   this.$chat.on('input', function (event) {
                     var $target = $(event.target);
@@ -80732,8 +80759,10 @@
                   }); // Send bonus message to the server
 
                   $document
-                    .on('present:send', function (event) {
-                      var bonusData =
+                    .on('present:send chat:sendMessageOnLoad', function (
+                      event
+                    ) {
+                      var rawMessageData =
                         arguments.length > 1 && arguments[1] !== undefined
                           ? arguments[1]
                           : null;
@@ -80744,11 +80773,14 @@
 
                       // Prepare information to send it to the server
                       var messageData = _this._prepareMessage(
-                        bonusData,
+                        rawMessageData,
                         formData
                       ); // Send message data to the server
 
-                      _this._sendMessage(messageData, bonusData);
+                      console.log('Message data to send:');
+                      console.log(messageData);
+
+                      _this._sendMessage(messageData, rawMessageData);
                     })
                     .on('lazyLoading:messagesReady', function (event) {
                       for (
@@ -80824,9 +80856,10 @@
               },
               {
                 key: '_prepareMessage',
-                value: function _prepareMessage(bonusData, formData) {
+                value: function _prepareMessage(rawMessageData, formData) {
                   // Get the bonus type
-                  var type = bonusData.type;
+                  var type = rawMessageData.type;
+                  console.log(type);
 
                   switch (type) {
                     case 'general':
@@ -80838,6 +80871,12 @@
                         mine: true,
                         text: messageText,
                       });
+
+                    case 'permission':
+                      return {
+                        type: type,
+                        mine: true,
+                      };
 
                     case 'superlike':
                     case 'premium':
@@ -80860,8 +80899,13 @@
               },
               {
                 key: '_sendMessage',
-                value: function _sendMessage(messageData, bonusData) {
+                value: function _sendMessage(messageData) {
                   var _this2 = this;
+
+                  var bonusData =
+                    arguments.length > 1 && arguments[1] !== undefined
+                      ? arguments[1]
+                      : null;
 
                   // Send message to server
                   this._sendMessageToServer(messageData, bonusData) // Maybe we can handle successful/unsuccessful response here
@@ -80925,7 +80969,9 @@
                     endpoint = _this$requests$send.endpoint;
                   bonusData
                     ? endpoint.searchParams.set(bonusData.type, true)
-                    : endpoint.searchParams.set('general', true); //Make a request here
+                    : endpoint.searchParams.set('general', true);
+                  console.log('Bonus data in sending message to server:');
+                  console.log(bonusData); //Make a request here
 
                   return fetch(endpoint, {
                     method: method,
@@ -82681,14 +82727,11 @@
         /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-          /*! ./requests.js */ './js/modules/requests.js'
-        );
-        /* harmony import */ var _httpError_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-          /*! ./httpError.js */ './js/modules/httpError.js'
-        );
-        /* harmony import */ var _preparePhotoModal_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _preparePhotoModal_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! ./preparePhotoModal.js */ './js/modules/preparePhotoModal.js'
+        );
+        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+          /*! ./requests.js */ './js/modules/requests.js'
         );
 
         function _createSuper(Derived) {
@@ -82744,9 +82787,9 @@
               Gallery
             );
 
-            _this = _super.call(this, options); // Bind context
-
-            _this.galleryConfig = options['galleryManipulation'];
+            _this = _super.call(this, options);
+            _this.galleryConfig = options.galleryManipulation;
+            _this.redirectForPermission = options.redirectForPermission;
 
             _this._cacheElements();
 
@@ -82781,7 +82824,7 @@
                   this.$modalNextArrow = this.$modal.find(selectors.nextArrow); // Initialize modal preparation
 
                   Object(
-                    _preparePhotoModal_js__WEBPACK_IMPORTED_MODULE_7__[
+                    _preparePhotoModal_js__WEBPACK_IMPORTED_MODULE_5__[
                       'default'
                     ]
                   )({
@@ -82956,48 +82999,54 @@
                     ? this._hideNextArrow()
                     : this._showNextArrow();
                 },
+                /**
+                 * 1. Save request information
+                 * 2. Make request to get unique identifier
+                 * 3. Save it to local storage and pass to the chat via search params
+                 * 4. In case of errors, show error popup
+                 */
               },
               {
                 key: '_askPermission',
                 value: function _askPermission() {
-                  var request = this.requests.permission; // Add currentle selected photo id to the request
+                  var _this4 = this;
 
-                  request.endpoint.searchParams.set('id', this.id); //this.makeRequest({
-                  //  headers: request.headers,
-                  //  endpoint: request.endpoint,
-                  //  method: request.method,
-                  //})
-                  //  .then(response => {
-                  //    if (response.success) {
-                  //      // Show popup about sucessfully sent request
-                  //      this.showRequestResult({
-                  //        title: response.title,
-                  //        text: response.message,
-                  //        icon: 'success',
-                  //      });
-                  //    } else {
-                  //      // Show popup about unsucessfully sent request
-                  //      this.showRequestResult({
-                  //        title: response.title,
-                  //        text: response.message,
-                  //        icon: 'error',
-                  //      });
-                  //    }
-                  //  })
-                  //  .catch(error => {
-                  //    // Show error popup here
-                  //    this.showRequestResult({
-                  //      title: error.name,
-                  //      text: error.message,
-                  //      icon: 'error',
-                  //    });
-                  //  });
+                  var _this$requests$permis = this.requests.permission,
+                    method = _this$requests$permis.method,
+                    headers = _this$requests$permis.headers,
+                    endpoint = _this$requests$permis.endpoint;
+                  this.makeRequest({
+                    method: method,
+                    headers: headers,
+                    endpoint: endpoint,
+                  })
+                    .then(function (response) {
+                      var success = response.success,
+                        identifier = response.identifier;
+                      if (!success) throw new Error('Somehting went wrong');
+                      localStorage.setItem('permission', identifier);
+                      window.location.assign(
+                        ''
+                          .concat(
+                            _this4.redirectForPermission,
+                            '?sendMessage=true&type=permission&identifier='
+                          )
+                          .concat(identifier)
+                      );
+                    })
+                    ['catch'](function (error) {
+                      _this4.showRequestResult({
+                        title: error.name,
+                        text: error.message,
+                        icon: 'error',
+                      });
+                    });
                 },
               },
               {
                 key: '_animateModalContent',
                 value: function _animateModalContent(target) {
-                  var _this4 = this;
+                  var _this5 = this;
 
                   var _this$_getPhotoInfo = this._getPhotoInfo(target),
                     description = _this$_getPhotoInfo.description,
@@ -83009,16 +83058,16 @@
                     queue: false,
                     complete: function complete() {
                       // Change src attribute of the photo
-                      _this4.$modalImage.attr('src', src); // Animate photo appearance
+                      _this5.$modalImage.attr('src', src); // Animate photo appearance
 
-                      _this4.$modalImage.fadeIn({
+                      _this5.$modalImage.fadeIn({
                         duration: 400,
                         queue: false,
                       });
 
                       if (privacy) {
                         // Animate button appearance
-                        _this4.$modalPermissionButton.fadeIn({
+                        _this5.$modalPermissionButton.fadeIn({
                           duration: 400,
                           queue: false,
                         });
@@ -83031,9 +83080,9 @@
                     queue: false,
                     complete: function complete() {
                       // Change description
-                      _this4._changeDescription(description, privacy); // Animate photo description appearance
+                      _this5._changeDescription(description, privacy); // Animate photo description appearance
 
-                      _this4.$modalDescription.fadeIn({
+                      _this5.$modalDescription.fadeIn({
                         duration: 400,
                         queue: false,
                       });
@@ -83132,7 +83181,53 @@
           );
 
           return Gallery;
-        })(_requests_js__WEBPACK_IMPORTED_MODULE_5__['default']);
+        })(_requests_js__WEBPACK_IMPORTED_MODULE_6__['default']);
+
+        /***/
+      },
+
+    /***/ './js/modules/getAllUrlParams.js':
+      /*!***************************************!*\
+  !*** ./js/modules/getAllUrlParams.js ***!
+  \***************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return getAllUrlParams;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/slicedToArray */ '../node_modules/@babel/runtime/helpers/slicedToArray.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _getUrlParams_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! ./getUrlParams.js */ './js/modules/getUrlParams.js'
+        );
+
+        function getAllUrlParams() {
+          var queries = window.location.search.substring(1).split('&');
+          if (queries[0].length === 0) return false;
+          var params = {};
+          queries.forEach(function (item) {
+            var _item$split = item.split('='),
+              _item$split2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(
+                _item$split,
+                2
+              ),
+              key = _item$split2[0],
+              value = _item$split2[1];
+
+            params[key] = value;
+          });
+          return params;
+        }
 
         /***/
       },
@@ -85984,7 +86079,6 @@
             $modal = $(modal),
             //$animateOnShown = $modal.find(animateOnShown).fadeOut(0);
             $animateOnShown = $modal.find(animateOnShown).css('opacity', '0');
-          console.log($animateOnShown);
           var shown = false;
 
           function _setUpEventListeners() {
@@ -85993,15 +86087,11 @@
               $body.addClass('gallery');
             });
             $modal.on('shown.bs.modal', function () {
-              //$animateOnShown.fadeIn(200, () => {
-              //  shown = true;
-              //});
               $animateOnShown.css('opacity', 1);
               shown = true;
             });
             $modal.on('hide.bs.modal', function (event) {
               if (shown) event.preventDefault();
-              console.log(shown);
               shown = false;
               $animateOnShown.css('opacity', 0);
               setTimeout(function () {
@@ -86193,6 +86283,7 @@
                   $(this).trigger('beforeRequest');
 
                   if (method === 'GET') {
+                    console.log('Making get request');
                     return fetch(endpoint, {
                       headers: headers,
                     })
@@ -86200,7 +86291,8 @@
                         if (response.ok) {
                           return response.json();
                         } else {
-                          // Unsuccessful Popup
+                          console.log(response); // Unsuccessful Popup
+
                           _this2.showRequestResult({
                             title: response.status,
                             text: response.statusText,

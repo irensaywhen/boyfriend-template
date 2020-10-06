@@ -53,6 +53,7 @@ export default class ServerRequest {
   makeRequest({ headers, endpoint, method, body }) {
     $(this).trigger('beforeRequest');
     if (method === 'GET') {
+      console.log('Making get request');
       return fetch(endpoint, {
         headers,
       })
@@ -60,6 +61,7 @@ export default class ServerRequest {
           if (response.ok) {
             return response.json();
           } else {
+            console.log(response);
             // Unsuccessful Popup
             this.showRequestResult({
               title: response.status,

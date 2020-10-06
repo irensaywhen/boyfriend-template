@@ -22484,6 +22484,7 @@
                   $(this).trigger('beforeRequest');
 
                   if (method === 'GET') {
+                    console.log('Making get request');
                     return fetch(endpoint, {
                       headers: headers,
                     })
@@ -22491,7 +22492,8 @@
                         if (response.ok) {
                           return response.json();
                         } else {
-                          // Unsuccessful Popup
+                          console.log(response); // Unsuccessful Popup
+
                           _this2.showRequestResult({
                             title: response.status,
                             text: response.statusText,
