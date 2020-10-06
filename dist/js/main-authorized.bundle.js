@@ -80622,6 +80622,9 @@
         /* harmony import */ var _getAllUrlParams_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! ./getAllUrlParams.js */ './js/modules/getAllUrlParams.js'
         );
+        /* harmony import */ var _permissionMixin_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+          /*! ./permissionMixin.js */ './js/modules/permissionMixin.js'
+        );
 
         var Chat = /*#__PURE__*/ (function () {
           function Chat(options) {
@@ -80661,6 +80664,13 @@
             this.$chatContent.scrollTop(this.$messagesContainer.outerHeight()); // Indicator signaling that the initial scroll was performed
 
             this.initialScroll = true;
+            Object.assign(
+              Chat.prototype,
+              _permissionMixin_js__WEBPACK_IMPORTED_MODULE_6__['default']
+            );
+            this.initializePhotoPermissionHandling(
+              options.photoPermissionConfig
+            );
           }
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
@@ -80720,7 +80730,6 @@
                     var permissionIdentifier = localStorage.getItem(type);
                     localStorage.removeItem(type);
                     if (params.identifier !== permissionIdentifier) return;
-                    console.log(params);
                     $document.trigger('chat:sendMessageOnLoad', params);
                   }); // View sending button if message input is not empty
 
@@ -80759,29 +80768,27 @@
                   }); // Send bonus message to the server
 
                   $document
-                    .on('present:send chat:sendMessageOnLoad', function (
-                      event
-                    ) {
-                      var rawMessageData =
-                        arguments.length > 1 && arguments[1] !== undefined
-                          ? arguments[1]
-                          : null;
-                      var formData =
-                        arguments.length > 2 && arguments[2] !== undefined
-                          ? arguments[2]
-                          : null;
+                    .on(
+                      'present:send chat:sendMessageOnLoad permission:actionChosen',
+                      function (event) {
+                        var rawMessageData =
+                          arguments.length > 1 && arguments[1] !== undefined
+                            ? arguments[1]
+                            : null;
+                        var formData =
+                          arguments.length > 2 && arguments[2] !== undefined
+                            ? arguments[2]
+                            : null;
 
-                      // Prepare information to send it to the server
-                      var messageData = _this._prepareMessage(
-                        rawMessageData,
-                        formData
-                      ); // Send message data to the server
+                        // Prepare information to send it to the server
+                        var messageData = _this._prepareMessage(
+                          rawMessageData,
+                          formData
+                        ); // Send message data to the server
 
-                      console.log('Message data to send:');
-                      console.log(messageData);
-
-                      _this._sendMessage(messageData, rawMessageData);
-                    })
+                        _this._sendMessage(messageData, rawMessageData);
+                      }
+                    )
                     .on('lazyLoading:messagesReady', function (event) {
                       for (
                         var _len = arguments.length,
@@ -80859,7 +80866,7 @@
                 value: function _prepareMessage(rawMessageData, formData) {
                   // Get the bonus type
                   var type = rawMessageData.type;
-                  console.log(type);
+                  console.log(rawMessageData);
 
                   switch (type) {
                     case 'general':
@@ -80872,10 +80879,18 @@
                         text: messageText,
                       });
 
-                    case 'permission':
+                    case 'permissionRequest':
                       return {
                         type: type,
                         mine: true,
+                        id: rawMessageData.id,
+                      };
+
+                    case 'permissionResponse':
+                      return {
+                        type: type,
+                        mine: true,
+                        action: rawMessageData.action,
                       };
 
                     case 'superlike':
@@ -80970,8 +80985,10 @@
                   bonusData
                     ? endpoint.searchParams.set(bonusData.type, true)
                     : endpoint.searchParams.set('general', true);
-                  console.log('Bonus data in sending message to server:');
-                  console.log(bonusData); //Make a request here
+
+                  if (bonusData.type === 'permissionResponse') {
+                    endpoint.searchParams.set('action', bonusData.action);
+                  } //Make a request here
 
                   return fetch(endpoint, {
                     method: method,
@@ -82795,6 +82812,8 @@
 
             _this._setUpEventListeners();
 
+            _this.initializeLoadingIndicators(_this.$modalPermissionForm);
+
             return _this;
           }
 
@@ -82816,8 +82835,12 @@
                   this.$modalImage = this.$modal.find(selectors.modalImage);
                   this.$modalDescription = this.$modal.find(
                     selectors.modalDescription
+                  ); // Form wrapping permission button
+
+                  this.$modalPermissionForm = this.$modal.find(
+                    selectors.modalPermissionForm
                   );
-                  this.$modalPermissionButton = this.$modal
+                  this.$modalPermissionButton = this.$modalPermissionForm
                     .find(selectors.modalPermissionButton)
                     .fadeOut(0);
                   this.$modalPrevArrow = this.$modal.find(selectors.prevArrow);
@@ -82878,15 +82901,12 @@
                     }
 
                     _this2._updateGallery();
-                  }); // Send permission request to the server
+                  });
+                  this.$modalPermissionForm.submit(function (event) {
+                    event.preventDefault();
 
-                  this.$modalPermissionButton
-                    .find('button')
-                    .click(function (event) {
-                      event.preventDefault();
-
-                      _this2._askPermission();
-                    }); // Touch support for mobile devices
+                    _this2._askPermission();
+                  }); // Touch support for mobile devices
 
                   this._addTouchSupport();
                   /**
@@ -83024,12 +83044,12 @@
                       var success = response.success,
                         identifier = response.identifier;
                       if (!success) throw new Error('Somehting went wrong');
-                      localStorage.setItem('permission', identifier);
+                      localStorage.setItem('permissionRequest', identifier);
                       window.location.assign(
                         ''
                           .concat(
                             _this4.redirectForPermission,
-                            '?sendMessage=true&type=permission&identifier='
+                            '?sendMessage=true&type=permissionRequest&identifier='
                           )
                           .concat(identifier)
                       );
@@ -84777,6 +84797,61 @@
               : true;
           },
         };
+
+        /***/
+      },
+
+    /***/ './js/modules/permissionMixin.js':
+      /*!***************************************!*\
+  !*** ./js/modules/permissionMixin.js ***!
+  \***************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony default export */ __webpack_exports__['default'] = {
+          initializePhotoPermissionHandling: function initializePhotoPermissionHandling(
+            config
+          ) {
+            // Bind context
+            _getPhotoId = _getPhotoId.bind(this); // Cache
+
+            selectors = config.selectors;
+            classes = config.classes;
+            var $document = $(document);
+            this.$chat.click(function (event) {
+              var $target = $(event.target);
+              if (!$target.hasClass(classes.permissionButton)) return;
+
+              var id = _getPhotoId($target);
+
+              if ($target.hasClass(classes.allow)) {
+                // If 'allow' button is clicked
+                console.log('Allowed button clicked');
+                $document.trigger('permission:actionChosen', {
+                  type: 'permissionResponse',
+                  action: 'allow',
+                  id: id,
+                });
+              } else if ($target.hasClass(classes.deny)) {
+                // If 'deny' button is clicked
+                console.log('Deny button clicked');
+                $document.trigger('permission:actionChosen', {
+                  type: 'permissionResponse',
+                  action: 'deny',
+                  id: id,
+                });
+              }
+
+              $target.closest(selectors.buttonsWrapper).remove();
+            });
+          },
+        };
+        var selectors, classes;
+
+        function _getPhotoId($target) {
+          return $target.closest(selectors.photoWrapper).find('img').data('id');
+        }
 
         /***/
       },
@@ -86548,7 +86623,10 @@
 
             $form.submit(function () {
               // Don't show loading indicator if the form isn't valid
-              if (jQuery.validator && !_this.$form.valid()) return;
+              if (jQuery.validator) {
+                if (!$form.valid()) return;
+              }
+
               var spinner = template.content.cloneNode(true),
                 loading = _this.loading,
                 $submitButton = _this.$submitButton; // Preserve width and get rid of the previous content

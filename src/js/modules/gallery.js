@@ -10,6 +10,8 @@ export default class Gallery extends ServerRequest {
 
     this._cacheElements();
     this._setUpEventListeners();
+
+    this.initializeLoadingIndicators(this.$modalPermissionForm);
   }
 
   _cacheElements() {
@@ -25,7 +27,9 @@ export default class Gallery extends ServerRequest {
     this.$modal = $(modal);
     this.$modalImage = this.$modal.find(selectors.modalImage);
     this.$modalDescription = this.$modal.find(selectors.modalDescription);
-    this.$modalPermissionButton = this.$modal
+    // Form wrapping permission button
+    this.$modalPermissionForm = this.$modal.find(selectors.modalPermissionForm);
+    this.$modalPermissionButton = this.$modalPermissionForm
       .find(selectors.modalPermissionButton)
       .fadeOut(0);
     this.$modalPrevArrow = this.$modal.find(selectors.prevArrow);
@@ -79,10 +83,8 @@ export default class Gallery extends ServerRequest {
       this._updateGallery();
     });
 
-    // Send permission request to the server
-    this.$modalPermissionButton.find('button').click(event => {
+    this.$modalPermissionForm.submit(event => {
       event.preventDefault();
-
       this._askPermission();
     });
 
@@ -207,10 +209,10 @@ export default class Gallery extends ServerRequest {
 
         if (!success) throw new Error('Somehting went wrong');
 
-        localStorage.setItem('permission', identifier);
+        localStorage.setItem('permissionRequest', identifier);
 
         window.location.assign(
-          `${this.redirectForPermission}?sendMessage=true&type=permission&identifier=${identifier}`
+          `${this.redirectForPermission}?sendMessage=true&type=permissionRequest&identifier=${identifier}`
         );
       })
       .catch(error => {

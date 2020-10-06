@@ -2,6 +2,7 @@ import Handlebars from 'handlebars';
 import HttpError from './httpError.js';
 import prepareTemplates from './prepareTemplates.js';
 import getAllUrlParams from './getAllUrlParams.js';
+import permissionMixin from './permissionMixin.js';
 
 export default class Chat {
   constructor(options) {
@@ -40,6 +41,9 @@ export default class Chat {
 
     // Indicator signaling that the initial scroll was performed
     this.initialScroll = true;
+
+    Object.assign(Chat.prototype, permissionMixin);
+    this.initializePhotoPermissionHandling(options.photoPermissionConfig);
   }
 
   _cacheElements() {
@@ -89,7 +93,6 @@ export default class Chat {
 
       if (params.identifier !== permissionIdentifier) return;
 
-      console.log(params);
       $document.trigger('chat:sendMessageOnLoad', params);
     });
 
@@ -137,13 +140,12 @@ export default class Chat {
     // Send bonus message to the server
     $document
       .on(
-        'present:send chat:sendMessageOnLoad',
+        'present:send chat:sendMessageOnLoad permission:actionChosen',
         (event, rawMessageData = null, formData = null) => {
           // Prepare information to send it to the server
           let messageData = this._prepareMessage(rawMessageData, formData);
+
           // Send message data to the server
-          console.log('Message data to send:');
-          console.log(messageData);
           this._sendMessage(messageData, rawMessageData);
         }
       )
@@ -206,7 +208,6 @@ export default class Chat {
   _prepareMessage(rawMessageData, formData) {
     // Get the bonus type
     let type = rawMessageData.type;
-    console.log(type);
 
     switch (type) {
       case 'general':
@@ -218,10 +219,17 @@ export default class Chat {
           mine: true,
           text: messageText,
         });
-      case 'permission':
+      case 'permissionRequest':
         return {
           type,
           mine: true,
+          id: rawMessageData.id,
+        };
+      case 'permissionResponse':
+        return {
+          type,
+          mine: true,
+          action: rawMessageData.action,
         };
       case 'superlike':
       case 'premium':
@@ -300,8 +308,9 @@ export default class Chat {
       ? endpoint.searchParams.set(bonusData.type, true)
       : endpoint.searchParams.set('general', true);
 
-    console.log('Bonus data in sending message to server:');
-    console.log(bonusData);
+    if (bonusData.type === 'permissionResponse') {
+      endpoint.searchParams.set('action', bonusData.action);
+    }
 
     //Make a request here
     return fetch(endpoint, {

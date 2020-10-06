@@ -1614,20 +1614,27 @@
                   You've just been asked about permission to show your private
                   photo
                 </p>
-                <figure class="photo">
+                <figure class="photo ask-permission-photo">
                   <img
                     src="img/photo1.jpg"
                     class="enlarge"
+                    data-id="123"
                     data-description="My private photo"
                     alt="Photo 1"
                   />
                   <figcaption
-                    class="pt-2 d-inline-flex justify-content-center flex-wrap"
+                    class="pt-2 d-inline-flex justify-content-center flex-wrap action-buttons-wrapper"
                   >
-                    <button type="button" class="btn btn-success mr-2">
+                    <button
+                      type="button"
+                      class="btn btn-success mr-2 allow permission"
+                    >
                       Allow
                     </button>
-                    <button type="button" class="btn btn-outline-primary">
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary deny permission"
+                    >
                       Deny
                     </button>
                   </figcaption>
@@ -1639,6 +1646,48 @@
                 </span>
               </div>
               <!--Other user sent a request message end-->
+
+              <!--I allowed to see private photo message start-->
+              <div
+                class="message message-special mine position-relative px-3 py-2 mt-5 shadow"
+              >
+                <figure
+                  class="icon d-flex align-items-center justify-content-center"
+                >
+                  <img src="img/crop.svg" alt="photo icon" />
+                </figure>
+                <p class="text mb-0">
+                  You allowed Lukasz to see your private photo!
+                </p>
+                <span
+                  class="meta d-flex w-100 align-items-center justify-content-end"
+                >
+                  <i class="fas fa-check-circle"></i>
+                  <time>13:55</time>
+                </span>
+              </div>
+              <!--I allowed to see private photo message end-->
+
+              <!--I didn't allow to see private photo message start-->
+              <div
+                class="message message-special mine position-relative px-3 py-2 mt-5 shadow"
+              >
+                <figure
+                  class="icon d-flex align-items-center justify-content-center"
+                >
+                  <img src="img/lock-icon.svg" alt="photo icon" />
+                </figure>
+                <p class="text mb-0">
+                  You didn't give Lukasz acess to your private photo!
+                </p>
+                <span
+                  class="meta d-flex w-100 align-items-center justify-content-end"
+                >
+                  <i class="fas fa-check-circle"></i>
+                  <time>13:55</time>
+                </span>
+              </div>
+              <!--I didn't allow to see private photo message end-->
 
               <!--Other user gave you acceess to photo message start-->
               <div
@@ -1782,25 +1831,33 @@
       <figure
         class="icon d-flex align-items-center justify-content-center"
       >
-        {{! Superlike icon}}
-        {{#if superlike}}
+
+        {{#if permissionRequest}}
+
+          {{! Permission request icon}}
+          {{#if mine}}
+        <img src="img/lock-icon.svg" alt="photo" />
+          {{else}}
+        <img src="img/crop.svg" alt="photo" />
+          {{/if}}
+
+        {{else if permissionResponse}}
+
+          {{! Permission response icon}}
+          {{#if allowed}}
+          <img src="img/crop.svg" alt="photo" />
+          {{else if denied}}
+          <img src="img/lock-icon.svg" alt="photo" />
+          {{/if}}
+
+        {{else if superlike}}
         <img src="img/superlike.svg" alt="superlike" />
-        {{/if}}
-
-        {{! Photo icon}}
-        {{#if photo}}
+        {{else if photocard}}
         <img src="img/photo.svg" alt="photo" />
-        {{/if}}
-
-        {{! Premium icon}}
-        {{#if premium}}
+        {{else if premium}}
         <img src="img/premium.svg" alt="photo" />
         {{/if}}
 
-        {{! Permission icon}}
-        {{#if permission}}
-        <img src="img/lock-icon.svg" alt="photo" />
-        {{/if}}
       </figure>
       {{! Message icon end}}
 
@@ -1813,24 +1870,29 @@
       {{#if photo}}
       <figure class="photo">
         <img src="{{src}}" class="enlarge" data-description="{{description}}" alt="Photo 1" />
-        {{#if photocard}}
         <figcaption class="pt-2 pl-2">
           {{description}}
         </figcaption>
-        {{/if}}
-
-        {{#if permission}}
+      {{else if permission}}
+      <figure class="photo ask-permission-photo">
+        <img src="{{src}}" class="enlarge" data-description="{{description}}" alt="Photo 1" />
         <figcaption
-          class="pt-2 d-inline-flex justify-content-center flex-wrap"
+          class="pt-2 d-inline-flex justify-content-center flex-wrap action-buttons-wrapper"
         >
-          <button type="button" class="btn btn-success mr-2">
-            Allow
-          </button>
-          <button type="button" class="btn btn-outline-primary">
-            Deny
-          </button>
+        <button
+        type="button"
+        class="btn btn-success mr-2 allow permission"
+      >
+        Allow
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-primary deny permission"
+      >
+        Deny
+      </button>
         </figcaption>
-        {{/if}}
+
       </figure>
       {{/if}}
 
@@ -2080,6 +2142,17 @@
 
       const chat = new Chat({
         debug: true,
+        photoPermissionConfig: {
+          classes: {
+            allow: 'allow',
+            deny: 'deny',
+            permissionButton: 'permission',
+          },
+          selectors: {
+            photoWrapper: '.ask-permission-photo',
+            buttonsWrapper: '.action-buttons-wrapper',
+          },
+        },
         selectors: {
           enlargePhoto: '.enlarge',
           chat: '#chat',

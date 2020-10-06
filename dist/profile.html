@@ -140,11 +140,15 @@
                 ></p>
 
                 <!--Request button-->
-                <div class="text-center w-100" id="btn-permission">
-                  <button type="button" class="mb-4 btn btn-default">
+                <form class="text-center w-100" id="permission-form">
+                  <button
+                    type="submit"
+                    class="mb-4 btn btn-default"
+                    id="btn-permission"
+                  >
                     Ask permission to gain access
                   </button>
-                </div>
+                </form>
               </div>
               <!--Description and button end-->
 
@@ -2016,11 +2020,19 @@
             prevArrow: '.prev',
             nextArrow: '.next',
             modalImage: '.modal-image',
+            modalPermissionForm: '#permission-form',
             modalPermissionButton: '#btn-permission',
             modalDescription: '#photo-description',
             gallerySlide: '.gallery-slide',
             description: '#photo-description',
             animateOnShown: '.animate',
+            // Loading indicator
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#btn-permission',
+              spinner: '.spinner-border',
+              text: 'Preparing...',
+            },
           },
           galleryManipulation: {
             arrowClass: 'arrow',
