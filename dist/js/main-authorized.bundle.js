@@ -79799,9 +79799,20 @@
 
                   $(window).on('load', function () {
                     var bonusType = Object(
-                      _getUrlParams_js__WEBPACK_IMPORTED_MODULE_7__['default']
-                    )('bonus');
-                    if (!bonusType) return;
+                        _getUrlParams_js__WEBPACK_IMPORTED_MODULE_7__['default']
+                      )('bonus'),
+                      identifier = Object(
+                        _getUrlParams_js__WEBPACK_IMPORTED_MODULE_7__['default']
+                      )('identifier'),
+                      permissionIdentifier = localStorage.getItem(bonusType);
+                    if (
+                      !bonusType ||
+                      !permissionIdentifier ||
+                      _this2.type !== bonusType
+                    )
+                      return;
+                    localStorage.removeItem(bonusType);
+                    if (identifier !== permissionIdentifier) return;
                     setTimeout(_this2._useBonus, 100, bonusType);
                   });
                   /**
@@ -80866,7 +80877,6 @@
                 value: function _prepareMessage(rawMessageData, formData) {
                   // Get the bonus type
                   var type = rawMessageData.type;
-                  console.log(rawMessageData);
 
                   switch (type) {
                     case 'general':
@@ -84975,6 +84985,10 @@
           }
         }
 
+        // Maybe, we need to save photo file and src to the local storage
+        // or indexed db and handle it from there
+        // And get it from there
+
         var Photo = /*#__PURE__*/ (function (_Bonus) {
           _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(
             Photo,
@@ -85132,15 +85146,22 @@
                       .then(function (response) {
                         var success = response.success,
                           title = response.title,
-                          text = response.text;
+                          text = response.text,
+                          identifier = response.identifier;
 
                         if (success) {
                           if (_this2.isUsedOnThisPage) {
                             _this2._useBonus();
                           } else {
-                            // Redirect to chat to start using superlike there
+                            localStorage.setItem('photo', identifier); // Redirect to chat to start using photo there
+
                             window.location.assign(
-                              _this2.redirectToUse + '?bonus=photo'
+                              ''
+                                .concat(
+                                  _this2.redirectToUse,
+                                  '?bonus=photo&identifier='
+                                )
+                                .concat(identifier)
                             );
                           }
                         } else {
@@ -87588,9 +87609,16 @@
                           if (_this2.isUsedOnThisPage) {
                             _this2._useBonus();
                           } else {
-                            // Redirect to chat to start using superlike there
+                            var identifier = result.identifier;
+                            localStorage.setItem('superlike', identifier); // Redirect to chat to start using superlike there
+
                             window.location.assign(
-                              _this2.redirectToUse + '?bonus=superlike'
+                              ''
+                                .concat(
+                                  _this2.redirectToUse,
+                                  '?bonus=superlike&identifier='
+                                )
+                                .concat(identifier)
                             );
                           }
                         })

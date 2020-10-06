@@ -4,6 +4,9 @@ import Handlebars from 'handlebars';
 import prepareTemplates from './prepareTemplates.js';
 import photoUploadMixin from './photoUploadMixin';
 
+// Maybe, we need to save photo file and src to the local storage
+// or indexed db and handle it from there
+// And get it from there
 export default class Photo extends Bonus {
   // Uploaded photo information to show it in the chat
   photoData = { type: 'photo' };
@@ -92,14 +95,18 @@ export default class Photo extends Bonus {
       // Here, instead of starting using the bonus, ask server
       this.makeRequest(this.requests.use)
         .then(response => {
-          let { success, title, text } = response;
+          let { success, title, text, identifier } = response;
 
           if (success) {
             if (this.isUsedOnThisPage) {
               this._useBonus();
             } else {
-              // Redirect to chat to start using superlike there
-              window.location.assign(this.redirectToUse + '?bonus=photo');
+              localStorage.setItem('photo', identifier);
+
+              // Redirect to chat to start using photo there
+              window.location.assign(
+                `${this.redirectToUse}?bonus=photo&identifier=${identifier}`
+              );
             }
           } else {
             this.showRequestResult({ title, text, icon: 'error' });

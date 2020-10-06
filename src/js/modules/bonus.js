@@ -31,9 +31,16 @@ export default class Bonus extends ServerRequest {
 
   _setUpEventListeners() {
     $(window).on('load', () => {
-      let bonusType = getUrlParams('bonus');
+      let bonusType = getUrlParams('bonus'),
+        identifier = getUrlParams('identifier'),
+        permissionIdentifier = localStorage.getItem(bonusType);
 
-      if (!bonusType) return;
+      if (!bonusType || !permissionIdentifier || this.type !== bonusType)
+        return;
+
+      localStorage.removeItem(bonusType);
+
+      if (identifier !== permissionIdentifier) return;
 
       setTimeout(this._useBonus, 100, bonusType);
     });
