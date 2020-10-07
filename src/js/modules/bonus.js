@@ -38,7 +38,7 @@ export default class Bonus extends ServerRequest {
       if (!bonusType || !permissionIdentifier || this.type !== bonusType)
         return;
 
-      //localStorage.removeItem(bonusType);
+      localStorage.removeItem(bonusType);
 
       if (identifier !== permissionIdentifier) return;
 

@@ -11,9 +11,6 @@ export default class Photo extends Bonus {
   // Uploaded photo information to show it in the chat
   photoData = { type: 'photo' };
 
-  // Uploaded photo information to send it to the server
-  formData = new FormData();
-
   constructor(options) {
     super(options);
 
@@ -98,14 +95,20 @@ export default class Photo extends Bonus {
           let { success, title, text, identifier } = response;
 
           if (success) {
+            // Save description of the photo to the local storage
+            localStorage.setItem(
+              'photoDescription',
+              $(this.selectors.photoDescription).val()
+            );
+
             if (this.isUsedOnThisPage) {
               this._useBonus();
             } else {
-              localStorage.setItem('photo', identifier);
+              localStorage.setItem(this.type, identifier);
 
               // Redirect to chat to start using photo there
               window.location.assign(
-                `${this.redirectToUse}?bonus=photo&identifier=${identifier}`
+                `${this.redirectToUse}?bonus=${this.type}&identifier=${identifier}`
               );
             }
           } else {
@@ -127,7 +130,14 @@ export default class Photo extends Bonus {
     });
 
     this.$closeButton.click(() => {
+      if (this.usingBonus) return;
+
       this._discardChanges();
+    });
+
+    $document.on('chat:photoSent', () => {
+      this._discardChanges();
+      this.usingBonus = false;
     });
 
     $document.on('photoModal:onBeforeOpen', (event, modal) => {
@@ -158,8 +168,8 @@ export default class Photo extends Bonus {
     this.$modalFooter.fadeOut(0);
 
     // Delete photo information
-    this.photoData = { type: 'photo' };
-    this.formData = new FormData();
+    localStorage.removeItem('photoDescription');
+    localStorage.removeItem('photoSrc');
   }
 
   /**
@@ -176,31 +186,15 @@ export default class Photo extends Bonus {
     this._decreaseBonusAmountAvailable();
     this._updateAmountOnMarkup();
 
-    // Save description to photoData object
-    this.photoData['description'] = $(this.selectors.photoDescription).val();
-
-    // Prepare formData to send photo information to the server
-    this._generateFormData();
-
+    this.usingBonus = true;
     // Generate event to send the photo to the user
-    $(document).trigger('present:send', this.photoData, this.formData);
+    $(document).trigger('present:send', { type: 'photo' });
 
     // Close modal
     this.$closeButton.click();
 
     // Call alert here with custom animation for photo icon
     this.fireSendAlert(this.popups.send);
-  }
-
-  _generateFormData() {
-    // Cache
-    let photoData = this.photoData;
-
-    for (let item in photoData) {
-      // Save photo information except src
-      if (item === 'src') continue;
-      this.formData.append(item, photoData[item]);
-    }
   }
 
   /**----------------------------------------------------
@@ -219,7 +213,8 @@ export default class Photo extends Bonus {
   _preview(fileReader) {
     let src = fileReader.result;
 
-    this.photoData['src'] = src;
+    // Save src to localStorage to send it to the server in the future
+    localStorage.setItem('photoSrc', src);
 
     let compiledPhotoTemplate = Handlebars.compile(this.photoTemplates.preview);
     compiledPhotoTemplate = compiledPhotoTemplate({ src });
@@ -227,12 +222,14 @@ export default class Photo extends Bonus {
     // Append template
     this.$previewContainer.append(compiledPhotoTemplate);
   }
-
+  //--------------
+  //Maybe we'll need to change it in photo upload mixin and in drag'n'drop mixin
   /**
    * It saves file to allow futher upload in case of submitting the form
    * @param {File Object} file - reference to the file in the system
    */
   _saveFile(file) {
+    this.formData = new FormData();
     this.formData.append('photo', file);
   }
 }

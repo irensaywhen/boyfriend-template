@@ -79810,8 +79810,8 @@
                       !permissionIdentifier ||
                       _this2.type !== bonusType
                     )
-                      return; //localStorage.removeItem(bonusType);
-
+                      return;
+                    localStorage.removeItem(bonusType);
                     if (identifier !== permissionIdentifier) return;
                     setTimeout(_this2._useBonus, 100, bonusType);
                   });
@@ -80786,16 +80786,10 @@
                           arguments.length > 1 && arguments[1] !== undefined
                             ? arguments[1]
                             : null;
-                        var formData =
-                          arguments.length > 2 && arguments[2] !== undefined
-                            ? arguments[2]
-                            : null;
 
                         // Prepare information to send it to the server
-                        var messageData = _this._prepareMessage(
-                          rawMessageData,
-                          formData
-                        ); // Send message data to the server
+                        // Get rid of formdata here to send base64 string instead
+                        var messageData = _this._prepareMessage(rawMessageData); // Send message data to the server
 
                         _this._sendMessage(messageData, rawMessageData);
                       }
@@ -80874,7 +80868,7 @@
               },
               {
                 key: '_prepareMessage',
-                value: function _prepareMessage(rawMessageData, formData) {
+                value: function _prepareMessage(rawMessageData) {
                   // Get the bonus type
                   var type = rawMessageData.type;
 
@@ -80911,7 +80905,12 @@
                       });
 
                     case 'photo':
-                      return formData;
+                      return {
+                        type: type,
+                        mine: true,
+                        photoSrc: localStorage.getItem('photoSrc'),
+                        description: localStorage.getItem('photoDescription'),
+                      };
                   }
                 },
                 /**
@@ -80948,20 +80947,19 @@
 
                           case 'special':
                             if (response['photo']) {
-                              // Get src and description
-                              var src = bonusData.src,
-                                description = bonusData.description; // Save src and description
-                              //response['src'] = src;
-                              //response['description'] = description;
+                              var description = localStorage.getItem(
+                                'photoDescription'
+                              ); // Get photo information from local storage
 
-                              if (!response.src) {
-                                response['src'] = src;
-                              }
-
-                              response['description'] = description;
+                              response['description'] =
+                                description === 'undefined' ? '' : description;
+                              response['src'] = localStorage.getItem(
+                                'photoSrc'
+                              );
                             } // Show message after a delay to not to distract the user
 
                             setTimeout(_this2._displayMessage, 1000, response);
+                            $(document).trigger('chat:photoSent');
                             break;
                         }
                       } else {
@@ -84998,7 +84996,6 @@
           var _super = _createSuper(Photo);
 
           // Uploaded photo information to show it in the chat
-          // Uploaded photo information to send it to the server
           function Photo(options) {
             var _this;
 
@@ -85017,14 +85014,6 @@
               {
                 type: 'photo',
               }
-            );
-
-            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default()(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
-                _this
-              ),
-              'formData',
-              new FormData()
             );
 
             _this._discardChanges = _this._discardChanges.bind(
@@ -85150,17 +85139,21 @@
                           identifier = response.identifier;
 
                         if (success) {
+                          // Save description of the photo to the local storage
+                          localStorage.setItem(
+                            'photoDescription',
+                            $(_this2.selectors.photoDescription).val()
+                          );
+
                           if (_this2.isUsedOnThisPage) {
                             _this2._useBonus();
                           } else {
-                            localStorage.setItem('photo', identifier); // Redirect to chat to start using photo there
+                            localStorage.setItem(_this2.type, identifier); // Redirect to chat to start using photo there
 
                             window.location.assign(
                               ''
-                                .concat(
-                                  _this2.redirectToUse,
-                                  '?bonus=photo&identifier='
-                                )
+                                .concat(_this2.redirectToUse, '?bonus=')
+                                .concat(_this2.type, '&identifier=')
                                 .concat(identifier)
                             );
                           }
@@ -85186,7 +85179,14 @@
                     _this2.$modal.modal('show');
                   });
                   this.$closeButton.click(function () {
+                    if (_this2.usingBonus) return;
+
                     _this2._discardChanges();
+                  });
+                  $document.on('chat:photoSent', function () {
+                    _this2._discardChanges();
+
+                    _this2.usingBonus = false;
                   });
                   $document.on('photoModal:onBeforeOpen', function (
                     event,
@@ -85222,10 +85222,8 @@
 
                   this.$modalFooter.fadeOut(0); // Delete photo information
 
-                  this.photoData = {
-                    type: 'photo',
-                  };
-                  this.formData = new FormData();
+                  localStorage.removeItem('photoDescription');
+                  localStorage.removeItem('photoSrc');
                 },
                 /**
                  * 1. Change the amount of available bonuses on markup
@@ -85246,36 +85244,17 @@
 
                   this._decreaseBonusAmountAvailable();
 
-                  this._updateAmountOnMarkup(); // Save description to photoData object
+                  this._updateAmountOnMarkup();
 
-                  this.photoData['description'] = $(
-                    this.selectors.photoDescription
-                  ).val(); // Prepare formData to send photo information to the server
+                  this.usingBonus = true; // Generate event to send the photo to the user
 
-                  this._generateFormData(); // Generate event to send the photo to the user
-
-                  $(document).trigger(
-                    'present:send',
-                    this.photoData,
-                    this.formData
-                  ); // Close modal
+                  $(document).trigger('present:send', {
+                    type: 'photo',
+                  }); // Close modal
 
                   this.$closeButton.click(); // Call alert here with custom animation for photo icon
 
                   this.fireSendAlert(this.popups.send);
-                },
-              },
-              {
-                key: '_generateFormData',
-                value: function _generateFormData() {
-                  // Cache
-                  var photoData = this.photoData;
-
-                  for (var item in photoData) {
-                    // Save photo information except src
-                    if (item === 'src') continue;
-                    this.formData.append(item, photoData[item]);
-                  }
                 },
                 /**----------------------------------------------------
     /* Functions specific to classes utilizing PhotoUploadMixin
@@ -85294,8 +85273,9 @@
               {
                 key: '_preview',
                 value: function _preview(fileReader) {
-                  var src = fileReader.result;
-                  this.photoData['src'] = src;
+                  var src = fileReader.result; // Save src to localStorage to send it to the server in the future
+
+                  localStorage.setItem('photoSrc', src);
                   var compiledPhotoTemplate = handlebars__WEBPACK_IMPORTED_MODULE_10___default.a.compile(
                     this.photoTemplates.preview
                   );
@@ -85304,7 +85284,9 @@
                   }); // Append template
 
                   this.$previewContainer.append(compiledPhotoTemplate);
-                },
+                }, //--------------
+                //Maybe we'll need to change it in photo upload mixin and in drag'n'drop mixin
+
                 /**
                  * It saves file to allow futher upload in case of submitting the form
                  * @param {File Object} file - reference to the file in the system
@@ -85313,6 +85295,7 @@
               {
                 key: '_saveFile',
                 value: function _saveFile(file) {
+                  this.formData = new FormData();
                   this.formData.append('photo', file);
                 },
               },

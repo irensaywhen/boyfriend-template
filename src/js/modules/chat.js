@@ -141,9 +141,11 @@ export default class Chat {
     $document
       .on(
         'present:send chat:sendMessageOnLoad permission:actionChosen',
-        (event, rawMessageData = null, formData = null) => {
+        (event, rawMessageData = null) => {
           // Prepare information to send it to the server
-          let messageData = this._prepareMessage(rawMessageData, formData);
+
+          // Get rid of formdata here to send base64 string instead
+          let messageData = this._prepareMessage(rawMessageData);
 
           // Send message data to the server
           this._sendMessage(messageData, rawMessageData);
@@ -205,7 +207,7 @@ export default class Chat {
    * @param {Object} bonusData - information about the bonus - ex. type
    * @param {FormData object} formData - photo information to send it to the server
    */
-  _prepareMessage(rawMessageData, formData) {
+  _prepareMessage(rawMessageData) {
     // Get the bonus type
     let type = rawMessageData.type;
 
@@ -239,7 +241,12 @@ export default class Chat {
         });
 
       case 'photo':
-        return formData;
+        return {
+          type,
+          mine: true,
+          photoSrc: localStorage.getItem('photoSrc'),
+          description: localStorage.getItem('photoDescription'),
+        };
     }
   }
 
@@ -267,21 +274,17 @@ export default class Chat {
 
             case 'special':
               if (response['photo']) {
-                // Get src and description
-                let { src, description } = bonusData;
-
-                // Save src and description
-                //response['src'] = src;
-                //response['description'] = description;
-
-                if (!response.src) {
-                  response['src'] = src;
-                }
-                response['description'] = description;
+                let description = localStorage.getItem('photoDescription');
+                // Get photo information from local storage
+                response['description'] =
+                  description === 'undefined' ? '' : description;
+                response['src'] = localStorage.getItem('photoSrc');
               }
 
               // Show message after a delay to not to distract the user
               setTimeout(this._displayMessage, 1000, response);
+
+              $(document).trigger('chat:photoSent');
               break;
           }
         } else {
