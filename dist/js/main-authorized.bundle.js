@@ -79379,6 +79379,9 @@
         /* harmony import */ var _modules_messagesLazyLoading_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
           /*! ./modules/messagesLazyLoading.js */ './js/modules/messagesLazyLoading.js'
         );
+        /* harmony import */ var _modules_like_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+          /*! ./modules/like.js */ './js/modules/like.js'
+        );
 
         window['PhotoUploader'] =
           _modules_uploader_js__WEBPACK_IMPORTED_MODULE_0__['default'];
@@ -79413,6 +79416,8 @@
           _modules_messagesLazyLoading_js__WEBPACK_IMPORTED_MODULE_14__[
             'default'
           ];
+        window['Like'] =
+          _modules_like_js__WEBPACK_IMPORTED_MODULE_15__['default'];
 
         /***/
       },
@@ -83637,6 +83642,145 @@
         /***/
       },
 
+    /***/ './js/modules/like.js':
+      /*!****************************!*\
+  !*** ./js/modules/like.js ***!
+  \****************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return Like;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! ./requests.js */ './js/modules/requests.js'
+        );
+
+        function _createSuper(Derived) {
+          var hasNativeReflectConstruct = _isNativeReflectConstruct();
+          return function _createSuperInternal() {
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+                Derived
+              ),
+              result;
+            if (hasNativeReflectConstruct) {
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+                this
+              ).constructor;
+              result = Reflect.construct(Super, arguments, NewTarget);
+            } else {
+              result = Super.apply(this, arguments);
+            }
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(
+              this,
+              result
+            );
+          };
+        }
+
+        function _isNativeReflectConstruct() {
+          if (typeof Reflect === 'undefined' || !Reflect.construct)
+            return false;
+          if (Reflect.construct.sham) return false;
+          if (typeof Proxy === 'function') return true;
+          try {
+            Date.prototype.toString.call(
+              Reflect.construct(Date, [], function () {})
+            );
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        var Like = /*#__PURE__*/ (function (_ServerRequest) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default()(
+            Like,
+            _ServerRequest
+          );
+
+          var _super = _createSuper(Like);
+
+          function Like(options) {
+            var _this;
+
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              Like
+            );
+
+            _this = _super.call(this, options);
+            var classes = options.classes,
+              selectors = _this.selectors;
+            var _this$requests$sendLi = _this.requests.sendLike,
+              method = _this$requests$sendLi.method,
+              headers = _this$requests$sendLi.headers,
+              endpoint = _this$requests$sendLi.endpoint; // Caching
+
+            _this.heartWrapper = $(selectors.heartWrapper);
+            _this.heartEmpty = _this.heartWrapper.find(selectors.heartEmpty);
+            _this.heartFull = _this.heartWrapper.find(selectors.heartFull); // Toggle like
+
+            var toggleLike = function toggleLike() {
+              _this.heartEmpty.toggleClass(classes.likeEmpty);
+
+              _this.heartFull.toggleClass(classes.likeFull);
+            }; // Event listener
+
+            _this.heartWrapper.click(function () {
+              toggleLike();
+
+              _this
+                .makeRequest({
+                  method: method,
+                  headers: headers,
+                  endpoint: endpoint,
+                })
+                .then(function (response) {
+                  if (!response.success) {
+                    toggleLike();
+                  }
+                });
+            });
+
+            return _this;
+          }
+
+          return Like;
+        })(_requests_js__WEBPACK_IMPORTED_MODULE_4__['default']);
+
+        /***/
+      },
+
     /***/ './js/modules/locationMixin.js':
       /*!*************************************!*\
   !*** ./js/modules/locationMixin.js ***!
@@ -86480,10 +86624,8 @@
                         }
                       })
                       .then(function (json) {
-                        console.log('Json is read'); // this === current Form here
-
+                        // this === current Form here
                         $(_this2).trigger('successfulRequest');
-                        console.log(json);
                         return json;
                       })
                       ['catch'](function (error) {
@@ -87460,8 +87602,7 @@
                     })
                     .on('form:submitted', function (event, data) {
                       var $form = data.$form,
-                        response = data.response;
-                      console.log(response); // Handle only the case when this is the form inside sponsoring premium modal dialog
+                        response = data.response; // Handle only the case when this is the form inside sponsoring premium modal dialog
 
                       if (
                         !$form.closest(_this2.selectors.modal) ||

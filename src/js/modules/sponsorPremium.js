@@ -46,8 +46,6 @@ export default class SponsorPremium extends Bonus {
       .on('form:submitted', (event, data) => {
         let { $form, response } = data;
 
-        console.log(response);
-
         // Handle only the case when this is the form inside sponsoring premium modal dialog
         if (
           !$form.closest(this.selectors.modal) ||

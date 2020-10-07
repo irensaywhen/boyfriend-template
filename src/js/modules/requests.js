@@ -70,10 +70,8 @@ export default class ServerRequest {
           }
         })
         .then(json => {
-          console.log('Json is read');
           // this === current Form here
           $(this).trigger('successfulRequest');
-          console.log(json);
           return json;
         })
         .catch(error => {

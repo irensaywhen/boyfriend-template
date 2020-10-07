@@ -22507,10 +22507,8 @@
                         }
                       })
                       .then(function (json) {
-                        console.log('Json is read'); // this === current Form here
-
+                        // this === current Form here
                         $(_this2).trigger('successfulRequest');
-                        console.log(json);
                         return json;
                       })
                       ['catch'](function (error) {
