@@ -80905,12 +80905,12 @@
                       });
 
                     case 'photo':
-                      return {
+                      return JSON.stringify({
                         type: type,
                         mine: true,
                         photoSrc: localStorage.getItem('photoSrc'),
                         description: localStorage.getItem('photoDescription'),
-                      };
+                      });
                   }
                 },
                 /**

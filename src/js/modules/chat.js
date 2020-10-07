@@ -241,12 +241,12 @@ export default class Chat {
         });
 
       case 'photo':
-        return {
+        return JSON.stringify({
           type,
           mine: true,
           photoSrc: localStorage.getItem('photoSrc'),
           description: localStorage.getItem('photoDescription'),
-        };
+        });
     }
   }
 
