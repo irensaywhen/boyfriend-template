@@ -181,7 +181,7 @@
           role="document"
         >
           <div class="modal-content">
-            <div class="modal-body">
+            <div class="modal-body p-3">
               <form action="" id="complaint-form">
                 <!--Closing button-->
                 <button
@@ -192,25 +192,27 @@
                 >
                   <span aria-hidden="true">&times;</span>
                 </button>
-
-                <label
-                  for="complaint"
-                  class="h3 d-block font-weight-lighter text-center pt-4 pb-2"
-                >
-                  <i class="fas fa-exclamation-triangle"></i>
-                  Complain about the user
-                </label>
-                <p class="small text-secondary text-center">
-                  Please, provide some information about your complaint
-                </p>
-                <textarea
-                  class="form-control"
-                  id="complaint"
-                  name="complaint"
-                  rows="4"
-                ></textarea>
+                <div class="form-group">
+                  <label
+                    for="complaint"
+                    class="h3 d-block font-weight-lighter text-center pt-4 pb-2"
+                  >
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Complain about the user
+                  </label>
+                  <p class="small text-secondary text-center">
+                    Please, provide some information about your complaint
+                  </p>
+                  <textarea
+                    class="form-control"
+                    id="complaint"
+                    name="complaint"
+                    rows="4"
+                  ></textarea>
+                </div>
                 <button
                   type="submit"
+                  id="complaintSubmit"
                   class="my-4 mx-auto btn btn-default btn-block modal-button"
                 >
                   Send complaint
@@ -2311,6 +2313,44 @@
             wrapper: '.form-wrapper',
           },
           showSteps: false,
+        });
+
+        /* Complaint form */
+
+        const complaintForm = new Form({
+          selectors: {
+            form: '#complaint-form',
+            'input-wrapper': '.form-group',
+            inputs: '.form-control',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#complaintSubmit',
+              spinner: '.spinner-border',
+              text: 'Sending complaint...',
+            },
+          },
+          frontendValidation: true,
+          showSuccessPopup: true,
+          showFailPopup: true,
+          validatorOptions: {
+            errorElement: 'span',
+            rules: {
+              complaint: {
+                required: true,
+                minlength: 10,
+              },
+            },
+          },
+          requests: {
+            submit: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/complaint',
+            },
+          },
         });
       });
     </script>

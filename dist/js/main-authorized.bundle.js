@@ -82486,7 +82486,7 @@
                       var value = $element.val();
                       var numericValue = Number(value); // Perform type conversion if the value is a number
 
-                      _this3.formData[name] = numericValue.isNaN
+                      _this3.formData[name] = isNaN(numericValue)
                         ? value
                         : numericValue;
                     }

@@ -200,7 +200,7 @@ export default class Form extends ServerRequest {
         let numericValue = Number(value);
 
         // Perform type conversion if the value is a number
-        this.formData[name] = numericValue.isNaN ? value : numericValue;
+        this.formData[name] = isNaN(numericValue) ? value : numericValue;
       }
     });
   }
