@@ -54,7 +54,6 @@ export default class MessagesLazyLoading extends ServerRequest {
            */
           this._getMessages()
             .then(messages => {
-              console.log(messages);
               // Prepare messages
               messages
                 .sort((firstMessage, secondMessage) => {

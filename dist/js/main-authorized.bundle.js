@@ -84195,8 +84195,7 @@
                         _this2
                           ._getMessages()
                           .then(function (messages) {
-                            console.log(messages); // Prepare messages
-
+                            // Prepare messages
                             messages
                               .sort(function (firstMessage, secondMessage) {
                                 return firstMessage.timestamp <
