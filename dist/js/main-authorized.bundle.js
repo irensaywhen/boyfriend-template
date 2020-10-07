@@ -84921,28 +84921,22 @@
         /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__
         );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
-          /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7__
-        );
-        /* harmony import */ var _bonus_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var _bonus_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./bonus.js */ './js/modules/bonus.js'
         );
-        /* harmony import */ var _photoAnimation_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+        /* harmony import */ var _photoAnimation_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
           /*! ./photoAnimation.js */ './js/modules/photoAnimation.js'
         );
-        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
           /*! handlebars */ '../node_modules/handlebars/dist/cjs/handlebars.js'
         );
-        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/ __webpack_require__.n(
-          handlebars__WEBPACK_IMPORTED_MODULE_10__
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/ __webpack_require__.n(
+          handlebars__WEBPACK_IMPORTED_MODULE_9__
         );
-        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
           /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
         );
-        /* harmony import */ var _photoUploadMixin__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+        /* harmony import */ var _photoUploadMixin__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
           /*! ./photoUploadMixin */ './js/modules/photoUploadMixin.js'
         );
 
@@ -84983,10 +84977,6 @@
           }
         }
 
-        // Maybe, we need to save photo file and src to the local storage
-        // or indexed db and handle it from there
-        // And get it from there
-
         var Photo = /*#__PURE__*/ (function (_Bonus) {
           _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(
             Photo,
@@ -84995,7 +84985,6 @@
 
           var _super = _createSuper(Photo);
 
-          // Uploaded photo information to show it in the chat
           function Photo(options) {
             var _this;
 
@@ -85005,16 +84994,6 @@
             );
 
             _this = _super.call(this, options); // Bind context
-
-            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default()(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
-                _this
-              ),
-              'photoData',
-              {
-                type: 'photo',
-              }
-            );
 
             _this._discardChanges = _this._discardChanges.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
@@ -85029,13 +85008,13 @@
 
             if (_this.isUsedOnThisPage) {
               // Initiate animation for icon in popup
-              _this.animation = new _photoAnimation_js__WEBPACK_IMPORTED_MODULE_9__[
+              _this.animation = new _photoAnimation_js__WEBPACK_IMPORTED_MODULE_8__[
                 'default'
               ](options.animation);
             } // Prepare photo preview template
 
             _this.photoTemplates = Object(
-              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_11__['default']
+              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_10__['default']
             )(options.photoTemplates);
 
             _this._cacheElements();
@@ -85049,7 +85028,7 @@
 
             Object.assign(
               Photo.prototype,
-              _photoUploadMixin__WEBPACK_IMPORTED_MODULE_12__['default']
+              _photoUploadMixin__WEBPACK_IMPORTED_MODULE_11__['default']
             );
 
             _this.initializePhotoUpload();
@@ -85276,7 +85255,7 @@
                   var src = fileReader.result; // Save src to localStorage to send it to the server in the future
 
                   localStorage.setItem('photoSrc', src);
-                  var compiledPhotoTemplate = handlebars__WEBPACK_IMPORTED_MODULE_10___default.a.compile(
+                  var compiledPhotoTemplate = handlebars__WEBPACK_IMPORTED_MODULE_9___default.a.compile(
                     this.photoTemplates.preview
                   );
                   compiledPhotoTemplate = compiledPhotoTemplate({
@@ -85284,26 +85263,13 @@
                   }); // Append template
 
                   this.$previewContainer.append(compiledPhotoTemplate);
-                }, //--------------
-                //Maybe we'll need to change it in photo upload mixin and in drag'n'drop mixin
-
-                /**
-                 * It saves file to allow futher upload in case of submitting the form
-                 * @param {File Object} file - reference to the file in the system
-                 */
-              },
-              {
-                key: '_saveFile',
-                value: function _saveFile(file) {
-                  this.formData = new FormData();
-                  this.formData.append('photo', file);
                 },
               },
             ]
           );
 
           return Photo;
-        })(_bonus_js__WEBPACK_IMPORTED_MODULE_8__['default']);
+        })(_bonus_js__WEBPACK_IMPORTED_MODULE_7__['default']);
 
         /***/
       },
@@ -85645,8 +85611,12 @@
 
                             _setUpEventListeners(); // Binding functions from the Class
 
-                            _this._preview = _this._preview.bind(_this);
-                            _this._saveFile = _this._saveFile.bind(_this);
+                            _this._preview = _this._preview.bind(_this); //------------
+                            // Change how avatar handles sending file to send it via base64 string
+
+                            if (_this._saveFile) {
+                              _this._saveFile = _this._saveFile.bind(_this);
+                            }
 
                           case 29:
                           case 'end':
@@ -85782,7 +85752,9 @@
 
           $disableWhileLoad.attr('disabled', true);
 
-          this._saveFile(file);
+          if (this._saveFile) {
+            this._saveFile(file);
+          }
 
           var $progressBar = _insertProgressBar({
             fileName: file.name,

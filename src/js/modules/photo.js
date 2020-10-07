@@ -4,13 +4,7 @@ import Handlebars from 'handlebars';
 import prepareTemplates from './prepareTemplates.js';
 import photoUploadMixin from './photoUploadMixin';
 
-// Maybe, we need to save photo file and src to the local storage
-// or indexed db and handle it from there
-// And get it from there
 export default class Photo extends Bonus {
-  // Uploaded photo information to show it in the chat
-  photoData = { type: 'photo' };
-
   constructor(options) {
     super(options);
 
@@ -221,15 +215,5 @@ export default class Photo extends Bonus {
 
     // Append template
     this.$previewContainer.append(compiledPhotoTemplate);
-  }
-  //--------------
-  //Maybe we'll need to change it in photo upload mixin and in drag'n'drop mixin
-  /**
-   * It saves file to allow futher upload in case of submitting the form
-   * @param {File Object} file - reference to the file in the system
-   */
-  _saveFile(file) {
-    this.formData = new FormData();
-    this.formData.append('photo', file);
   }
 }

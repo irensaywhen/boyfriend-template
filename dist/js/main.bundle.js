@@ -22067,8 +22067,12 @@
 
                             _setUpEventListeners(); // Binding functions from the Class
 
-                            _this._preview = _this._preview.bind(_this);
-                            _this._saveFile = _this._saveFile.bind(_this);
+                            _this._preview = _this._preview.bind(_this); //------------
+                            // Change how avatar handles sending file to send it via base64 string
+
+                            if (_this._saveFile) {
+                              _this._saveFile = _this._saveFile.bind(_this);
+                            }
 
                           case 29:
                           case 'end':
@@ -22204,7 +22208,9 @@
 
           $disableWhileLoad.attr('disabled', true);
 
-          this._saveFile(file);
+          if (this._saveFile) {
+            this._saveFile(file);
+          }
 
           var $progressBar = _insertProgressBar({
             fileName: file.name,
