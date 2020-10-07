@@ -80636,6 +80636,9 @@
         /* harmony import */ var _permissionMixin_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./permissionMixin.js */ './js/modules/permissionMixin.js'
         );
+        /* harmony import */ var _formatTime_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+          /*! ./formatTime.js */ './js/modules/formatTime.js'
+        );
 
         var Chat = /*#__PURE__*/ (function () {
           function Chat(options) {
@@ -81028,7 +81031,10 @@
                     arguments.length > 1 && arguments[1] !== undefined
                       ? arguments[1]
                       : false;
-                  // Prepare template for compilation - for general or special message type
+                  data.time = Object(
+                    _formatTime_js__WEBPACK_IMPORTED_MODULE_7__['default']
+                  )(data.timestamp); // Prepare template for compilation - for general or special message type
+
                   var compiled = handlebars__WEBPACK_IMPORTED_MODULE_2___default.a.compile(
                     this.messageTemplates[data.type]
                   ); // Compile template with passed data
@@ -81052,7 +81058,7 @@
                   // for testing purposes
 
                   setTimeout(this._setMessageStatus, 1000, {
-                    id: 123,
+                    id: data.id,
                     status: 'seen',
                   });
                 },
@@ -84038,7 +84044,8 @@
                         _this2
                           ._getMessages()
                           .then(function (messages) {
-                            // Prepare messages
+                            console.log(messages); // Prepare messages
+
                             messages
                               .sort(function (firstMessage, secondMessage) {
                                 return firstMessage.timestamp <
@@ -86341,16 +86348,15 @@
                   $(this).trigger('beforeRequest');
 
                   if (method === 'GET') {
-                    console.log('Making get request');
                     return fetch(endpoint, {
                       headers: headers,
                     })
                       .then(function (response) {
                         if (response.ok) {
+                          //debugger;
                           return response.json();
                         } else {
-                          console.log(response); // Unsuccessful Popup
-
+                          // Unsuccessful Popup
                           _this2.showRequestResult({
                             title: response.status,
                             text: response.statusText,
@@ -86359,12 +86365,15 @@
                         }
                       })
                       .then(function (json) {
-                        // this === current Form here
+                        console.log('Json is read'); // this === current Form here
+
                         $(_this2).trigger('successfulRequest');
+                        console.log(json);
                         return json;
                       })
                       ['catch'](function (error) {
-                        // Unsuccessful Popup
+                        console.error(error); // Unsuccessful Popup
+
                         _this2.showRequestResult({
                           title: error.name,
                           text: error.message,

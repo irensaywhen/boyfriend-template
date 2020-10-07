@@ -22490,16 +22490,15 @@
                   $(this).trigger('beforeRequest');
 
                   if (method === 'GET') {
-                    console.log('Making get request');
                     return fetch(endpoint, {
                       headers: headers,
                     })
                       .then(function (response) {
                         if (response.ok) {
+                          //debugger;
                           return response.json();
                         } else {
-                          console.log(response); // Unsuccessful Popup
-
+                          // Unsuccessful Popup
                           _this2.showRequestResult({
                             title: response.status,
                             text: response.statusText,
@@ -22508,12 +22507,15 @@
                         }
                       })
                       .then(function (json) {
-                        // this === current Form here
+                        console.log('Json is read'); // this === current Form here
+
                         $(_this2).trigger('successfulRequest');
+                        console.log(json);
                         return json;
                       })
                       ['catch'](function (error) {
-                        // Unsuccessful Popup
+                        console.error(error); // Unsuccessful Popup
+
                         _this2.showRequestResult({
                           title: error.name,
                           text: error.message,

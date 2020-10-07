@@ -53,15 +53,14 @@ export default class ServerRequest {
   makeRequest({ headers, endpoint, method, body }) {
     $(this).trigger('beforeRequest');
     if (method === 'GET') {
-      console.log('Making get request');
       return fetch(endpoint, {
         headers,
       })
         .then(response => {
           if (response.ok) {
+            //debugger;
             return response.json();
           } else {
-            console.log(response);
             // Unsuccessful Popup
             this.showRequestResult({
               title: response.status,
@@ -71,11 +70,14 @@ export default class ServerRequest {
           }
         })
         .then(json => {
+          console.log('Json is read');
           // this === current Form here
           $(this).trigger('successfulRequest');
+          console.log(json);
           return json;
         })
         .catch(error => {
+          console.error(error);
           // Unsuccessful Popup
           this.showRequestResult({
             title: error.name,

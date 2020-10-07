@@ -3,6 +3,7 @@ import HttpError from './httpError.js';
 import prepareTemplates from './prepareTemplates.js';
 import getAllUrlParams from './getAllUrlParams.js';
 import permissionMixin from './permissionMixin.js';
+import formatTime from './formatTime.js';
 
 export default class Chat {
   constructor(options) {
@@ -333,6 +334,7 @@ export default class Chat {
   }
 
   _displayMessage(data, lazy = false) {
+    data.time = formatTime(data.timestamp);
     // Prepare template for compilation - for general or special message type
     let compiled = Handlebars.compile(this.messageTemplates[data.type]);
 
@@ -353,7 +355,7 @@ export default class Chat {
 
     // Change message status after a second for general message type
     // for testing purposes
-    setTimeout(this._setMessageStatus, 1000, { id: 123, status: 'seen' });
+    setTimeout(this._setMessageStatus, 1000, { id: data.id, status: 'seen' });
   }
 
   _setMessageStatus({ id, status }) {

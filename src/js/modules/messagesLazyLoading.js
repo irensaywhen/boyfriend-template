@@ -14,7 +14,6 @@ export default class MessagesLazyLoading extends ServerRequest {
     for (let key in searchParams) {
       this.requests.messages.endpoint.searchParams.set(key, searchParams[key]);
     }
-
     /**
      * 1. Save observer options
      * 2. Get the root element
@@ -55,6 +54,7 @@ export default class MessagesLazyLoading extends ServerRequest {
            */
           this._getMessages()
             .then(messages => {
+              console.log(messages);
               // Prepare messages
               messages
                 .sort((firstMessage, secondMessage) => {
