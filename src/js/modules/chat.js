@@ -4,6 +4,7 @@ import prepareTemplates from './prepareTemplates.js';
 import getAllUrlParams from './getAllUrlParams.js';
 import permissionMixin from './permissionMixin.js';
 import formatTime from './formatTime.js';
+import removeSearchParams from './removeSearchParams.js';
 
 export default class Chat {
   constructor(options) {
@@ -279,7 +280,7 @@ export default class Chat {
           }
         } else {
           // We need to handle unsuccessful response here
-          console.log('Error!');
+          throw new Error('Something went wrong');
         }
       })
       .catch(error => {
@@ -296,6 +297,9 @@ export default class Chat {
    */
   _sendMessageToServer(messageData, bonusData = null) {
     let { method, headers, endpoint } = this.requests.send;
+
+    // Clean previously saved key/value pairs if presented
+    removeSearchParams(endpoint);
 
     // Configure endpoint
     if (bonusData) {
@@ -334,7 +338,9 @@ export default class Chat {
   }
 
   _displayMessage(data, lazy = false) {
+    // Format timestamp before displaying message
     data.time = formatTime(data.timestamp);
+
     // Prepare template for compilation - for general or special message type
     let compiled = Handlebars.compile(this.messageTemplates[data.type]);
 

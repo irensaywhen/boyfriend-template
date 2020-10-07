@@ -80639,6 +80639,9 @@
         /* harmony import */ var _formatTime_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./formatTime.js */ './js/modules/formatTime.js'
         );
+        /* harmony import */ var _removeSearchParams_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+          /*! ./removeSearchParams.js */ './js/modules/removeSearchParams.js'
+        );
 
         var Chat = /*#__PURE__*/ (function () {
           function Chat(options) {
@@ -80959,7 +80962,7 @@
                         }
                       } else {
                         // We need to handle unsuccessful response here
-                        console.log('Error!');
+                        throw new Error('Something went wrong');
                       }
                     })
                     ['catch'](function (error) {
@@ -80984,7 +80987,13 @@
                   var _this$requests$send = this.requests.send,
                     method = _this$requests$send.method,
                     headers = _this$requests$send.headers,
-                    endpoint = _this$requests$send.endpoint; // Configure endpoint
+                    endpoint = _this$requests$send.endpoint; // Clean previously saved key/value pairs if presented
+
+                  Object(
+                    _removeSearchParams_js__WEBPACK_IMPORTED_MODULE_8__[
+                      'default'
+                    ]
+                  )(endpoint); // Configure endpoint
 
                   if (bonusData) {
                     endpoint.searchParams.set(bonusData.type, true);
@@ -81031,6 +81040,7 @@
                     arguments.length > 1 && arguments[1] !== undefined
                       ? arguments[1]
                       : false;
+                  // Format timestamp before displaying message
                   data.time = Object(
                     _formatTime_js__WEBPACK_IMPORTED_MODULE_7__['default']
                   )(data.timestamp); // Prepare template for compilation - for general or special message type
@@ -86222,6 +86232,111 @@
 
           return templates;
         }
+
+        /***/
+      },
+
+    /***/ './js/modules/removeSearchParams.js':
+      /*!******************************************!*\
+  !*** ./js/modules/removeSearchParams.js ***!
+  \******************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        function _createForOfIteratorHelper(o, allowArrayLike) {
+          var it;
+          if (typeof Symbol === 'undefined' || o[Symbol.iterator] == null) {
+            if (
+              Array.isArray(o) ||
+              (it = _unsupportedIterableToArray(o)) ||
+              (allowArrayLike && o && typeof o.length === 'number')
+            ) {
+              if (it) o = it;
+              var i = 0;
+              var F = function F() {};
+              return {
+                s: F,
+                n: function n() {
+                  if (i >= o.length) return { done: true };
+                  return { done: false, value: o[i++] };
+                },
+                e: function e(_e) {
+                  throw _e;
+                },
+                f: F,
+              };
+            }
+            throw new TypeError(
+              'Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
+            );
+          }
+          var normalCompletion = true,
+            didErr = false,
+            err;
+          return {
+            s: function s() {
+              it = o[Symbol.iterator]();
+            },
+            n: function n() {
+              var step = it.next();
+              normalCompletion = step.done;
+              return step;
+            },
+            e: function e(_e2) {
+              didErr = true;
+              err = _e2;
+            },
+            f: function f() {
+              try {
+                if (!normalCompletion && it['return'] != null) it['return']();
+              } finally {
+                if (didErr) throw err;
+              }
+            },
+          };
+        }
+
+        function _unsupportedIterableToArray(o, minLen) {
+          if (!o) return;
+          if (typeof o === 'string') return _arrayLikeToArray(o, minLen);
+          var n = Object.prototype.toString.call(o).slice(8, -1);
+          if (n === 'Object' && o.constructor) n = o.constructor.name;
+          if (n === 'Map' || n === 'Set') return Array.from(o);
+          if (
+            n === 'Arguments' ||
+            /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)
+          )
+            return _arrayLikeToArray(o, minLen);
+        }
+
+        function _arrayLikeToArray(arr, len) {
+          if (len == null || len > arr.length) len = arr.length;
+          for (var i = 0, arr2 = new Array(len); i < len; i++) {
+            arr2[i] = arr[i];
+          }
+          return arr2;
+        }
+
+        /* harmony default export */ __webpack_exports__['default'] = function (
+          URLObject
+        ) {
+          var params = URLObject.searchParams.keys();
+
+          var _iterator = _createForOfIteratorHelper(params),
+            _step;
+
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done; ) {
+              var param = _step.value;
+              URLObject.searchParams['delete'](param);
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+        };
 
         /***/
       },
