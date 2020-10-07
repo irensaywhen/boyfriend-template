@@ -1529,7 +1529,12 @@
                 data-toggle="modal"
                 data-target="#avatarModal"
               >
-                <img src="img/profile.jpg" alt="Profile photo" />
+                <img
+                  src="img/profile.jpg"
+                  id="userAvatar"
+                  class="enlarge"
+                  alt="Profile photo"
+                />
               </figure>
             </div>
           </div>
@@ -2388,6 +2393,14 @@
               endpoint:
                 'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/like',
             },
+          },
+        });
+
+        /* Photo enlargement initialization */
+        const enlargePhoto = new EnlargePhoto({
+          selectors: {
+            modal: '#avatarModal',
+            img: '#userAvatar',
           },
         });
       });
