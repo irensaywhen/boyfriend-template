@@ -79810,8 +79810,8 @@
                       !permissionIdentifier ||
                       _this2.type !== bonusType
                     )
-                      return;
-                    localStorage.removeItem(bonusType);
+                      return; //localStorage.removeItem(bonusType);
+
                     if (identifier !== permissionIdentifier) return;
                     setTimeout(_this2._useBonus, 100, bonusType);
                   });
@@ -87374,7 +87374,8 @@
                     })
                     .on('form:submitted', function (event, data) {
                       var $form = data.$form,
-                        response = data.response; // Handle only the case when this is the form inside sponsoring premium modal dialog
+                        response = data.response;
+                      console.log(response); // Handle only the case when this is the form inside sponsoring premium modal dialog
 
                       if (
                         !$form.closest(_this2.selectors.modal) ||
@@ -87390,9 +87391,16 @@
                       if (_this2.isUsedOnThisPage) {
                         setTimeout(_this2._useBonus, 300);
                       } else {
-                        // Redirect to chat to start using superlike there
+                        var identifier = response.identifier;
+                        localStorage.setItem(_this2.type, identifier); // Redirect to chat to start using premium there
+
                         window.location.assign(
-                          _this2.redirectToUse + '?bonus=premium'
+                          ''
+                            .concat(
+                              _this2.redirectToUse,
+                              '?bonus=premium&identifier='
+                            )
+                            .concat(identifier)
                         );
                       }
                     });

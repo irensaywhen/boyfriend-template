@@ -46,6 +46,8 @@ export default class SponsorPremium extends Bonus {
       .on('form:submitted', (event, data) => {
         let { $form, response } = data;
 
+        console.log(response);
+
         // Handle only the case when this is the form inside sponsoring premium modal dialog
         if (
           !$form.closest(this.selectors.modal) ||
@@ -59,8 +61,13 @@ export default class SponsorPremium extends Bonus {
         if (this.isUsedOnThisPage) {
           setTimeout(this._useBonus, 300);
         } else {
-          // Redirect to chat to start using superlike there
-          window.location.assign(this.redirectToUse + '?bonus=premium');
+          const identifier = response.identifier;
+          localStorage.setItem(this.type, identifier);
+
+          // Redirect to chat to start using premium there
+          window.location.assign(
+            `${this.redirectToUse}?bonus=premium&identifier=${identifier}`
+          );
         }
       });
   }
