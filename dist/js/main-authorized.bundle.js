@@ -83013,20 +83013,17 @@
               {
                 key: '_updateGallery',
                 value: function _updateGallery() {
-                  var newImage = this._getImage();
+                  if (this.order === this.$photos.length) {
+                    --this.order;
+                    console.log('Preventing switching between photos');
+                    return;
+                  } // Get image based on the current order
+
+                  var newImage = this.$gallery.find(
+                    'img[data-order="'.concat(this.order, '"]')
+                  )[0]; // Update gallery with animation
 
                   this._generateModal(newImage, true);
-                },
-                /**
-                 * Get the image with the current order
-                 */
-              },
-              {
-                key: '_getImage',
-                value: function _getImage() {
-                  return this.$gallery.find(
-                    'img[data-order="'.concat(this.order, '"]')
-                  )[0];
                 },
               },
               {
@@ -83051,7 +83048,7 @@
                   this.order === 0
                     ? this._hidePrevArrow()
                     : this._showPrevArrow();
-                  this.order === this.$slides.length
+                  this.order === this.$slides.length - 1
                     ? this._hideNextArrow()
                     : this._showNextArrow();
                 },

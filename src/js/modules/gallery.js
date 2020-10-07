@@ -160,15 +160,16 @@ export default class Gallery extends ServerRequest {
   }
 
   _updateGallery() {
-    let newImage = this._getImage();
-    this._generateModal(newImage, true);
-  }
+    if (this.order === this.$photos.length) {
+      --this.order;
+      console.log('Preventing switching between photos');
+      return;
+    }
+    // Get image based on the current order
+    let newImage = this.$gallery.find(`img[data-order="${this.order}"]`)[0];
 
-  /**
-   * Get the image with the current order
-   */
-  _getImage() {
-    return this.$gallery.find(`img[data-order="${this.order}"]`)[0];
+    // Update gallery with animation
+    this._generateModal(newImage, true);
   }
 
   _generateModal(target, animation) {
@@ -189,7 +190,7 @@ export default class Gallery extends ServerRequest {
 
     // Handle arrow hiding on first/last photos
     this.order === 0 ? this._hidePrevArrow() : this._showPrevArrow();
-    this.order === this.$slides.length
+    this.order === this.$slides.length - 1
       ? this._hideNextArrow()
       : this._showNextArrow();
   }
