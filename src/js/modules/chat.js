@@ -109,18 +109,7 @@ export default class Chat {
     this.$sendMessageForm.submit(event => {
       event.preventDefault();
 
-      console.log('Submitting message form!');
-
       this._sendMessage('general');
-    });
-
-    // Send message when the sending button is clicked
-    this.$sendMessageForm.click(event => {
-      let $target = event.target;
-
-      if (!$target.closest(this.selectors.sendButton)) return;
-
-      this.$sendMessageForm.submit();
     });
 
     // Keyboard events
@@ -307,12 +296,15 @@ export default class Chat {
   _sendMessageToServer(messageData, bonusData = null) {
     let { method, headers, endpoint } = this.requests.send;
 
-    bonusData
-      ? endpoint.searchParams.set(bonusData.type, true)
-      : endpoint.searchParams.set('general', true);
+    // Configure endpoint
+    if (bonusData) {
+      endpoint.searchParams.set(bonusData.type, true);
 
-    if (bonusData.type === 'permissionResponse') {
-      endpoint.searchParams.set('action', bonusData.action);
+      if (bonusData.type === 'permissionResponse') {
+        endpoint.searchParams.set('action', bonusData.action);
+      }
+    } else {
+      endpoint.searchParams.set('general', true);
     }
 
     //Make a request here

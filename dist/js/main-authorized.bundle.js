@@ -80754,16 +80754,8 @@
 
                   this.$sendMessageForm.submit(function (event) {
                     event.preventDefault();
-                    console.log('Submitting message form!');
 
                     _this._sendMessage('general');
-                  }); // Send message when the sending button is clicked
-
-                  this.$sendMessageForm.click(function (event) {
-                    var $target = event.target;
-                    if (!$target.closest(_this.selectors.sendButton)) return;
-
-                    _this.$sendMessageForm.submit();
                   }); // Keyboard events
 
                   this.$sendMessageForm.on('keydown', function (event) {
@@ -80989,13 +80981,16 @@
                   var _this$requests$send = this.requests.send,
                     method = _this$requests$send.method,
                     headers = _this$requests$send.headers,
-                    endpoint = _this$requests$send.endpoint;
-                  bonusData
-                    ? endpoint.searchParams.set(bonusData.type, true)
-                    : endpoint.searchParams.set('general', true);
+                    endpoint = _this$requests$send.endpoint; // Configure endpoint
 
-                  if (bonusData.type === 'permissionResponse') {
-                    endpoint.searchParams.set('action', bonusData.action);
+                  if (bonusData) {
+                    endpoint.searchParams.set(bonusData.type, true);
+
+                    if (bonusData.type === 'permissionResponse') {
+                      endpoint.searchParams.set('action', bonusData.action);
+                    }
+                  } else {
+                    endpoint.searchParams.set('general', true);
                   } //Make a request here
 
                   return fetch(endpoint, {
