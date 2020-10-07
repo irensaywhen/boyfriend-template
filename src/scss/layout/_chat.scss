@@ -80,6 +80,7 @@
     /*superlike message start*/
     .message-special {
       font-style: italic;
+      margin-top: 60px !important;
 
       .icon {
         @include circular-badge($icon-width);

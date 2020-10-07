@@ -1,6 +1,6 @@
 import moment from 'moment';
 // Adding localization
-moment.locale('pl');
+//moment.locale('pl');
 
 /**
  * Function formatting timestamp into a human-readable format
@@ -13,11 +13,13 @@ export default function formatTime(timestamp) {
 
   if (typeof timestamp !== 'number') throw new TypeError('Invalid time');
 
-  let now = moment().format('x');
-
-  let duration = Math.round(moment.duration(now - timestamp).asHours());
+  let duration = Math.round(
+    moment.duration(moment().diff(moment.unix(timestamp))).asHours()
+  );
 
   return duration < 24
-    ? moment(timestamp).format('HH:mm')
-    : moment(timestamp).format('DD MMM');
+    ? moment.unix(timestamp).format('HH:mm')
+    : `${moment.unix(timestamp).format('DD MMM')}, ${moment
+        .unix(timestamp)
+        .format('HH:mm')}`;
 }

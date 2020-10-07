@@ -82671,8 +82671,8 @@
           moment__WEBPACK_IMPORTED_MODULE_0__
         );
         // Adding localization
+        //moment.locale('pl');
 
-        moment__WEBPACK_IMPORTED_MODULE_0___default.a.locale('pl');
         /**
          * Function formatting timestamp into a human-readable format
          * When the given time (in timestamp) is less than a day ago, show hours and minutes
@@ -82684,19 +82684,31 @@
           timestamp = parseInt(timestamp);
           if (typeof timestamp !== 'number')
             throw new TypeError('Invalid time');
-          var now = moment__WEBPACK_IMPORTED_MODULE_0___default()().format('x');
           var duration = Math.round(
             moment__WEBPACK_IMPORTED_MODULE_0___default.a
-              .duration(now - timestamp)
+              .duration(
+                moment__WEBPACK_IMPORTED_MODULE_0___default()().diff(
+                  moment__WEBPACK_IMPORTED_MODULE_0___default.a.unix(timestamp)
+                )
+              )
               .asHours()
           );
           return duration < 24
-            ? moment__WEBPACK_IMPORTED_MODULE_0___default()(timestamp).format(
-                'HH:mm'
-              )
-            : moment__WEBPACK_IMPORTED_MODULE_0___default()(timestamp).format(
-                'DD MMM'
-              );
+            ? moment__WEBPACK_IMPORTED_MODULE_0___default.a
+                .unix(timestamp)
+                .format('HH:mm')
+            : ''
+                .concat(
+                  moment__WEBPACK_IMPORTED_MODULE_0___default.a
+                    .unix(timestamp)
+                    .format('DD MMM'),
+                  ', '
+                )
+                .concat(
+                  moment__WEBPACK_IMPORTED_MODULE_0___default.a
+                    .unix(timestamp)
+                    .format('HH:mm')
+                );
         }
 
         /***/

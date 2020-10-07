@@ -2076,6 +2076,7 @@ article .header time {
 }
 .chat .chat-content .message-special {
   font-style: italic;
+  margin-top: 60px !important;
 }
 .chat .chat-content .message-special .icon {
   width: 76px;
