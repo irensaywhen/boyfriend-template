@@ -21423,56 +21423,50 @@
         /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-          /*! @babel/runtime/helpers/get */ '../node_modules/@babel/runtime/helpers/get.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__
-        );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__
         );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
           /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9__
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8__
         );
-        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
           /*! ./requests.js */ './js/modules/requests.js'
         );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
           return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(
                 Derived
               ),
               result;
             if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(
                 this
               ).constructor;
               result = Reflect.construct(Super, arguments, NewTarget);
             } else {
               result = Super.apply(this, arguments);
             }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default()(
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default()(
               this,
               result
             );
@@ -21495,7 +21489,7 @@
         }
 
         var EditorModal = /*#__PURE__*/ (function (_ServerRequest) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default()(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default()(
             EditorModal,
             _ServerRequest
           );
@@ -21512,7 +21506,7 @@
 
             _this = _super.call(this, options); // Making configuration object
 
-            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8___default()(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               ),
@@ -21652,7 +21646,13 @@
                   var _deletePhoto = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
                     /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
                       function _callee(event, photo) {
-                        var response;
+                        var _this$requests$delete,
+                          headers,
+                          method,
+                          endpoint,
+                          response,
+                          icon;
+
                         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
                           function _callee$(_context) {
                             while (1) {
@@ -21661,34 +21661,34 @@
                                   event.preventDefault();
 
                                   if (!this.configuration.editor) {
-                                    _context.next = 12;
+                                    _context.next = 14;
                                     break;
                                   }
 
-                                  _context.prev = 2;
-                                  _context.next = 5;
-                                  return _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
-                                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
-                                      EditorModal.prototype
-                                    ),
-                                    'deletePhotoOnServer',
-                                    this
-                                  ).call(this, {
-                                    id: photo.dataset.id,
-                                    headers: this.requests.deletePhoto.headers,
-                                    endpoint: this.requests.deletePhoto
-                                      .endpoint,
-                                    method: this.requests.deletePhoto.method,
+                                  (_this$requests$delete = this.requests
+                                    .deletePhoto),
+                                    (headers = _this$requests$delete.headers),
+                                    (method = _this$requests$delete.method),
+                                    (endpoint = _this$requests$delete.endpoint);
+                                  _context.prev = 3;
+                                  _context.next = 6;
+                                  return this.makeRequest({
+                                    headers: headers,
+                                    endpoint: endpoint,
+                                    method: method,
+                                    body: JSON.stringify({
+                                      id: photo.dataset.id,
+                                    }),
                                   });
 
-                                case 5:
+                                case 6:
                                   response = _context.sent;
-                                  _context.next = 11;
+                                  _context.next = 12;
                                   break;
 
-                                case 8:
-                                  _context.prev = 8;
-                                  _context.t0 = _context['catch'](2);
+                                case 9:
+                                  _context.prev = 9;
+                                  _context.t0 = _context['catch'](3);
                                   // Unsuccessful Popup
                                   this.showRequestResult({
                                     title: _context.t0.name,
@@ -21696,36 +21696,32 @@
                                     icon: 'error',
                                   });
 
-                                case 11:
+                                case 12:
                                   if (response.success) {
-                                    // Delete photo container
+                                    // Delete photo container and close modal
                                     $(photo)
                                       .closest(this.selectors.container)
-                                      .remove(); // Successful Popup
-
-                                    this.showRequestResult({
-                                      title: response.title,
-                                      text: response.message,
-                                      icon: 'success',
-                                    });
+                                      .remove();
                                     this.closeModal();
+                                    icon = 'success';
                                   } else {
-                                    // Unsuccessful Popup
-                                    this.showRequestResult({
-                                      title: response.title,
-                                      text: response.message,
-                                      icon: 'error',
-                                    });
-                                  }
+                                    icon = 'error';
+                                  } // Show resulting popup
 
-                                case 12:
+                                  this.showRequestResult({
+                                    title: response.title,
+                                    text: response.message,
+                                    icon: icon,
+                                  });
+
+                                case 14:
                                   if (this.configuration.uploader) {
                                     $(event.target)
                                       .closest(this.selectors.container)
                                       .remove();
                                   }
 
-                                case 13:
+                                case 15:
                                 case 'end':
                                   return _context.stop();
                               }
@@ -21733,7 +21729,7 @@
                           },
                           _callee,
                           this,
-                          [[2, 8]]
+                          [[3, 9]]
                         );
                       }
                     )
@@ -21810,7 +21806,7 @@
           );
 
           return EditorModal;
-        })(_requests_js__WEBPACK_IMPORTED_MODULE_10__['default']);
+        })(_requests_js__WEBPACK_IMPORTED_MODULE_9__['default']);
 
         /* harmony default export */ __webpack_exports__[
           'default'
@@ -22431,10 +22427,6 @@
             );
 
             // Bind context
-            this.sendPhotoInformationToServer = this.sendPhotoInformationToServer.bind(
-              this
-            );
-            this.deletePhotoOnServer = this.deletePhotoOnServer.bind(this);
             this.getPhotosIds = this.getPhotosIds.bind(this); // Save passed options
 
             this.selectors = options.selectors;
@@ -22564,38 +22556,40 @@
                 },
               },
               {
-                key: 'deletePhotoOnServer',
+                key: 'getPhotosIds',
                 value: (function () {
-                  var _deletePhotoOnServer = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
+                  var _getPhotosIds = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
                     /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
                       function _callee(_ref2) {
-                        var id, headers, endpoint, method;
+                        var filesAmount, headers, endpoint, method;
                         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
                           function _callee$(_context) {
                             while (1) {
                               switch ((_context.prev = _context.next)) {
                                 case 0:
-                                  (id = _ref2.id),
+                                  (filesAmount = _ref2.filesAmount),
                                     (headers = _ref2.headers),
                                     (endpoint = _ref2.endpoint),
                                     (method = _ref2.method);
-                                  _context.next = 3;
+                                  // Add amount of files as a query parameter
+                                  this.requests.getIds.endpoint.searchParams.set(
+                                    'amount',
+                                    String(filesAmount)
+                                  );
+                                  _context.next = 4;
                                   return this.makeRequest({
                                     headers: headers,
                                     endpoint: endpoint,
                                     method: method,
-                                    body: JSON.stringify({
-                                      id: id,
-                                    }),
                                   });
 
-                                case 3:
+                                case 4:
                                   return _context.abrupt(
                                     'return',
                                     _context.sent
                                   );
 
-                                case 4:
+                                case 5:
                                 case 'end':
                                   return _context.stop();
                               }
@@ -22608,117 +22602,7 @@
                     )
                   );
 
-                  function deletePhotoOnServer(_x) {
-                    return _deletePhotoOnServer.apply(this, arguments);
-                  }
-
-                  return deletePhotoOnServer;
-                })(),
-              },
-              {
-                key: 'sendPhotoInformationToServer',
-                value: (function () {
-                  var _sendPhotoInformationToServer = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee2(_ref3) {
-                        var id, privacy, description, headers, endpoint, method;
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee2$(_context2) {
-                            while (1) {
-                              switch ((_context2.prev = _context2.next)) {
-                                case 0:
-                                  (id = _ref3.id),
-                                    (privacy = _ref3.privacy),
-                                    (description = _ref3.description),
-                                    (headers = _ref3.headers),
-                                    (endpoint = _ref3.endpoint),
-                                    (method = _ref3.method);
-                                  _context2.next = 3;
-                                  return this.makeRequest({
-                                    headers: headers,
-                                    endpoint: endpoint,
-                                    method: method,
-                                    body: JSON.stringify({
-                                      id: id,
-                                      privacy: privacy,
-                                      description: description,
-                                    }),
-                                  });
-
-                                case 3:
-                                  return _context2.abrupt(
-                                    'return',
-                                    _context2.sent
-                                  );
-
-                                case 4:
-                                case 'end':
-                                  return _context2.stop();
-                              }
-                            }
-                          },
-                          _callee2,
-                          this
-                        );
-                      }
-                    )
-                  );
-
-                  function sendPhotoInformationToServer(_x2) {
-                    return _sendPhotoInformationToServer.apply(this, arguments);
-                  }
-
-                  return sendPhotoInformationToServer;
-                })(),
-              },
-              {
-                key: 'getPhotosIds',
-                value: (function () {
-                  var _getPhotosIds = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee3(_ref4) {
-                        var filesAmount, headers, endpoint, method;
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee3$(_context3) {
-                            while (1) {
-                              switch ((_context3.prev = _context3.next)) {
-                                case 0:
-                                  (filesAmount = _ref4.filesAmount),
-                                    (headers = _ref4.headers),
-                                    (endpoint = _ref4.endpoint),
-                                    (method = _ref4.method);
-                                  // Add amount of files as a query parameter
-                                  this.requests.getIds.endpoint.searchParams.set(
-                                    'amount',
-                                    String(filesAmount)
-                                  );
-                                  _context3.next = 4;
-                                  return this.makeRequest({
-                                    headers: headers,
-                                    endpoint: endpoint,
-                                    method: method,
-                                  });
-
-                                case 4:
-                                  return _context3.abrupt(
-                                    'return',
-                                    _context3.sent
-                                  );
-
-                                case 5:
-                                case 'end':
-                                  return _context3.stop();
-                              }
-                            }
-                          },
-                          _callee3,
-                          this
-                        );
-                      }
-                    )
-                  );
-
-                  function getPhotosIds(_x3) {
+                  function getPhotosIds(_x) {
                     return _getPhotosIds.apply(this, arguments);
                   }
 

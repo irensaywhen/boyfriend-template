@@ -4,10 +4,6 @@ import loadingIndicatorMixin from './requestsIndictorMixin.js';
 export default class ServerRequest {
   constructor(options) {
     // Bind context
-    this.sendPhotoInformationToServer = this.sendPhotoInformationToServer.bind(
-      this
-    );
-    this.deletePhotoOnServer = this.deletePhotoOnServer.bind(this);
     this.getPhotosIds = this.getPhotosIds.bind(this);
 
     // Save passed options
@@ -117,31 +113,6 @@ export default class ServerRequest {
           });
         });
     }
-  }
-
-  async deletePhotoOnServer({ id, headers, endpoint, method }) {
-    return await this.makeRequest({
-      headers,
-      endpoint,
-      method,
-      body: JSON.stringify({ id }),
-    });
-  }
-
-  async sendPhotoInformationToServer({
-    id,
-    privacy,
-    description,
-    headers,
-    endpoint,
-    method,
-  }) {
-    return await this.makeRequest({
-      headers,
-      endpoint,
-      method,
-      body: JSON.stringify({ id, privacy, description }),
-    });
   }
 
   async getPhotosIds({ filesAmount, headers, endpoint, method }) {

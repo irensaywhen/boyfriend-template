@@ -92,15 +92,15 @@ class EditorModal extends ServerRequest {
     event.preventDefault();
 
     if (this.configuration.editor) {
-      let response;
+      let { headers, method, endpoint } = this.requests.deletePhoto;
 
       try {
         // Make server request to delete photo
-        response = await super.deletePhotoOnServer({
-          id: photo.dataset.id,
-          headers: this.requests.deletePhoto.headers,
-          endpoint: this.requests.deletePhoto.endpoint,
-          method: this.requests.deletePhoto.method,
+        var response = await this.makeRequest({
+          headers,
+          endpoint,
+          method,
+          body: JSON.stringify({ id: photo.dataset.id }),
         });
       } catch (error) {
         // Unsuccessful Popup
@@ -112,25 +112,21 @@ class EditorModal extends ServerRequest {
       }
 
       if (response.success) {
-        // Delete photo container
+        // Delete photo container and close modal
         $(photo).closest(this.selectors.container).remove();
-
-        // Successful Popup
-        this.showRequestResult({
-          title: response.title,
-          text: response.message,
-          icon: 'success',
-        });
-
         this.closeModal();
+
+        var icon = 'success';
       } else {
-        // Unsuccessful Popup
-        this.showRequestResult({
-          title: response.title,
-          text: response.message,
-          icon: 'error',
-        });
+        var icon = 'error';
       }
+
+      // Show resulting popup
+      this.showRequestResult({
+        title: response.title,
+        text: response.message,
+        icon,
+      });
     }
 
     if (this.configuration.uploader) {
