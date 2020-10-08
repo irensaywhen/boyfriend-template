@@ -20,9 +20,7 @@ export default class PhotoUploader extends EditorModal {
     this.configuration.uploader = true;
 
     // Binding context
-    this.previewPhotos = this.previewPhotos.bind(this);
     this._updateMarkup = this._updateMarkup.bind(this);
-    this.uploadNewPhotos = this.uploadNewPhotos.bind(this);
 
     // Prepare Uploader
     this._cacheElements();
@@ -100,67 +98,63 @@ export default class PhotoUploader extends EditorModal {
       // Make server request here
       // And update markup
       // After that - clean all the cached data
-      this.uploadNewPhotos();
+      //this.uploadNewPhotos();
+
+      this.collectData();
+      console.log(this.photoData);
+
+      let { headers, method, endpoint } = this.requests.savePhotos,
+        photoData = this.photoData;
+
+      this.makeRequest({
+        headers,
+        endpoint,
+        method,
+        body: JSON.stringify(photoData),
+      })
+        .then(response => {
+          console.log(response);
+
+          if (!response.success) {
+            let error = new Error(response.message);
+            error.name = response.title;
+            throw error;
+          }
+
+          // Show each photo on markup
+          for (let id in photoData) {
+            let { src, privacy, description } = photoData[id];
+
+            // Add each uploaded photo to the markup
+            this._updateMarkup({
+              id,
+              src,
+              privacy,
+              description,
+            });
+          }
+
+          this.closeModal();
+
+          // Show success popup
+          this.showRequestResult({
+            title,
+            text: response.message,
+            icon: 'success',
+          });
+        })
+        .catch(error =>
+          this.showRequestResult({
+            title: error.name,
+            text: error.message,
+            icon: 'error',
+          })
+        );
     });
   }
 
   clean() {
     this.photoData = {};
-  }
-
-  async uploadNewPhotos() {
-    this.collectData();
-    this._generateFormData();
-
-    let response;
-
-    try {
-      // Make server request to save photos
-      response = await this.makeRequest({
-        headers: this.requests.savePhotos.headers,
-        endpoint: this.requests.savePhotos.endpoint,
-        method: this.requests.savePhotos.method,
-        body: this.formData,
-      });
-    } catch (error) {
-      // Unsuccessful Popup
-      this.showRequestResult({
-        title: 'Oops!',
-        text: error.message,
-        icon: 'error',
-      });
-    }
-
-    if (response.success) {
-      // Successful Popup
-      this.showRequestResult({
-        title: 'Success!',
-        text: response.message,
-        icon: 'success',
-      });
-
-      // Update markup according to photoData object
-      for (let id in this.photoData) {
-        let photoData = this.photoData[id];
-
-        // Add each uploaded photo to the markup
-        this._updateMarkup({
-          id: id,
-          src: photoData.src,
-          privacy: photoData.privacy,
-          description: photoData.description,
-        });
-      }
-
-      this.closeModal();
-    } else {
-      // Unsuccessful Popup
-      this.showRequestResult({
-        title: 'Oops!',
-        text: response.message,
-        icon: 'error',
-      });
-    }
   }
 
   /**
@@ -171,7 +165,10 @@ export default class PhotoUploader extends EditorModal {
   }
 
   collectData() {
+    console.log(this);
+    console.log(this.photoData);
     $(this.selectors.container).each((index, element) => {
+      console.log(element);
       let id = element.dataset.id;
 
       let privacy = $(element)
@@ -181,13 +178,14 @@ export default class PhotoUploader extends EditorModal {
       let description = $(element).find(this.selectors.description).val();
 
       this.savePhotoInformation({
-        id: id,
+        id,
         privacy,
         description,
       });
     });
   }
 
+  // After setting up request, maybe, we can change update markup function, too
   _updateMarkup({ id = null, src = null, privacy = false, description = '' }) {
     this.$gallery.append(
       $('<div></div>')

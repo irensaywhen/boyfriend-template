@@ -21542,11 +21542,6 @@
                 _this
               )
             );
-            _this._generateFormData = _this._generateFormData.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
-                _this
-              )
-            );
             _this.closeModal = _this.closeModal.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
@@ -21718,25 +21713,6 @@
                   }
 
                   this.photoData[id].description = description;
-                },
-              },
-              {
-                key: '_generateFormData',
-                value: function _generateFormData() {
-                  this.formData = new FormData();
-
-                  if (this.configuration.uploader) {
-                    for (var id in this.photoData) {
-                      for (var property in this.photoData[id]) {
-                        // Don't send src for previews
-                        if (property === 'src') continue;
-                        this.formData.append(
-                          property + id,
-                          this.photoData[id][property]
-                        );
-                      }
-                    }
-                  }
                 },
               },
             ]

@@ -23,7 +23,6 @@ class EditorModal extends ServerRequest {
     this._cacheElements = this._cacheElements.bind(this);
     this._setUpEventListeners = this._setUpEventListeners.bind(this);
     this.savePhotoInformation = this.savePhotoInformation.bind(this);
-    this._generateFormData = this._generateFormData.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.deletePhoto = this.deletePhoto.bind(this);
     this.makeURLObjects = this.makeURLObjects.bind(this);
@@ -124,20 +123,6 @@ class EditorModal extends ServerRequest {
       this.photoData[id].privacy = false;
     }
     this.photoData[id].description = description;
-  }
-
-  _generateFormData() {
-    this.formData = new FormData();
-
-    if (this.configuration.uploader) {
-      for (let id in this.photoData) {
-        for (let property in this.photoData[id]) {
-          // Don't send src for previews
-          if (property === 'src') continue;
-          this.formData.append(property + id, this.photoData[id][property]);
-        }
-      }
-    }
   }
 }
 

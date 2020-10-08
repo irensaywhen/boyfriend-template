@@ -84536,11 +84536,6 @@
                 _this
               )
             );
-            _this._generateFormData = _this._generateFormData.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
-                _this
-              )
-            );
             _this.closeModal = _this.closeModal.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
@@ -84712,25 +84707,6 @@
                   }
 
                   this.photoData[id].description = description;
-                },
-              },
-              {
-                key: '_generateFormData',
-                value: function _generateFormData() {
-                  this.formData = new FormData();
-
-                  if (this.configuration.uploader) {
-                    for (var id in this.photoData) {
-                      for (var property in this.photoData[id]) {
-                        // Don't send src for previews
-                        if (property === 'src') continue;
-                        this.formData.append(
-                          property + id,
-                          this.photoData[id][property]
-                        );
-                      }
-                    }
-                  }
                 },
               },
             ]
@@ -88786,17 +88762,7 @@
 
             _this.configuration.uploader = true; // Binding context
 
-            _this.previewPhotos = _this.previewPhotos.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
-                _this
-              )
-            );
             _this._updateMarkup = _this._updateMarkup.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
-                _this
-              )
-            );
-            _this.uploadNewPhotos = _this.uploadNewPhotos.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
@@ -88904,8 +88870,62 @@
                     event.preventDefault(); // Make server request here
                     // And update markup
                     // After that - clean all the cached data
+                    //this.uploadNewPhotos();
 
-                    _this2.uploadNewPhotos();
+                    _this2.collectData();
+
+                    console.log(_this2.photoData);
+                    var _this2$requests$saveP = _this2.requests.savePhotos,
+                      headers = _this2$requests$saveP.headers,
+                      method = _this2$requests$saveP.method,
+                      endpoint = _this2$requests$saveP.endpoint,
+                      photoData = _this2.photoData;
+
+                    _this2
+                      .makeRequest({
+                        headers: headers,
+                        endpoint: endpoint,
+                        method: method,
+                        body: JSON.stringify(photoData),
+                      })
+                      .then(function (response) {
+                        console.log(response);
+
+                        if (!response.success) {
+                          var error = new Error(response.message);
+                          error.name = response.title;
+                          throw error;
+                        } // Show each photo on markup
+
+                        for (var id in photoData) {
+                          var _photoData$id = photoData[id],
+                            src = _photoData$id.src,
+                            privacy = _photoData$id.privacy,
+                            description = _photoData$id.description; // Add each uploaded photo to the markup
+
+                          _this2._updateMarkup({
+                            id: id,
+                            src: src,
+                            privacy: privacy,
+                            description: description,
+                          });
+                        }
+
+                        _this2.closeModal(); // Show success popup
+
+                        _this2.showRequestResult({
+                          title: title,
+                          text: response.message,
+                          icon: 'success',
+                        });
+                      })
+                      ['catch'](function (error) {
+                        return _this2.showRequestResult({
+                          title: error.name,
+                          text: error.message,
+                          icon: 'error',
+                        });
+                      });
                   });
                 },
               },
@@ -88914,97 +88934,6 @@
                 value: function clean() {
                   this.photoData = {};
                 },
-              },
-              {
-                key: 'uploadNewPhotos',
-                value: (function () {
-                  var _uploadNewPhotos = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee() {
-                        var response, id, photoData;
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee$(_context) {
-                            while (1) {
-                              switch ((_context.prev = _context.next)) {
-                                case 0:
-                                  this.collectData();
-
-                                  this._generateFormData();
-
-                                  _context.prev = 2;
-                                  _context.next = 5;
-                                  return this.makeRequest({
-                                    headers: this.requests.savePhotos.headers,
-                                    endpoint: this.requests.savePhotos.endpoint,
-                                    method: this.requests.savePhotos.method,
-                                    body: this.formData,
-                                  });
-
-                                case 5:
-                                  response = _context.sent;
-                                  _context.next = 11;
-                                  break;
-
-                                case 8:
-                                  _context.prev = 8;
-                                  _context.t0 = _context['catch'](2);
-                                  // Unsuccessful Popup
-                                  this.showRequestResult({
-                                    title: 'Oops!',
-                                    text: _context.t0.message,
-                                    icon: 'error',
-                                  });
-
-                                case 11:
-                                  if (response.success) {
-                                    // Successful Popup
-                                    this.showRequestResult({
-                                      title: 'Success!',
-                                      text: response.message,
-                                      icon: 'success',
-                                    }); // Update markup according to photoData object
-
-                                    for (id in this.photoData) {
-                                      photoData = this.photoData[id]; // Add each uploaded photo to the markup
-
-                                      this._updateMarkup({
-                                        id: id,
-                                        src: photoData.src,
-                                        privacy: photoData.privacy,
-                                        description: photoData.description,
-                                      });
-                                    }
-
-                                    this.closeModal();
-                                  } else {
-                                    // Unsuccessful Popup
-                                    this.showRequestResult({
-                                      title: 'Oops!',
-                                      text: response.message,
-                                      icon: 'error',
-                                    });
-                                  }
-
-                                case 12:
-                                case 'end':
-                                  return _context.stop();
-                              }
-                            }
-                          },
-                          _callee,
-                          this,
-                          [[2, 8]]
-                        );
-                      }
-                    )
-                  );
-
-                  function uploadNewPhotos() {
-                    return _uploadNewPhotos.apply(this, arguments);
-                  }
-
-                  return uploadNewPhotos;
-                })(),
                 /**
                  * Function deleting uploaded photos
                  */
@@ -89020,7 +88949,10 @@
                 value: function collectData() {
                   var _this3 = this;
 
+                  console.log(this);
+                  console.log(this.photoData);
                   $(this.selectors.container).each(function (index, element) {
+                    console.log(element);
                     var id = element.dataset.id;
                     var privacy = $(element)
                       .find(_this3.selectors['privacy-input'])
@@ -89035,7 +88967,7 @@
                       description: description,
                     });
                   });
-                },
+                }, // After setting up request, maybe, we can change update markup function, too
               },
               {
                 key: '_updateMarkup',
@@ -89083,48 +89015,48 @@
                 value: (function () {
                   var _preview2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
                     /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee2(fileReader) {
+                      function _callee(fileReader) {
                         var ids, src, id, compiledPhotoTemplate;
                         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee2$(_context2) {
+                          function _callee$(_context) {
                             while (1) {
-                              switch ((_context2.prev = _context2.next)) {
+                              switch ((_context.prev = _context.next)) {
                                 case 0:
-                                  _context2.prev = 0;
-                                  _context2.next = 3;
+                                  _context.prev = 0;
+                                  _context.next = 3;
                                   return this.ids;
 
                                 case 3:
-                                  ids = _context2.sent;
+                                  ids = _context.sent;
 
                                   if (Array.isArray(ids)) {
-                                    _context2.next = 6;
+                                    _context.next = 6;
                                     break;
                                   }
 
                                   throw new TypeError('Should be an array');
 
                                 case 6:
-                                  _context2.next = 12;
+                                  _context.next = 12;
                                   break;
 
                                 case 8:
-                                  _context2.prev = 8;
-                                  _context2.t0 = _context2['catch'](0);
+                                  _context.prev = 8;
+                                  _context.t0 = _context['catch'](0);
                                   ids = null;
                                   this.showRequestResult({
-                                    title: _context2.t0.name,
-                                    text: _context2.t0.message,
+                                    title: _context.t0.name,
+                                    text: _context.t0.message,
                                     icon: 'error',
                                   });
 
                                 case 12:
                                   if (ids) {
-                                    _context2.next = 14;
+                                    _context.next = 14;
                                     break;
                                   }
 
-                                  return _context2.abrupt('return');
+                                  return _context.abrupt('return');
 
                                 case 14:
                                   (src = fileReader.result), (id = ids.pop()); // Save information about the current photo
@@ -89150,11 +89082,11 @@
 
                                 case 20:
                                 case 'end':
-                                  return _context2.stop();
+                                  return _context.stop();
                               }
                             }
                           },
-                          _callee2,
+                          _callee,
                           this,
                           [[0, 8]]
                         );
