@@ -12,6 +12,8 @@ import Gallery from './modules/gallery.js';
 import Chat from './modules/chat.js';
 import EnlargePhoto from './modules/enlargePhoto.js';
 import Profiles from './modules/profiles.js';
+import MessagesLazyLoading from './modules/messagesLazyLoading.js';
+import Like from './modules/like.js';
 
 window['PhotoUploader'] = PhotoUploader;
 window['PhotoEditor'] = PhotoEditor;
@@ -27,3 +29,5 @@ window['Chat'] = Chat;
 window['EnlargePhoto'] = EnlargePhoto;
 window['Profiles'] = Profiles;
 window['SponsorPremium'] = SponsorPremium;
+window['MessagesLazyLoading'] = MessagesLazyLoading;
+window['Like'] = Like;

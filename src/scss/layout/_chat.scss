@@ -1,13 +1,13 @@
 .chat {
   min-height: 100vh;
+  height: 100vh;
 
   /*Chat header start*/
   .chat-header {
     background: #fff;
     height: $chat-header-height;
     width: 100%;
-    position: fixed;
-    top: 0;
+    position: relative;
     z-index: 2000;
 
     .chat-header_content {
@@ -35,11 +35,10 @@
   /*Chat content start*/
   .chat-content {
     @include bs-sm-shadow;
-    padding-top: $chat-header-height;
-    padding-bottom: $chat-bottom-spacing;
     background: #fff;
     max-width: $chat-width;
-    min-height: 100vh;
+    height: calc(100vh - 77px - 71px - 45px);
+    overflow-y: scroll;
 
     @include screen-sm {
       border-left: 1px solid $label-border;
@@ -48,7 +47,7 @@
 
     @include screen-lg {
       max-width: $chat-width-lg;
-      padding-bottom: $chat-bottom-spacing-lg;
+      height: calc(100vh - 77px - 83px - 60px);
     }
 
     /* General message start*/
@@ -81,6 +80,7 @@
     /*superlike message start*/
     .message-special {
       font-style: italic;
+      margin-top: 60px !important;
 
       .icon {
         @include circular-badge($icon-width);

@@ -71,7 +71,7 @@
 
     <!--Profile modals start-->
     <div class="profile-modals">
-      <!--Modal for photos start-->
+      <!--Modal for enlarged photos start-->
 
       <div
         class="modal fade gallery-modal"
@@ -92,6 +92,7 @@
                 <img
                   src="img/profile.jpg"
                   class="modal-image"
+                  id="usePhoto-enlarge"
                   alt="Profile photo"
                   tabindex="-1"
                 />
@@ -104,7 +105,9 @@
                 <p
                   class="d-block w-100 pt-4 pb-3 px-2 mb-0"
                   id="photo-description"
-                ></p>
+                >
+                  Here the photo description goes
+                </p>
               </div>
               <!--Description and button end-->
 
@@ -124,6 +127,918 @@
       <!--Modals for photos end-->
     </div>
     <!--Profile modals end-->
+
+    <!--Modal for sponsoring premium start-->
+    <div
+      class="modal fade sponsorePremium-modal checkout"
+      id="premiumModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="premiumModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+          <!--Modal header start-->
+          <div
+            class="modal-header py-1 py-sm-2 position-relative d-flex flex-column align-items-center"
+          >
+            <button
+              type="button"
+              class="btn close-mobile d-sm-none font-weight-light"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true"><i class="fas fa-arrow-left"></i></span>
+            </button>
+
+            <!--Modal title-->
+            <h2 class="modal-title">Sponsor premium account</h2>
+            <p class="font-weight-normal small mb-1 mb-sm-0 pr-3 pt-1">
+              For:
+              <strong class="h6 mb-0">Lukasz</strong>
+            </p>
+
+            <!--Special proposition for buying premium-->
+            <p class="small text-muted m-0 d-block pt-1">
+              You will recieve
+              <span class="text-success">50%</span> of the premium time
+            </p>
+
+            <button
+              type="button"
+              class="close d-none d-sm-block"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!--Modal header end-->
+
+          <!--Modal body start-->
+          <div class="modal-body" id="checkout">
+            <!--Form for selecting plans and presents start-->
+            <div class="form-wrapper">
+              <form id="buy-premium" class="buy-premium-step" data-step="0">
+                <div class="row my-3 text-center">
+                  <!--Plan start-->
+                  <div class="col-12 col-sm-6 col-md-4 col-lg-3 pb-3">
+                    <div class="card shadow-sm border-0">
+                      <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">1 month</h4>
+                      </div>
+                      <div class="card-body">
+                        <h3 class="card-title pricing-card-title mb-2">
+                          14.99 zł <small class="text-muted">/ mo</small>
+                        </h3>
+                        <ul class="list-unstyled">
+                          <li>10 users included</li>
+                          <li>2 GB of storage</li>
+                          <li>Email support</li>
+                          <li>Help center access</li>
+                        </ul>
+                        <!--Plan's input start-->
+                        <div class="form-group position-relative">
+                          <input
+                            type="radio"
+                            name="plan"
+                            id="oneMonth"
+                            value="oneMonth"
+                            class="position-absolute d-none plan-input buy-premium-input preserve"
+                          />
+                          <label
+                            for="oneMonth"
+                            class="btn btn-outline-primary btn-rounded btn-block plan-label"
+                          >
+                            Select plan</label
+                          >
+                        </div>
+                        <!--Plan's input end-->
+                      </div>
+                    </div>
+                  </div>
+                  <!--Plan end-->
+
+                  <!--Plan start-->
+                  <div class="col-12 col-sm-6 col-md-4 col-lg-3 pb-3">
+                    <div class="card shadow-sm border-0">
+                      <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">3 months</h4>
+                      </div>
+                      <div class="card-body">
+                        <h3 class="card-title pricing-card-title mb-2">
+                          14.99 zł <small class="text-muted">/ mo</small>
+                        </h3>
+                        <ul class="list-unstyled">
+                          <li>20 users included</li>
+                          <li>10 GB of storage</li>
+                          <li>Priority email support</li>
+                          <li>Help center access</li>
+                        </ul>
+                        <!--Plan's input start-->
+                        <div class="form-group position-relative">
+                          <input
+                            type="radio"
+                            name="plan"
+                            id="threeMonths"
+                            value="threeMonths"
+                            class="position-absolute d-none plan-input buy-premium-input preserve"
+                          />
+                          <label
+                            for="threeMonths"
+                            class="btn btn-outline-primary btn-rounded btn-block plan-label"
+                          >
+                            Select plan</label
+                          >
+                        </div>
+                        <!--Plan's input end-->
+                      </div>
+                    </div>
+                  </div>
+                  <!--Plan end-->
+
+                  <!--Plan start-->
+                  <div class="col-12 col-sm-6 col-md-4 col-lg-3 pb-3">
+                    <div class="card shadow-sm border-0">
+                      <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">6 months</h4>
+                      </div>
+                      <div class="card-body">
+                        <h3 class="card-title pricing-card-title mb-2">
+                          14.99 zł <small class="text-muted">/ mo</small>
+                        </h3>
+                        <ul class="list-unstyled">
+                          <li>30 users included</li>
+                          <li>15 GB of storage</li>
+                          <li>Phone and email support</li>
+                          <li>Help center access</li>
+                        </ul>
+                        <!--Plan's input start-->
+                        <div class="form-group position-relative">
+                          <input
+                            type="radio"
+                            name="plan"
+                            id="sixMonths"
+                            value="sixMonths"
+                            class="position-absolute d-none plan-input buy-premium-input preserve"
+                          />
+                          <label
+                            for="sixMonths"
+                            class="btn btn-outline-primary btn-rounded btn-block plan-label"
+                          >
+                            Select plan</label
+                          >
+                        </div>
+                        <!--Plan's input end-->
+                      </div>
+                    </div>
+                  </div>
+                  <!--Plan end-->
+
+                  <!--Plan start-->
+                  <div class="col-12 col-sm-6 col-md-4 col-lg-3 pb-3">
+                    <div class="card shadow-sm border-0">
+                      <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">12 months</h4>
+                      </div>
+                      <div class="card-body">
+                        <h3 class="card-title pricing-card-title mb-2">
+                          14.99 zł <small class="text-muted">/ mo</small>
+                        </h3>
+                        <ul class="list-unstyled">
+                          <li>30 users included</li>
+                          <li>15 GB of storage</li>
+                          <li>Phone and email support</li>
+                          <li>Help center access</li>
+                        </ul>
+                        <!--Plan's input start-->
+                        <div class="form-group position-relative">
+                          <input
+                            type="radio"
+                            name="plan"
+                            id="twelveMonths"
+                            value="twelveMonths"
+                            class="position-absolute d-none plan-input buy-premium-input preserve"
+                          />
+                          <label
+                            for="twelveMonths"
+                            class="btn btn-outline-primary btn-rounded btn-block plan-label"
+                          >
+                            Select plan</label
+                          >
+                        </div>
+                        <!--Plan's input end-->
+                      </div>
+                    </div>
+                  </div>
+                  <!--Plan end-->
+                </div>
+
+                <!--Bonuses selection start-->
+                <div class="row">
+                  <div class="col text-center text-md-left pb-5">
+                    <!--Toggle button start-->
+                    <button
+                      class="btn btn-lg btn-default mb-2 collapsed"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#bonuses"
+                      aria-expanded="false"
+                      aria-controls="bonuses"
+                    >
+                      <i class="material-icons"> card_giftcard </i>
+                      <span class="align-middle">Select bonuses</span>
+                      <i class="fa fa-chevron-down"></i>
+                    </button>
+                    <!--Toggle button end-->
+
+                    <!--Bonuses container start-->
+                    <div class="collapse pt-4" id="bonuses">
+                      <ul class="list-group list-group-flush mb-4">
+                        <!--Superlike start-->
+                        <li class="list-group-item pb-5 pb-md-3">
+                          <div class="row">
+                            <div class="col-12 col-md-2 align-self-center">
+                              <figure class="product-image h-auto">
+                                <img
+                                  src="img/superlike.svg"
+                                  alt=""
+                                  class="vm"
+                                />
+                              </figure>
+                            </div>
+                            <div
+                              class="col-12 col-md-7 pl-md-4 text-center text-md-left"
+                            >
+                              <h3 class="text-dark mb-1 h4 d-block">
+                                Super Like
+                              </h3>
+
+                              <div
+                                class="text-secondary font-weight-normal mb-0 pt-1"
+                              >
+                                Price: <span class="text-success">10 </span>
+                                <span class="text-success">zł</span>
+                              </div>
+
+                              <p class="text-secondary pb-2 pb-md-0 pt-2">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Facilis dolorem iure ullam
+                                repudiandae velit! Rem, reprehenderit! Eos,
+                                libero aut? Reiciendis, non illo culpa iusto
+                                numquam laborum adipisci illum ab excepturi?
+                              </p>
+                            </div>
+
+                            <!--Amount input start-->
+                            <div
+                              class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
+                            >
+                              <div
+                                class="input-group input-group-sm form-group"
+                              >
+                                <!--Substration button-->
+                                <div class="input-group-prepend bonus-control">
+                                  <button
+                                    class="btn btn-light-grey px-1"
+                                    type="button"
+                                  >
+                                    <i class="material-icons">remove</i>
+                                  </button>
+                                </div>
+
+                                <!--Input-->
+                                <input
+                                  type="text"
+                                  name="super-like"
+                                  id="super-like"
+                                  class="form-control w-35 buy-premium-input preserve"
+                                  value="0"
+                                />
+
+                                <!--Addition button-->
+                                <div class="input-group-append bonus-control">
+                                  <button
+                                    class="btn btn-light-grey px-1"
+                                    type="button"
+                                  >
+                                    <i class="material-icons">add</i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <!--Amount input end-->
+                          </div>
+                        </li>
+                        <!--Superlike end-->
+
+                        <!--Boost start-->
+                        <li class="list-group-item pb-5 pb-md-3">
+                          <div class="row">
+                            <div class="col-12 col-md-2 align-self-center">
+                              <figure class="product-image h-auto">
+                                <img
+                                  src="img/boost-static.svg"
+                                  alt=""
+                                  class="vm"
+                                />
+                              </figure>
+                            </div>
+                            <div
+                              class="col-12 col-md-7 pl-md-4 text-center text-md-left"
+                            >
+                              <h3 class="text-dark mb-1 h4 d-block">Boost</h3>
+
+                              <div
+                                class="text-secondary font-weight-normal mb-0 pt-1"
+                              >
+                                Price: <span class="text-success">15 </span>
+                                <span class="text-success">zł</span>
+                              </div>
+
+                              <p class="text-secondary pb-2 pb-md-0 pt-2">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Facilis dolorem iure ullam
+                                repudiandae velit! Rem, reprehenderit! Eos,
+                                libero aut? Reiciendis, non illo culpa iusto
+                                numquam laborum adipisci illum ab excepturi?
+                              </p>
+                            </div>
+
+                            <!--Amount input start-->
+                            <div
+                              class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
+                            >
+                              <div
+                                class="input-group input-group-sm form-group"
+                              >
+                                <!--Substration button-->
+                                <div class="input-group-prepend bonus-control">
+                                  <button
+                                    class="btn btn-light-grey px-1"
+                                    type="button"
+                                  >
+                                    <i class="material-icons">remove</i>
+                                  </button>
+                                </div>
+
+                                <!--Input-->
+                                <input
+                                  type="text"
+                                  name="boost"
+                                  id="boost"
+                                  class="form-control w-35 buy-premium-input preserve"
+                                  value="0"
+                                />
+
+                                <!--Addition button-->
+                                <div class="input-group-append bonus-control">
+                                  <button
+                                    class="btn btn-light-grey px-1"
+                                    type="button"
+                                  >
+                                    <i class="material-icons">add</i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <!--Amount input end-->
+                          </div>
+                        </li>
+                        <!--Boost end-->
+
+                        <!--Photo cart start-->
+                        <li class="list-group-item pb-5 pb-md-3">
+                          <div class="row">
+                            <div class="col-12 col-md-2 align-self-center">
+                              <figure class="product-image h-auto">
+                                <img src="img/photo.svg" alt="" class="vm" />
+                              </figure>
+                            </div>
+                            <div
+                              class="col-12 col-md-7 pl-md-4 text-center text-md-left"
+                            >
+                              <h3 class="text-dark mb-1 h4 d-block">
+                                Photo Card
+                              </h3>
+
+                              <div
+                                class="text-secondary font-weight-normal mb-0 pt-1"
+                              >
+                                Price: <span class="text-success">12 </span>
+                                <span class="text-success">zł</span>
+                              </div>
+
+                              <p class="text-secondary pb-2 pb-md-0 pt-2">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Facilis dolorem iure ullam
+                                repudiandae velit! Rem, reprehenderit! Eos,
+                                libero aut? Reiciendis, non illo culpa iusto
+                                numquam laborum adipisci illum ab excepturi?
+                              </p>
+                            </div>
+
+                            <!--Amount input start-->
+                            <div
+                              class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
+                            >
+                              <div
+                                class="input-group input-group-sm form-group"
+                              >
+                                <!--Substration button-->
+                                <div class="input-group-prepend bonus-control">
+                                  <button
+                                    class="btn btn-light-grey px-1"
+                                    type="button"
+                                  >
+                                    <i class="material-icons">remove</i>
+                                  </button>
+                                </div>
+
+                                <!--Input-->
+                                <input
+                                  type="text"
+                                  name="photo-card"
+                                  id="photo-card"
+                                  class="form-control w-35 buy-premium-input preserve"
+                                  value="0"
+                                />
+
+                                <!--Addition button-->
+                                <div class="input-group-append bonus-control">
+                                  <button
+                                    class="btn btn-light-grey px-1"
+                                    type="button"
+                                  >
+                                    <i class="material-icons">add</i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <!--Amount input end-->
+                          </div>
+                        </li>
+                        <!--Photo cart end-->
+                      </ul>
+                    </div>
+                    <!--Bonus container end-->
+                  </div>
+                </div>
+                <!--Bonuses selection end-->
+
+                <!--Button for total price start-->
+                <div class="row plan-and-bonuses-checkout">
+                  <div class="col-12">
+                    <!-- Total amount to pay container start-->
+                    <div class="mb-4 border-0 shadow py-4 text-center">
+                      <p class="text-secondary my-1">Total amount to pay:</p>
+
+                      <!--Price-->
+                      <div class="price-container h3 mb-4">
+                        <span class="total-price">0 </span>
+                        <span>zł</span> &nbsp;
+                        <del class="text-secondary small">
+                          <span class="previous-price">0 </span>zł
+                        </del>
+                      </div>
+
+                      <!--Spinner for price loading-->
+                      <div class="spinner-border text-dark mb-4" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+
+                      <!--Button to submit form-->
+                      <button
+                        type="submit"
+                        id="buyPremium-checkout"
+                        class="mb-2 mx-auto btn btn-block btn-lg btn-rounded btn-default disable-on-request"
+                      >
+                        Checkout <i class="material-icons">arrow_forward</i>
+                      </button>
+                    </div>
+                    <!-- Total amount to pay container end-->
+                  </div>
+                </div>
+                <!--Button for total price end-->
+              </form>
+            </div>
+            <!--Form for selecting plans and presents end-->
+            <div class="form-wrapper">
+              <div class="buy-premium-step" data-step="1">
+                <!--Payment selection start-->
+                <div class="row">
+                  <div class="col-12">
+                    <h2
+                      class="h3 mx-3 text-center text-sm-left pb-4 pt-3 section-title"
+                    >
+                      Choose payment method:
+                    </h2>
+                  </div>
+                </div>
+
+                <!--Card payment start-->
+                <div
+                  class="row payment bg-white shadow rounded py-4 mx-3 mb-5 forward"
+                >
+                  <div
+                    class="col-12 col-sm-4 col-md-2 d-none d-sm-block text-center"
+                  >
+                    <span class="material-icons align-middle"> payment </span>
+                  </div>
+                  <div
+                    class="col-12 col-sm-7 d-flex flex-column justify-content-center align-items-center align-items-sm-start"
+                  >
+                    <h3 class="title">
+                      Card payment - <span class="text-success">20% off</span>
+                    </h3>
+                    <div class="price font-weight-normal mb-0 pt-1">
+                      <span class="small text-secondary">total:</span>
+                      <span class="text-success card-discount-price">0 </span>
+                      <span class="text-success">zł</span>
+                      &nbsp;
+                      <del class="text-secondary small">
+                        <span class="card-total-price">0 </span>zł
+                      </del>
+                    </div>
+                    <p class="text-secondary small pt-3">subscription</p>
+                  </div>
+                </div>
+                <!--Card payment end-->
+
+                <!--Bank transfer start-->
+                <div
+                  class="row payment bg-white shadow rounded py-4 mx-3"
+                  id="bank-transfer"
+                >
+                  <div
+                    class="col-12 col-sm-4 col-md-2 d-none d-sm-block text-center"
+                  >
+                    <span class="material-icons"> account_balance </span>
+                  </div>
+                  <div
+                    class="col-12 col-sm-7 d-flex flex-column justify-content-center align-items-center align-items-sm-start"
+                  >
+                    <h3 class="title">Bank transfer</h3>
+                    <div class="price font-weight-normal mb-0 pt-1">
+                      <span class="small text-secondary">total:</span>
+                      <span class="text-secondary total-price">0 </span>
+                      <span class="text-secondary">zł</span> &nbsp;
+                      <del class="text-secondary small">
+                        <span class="previous-price">0 </span>zł
+                      </del>
+                    </div>
+
+                    <!--Hidden form for bank transfer start-->
+                    <form
+                      action="https://pay.cashbill.pl/form/pay.php"
+                      id="bank-transfer-form"
+                      method="POST"
+                      target="_blank"
+                    >
+                      <input type="hidden" name="service" value="{$service}" />
+                      <input type="hidden" name="amount" value="{$amount}" />
+                      <input type="hidden" name="desc" value="{$desc}" />
+                      <input
+                        type="hidden"
+                        name="userdata"
+                        value="{$userdata}"
+                      />
+                      <input type="hidden" name="sign" value="{$sign}" />
+                    </form>
+                    <!--Hidden form for bank transfer end-->
+                  </div>
+                </div>
+
+                <!--Bank transfer end-->
+              </div>
+
+              <!--Arrow back start-->
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-12 pt-2">
+                    <div
+                      class="backward blue-link text-secondary d-flex align-items-center"
+                    >
+                      <i class="material-icons"> arrow_back </i>
+                      back
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--Arrow back end-->
+            </div>
+            <!--Payment selection end-->
+
+            <!--Card payment input start-->
+
+            <div class="form-wrapper">
+              <h2 class="h3 mx-3 pt-4 text-center section-title">
+                Review and pay:
+              </h2>
+              <div class="row order-details" id="order-details">
+                <!--Template for plan details start-->
+                <script type="text/template" id="template-planDetails">
+
+                    <!--Plan summary start-->
+                  <div class="col-12 col-md-6 text-center text-md-left pt-4">
+                    <div class="card shadow-sm border-0 plan">
+                      <div class="card-header text-left">
+                        <h4 class="my-0 h6 font-weight-normal title">
+                          Plan details:
+                        </h4>
+                      </div>
+
+                      <!--Plan details start-->
+                      <div class="card-body text-left">
+                        <ul class="list-unstyled">
+                          {{#each details}}
+                          <li class="text-capitalize">{{this}}</li>
+                          {{/each}}
+                        </ul>
+                      </div>
+                      <!--Plan details end-->
+
+                      <div class="card-footer text-left">
+                        <div class="row no-gutters">
+                          <div class="col-8">
+                            Plan cost:
+                          </div>
+                          <div class="col-4 font-weight-bolder text-right">
+                            <span class="pl-1">
+                              <span>{{price}}</span> zł <small class="text-muted">/ mo</small>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Plan summary end-->
+                </script>
+                <!--Template for plan details end-->
+
+                <!--Template for bonuses start-->
+                <script type="text/template" id="template-orderedBonuses">
+                  <div class="col-12 col-md-6 text-center text-md-left pt-4">
+                    <div class="card shadow-sm border-0 plan">
+
+                      <!--Card title start-->
+                      <div class="card-header text-left">
+                        <h4 class="my-0 h6 font-weight-normal title">Bonuses:</h4>
+                      </div>
+                      <!--Card title end-->
+
+                      <!--Bonuses information start-->
+                      <div class="card-body py-0">
+                        <ul class="list-group text-left list-group-flush">
+                          {{#each details}}
+                          <!--Bonus start-->
+                          <li class="list-group-item px-0 py-1">
+                            <div class="row no-gutters align-items-center">
+                              <div class="col-4 col-md-2 align-self-center">
+                                <figure class="product-image h-auto">
+                                  <img src={{imgSrc}} alt="" class="vm" />
+                                </figure>
+                              </div>
+                              <div class="col-6 col-md-7 pl-md-4 text-left pl-3">
+                                <h3 class="text-dark text-capitalize mb-1 h4 d-block bonus-title">
+                                  {{name}}
+                                </h3>
+
+                                <div
+                                  class="bonus-amount text-secondary font-weight-normal mb-0 pt-1"
+                                >
+                                  amount: <span>{{amount}}</span>
+                                </div>
+                              </div>
+                              <div class="col-2 col-md-3 text-right">
+                                <span class="font-weight-normal mb-0 pt-1"
+                                  >{{totalPrice}} zł</span
+                                >
+                              </div>
+                            </div>
+                          </li>
+                          <!--Bonus end-->
+                          {{/each}}
+                        </ul>
+                      </div>
+                      <!--Bonuses information end-->
+
+                      <!--Total price section start-->
+                      <div class="card-footer text-left pr-15">
+                        <div class="row no-gutters">
+                          <div class="col-10 col-md-9">
+                            Bonuses total:
+                          </div>
+                          <div class="col-2 col-md-3 font-weight-bolder text-right">
+                            <span class="pl-1">
+                              {{price}} zł
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <!--Total price section end-->
+                    </div>
+                  </div>
+                </script>
+                <!--Template for bonuses end-->
+              </div>
+
+              <div class="row order-details pt-4">
+                <!--Cost summary start-->
+                <div class="col-12 text-left">
+                  <div class="card border-0 shadow-sm">
+                    <div class="card-header text-left">
+                      <h4 class="my-0 h6 font-weight-normal title">Summary:</h4>
+                    </div>
+
+                    <!--Summary details start-->
+                    <div class="card-body text-left">
+                      <ul class="text-left pl-1 list-unstyled mb-0">
+                        <li class="px-0 py-1">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col-10 col-md-9 align-self-center">
+                              Sub-total
+                            </div>
+                            <div class="col-2 col-md-3 text-right">
+                              <span
+                                class="font-weight-normal mb-0 pt-1 card-total-price"
+                                >0 </span
+                              >zł
+                            </div>
+                          </div>
+                        </li>
+
+                        <li class="px-0 py-1">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col-10 col-md-9 align-self-center">
+                              Discount
+                              <span
+                                class="badge badge-success ml-1"
+                                id="discount-type"
+                                >15%</span
+                              >
+                            </div>
+                            <div class="col-2 col-md-3 text-right">
+                              <span class="font-weight-normal mb-0 pt-1"
+                                >-<span id="discount-amount">0</span> zł</span
+                              >
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <!--Summary details end-->
+
+                    <div class="card-footer text-left pr-15">
+                      <div class="row no-gutters">
+                        <div class="col-10 col-md-9 font-weight-bold">
+                          Total:
+                        </div>
+                        <div
+                          class="col-2 col-md-3 font-weight-bolder text-right"
+                        >
+                          <span class="pl-1">
+                            <span class="card-discount-price">0</span> zł
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--Cost summary end-->
+              </div>
+
+              <form
+                class="row credit-card buy-premium-step mx-auto bg-white shadow mt-4 mb-1 py-3 px-3 px-sm-5"
+                id="credit-card"
+                data-step="2"
+              >
+                <div class="col-12 text-center">
+                  <h3 class="mx-3 text-lighter pb-3 pt-2 section-subtitle">
+                    Provide your card details:
+                  </h3>
+                </div>
+                <!--Card start-->
+                <div class="col-12 card-wrapper pb-4"></div>
+                <!--Card number start-->
+                <div class="col-12 col-sm-6 col-lg-4 offset-lg-2">
+                  <div class="form-group">
+                    <label for="number">Card number</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm payment-input"
+                      name="number"
+                      id="number"
+                      placeholder="•••• •••• •••• ••••"
+                    />
+                  </div>
+                </div>
+                <!--Card number end-->
+
+                <!--Card expiration start-->
+                <div class="col-12 col-sm-6 col-lg-4">
+                  <div class="form-group">
+                    <label for="expiry">Expiration date</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm payment-input"
+                      name="expiry"
+                      id="expiry"
+                      placeholder="MM/YY"
+                    />
+                  </div>
+                </div>
+                <!--Card expiration end-->
+
+                <!--Full name start-->
+                <div class="col-12 col-sm-6 col-lg-4 offset-lg-2">
+                  <div class="form-group">
+                    <label for="name">Full name</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm payment-input"
+                      name="name"
+                      id="name"
+                      placeholder="Full Name"
+                    />
+                  </div>
+                </div>
+                <!--Full name end-->
+
+                <!--CVC start-->
+                <div class="col-12 col-sm-6 col-lg-4">
+                  <div class="form-group">
+                    <label for="cvc">CVC Code</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm payment-input"
+                      name="cvc"
+                      id="cvc"
+                      placeholder="CVC"
+                    />
+                  </div>
+                </div>
+                <!--CVC end-->
+                <!--Card end-->
+
+                <!--Terms of service start-->
+                <div class="col-12 offset-lg-2">
+                  <div class="custom-control custom-checkbox form-group">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input payment-input"
+                      id="terms"
+                      name="terms"
+                    />
+                    <label class="custom-control-label" for="terms"
+                      >I accept
+                      <a href="terms.html" class="blue-link text-underline"
+                        >terms and conditions</a
+                      ></label
+                    >
+                  </div>
+                </div>
+                <!--Terms of service end-->
+
+                <!--Submission button start-->
+                <div class="col-12 col-lg-8 offset-lg-2 py-4">
+                  <button
+                    type="submit"
+                    id="paymentForm-checkout"
+                    class="mb-2 btn btn-block btn-rounded btn-default submit"
+                  >
+                    Buy plan and bonuses
+                  </button>
+                  <p class="text-center small text-secondary">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  </p>
+                </div>
+                <!--Submission button end-->
+              </form>
+
+              <!--Arrow back start-->
+              <div class="container credit-card px-0">
+                <div class="row no-gutters justify-content-center">
+                  <div class="col-12 p-0 credit-card">
+                    <div
+                      class="backward blue-link text-secondary d-flex align-items-center"
+                    >
+                      <i class="material-icons"> arrow_back </i>
+                      back
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--Arrow back end-->
+            </div>
+            <!--Card payment input end-->
+          </div>
+          <!--Modalbody end-->
+        </div>
+      </div>
+    </div>
+    <!--Modal for sponsoring premium end-->
 
     <!--Modal for photo upload start-->
     <div
@@ -392,7 +1307,11 @@
                     <li class="dropdown-divider"></li>
 
                     <!--Buy premium start-->
-                    <li class="dropdown-item d-inline-flex align-items-center">
+                    <li
+                      class="dropdown-item d-inline-flex align-items-center"
+                      id="premium"
+                      data-type="premium"
+                    >
                       <img
                         src="img/premium.svg"
                         class="present"
@@ -417,7 +1336,7 @@
         </div>
         <!--Chat header end-->
 
-        <div class="row chat-content mx-auto">
+        <div class="row chat-content mx-auto" id="chat-content">
           <!--Chat body start-->
           <div class="col-12 align-self-start">
             <div class="d-flex flex-column" id="messages-container">
@@ -552,7 +1471,13 @@
                 <!--Postcard photo start-->
                 <figure class="photo">
                   <!--Photo-->
-                  <img src="img/photo1.jpg" alt="Photo 1" />
+                  <img
+                    src="img/photo1.jpg"
+                    class="enlarge"
+                    data-description="This is my favorite photo. Take a look! This is my favorite
+                  photo. Take a look! This is my favorite photo. Take a look!"
+                    alt="Photo 1"
+                  />
 
                   <!--Photo description-->
                   <figcaption class="pt-2 pl-2">
@@ -586,7 +1511,13 @@
                 <!--Postcard photo start-->
                 <figure class="photo">
                   <!--Photo-->
-                  <img src="img/photo1.jpg" alt="Photo 1" />
+                  <img
+                    src="img/photo1.jpg"
+                    class="enlarge"
+                    data-description="This is my favorite photo. Take a look! This is my favorite
+                  photo. Take a look! This is my favorite photo. Take a look!"
+                    alt="Photo 1"
+                  />
 
                   <!--Photo description-->
                   <figcaption class="pt-2 pl-2">
@@ -683,15 +1614,27 @@
                   You've just been asked about permission to show your private
                   photo
                 </p>
-                <figure class="photo">
-                  <img src="img/photo1.jpg" class="enlarge" alt="Photo 1" />
+                <figure class="photo ask-permission-photo">
+                  <img
+                    src="img/photo1.jpg"
+                    class="enlarge"
+                    data-id="123"
+                    data-description="My private photo"
+                    alt="Photo 1"
+                  />
                   <figcaption
-                    class="pt-2 d-inline-flex justify-content-center flex-wrap"
+                    class="pt-2 d-inline-flex justify-content-center flex-wrap action-buttons-wrapper"
                   >
-                    <button type="button" class="btn btn-success mr-2">
+                    <button
+                      type="button"
+                      class="btn btn-success mr-2 allow permission"
+                    >
                       Allow
                     </button>
-                    <button type="button" class="btn btn-outline-primary">
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary deny permission"
+                    >
                       Deny
                     </button>
                   </figcaption>
@@ -703,6 +1646,48 @@
                 </span>
               </div>
               <!--Other user sent a request message end-->
+
+              <!--I allowed to see private photo message start-->
+              <div
+                class="message message-special mine position-relative px-3 py-2 mt-5 shadow"
+              >
+                <figure
+                  class="icon d-flex align-items-center justify-content-center"
+                >
+                  <img src="img/crop.svg" alt="photo icon" />
+                </figure>
+                <p class="text mb-0">
+                  You allowed Lukasz to see your private photo!
+                </p>
+                <span
+                  class="meta d-flex w-100 align-items-center justify-content-end"
+                >
+                  <i class="fas fa-check-circle"></i>
+                  <time>13:55</time>
+                </span>
+              </div>
+              <!--I allowed to see private photo message end-->
+
+              <!--I didn't allow to see private photo message start-->
+              <div
+                class="message message-special mine position-relative px-3 py-2 mt-5 shadow"
+              >
+                <figure
+                  class="icon d-flex align-items-center justify-content-center"
+                >
+                  <img src="img/lock-icon.svg" alt="photo icon" />
+                </figure>
+                <p class="text mb-0">
+                  You didn't give Lukasz acess to your private photo!
+                </p>
+                <span
+                  class="meta d-flex w-100 align-items-center justify-content-end"
+                >
+                  <i class="fas fa-check-circle"></i>
+                  <time>13:55</time>
+                </span>
+              </div>
+              <!--I didn't allow to see private photo message end-->
 
               <!--Other user gave you acceess to photo message start-->
               <div
@@ -717,7 +1702,12 @@
                   Lukasz allowed you to see his private photo!
                 </p>
                 <figure class="photo">
-                  <img src="img/photo1.jpg" class="enlarge" alt="Photo 1" />
+                  <img
+                    src="img/photo1.jpg"
+                    class="enlarge"
+                    data-description="This is the description of my photo"
+                    alt="Photo 1"
+                  />
                   <figcaption class="pt-2 pl-2">
                     This is the description of my photo
                   </figcaption>
@@ -827,12 +1817,12 @@
     <script id="template-specialMessage" type="text/template">
       {{#if mine}}
       <div
-        class="message message-special mine position-relative px-3 py-2 mt-5 shadow animate__animated animate__fadeInUp"
+        class="message message-special mine position-relative px-3 py-2 shadow animate__animated animate__fadeInUp"
         data-id="{{id}}"
       >
       {{else}}
       <div
-        class="message message-special alien position-relative px-3 py-2 mt-5 shadow animate__animated animate__fadeInUp"
+        class="message message-special alien position-relative px-3 py-2 shadow animate__animated animate__fadeInUp"
         data-id="{{id}}"
       >
       {{/if}}
@@ -841,15 +1831,33 @@
       <figure
         class="icon d-flex align-items-center justify-content-center"
       >
-        {{! Superlike icon}}
-        {{#if superlike}}
+
+        {{#if permissionRequest}}
+
+          {{! Permission request icon}}
+          {{#if mine}}
+        <img src="img/lock-icon.svg" alt="photo" />
+          {{else}}
+        <img src="img/crop.svg" alt="photo" />
+          {{/if}}
+
+        {{else if permissionResponse}}
+
+          {{! Permission response icon}}
+          {{#if allowed}}
+          <img src="img/crop.svg" alt="photo" />
+          {{else if denied}}
+          <img src="img/lock-icon.svg" alt="photo" />
+          {{/if}}
+
+        {{else if superlike}}
         <img src="img/superlike.svg" alt="superlike" />
+        {{else if photocard}}
+        <img src="img/photo.svg" alt="photo" />
+        {{else if premium}}
+        <img src="img/premium.svg" alt="photo" />
         {{/if}}
 
-        {{! Photo icon}}
-        {{#if photo}}
-        <img src="img/photo.svg" alt="photo" />
-        {{/if}}
       </figure>
       {{! Message icon end}}
 
@@ -861,23 +1869,30 @@
 
       {{#if photo}}
       <figure class="photo">
-        <img src="{{src}}" class="enlarge" alt="Photo 1" />
-        {{#if photocard}}
+        <img src="{{src}}" class="enlarge" data-description="{{description}}" alt="Photo 1" />
         <figcaption class="pt-2 pl-2">
           {{description}}
         </figcaption>
-        {{else}}
+      {{else if permission}}
+      <figure class="photo ask-permission-photo">
+        <img src="{{src}}" class="enlarge" data-description="{{description}}" alt="Photo 1" />
         <figcaption
-          class="pt-2 d-inline-flex justify-content-center flex-wrap"
+          class="pt-2 d-inline-flex justify-content-center flex-wrap action-buttons-wrapper"
         >
-          <button type="button" class="btn btn-success mr-2">
-            Allow
-          </button>
-          <button type="button" class="btn btn-outline-primary">
-            Deny
-          </button>
+        <button
+        type="button"
+        class="btn btn-success mr-2 allow permission"
+      >
+        Allow
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-primary deny permission"
+      >
+        Deny
+      </button>
         </figcaption>
-        {{/if}}
+
       </figure>
       {{/if}}
 
@@ -1011,6 +2026,24 @@
       <!--Superlike icon end-->
     </template>
 
+    <template type="text/template" id="sponsorPremium-template">
+      <div class="special-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          id="premium-icon"
+          viewBox="-709 191 500 500"
+        >
+          <path
+            d="M-381.3 245c-2.9-7.9-3.5-14.7-3.6-16.1l-3.8-37.9-27 25.5c-7 6.6-41.3 14.1-67.8 16.8l-11.3 1.8c-33.6 5.3-53.9 16.1-64 34.1-8.9 15.9-8.4 34.8-7.8 54.8v.8c.1 4.9.3 9.9.3 15.3l.5 16.8c-10.8 7.9-13.3 25.3-7.2 50.5 3.1 12.6 12 23.5 21.8 26.8 4.5 12.1 16.3 40.4 36.8 62.5-43.5 11.5-82.6 35.3-110.5 67.4-29.4 33.9-45 74.4-45 117.2v9.7h434.3v-9.7c0-42.7-15.5-83.1-44.8-117-27.7-32-66.7-55.9-110.1-67.4 14.8-15.7 27.2-37.1 35.3-60.5 10.4-4.6 18.8-15.3 22.1-28.3 1.6-6.3 4.2-16.9 4.2-27l-15.4-4.4s-4 10.1-8.2 26.5c-2.6 10.5-9.9 16.4-15.1 15.5l-1.4-.3-.5 1.4c-3.8 11.4-18.2 50.3-45.6 72.4-3.2 2.6-6.5 4.8-9.6 6.6-5.2 3-10.7 5.2-16.4 6.4-4.1.9-7.8 1.4-11.4 1.4-3.6 0-7.4-.5-11.6-1.4-5.8-1.3-11.4-3.4-16.6-6.4-3.1-1.8-6.3-4-9.6-6.7-18.3-14.7-35.1-41.7-44.9-72.3l-.5-1.4-1.5.3c-4.8 1-14-5.3-16.7-16.2-3.3-13.1-3.9-28.7.3-29.9 1.3-.4 2.8-.1 4.5.8l2.5 1.3v-34.8c0-5.9-.2-11.6-.3-17-1.1-40.2-1.7-62.4 66-69.6l7.4-.8-.8-.3c16-2.1 54-7.9 69.4-19.1.5 4.8 2.2 14.3 6.9 24.6l.3.6.6.2m-99 253.9c13.8 9.4 28.6 14.2 43.9 14.2 15.2 0 29.9-4.7 43.7-14.1 10.1 2 19.7 4.6 28.7 7.7-17 23.1-44.1 36.8-72.8 36.8-28.7 0-55.7-13.7-72.7-36.8 9.2-3.2 19-5.8 29.2-7.8zm156.1 159V631c0-5.4-4.4-9.7-9.7-9.7-5.4 0-9.7 4.4-9.7 9.7v40.4h-186.2V631c0-5.4-4.4-9.7-9.7-9.7-5.4 0-9.7 4.4-9.7 9.7v40.4h-84.9c3.9-60.7 44.4-115.6 106.2-143.9 20.5 30.6 54.5 48.9 91.1 48.9 36.6 0 70.6-18.2 91.1-48.9 61.9 28.3 102.4 83.2 106.3 143.9H-340z"
+          />
+          <path
+            class="premium-star"
+            d="M-283.2 376c-1.5 0-3-.5-4.3-1.4l-45-32.7-45 32.7c-2.5 1.8-6 1.8-8.5 0s-3.6-5.1-2.6-8.1l17.2-52.9-45-32.7c-2.5-1.8-3.6-5.1-2.6-8.1s3.8-5 6.9-5h55.6l17.2-52.9c1-3 3.8-5 6.9-5s5.9 2 6.9 5l17.2 52.9h55.6c3.1 0 5.9 2 6.9 5s-.1 6.3-2.6 8.1l-45 32.7 17.2 52.9c1 3-.1 6.3-2.6 8.1-1.5.9-3 1.4-4.4 1.4zm-49.3-50.3c1.5 0 3 .5 4.3 1.4l31.2 22.7-11.9-36.7c-1-3 .1-6.3 2.6-8.1l31.2-22.7h-38.6c-3.1 0-5.9-2-6.9-5l-11.9-36.7-11.9 36.7c-1 3-3.8 5-6.9 5h-38.6l31.2 22.7c2.5 1.8 3.6 5.1 2.6 8.1l-11.9 36.7 31.2-22.7c1.3-.9 2.8-1.4 4.3-1.4z"
+          />
+        </svg>
+      </div>
+    </template>
+
     <!--Icon templates end-->
 
     <!-- footer -->
@@ -1087,6 +2120,7 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="vendor/popper/popper.min.js"></script>
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
 
     <!--Sweetalert2-->
     <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
@@ -1096,220 +2130,417 @@
     <script src="js/main-authorized.bundle.js"></script>
 
     <script>
-      $(window).on('load', function () {
+      setTimeout(function () {
+        $('.notification').addClass('active');
         setTimeout(function () {
-          $('.notification').addClass('active');
-          setTimeout(function () {
-            $('.notification').removeClass('active');
-          }, 3500);
-        }, 500);
-        $('.closenotification').on('click', function () {
-          $(this).closest('.notification').removeClass('active');
-        });
+          $('.notification').removeClass('active');
+        }, 3500);
+      }, 500);
+      $('.closenotification').on('click', function () {
+        $(this).closest('.notification').removeClass('active');
+      });
 
-        const chat = new Chat({
-          debug: true,
-          selectors: {
-            enlargePhoto: '.enlarge',
-            chat: '#chat',
-            sendButton: '#send',
-            sendMessageForm: '#send-message-form',
-            message: '.message-textarea',
-            messagesContainer: '#messages-container',
-          },
-          requests: {
-            send: {
-              method: 'POST',
-              headers: {},
-              endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/send-superlike',
-            },
-          },
-          classNames: {
-            enlargePhoto: 'enlarge',
-            message: 'message-textarea',
-          },
-          messageTemplateIds: {
-            general: 'template-generalMessage',
-            special: 'template-specialMessage',
-          },
-        });
-
-        /* Superlike initialization */
-        const superlike = new Superlike({
-          selectors: {
-            bonus: '#superlike',
-            amount: '.amount',
-          },
-          requests: {
-            use: {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-superlike',
-            },
-          },
-          popups: {
-            buy: {
-              title: 'Oops!',
-              text:
-                "You don't have any superlikes available. Do you want to buy some?",
-              confirmButtonText: 'Yes!',
-              cancelButtonText: 'No',
-            },
-            use: {
-              title: 'Do you want to send a superlike?',
-              confirmButtonText: 'Yes!',
-              cancelButtonText: 'No',
-              imageUrl: 'img/superlike-animated.svg',
-              imageAlt: 'Superlike icon',
-            },
-            send: {
-              title: 'Hurray!',
-              text: 'You just sent a superlike!',
-              timer: 2000,
-              customClass: {
-                header: 'send-bonus-header',
-                title: 'send-bonus-title',
-                popup: 'send-bonus-popup',
-              },
-            },
-          },
-          animation: {
-            selectors: {
-              icon: '#superlike-icon',
-              iconElements: {
-                hand: '.hand',
-                message: '.message',
-                star: '.star',
-              },
-              insertContainer: '.send-bonus-header',
-              popup: '.send-bonus-popup',
-            },
-            ids: {
-              icon: 'superlike-icon',
-            },
-          },
-        });
-
-        const photo = new Photo({
-          selectors: {
-            bonus: '#photo',
-            amount: '.amount',
-            modal: '#photo-bonus',
-            previewContainer: '#photo-preview-container',
-            input: '.photo-input',
-            form: '#photo-uploader',
-            loading: {
-              spinnerTemplateId: 'spinner-template',
-              submitButton: '#submitButton-photo',
-              spinner: '.spinner-border',
-              text: 'Saving avatar...',
-            },
-            closeModalButton: '.close',
-            photoDescription: '#photo-upload-description',
-            // Photo upload selectors
-            photoUpload: {
-              disableWhileLoad: '.disable-while-load',
-              uploadContainer: '#dragNDropUploadContainer',
-              errorContainer: '#uploadErrorContainer',
-              // Progress bar selectors
-              progress: {
-                progress: '#fileRead-progress',
-                progressBar: '.progress-bar',
-                templateId: 'progress-template',
-                fileProgressWrapper: '.fileProgress-wrapper',
-              },
-            },
-          },
-          // Predefined error texts
-          errorText: {
-            photoUpload: {
-              // Read error while uploading photo
-              read:
-                'Something went wrong while reading the file. Please, try again',
-              // Too old browser
-              legacyBrowser:
-                'Your browser is outdated. Please, update your browser and try again',
-              // Unsupported image file type
-              wrongFileType: 'Please, upload image file',
-            },
-          },
+      const chat = new Chat({
+        debug: true,
+        photoPermissionConfig: {
           classes: {
-            // Input for files upload
-            input: 'photo-input',
-            // Drag'n'Drop
-            dragNDrop: 'advanced-upload',
-            dragOver: 'is-dragover',
-            // To show mobile photo capturing
-            mobilePhotoUpload: 'mobile',
+            allow: 'allow',
+            deny: 'deny',
+            permissionButton: 'permission',
           },
-          photoTemplates: {
-            preview: 'template-photoPreview',
-          },
-          requests: {
-            use: {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-              endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-photo-bonus',
-            },
-          },
-          popups: {
-            buy: {
-              title: 'Oops!',
-              text:
-                "You don't have any photo bonuses available. Do you want to buy some?",
-              confirmButtonText: 'Yes!',
-              cancelButtonText: 'No',
-            },
-            send: {
-              title: 'Hurray!',
-              text: 'You just sent a photo!',
-              timer: 2000,
-              customClass: {
-                header: 'send-bonus-header',
-                title: 'send-bonus-title',
-                popup: 'send-bonus-popup',
-              },
-            },
-            uploadError: {
-              title: 'Oops!',
-              text:
-                'Something went wrong while uploading your photo. Please, try again.',
-            },
-          },
-          animation: {
-            selectors: {
-              icon: '#photo-icon-template',
-              iconElements: {
-                icon: '#photo-icon',
-                shadow: '.photo-icon-shadow',
-              },
-              insertContainer: '.send-bonus-header',
-              popup: '.send-bonus-popup',
-            },
-            ids: {
-              icon: 'photo-icon-template',
-            },
-          },
-        });
-
-        const enlargePhoto = new EnlargePhoto({
           selectors: {
-            modal: '#photoModal',
-            animateOnShown: '.animate',
+            photoWrapper: '.ask-permission-photo',
+            buttonsWrapper: '.action-buttons-wrapper',
           },
-          enlargeClass: 'enlarge',
-          animationClasses: {
-            entrance: 'animate__zoomIn',
-            exit: 'animate__zoomOut',
+        },
+        selectors: {
+          enlargePhoto: '.enlarge',
+          chat: '#chat',
+          // Selector to select all the messages independant of the type
+          allMessages: '.message',
+          sendButton: '#send',
+          sendMessageForm: '#send-message-form',
+          message: '.message-textarea',
+          messagesContainer: '#messages-container',
+          chatContent: '#chat-content',
+        },
+        requests: {
+          send: {
+            method: 'POST',
+            headers: {},
+            endpoint:
+              'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/send',
           },
-        });
+        },
+        classNames: {
+          enlargePhoto: 'enlarge',
+          message: 'message-textarea',
+        },
+        messageTemplateIds: {
+          general: 'template-generalMessage',
+          special: 'template-specialMessage',
+        },
+      });
+
+      /* Superlike initialization */
+      const superlike = new Superlike({
+        selectors: {
+          bonus: '#superlike',
+          amount: '.amount',
+        },
+        isUsedOnThisPage: true,
+        requests: {
+          use: {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            endpoint:
+              'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/use-superlike',
+          },
+        },
+        popups: {
+          buy: {
+            title: 'Oops!',
+            text:
+              "You don't have any superlikes available. Do you want to buy some?",
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No',
+          },
+          use: {
+            title: 'Do you want to send a superlike?',
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No',
+            imageUrl: 'img/superlike-animated.svg',
+            imageAlt: 'Superlike icon',
+          },
+          send: {
+            title: 'Hurray!',
+            text: 'You just sent a superlike!',
+            timer: 2000,
+            customClass: {
+              header: 'send-bonus-header',
+              title: 'send-bonus-title',
+              popup: 'send-bonus-popup',
+            },
+          },
+        },
+        animation: {
+          selectors: {
+            icon: '#superlike-icon',
+            iconElements: {
+              hand: '.hand',
+              message: '.message',
+              star: '.star',
+            },
+            insertContainer: '.send-bonus-header',
+            popup: '.send-bonus-popup',
+          },
+          ids: {
+            icon: 'superlike-icon',
+          },
+        },
+      });
+
+      /* Buying premium initialization */
+
+      const sponsorPremium = new SponsorPremium({
+        isUsedOnThisPage: true,
+        selectors: {
+          bonus: '#premium',
+          modal: '#premiumModal',
+        },
+        animation: {
+          selectors: {
+            insertContainer: '.send-bonus-header',
+            popup: '.send-bonus-popup',
+            iconElements: {
+              premiumIcon: '#premium-icon',
+              star: '.premium-star',
+            },
+          },
+          ids: {
+            icon: 'sponsorPremium-template',
+          },
+        },
+        popups: {
+          send: {
+            title: 'Hurray!',
+            text: 'You just sponsored Lukasz account!',
+            timer: 2000,
+            customClass: {
+              header: 'send-bonus-header',
+              title: 'send-bonus-title',
+              popup: 'send-bonus-popup',
+            },
+          },
+        },
+      });
+
+      /* Photo bonus initialization */
+      const photo = new Photo({
+        isUsedOnThisPage: true,
+        selectors: {
+          bonus: '#photo',
+          amount: '.amount',
+          modal: '#photo-bonus',
+          previewContainer: '#photo-preview-container',
+          input: '.photo-input',
+          form: '#photo-uploader',
+          loading: {
+            spinnerTemplateId: 'spinner-template',
+            submitButton: '#submitButton-photo',
+            spinner: '.spinner-border',
+            text: 'Saving avatar...',
+          },
+          closeModalButton: '.close',
+          photoDescription: '#photo-upload-description',
+          // Photo upload selectors
+          photoUpload: {
+            disableWhileLoad: '.disable-while-load',
+            uploadContainer: '#dragNDropUploadContainer',
+            errorContainer: '#uploadErrorContainer',
+            // Progress bar selectors
+            progress: {
+              progress: '#fileRead-progress',
+              progressBar: '.progress-bar',
+              templateId: 'progress-template',
+              fileProgressWrapper: '.fileProgress-wrapper',
+            },
+          },
+        },
+        // Predefined error texts
+        errorText: {
+          photoUpload: {
+            // Read error while uploading photo
+            read:
+              'Something went wrong while reading the file. Please, try again',
+            // Too old browser
+            legacyBrowser:
+              'Your browser is outdated. Please, update your browser and try again',
+            // Unsupported image file type
+            wrongFileType: 'Please, upload image file',
+          },
+        },
+        classes: {
+          // Input for files upload
+          input: 'photo-input',
+          // Drag'n'Drop
+          dragNDrop: 'advanced-upload',
+          dragOver: 'is-dragover',
+          // To show mobile photo capturing
+          mobilePhotoUpload: 'mobile',
+        },
+        photoTemplates: {
+          preview: 'template-photoPreview',
+        },
+        requests: {
+          use: {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+            endpoint:
+              'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/use-photo',
+          },
+        },
+        popups: {
+          buy: {
+            title: 'Oops!',
+            text:
+              "You don't have any photo bonuses available. Do you want to buy some?",
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No',
+          },
+          send: {
+            title: 'Hurray!',
+            text: 'You just sent a photo!',
+            timer: 2000,
+            customClass: {
+              header: 'send-bonus-header',
+              title: 'send-bonus-title',
+              popup: 'send-bonus-popup',
+            },
+          },
+          uploadError: {
+            title: 'Oops!',
+            text:
+              'Something went wrong while uploading your photo. Please, try again.',
+          },
+        },
+        animation: {
+          selectors: {
+            icon: '#photo-icon-template',
+            iconElements: {
+              icon: '#photo-icon',
+              shadow: '.photo-icon-shadow',
+            },
+            insertContainer: '.send-bonus-header',
+            popup: '.send-bonus-popup',
+          },
+          ids: {
+            icon: 'photo-icon-template',
+          },
+        },
+      });
+
+      /* Buy premium form initialization */
+      const buyPremiumForm = new BuyPremiumForm({
+        selectors: {
+          form: '#buy-premium',
+          disableButtonsOnRequest: '.disable-on-request',
+          // Spinner to show when the price is being loaded
+          spinner: '.spinner-border',
+          priceContainer: '.price-container',
+          'input-wrapper': '.form-group',
+          inputs: '.buy-premium-input',
+          // Wrapper of the bonus input
+          'bonus-inputs': '.input-group',
+          // + and - buttons to add/remove bonuses
+          'bonus-control': '.bonus-control',
+          'add-bonus-input-className': 'input-group-append',
+          'card-total-price': '.card-total-price',
+          'card-discount-price': '.card-discount-price',
+          'total-price': '.total-price',
+          'previous-price': '.previous-price',
+          // Container to preview order details
+          orderDetails: '#order-details',
+          // Discount
+          discount: {
+            type: '#discount-type',
+            amount: '#discount-amount',
+          },
+          loading: {
+            spinnerTemplateId: 'spinner-template',
+            submitButton: '#buyPremium-checkout',
+            spinner: '.spinner-border',
+            text: 'Checking out...',
+          },
+          templateIds: {
+            plan: 'template-planDetails',
+            bonuses: 'template-orderedBonuses',
+          },
+        },
+        requests: {
+          price: {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            endpoint:
+              'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/price',
+          },
+          submit: {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            endpoint:
+              'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/price',
+          },
+        },
+        location: false,
+        showSuccessPopup: false,
+        generateSubmitEvent: true,
+        showFailPopup: false,
+        frontendValidation: false,
+      });
+
+      /* Bank transfer handling */
+      $('#bank-transfer').click(function () {
+        $(this).find('#bank-transfer-form').submit();
+      });
+
+      /* Payment with credit card form initialization */
+      const paymentForm = new Form({
+        selectors: {
+          form: '#credit-card',
+          'input-wrapper': '.form-group',
+          inputs: '.payment-input',
+          loading: {
+            spinnerTemplateId: 'spinner-template',
+            submitButton: '#paymentForm-checkout',
+            spinner: '.spinner-border',
+            text: 'Recieving payment...',
+          },
+        },
+        requests: {
+          submit: {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            endpoint:
+              'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/card',
+          },
+        },
+        payment: true,
+        frontendValidation: true,
+        validatorOptions: {
+          errorElement: 'span',
+          rules: {
+            terms: 'required',
+            name: {
+              required: true,
+              minlength: 5,
+            },
+            cvc: {
+              required: true,
+              minlength: 3,
+            },
+            expiry: {
+              required: true,
+              expiration: true,
+            },
+            number: {
+              required: true,
+              cardNumber: true,
+            },
+          },
+        },
+      });
+
+      /* forms chainer initialization */
+      const chainedForms = new ChainedForms({
+        selectors: {
+          formsContainer: '#checkout',
+          forms: '.buy-premium-step',
+          forward: '.forward',
+          backward: '.backward',
+          wrapper: '.form-wrapper',
+        },
+        showSteps: false,
+      });
+
+      /* Photo enlargement initialization */
+      const enlargePhoto = new EnlargePhoto({
+        selectors: {
+          modal: '#photoModal',
+          img: '#usePhoto-enlarge',
+          description: '#photo-description',
+          animateOnShown: '.animate',
+        },
+      });
+
+      /* Initializing lazy loading */
+      const messagesLazyLoading = new MessagesLazyLoading({
+        selectors: {},
+        observerOptions: {
+          // Id of the root element to use as a observer container
+          root: 'chat',
+          rootMargin: '0px',
+          // Whenever message is at least a bit visible, intersection occurs
+          threshold: 0,
+        },
+        searchParams: { chat: true, amount: 20 },
+        requests: {
+          messages: {
+            headers: {},
+            method: 'GET',
+            endpoint:
+              'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/messages',
+          },
+        },
       });
     </script>
   </body>

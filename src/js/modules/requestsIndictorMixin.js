@@ -17,7 +17,9 @@ export default {
     // Event handling
     $form.submit(() => {
       // Don't show loading indicator if the form isn't valid
-      if (jQuery.validator && !this.$form.valid()) return;
+      if (jQuery.validator) {
+        if (!$form.valid()) return;
+      }
 
       let spinner = template.content.cloneNode(true),
         loading = this.loading,

@@ -16,9 +16,20 @@
 }
 /*-- Animations for premium end --*/
 
+/*-- Animation for premium icon --*/
+
+@keyframes zoom {
+  0% {
+    transform: scale3d(0, 0, 0);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
 /*- Premium classes start -*/
 .premium-person {
-  @include animation(zoomIn, $animation-duration: 1s);
+  @include animation(zoom, $animation-duration: 1s);
 }
 
 .premium-star-animation {

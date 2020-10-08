@@ -86,7 +86,12 @@ export default {
 
     // Binding functions from the Class
     this._preview = this._preview.bind(this);
-    this._saveFile = this._saveFile.bind(this);
+
+    //------------
+    // Change how avatar handles sending file to send it via base64 string
+    if (this._saveFile) {
+      this._saveFile = this._saveFile.bind(this);
+    }
   },
   _showProgress,
   _showError,
@@ -211,7 +216,11 @@ function _saveAndPreviewFile(file) {
 
   // Prepare for file read
   $disableWhileLoad.attr('disabled', true);
-  this._saveFile(file);
+
+  if (this._saveFile) {
+    this._saveFile(file);
+  }
+
   let $progressBar = _insertProgressBar({ fileName: file.name });
 
   // Read file

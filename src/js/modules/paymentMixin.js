@@ -58,13 +58,6 @@ export default {
         return false;
     }
 
-    console.log('currentYear === year:');
-    console.log(currentYear === year);
-    console.log('currentMonth < month');
-    console.log(currentMonth < month);
-    console.log('currentYear > year');
-    console.log(currentYear > year);
-
     return currentYear === year
       ? currentMonth < month
         ? true

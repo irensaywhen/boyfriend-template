@@ -25,6 +25,7 @@
 @import 'components/icons_modal';
 @import 'components/modals';
 @import 'components/order_summary';
+@import 'components/premium_modal';
 
 /*Themes*/
 @import 'themes/main_theme';
@@ -51,6 +52,8 @@
 @import 'layout/chat';
 @import 'layout/photo_upload';
 @import 'layout/steps';
+@import 'layout/payment_method';
+@import 'layout/like';
 
 /*Pages*/
 @import 'pages/front_page';

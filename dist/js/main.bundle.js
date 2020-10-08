@@ -110,7 +110,7 @@
   /******/ /******/ __webpack_require__.p = '/dist'; // Load entry module and return exports
   /******/
   /******/
-  /******/ /******/ return __webpack_require__((__webpack_require__.s = 1));
+  /******/ /******/ return __webpack_require__((__webpack_require__.s = 16));
   /******/
 })(
   /************************************************************************/
@@ -20769,7 +20769,7 @@
                       var value = $element.val();
                       var numericValue = Number(value); // Perform type conversion if the value is a number
 
-                      _this3.formData[name] = numericValue.isNaN
+                      _this3.formData[name] = isNaN(numericValue)
                         ? value
                         : numericValue;
                     }
@@ -20820,6 +20820,7 @@
 
                                 case 12:
                                   if (response.success) {
+                                    // Generate submit event on the form
                                     if (this.generateSubmitEvent) {
                                       // Make custom event for form submission
                                       customSubmittedEvent = new CustomEvent(
@@ -20830,6 +20831,11 @@
                                         customSubmittedEvent
                                       );
                                     }
+
+                                    $(document).trigger('form:submitted', {
+                                      response: response,
+                                      $form: this.$form,
+                                    });
 
                                     if (this.showSuccessPopup) {
                                       // Successful Popup
@@ -21894,12 +21900,6 @@
                 return false;
             }
 
-            console.log('currentYear === year:');
-            console.log(currentYear === year);
-            console.log('currentMonth < month');
-            console.log(currentMonth < month);
-            console.log('currentYear > year');
-            console.log(currentYear > year);
             return currentYear === year
               ? currentMonth < month
                 ? true
@@ -22074,8 +22074,12 @@
 
                             _setUpEventListeners(); // Binding functions from the Class
 
-                            _this._preview = _this._preview.bind(_this);
-                            _this._saveFile = _this._saveFile.bind(_this);
+                            _this._preview = _this._preview.bind(_this); //------------
+                            // Change how avatar handles sending file to send it via base64 string
+
+                            if (_this._saveFile) {
+                              _this._saveFile = _this._saveFile.bind(_this);
+                            }
 
                           case 29:
                           case 'end':
@@ -22211,7 +22215,9 @@
 
           $disableWhileLoad.attr('disabled', true);
 
-          this._saveFile(file);
+          if (this._saveFile) {
+            this._saveFile(file);
+          }
 
           var $progressBar = _insertProgressBar({
             fileName: file.name,
@@ -22496,6 +22502,7 @@
                     })
                       .then(function (response) {
                         if (response.ok) {
+                          //debugger;
                           return response.json();
                         } else {
                           // Unsuccessful Popup
@@ -22512,7 +22519,8 @@
                         return json;
                       })
                       ['catch'](function (error) {
-                        // Unsuccessful Popup
+                        console.error(error); // Unsuccessful Popup
+
                         _this2.showRequestResult({
                           title: error.name,
                           text: error.message,
@@ -22754,7 +22762,10 @@
 
             $form.submit(function () {
               // Don't show loading indicator if the form isn't valid
-              if (jQuery.validator && !_this.$form.valid()) return;
+              if (jQuery.validator) {
+                if (!$form.valid()) return;
+              }
+
               var spinner = template.content.cloneNode(true),
                 loading = _this.loading,
                 $submitButton = _this.$submitButton; // Preserve width and get rid of the previous content
@@ -23278,7 +23289,7 @@
         /***/
       },
 
-    /***/ 1:
+    /***/ 16:
       /*!**************************!*\
   !*** multi ./js/main.js ***!
   \**************************/

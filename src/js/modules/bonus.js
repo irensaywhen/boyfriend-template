@@ -1,4 +1,5 @@
 import ServerRequest from './requests.js';
+import getUrlParams from './getUrlParams.js';
 
 export default class Bonus extends ServerRequest {
   constructor(options) {
@@ -6,11 +7,14 @@ export default class Bonus extends ServerRequest {
 
     this.classes = options.classes;
     this.popups = options.popups;
+    this.redirectToUse = options.redirectToUse;
 
     // Bind context
     this._cacheElements = this._cacheElements.bind(this);
     this._setUpEventListeners = this._setUpEventListeners.bind(this);
     this._useBonus = this._useBonus.bind(this);
+
+    this.isUsedOnThisPage = options.isUsedOnThisPage;
   }
 
   _cacheElements() {
@@ -26,6 +30,20 @@ export default class Bonus extends ServerRequest {
   }
 
   _setUpEventListeners() {
+    $(window).on('load', () => {
+      let bonusType = getUrlParams('bonus'),
+        identifier = getUrlParams('identifier'),
+        permissionIdentifier = localStorage.getItem(bonusType);
+
+      if (!bonusType || !permissionIdentifier || this.type !== bonusType)
+        return;
+
+      localStorage.removeItem(bonusType);
+
+      if (identifier !== permissionIdentifier) return;
+
+      setTimeout(this._useBonus, 100, bonusType);
+    });
     /**
      * When the bonus is clicked:
      * 1. Check if there are any bonuses available

@@ -58,6 +58,7 @@ export default class ServerRequest {
       })
         .then(response => {
           if (response.ok) {
+            //debugger;
             return response.json();
           } else {
             // Unsuccessful Popup
@@ -74,6 +75,7 @@ export default class ServerRequest {
           return json;
         })
         .catch(error => {
+          console.error(error);
           // Unsuccessful Popup
           this.showRequestResult({
             title: error.name,

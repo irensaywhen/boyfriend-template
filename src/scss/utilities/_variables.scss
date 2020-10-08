@@ -68,6 +68,9 @@ $chat-centerbutton-height-lg: 50px;
 $formWidth: 320px;
 $formWidth-lg: 450px;
 
+/* header and footer */
+$private-header-height: 70px;
+
 /*chat*/
 $chat-header-height: 77px;
 $chat-footer-height: 45px;
@@ -81,9 +84,6 @@ $max-message-width: 85%;
 $message-width: 85%;
 $message-border-radius: 30px;
 
-$chat-bottom-spacing: $chat-footer-height + $chat-message-height + 90px;
-$chat-bottom-spacing-lg: $chat-footer-height-lg + $chat-message-height-lg + 40px;
-
 /*special message types*/
 $icon-width: 76px;
 $photo-max-width: 300px;
@@ -94,3 +94,17 @@ $icon-pink: #ee1f61;
 $superlike-gray: #262626;
 $animated-icon-height: 150px;
 $animated-icon-width: 150px;
+
+/* Modal default styles */
+$modal-border-radius: 15px !important;
+$modal-dialog-width: 100% !important;
+$modal-dialog-height: auto !important;
+$modal-dialog-min-height: auto !important;
+$modal-dialog-margin: 0.5rem auto !important;
+
+/* Modal mobile styles */
+
+$modal-mobile-border-radius: 0px !important;
+$modal-dialog-mobile-margin: 0 !important;
+$modal-dialog-mobile-width: 100vw !important;
+$modal-dialog-mobile-min-height: 100vh !important;

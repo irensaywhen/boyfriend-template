@@ -1,17 +1,17 @@
-import ServerRequest from './requests.js';
-import HttpError from './httpError.js';
 import preparePhotoModal from './preparePhotoModal.js';
+import ServerRequest from './requests.js';
 
 export default class Gallery extends ServerRequest {
   constructor(options) {
     super(options);
 
-    // Bind context
-
-    this.galleryConfig = options['galleryManipulation'];
+    this.galleryConfig = options.galleryManipulation;
+    this.redirectForPermission = options.redirectForPermission;
 
     this._cacheElements();
     this._setUpEventListeners();
+
+    this.initializeLoadingIndicators(this.$modalPermissionForm);
   }
 
   _cacheElements() {
@@ -27,7 +27,9 @@ export default class Gallery extends ServerRequest {
     this.$modal = $(modal);
     this.$modalImage = this.$modal.find(selectors.modalImage);
     this.$modalDescription = this.$modal.find(selectors.modalDescription);
-    this.$modalPermissionButton = this.$modal
+    // Form wrapping permission button
+    this.$modalPermissionForm = this.$modal.find(selectors.modalPermissionForm);
+    this.$modalPermissionButton = this.$modalPermissionForm
       .find(selectors.modalPermissionButton)
       .fadeOut(0);
     this.$modalPrevArrow = this.$modal.find(selectors.prevArrow);
@@ -41,7 +43,10 @@ export default class Gallery extends ServerRequest {
     //Caching
     const $body = $('body');
 
-    // Adjust modal based on the clicked photo
+    /**
+     * Show modal with content based on the currently clicked photo
+     * This event handler opens gallery
+     */
     this.$gallery.click(event => {
       let target = event.target;
 
@@ -50,9 +55,12 @@ export default class Gallery extends ServerRequest {
       this._generateModal(target);
     });
 
-    // Add gallery behavior to modal
+    /**
+     * Change currently shown photo when the photo is clicked
+     * in the opened gallery
+     */
     this.$modal.click(event => {
-      // Show next photo when the photo is typed
+      // Show next photo when the photo is clicked
       let target = event.target;
 
       if (
@@ -75,16 +83,17 @@ export default class Gallery extends ServerRequest {
       this._updateGallery();
     });
 
-    // Send permission request to the server
-    this.$modalPermissionButton.find('button').click(event => {
+    this.$modalPermissionForm.submit(event => {
       event.preventDefault();
-
       this._askPermission();
     });
 
     // Touch support for mobile devices
     this._addTouchSupport();
 
+    /**
+     * Manipulation of the gallery using arrows
+     */
     this.$modal.on('keydown', event => {
       let key = event.key;
 
@@ -101,6 +110,22 @@ export default class Gallery extends ServerRequest {
     });
   }
 
+  /**
+   * Add support of the swipe for mobile devices
+   *
+   * When swipe is started:
+   * Get the initial swipe coordinates
+   *
+   * When swipe occurs:
+   * Save the current swipe coordinated
+   *
+   * When swipe is finished:
+   * Event handler to handle finishing the swiping of the image
+   * 1. calculate the distance of the swipe
+   * 2. Compare swipe distance and minimum distance to swipe.
+   * 3. Swipe to the right if it is not the last photo
+   * 4. Swipe to the left if it is not the first photo
+   */
   _addTouchSupport() {
     let clientXStart, clientXEnd, distance;
 
@@ -135,46 +160,16 @@ export default class Gallery extends ServerRequest {
   }
 
   _updateGallery() {
-    let newImage = this._getImage();
+    if (this.order === this.$photos.length) {
+      --this.order;
+      console.log('Preventing switching between photos');
+      return;
+    }
+    // Get image based on the current order
+    let newImage = this.$gallery.find(`img[data-order="${this.order}"]`)[0];
+
+    // Update gallery with animation
     this._generateModal(newImage, true);
-  }
-
-  _askPermission() {
-    let request = this.requests.permission;
-
-    // Add currentle selected photo id to the request
-    request.endpoint.searchParams.set('id', this.id);
-
-    this.makeRequest({
-      headers: request.headers,
-      endpoint: request.endpoint,
-      method: request.method,
-    })
-      .then(response => {
-        if (response.success) {
-          // Show popup about sucessfully sent request
-          this.showRequestResult({
-            title: response.title,
-            text: response.message,
-            icon: 'success',
-          });
-        } else {
-          // Show popup about unsucessfully sent request
-          this.showRequestResult({
-            title: response.title,
-            text: response.message,
-            icon: 'error',
-          });
-        }
-      })
-      .catch(error => {
-        // Show error popup here
-        this.showRequestResult({
-          title: error.name,
-          text: error.message,
-          icon: 'error',
-        });
-      });
   }
 
   _generateModal(target, animation) {
@@ -195,9 +190,39 @@ export default class Gallery extends ServerRequest {
 
     // Handle arrow hiding on first/last photos
     this.order === 0 ? this._hidePrevArrow() : this._showPrevArrow();
-    this.order === this.$slides.length
+    this.order === this.$slides.length - 1
       ? this._hideNextArrow()
       : this._showNextArrow();
+  }
+
+  /**
+   * 1. Save request information
+   * 2. Make request to get unique identifier
+   * 3. Save it to local storage and pass to the chat via search params
+   * 4. In case of errors, show error popup
+   */
+  _askPermission() {
+    let { method, headers, endpoint } = this.requests.permission;
+
+    this.makeRequest({ method, headers, endpoint })
+      .then(response => {
+        let { success, identifier } = response;
+
+        if (!success) throw new Error('Somehting went wrong');
+
+        localStorage.setItem('permissionRequest', identifier);
+
+        window.location.assign(
+          `${this.redirectForPermission}?sendMessage=true&type=permissionRequest&identifier=${identifier}`
+        );
+      })
+      .catch(error => {
+        this.showRequestResult({
+          title: error.name,
+          text: error.message,
+          icon: 'error',
+        });
+      });
   }
 
   _animateModalContent(target) {
@@ -283,11 +308,6 @@ export default class Gallery extends ServerRequest {
     privacy
       ? this.$modal.addClass('private')
       : this.$modal.removeClass('private');
-  }
-
-  _getImage() {
-    // Find image
-    return this.$gallery.find(`img[data-order="${this.order}"]`)[0];
   }
 
   // Hiding and showing arrows
