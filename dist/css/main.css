@@ -155,6 +155,10 @@ select.form-control optgroup {
   color: #ff0068;
   text-align: center !important;
 }
+.general-error.error-pb-0 p,
+.error-pb-0.upload-error p {
+  padding-bottom: 0 !important;
+}
 @-webkit-keyframes heartbeat {
   0% {
     transform: scale3d(1, 1, 1);

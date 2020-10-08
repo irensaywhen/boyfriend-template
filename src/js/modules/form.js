@@ -146,6 +146,7 @@ export default class Form extends ServerRequest {
       if (!this.frontendValidation) {
         // If this form doesn't require frontend validation (as with checkboxes)
         this.collectFormInputs();
+        this.deleteGeneralError();
         this.sendFormInformation();
 
         return;

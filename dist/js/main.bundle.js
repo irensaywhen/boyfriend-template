@@ -20700,6 +20700,8 @@
                       // If this form doesn't require frontend validation (as with checkboxes)
                       _this2.collectFormInputs();
 
+                      _this2.deleteGeneralError();
+
                       _this2.sendFormInformation();
 
                       return;
@@ -22760,7 +22762,7 @@
 
             $form.submit(function () {
               // Don't show loading indicator if the form isn't valid
-              if (jQuery.validator) {
+              if (jQuery.validator && _this.frontendValidation) {
                 if (!$form.valid()) return;
               }
 

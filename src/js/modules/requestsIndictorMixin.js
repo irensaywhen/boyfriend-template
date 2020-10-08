@@ -17,7 +17,7 @@ export default {
     // Event handling
     $form.submit(() => {
       // Don't show loading indicator if the form isn't valid
-      if (jQuery.validator) {
+      if (jQuery.validator && this.frontendValidation) {
         if (!$form.valid()) return;
       }
 

@@ -642,10 +642,10 @@
                 <div class="row">
                   <div class="col-12">
                     <div
-                      class="general-error pt-3"
+                      class="general-error error-pb-0 pt-3"
                       id="general-error-profile-information"
                     ></div>
-                    <h2 class="tab-title pt-2 pb-2 mb-0">Your profile</h2>
+                    <h2 class="tab-title pt-3 pb-2 mb-0">Your profile</h2>
                     <p class="tab-description pb-2">Lorem ipsum dolor.</p>
                   </div>
                 </div>
@@ -938,6 +938,10 @@
                 method="POST"
                 action="fill-profile.html"
               >
+                <div
+                  class="general-error error-pb-0 pt-3"
+                  id="general-error-notifications"
+                ></div>
                 <div class="container pb-4">
                   <div class="row mt-3">
                     <div class="col-12 px-0">
@@ -1055,6 +1059,7 @@
                     <div class="col-12 px-0 text-center text-lg-right">
                       <button
                         type="submit"
+                        id="submitBtn-notifications"
                         class="btn btn-lg btn-default text-white btn-rounded shadow mr-lg-3"
                       >
                         <span>Submit</span
@@ -1464,12 +1469,21 @@
           },
         });
 
-        /* Profile Notifications Form initialization 
+        /* Profile Notifications Form initialization */
         const profileNotificationsForm = new Form({
           selectors: {
             form: '#notifications',
             'input-wrapper': '.custom-control.custom-switch',
             inputs: '.custom-control-input',
+            // Loading indicator for submittion
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitBtn-notifications',
+              spinner: '.spinner-border',
+              text: 'Saving profile information...',
+            },
+            // General error
+            generalError: '#general-error-notifications',
           },
           requests: {
             submit: {
@@ -1478,14 +1492,14 @@
                 'Content-Type': 'application/json',
               },
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin',
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail-general',
             },
           },
-          location: false,
           showSuccessPopup: true,
-          showFailPopup: true,
+          showFailPopup: false,
           frontendValidation: false,
-        });*/
+          location: false,
+        });
 
         /* Change password form initialization 
         const profileChangePasswordForm = new Form({
