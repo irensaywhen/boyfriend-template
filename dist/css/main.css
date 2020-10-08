@@ -2622,13 +2622,50 @@ article .header time {
 .account .tab-title,
 .profile .tab-title,
 .modal .tab-title {
-  font-size: 26px;
   font-weight: 400;
+}
+.account .tab-title,
+.profile .tab-title,
+.modal .tab-title {
+  font-size: 18px;
+}
+@media screen and (min-width: 320px) {
+  .account .tab-title,
+  .profile .tab-title,
+  .modal .tab-title {
+    font-size: calc(18px + 4 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .account .tab-title,
+  .profile .tab-title,
+  .modal .tab-title {
+    font-size: 22px;
+  }
 }
 .account .tab-description,
 .profile .tab-description,
 .modal .tab-description {
   font-weight: 300;
+}
+.account .tab-description,
+.profile .tab-description,
+.modal .tab-description {
+  font-size: 15px;
+}
+@media screen and (min-width: 320px) {
+  .account .tab-description,
+  .profile .tab-description,
+  .modal .tab-description {
+    font-size: calc(15px + 1 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .account .tab-description,
+  .profile .tab-description,
+  .modal .tab-description {
+    font-size: 16px;
+  }
 }
 .account .swiper-profile-photos,
 .profile .swiper-profile-photos,

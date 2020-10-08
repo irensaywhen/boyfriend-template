@@ -2,11 +2,12 @@
 .profile,
 .modal {
   .tab-title {
-    font-size: decrease-font-size($h2, 6px);
+    @include fluid-type($screen-xs, $screen-xl, 18px, 22px);
     font-weight: 400;
   }
 
   .tab-description {
+    @include fluid-type($screen-xs, $screen-xl, 15px, 16px);
     font-weight: 300;
   }
 

@@ -56,6 +56,17 @@
     </div>
     <!--Loader end-->
 
+    <!--Spinner template start-->
+    <template id="spinner-template">
+      <span
+        class="spinner-border spinner-border-sm mr-1"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      <span class="sr-only">Loading...</span>
+    </template>
+    <!--Spinner template end-->
+
     <!--Modals start-->
 
     <!--Modal for uploading avatar start-->
@@ -630,9 +641,11 @@
               <div class="container">
                 <div class="row">
                   <div class="col-12">
-                    <h2 class="tab-title pt-4 pb-2">
-                      In quae ab nesciunt velit veniam.
-                    </h2>
+                    <div
+                      class="general-error pt-3"
+                      id="general-error-profile-information"
+                    ></div>
+                    <h2 class="tab-title pt-2 pb-2 mb-0">Your profile</h2>
                     <p class="tab-description pb-2">Lorem ipsum dolor.</p>
                   </div>
                 </div>
@@ -773,6 +786,9 @@
                           class="form-control location"
                         />
                         <label class="form-control-label">City</label>
+                        <div class="spinner-border city-loader" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
                         <div class="dropdown location-dropdown">
                           <button
                             class="btn btn-primary dropdown-toggle"
@@ -793,36 +809,62 @@
                       <h4 class="section-subtitle">Date of birth</h4>
                       <div class="container">
                         <div class="row">
-                          <div class="col-4 pl-0">
-                            <div class="form-group float-label">
+                          <div class="col-12 col-sm-4 px-0 pr-sm-2">
+                            <div
+                              class="form-group float-label mb-1 input-wrapper"
+                            >
                               <input
-                                type="number"
+                                type="text"
                                 name="day"
-                                min="1"
-                                max="31"
-                                class="form-control"
+                                id="day"
+                                data-restrictLength="true"
+                                data-maxlength="2"
+                                data-date="true"
+                                class="form-control signup-input"
                               />
                               <label class="form-control-label">Day</label>
                             </div>
                           </div>
-                          <div class="col-4">
-                            <div class="form-group float-label">
-                              <input
-                                type="number"
+                          <div class="col-12 col-sm-4 px-0 pl-sm-1 pr-sm-2">
+                            <div
+                              class="form-group float-label mb-1 input-wrapper"
+                            >
+                              <select
+                                class="form-control signup-input"
                                 name="month"
-                                min="1"
-                                max="12"
-                                class="form-control"
-                              />
+                                data-date="true"
+                                data-day="true"
+                                id="month"
+                              >
+                                <option value="null" disabled selected></option>
+                                <option value="01">January</option>
+                                <option value="02">February</option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                              </select>
                               <label class="form-control-label">Month</label>
                             </div>
                           </div>
-                          <div class="col-4">
-                            <div class="form-group float-label">
+                          <div class="col-12 col-sm-4 pr-0 pl-0 pl-sm-1">
+                            <div
+                              class="form-group float-label mb-1 input-wrapper"
+                            >
                               <input
-                                type="number"
+                                type="text"
                                 name="year"
-                                class="form-control"
+                                id="year"
+                                data-restrictLength="true"
+                                data-maxlength="4"
+                                data-day="true"
+                                class="form-control signup-input"
                               />
                               <label class="form-control-label">Year</label>
                             </div>
@@ -869,6 +911,7 @@
                     <div class="col-12 px-0 text-center text-lg-right">
                       <button
                         type="submit"
+                        id="submitBtn-profileInfo"
                         class="btn btn-lg btn-default text-white btn-rounded shadow mr-lg-3"
                       >
                         <span>Submit</span
@@ -1308,19 +1351,38 @@
           $(this).closest('.notification').removeClass('active');
         });
 
+        var $document = $(document);
+
         // In caching elements we'll need to check whether
         // photos and description attribute is specified
 
-        // Profile Information Form start
+        /* Profile information form initialization */
         const profileInformationForm = new Form({
           selectors: {
             form: '#profile-information',
-            locationInput: '.location',
             'input-wrapper': '.form-group',
             inputs: '.form-control',
+            // Location input selectors
+            locationInput: '.location',
             'location-dropdown': '.location-dropdown',
             'dropdown-toggle': '.dropdown-toggle',
             'dropdown-menu': '.dropdown-menu',
+            locationLoadingIndicator: '.city-loader',
+            // Loading indicator for submittion
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitBtn-profileInfo',
+              spinner: '.spinner-border',
+              text: 'Saving profile information...',
+            },
+            // For date validation
+            date: {
+              day: '#day',
+              month: '#month',
+              year: '#year',
+            },
+            // General error
+            generalError: '#general-error-profile-information',
           },
           requests: {
             submit: {
@@ -1329,7 +1391,7 @@
                 'Content-Type': 'application/json',
               },
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/submit-profile',
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail-general',
             },
             location: {
               method: 'GET',
@@ -1343,14 +1405,32 @@
               },
             },
           },
+          restrictInputLength: true,
+          errorMessages: {
+            year: {
+              emptyDayAndMonth: 'Please, fill out day and month fields first',
+              age: 'You should be 18 to register',
+              format: 'Please enter year in YY or YYYY format',
+            },
+          },
+          date: true,
           location: true,
           showSuccessPopup: true,
           showFailPopup: true,
           frontendValidation: true,
           validatorOptions: {
             errorElement: 'span',
+            showErrors: function (errorMap) {
+              this.defaultShowErrors();
+              if ('year' in errorMap) {
+                $document.trigger('validator:yearIsInvalid');
+              }
+            },
             rules: {
-              name: 'required',
+              name: {
+                required: true,
+                minlength: 3,
+              },
               city: {
                 required: true,
                 location: true,
@@ -1359,21 +1439,32 @@
                 required: true,
                 min: 1,
                 max: 31,
+                day: true,
               },
-              month: {
+              month: 'required',
+              year: {
                 required: true,
-                min: 1,
-                max: 12,
+                year: true,
+                max: 2020,
               },
-              year: 'required',
+              weight: 'required',
+              height: 'required',
               preference: 'required',
-              about: 'required',
+              about: {
+                required: true,
+                minlength: 10,
+              },
+            },
+            messages: {
+              city: {
+                required: 'Please, provide your city',
+                location: 'Enter a valid city',
+              },
             },
           },
         });
-        // Profile Information Form end
 
-        // Profile Notifications Form start
+        /* Profile Notifications Form initialization 
         const profileNotificationsForm = new Form({
           selectors: {
             form: '#notifications',
@@ -1394,10 +1485,9 @@
           showSuccessPopup: true,
           showFailPopup: true,
           frontendValidation: false,
-        });
-        // Profile notifications form end
+        });*/
 
-        // Change password form start
+        /* Change password form initialization 
         const profileChangePasswordForm = new Form({
           selectors: {
             form: '#change-password',
@@ -1432,10 +1522,9 @@
               },
             },
           },
-        });
-        // Change password form end
+        });*/
 
-        // Boosts initialization start
+        /* Boost initialization 
         const boost = new Boost({
           selectors: {
             bonus: '.boost',
@@ -1463,10 +1552,9 @@
             imageUrl: 'img/boost.svg',
             imageAlt: 'Boost icon',
           },
-        });
-        // Boosts initialization end
+        });*/
 
-        // Avatar start
+        /* Avatar initialization 
         const avatar = new Avatar({
           selectors: {
             elementSelector: '.avatar-image',
@@ -1486,10 +1574,9 @@
                 'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar',
             },
           },
-        });
-        // Avatar end
+        });*/
 
-        // Photo Editor start
+        /* Photo editor initialization 
         const photoEditor = new PhotoEditor({
           selectors: {
             modal: '#edit-photo',
@@ -1515,10 +1602,9 @@
                 'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/delete-photo',
             },
           },
-        });
-        // Photo Editor end
+        });*/
 
-        // Photo Uploader start
+        /* Photo Uploader initialization 
         const photoUploader = new PhotoUploader({
           selectors: {
             modal: '#add-photos',
@@ -1548,8 +1634,7 @@
                 'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-photos',
             },
           },
-        });
-        // Photo Uploader end
+        }); */
       });
     </script>
   </body>

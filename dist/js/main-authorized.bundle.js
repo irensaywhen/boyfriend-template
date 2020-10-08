@@ -82412,9 +82412,7 @@
                   // Form
                   this.$form = $(this.selectors.form); // General error container
 
-                  this.$generalError = this.$form.find(
-                    this.selectors.generalError
-                  ); // Input fields
+                  this.$generalError = $(this.selectors.generalError); // Input fields
 
                   this.$inputs = this.$form.find(this.selectors.inputs);
                 },
