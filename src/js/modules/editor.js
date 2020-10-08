@@ -17,8 +17,6 @@ export default class PhotoEditor extends EditorModal {
   constructor(options) {
     super(options);
 
-    this.configuration.editor = true;
-
     // Binding context
     this._prepareModal = this._prepareModal.bind(this);
     this._updateMarkup = this._updateMarkup.bind(this);
@@ -26,6 +24,11 @@ export default class PhotoEditor extends EditorModal {
     // Prepare editor
     this._cacheElements();
     this._setUpEventListeners();
+
+    if (this.selectors.loading) {
+      // Initializing loading indicator when the form is submitted
+      this.initializeLoadingIndicators(this.$form);
+    }
   }
 
   /**
@@ -70,9 +73,50 @@ export default class PhotoEditor extends EditorModal {
       this._prepareModal(photoId);
     });
 
-    // Delete photo when user clicks on deleting button
-    this.$deleteButton.click(event => {
-      this.deletePhoto(event, this.photo);
+    /**
+     * When the user clicks on delete button:
+     * 1. Make request to delete photo
+     * 2. If everything is fine, remove photo from the markup and close the modal
+     * 3. Show error popup otherwise
+     */
+    this.$deleteButton.click(async event => {
+      event.preventDefault();
+
+      let { headers, method, endpoint } = this.requests.deletePhoto;
+
+      try {
+        // Make server request to delete photo
+        var response = await this.makeRequest({
+          headers,
+          endpoint,
+          method,
+          body: JSON.stringify({ id: this.photo.dataset.id }),
+        });
+      } catch (error) {
+        // Unsuccessful Popup
+        this.showRequestResult({
+          title: error.name,
+          text: error.message,
+          icon: 'error',
+        });
+      }
+
+      if (response.success) {
+        // Delete photo container and close modal
+        $(this.photo).closest(this.selectors.container).remove();
+        this.closeModal();
+
+        var icon = 'success';
+      } else {
+        var icon = 'error';
+      }
+
+      // Show resulting popup
+      this.showRequestResult({
+        title: response.title,
+        text: response.message,
+        icon,
+      });
     });
 
     /**

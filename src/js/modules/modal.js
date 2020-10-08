@@ -88,46 +88,8 @@ class EditorModal extends ServerRequest {
    * If used in uploader, it will find the photo containing the currently clicked button
    * and delete the photo container
    */
-  async deletePhoto(event, photo) {
+  async deletePhoto(event) {
     event.preventDefault();
-
-    if (this.configuration.editor) {
-      let { headers, method, endpoint } = this.requests.deletePhoto;
-
-      try {
-        // Make server request to delete photo
-        var response = await this.makeRequest({
-          headers,
-          endpoint,
-          method,
-          body: JSON.stringify({ id: photo.dataset.id }),
-        });
-      } catch (error) {
-        // Unsuccessful Popup
-        this.showRequestResult({
-          title: error.name,
-          text: error.message,
-          icon: 'error',
-        });
-      }
-
-      if (response.success) {
-        // Delete photo container and close modal
-        $(photo).closest(this.selectors.container).remove();
-        this.closeModal();
-
-        var icon = 'success';
-      } else {
-        var icon = 'error';
-      }
-
-      // Show resulting popup
-      this.showRequestResult({
-        title: response.title,
-        text: response.message,
-        icon,
-      });
-    }
 
     if (this.configuration.uploader) {
       $(event.target).closest(this.selectors.container).remove();

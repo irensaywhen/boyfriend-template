@@ -21645,14 +21645,7 @@
                 value: (function () {
                   var _deletePhoto = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
                     /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee(event, photo) {
-                        var _this$requests$delete,
-                          headers,
-                          method,
-                          endpoint,
-                          response,
-                          icon;
-
+                      function _callee(event) {
                         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
                           function _callee$(_context) {
                             while (1) {
@@ -21660,82 +21653,26 @@
                                 case 0:
                                   event.preventDefault();
 
-                                  if (!this.configuration.editor) {
-                                    _context.next = 14;
-                                    break;
-                                  }
-
-                                  (_this$requests$delete = this.requests
-                                    .deletePhoto),
-                                    (headers = _this$requests$delete.headers),
-                                    (method = _this$requests$delete.method),
-                                    (endpoint = _this$requests$delete.endpoint);
-                                  _context.prev = 3;
-                                  _context.next = 6;
-                                  return this.makeRequest({
-                                    headers: headers,
-                                    endpoint: endpoint,
-                                    method: method,
-                                    body: JSON.stringify({
-                                      id: photo.dataset.id,
-                                    }),
-                                  });
-
-                                case 6:
-                                  response = _context.sent;
-                                  _context.next = 12;
-                                  break;
-
-                                case 9:
-                                  _context.prev = 9;
-                                  _context.t0 = _context['catch'](3);
-                                  // Unsuccessful Popup
-                                  this.showRequestResult({
-                                    title: _context.t0.name,
-                                    text: _context.t0.message,
-                                    icon: 'error',
-                                  });
-
-                                case 12:
-                                  if (response.success) {
-                                    // Delete photo container and close modal
-                                    $(photo)
-                                      .closest(this.selectors.container)
-                                      .remove();
-                                    this.closeModal();
-                                    icon = 'success';
-                                  } else {
-                                    icon = 'error';
-                                  } // Show resulting popup
-
-                                  this.showRequestResult({
-                                    title: response.title,
-                                    text: response.message,
-                                    icon: icon,
-                                  });
-
-                                case 14:
                                   if (this.configuration.uploader) {
                                     $(event.target)
                                       .closest(this.selectors.container)
                                       .remove();
                                   }
 
-                                case 15:
+                                case 2:
                                 case 'end':
                                   return _context.stop();
                               }
                             }
                           },
                           _callee,
-                          this,
-                          [[3, 9]]
+                          this
                         );
                       }
                     )
                   );
 
-                  function deletePhoto(_x, _x2) {
+                  function deletePhoto(_x) {
                     return _deletePhoto.apply(this, arguments);
                   }
 

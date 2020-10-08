@@ -298,6 +298,8 @@
           <!--Modal header start-->
           <div class="modal-header">
             <h3 class="title">Edit your photo information:</h3>
+
+            <!--Closing button-->
             <button
               type="button"
               class="close"
@@ -312,8 +314,11 @@
           <div class="modal-body">
             <form action="fill-profile.html" method="POST" id="photo-editor">
               <div class="photo-description">
+                <!--Photo container-->
                 <figure class="text-center">
                   <img src="img/photo1.jpg" alt="photo 1" />
+
+                  <!--Privacy input and label-->
                   <div
                     class="privacy bg-white rounded d-flex justify-content-between align-items-center px-1"
                   >
@@ -330,6 +335,8 @@
                       ></label>
                     </div>
                   </div>
+
+                  <!--Delete button-->
                   <button
                     class="delete bg-white rounded d-flex justify-content-between align-items-center px-1"
                   >
@@ -337,8 +344,14 @@
                     <i class="fas fa-trash-alt"></i>
                   </button>
                 </figure>
+
+                <!--Label for photo description-->
                 <label for="photo-description">Add photo description</label>
+
+                <!--Subtitle-->
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+
+                <!--Textarea input start-->
                 <div class="form-group">
                   <textarea
                     class="form-control"
@@ -348,8 +361,10 @@
                     placeholder="Photo description"
                   ></textarea>
                   <div class="px-0 py-3 text-center">
+                    <!--Submit button-->
                     <button
                       type="submit"
+                      id="submitBtn-photo-editor"
                       class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
                     >
                       <span>Submit</span
@@ -357,6 +372,7 @@
                     </button>
                   </div>
                 </div>
+                <!--Textarea input end-->
               </div>
             </form>
           </div>
@@ -1614,6 +1630,13 @@
             'privacy-label': '.privacy-label',
             gallery: '#photos-container',
             container: '.gallery-slide',
+            // Loading indicator
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitBtn-photo-editor',
+              spinner: '.spinner-border',
+              text: 'Saving photo information...',
+            },
           },
           requests: {
             savePhoto: {
