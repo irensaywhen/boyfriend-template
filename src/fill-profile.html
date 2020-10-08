@@ -71,7 +71,7 @@
 
     <!--Modal for uploading avatar start-->
     <div
-      class="modal fade upload-avatar"
+      class="modal fade upload-avatar pr-0"
       id="upload-avatar"
       tabindex="-1"
       role="dialog"
@@ -84,6 +84,8 @@
             <!--Modal header start-->
             <div class="modal-header">
               <h3 class="title">Upload your avatar:</h3>
+
+              <!--Closing button-->
               <button
                 type="button"
                 class="close"
@@ -94,9 +96,10 @@
               </button>
             </div>
             <!--Modal header end-->
+
             <!--Modal body start-->
             <div class="modal-body">
-              <!--Current avatar and preview-->
+              <!--Current avatar and preview start-->
               <div class="text-center">
                 <div class="figure-profile shadow my-4">
                   <figure>
@@ -108,48 +111,88 @@
                   </figure>
                 </div>
               </div>
+              <!--Current avatar and preview end-->
 
-              <!--Avatar Upload-->
-              <ul class="pl-1">
-                <!--Avatar upload from the computer-->
-                <li class="position-relative">
-                  <label
-                    for="avatar-file-input"
-                    class="upload-photo-label text-center"
-                  >
-                    <img src="img/upload.svg" alt="Upload photo" />
-                  </label>
-                  <input
-                    type="file"
-                    id="avatar-file-input"
-                    name="avatar-file-input"
-                    class="invisible position-absolute avatar-input"
-                    accept="image/*"
-                  />
-                  <p class="d-inline-block pl-3">
-                    Upload your avatar from your computer
+              <!--Container holding read and legacy errors-->
+              <p id="uploadErrorContainer" class="upload-error"></p>
+
+              <!--Upload progress indicator start-->
+              <div class="upload-progress" id="fileRead-progress"></div>
+              <!--Upload progress indicator end-->
+
+              <!--Template for progress indicator start-->
+              <script id="progress-template" type="text/template">
+                <div class="fileProgress-wrapper">
+                  <div class="filename text-muted">
+                    <span class="name d-inline-block pb-1">{{name}}</span>
+                  </div>
+                  <div class="progress mb-3 h-4">
+                    <div
+                      class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                      id={{id}}
+                      role="progressbar"
+                      style="width: 0%"
+                      aria-valuenow="0"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </div>
+              </script>
+              <!--Template for progress indicator end-->
+
+              <!--Avatar upload and drag'n'drop start-->
+              <div class="photo-upload" id="dragNDropUploadContainer">
+                <div class="drag-n-drop">
+                  <div class="icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </div>
+                  <p class="text-center text-uppercase info d-flex flex-column">
+                    <strong class="title">Drag & drop</strong>
+                    <span class="pt-2">to upload, or</span>
                   </p>
-                </li>
+                </div>
 
-                <!--Capturing avatar from device-->
-                <li class="position-relative d-lg-none">
-                  <label
-                    for="make-avatar"
-                    class="upload-photo-label text-center"
-                  >
-                    <i class="fas fa-camera-retro"></i>
-                  </label>
-                  <input
-                    type="file"
-                    id="make-avatar"
-                    name="make-avatar"
-                    class="invisible position-absolute avatar-input"
-                    accept="image/*"
-                    capture
-                  />
-                  <p class="d-inline-block pl-3">Make photo from your camera</p>
-                </li>
-              </ul>
+                <div class="d-flex flex-column align-items-center py-4">
+                  <!--Select file from device start-->
+                  <div class="position-relative">
+                    <input
+                      type="file"
+                      id="avatar-file-input"
+                      name="avatar-file-input"
+                      class="invisible position-absolute avatar-input disable-while-load"
+                      accept="image/*"
+                    />
+                    <label
+                      for="avatar-file-input"
+                      class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm select"
+                    >
+                      <i class="fas fa-file-upload"></i> select file
+                    </label>
+                  </div>
+                  <!--Select file from device end-->
+
+                  <!--Capture photo start-->
+                  <div class="position-relative">
+                    <input
+                      type="file"
+                      id="make-avatar"
+                      name="make-avatar"
+                      class="invisible position-absolute avatar-input disable-while-load"
+                      accept="image/*"
+                      capture
+                    />
+                    <label
+                      for="make-avatar"
+                      class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm capture"
+                    >
+                      <i class="fas fa-camera-retro"></i> take photo
+                    </label>
+                  </div>
+                  <!--Capture photo end-->
+                </div>
+              </div>
+              <!--Avatar upload and drag'n'drop end-->
 
               <!--Avatar requirements-->
               <div class="avatar-requirements border-top">
@@ -167,6 +210,7 @@
               <div class="px-0 py-3 text-center w-100">
                 <button
                   type="submit"
+                  id="submitButton-avatar"
                   class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
                 >
                   <span>Submit</span><i class="material-icons">arrow_forward</i>
@@ -390,7 +434,7 @@
       <div class="text-center">
         <div class="figure-menu shadow">
           <figure>
-            <img src="img/photo1.jpg" class="avatar-image" alt="Avatar" />
+            <img src="img/photo1.jpg" class="avatar-image h-100" alt="Avatar" />
           </figure>
         </div>
         <h5 class="mb-1">Lukasz</h5>
@@ -1597,7 +1641,7 @@
           },
         });*/
 
-        /* Avatar initialization 
+        /* Avatar initialization */
         const avatar = new Avatar({
           selectors: {
             elementSelector: '.avatar-image',
@@ -1606,6 +1650,48 @@
             input: '.avatar-input',
             preview: '#avatar-preview',
             form: '#avatar-editor',
+            // Loading indicator
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitButton-avatar',
+              spinner: '.spinner-border',
+              text: 'Saving avatar...',
+            },
+            // Photo upload selectors
+            photoUpload: {
+              disableWhileLoad: '.disable-while-load',
+              uploadContainer: '#dragNDropUploadContainer',
+              errorContainer: '#uploadErrorContainer',
+              // Progress bar selectors
+              progress: {
+                progress: '#fileRead-progress',
+                progressBar: '.progress-bar',
+                templateId: 'progress-template',
+                fileProgressWrapper: '.fileProgress-wrapper',
+              },
+            },
+          },
+          // Predefined error texts
+          errorText: {
+            photoUpload: {
+              // Read error while uploading photo
+              read:
+                'Something went wrong while reading the file. Please, try again',
+              // Too old browser
+              legacyBrowser:
+                'Your browser is outdated. Please, update your browser and try again',
+              // Unsupported image file type
+              wrongFileType: 'Please, upload image file',
+            },
+          },
+          classes: {
+            // Input for files upload
+            input: 'avatar-input',
+            // Drag'n'Drop
+            dragNDrop: 'advanced-upload',
+            dragOver: 'is-dragover',
+            // To show mobile photo capturing
+            mobilePhotoUpload: 'mobile',
           },
           requests: {
             saveAvatar: {
@@ -1617,7 +1703,7 @@
                 'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar',
             },
           },
-        });*/
+        });
 
         /* Photo editor initialization */
         const photoEditor = new PhotoEditor({
