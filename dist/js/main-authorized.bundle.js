@@ -85722,6 +85722,10 @@
             var files = event.target.files;
             if (!files || !files[0]) return;
 
+            _this2.$form.trigger('photoUpload:filesInputed', {
+              amount: files.length,
+            });
+
             for (var i = 0; i < files.length; i++) {
               _saveAndPreviewFile(files[i]);
             }
@@ -87248,34 +87252,22 @@
             return ServerRequest;
           }
         );
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-          /*! @babel/runtime/regenerator */ '../node_modules/@babel/runtime/regenerator/index.js'
-        );
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-          /*! @babel/runtime/helpers/asyncToGenerator */ '../node_modules/@babel/runtime/helpers/asyncToGenerator.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__
-        );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
           /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
           /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _swalAlertMixin_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _swalAlertMixin_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! ./swalAlertMixin.js */ './js/modules/swalAlertMixin.js'
         );
-        /* harmony import */ var _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! ./requestsIndictorMixin.js */ './js/modules/requestsIndictorMixin.js'
         );
 
@@ -87283,14 +87275,12 @@
           function ServerRequest(options) {
             var _this = this;
 
-            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               ServerRequest
             );
 
-            // Bind context
-            this.getPhotosIds = this.getPhotosIds.bind(this); // Save passed options
-
+            // Save passed options
             var selectors = (this.selectors = options.selectors);
             this.requests = options.requests;
             this.errorText = options.errorText; // Transform endpoints into URL Objects
@@ -87298,11 +87288,11 @@
             this.makeURLObjects();
             Object.assign(
               ServerRequest.prototype,
-              _swalAlertMixin_js__WEBPACK_IMPORTED_MODULE_4__['default']
+              _swalAlertMixin_js__WEBPACK_IMPORTED_MODULE_2__['default']
             );
             Object.assign(
               ServerRequest.prototype,
-              _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_5__['default']
+              _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_3__['default']
             );
             /**
              * If selector for disabling buttons is not empty, disable buttons on request
@@ -87325,7 +87315,7 @@
            * Transform endpoints into URL objects
            */
 
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
             ServerRequest,
             [
               {
@@ -87419,60 +87409,6 @@
                       });
                   }
                 },
-              },
-              {
-                key: 'getPhotosIds',
-                value: (function () {
-                  var _getPhotosIds = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee(_ref2) {
-                        var filesAmount, headers, endpoint, method;
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee$(_context) {
-                            while (1) {
-                              switch ((_context.prev = _context.next)) {
-                                case 0:
-                                  (filesAmount = _ref2.filesAmount),
-                                    (headers = _ref2.headers),
-                                    (endpoint = _ref2.endpoint),
-                                    (method = _ref2.method);
-                                  // Add amount of files as a query parameter
-                                  this.requests.getIds.endpoint.searchParams.set(
-                                    'amount',
-                                    String(filesAmount)
-                                  );
-                                  _context.next = 4;
-                                  return this.makeRequest({
-                                    headers: headers,
-                                    endpoint: endpoint,
-                                    method: method,
-                                  });
-
-                                case 4:
-                                  return _context.abrupt(
-                                    'return',
-                                    _context.sent
-                                  );
-
-                                case 5:
-                                case 'end':
-                                  return _context.stop();
-                              }
-                            }
-                          },
-                          _callee,
-                          this
-                        );
-                      }
-                    )
-                  );
-
-                  function getPhotosIds(_x) {
-                    return _getPhotosIds.apply(this, arguments);
-                  }
-
-                  return getPhotosIds;
-                })(),
               },
             ]
           );
@@ -88764,6 +88700,18 @@
         /* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
           /*! ./modal.js */ './js/modules/modal.js'
         );
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+          /*! handlebars */ '../node_modules/handlebars/dist/cjs/handlebars.js'
+        );
+        /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/ __webpack_require__.n(
+          handlebars__WEBPACK_IMPORTED_MODULE_11__
+        );
+        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+          /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
+        );
+        /* harmony import */ var _photoUploadMixin__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+          /*! ./photoUploadMixin */ './js/modules/photoUploadMixin.js'
+        );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -88843,17 +88791,7 @@
                 _this
               )
             );
-            _this.generatePreviewHTML = _this.generatePreviewHTML.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
-                _this
-              )
-            );
             _this._updateMarkup = _this._updateMarkup.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
-                _this
-              )
-            );
-            _this.getPhotosIds = _this.getPhotosIds.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
@@ -88866,7 +88804,19 @@
 
             _this._cacheElements();
 
-            _this._setUpEventListeners();
+            _this._setUpEventListeners(); // Prepare template for photo preview
+
+            _this.previewTemplate = Object(
+              _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_12__['default']
+            )(options.selectors.previewTemplateId);
+            Object.assign(
+              PhotoUploader.prototype,
+              _photoUploadMixin__WEBPACK_IMPORTED_MODULE_13__['default']
+            );
+
+            _this.initializePhotoUpload();
+
+            _this.initializeLoadingIndicators(_this.$form);
 
             return _this;
           }
@@ -88905,10 +88855,50 @@
                     ),
                     '_setUpEventListeners',
                     this
-                  ).call(this); // Listen to changes on the input elements
+                  ).call(this);
+                  /**
+                   * When files are either dropped or selected using inputs:
+                   * 1. Get the amount of photos selected
+                   * 2. Send this amount to server
+                   * 3. Retrieve unique ids for these photos
+                   */
 
-                  this.$photoInputs.change(function (event) {
-                    _this2.previewPhotos(event.target);
+                  this.$form.on('photoUpload:filesInputed', function (
+                    event,
+                    data
+                  ) {
+                    // Delete previously saved ids
+                    // Maybe, you won't need it
+                    _this2.ids = null;
+                    var _this2$requests$getId = _this2.requests.getIds,
+                      method = _this2$requests$getId.method,
+                      headers = _this2$requests$getId.headers,
+                      endpoint = _this2$requests$getId.endpoint; // Add amount of files as a query parameter
+
+                    endpoint.searchParams.set('amount', data.amount);
+                    _this2.ids = _this2
+                      .makeRequest({
+                        headers: headers,
+                        endpoint: endpoint,
+                        method: method,
+                      })
+                      .then(function (response) {
+                        // Throw error with response title and message
+                        if (!response.success) {
+                          var error = new Error(response.message);
+                          error.name = response.title;
+                          throw error;
+                        }
+
+                        return response.ids;
+                      })
+                      ['catch'](function (error) {
+                        _this2.showRequestResult({
+                          title: error.name,
+                          text: error.message,
+                          icon: 'error',
+                        });
+                      });
                   });
                   this.$form.submit(function (event) {
                     event.preventDefault(); // Make server request here
@@ -89016,216 +89006,6 @@
                   return uploadNewPhotos;
                 })(),
                 /**
-                 * Function retrieving ids according to uploading amount of files.
-                 * @param {Number} filesAmount - amount of files to get ids for
-                 */
-              },
-              {
-                key: 'getPhotosIds',
-                value: (function () {
-                  var _getPhotosIds = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee2(filesAmount) {
-                        var response;
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee2$(_context2) {
-                            while (1) {
-                              switch ((_context2.prev = _context2.next)) {
-                                case 0:
-                                  _context2.prev = 0;
-                                  _context2.next = 3;
-                                  return _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
-                                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
-                                      PhotoUploader.prototype
-                                    ),
-                                    'getPhotosIds',
-                                    this
-                                  ).call(this, {
-                                    filesAmount: filesAmount,
-                                    headers: this.requests.getIds.headers,
-                                    endpoint: this.requests.getIds.endpoint,
-                                    method: this.requests.getIds.method,
-                                  });
-
-                                case 3:
-                                  response = _context2.sent;
-                                  _context2.next = 9;
-                                  break;
-
-                                case 6:
-                                  _context2.prev = 6;
-                                  _context2.t0 = _context2['catch'](0);
-                                  // Unsuccessful Popup
-                                  this.showRequestResult({
-                                    title: 'Oops!',
-                                    text: _context2.t0.message,
-                                    icon: 'error',
-                                  });
-
-                                case 9:
-                                  if (!response.success) {
-                                    _context2.next = 13;
-                                    break;
-                                  }
-
-                                  return _context2.abrupt(
-                                    'return',
-                                    response.ids
-                                  );
-
-                                case 13:
-                                  // Unsuccessful Popup
-                                  this.showRequestResult({
-                                    title: 'Oops!',
-                                    text: response.message,
-                                    icon: 'error',
-                                  });
-
-                                case 14:
-                                case 'end':
-                                  return _context2.stop();
-                              }
-                            }
-                          },
-                          _callee2,
-                          this,
-                          [[0, 6]]
-                        );
-                      }
-                    )
-                  );
-
-                  function getPhotosIds(_x) {
-                    return _getPhotosIds.apply(this, arguments);
-                  }
-
-                  return getPhotosIds;
-                })(),
-                /**
-                 * Function reading uploaded photos from input
-                 * @param {DOM Element} input - input element from which to take the photo files
-                 */
-              },
-              {
-                key: 'previewPhotos',
-                value: (function () {
-                  var _previewPhotos = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee3(input) {
-                        var ids, filesAmount, i, reader, id;
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee3$(_context3) {
-                            while (1) {
-                              switch ((_context3.prev = _context3.next)) {
-                                case 0:
-                                  if (input.files) {
-                                    _context3.next = 2;
-                                    break;
-                                  }
-
-                                  return _context3.abrupt('return');
-
-                                case 2:
-                                  filesAmount = input.files.length;
-                                  _context3.prev = 3;
-                                  _context3.next = 6;
-                                  return this.getPhotosIds(filesAmount);
-
-                                case 6:
-                                  ids = _context3.sent;
-                                  _context3.next = 12;
-                                  break;
-
-                                case 9:
-                                  _context3.prev = 9;
-                                  _context3.t0 = _context3['catch'](3);
-                                  // Unsuccessful Popup
-                                  this.showRequestResult({
-                                    title: 'Oops!',
-                                    text: _context3.t0.message,
-                                    icon: 'error',
-                                  });
-
-                                case 12:
-                                  for (i = 0; i < filesAmount; i++) {
-                                    // Make fileReader for each photo
-                                    reader = new FileReader(); // Cache id of the loading photo
-
-                                    id = ids[i]; // Initialize object to store information about this photo
-
-                                    this.photoData[id] = {}; // Save the id of the loading photo for reference
-
-                                    reader.id = id;
-                                    this.setReaderEventListeners(reader); // Start reading photo
-
-                                    reader.readAsDataURL(input.files[i]); // Save file
-
-                                    this.savePhotoInformation({
-                                      id: id,
-                                      file: input.files[i],
-                                    });
-                                  }
-
-                                  this.$modalFooter.show(0);
-
-                                case 14:
-                                case 'end':
-                                  return _context3.stop();
-                              }
-                            }
-                          },
-                          _callee3,
-                          this,
-                          [[3, 9]]
-                        );
-                      }
-                    )
-                  );
-
-                  function previewPhotos(_x2) {
-                    return _previewPhotos.apply(this, arguments);
-                  }
-
-                  return previewPhotos;
-                })(),
-                /**
-                 * Function attaching event listeners to File Reader
-                 * @param {FileReader object} reader - reader to attach event listeners to
-                 */
-              },
-              {
-                key: 'setReaderEventListeners',
-                value: function setReaderEventListeners(reader) {
-                  var _this3 = this;
-
-                  // Preview photos when it is loaded
-                  reader.onload = function (event) {
-                    // Cache
-                    var _ref = [event.target.id, event.target.result],
-                      id = _ref[0],
-                      src = _ref[1];
-
-                    _this3.generatePreviewHTML({
-                      id: id,
-                      src: src,
-                    }); // Save src
-
-                    _this3.savePhotoInformation({
-                      id: id,
-                      src: src,
-                    });
-                  };
-
-                  reader.onerror = function (event) {
-                    // Unsuccessful Popup
-                    this.showRequestResult({
-                      title: this.error.name,
-                      text: this.error.message,
-                      icon: 'error',
-                    });
-                  };
-                },
-                /**
                  * Function deleting uploaded photos
                  */
               },
@@ -89234,105 +89014,22 @@
                 value: function _discardChanges() {
                   this.$previewContainer.empty();
                 },
-                /**
-                 * Function generating markup for preview
-                 * @param {Number} id - photo id that will be used in the database to store photo
-                 * @param {String} src - src of the image to preview
-                 */
-              },
-              {
-                key: 'generatePreviewHTML',
-                value: function generatePreviewHTML(_ref2) {
-                  var _this4 = this;
-
-                  var id = _ref2.id,
-                    src = _ref2.src;
-                  // Switch from previewing through generating markup to template using Handlebars
-                  // Preparing ids for preview
-                  var privacyId = 'photo-upload-privacy-' + id;
-                  var descriptionId = 'upload-description' + id; // Privacy checkbox control
-
-                  var $privacyControl = $('<div></div>')
-                    .addClass('custom-control custom-switch')
-                    .append(
-                      $('<input>')
-                        .attr('type', 'checkbox')
-                        .attr('id', privacyId)
-                        .addClass('custom-control-input privacy-input')
-                    )
-                    .append(
-                      $('<label></label>')
-                        .attr('for', privacyId)
-                        .addClass('custom-control-label privacy-label')
-                    )
-                    .appendTo('body'); // Privacy box
-
-                  var $privacyBox = $('<div></div>')
-                    .addClass(
-                      'privacy bg-white rounded d-flex justify-content-between align-items-center px-1'
-                    )
-                    .append($('<h4></h4>').addClass('m-0').text('Privacy'))
-                    .append($privacyControl); // Figure
-
-                  var $figure = $('<figure></figure>')
-                    .append($('<img>').attr('src', src).attr('alt', ''))
-                    .append($privacyBox)
-                    .append(
-                      $('<button></button>')
-                        .attr('type', 'button')
-                        .addClass(
-                          'delete bg-white rounded d-flex justify-content-between align-items-center px-1'
-                        )
-                        .text('Delete')
-                        .click(function (event) {
-                          _this4.deletePhoto(event);
-                        })
-                        .append($('<i class="fas fa-trash-alt"></i>'))
-                    ); // Description textarea
-
-                  var $descriptionTextarea = $('<div></div>')
-                    .addClass('form-group')
-                    .append(
-                      $('<label></label>')
-                        .attr('for', descriptionId)
-                        .text('Add photo description')
-                    )
-                    .append(
-                      $('<textarea></textarea>')
-                        .attr('id', descriptionId)
-                        .attr('rows', '4')
-                        .attr('placeholder', 'Photo description')
-                        .addClass('form-control new-photo-description')
-                    ); // Photo container
-
-                  $('<div></div>')
-                    .addClass(
-                      'col-12 col-sm-6 col-md-4 col-xl-3 photo-container'
-                    )
-                    .attr('data-id', id)
-                    .append(
-                      $('<div></div>')
-                        .addClass('photo-description')
-                        .append([$figure, $descriptionTextarea])
-                    )
-                    .appendTo(this.$previewContainer);
-                },
               },
               {
                 key: 'collectData',
                 value: function collectData() {
-                  var _this5 = this;
+                  var _this3 = this;
 
                   $(this.selectors.container).each(function (index, element) {
                     var id = element.dataset.id;
                     var privacy = $(element)
-                      .find(_this5.selectors['privacy-input'])
+                      .find(_this3.selectors['privacy-input'])
                       .is(':checked');
                     var description = $(element)
-                      .find(_this5.selectors.description)
+                      .find(_this3.selectors.description)
                       .val();
 
-                    _this5.savePhotoInformation({
+                    _this3.savePhotoInformation({
                       id: id,
                       privacy: privacy,
                       description: description,
@@ -89341,17 +89038,17 @@
                 },
               },
               {
-                key: 'updateMarkup',
-                value: function updateMarkup(_ref3) {
-                  var _ref3$id = _ref3.id,
-                    id = _ref3$id === void 0 ? null : _ref3$id,
-                    _ref3$src = _ref3.src,
-                    src = _ref3$src === void 0 ? null : _ref3$src,
-                    _ref3$privacy = _ref3.privacy,
-                    privacy = _ref3$privacy === void 0 ? false : _ref3$privacy,
-                    _ref3$description = _ref3.description,
+                key: '_updateMarkup',
+                value: function _updateMarkup(_ref) {
+                  var _ref$id = _ref.id,
+                    id = _ref$id === void 0 ? null : _ref$id,
+                    _ref$src = _ref.src,
+                    src = _ref$src === void 0 ? null : _ref$src,
+                    _ref$privacy = _ref.privacy,
+                    privacy = _ref$privacy === void 0 ? false : _ref$privacy,
+                    _ref$description = _ref.description,
                     description =
-                      _ref3$description === void 0 ? '' : _ref3$description;
+                      _ref$description === void 0 ? '' : _ref$description;
                   this.$gallery.append(
                     $('<div></div>')
                       .addClass('swiper-slide gallery-slide')
@@ -89367,7 +89064,110 @@
                           .addClass('gallery-photo')
                       )
                   );
-                },
+                }, //------------------------------------------
+                // Functions specific to class utilizing photo uploader
+                //------------------------------------------
+
+                /**
+                 * 1. Wait until the server gives ids for uploading photos
+                 * 2. When ids are retrieved, check whether it is an array, and if not, throw an error
+                 * 3. Get the last id from the list
+                 * 4. Save photo information for the current id
+                 * 5. Preview photo
+                 * @param {FileReader} fileReader -fileReader object
+                 * that stores information about the read photo
+                 */
+              },
+              {
+                key: '_preview',
+                value: (function () {
+                  var _preview2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
+                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
+                      function _callee2(fileReader) {
+                        var ids, src, id, compiledPhotoTemplate;
+                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
+                          function _callee2$(_context2) {
+                            while (1) {
+                              switch ((_context2.prev = _context2.next)) {
+                                case 0:
+                                  _context2.prev = 0;
+                                  _context2.next = 3;
+                                  return this.ids;
+
+                                case 3:
+                                  ids = _context2.sent;
+
+                                  if (Array.isArray(ids)) {
+                                    _context2.next = 6;
+                                    break;
+                                  }
+
+                                  throw new TypeError('Should be an array');
+
+                                case 6:
+                                  _context2.next = 12;
+                                  break;
+
+                                case 8:
+                                  _context2.prev = 8;
+                                  _context2.t0 = _context2['catch'](0);
+                                  ids = null;
+                                  this.showRequestResult({
+                                    title: _context2.t0.name,
+                                    text: _context2.t0.message,
+                                    icon: 'error',
+                                  });
+
+                                case 12:
+                                  if (ids) {
+                                    _context2.next = 14;
+                                    break;
+                                  }
+
+                                  return _context2.abrupt('return');
+
+                                case 14:
+                                  (src = fileReader.result), (id = ids.pop()); // Save information about the current photo
+
+                                  this.photoData[id] = {};
+                                  this.savePhotoInformation({
+                                    id: id,
+                                    src: src,
+                                  });
+                                  compiledPhotoTemplate = handlebars__WEBPACK_IMPORTED_MODULE_11___default.a.compile(
+                                    this.previewTemplate
+                                  );
+                                  compiledPhotoTemplate = compiledPhotoTemplate(
+                                    {
+                                      id: id,
+                                      src: src,
+                                    }
+                                  ); // Append template
+
+                                  this.$previewContainer.append(
+                                    compiledPhotoTemplate
+                                  );
+
+                                case 20:
+                                case 'end':
+                                  return _context2.stop();
+                              }
+                            }
+                          },
+                          _callee2,
+                          this,
+                          [[0, 8]]
+                        );
+                      }
+                    )
+                  );
+
+                  function _preview(_x) {
+                    return _preview2.apply(this, arguments);
+                  }
+
+                  return _preview;
+                })(),
               },
             ]
           );

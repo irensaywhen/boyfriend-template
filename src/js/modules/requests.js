@@ -3,9 +3,6 @@ import loadingIndicatorMixin from './requestsIndictorMixin.js';
 
 export default class ServerRequest {
   constructor(options) {
-    // Bind context
-    this.getPhotosIds = this.getPhotosIds.bind(this);
-
     // Save passed options
     let selectors = (this.selectors = options.selectors);
     this.requests = options.requests;
@@ -114,19 +111,5 @@ export default class ServerRequest {
           });
         });
     }
-  }
-
-  async getPhotosIds({ filesAmount, headers, endpoint, method }) {
-    // Add amount of files as a query parameter
-    this.requests.getIds.endpoint.searchParams.set(
-      'amount',
-      String(filesAmount)
-    );
-
-    return await this.makeRequest({
-      headers,
-      endpoint,
-      method,
-    });
   }
 }

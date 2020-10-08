@@ -226,7 +226,7 @@
 
     <!--Modal for uploading photos start-->
     <div
-      class="modal fade upload-avatar"
+      class="modal fade upload-avatar pr-0"
       id="add-photos"
       tabindex="-1"
       role="dialog"
@@ -239,6 +239,8 @@
             <!--Modal header start-->
             <div class="modal-header">
               <h3 class="title">Upload your photos:</h3>
+
+              <!--Closing button-->
               <button
                 type="button"
                 class="close"
@@ -249,55 +251,187 @@
               </button>
             </div>
             <!--Modal header end-->
+
             <!--Modal body start-->
             <div class="modal-body">
               <!--Photos preview start-->
               <div class="container-fluid">
-                <div class="row" id="photos-previews-container"></div>
+                <div class="row" id="photos-previews-container">
+                  <!-- Photo preview example-->
+                  <div
+                    class="col-12 col-sm-6 col-md-4 col-xl-3 photo-container"
+                    data-id="121"
+                  >
+                    <div class="photo-description">
+                      <!--Image start-->
+                      <figure>
+                        <img src="img/photo1.jpg" alt="" />
+                        <div
+                          class="privacy bg-white rounded d-flex justify-content-between align-items-center px-1"
+                        >
+                          <!--Privacy label-->
+                          <h4 class="m-0">Privacy</h4>
+                          <div class="custom-control custom-switch">
+                            <input
+                              type="checkbox"
+                              id="photo-upload-privacy-121"
+                              class="custom-control-input privacy-input"
+                            /><label
+                              for="photo-upload-privacy-121"
+                              class="custom-control-label privacy-label"
+                            ></label>
+                          </div>
+                        </div>
+
+                        <!--Delete button-->
+                        <button
+                          type="button"
+                          class="delete bg-white rounded d-flex justify-content-between align-items-center px-1"
+                        >
+                          Delete<i class="fas fa-trash-alt"></i>
+                        </button>
+                      </figure>
+                      <!--Image end-->
+
+                      <!--Description-->
+                      <div class="form-group">
+                        <label for="upload-description121"
+                          >Add photo description</label
+                        ><textarea
+                          id="upload-description121"
+                          rows="4"
+                          placeholder="Photo description"
+                          class="form-control new-photo-description"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Photo preview end-->
+                </div>
               </div>
               <!--Photos preview end-->
-              <!--Photo Upload-->
-              <ul class="pl-1">
-                <!--Upload photos from your device-->
-                <li class="position-relative">
-                  <label
-                    for="photos-file-input"
-                    class="upload-photo-label text-center"
-                  >
-                    <img src="img/upload.svg" alt="Upload photo" />
-                  </label>
-                  <input
-                    type="file"
-                    id="photos-file-input"
-                    name="photos-file-input"
-                    class="invisible position-absolute photo-input"
-                    accept="image/*"
-                    multiple
-                  />
-                  <p class="d-inline-block pl-3">
-                    Upload your photos from your device
+
+              <!--Container holding read and legacy errors-->
+              <p id="uploadErrorContainer" class="upload-error"></p>
+
+              <!--Upload progress indicator start-->
+              <div
+                class="upload-progress"
+                id="fileRead-uploader-progress"
+              ></div>
+              <!--Upload progress indicator end-->
+
+              <!--Template for photo preview start-->
+              <script type="text/template" id="photoUploadPreview">
+                <!-- Photo preview example-->
+                <div
+                  class="col-12 col-sm-6 col-md-4 col-xl-3 photo-container"
+                  data-id="{{id}}"
+                >
+                  <div class="photo-description">
+                    <!--Image start-->
+                    <figure>
+                      <img src="{{src}}" alt="" />
+                      <div
+                        class="privacy bg-white rounded d-flex justify-content-between align-items-center px-1"
+                      >
+                        <!--Privacy label-->
+                        <h4 class="m-0">Privacy</h4>
+                        <div class="custom-control custom-switch">
+                          <input
+                            type="checkbox"
+                            id="photo-upload-privacy-{{id}}"
+                            class="custom-control-input privacy-input"
+                          /><label
+                            for="photo-upload-privacy-{{id}}"
+                            class="custom-control-label privacy-label"
+                          ></label>
+                        </div>
+                      </div>
+
+                      <!--Delete button-->
+                      <button
+                        type="button"
+                        class="delete bg-white rounded d-flex justify-content-between align-items-center px-1"
+                      >
+                        Delete<i class="fas fa-trash-alt"></i>
+                      </button>
+                    </figure>
+                    <!--Image end-->
+
+                    <!--Description-->
+                    <div class="form-group">
+                      <label for="upload-description-{{id}}"
+                        >Add photo description</label
+                      ><textarea
+                        id="upload-description-{{id}}"
+                        rows="4"
+                        placeholder="Photo description"
+                        class="form-control new-photo-description"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+                <!--Photo preview end-->
+              </script>
+              <!--Template for photo preview end-->
+
+              <!--Photo upload and drag'n'drop start-->
+              <div class="photo-upload" id="dragNDropUploadContainer">
+                <!--Drag'n'drop start-->
+                <div class="drag-n-drop">
+                  <div class="icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </div>
+                  <p class="text-center text-uppercase info d-flex flex-column">
+                    <strong class="title">Drag & drop</strong>
+                    <span class="pt-2">to upload, or</span>
                   </p>
-                </li>
-                <!--Capture photo-->
-                <li class="position-relative d-lg-none">
-                  <label
-                    for="make-photo"
-                    class="upload-photo-label text-center"
-                  >
-                    <i class="fas fa-camera-retro"></i>
-                  </label>
-                  <input
-                    type="file"
-                    id="make-photo"
-                    name="make-photo"
-                    class="invisible position-absolute photo-input"
-                    accept="image/*"
-                    capture
-                    multiple
-                  />
-                  <p class="d-inline-block pl-3">Make photo from your camera</p>
-                </li>
-              </ul>
+                </div>
+                <!--Drag'n'drop end-->
+
+                <div class="d-flex flex-column align-items-center py-4">
+                  <!--Select file from device start-->
+                  <div class="position-relative">
+                    <input
+                      type="file"
+                      id="photo-file-input"
+                      name="photo-file-input"
+                      class="invisible position-absolute photo-input disable-while-load"
+                      accept="image/*"
+                      multiple
+                    />
+                    <label
+                      for="photo-file-input"
+                      class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm select"
+                    >
+                      <i class="fas fa-file-upload"></i> select file
+                    </label>
+                  </div>
+                  <!--Select file from device end-->
+
+                  <!--Capture photo start-->
+                  <div class="position-relative">
+                    <input
+                      type="file"
+                      id="make-photo"
+                      name="make-photo"
+                      class="invisible position-absolute photo-input disable-while-load"
+                      accept="image/*"
+                      capture
+                      multiple
+                    />
+                    <label
+                      for="make-photo"
+                      class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm capture"
+                    >
+                      <i class="fas fa-camera-retro"></i> take photo
+                    </label>
+                  </div>
+                  <!--Capture photo end-->
+                </div>
+              </div>
+              <!--Photo upload and drag'n'drop end-->
 
               <!--Photo requirements-->
               <div class="avatar-requirements border-top">
@@ -1705,6 +1839,82 @@
           },
         });
 
+        /* Photo Uploader initialization */
+        const photoUploader = new PhotoUploader({
+          selectors: {
+            modal: '#add-photos',
+            'modal-footer': '.modal-footer',
+            form: '#photo-uploader',
+            description: '.new-photo-description',
+            input: '.photo-input',
+            'privacy-input': '.privacy-input',
+            container: '.photo-container',
+            previewContainer: '#photos-previews-container',
+            gallery: '#photos-container',
+            photos: '.gallery-photo',
+            // Loading indicator
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitButton-avatar',
+              spinner: '.spinner-border',
+              text: 'Saving avatar...',
+            },
+            // Photo upload selectors
+            photoUpload: {
+              disableWhileLoad: '.disable-while-load',
+              uploadContainer: '#dragNDropUploadContainer',
+              errorContainer: '#uploadErrorContainer',
+              // Progress bar selectors
+              progress: {
+                progress: '#fileRead-uploader-progress',
+                progressBar: '.progress-bar',
+                templateId: 'progress-template',
+                fileProgressWrapper: '.fileProgress-wrapper',
+              },
+            },
+            // Template id for photo preview
+            previewTemplateId: 'photoUploadPreview',
+          },
+          // Predefined error texts
+          errorText: {
+            photoUpload: {
+              // Read error while uploading photo
+              read:
+                'Something went wrong while reading the file. Please, try again',
+              // Too old browser
+              legacyBrowser:
+                'Your browser is outdated. Please, update your browser and try again',
+              // Unsupported image file type
+              wrongFileType: 'Please, upload image file',
+            },
+          },
+          classes: {
+            // Input for files upload
+            input: 'photo-input',
+            // Drag'n'Drop
+            dragNDrop: 'advanced-upload',
+            dragOver: 'is-dragover',
+            // To show mobile photo capturing
+            mobilePhotoUpload: 'mobile',
+          },
+          requests: {
+            getIds: {
+              method: 'GET',
+              headers: {},
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/get-id',
+            },
+            savePhotos: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+              endpoint:
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-photos',
+            },
+          },
+        });
+
         /* Photo editor initialization */
         const photoEditor = new PhotoEditor({
           selectors: {
@@ -1740,38 +1950,6 @@
             },
           },
         });
-
-        /* Photo Uploader initialization 
-        const photoUploader = new PhotoUploader({
-          selectors: {
-            modal: '#add-photos',
-            'modal-footer': '.modal-footer',
-            form: '#photo-uploader',
-            description: '.new-photo-description',
-            input: '.photo-input',
-            'privacy-input': '.privacy-input',
-            container: '.photo-container',
-            previewContainer: '#photos-previews-container',
-            gallery: '#photos-container',
-            photos: '.gallery-photo',
-          },
-          requests: {
-            getIds: {
-              method: 'GET',
-              headers: {},
-              endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/get-id',
-            },
-            savePhotos: {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-              endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-photos',
-            },
-          },
-        }); */
       });
     </script>
   </body>

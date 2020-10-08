@@ -154,6 +154,8 @@ function _setUpEventListeners() {
 
     if (!files || !files[0]) return;
 
+    this.$form.trigger('photoUpload:filesInputed', { amount: files.length });
+
     for (let i = 0; i < files.length; i++) {
       _saveAndPreviewFile(files[i]);
     }

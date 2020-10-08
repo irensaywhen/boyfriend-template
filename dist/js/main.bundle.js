@@ -22087,6 +22087,10 @@
             var files = event.target.files;
             if (!files || !files[0]) return;
 
+            _this2.$form.trigger('photoUpload:filesInputed', {
+              amount: files.length,
+            });
+
             for (var i = 0; i < files.length; i++) {
               _saveAndPreviewFile(files[i]);
             }
@@ -22323,34 +22327,22 @@
             return ServerRequest;
           }
         );
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-          /*! @babel/runtime/regenerator */ '../node_modules/@babel/runtime/regenerator/index.js'
-        );
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-          /*! @babel/runtime/helpers/asyncToGenerator */ '../node_modules/@babel/runtime/helpers/asyncToGenerator.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__
-        );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
           /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
           /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _swalAlertMixin_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _swalAlertMixin_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! ./swalAlertMixin.js */ './js/modules/swalAlertMixin.js'
         );
-        /* harmony import */ var _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! ./requestsIndictorMixin.js */ './js/modules/requestsIndictorMixin.js'
         );
 
@@ -22358,14 +22350,12 @@
           function ServerRequest(options) {
             var _this = this;
 
-            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               ServerRequest
             );
 
-            // Bind context
-            this.getPhotosIds = this.getPhotosIds.bind(this); // Save passed options
-
+            // Save passed options
             var selectors = (this.selectors = options.selectors);
             this.requests = options.requests;
             this.errorText = options.errorText; // Transform endpoints into URL Objects
@@ -22373,11 +22363,11 @@
             this.makeURLObjects();
             Object.assign(
               ServerRequest.prototype,
-              _swalAlertMixin_js__WEBPACK_IMPORTED_MODULE_4__['default']
+              _swalAlertMixin_js__WEBPACK_IMPORTED_MODULE_2__['default']
             );
             Object.assign(
               ServerRequest.prototype,
-              _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_5__['default']
+              _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_3__['default']
             );
             /**
              * If selector for disabling buttons is not empty, disable buttons on request
@@ -22400,7 +22390,7 @@
            * Transform endpoints into URL objects
            */
 
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
             ServerRequest,
             [
               {
@@ -22494,60 +22484,6 @@
                       });
                   }
                 },
-              },
-              {
-                key: 'getPhotosIds',
-                value: (function () {
-                  var _getPhotosIds = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee(_ref2) {
-                        var filesAmount, headers, endpoint, method;
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee$(_context) {
-                            while (1) {
-                              switch ((_context.prev = _context.next)) {
-                                case 0:
-                                  (filesAmount = _ref2.filesAmount),
-                                    (headers = _ref2.headers),
-                                    (endpoint = _ref2.endpoint),
-                                    (method = _ref2.method);
-                                  // Add amount of files as a query parameter
-                                  this.requests.getIds.endpoint.searchParams.set(
-                                    'amount',
-                                    String(filesAmount)
-                                  );
-                                  _context.next = 4;
-                                  return this.makeRequest({
-                                    headers: headers,
-                                    endpoint: endpoint,
-                                    method: method,
-                                  });
-
-                                case 4:
-                                  return _context.abrupt(
-                                    'return',
-                                    _context.sent
-                                  );
-
-                                case 5:
-                                case 'end':
-                                  return _context.stop();
-                              }
-                            }
-                          },
-                          _callee,
-                          this
-                        );
-                      }
-                    )
-                  );
-
-                  function getPhotosIds(_x) {
-                    return _getPhotosIds.apply(this, arguments);
-                  }
-
-                  return getPhotosIds;
-                })(),
               },
             ]
           );
