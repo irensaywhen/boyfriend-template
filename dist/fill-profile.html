@@ -1082,6 +1082,10 @@
             >
               <!--Change password form start-->
               <form id="change-password" method="POST" action="">
+                <div
+                  class="general-error error-pb-0 pt-3"
+                  id="general-error-change-password"
+                ></div>
                 <div class="container">
                   <div class="row">
                     <div class="col-12">
@@ -1116,6 +1120,7 @@
                     <div class="col-12 px-0 text-center text-md-right">
                       <button
                         type="submit"
+                        id="submitBtn-change-password"
                         class="btn btn-lg btn-default text-white btn-rounded shadow mr-md-3"
                       >
                         <span>Submit</span
@@ -1501,12 +1506,20 @@
           location: false,
         });
 
-        /* Change password form initialization 
+        /* Change password form initialization */
         const profileChangePasswordForm = new Form({
           selectors: {
             form: '#change-password',
             'input-wrapper': '.form-group',
             inputs: '.form-control',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitBtn-change-password',
+              spinner: '.spinner-border',
+              text: 'Saving new password...',
+            },
+            // General error
+            generalError: '#general-error-change-password',
           },
           requests: {
             submit: {
@@ -1520,7 +1533,7 @@
           },
           location: false,
           showSuccessPopup: true,
-          showFailPopup: true,
+          showFailPopup: false,
           frontendValidation: true,
           cleanFields: true,
           validatorOptions: {
@@ -1536,7 +1549,7 @@
               },
             },
           },
-        });*/
+        });
 
         /* Boost initialization 
         const boost = new Boost({
