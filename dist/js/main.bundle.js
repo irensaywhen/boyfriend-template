@@ -22366,7 +22366,7 @@
             // Bind context
             this.getPhotosIds = this.getPhotosIds.bind(this); // Save passed options
 
-            this.selectors = options.selectors;
+            var selectors = (this.selectors = options.selectors);
             this.requests = options.requests;
             this.errorText = options.errorText; // Transform endpoints into URL Objects
 
@@ -22383,7 +22383,10 @@
              * If selector for disabling buttons is not empty, disable buttons on request
              */
 
-            if (this.selectors.disableButtonsOnRequest) {
+            if (selectors.disableButtonsOnRequest) {
+              this.$disableButtonsOnRequest = $(
+                selectors.disableButtonsOnRequest
+              );
               $(this)
                 .on('beforeRequest', function () {
                   _this.$disableButtonsOnRequest.attr('disabled', true);
@@ -22572,6 +22575,9 @@
             // Bind context
             this.initializeLoadingIndicators = this.initializeLoadingIndicators.bind(
               this
+            );
+            this.triggerLoadingIndicator = this.triggerLoadingIndicator.bind(
+              this
             ); // Save loading data to the form
 
             this.loading = this.selectors.loading; // Save information about submit button
@@ -22582,24 +22588,7 @@
             template = document.getElementById(this.loading.spinnerTemplateId); // Event handling
 
             $form.submit(function () {
-              // Don't show loading indicator if the form isn't valid
-              if (jQuery.validator && _this.frontendValidation) {
-                if (!$form.valid()) return;
-              }
-
-              var spinner = template.content.cloneNode(true),
-                loading = _this.loading,
-                $submitButton = _this.$submitButton; // Preserve width and get rid of the previous content
-
-              $submitButton
-                .css('min-width', $submitButton.outerWidth() + 'px')
-                .empty(); // Change button text
-
-              loading.text === undefined
-                ? $submitButton.text('').addClass('text-center')
-                : $submitButton.text(loading.text).addClass('text-capitalize'); //Change button state
-
-              $submitButton.attr('disabled', true)[0].prepend(spinner);
+              _this.triggerLoadingIndicator();
             });
             $(this).on('successfulRequest failedRequest', function () {
               // Change button and remove spinner
@@ -22611,6 +22600,26 @@
                 .find(_this.loading.spinner)
                 .remove();
             });
+          },
+          triggerLoadingIndicator: function triggerLoadingIndicator() {
+            // Don't show loading indicator if the form isn't valid
+            if (jQuery.validator && this.frontendValidation) {
+              if (!$form.valid()) return;
+            }
+
+            var spinner = template.content.cloneNode(true),
+              loading = this.loading,
+              $submitButton = this.$submitButton; // Preserve width and get rid of the previous content
+
+            $submitButton
+              .css('min-width', $submitButton.outerWidth() + 'px')
+              .empty(); // Change button text
+
+            loading.text === undefined
+              ? $submitButton.text('').addClass('text-center')
+              : $submitButton.text(loading.text).addClass('text-capitalize'); //Change button state
+
+            $submitButton.attr('disabled', true)[0].prepend(spinner);
           },
         }; // Private variables
 

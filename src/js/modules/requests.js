@@ -7,7 +7,7 @@ export default class ServerRequest {
     this.getPhotosIds = this.getPhotosIds.bind(this);
 
     // Save passed options
-    this.selectors = options.selectors;
+    let selectors = (this.selectors = options.selectors);
     this.requests = options.requests;
     this.errorText = options.errorText;
 
@@ -20,7 +20,8 @@ export default class ServerRequest {
     /**
      * If selector for disabling buttons is not empty, disable buttons on request
      */
-    if (this.selectors.disableButtonsOnRequest) {
+    if (selectors.disableButtonsOnRequest) {
+      this.$disableButtonsOnRequest = $(selectors.disableButtonsOnRequest);
       $(this)
         .on('beforeRequest', () => {
           this.$disableButtonsOnRequest.attr('disabled', true);

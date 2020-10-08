@@ -62,9 +62,6 @@ export default class BuyPremiumForm extends Form {
       .closest('del')
       .fadeOut(0);
 
-    // Buttons to disable on request
-    this.$disableButtonsOnRequest = $(selectors.disableButtonsOnRequest);
-
     // spinner
     this.$spinner = $(selectors.spinner).fadeOut(0);
 

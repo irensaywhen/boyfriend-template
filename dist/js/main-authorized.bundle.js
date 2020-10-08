@@ -80395,11 +80395,7 @@
 
                   this.$previousPriceContainer = this.$previousPrice
                     .closest('del')
-                    .fadeOut(0); // Buttons to disable on request
-
-                  this.$disableButtonsOnRequest = $(
-                    selectors.disableButtonsOnRequest
-                  ); // spinner
+                    .fadeOut(0); // spinner
 
                   this.$spinner = $(selectors.spinner).fadeOut(0); // Disable checkout button until price is being shown
 
@@ -81782,9 +81778,12 @@
                                           _this2$requests$delet.headers),
                                         (method = _this2$requests$delet.method),
                                         (endpoint =
-                                          _this2$requests$delet.endpoint);
-                                      _context.prev = 2;
-                                      _context.next = 5;
+                                          _this2$requests$delet.endpoint); // Show loading indicator
+
+                                      _this2.triggerLoadingIndicator();
+
+                                      _context.prev = 3;
+                                      _context.next = 6;
                                       return _this2.makeRequest({
                                         headers: headers,
                                         endpoint: endpoint,
@@ -81794,14 +81793,14 @@
                                         }),
                                       });
 
-                                    case 5:
+                                    case 6:
                                       response = _context.sent;
-                                      _context.next = 11;
+                                      _context.next = 12;
                                       break;
 
-                                    case 8:
-                                      _context.prev = 8;
-                                      _context.t0 = _context['catch'](2);
+                                    case 9:
+                                      _context.prev = 9;
+                                      _context.t0 = _context['catch'](3);
 
                                       // Unsuccessful Popup
                                       _this2.showRequestResult({
@@ -81810,7 +81809,7 @@
                                         icon: 'error',
                                       });
 
-                                    case 11:
+                                    case 12:
                                       if (response.success) {
                                         // Delete photo container and close modal
                                         $(_this2.photo)
@@ -81830,7 +81829,7 @@
                                         icon: icon,
                                       });
 
-                                    case 13:
+                                    case 14:
                                     case 'end':
                                       return _context.stop();
                                   }
@@ -81838,7 +81837,7 @@
                               },
                               _callee,
                               null,
-                              [[2, 8]]
+                              [[3, 9]]
                             );
                           }
                         )
@@ -87292,7 +87291,7 @@
             // Bind context
             this.getPhotosIds = this.getPhotosIds.bind(this); // Save passed options
 
-            this.selectors = options.selectors;
+            var selectors = (this.selectors = options.selectors);
             this.requests = options.requests;
             this.errorText = options.errorText; // Transform endpoints into URL Objects
 
@@ -87309,7 +87308,10 @@
              * If selector for disabling buttons is not empty, disable buttons on request
              */
 
-            if (this.selectors.disableButtonsOnRequest) {
+            if (selectors.disableButtonsOnRequest) {
+              this.$disableButtonsOnRequest = $(
+                selectors.disableButtonsOnRequest
+              );
               $(this)
                 .on('beforeRequest', function () {
                   _this.$disableButtonsOnRequest.attr('disabled', true);
@@ -87498,6 +87500,9 @@
             // Bind context
             this.initializeLoadingIndicators = this.initializeLoadingIndicators.bind(
               this
+            );
+            this.triggerLoadingIndicator = this.triggerLoadingIndicator.bind(
+              this
             ); // Save loading data to the form
 
             this.loading = this.selectors.loading; // Save information about submit button
@@ -87508,24 +87513,7 @@
             template = document.getElementById(this.loading.spinnerTemplateId); // Event handling
 
             $form.submit(function () {
-              // Don't show loading indicator if the form isn't valid
-              if (jQuery.validator && _this.frontendValidation) {
-                if (!$form.valid()) return;
-              }
-
-              var spinner = template.content.cloneNode(true),
-                loading = _this.loading,
-                $submitButton = _this.$submitButton; // Preserve width and get rid of the previous content
-
-              $submitButton
-                .css('min-width', $submitButton.outerWidth() + 'px')
-                .empty(); // Change button text
-
-              loading.text === undefined
-                ? $submitButton.text('').addClass('text-center')
-                : $submitButton.text(loading.text).addClass('text-capitalize'); //Change button state
-
-              $submitButton.attr('disabled', true)[0].prepend(spinner);
+              _this.triggerLoadingIndicator();
             });
             $(this).on('successfulRequest failedRequest', function () {
               // Change button and remove spinner
@@ -87537,6 +87525,26 @@
                 .find(_this.loading.spinner)
                 .remove();
             });
+          },
+          triggerLoadingIndicator: function triggerLoadingIndicator() {
+            // Don't show loading indicator if the form isn't valid
+            if (jQuery.validator && this.frontendValidation) {
+              if (!$form.valid()) return;
+            }
+
+            var spinner = template.content.cloneNode(true),
+              loading = this.loading,
+              $submitButton = this.$submitButton; // Preserve width and get rid of the previous content
+
+            $submitButton
+              .css('min-width', $submitButton.outerWidth() + 'px')
+              .empty(); // Change button text
+
+            loading.text === undefined
+              ? $submitButton.text('').addClass('text-center')
+              : $submitButton.text(loading.text).addClass('text-capitalize'); //Change button state
+
+            $submitButton.attr('disabled', true)[0].prepend(spinner);
           },
         }; // Private variables
 

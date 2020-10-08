@@ -326,7 +326,7 @@
                     <div class="custom-control custom-switch">
                       <input
                         type="checkbox"
-                        class="custom-control-input privacy-input"
+                        class="custom-control-input privacy-input disable-on-request"
                         id="private-photo-1"
                       />
                       <label
@@ -338,7 +338,7 @@
 
                   <!--Delete button-->
                   <button
-                    class="delete bg-white rounded d-flex justify-content-between align-items-center px-1"
+                    class="delete bg-white rounded d-flex justify-content-between align-items-center px-1 disable-on-request"
                   >
                     Delete
                     <i class="fas fa-trash-alt"></i>
@@ -1623,6 +1623,7 @@
         const photoEditor = new PhotoEditor({
           selectors: {
             modal: '#edit-photo',
+            disableButtonsOnRequest: '.disable-on-request',
             form: '#photo-editor',
             deleteButton: '.delete',
             description: '#photo-description',

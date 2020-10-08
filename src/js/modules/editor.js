@@ -84,6 +84,9 @@ export default class PhotoEditor extends EditorModal {
 
       let { headers, method, endpoint } = this.requests.deletePhoto;
 
+      // Show loading indicator
+      this.triggerLoadingIndicator();
+
       try {
         // Make server request to delete photo
         var response = await this.makeRequest({
