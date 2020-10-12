@@ -1867,6 +1867,42 @@
           },
         });
 
+        /* Superlike initialization */
+        const superlike = new Superlike({
+          isUsedOnThisPage: false,
+          redirectToUse: './chat.html',
+          selectors: {
+            bonus: '#superlike',
+            amount: '.amount',
+          },
+          requests: {
+            use: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/use-superlike',
+            },
+          },
+          popups: {
+            buy: {
+              title: 'Oops!',
+              text:
+                "You don't have any superlikes available. Do you want to buy some?",
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+            },
+            use: {
+              title: 'Do you want to send a superlike?',
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+              imageUrl: 'img/superlike-animated.svg',
+              imageAlt: 'Superlike icon',
+            },
+          },
+        });
+
         /* Avatar initialization */
         const avatar = new Avatar({
           selectors: {
