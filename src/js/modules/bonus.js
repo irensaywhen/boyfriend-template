@@ -1,5 +1,6 @@
 import ServerRequest from './requests.js';
 import getUrlParams from './getUrlParams.js';
+import removeSearchParams from './removeSearchParams.js';
 
 export default class Bonus extends ServerRequest {
   constructor(options) {
@@ -81,13 +82,43 @@ export default class Bonus extends ServerRequest {
 
     $(document).on('bonus:selectUserBeforeUsage', (event, type) => {
       if (this.type !== type) return;
-      // Open modal to select user here I guess
-      console.log('Selecting user');
 
       // Show userlist modal
       this.$userListModal.modal('show');
-      // Open modal with users
-      // When the user is selected, start using bonus and send to the server to whom the bonus should be sent
+    });
+
+    if (!this.$userListModal) return;
+
+    /**
+     * Handling user selection
+     * 1. Get the clicked user
+     * 2. Get the clicked's user Id and show error if there is no id
+     * 3. Add id to search params of the endpoint
+     */
+    this.$userListModal.click(event => {
+      let $user = $(event.target).closest(this.selectors.userList.user);
+
+      if ($user.length === 0) return;
+
+      let userId = $user.data('user-id');
+
+      if (!userId) {
+        this.showRequestResult({
+          title: 'Oops!',
+          text: 'Something went wrong :(',
+          icon: 'error',
+        });
+        return;
+      }
+
+      let endpoint = this.requests.use.endpoint;
+
+      // Remove previously saved params to avoid errors
+      removeSearchParams(endpoint);
+
+      endpoint.searchParams.set('userId', userId);
+
+      $(document).trigger('bonus:startUsage', this.$bonus.data('type'));
     });
   }
 

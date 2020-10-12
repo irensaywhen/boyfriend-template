@@ -2419,6 +2419,9 @@ article .header time {
 .userlist-modal .modal-dialog {
   margin: 0 auto !important;
 }
+.userlist-modal .userList-user {
+  cursor: pointer;
+}
 .userlist-modal .userList-user .avatar {
   margin: 0;
   width: 60px;

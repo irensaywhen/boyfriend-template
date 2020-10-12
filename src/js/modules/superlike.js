@@ -1,6 +1,5 @@
 import Bonus from './bonus.js';
 import SuperlikeAnimation from './superlikeAnimation.js';
-import getUrlParams from './getUrlParams.js';
 
 export default class Superlike extends Bonus {
   constructor(options) {
@@ -37,8 +36,28 @@ export default class Superlike extends Bonus {
         // Run animation
         this.animation.startAnimation();
       })
-      .on('bonus:startUsage', (event, type) => {
+      .on('bonus:startUsage', (event, type, userId = null) => {
         if (type !== 'superlike') return;
+
+        // THis part should be somewhere else
+        //if (this.isSelectUserBeforeUse) {
+        //  if (!userId) {
+        //    this.showRequestResult({
+        //      title: 'Oops!',
+        //      text: 'Something went wrong :(',
+        //      icon: 'error',
+        //    });
+        //    return;
+        //  }
+        //
+        //  let endpoint = this.requests.use.endpoing;
+        //
+        //  // Remove previously saved params to avoid errors
+        //  removeSearchParams(endpoint);
+        //  console.log(this.requests.use.endpoing);
+        //
+        //  endpoint.searchParams.set('userId', userId);
+        //}
 
         this.askUsageApprovement(this.popups.use)
           .then(result => {

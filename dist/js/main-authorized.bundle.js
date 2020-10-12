@@ -79705,6 +79705,9 @@
         /* harmony import */ var _getUrlParams_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./getUrlParams.js */ './js/modules/getUrlParams.js'
         );
+        /* harmony import */ var _removeSearchParams_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+          /*! ./removeSearchParams.js */ './js/modules/removeSearchParams.js'
+        );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -79864,12 +79867,47 @@
                     event,
                     type
                   ) {
-                    if (_this2.type !== type) return; // Open modal to select user here I guess
+                    if (_this2.type !== type) return; // Show userlist modal
 
-                    console.log('Selecting user'); // Show userlist modal
+                    _this2.$userListModal.modal('show');
+                  });
+                  if (!this.$userListModal) return;
+                  /**
+                   * Handling user selection
+                   * 1. Get the clicked user
+                   * 2. Get the clicked's user Id and show error if there is no id
+                   * 3. Add id to search params of the endpoint
+                   */
 
-                    _this2.$userListModal.modal('show'); // Open modal with users
-                    // When the user is selected, start using bonus and send to the server to whom the bonus should be sent
+                  this.$userListModal.click(function (event) {
+                    var $user = $(event.target).closest(
+                      _this2.selectors.userList.user
+                    );
+                    if ($user.length === 0) return;
+                    var userId = $user.data('user-id');
+
+                    if (!userId) {
+                      _this2.showRequestResult({
+                        title: 'Oops!',
+                        text: 'Something went wrong :(',
+                        icon: 'error',
+                      });
+
+                      return;
+                    }
+
+                    var endpoint = _this2.requests.use.endpoint; // Remove previously saved params to avoid errors
+
+                    Object(
+                      _removeSearchParams_js__WEBPACK_IMPORTED_MODULE_8__[
+                        'default'
+                      ]
+                    )(endpoint);
+                    endpoint.searchParams.set('userId', userId);
+                    $(document).trigger(
+                      'bonus:startUsage',
+                      _this2.$bonus.data('type')
+                    );
                   });
                 },
                 /**
@@ -88074,9 +88112,6 @@
         /* harmony import */ var _superlikeAnimation_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! ./superlikeAnimation.js */ './js/modules/superlikeAnimation.js'
         );
-        /* harmony import */ var _getUrlParams_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
-          /*! ./getUrlParams.js */ './js/modules/getUrlParams.js'
-        );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -88191,7 +88226,29 @@
                       _this2.animation.startAnimation();
                     })
                     .on('bonus:startUsage', function (event, type) {
-                      if (type !== 'superlike') return;
+                      var userId =
+                        arguments.length > 2 && arguments[2] !== undefined
+                          ? arguments[2]
+                          : null;
+                      if (type !== 'superlike') return; // THis part should be somewhere else
+                      //if (this.isSelectUserBeforeUse) {
+                      //  if (!userId) {
+                      //    this.showRequestResult({
+                      //      title: 'Oops!',
+                      //      text: 'Something went wrong :(',
+                      //      icon: 'error',
+                      //    });
+                      //    return;
+                      //  }
+                      //
+                      //  let endpoint = this.requests.use.endpoing;
+                      //
+                      //  // Remove previously saved params to avoid errors
+                      //  removeSearchParams(endpoint);
+                      //  console.log(this.requests.use.endpoing);
+                      //
+                      //  endpoint.searchParams.set('userId', userId);
+                      //}
 
                       _this2
                         .askUsageApprovement(_this2.popups.use)
