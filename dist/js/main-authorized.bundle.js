@@ -79874,8 +79874,8 @@
                   if (this.amount === 0) {
                     // Change the color of the amount indicator
                     this.$amount
-                      .removeClass('text-success')
-                      .addClass('text-danger');
+                      .removeClass('bonus-notzero-amount')
+                      .addClass('bonus-zero-amount');
                   }
                 },
               },

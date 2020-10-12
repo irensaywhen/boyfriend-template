@@ -6,6 +6,18 @@
   .bonus-notzero-amount {
     background: $success-green;
   }
+
+  .superlike {
+    &:hover {
+      .star-hover-infinite {
+        animation-name: infinite-star;
+        animation-iteration-count: infinite;
+        animation-duration: 0.8s;
+        animation-direction: alternate;
+        animation-easing-function: easeInBounce;
+      }
+    }
+  }
 }
 
 .account,

@@ -461,6 +461,40 @@ select.form-control optgroup {
   animation-fill-mode: forwards;
   transform-origin: center;
 }
+@-webkit-keyframes infinite-star {
+  0% {
+    fill: #262626;
+  }
+  to {
+    fill: #ee1f61;
+  }
+}
+@keyframes infinite-star {
+  0% {
+    fill: #262626;
+  }
+  to {
+    fill: #ee1f61;
+  }
+}
+.star-infinite {
+  fill: #262626;
+  -webkit-animation-name: infinite-star;
+  animation-name: infinite-star;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-duration: 0.8s;
+  animation-duration: 0.8s;
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  animation-easing-function: easeInBounce;
+}
+.star-hover-infinite {
+  fill: #ee1f61;
+}
+.star-hover-infinite:last-of-type {
+  fill: #262626;
+}
 @-webkit-keyframes photo-flash {
   0% {
     box-shadow: 0;
@@ -2428,6 +2462,17 @@ article .header time {
 }
 .fill-profile-page .bonus-notzero-amount {
   background: #15d36c;
+}
+.fill-profile-page .superlike:hover .star-hover-infinite {
+  -webkit-animation-name: infinite-star;
+  animation-name: infinite-star;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-duration: 0.8s;
+  animation-duration: 0.8s;
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  animation-easing-function: easeInBounce;
 }
 .account .tab-title,
 .profile .tab-title,
