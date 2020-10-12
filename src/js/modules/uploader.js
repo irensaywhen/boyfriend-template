@@ -95,13 +95,7 @@ export default class PhotoUploader extends EditorModal {
     this.$form.submit(event => {
       event.preventDefault();
 
-      // Make server request here
-      // And update markup
-      // After that - clean all the cached data
-      //this.uploadNewPhotos();
-
       this.collectData();
-      console.log(this.photoData);
 
       let { headers, method, endpoint } = this.requests.savePhotos,
         photoData = this.photoData;

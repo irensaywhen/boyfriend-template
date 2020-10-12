@@ -80033,18 +80033,20 @@
                     ),
                     '_cacheElements',
                     this
-                  ).call(this); // Timer and elements to display time
+                  ).call(this);
 
-                  this.$timer = $(this.selectors.timer.element);
-                  this.$hours = this.$timer.find(this.selectors.timer.hours);
-                  this.$minutes = this.$timer.find(
-                    this.selectors.timer.minutes
-                  );
-                  this.$seconds = this.$timer.find(
-                    this.selectors.timer.seconds
-                  ); // Hide timer after caching
+                  var selectors = this.selectors; // Timer and elements to display time
+
+                  this.$timer = $(selectors.timer.element);
+                  this.$hours = this.$timer.find(selectors.timer.hours);
+                  this.$minutes = this.$timer.find(selectors.timer.minutes);
+                  this.$seconds = this.$timer.find(selectors.timer.seconds); // Hide timer after caching
 
                   this.$timer.fadeOut(0);
+
+                  if (selectors.amount) {
+                    this.$amount = this.$bonus.find(selectors.amount);
+                  }
                 },
               },
               {
@@ -80135,7 +80137,11 @@
                   this.activated = true;
                   this.finished = false; // Change the amount of boosts available
 
-                  this._decreaseBonusAmountAvailable(); // Start timer
+                  this._decreaseBonusAmountAvailable(); // Update amount if the selector is presented
+
+                  if (this.$amount) {
+                    this._updateAmountOnMarkup();
+                  } // Start timer
 
                   this._startTimer();
                 },
@@ -88867,14 +88873,10 @@
                       });
                   });
                   this.$form.submit(function (event) {
-                    event.preventDefault(); // Make server request here
-                    // And update markup
-                    // After that - clean all the cached data
-                    //this.uploadNewPhotos();
+                    event.preventDefault();
 
                     _this2.collectData();
 
-                    console.log(_this2.photoData);
                     var _this2$requests$saveP = _this2.requests.savePhotos,
                       headers = _this2$requests$saveP.headers,
                       method = _this2$requests$saveP.method,

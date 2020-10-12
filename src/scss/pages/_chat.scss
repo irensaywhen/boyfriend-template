@@ -29,6 +29,14 @@
     .user-info {
       height: 60px;
     }
+
+    .bonus-zero-amount {
+      color: $red;
+    }
+
+    .bonus-notzero-amount {
+      color: $success-green;
+    }
   }
   /*Chat header end*/
 

@@ -1,3 +1,13 @@
+.profile-page {
+  .bonus-zero-amount {
+    color: $red;
+  }
+
+  .bonus-notzero-amount {
+    color: $success-green;
+  }
+}
+
 .profile {
   max-width: 612px;
 

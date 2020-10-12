@@ -1,3 +1,13 @@
+.fill-profile-page {
+  .bonus-zero-amount {
+    background: $orange;
+  }
+
+  .bonus-notzero-amount {
+    background: $success-green;
+  }
+}
+
 .account,
 .profile,
 .modal {

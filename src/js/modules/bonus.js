@@ -85,7 +85,9 @@ export default class Bonus extends ServerRequest {
 
     if (this.amount === 0) {
       // Change the color of the amount indicator
-      this.$amount.removeClass('text-success').addClass('text-danger');
+      this.$amount
+        .removeClass('bonus-notzero-amount')
+        .addClass('bonus-zero-amount');
     }
   }
 }
