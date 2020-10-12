@@ -54,21 +54,12 @@
 /*- Superlike classes end -*/
 
 /* Animation for superlike on hover start*/
-@keyframes infinite-star {
-  0% {
-    fill: $bonus-dark;
-  }
-  to {
-    fill: $bonus-pink;
-  }
-}
 .star-infinite {
   fill: $bonus-dark;
   animation-name: infinite-star;
   animation-iteration-count: infinite;
   animation-duration: 0.8s;
-  animation-direction: alternate;
-  animation-easing-function: easeInBounce;
+  animation-direction: alternate-reverse;
 }
 
 .star-hover-infinite {

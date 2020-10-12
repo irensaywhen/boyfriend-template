@@ -344,6 +344,35 @@ select.form-control optgroup {
 .message .text {
   max-width: 95%;
 }
+@-webkit-keyframes infinite-star {
+  0% {
+    fill: #262626;
+  }
+  to {
+    fill: #ee1f61;
+  }
+}
+@keyframes infinite-star {
+  0% {
+    fill: #262626;
+  }
+  to {
+    fill: #ee1f61;
+  }
+}
+.infinite-pulsing,
+.fill-profile-page .superlike:hover .star-hover-infinite,
+.fill-profile-page .premium-bonus:hover .premium-star-infinite {
+  -webkit-animation-name: infinite-star;
+  animation-name: infinite-star;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-duration: 0.8s;
+  animation-duration: 0.8s;
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  animation-easing-function: easeInBounce;
+}
 @-webkit-keyframes superlike-hand {
   0% {
     transform: translate3d(-150px, 0, 0);
@@ -461,22 +490,6 @@ select.form-control optgroup {
   animation-fill-mode: forwards;
   transform-origin: center;
 }
-@-webkit-keyframes infinite-star {
-  0% {
-    fill: #262626;
-  }
-  to {
-    fill: #ee1f61;
-  }
-}
-@keyframes infinite-star {
-  0% {
-    fill: #262626;
-  }
-  to {
-    fill: #ee1f61;
-  }
-}
 .star-infinite {
   fill: #262626;
   -webkit-animation-name: infinite-star;
@@ -485,9 +498,7 @@ select.form-control optgroup {
   animation-iteration-count: infinite;
   -webkit-animation-duration: 0.8s;
   animation-duration: 0.8s;
-  -webkit-animation-direction: alternate;
-  animation-direction: alternate;
-  animation-easing-function: easeInBounce;
+  animation-direction: alternate-reverse;
 }
 .star-hover-infinite {
   fill: #ee1f61;
@@ -2544,17 +2555,6 @@ article .header time {
 }
 .fill-profile-page .bonus-notzero-amount {
   background: #15d36c;
-}
-.fill-profile-page .superlike:hover .star-hover-infinite {
-  -webkit-animation-name: infinite-star;
-  animation-name: infinite-star;
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
-  -webkit-animation-duration: 0.8s;
-  animation-duration: 0.8s;
-  -webkit-animation-direction: alternate;
-  animation-direction: alternate;
-  animation-easing-function: easeInBounce;
 }
 .account .tab-title,
 .profile .tab-title,
