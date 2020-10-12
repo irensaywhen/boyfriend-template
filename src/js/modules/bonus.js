@@ -40,6 +40,8 @@ export default class Bonus extends ServerRequest {
   }
 
   _setUpEventListeners() {
+    let currentBonusType = null;
+
     $(window).on('load', () => {
       let bonusType = getUrlParams('bonus'),
         identifier = getUrlParams('identifier'),
@@ -71,17 +73,17 @@ export default class Bonus extends ServerRequest {
           }
         });
       } else if (this.isSelectUserBeforeUse) {
-        $(document).trigger(
-          'bonus:selectUserBeforeUsage',
-          this.$bonus.data('type')
-        );
+        // Save current bonus type
+        currentBonusType = this.type;
+
+        $(document).trigger('bonus:selectUserBeforeUsage');
       } else {
         $(document).trigger('bonus:startUsage', this.$bonus.data('type'));
       }
     });
 
-    $(document).on('bonus:selectUserBeforeUsage', (event, type) => {
-      if (this.type !== type) return;
+    $(document).on('bonus:selectUserBeforeUsage', event => {
+      if (this.type !== currentBonusType) return;
 
       // Show userlist modal
       this.$userListModal.modal('show');
@@ -95,31 +97,43 @@ export default class Bonus extends ServerRequest {
      * 2. Get the clicked's user Id and show error if there is no id
      * 3. Add id to search params of the endpoint
      */
-    this.$userListModal.click(event => {
-      let $user = $(event.target).closest(this.selectors.userList.user);
+    this.$userListModal
+      .click(event => {
+        if (this.type !== currentBonusType) return;
 
-      if ($user.length === 0) return;
+        let $user = $(event.target).closest(this.selectors.userList.user);
 
-      let userId = $user.data('user-id');
+        if ($user.length === 0) return;
 
-      if (!userId) {
-        this.showRequestResult({
-          title: 'Oops!',
-          text: 'Something went wrong :(',
-          icon: 'error',
-        });
-        return;
-      }
+        let userId = $user.data('user-id');
 
-      let endpoint = this.requests.use.endpoint;
+        if (!userId) {
+          this.showRequestResult({
+            title: 'Oops!',
+            text: 'Something went wrong :(',
+            icon: 'error',
+          });
+          return;
+        }
 
-      // Remove previously saved params to avoid errors
-      removeSearchParams(endpoint);
+        let endpoint = this.requests.use.endpoint;
 
-      endpoint.searchParams.set('userId', userId);
+        // Remove previously saved params to avoid errors
+        removeSearchParams(endpoint);
 
-      $(document).trigger('bonus:startUsage', this.$bonus.data('type'));
-    });
+        endpoint.searchParams.set('userId', userId);
+
+        currentBonusType = null;
+
+        if (this.type === 'photo' || this.type === 'premium') {
+          this.$userListModal.modal('hide');
+        }
+
+        $(document).trigger('bonus:startUsage', this.type);
+      })
+      .on('hide.bs.modal', () => {
+        currentBonusType = null;
+      });
   }
 
   /**

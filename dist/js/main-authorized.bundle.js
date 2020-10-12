@@ -79814,6 +79814,7 @@
                 value: function _setUpEventListeners() {
                   var _this2 = this;
 
+                  var currentBonusType = null;
                   $(window).on('load', function () {
                     var bonusType = Object(
                         _getUrlParams_js__WEBPACK_IMPORTED_MODULE_7__['default']
@@ -79852,10 +79853,9 @@
                           }
                         });
                     } else if (_this2.isSelectUserBeforeUse) {
-                      $(document).trigger(
-                        'bonus:selectUserBeforeUsage',
-                        _this2.$bonus.data('type')
-                      );
+                      // Save current bonus type
+                      currentBonusType = _this2.type;
+                      $(document).trigger('bonus:selectUserBeforeUsage');
                     } else {
                       $(document).trigger(
                         'bonus:startUsage',
@@ -79864,10 +79864,9 @@
                     }
                   });
                   $(document).on('bonus:selectUserBeforeUsage', function (
-                    event,
-                    type
+                    event
                   ) {
-                    if (_this2.type !== type) return; // Show userlist modal
+                    if (_this2.type !== currentBonusType) return; // Show userlist modal
 
                     _this2.$userListModal.modal('show');
                   });
@@ -79879,36 +79878,47 @@
                    * 3. Add id to search params of the endpoint
                    */
 
-                  this.$userListModal.click(function (event) {
-                    var $user = $(event.target).closest(
-                      _this2.selectors.userList.user
-                    );
-                    if ($user.length === 0) return;
-                    var userId = $user.data('user-id');
+                  this.$userListModal
+                    .click(function (event) {
+                      if (_this2.type !== currentBonusType) return;
+                      var $user = $(event.target).closest(
+                        _this2.selectors.userList.user
+                      );
+                      if ($user.length === 0) return;
+                      var userId = $user.data('user-id');
 
-                    if (!userId) {
-                      _this2.showRequestResult({
-                        title: 'Oops!',
-                        text: 'Something went wrong :(',
-                        icon: 'error',
-                      });
+                      if (!userId) {
+                        _this2.showRequestResult({
+                          title: 'Oops!',
+                          text: 'Something went wrong :(',
+                          icon: 'error',
+                        });
 
-                      return;
-                    }
+                        return;
+                      }
 
-                    var endpoint = _this2.requests.use.endpoint; // Remove previously saved params to avoid errors
+                      var endpoint = _this2.requests.use.endpoint; // Remove previously saved params to avoid errors
 
-                    Object(
-                      _removeSearchParams_js__WEBPACK_IMPORTED_MODULE_8__[
-                        'default'
-                      ]
-                    )(endpoint);
-                    endpoint.searchParams.set('userId', userId);
-                    $(document).trigger(
-                      'bonus:startUsage',
-                      _this2.$bonus.data('type')
-                    );
-                  });
+                      Object(
+                        _removeSearchParams_js__WEBPACK_IMPORTED_MODULE_8__[
+                          'default'
+                        ]
+                      )(endpoint);
+                      endpoint.searchParams.set('userId', userId);
+                      currentBonusType = null;
+
+                      if (
+                        _this2.type === 'photo' ||
+                        _this2.type === 'premium'
+                      ) {
+                        _this2.$userListModal.modal('hide');
+                      }
+
+                      $(document).trigger('bonus:startUsage', _this2.type);
+                    })
+                    .on('hide.bs.modal', function () {
+                      currentBonusType = null;
+                    });
                 },
                 /**
                  * Update amount of bonuses in the each specific class
@@ -84671,7 +84681,9 @@
                       if (!_this2.uploaded) {
                         // Delete his newly uploaded photo
                         _this2._discardChanges();
-                      } // Empty error container
+                      }
+
+                      debugger; // Empty error container
 
                       _this2.$errorContainer.empty(); // Hide modal footer
 
@@ -88226,29 +88238,7 @@
                       _this2.animation.startAnimation();
                     })
                     .on('bonus:startUsage', function (event, type) {
-                      var userId =
-                        arguments.length > 2 && arguments[2] !== undefined
-                          ? arguments[2]
-                          : null;
-                      if (type !== 'superlike') return; // THis part should be somewhere else
-                      //if (this.isSelectUserBeforeUse) {
-                      //  if (!userId) {
-                      //    this.showRequestResult({
-                      //      title: 'Oops!',
-                      //      text: 'Something went wrong :(',
-                      //      icon: 'error',
-                      //    });
-                      //    return;
-                      //  }
-                      //
-                      //  let endpoint = this.requests.use.endpoing;
-                      //
-                      //  // Remove previously saved params to avoid errors
-                      //  removeSearchParams(endpoint);
-                      //  console.log(this.requests.use.endpoing);
-                      //
-                      //  endpoint.searchParams.set('userId', userId);
-                      //}
+                      if (type !== 'superlike') return;
 
                       _this2
                         .askUsageApprovement(_this2.popups.use)

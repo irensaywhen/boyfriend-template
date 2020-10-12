@@ -1,10 +1,17 @@
 .userlist-modal {
+  &.modal {
+    overflow-y: hidden;
+  }
   .modal-body {
     padding: 0 !important;
   }
 
   .modal-dialog {
     margin: 0 auto !important;
+
+    .modal-content {
+      max-height: 100vh !important;
+    }
   }
 
   .userList-user {

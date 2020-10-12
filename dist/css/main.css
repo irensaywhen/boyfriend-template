@@ -2413,11 +2413,17 @@ article .header time {
   top: 15px;
   left: 0px;
 }
+.userlist-modal.modal {
+  overflow-y: hidden;
+}
 .userlist-modal .modal-body {
   padding: 0 !important;
 }
 .userlist-modal .modal-dialog {
   margin: 0 auto !important;
+}
+.userlist-modal .modal-dialog .modal-content {
+  max-height: 100vh !important;
 }
 .userlist-modal .userList-user {
   cursor: pointer;

@@ -1693,7 +1693,13 @@
                           >1</span
                         >
                       </div>
-                      <div class="extra">
+                      <div
+                        class="extra pointer"
+                        id="photo"
+                        data-amount="1"
+                        data-type="photo"
+                        data-redirect="./pricing.html"
+                      >
                         <img src="img/camera.svg" alt="camera" />
                         <span class="amount text-center bonus-notzero-amount"
                           >2</span
@@ -2152,6 +2158,97 @@
             },
           },
         });
+
+        /* Photo bonus initialization 
+        const photo = new Photo({
+          isUsedOnThisPage: false,
+          isSelectUserBeforeUse: true,
+          redirectToUse: './chat.html',
+          selectors: {
+            bonus: '#photo',
+            amount: '.amount',
+            modal: '#photo-bonus',
+            previewContainer: '#photoBonus-preview-container',
+            input: '.photo-input',
+            form: '#photoBonus-uploader',
+            // Loading indicator for the form
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitButton-photo',
+              spinner: '.spinner-border',
+              text: 'Saving avatar...',
+            },
+            // User list selectors
+            userList: {
+              modal: '#userList-modal',
+              user: '.userList-user',
+            },
+            closeModalButton: '.close',
+            photoDescription: '#photo-upload-description',
+            // Photo upload selectors
+            photoUpload: {
+              disableWhileLoad: '.disable-while-load',
+              uploadContainer: '#dragNDropphotoBonusUploadContainer',
+              errorContainer: '#photoBonusUploadErrorContainer',
+              // Progress bar selectors
+              progress: {
+                progress: '#fileRead-photoBonus-progress',
+                progressBar: '.progress-bar',
+                templateId: 'progress-template',
+                fileProgressWrapper: '.fileProgress-wrapper',
+              },
+            },
+          },
+          // Predefined error texts
+          errorText: {
+            photoUpload: {
+              // Read error while uploading photo
+              read:
+                'Something went wrong while reading the file. Please, try again',
+              // Too old browser
+              legacyBrowser:
+                'Your browser is outdated. Please, update your browser and try again',
+              // Unsupported image file type
+              wrongFileType: 'Please, upload image file',
+            },
+          },
+          classes: {
+            // Input for files upload
+            input: 'photo-input',
+            // Drag'n'Drop
+            dragNDrop: 'advanced-upload',
+            dragOver: 'is-dragover',
+            // To show mobile photo capturing
+            mobilePhotoUpload: 'mobile',
+          },
+          photoTemplates: {
+            preview: 'photoUploadPreview',
+          },
+          requests: {
+            use: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/use-photo',
+            },
+          },
+          popups: {
+            buy: {
+              title: 'Oops!',
+              text:
+                "You don't have any photo bonuses available. Do you want to buy some?",
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+            },
+            uploadError: {
+              title: 'Oops!',
+              text:
+                'Something went wrong while uploading your photo. Please, try again.',
+            },
+          },
+        });*/
 
         /* Avatar initialization */
         const avatar = new Avatar({

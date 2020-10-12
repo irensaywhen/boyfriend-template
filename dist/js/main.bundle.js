@@ -21610,7 +21610,9 @@
                       if (!_this2.uploaded) {
                         // Delete his newly uploaded photo
                         _this2._discardChanges();
-                      } // Empty error container
+                      }
+
+                      debugger; // Empty error container
 
                       _this2.$errorContainer.empty(); // Hide modal footer
 
