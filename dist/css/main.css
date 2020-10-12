@@ -663,11 +663,19 @@ select.form-control optgroup {
 .modal {
   padding-right: 0 !important;
 }
+.modal .modal-md {
+  max-width: 450px !important;
+}
 .modal .modal-lg {
   max-width: 600px !important;
 }
 .modal .modal-xl {
   max-width: 950px !important;
+}
+@media (min-width: 576px) {
+  .modal .modal-sm-md {
+    max-width: 450px !important;
+  }
 }
 .modal .modal-body .photo-description figure {
   width: 100%;
@@ -759,28 +767,6 @@ select.form-control optgroup {
     font-size: 16px;
   }
 }
-.sponsorePremium-modal {
-  padding: 0 !important;
-}
-.sponsorePremium-modal .modal-dialog {
-  margin: 0 !important;
-}
-.sponsorePremium-modal .modal-dialog .modal-content {
-  width: 100vw !important;
-  min-height: 100vh !important;
-  border-radius: 0px !important;
-}
-@media (min-width: 576px) {
-  .sponsorePremium-modal .modal-dialog {
-    margin: 0.5rem auto !important;
-  }
-  .sponsorePremium-modal .modal-dialog .modal-content {
-    width: 100% !important;
-    height: auto !important;
-    min-height: auto !important;
-    border-radius: 15px !important;
-  }
-}
 .sponsorePremium-modal .card {
   min-height: 100%;
 }
@@ -794,19 +780,6 @@ select.form-control optgroup {
 }
 .sponsorePremium-modal .card .card-body .form-group {
   margin-bottom: 0;
-}
-.sponsorePremium-modal .modal-title {
-  font-size: 18px;
-}
-@media screen and (min-width: 320px) {
-  .sponsorePremium-modal .modal-title {
-    font-size: calc(18px + 8 * ((100vw - 320px) / 880));
-  }
-}
-@media screen and (min-width: 1200px) {
-  .sponsorePremium-modal .modal-title {
-    font-size: 26px;
-  }
 }
 .sponsorePremium-modal .section-title {
   font-size: 20px;
@@ -833,17 +806,6 @@ select.form-control optgroup {
   .sponsorePremium-modal .section-subtitle {
     font-size: 24px;
   }
-}
-.sponsorePremium-modal .close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-}
-.sponsorePremium-modal .close-mobile {
-  font-size: 20px;
-  position: absolute;
-  top: 15px;
-  left: 0px;
 }
 .sponsorePremium-modal .profile-avatar {
   display: block;
@@ -2403,6 +2365,117 @@ article .header time {
   100% {
     transform: scale3d(1, 1, 1);
     opacity: 1;
+  }
+}
+.mobile-fullscreen-modal {
+  padding: 0 !important;
+}
+.mobile-fullscreen-modal .modal-dialog {
+  margin: 0 !important;
+}
+.mobile-fullscreen-modal .modal-dialog .modal-content {
+  width: 100vw !important;
+  min-height: 100vh !important;
+  border-radius: 0px !important;
+}
+@media (min-width: 576px) {
+  .mobile-fullscreen-modal .modal-dialog {
+    margin: 0.5rem auto !important;
+  }
+  .mobile-fullscreen-modal .modal-dialog .modal-content {
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    border-radius: 15px !important;
+  }
+}
+.mobile-fullscreen-modal .modal-title {
+  font-size: 18px;
+}
+@media screen and (min-width: 320px) {
+  .mobile-fullscreen-modal .modal-title {
+    font-size: calc(18px + 8 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .mobile-fullscreen-modal .modal-title {
+    font-size: 26px;
+  }
+}
+.mobile-fullscreen-modal .close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+.mobile-fullscreen-modal .close-mobile {
+  font-size: 20px;
+  position: absolute;
+  top: 15px;
+  left: 0px;
+}
+.userlist-modal .modal-body {
+  padding: 0 !important;
+}
+.userlist-modal .modal-dialog {
+  margin: 0 auto !important;
+}
+.userlist-modal .userList-user .avatar {
+  margin: 0;
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  min-height: 60px;
+  line-height: 60px;
+  vertical-align: middle;
+  border-radius: 50%;
+}
+@media (min-width: 576px) {
+  .userlist-modal .userList-user .avatar {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+    min-height: 70px;
+    line-height: 70px;
+    vertical-align: middle;
+    border-radius: 50%;
+  }
+}
+@media (min-width: 768px) {
+  .userlist-modal .userList-user .avatar {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    min-height: 80px;
+    line-height: 80px;
+    vertical-align: middle;
+    border-radius: 50%;
+  }
+}
+.userlist-modal .userList-user .avatar img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+.userlist-modal .userList-user .name {
+  font-size: 16px;
+}
+@media screen and (min-width: 320px) {
+  .userlist-modal .userList-user .name {
+    font-size: calc(16px + 2 * ((100vw - 320px) / 880));
+  }
+}
+@media screen and (min-width: 1200px) {
+  .userlist-modal .userList-user .name {
+    font-size: 18px;
+  }
+}
+.userlist-modal .chat-list {
+  height: calc(100vh - 60px);
+}
+@media (min-width: 576px) {
+  .userlist-modal .chat-list {
+    height: 75vh;
+    border-radius: 15px;
   }
 }
 .top-section {

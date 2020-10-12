@@ -1,0 +1,40 @@
+.userlist-modal {
+  .modal-body {
+    padding: 0 !important;
+  }
+
+  .modal-dialog {
+    margin: 0 auto !important;
+  }
+
+  .userList-user {
+    .avatar {
+      margin: 0;
+
+      @include circular-badge(60px);
+      @include screen-sm {
+        @include circular-badge(70px);
+      }
+      @include screen-md {
+        @include circular-badge(80px);
+      }
+
+      img {
+        @include image;
+      }
+    }
+
+    .name {
+      @include fluid-type($screen-xs, $screen-xl, 16px, 18px);
+    }
+  }
+
+  .chat-list {
+    height: calc(100vh - 60px);
+
+    @include screen-sm {
+      height: 75vh;
+      border-radius: 15px;
+    }
+  }
+}

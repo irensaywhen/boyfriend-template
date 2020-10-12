@@ -15,17 +15,26 @@ export default class Bonus extends ServerRequest {
     this._useBonus = this._useBonus.bind(this);
 
     this.isUsedOnThisPage = options.isUsedOnThisPage;
+    this.isSelectUserBeforeUse = options.isSelectUserBeforeUse;
   }
 
   _cacheElements() {
+    let selectors = this.selectors;
+
     // Save bonus element
-    this.$bonus = $(this.selectors.bonus);
+    this.$bonus = $(selectors.bonus);
 
     // Save the bonus' data-* attributes
     let dataAttributes = this.$bonus.data();
 
     for (let attribute in dataAttributes) {
       this[attribute] = dataAttributes[attribute];
+    }
+
+    if (this.isSelectUserBeforeUse) {
+      let userList = selectors.userList;
+
+      this.$userListModal = $(userList.modal);
     }
   }
 
@@ -60,9 +69,25 @@ export default class Bonus extends ServerRequest {
             window.location.href = this.redirect;
           }
         });
+      } else if (this.isSelectUserBeforeUse) {
+        $(document).trigger(
+          'bonus:selectUserBeforeUsage',
+          this.$bonus.data('type')
+        );
       } else {
         $(document).trigger('bonus:startUsage', this.$bonus.data('type'));
       }
+    });
+
+    $(document).on('bonus:selectUserBeforeUsage', (event, type) => {
+      if (this.type !== type) return;
+      // Open modal to select user here I guess
+      console.log('Selecting user');
+
+      // Show userlist modal
+      this.$userListModal.modal('show');
+      // Open modal with users
+      // When the user is selected, start using bonus and send to the server to whom the bonus should be sent
     });
   }
 

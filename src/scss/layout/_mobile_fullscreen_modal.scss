@@ -1,0 +1,43 @@
+.mobile-fullscreen-modal {
+  padding: 0 !important;
+
+  /*modal styles*/
+  .modal-dialog {
+    margin: $modal-dialog-mobile-margin;
+
+    .modal-content {
+      width: $modal-dialog-mobile-width;
+      min-height: $modal-dialog-mobile-min-height;
+      border-radius: $modal-mobile-border-radius;
+    }
+  }
+
+  @include screen-sm {
+    .modal-dialog {
+      margin: $modal-dialog-margin;
+
+      .modal-content {
+        width: $modal-dialog-width;
+        height: $modal-dialog-height;
+        min-height: $modal-dialog-min-height;
+        border-radius: $modal-border-radius;
+      }
+    }
+  }
+
+  .modal-title {
+    @include fluid-type($screen-xs, $screen-xl, 18px, 26px);
+  }
+
+  /*Close buttons*/
+  .close {
+    @include modal-close(15px, 15px);
+  }
+
+  .close-mobile {
+    font-size: 20px;
+    position: absolute;
+    top: 15px;
+    left: 0px;
+  }
+}

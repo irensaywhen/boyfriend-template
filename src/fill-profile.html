@@ -69,6 +69,218 @@
 
     <!--Modals start-->
 
+    <!--Userlist modal start-->
+    <div
+      class="modal fade mobile-fullscreen-modal userlist-modal"
+      id="userList-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="userListModal"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-dialog-centered modal-sm-md"
+        role="document"
+      >
+        <div class="modal-content pb-3">
+          <!--Modal header start-->
+          <div
+            class="modal-header border-0 py-3 position-relative d-flex flex-column align-items-center"
+          >
+            <button
+              type="button"
+              class="btn close-mobile d-sm-none font-weight-light pt-0"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true"><i class="fas fa-arrow-left"></i></span>
+            </button>
+
+            <!--Modal title-->
+            <h2 class="modal-title">User List</h2>
+
+            <button
+              type="button"
+              class="close d-none d-sm-block"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!--Modal header end-->
+
+          <!--Modal body start-->
+          <div class="modal-body">
+            <!--Chat list start-->
+            <div class="container-fluid px-0">
+              <div class="row no-gutters">
+                <div class="col-12">
+                  <div class="chat-list bg-white border-top" id="user-list">
+                    <!--Messages template start-->
+                    <script type="text/template" id="messageTemplate">
+                        {{#if seen}}
+                        <div
+                        class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3">
+                        {{else}}
+                        <div
+                        class="chatList-message unread border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3">
+                        {{/if}}
+                        <figure class="avatar">
+                          <img src="{{avatar}}" alt="Profile image" />
+                        </figure>
+                        <div class="pl-1 pl-sm-3 w-100">
+                          <div class="d-flex justify-content-between">
+                            <h3 class="name">
+                              {{userName}} <span class="badge badge-info ml-2">{{amount}}</span>
+                            </h3>
+                            <time class="date small text-secondary">{{time}}</time>
+                          </div>
+                          <p class="text text-secondary">
+                            {{text}}
+                          </p>
+                        </div>
+                      </div>
+                    </script>
+                    <!--Messages template end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name-->
+                      <h3 class="name mb-0 pl-1 pl-sm-3">David</h3>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name-->
+                      <h3 class="name mb-0 pl-1 pl-sm-3">David</h3>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name-->
+                      <h3 class="name mb-0 pl-1 pl-sm-3">David</h3>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name-->
+                      <h3 class="name mb-0 pl-1 pl-sm-3">David</h3>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name-->
+                      <h3 class="name mb-0 pl-1 pl-sm-3">David</h3>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name-->
+                      <h3 class="name mb-0 pl-1 pl-sm-3">David</h3>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name-->
+                      <h3 class="name mb-0 pl-1 pl-sm-3">David</h3>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name-->
+                      <h3 class="name mb-0 pl-1 pl-sm-3">David</h3>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name-->
+                      <h3 class="name mb-0 pl-1 pl-sm-3">David</h3>
+                    </div>
+                    <!--User end-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--Chat list end-->
+          </div>
+          <!--Modal body end-->
+        </div>
+      </div>
+    </div>
+    <!--Userlist modal end-->
+
     <!--Modal for uploading avatar start-->
     <div
       class="modal fade upload-avatar pr-0"
@@ -1631,9 +1843,6 @@
 
         var $document = $(document);
 
-        // In caching elements we'll need to check whether
-        // photos and description attribute is specified
-
         /* Profile information form initialization */
         const profileInformationForm = new Form({
           selectors: {
@@ -1870,10 +2079,14 @@
         /* Superlike initialization */
         const superlike = new Superlike({
           isUsedOnThisPage: false,
+          isSelectUserBeforeUse: true,
           redirectToUse: './chat.html',
           selectors: {
             bonus: '#superlike',
             amount: '.amount',
+            userList: {
+              modal: '#userList-modal',
+            },
           },
           requests: {
             use: {

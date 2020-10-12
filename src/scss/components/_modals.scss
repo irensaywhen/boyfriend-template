@@ -2,14 +2,25 @@
 
 .modal {
   padding-right: 0 !important;
+
+  .modal-md {
+    max-width: $modal-md;
+  }
+
   .modal-lg {
-    max-width: 600px !important;
+    max-width: $modal-lg;
   }
 
   .modal-xl {
-    max-width: 950px !important;
+    max-width: $modal-xl;
   }
 
+  /* Modal with medium width starting from small screen */
+  .modal-sm-md {
+    @include screen-sm {
+      max-width: $modal-md;
+    }
+  }
   .modal-body {
     .photo-description {
       figure {

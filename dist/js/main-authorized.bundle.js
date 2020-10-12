@@ -79780,6 +79780,7 @@
               )
             );
             _this.isUsedOnThisPage = options.isUsedOnThisPage;
+            _this.isSelectUserBeforeUse = options.isSelectUserBeforeUse;
             return _this;
           }
 
@@ -79789,13 +79790,19 @@
               {
                 key: '_cacheElements',
                 value: function _cacheElements() {
-                  // Save bonus element
-                  this.$bonus = $(this.selectors.bonus); // Save the bonus' data-* attributes
+                  var selectors = this.selectors; // Save bonus element
+
+                  this.$bonus = $(selectors.bonus); // Save the bonus' data-* attributes
 
                   var dataAttributes = this.$bonus.data();
 
                   for (var attribute in dataAttributes) {
                     this[attribute] = dataAttributes[attribute];
+                  }
+
+                  if (this.isSelectUserBeforeUse) {
+                    var userList = selectors.userList;
+                    this.$userListModal = $(userList.modal);
                   }
                 },
               },
@@ -79841,12 +79848,28 @@
                             window.location.href = _this2.redirect;
                           }
                         });
+                    } else if (_this2.isSelectUserBeforeUse) {
+                      $(document).trigger(
+                        'bonus:selectUserBeforeUsage',
+                        _this2.$bonus.data('type')
+                      );
                     } else {
                       $(document).trigger(
                         'bonus:startUsage',
                         _this2.$bonus.data('type')
                       );
                     }
+                  });
+                  $(document).on('bonus:selectUserBeforeUsage', function (
+                    event,
+                    type
+                  ) {
+                    if (_this2.type !== type) return; // Open modal to select user here I guess
+
+                    console.log('Selecting user'); // Show userlist modal
+
+                    _this2.$userListModal.modal('show'); // Open modal with users
+                    // When the user is selected, start using bonus and send to the server to whom the bonus should be sent
                   });
                 },
                 /**
