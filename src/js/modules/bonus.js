@@ -78,7 +78,9 @@ export default class Bonus extends ServerRequest {
 
         $(document).trigger('bonus:selectUserBeforeUsage');
       } else {
-        $(document).trigger('bonus:startUsage', this.$bonus.data('type'));
+        $(document).trigger('bonus:startUsage', {
+          type: this.$bonus.data('type'),
+        });
       }
     });
 
@@ -105,7 +107,8 @@ export default class Bonus extends ServerRequest {
 
         if ($user.length === 0) return;
 
-        let userId = $user.data('user-id');
+        let userId = $user.data('user-id'),
+          userName = $user.data('user-name');
 
         if (!userId) {
           this.showRequestResult({
@@ -130,7 +133,7 @@ export default class Bonus extends ServerRequest {
           this.$userListModal.modal('hide');
         }
 
-        $(document).trigger('bonus:startUsage', this.type);
+        $(document).trigger('bonus:startUsage', { type: this.type, userName });
       })
       .on('hide.bs.modal', () => {
         currentBonusType = null;

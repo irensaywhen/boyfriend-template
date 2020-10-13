@@ -36,7 +36,7 @@ export default class Superlike extends Bonus {
         // Run animation
         this.animation.startAnimation();
       })
-      .on('bonus:startUsage', (event, type) => {
+      .on('bonus:startUsage', (event, { type }) => {
         if (type !== 'superlike') return;
 
         this.askUsageApprovement(this.popups.use)

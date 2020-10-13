@@ -79857,10 +79857,9 @@
                       currentBonusType = _this2.type;
                       $(document).trigger('bonus:selectUserBeforeUsage');
                     } else {
-                      $(document).trigger(
-                        'bonus:startUsage',
-                        _this2.$bonus.data('type')
-                      );
+                      $(document).trigger('bonus:startUsage', {
+                        type: _this2.$bonus.data('type'),
+                      });
                     }
                   });
                   $(document).on('bonus:selectUserBeforeUsage', function (
@@ -79885,7 +79884,8 @@
                         _this2.selectors.userList.user
                       );
                       if ($user.length === 0) return;
-                      var userId = $user.data('user-id');
+                      var userId = $user.data('user-id'),
+                        userName = $user.data('user-name');
 
                       if (!userId) {
                         _this2.showRequestResult({
@@ -79911,7 +79911,10 @@
                         _this2.$userListModal.modal('hide');
                       }
 
-                      $(document).trigger('bonus:startUsage', _this2.type);
+                      $(document).trigger('bonus:startUsage', {
+                        type: _this2.type,
+                        userName: userName,
+                      });
                     })
                     .on('hide.bs.modal', function () {
                       currentBonusType = null;
@@ -80146,7 +80149,8 @@
                    *     - Deactivate boost
                    */
 
-                  $(document).on('bonus:startUsage', function (event, type) {
+                  $(document).on('bonus:startUsage', function (event, _ref) {
+                    var type = _ref.type;
                     if (type !== 'boost') return;
                     if (_this2.activated && !_this2.finished) return; // Choose config for popup
 
@@ -80450,7 +80454,28 @@
                     this
                   ).call(this);
 
-                  var selectors = this.selectors; // Container to preview order details
+                  var selectors = this.selectors; // If discard element is provided
+
+                  if (selectors.discard) {
+                    this.$discard = $(selectors.discard);
+                  }
+
+                  if (selectors.showBonusesButton) {
+                    this.$bonusesCollapse = $(selectors.showBonusesButton);
+                    var bonusesCollapseButton = this.$bonusesCollapse[0];
+
+                    this.$bonusesCollapse.toggleState = function () {
+                      bonusesCollapseButton.dataset.expanded === 'false'
+                        ? bonusesCollapseButton.setAttribute(
+                            'data-expanded',
+                            'true'
+                          )
+                        : bonusesCollapseButton.setAttribute(
+                            'data-expanded',
+                            'false'
+                          );
+                    };
+                  } // Container to preview order details
 
                   this.$orderDetails = $(selectors.orderDetails); // Price containers
                   // Price container to show/hide when the price is being loaded from the server
@@ -80492,7 +80517,13 @@
                     ),
                     '_setUpEventListeners',
                     this
-                  ).call(this); // Adding and removing bonuses
+                  ).call(this);
+
+                  if (this.$bonusesCollapse) {
+                    this.$bonusesCollapse.click(function (event) {
+                      return _this2.$bonusesCollapse.toggleState();
+                    });
+                  } // Adding and removing bonuses
 
                   this.$form
                     .find(this.selectors['bonus-inputs'])
@@ -80529,6 +80560,42 @@
                     _this2.collectFormInputs();
 
                     _this2._setOrderDetails();
+                  });
+                  $(document).on('premium:changeUser', function () {
+                    // We cannot discard changes if the initial values wasn't preserved
+                    if (!_this2.initialValuesSaved) return; // Set initial values for the inputs
+
+                    _this2.$inputs.each(function (index, input) {
+                      if (input.type === 'radio') {
+                        input.checked = false;
+                      } else {
+                        input.value = input.getAttribute('data-initial-value');
+                      }
+                    }); // Set initial values and states for non-form elements
+
+                    _this2.$discard.each(function (item, element) {
+                      var $element = $(element); // Set initial state
+
+                      if ($element.data('initial-state') === 'hidden') {
+                        $element.fadeOut(0);
+                      } else if (
+                        $element.data('initial-state') === 'disabled'
+                      ) {
+                        $element.attr('disabled', true);
+                      } // Set initial value
+
+                      if ($element.data('initial-value') !== undefined) {
+                        $element.text($element.data('initial-value'));
+                      } // Hide bonuses if it is shown
+
+                      if (
+                        _this2.$bonusesCollapse[0].dataset.expanded === 'true'
+                      ) {
+                        _this2.$bonusesCollapse.click();
+                      }
+                    }); // Delete order details
+
+                    _this2.$orderDetails.empty();
                   });
                 },
                 /**
@@ -82582,6 +82649,14 @@
                 ),
                 _this.$form
               );
+            }
+
+            if (options.saveInitialInputValues) {
+              _this.$inputs.each(function (index, input) {
+                input.setAttribute('data-initial-value', input.value);
+              });
+
+              _this.initialValuesSaved = true;
             }
 
             return _this;
@@ -85235,7 +85310,8 @@
                         });
                       });
                   });
-                  $(document).on('bonus:startUsage', function (event, type) {
+                  $(document).on('bonus:startUsage', function (event, _ref) {
+                    var type = _ref.type;
                     if (type !== 'photo') return;
 
                     _this2.$modal.modal('show');
@@ -87975,6 +88051,13 @@
 
                   var selectors = this.selectors;
                   this.$modal = $(selectors.modal);
+
+                  if (this.isSelectUserBeforeUse) {
+                    // Container with user name inside modal
+                    this.$userNameContainer = this.$modal.find(
+                      selectors.userList.userName
+                    );
+                  }
                 },
               },
               {
@@ -88001,8 +88084,29 @@
                       // Run animation
                       _this2.animation.startAnimation();
                     })
-                    .on('bonus:startUsage', function (event, type) {
-                      if (type !== 'premium') return; // Start showing modals here with buying premium forms
+                    .on('bonus:startUsage', function (event, _ref) {
+                      var type = _ref.type,
+                        _ref$userName = _ref.userName,
+                        userName =
+                          _ref$userName === void 0 ? null : _ref$userName;
+                      if (type !== 'premium') return; // Change the name of the user to whom the bonus should be sent
+
+                      if (_this2.isSelectUserBeforeUse) {
+                        if (!userName) {
+                          _this2.showRequestResult({
+                            title: 'Oops!',
+                            text: 'Something went wrong',
+                            icon: 'error',
+                          });
+
+                          return;
+                        }
+
+                        if (userName !== _this2.userName) {
+                          // If the user has changed
+                          _this2._startNewPayment(userName);
+                        }
+                      } // Start showing modals here with buying premium forms
 
                       _this2.$modal.modal('show');
                     })
@@ -88053,6 +88157,21 @@
                   $(document).trigger('present:send', {
                     type: 'premium',
                   });
+                },
+                /**
+                 *
+                 * @param {String} userName -
+                 */
+              },
+              {
+                key: '_startNewPayment',
+                value: function _startNewPayment(userName) {
+                  // Save user name to detect whether to discard changes
+                  this.userName = userName; // Upadate name in the modal
+
+                  this.$userNameContainer.text(userName); // Discard all the payment details
+
+                  $(document).trigger('premium:changeUser');
                 },
               },
             ]
@@ -88234,7 +88353,8 @@
                       // Run animation
                       _this2.animation.startAnimation();
                     })
-                    .on('bonus:startUsage', function (event, type) {
+                    .on('bonus:startUsage', function (event, _ref) {
+                      var type = _ref.type;
                       if (type !== 'superlike') return;
 
                       _this2

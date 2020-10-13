@@ -39,6 +39,23 @@ export default class BuyPremiumForm extends Form {
 
     let selectors = this.selectors;
 
+    // If discard element is provided
+    if (selectors.discard) {
+      this.$discard = $(selectors.discard);
+    }
+
+    if (selectors.showBonusesButton) {
+      this.$bonusesCollapse = $(selectors.showBonusesButton);
+
+      let bonusesCollapseButton = this.$bonusesCollapse[0];
+
+      this.$bonusesCollapse.toggleState = () => {
+        bonusesCollapseButton.dataset.expanded === 'false'
+          ? bonusesCollapseButton.setAttribute('data-expanded', 'true')
+          : bonusesCollapseButton.setAttribute('data-expanded', 'false');
+      };
+    }
+
     // Container to preview order details
     this.$orderDetails = $(selectors.orderDetails);
 
@@ -78,6 +95,10 @@ export default class BuyPremiumForm extends Form {
   _setUpEventListeners() {
     super._setUpEventListeners();
 
+    if (this.$bonusesCollapse) {
+      this.$bonusesCollapse.click(event => this.$bonusesCollapse.toggleState());
+    }
+
     // Adding and removing bonuses
     this.$form.find(this.selectors['bonus-inputs']).on('click', event => {
       let $target = $(event.target);
@@ -116,6 +137,45 @@ export default class BuyPremiumForm extends Form {
       this.collectFormInputs();
 
       this._setOrderDetails();
+    });
+
+    $(document).on('premium:changeUser', () => {
+      // We cannot discard changes if the initial values wasn't preserved
+      if (!this.initialValuesSaved) return;
+
+      // Set initial values for the inputs
+      this.$inputs.each((index, input) => {
+        if (input.type === 'radio') {
+          input.checked = false;
+        } else {
+          input.value = input.getAttribute('data-initial-value');
+        }
+      });
+
+      // Set initial values and states for non-form elements
+      this.$discard.each((item, element) => {
+        let $element = $(element);
+
+        // Set initial state
+        if ($element.data('initial-state') === 'hidden') {
+          $element.fadeOut(0);
+        } else if ($element.data('initial-state') === 'disabled') {
+          $element.attr('disabled', true);
+        }
+
+        // Set initial value
+        if ($element.data('initial-value') !== undefined) {
+          $element.text($element.data('initial-value'));
+        }
+
+        // Hide bonuses if it is shown
+        if (this.$bonusesCollapse[0].dataset.expanded === 'true') {
+          this.$bonusesCollapse.click();
+        }
+      });
+
+      // Delete order details
+      this.$orderDetails.empty();
     });
   }
 

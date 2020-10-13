@@ -118,7 +118,7 @@ export default class Photo extends Bonus {
         });
     });
 
-    $(document).on('bonus:startUsage', (event, type) => {
+    $(document).on('bonus:startUsage', (event, { type }) => {
       if (type !== 'photo') return;
 
       this.$modal.modal('show');

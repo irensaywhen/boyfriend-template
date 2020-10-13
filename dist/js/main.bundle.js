@@ -20669,6 +20669,14 @@
               );
             }
 
+            if (options.saveInitialInputValues) {
+              _this.$inputs.each(function (index, input) {
+                input.setAttribute('data-initial-value', input.value);
+              });
+
+              _this.initialValuesSaved = true;
+            }
+
             return _this;
           }
 

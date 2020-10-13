@@ -55,7 +55,7 @@ export default class Boost extends Bonus {
      *     - Hide timer
      *     - Deactivate boost
      */
-    $(document).on('bonus:startUsage', (event, type) => {
+    $(document).on('bonus:startUsage', (event, { type }) => {
       if (type !== 'boost') return;
 
       if (this.activated && !this.finished) return;

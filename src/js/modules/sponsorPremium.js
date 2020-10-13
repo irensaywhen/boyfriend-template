@@ -23,6 +23,11 @@ export default class SponsorPremium extends Bonus {
     let selectors = this.selectors;
 
     this.$modal = $(selectors.modal);
+
+    if (this.isSelectUserBeforeUse) {
+      // Container with user name inside modal
+      this.$userNameContainer = this.$modal.find(selectors.userList.userName);
+    }
   }
 
   _setUpEventListeners() {
@@ -37,8 +42,25 @@ export default class SponsorPremium extends Bonus {
         // Run animation
         this.animation.startAnimation();
       })
-      .on('bonus:startUsage', (event, type) => {
+      .on('bonus:startUsage', (event, { type, userName = null }) => {
         if (type !== 'premium') return;
+
+        // Change the name of the user to whom the bonus should be sent
+        if (this.isSelectUserBeforeUse) {
+          if (!userName) {
+            this.showRequestResult({
+              title: 'Oops!',
+              text: 'Something went wrong',
+              icon: 'error',
+            });
+            return;
+          }
+
+          if (userName !== this.userName) {
+            // If the user has changed
+            this._startNewPayment(userName);
+          }
+        }
 
         // Start showing modals here with buying premium forms
         this.$modal.modal('show');
@@ -77,5 +99,20 @@ export default class SponsorPremium extends Bonus {
 
     // Show sponsoring premium in the chat
     $(document).trigger('present:send', { type: 'premium' });
+  }
+
+  /**
+   *
+   * @param {String} userName -
+   */
+  _startNewPayment(userName) {
+    // Save user name to detect whether to discard changes
+    this.userName = userName;
+
+    // Upadate name in the modal
+    this.$userNameContainer.text(userName);
+
+    // Discard all the payment details
+    $(document).trigger('premium:changeUser');
   }
 }

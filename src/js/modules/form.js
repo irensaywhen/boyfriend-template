@@ -124,6 +124,14 @@ export default class Form extends ServerRequest {
     if (options.restrictInputLength) {
       restrictLength.init.call(this, this.$form);
     }
+
+    if (options.saveInitialInputValues) {
+      this.$inputs.each((index, input) => {
+        input.setAttribute('data-initial-value', input.value);
+      });
+
+      this.initialValuesSaved = true;
+    }
   }
 
   _cacheElements() {
