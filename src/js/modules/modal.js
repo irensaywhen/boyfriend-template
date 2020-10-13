@@ -64,7 +64,7 @@ class EditorModal extends ServerRequest {
           // Delete his newly uploaded photo
           this._discardChanges();
         }
-        debugger;
+
         // Empty error container
         this.$errorContainer.empty();
         // Hide modal footer

@@ -69,6 +69,170 @@
 
     <!--Modals start-->
 
+    <!--Photo bonus modal start-->
+    <div
+      class="modal fade upload-avatar pr-0"
+      id="photo-bonus"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="addPhotosModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <!--Modal content start-->
+        <div class="modal-content">
+          <form action="" id="photoBonus-uploader">
+            <!--Modal header start-->
+            <div class="modal-header">
+              <h3 class="title">Upload your photo:</h3>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <!--Modal header end-->
+
+            <!--Modal body start-->
+            <div class="modal-body">
+              <!--Photos preview start-->
+              <div class="container-fluid">
+                <div
+                  class="row justify-content-center"
+                  id="photoBonus-preview-container"
+                ></div>
+              </div>
+              <!--Photos preview end-->
+
+              <!--Template for photo preview start-->
+              <script id="template-photoPreview" type="text/template">
+                <div
+                  class="col-12 col-sm-6 col-md-4 col-xl-3 photo-container"
+                  data-id="121"
+                >
+                  <div class="photo-description">
+                    <figure>
+                      <img src="{{src}}" alt="" />
+                    </figure>
+                    <div class="form-group">
+                      <label for="photo-upload-description">
+                        Add photo description
+                      </label>
+                      <textarea
+                        id="photo-upload-description"
+                        rows="4"
+                        placeholder="Photo description"
+                        class="form-control new-photo-description"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </script>
+              <!--Template for photo preview end-->
+
+              <!--Container holding read and legacy errors-->
+              <p id="photoBonus-uploadErrorContainer" class="upload-error"></p>
+
+              <!--Upload progress indicator start-->
+              <div
+                class="upload-progress"
+                id="photoBonus-fileRead-progress"
+              ></div>
+              <!--Upload progress indicator end-->
+
+              <!--Photo upload and drag'n'drop start-->
+              <div
+                class="photo-upload"
+                id="photoBonus-dragNDropUploadContainer"
+              >
+                <!--Drag'n'drop start-->
+                <div class="drag-n-drop">
+                  <div class="icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </div>
+                  <p class="text-center text-uppercase info d-flex flex-column">
+                    <strong class="title">Drag & drop</strong>
+                    <span class="pt-2">to upload, or</span>
+                  </p>
+                </div>
+                <!--Drag'n'drop end-->
+
+                <div class="d-flex flex-column align-items-center py-4">
+                  <!--Select file from device start-->
+                  <div class="position-relative">
+                    <input
+                      type="file"
+                      id="photoBonus-file-input"
+                      name="photo-file-input"
+                      class="invisible position-absolute photoBonus-input disable-while-load"
+                      accept="image/*"
+                    />
+                    <label
+                      for="photoBonus-file-input"
+                      class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm select"
+                    >
+                      <i class="fas fa-file-upload"></i> select file
+                    </label>
+                  </div>
+                  <!--Select file from device end-->
+
+                  <!--Capture photo start-->
+                  <div class="position-relative">
+                    <input
+                      type="file"
+                      id="photoBonus-make-photo"
+                      name="make-photo"
+                      class="invisible position-absolute photoBonus-input disable-while-load"
+                      accept="image/*"
+                      capture
+                    />
+                    <label
+                      for="photoBonus-make-photo"
+                      class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm capture"
+                    >
+                      <i class="fas fa-camera-retro"></i> take photo
+                    </label>
+                  </div>
+                  <!--Capture photo end-->
+                </div>
+              </div>
+              <!--Photo upload and drag'n'drop end-->
+
+              <!--Photo requirements-->
+              <div class="avatar-requirements border-top">
+                <h4 class="section-title pt-3">Photo requirements</h4>
+                <ul class="pl-1">
+                  <li>Rozmiar: 500x500px</li>
+                  <li>Dostępne rozszerzenia</li>
+                  <li>Lorem ipsum</li>
+                </ul>
+              </div>
+            </div>
+            <!--Modal body end-->
+
+            <!--Modal footer start-->
+            <div class="modal-footer">
+              <div class="px-0 py-3 text-center w-100">
+                <button
+                  type="submit"
+                  class="btn btn-lg btn-default text-white btn-rounded shadow w-50 disable-while-load"
+                  id="photoBonus-submitButton"
+                >
+                  <span>Submit</span><i class="material-icons">arrow_forward</i>
+                </button>
+              </div>
+            </div>
+            <!--Modal footer end-->
+          </form>
+        </div>
+        <!--Modal content end-->
+      </div>
+    </div>
+    <!--Photo bonus modal end-->
+
     <!--Userlist modal start-->
     <div
       class="modal mobile-fullscreen-modal userlist-modal"
@@ -3444,37 +3608,31 @@
         /* Photo bonus initialization 
         const photo = new Photo({
           isUsedOnThisPage: false,
-          isSelectUserBeforeUse: true,
           redirectToUse: './chat.html',
           selectors: {
             bonus: '#photo',
             amount: '.amount',
             modal: '#photo-bonus',
             previewContainer: '#photoBonus-preview-container',
-            input: '.photo-input',
+            input: '.photoBonus-input',
             form: '#photoBonus-uploader',
-            // Loading indicator for the form
+            // Loading indicator for buttons
             loading: {
               spinnerTemplateId: 'spinner-template',
-              submitButton: '#submitButton-photo',
+              submitButton: '#photoBonus-submitButton',
               spinner: '.spinner-border',
               text: 'Saving avatar...',
-            },
-            // User list selectors
-            userList: {
-              modal: '#userList-modal',
-              user: '.userList-user',
             },
             closeModalButton: '.close',
             photoDescription: '#photo-upload-description',
             // Photo upload selectors
             photoUpload: {
               disableWhileLoad: '.disable-while-load',
-              uploadContainer: '#dragNDropphotoBonusUploadContainer',
-              errorContainer: '#photoBonusUploadErrorContainer',
+              uploadContainer: '#photoBonus-dragNDropUploadContainer',
+              errorContainer: '#photoBonus-uploadErrorContainer',
               // Progress bar selectors
               progress: {
-                progress: '#fileRead-photoBonus-progress',
+                progress: '#photoBonus-fileRead-progress',
                 progressBar: '.progress-bar',
                 templateId: 'progress-template',
                 fileProgressWrapper: '.fileProgress-wrapper',
@@ -3496,7 +3654,7 @@
           },
           classes: {
             // Input for files upload
-            input: 'photo-input',
+            input: 'photoBonus-input',
             // Drag'n'Drop
             dragNDrop: 'advanced-upload',
             dragOver: 'is-dragover',
@@ -3504,7 +3662,7 @@
             mobilePhotoUpload: 'mobile',
           },
           photoTemplates: {
-            preview: 'photoUploadPreview',
+            preview: 'template-photoPreview',
           },
           requests: {
             use: {
