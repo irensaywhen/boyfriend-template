@@ -86,8 +86,6 @@ export default class Avatar extends EditorModal {
    * all the actions with avatar upload are performed
    */
   clean() {
-    // Delete formData object
-    this.formData = null;
     // Update previous avatar link
     this.prevAvatarLink = this.$avatarPreview.attr('src');
     // Discard new link
@@ -113,25 +111,19 @@ export default class Avatar extends EditorModal {
   }
 
   /**
-   * Function to generate formData object to send avatar to the server
-   */
-  _generateFormData() {
-    super._generateFormData();
-    this.formData.append('avatar', this.avatar, this.avatar.name);
-  }
-
-  /**
    * Function to submit avatar to the server
    */
   _submitAvatar() {
     let { headers, endpoint, method } = this.requests.saveAvatar;
-    this._generateFormData();
+
+    let formData = new FormData();
+    formData.append('avatar', this.avatar, this.avatar.name);
 
     this.makeRequest({
       headers,
       endpoint,
       method,
-      body: this.formData,
+      body: formData,
     })
       .then(response => {
         if (response.success) {
@@ -140,25 +132,21 @@ export default class Avatar extends EditorModal {
           // Update markup
           this._updateMarkup();
 
-          // Show successful Popup
-          this.showRequestResult({
-            title: response.title,
-            text: response.message,
-            icon: 'success',
-          });
+          var icon = 'success';
 
           this.closeModal();
           $(document).trigger('avatar:submitted');
           // Delete cached data about the file
           this.clean();
         } else {
-          // Show unsuccessful Popup
-          this.showRequestResult({
-            title: response.title,
-            text: response.message,
-            icon: 'error',
-          });
+          var icon = 'error';
         }
+
+        this.showRequestResult({
+          title: response.title,
+          text: response.message,
+          icon,
+        });
       })
       .catch(error => {
         console.error(error);

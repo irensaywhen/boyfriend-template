@@ -89394,8 +89394,6 @@
                         body: JSON.stringify(photoData),
                       })
                       .then(function (response) {
-                        console.log(response);
-
                         if (!response.success) {
                           var error = new Error(response.message);
                           error.name = response.title;
@@ -89419,7 +89417,7 @@
                         _this2.closeModal(); // Show success popup
 
                         _this2.showRequestResult({
-                          title: title,
+                          title: response.title,
                           text: response.message,
                           icon: 'success',
                         });
@@ -89454,10 +89452,7 @@
                 value: function collectData() {
                   var _this3 = this;
 
-                  console.log(this);
-                  console.log(this.photoData);
                   $(this.selectors.container).each(function (index, element) {
-                    console.log(element);
                     var id = element.dataset.id;
                     var privacy = $(element)
                       .find(_this3.selectors['privacy-input'])

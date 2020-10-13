@@ -1644,10 +1644,10 @@
               <!--Current avatar and preview end-->
 
               <!--Container holding read and legacy errors-->
-              <p id="uploadErrorContainer" class="upload-error"></p>
+              <p class="upload-error uploadErrorContainer"></p>
 
               <!--Upload progress indicator start-->
-              <div class="upload-progress" id="fileRead-progress"></div>
+              <div class="upload-progress fileRead-progress"></div>
               <!--Upload progress indicator end-->
 
               <!--Template for progress indicator start-->
@@ -1672,7 +1672,7 @@
               <!--Template for progress indicator end-->
 
               <!--Avatar upload and drag'n'drop start-->
-              <div class="photo-upload" id="dragNDropUploadContainer">
+              <div class="photo-upload dragNDropUploadContainer">
                 <div class="drag-n-drop">
                   <div class="icon">
                     <i class="fas fa-cloud-upload-alt"></i>
@@ -1791,13 +1791,10 @@
               <!--Photos preview end-->
 
               <!--Container holding read and legacy errors-->
-              <p id="uploadErrorContainer" class="upload-error"></p>
+              <p class="upload-error uploadErrorContainer"></p>
 
               <!--Upload progress indicator start-->
-              <div
-                class="upload-progress"
-                id="fileRead-uploader-progress"
-              ></div>
+              <div class="upload-progress fileRead-uploader-progress"></div>
               <!--Upload progress indicator end-->
 
               <!--Template for photo preview start-->
@@ -1856,7 +1853,7 @@
               <!--Template for photo preview end-->
 
               <!--Photo upload and drag'n'drop start-->
-              <div class="photo-upload" id="dragNDropUploadContainer">
+              <div class="photo-upload dragNDropUploadContainer">
                 <!--Drag'n'drop start-->
                 <div class="drag-n-drop">
                   <div class="icon">
@@ -1929,6 +1926,7 @@
                 <button
                   type="submit"
                   class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
+                  id="submitButton-photo-uploader"
                 >
                   <span>Submit</span><i class="material-icons">arrow_forward</i>
                 </button>
@@ -3709,11 +3707,11 @@
             // Photo upload selectors
             photoUpload: {
               disableWhileLoad: '.disable-while-load',
-              uploadContainer: '#dragNDropUploadContainer',
-              errorContainer: '#uploadErrorContainer',
+              uploadContainer: '.dragNDropUploadContainer',
+              errorContainer: '.uploadErrorContainer',
               // Progress bar selectors
               progress: {
-                progress: '#fileRead-progress',
+                progress: '.fileRead-progress',
                 progressBar: '.progress-bar',
                 templateId: 'progress-template',
                 fileProgressWrapper: '.fileProgress-wrapper',
@@ -3770,18 +3768,18 @@
             // Loading indicator
             loading: {
               spinnerTemplateId: 'spinner-template',
-              submitButton: '#submitButton-avatar',
+              submitButton: '#submitButton-photo-uploader',
               spinner: '.spinner-border',
               text: 'Saving avatar...',
             },
             // Photo upload selectors
             photoUpload: {
               disableWhileLoad: '.disable-while-load',
-              uploadContainer: '#dragNDropUploadContainer',
-              errorContainer: '#uploadErrorContainer',
+              uploadContainer: '.dragNDropUploadContainer',
+              errorContainer: '.uploadErrorContainer',
               // Progress bar selectors
               progress: {
-                progress: '#fileRead-uploader-progress',
+                progress: '.fileRead-uploader-progress',
                 progressBar: '.progress-bar',
                 templateId: 'progress-template',
                 fileProgressWrapper: '.fileProgress-wrapper',
@@ -3825,7 +3823,7 @@
                 'Content-Type': 'multipart/form-data',
               },
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-photos',
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar',
             },
           },
         });

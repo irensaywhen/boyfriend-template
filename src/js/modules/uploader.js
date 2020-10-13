@@ -107,8 +107,6 @@ export default class PhotoUploader extends EditorModal {
         body: JSON.stringify(photoData),
       })
         .then(response => {
-          console.log(response);
-
           if (!response.success) {
             let error = new Error(response.message);
             error.name = response.title;
@@ -132,7 +130,7 @@ export default class PhotoUploader extends EditorModal {
 
           // Show success popup
           this.showRequestResult({
-            title,
+            title: response.title,
             text: response.message,
             icon: 'success',
           });
@@ -159,10 +157,7 @@ export default class PhotoUploader extends EditorModal {
   }
 
   collectData() {
-    console.log(this);
-    console.log(this.photoData);
     $(this.selectors.container).each((index, element) => {
-      console.log(element);
       let id = element.dataset.id;
 
       let privacy = $(element)

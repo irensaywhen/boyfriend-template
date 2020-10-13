@@ -19760,9 +19760,7 @@
               {
                 key: 'clean',
                 value: function clean() {
-                  // Delete formData object
-                  this.formData = null; // Update previous avatar link
-
+                  // Update previous avatar link
                   this.prevAvatarLink = this.$avatarPreview.attr('src'); // Discard new link
 
                   this.newAvatarLink = null; // Return the previous avatar status
@@ -19790,23 +19788,6 @@
                   this.$avatarPreview.attr('src', this.prevAvatarLink);
                 },
                 /**
-                 * Function to generate formData object to send avatar to the server
-                 */
-              },
-              {
-                key: '_generateFormData',
-                value: function _generateFormData() {
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
-                      Avatar.prototype
-                    ),
-                    '_generateFormData',
-                    this
-                  ).call(this);
-
-                  this.formData.append('avatar', this.avatar, this.avatar.name);
-                },
-                /**
                  * Function to submit avatar to the server
                  */
               },
@@ -19819,27 +19800,22 @@
                     headers = _this$requests$saveAv.headers,
                     endpoint = _this$requests$saveAv.endpoint,
                     method = _this$requests$saveAv.method;
-
-                  this._generateFormData();
-
+                  var formData = new FormData();
+                  formData.append('avatar', this.avatar, this.avatar.name);
                   this.makeRequest({
                     headers: headers,
                     endpoint: endpoint,
                     method: method,
-                    body: this.formData,
+                    body: formData,
                   })
                     .then(function (response) {
                       if (response.success) {
                         // Save uploaded progress
                         _this3.uploaded = true; // Update markup
 
-                        _this3._updateMarkup(); // Show successful Popup
+                        _this3._updateMarkup();
 
-                        _this3.showRequestResult({
-                          title: response.title,
-                          text: response.message,
-                          icon: 'success',
-                        });
+                        var icon = 'success';
 
                         _this3.closeModal();
 
@@ -19847,13 +19823,14 @@
 
                         _this3.clean();
                       } else {
-                        // Show unsuccessful Popup
-                        _this3.showRequestResult({
-                          title: response.title,
-                          text: response.message,
-                          icon: 'error',
-                        });
+                        var icon = 'error';
                       }
+
+                      _this3.showRequestResult({
+                        title: response.title,
+                        text: response.message,
+                        icon: icon,
+                      });
                     })
                     ['catch'](function (error) {
                       console.error(error); // Unsuccessful Popup
