@@ -116,12 +116,13 @@ export default class Bonus extends ServerRequest {
           return;
         }
 
-        let endpoint = this.requests.use.endpoint;
+        //let endpoint = this.requests.use.endpoint;
 
         // Remove previously saved params to avoid errors
-        removeSearchParams(endpoint);
-
-        endpoint.searchParams.set('userId', userId);
+        // You need to save to whom the bonus should be sent here somehow
+        //removeSearchParams(endpoint);
+        //
+        //endpoint.searchParams.set('userId', userId);
 
         currentBonusType = null;
 

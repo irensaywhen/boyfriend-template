@@ -79895,16 +79895,13 @@
                         });
 
                         return;
-                      }
+                      } //let endpoint = this.requests.use.endpoint;
+                      // Remove previously saved params to avoid errors
+                      // You need to save to whom the bonus should be sent here somehow
+                      //removeSearchParams(endpoint);
+                      //
+                      //endpoint.searchParams.set('userId', userId);
 
-                      var endpoint = _this2.requests.use.endpoint; // Remove previously saved params to avoid errors
-
-                      Object(
-                        _removeSearchParams_js__WEBPACK_IMPORTED_MODULE_8__[
-                          'default'
-                        ]
-                      )(endpoint);
-                      endpoint.searchParams.set('userId', userId);
                       currentBonusType = null;
 
                       if (
@@ -87504,7 +87501,7 @@
             template = document.getElementById(this.loading.spinnerTemplateId); // Event handling
 
             $form.submit(function () {
-              _this.triggerLoadingIndicator();
+              _this.triggerLoadingIndicator($form);
             });
             $(this).on('successfulRequest failedRequest', function () {
               // Change button and remove spinner
@@ -87517,7 +87514,7 @@
                 .remove();
             });
           },
-          triggerLoadingIndicator: function triggerLoadingIndicator() {
+          triggerLoadingIndicator: function triggerLoadingIndicator($form) {
             // Don't show loading indicator if the form isn't valid
             if (jQuery.validator && this.frontendValidation) {
               if (!$form.valid()) return;

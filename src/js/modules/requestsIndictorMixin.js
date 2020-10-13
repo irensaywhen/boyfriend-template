@@ -17,7 +17,7 @@ export default {
 
     // Event handling
     $form.submit(() => {
-      this.triggerLoadingIndicator();
+      this.triggerLoadingIndicator($form);
     });
 
     $(this).on('successfulRequest failedRequest', () => {
@@ -32,7 +32,7 @@ export default {
     });
   },
 
-  triggerLoadingIndicator() {
+  triggerLoadingIndicator($form) {
     // Don't show loading indicator if the form isn't valid
     if (jQuery.validator && this.frontendValidation) {
       if (!$form.valid()) return;

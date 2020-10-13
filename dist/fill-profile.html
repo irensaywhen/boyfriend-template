@@ -305,6 +305,150 @@
                       </div>
                     </div>
                     <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">David</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">David</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">David</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">David</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">David</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">David</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">David</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">David</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
                   </div>
                 </div>
               </div>
@@ -319,7 +463,7 @@
 
     <!--Modal for sponsoring premium start-->
     <div
-      class="modal fade sponsorePremium-modal checkout"
+      class="modal fade sponsorePremium-modal mobile-fullscreen-modal checkout"
       id="premiumModal"
       tabindex="-1"
       role="dialog"
@@ -3085,6 +3229,149 @@
               imageAlt: 'Superlike icon',
             },
           },
+        });
+
+        /* Buying premium initialization */
+        const sponsorPremium = new SponsorPremium({
+          isUsedOnThisPage: false,
+          //isSelectUserBeforeUse: true,
+          redirectToUse: './chat.html',
+          selectors: {
+            bonus: '#premium',
+            modal: '#premiumModal',
+            //userList: {
+            //  modal: '#userList-modal',
+            //  user: '.userList-user',
+            //},
+          },
+        });
+
+        /* Buy premium form initialization */
+        const buyPremiumForm = new BuyPremiumForm({
+          selectors: {
+            form: '#buy-premium',
+            disableButtonsOnRequest: '.disable-on-request',
+            // Spinner to show when the price is being loaded
+            spinner: '.spinner-border',
+            priceContainer: '.price-container',
+            'input-wrapper': '.form-group',
+            inputs: '.buy-premium-input',
+            // Wrapper of the bonus input
+            'bonus-inputs': '.input-group',
+            // + and - buttons to add/remove bonuses
+            'bonus-control': '.bonus-control',
+            'add-bonus-input-className': 'input-group-append',
+            'card-total-price': '.card-total-price',
+            'card-discount-price': '.card-discount-price',
+            'total-price': '.total-price',
+            'previous-price': '.previous-price',
+            // Container to preview order details
+            orderDetails: '#order-details',
+            // Discount
+            discount: {
+              type: '#discount-type',
+              amount: '#discount-amount',
+            },
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#buyPremium-checkout',
+              spinner: '.spinner-border',
+              text: 'Checking out...',
+            },
+            templateIds: {
+              plan: 'template-planDetails',
+              bonuses: 'template-orderedBonuses',
+            },
+          },
+          requests: {
+            price: {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/price',
+            },
+            submit: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/price',
+            },
+          },
+          location: false,
+          showSuccessPopup: false,
+          generateSubmitEvent: true,
+          showFailPopup: false,
+          frontendValidation: false,
+        });
+
+        /* Bank transfer handling */
+        $('#bank-transfer').click(function () {
+          $(this).find('#bank-transfer-form').submit();
+        });
+
+        /* Payment with credit card form initialization */
+        const paymentForm = new Form({
+          selectors: {
+            form: '#credit-card',
+            'input-wrapper': '.form-group',
+            inputs: '.payment-input',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#paymentForm-checkout',
+              spinner: '.spinner-border',
+              text: 'Recieving payment...',
+            },
+          },
+          requests: {
+            submit: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/card',
+            },
+          },
+          payment: true,
+          frontendValidation: true,
+          validatorOptions: {
+            errorElement: 'span',
+            rules: {
+              terms: 'required',
+              name: {
+                required: true,
+                minlength: 5,
+              },
+              cvc: {
+                required: true,
+                minlength: 3,
+              },
+              expiry: {
+                required: true,
+                expiration: true,
+              },
+              number: {
+                required: true,
+                cardNumber: true,
+              },
+            },
+          },
+        });
+
+        /* forms chainer initialization */
+        const chainedForms = new ChainedForms({
+          selectors: {
+            formsContainer: '#checkout',
+            forms: '.buy-premium-step',
+            forward: '.forward',
+            backward: '.backward',
+            wrapper: '.form-wrapper',
+          },
+          showSteps: false,
         });
 
         /* Photo bonus initialization 

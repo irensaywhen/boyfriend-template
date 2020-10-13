@@ -22502,7 +22502,7 @@
             template = document.getElementById(this.loading.spinnerTemplateId); // Event handling
 
             $form.submit(function () {
-              _this.triggerLoadingIndicator();
+              _this.triggerLoadingIndicator($form);
             });
             $(this).on('successfulRequest failedRequest', function () {
               // Change button and remove spinner
@@ -22515,7 +22515,7 @@
                 .remove();
             });
           },
-          triggerLoadingIndicator: function triggerLoadingIndicator() {
+          triggerLoadingIndicator: function triggerLoadingIndicator($form) {
             // Don't show loading indicator if the form isn't valid
             if (jQuery.validator && this.frontendValidation) {
               if (!$form.valid()) return;
