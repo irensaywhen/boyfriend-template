@@ -48,13 +48,7 @@ export default class Superlike extends Bonus {
             if (this.isUsedOnThisPage) {
               this._useBonus();
             } else {
-              const identifier = result.identifier;
-              localStorage.setItem('superlike', identifier);
-
-              // Redirect to chat to start using superlike there
-              window.location.assign(
-                `${this.redirectToUse}?bonus=superlike&identifier=${identifier}`
-              );
+              this._redirectToUseBonus(result);
             }
           })
           .catch(error => {

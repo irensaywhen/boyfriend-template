@@ -86,7 +86,7 @@ export default class Photo extends Bonus {
       // Here, instead of starting using the bonus, ask server
       this.makeRequest(this.requests.use)
         .then(response => {
-          let { success, title, text, identifier } = response;
+          let { success, title, text } = response;
 
           if (success) {
             // Save description of the photo to the local storage
@@ -98,12 +98,7 @@ export default class Photo extends Bonus {
             if (this.isUsedOnThisPage) {
               this._useBonus();
             } else {
-              localStorage.setItem(this.type, identifier);
-
-              // Redirect to chat to start using photo there
-              window.location.assign(
-                `${this.redirectToUse}?bonus=${this.type}&identifier=${identifier}`
-              );
+              this._redirectToUseBonus(response);
             }
           } else {
             this.showRequestResult({ title, text, icon: 'error' });

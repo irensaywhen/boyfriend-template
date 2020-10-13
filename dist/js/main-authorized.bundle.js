@@ -79782,6 +79782,11 @@
                 _this
               )
             );
+            _this._redirectToUseBonus = _this._redirectToUseBonus.bind(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              )
+            );
             _this.isUsedOnThisPage = options.isUsedOnThisPage;
             _this.isSelectUserBeforeUse = options.isSelectUserBeforeUse;
             return _this;
@@ -79948,6 +79953,25 @@
                       .removeClass('bonus-notzero-amount')
                       .addClass('bonus-zero-amount');
                   }
+                },
+                /**
+                 *
+                 * @param {Object} requestResult - the resulting information for bonus usage
+                 * Contains unique identifier to handle bonus usage on another page
+                 */
+              },
+              {
+                key: '_redirectToUseBonus',
+                value: function _redirectToUseBonus(requestResult) {
+                  var identifier = requestResult.identifier;
+                  localStorage.setItem(this.type, identifier); // Redirect to chat to start using superlike there
+
+                  window.location.assign(
+                    ''
+                      .concat(this.redirectToUse, '?bonus=')
+                      .concat(this.type, '&identifier=')
+                      .concat(identifier)
+                  );
                 },
               },
             ]
@@ -85272,8 +85296,7 @@
                       .then(function (response) {
                         var success = response.success,
                           title = response.title,
-                          text = response.text,
-                          identifier = response.identifier;
+                          text = response.text;
 
                         if (success) {
                           // Save description of the photo to the local storage
@@ -85285,14 +85308,7 @@
                           if (_this2.isUsedOnThisPage) {
                             _this2._useBonus();
                           } else {
-                            localStorage.setItem(_this2.type, identifier); // Redirect to chat to start using photo there
-
-                            window.location.assign(
-                              ''
-                                .concat(_this2.redirectToUse, '?bonus=')
-                                .concat(_this2.type, '&identifier=')
-                                .concat(identifier)
-                            );
+                            _this2._redirectToUseBonus(response);
                           }
                         } else {
                           _this2.showRequestResult({
@@ -88128,17 +88144,7 @@
                       if (_this2.isUsedOnThisPage) {
                         setTimeout(_this2._useBonus, 300);
                       } else {
-                        var identifier = response.identifier;
-                        localStorage.setItem(_this2.type, identifier); // Redirect to chat to start using premium there
-
-                        window.location.assign(
-                          ''
-                            .concat(
-                              _this2.redirectToUse,
-                              '?bonus=premium&identifier='
-                            )
-                            .concat(identifier)
-                        );
+                        _this2._redirectToUseBonus(response);
                       }
                     });
                 },
@@ -88367,17 +88373,7 @@
                           if (_this2.isUsedOnThisPage) {
                             _this2._useBonus();
                           } else {
-                            var identifier = result.identifier;
-                            localStorage.setItem('superlike', identifier); // Redirect to chat to start using superlike there
-
-                            window.location.assign(
-                              ''
-                                .concat(
-                                  _this2.redirectToUse,
-                                  '?bonus=superlike&identifier='
-                                )
-                                .concat(identifier)
-                            );
+                            _this2._redirectToUseBonus(result);
                           }
                         })
                         ['catch'](function (error) {

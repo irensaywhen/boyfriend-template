@@ -81,13 +81,7 @@ export default class SponsorPremium extends Bonus {
         if (this.isUsedOnThisPage) {
           setTimeout(this._useBonus, 300);
         } else {
-          const identifier = response.identifier;
-          localStorage.setItem(this.type, identifier);
-
-          // Redirect to chat to start using premium there
-          window.location.assign(
-            `${this.redirectToUse}?bonus=premium&identifier=${identifier}`
-          );
+          this._redirectToUseBonus(response);
         }
       });
   }

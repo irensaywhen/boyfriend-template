@@ -14,6 +14,7 @@ export default class Bonus extends ServerRequest {
     this._cacheElements = this._cacheElements.bind(this);
     this._setUpEventListeners = this._setUpEventListeners.bind(this);
     this._useBonus = this._useBonus.bind(this);
+    this._redirectToUseBonus = this._redirectToUseBonus.bind(this);
 
     this.isUsedOnThisPage = options.isUsedOnThisPage;
     this.isSelectUserBeforeUse = options.isSelectUserBeforeUse;
@@ -163,5 +164,20 @@ export default class Bonus extends ServerRequest {
         .removeClass('bonus-notzero-amount')
         .addClass('bonus-zero-amount');
     }
+  }
+
+  /**
+   *
+   * @param {Object} requestResult - the resulting information for bonus usage
+   * Contains unique identifier to handle bonus usage on another page
+   */
+  _redirectToUseBonus(requestResult) {
+    const identifier = requestResult.identifier;
+    localStorage.setItem(this.type, identifier);
+
+    // Redirect to chat to start using superlike there
+    window.location.assign(
+      `${this.redirectToUse}?bonus=${this.type}&identifier=${identifier}`
+    );
   }
 }
