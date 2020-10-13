@@ -19915,7 +19915,9 @@
 
             // Bind context
             this._cacheElements = this._cacheElements.bind(this);
-            this._setUpEventListeners = this._setUpEventListeners.bind(this); // Save current step
+            this._setUpEventListeners = this._setUpEventListeners.bind(this);
+            this._changeForm = this._changeForm.bind(this);
+            this._showStep = this._showStep.bind(this); // Save current step
 
             this.step = 0; // Save options
 
@@ -19972,48 +19974,70 @@
                   var selectors = this.selectors; // Show next form when the current is submitted
 
                   this.$forms.on('submitted', function (event) {
-                    _this._changeForm('forward');
+                    event.stopPropagation();
+                    var target = event.target;
+
+                    _this._changeForm('forward', target);
+                  });
+                  $(document).on('premium:changeUser', function () {
+                    _this._showStep(0);
                   });
 
                   if (selectors.backward) {
                     // Show previous form when the "back" button is clicked"
                     this.$backwardButton.click(function (event) {
-                      _this._changeForm('backward');
+                      event.stopPropagation();
+                      var target = event.target;
+
+                      _this._changeForm('backward', target);
                     });
                   }
 
                   if (selectors.forward) {
                     // Show next form
                     this.$forwardButton.click(function (event) {
-                      _this._changeForm('forward');
+                      event.stopPropagation();
+                      var target = event.target;
+
+                      _this._changeForm('forward', target);
                     });
                   }
                 },
               },
               {
                 key: '_changeForm',
-                value: function _changeForm(direction) {
-                  var _this2 = this;
-
-                  event.stopPropagation();
+                value: function _changeForm(direction, target) {
                   var selectors = this.selectors;
-                  var $form = $(event.target)
+                  var $form = $(target)
                     .closest(selectors.wrapper)
                     .find(selectors.forms);
                   var step =
                     direction === 'forward'
                       ? Number($form.data('step')) + 1
-                      : Number($form.data('step')) - 1;
-                  if (step > this.$forms.length - 1) return; // Save the current step;
+                      : Number($form.data('step')) - 1; // Show the calculated step
+
+                  this._showStep(step);
+
+                  $(document).trigger('chainedForms:switchForm', direction);
+                },
+              },
+              {
+                key: '_showStep',
+                value: function _showStep(step) {
+                  var _this2 = this;
+
+                  if (step > this.$forms.length - 1) return;
+                  var selectors = this.selectors; // Hide the current step and show the desired step
+
+                  $(this.$forms.get(this.step))
+                    .closest(selectors.wrapper)
+                    .fadeOut(400, function () {
+                      $(_this2.$forms.get(step))
+                        .closest(selectors.wrapper)
+                        .fadeIn(400);
+                    }); // Save the currently visible step
 
                   this.step = step;
-                  $form.closest(selectors.wrapper).fadeOut(400, function () {
-                    // Show the form wrapper of the previous form
-                    $(_this2.$forms.get(step))
-                      .closest(selectors.wrapper)
-                      .fadeIn(400);
-                  });
-                  $(document).trigger('chainedForms:switchForm', direction);
                 },
               },
             ]
