@@ -1,69 +1,67 @@
-export default {
-  initializeFileReader(config) {
-    // Save passed information
-    ({ errorText } = config);
+export default (function () {
+  let errorText;
 
-    // Bind context
-    _setReaderEventListeners = _setReaderEventListeners.bind(this);
-    _readFile = _readFile.bind(this);
-  },
-  _readFile,
-};
+  /**
+   * Function to read file and start loading it
+   * It instantiates a FileReader Object for the current file
+   * Sets event listeners to listen to events on reader
+   * And then, starts reading it to generate URL
+   * @param {File Object} file
+   */
+  function _readFile({ file, $progressBar }) {
+    let reader = new FileReader();
+    // Save progress bar for the current reader
+    reader.$progressBar = $progressBar;
+    // Prepare reader fo reading file
+    _setReaderEventListeners.call(this, reader);
+    // Read file
+    reader.readAsDataURL(file);
+  }
 
-// Private varibles
-let errorText;
-
-/** Private functions */
-
-/**
- * Function to read file and start loading it
- * It instantiates a FileReader Object for the current file
- * Sets event listeners to listen to events on reader
- * And then, starts reading it to generate URL
- * @param {File Object} file
- */
-function _readFile({ file, $progressBar }) {
-  let reader = new FileReader();
-  // Save progress bar for the current reader
-  reader.$progressBar = $progressBar;
-  // Prepare reader fo reading file
-  _setReaderEventListeners(reader);
-  // Read file
-  reader.readAsDataURL(file);
-}
-
-/**
- * Function setting event listeners to the current reader
- * @param {FileReader Object} reader - reader to set event listeners to
- */
-function _setReaderEventListeners(reader) {
-  reader.addEventListener('loadstart', event => {
-    this._hideError();
-  });
-
-  reader.addEventListener('progress', event => {
-    // Show progress for the current reader
-    this._showProgress({
-      loaded: event.loaded,
-      total: event.total,
-      $progressBar: event.target.$progressBar,
+  /**
+   * Function setting event listeners to the current reader
+   * @param {FileReader Object} reader - reader to set event listeners to
+   */
+  function _setReaderEventListeners(reader) {
+    reader.addEventListener('loadstart', () => {
+      this._hideError();
     });
-  });
 
-  reader.addEventListener('loadend', event => {
-    let target = event.target;
-    // Indicate that the file related to the current progress bar was loaded
-    target.$progressBar.addClass('loadend');
-  });
+    reader.addEventListener('progress', event => {
+      // Show progress for the current reader
+      this._showProgress({
+        loaded: event.loaded,
+        total: event.total,
+        $progressBar: event.target.$progressBar,
+      });
+    });
 
-  reader.addEventListener('load', event => {
-    let target = event.target;
-    setTimeout(this._preview, 500, target);
-    // Show submit button
-    this.$modalFooter.show();
-  });
+    reader.addEventListener('loadend', event => {
+      let target = event.target;
+      // Indicate that the file related to the current progress bar was loaded
+      target.$progressBar.addClass('loadend');
+    });
 
-  reader.addEventListener('error', () => {
-    this._showError(errorText.read);
-  });
-}
+    reader.addEventListener('load', event => {
+      let target = event.target;
+      setTimeout(this._preview, 500, target);
+      // Show submit button
+      this.$modalFooter.show();
+    });
+
+    reader.addEventListener('error', () => {
+      this._showError(errorText.read);
+    });
+  }
+  return {
+    initializeFileReader(config) {
+      // Save passed information
+      ({ errorText } = config);
+
+      // Bind context
+      this.initializeFileReader = this.initializeFileReader.bind(this);
+      this._readFile = this._readFile.bind(this);
+    },
+    _readFile,
+  };
+})();

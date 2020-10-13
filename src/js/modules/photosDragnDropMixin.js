@@ -2,6 +2,7 @@ export default {
   initializeDragNDrop({ $container }) {
     // Save reference to drag'n'drop container
     $dragNDropContainer = $container;
+
     // Save classes
     classes = this.classes;
 
@@ -14,9 +15,7 @@ export default {
 };
 
 // Private variables
-let $dragNDropContainer,
-  classes,
-  droppedFiles = false;
+let $dragNDropContainer, classes;
 
 /**
  * Helper function to setup drag'n'drop event listeners
