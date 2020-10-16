@@ -726,6 +726,20 @@ select.form-control optgroup {
   font-weight: 300;
   font-size: 14px;
 }
+.modal .photo-container {
+  min-height: 100% !important;
+}
+.modal .photo-container .card-body {
+  flex: none;
+}
+.modal .photo-container figure {
+  width: 100%;
+  height: 100%;
+}
+.modal .photo-container figure img {
+  -o-object-fit: cover;
+  object-fit: cover;
+}
 .order-details .detail {
   background: #fff;
   border-radius: 15px;

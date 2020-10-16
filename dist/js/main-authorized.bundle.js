@@ -88395,8 +88395,6 @@
               ](options.animation);
             }
 
-            console.log(options.paymentForm);
-
             _this._cacheElements();
 
             _this._setUpEventListeners();

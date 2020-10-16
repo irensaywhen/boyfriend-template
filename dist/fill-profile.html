@@ -1794,54 +1794,62 @@
               <!--Template for photo preview start-->
               <script type="text/template" id="photoUploadPreview">
                 <!-- Photo preview example-->
+
                 <div
-                  class="col-12 col-sm-6 col-md-4 col-xl-3 photo-container"
-                  data-id="{{id}}"
-                >
-                  <div class="photo-description">
-                    <!--Image start-->
-                    <figure>
-                      <img src="{{src}}" alt="" />
-                      <div
-                        class="privacy bg-white rounded d-flex justify-content-between align-items-center px-1"
-                      >
-                        <!--Privacy label-->
-                        <h4 class="m-0">Privacy</h4>
-                        <div class="custom-control custom-switch">
-                          <input
-                            type="checkbox"
-                            id="photo-upload-privacy-{{id}}"
-                            class="custom-control-input privacy-input"
-                          /><label
-                            for="photo-upload-privacy-{{id}}"
-                            class="custom-control-label privacy-label"
-                          ></label>
+                    class="col-12 col-sm-6 col-md-4 photo-container"
+                    data-id="{{id}}"
+                  >
+                    <div class="card h-100 border-0 justify-content-end">
+                      <div class="photo-description card-header p-0">
+                        <!--Image start-->
+                        <figure class="mb-0">
+                          <img
+                            class="card-img-top"
+                            src="{{src}}"
+                            alt="Card image cap"
+                          />
+                          <div
+                            class="privacy bg-white rounded d-flex justify-content-between align-items-center px-1"
+                          >
+                            <!--Privacy label-->
+                            <h4 class="m-0">Privacy</h4>
+                            <div class="custom-control custom-switch">
+                              <input
+                                type="checkbox"
+                                id="photo-upload-privacy-{{id}}"
+                                class="custom-control-input privacy-input"
+                              /><label
+                              for="photo-upload-privacy-{{id}}"
+                                class="custom-control-label privacy-label"
+                              ></label>
+                            </div>
+                          </div>
+
+                          <!--Delete button-->
+                          <button
+                            type="button"
+                            class="delete bg-white rounded d-flex justify-content-between align-items-center px-1"
+                          >
+                            Delete<i class="fas fa-trash-alt"></i>
+                          </button>
+                        </figure>
+                        <!--Image end-->
+                      </div>
+                      <div class="card-body px-0">
+                        <!--Description-->
+                        <div class="form-group">
+                          <label class="card-title" for="upload-description-{{id}}"
+                            >Add photo description</label
+                          ><textarea
+                          id="upload-description-{{id}}"
+                            rows="4"
+                            placeholder="Photo description"
+                            class="form-control new-photo-description"
+                          ></textarea>
                         </div>
                       </div>
-
-                      <!--Delete button-->
-                      <button
-                        type="button"
-                        class="delete bg-white rounded d-flex justify-content-between align-items-center px-1"
-                      >
-                        Delete<i class="fas fa-trash-alt"></i>
-                      </button>
-                    </figure>
-                    <!--Image end-->
-
-                    <!--Description-->
-                    <div class="form-group">
-                      <label for="upload-description-{{id}}"
-                        >Add photo description</label
-                      ><textarea
-                        id="upload-description-{{id}}"
-                        rows="4"
-                        placeholder="Photo description"
-                        class="form-control new-photo-description"
-                      ></textarea>
                     </div>
                   </div>
-                </div>
                 <!--Photo preview end-->
               </script>
               <!--Template for photo preview end-->
@@ -3581,7 +3589,6 @@
         const sponsorPremium = new SponsorPremium({
           isUsedOnThisPage: false,
           isSelectUserBeforeUse: true,
-          paymentForm: paymentForm,
           selectors: {
             bonus: '#premium',
             modal: '#premiumModal',
