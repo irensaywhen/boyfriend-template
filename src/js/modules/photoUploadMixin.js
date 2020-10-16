@@ -85,8 +85,10 @@ export default (function () {
 
         if (this instanceof Photo) this._discardChanges();
       } else if (this instanceof PhotoUploader) {
-        console.log('We are in photo uploader!');
-        console.log(event.originalEvent.dataTransfer.files);
+        this.$form.trigger('photoUpload:filesInputed', {
+          amount: droppedFiles.length,
+        });
+
         for (let i = 0; i < droppedFiles.length; i++) {
           _saveAndPreviewFile.call(this, droppedFiles[i]);
         }

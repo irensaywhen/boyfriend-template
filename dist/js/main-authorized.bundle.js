@@ -85756,8 +85756,9 @@
 
                 if (_this instanceof Photo) _this._discardChanges();
               } else if (_this instanceof PhotoUploader) {
-                console.log('We are in photo uploader!');
-                console.log(event.originalEvent.dataTransfer.files);
+                _this.$form.trigger('photoUpload:filesInputed', {
+                  amount: droppedFiles.length,
+                });
 
                 for (var i = 0; i < droppedFiles.length; i++) {
                   _saveAndPreviewFile.call(_this, droppedFiles[i]);
