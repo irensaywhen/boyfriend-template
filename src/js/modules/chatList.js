@@ -17,11 +17,7 @@ export default class ChatList {
   }
 
   _setUpEventListeners() {
-    let $document = $(document),
-      messageHeight = this.$chatList
-        .find(this.selectors.message)
-        .first()
-        .outerHeight();
+    let $document = $(document);
 
     $document
       .on('lazyLoading:itemsReady', (event, ...messages) => {
@@ -36,7 +32,9 @@ export default class ChatList {
         messages.forEach(message => this.$chatList.append(template(message)));
 
         this.$chatList.animate({
-          scrollTop: '+=' + messageHeight,
+          scrollTop:
+            '+=' +
+            this.$chatList.find(this.selectors.message).first().outerHeight(),
         });
 
         // Listen to this event, too, and re-observe the messages

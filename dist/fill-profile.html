@@ -296,7 +296,7 @@
                         <!--Name and user info-->
                         <div class="pl-1 pl-sm-3">
                           <h3 class="name mb-1">{{name}}</h3>
-                          <p class="small text-muted">{{City}}, {{age}}</p>
+                          <p class="small text-muted">{{city}}, {{age}}</p>
                         </div>
                       </div>
                     </script>
@@ -3903,6 +3903,27 @@
             chatList: '#user-list',
             message: '.userList-user',
             templateId: 'userTemplate',
+          },
+        });
+
+        /* Initializing lazy loading */
+        const usersLazyLoading = new UsersLazyLoading({
+          selectors: {},
+          observerOptions: {
+            // Id of the root element to use as a observer container
+            root: 'user-list',
+            rootMargin: '0px',
+            // Whenever message is at least a bit visible, intersection occurs
+            threshold: 0,
+          },
+          searchParams: { amount: 20 },
+          requests: {
+            items: {
+              headers: {},
+              method: 'GET',
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/users',
+            },
           },
         });
       });

@@ -81347,11 +81347,7 @@
                 value: function _setUpEventListeners() {
                   var _this = this;
 
-                  var $document = $(document),
-                    messageHeight = this.$chatList
-                      .find(this.selectors.message)
-                      .first()
-                      .outerHeight();
+                  var $document = $(document);
                   $document
                     .on('lazyLoading:itemsReady', function (event) {
                       /**
@@ -81380,7 +81376,12 @@
                       });
 
                       _this.$chatList.animate({
-                        scrollTop: '+=' + messageHeight,
+                        scrollTop:
+                          '+=' +
+                          _this.$chatList
+                            .find(_this.selectors.message)
+                            .first()
+                            .outerHeight(),
                       }); // Listen to this event, too, and re-observe the messages
 
                       $document.trigger('items:afterDisplay');
@@ -89743,35 +89744,17 @@
                       var element = entries[0];
                       if (!element.isIntersecting) return;
                       /**
-                       * 1. Get new messages from the server
-                       * 2. Sort them according to the timestamp
-                       * 3. Format timestamp and save as a human-readable time
-                       * 4. Trigger 'lazyLoading:itemsReady' event and pass messages with it
+                       * 1. Get new users from the server
+                       * 2. Trigger 'lazyLoading:itemsReady' event and pass messages with it
                        *    This event is indicating that the messages are retrieved and prepared
                        */
 
                       _this
                         ._getItems()
-                        .then(function (messages) {
-                          // Prepare messages
-                          messages
-                            .sort(function (firstMessage, secondMessage) {
-                              return firstMessage.timestamp <
-                                secondMessage.timestamp
-                                ? 1
-                                : firstMessage.timestamp >
-                                  secondMessage.timestamp
-                                ? -1
-                                : 0;
-                            })
-                            .forEach(function (message) {
-                              message.time = formatTime(message.timestamp);
-                            }); // Send them to display
+                        .then(function (users) {
+                          console.log(users); // Send them to display
 
-                          $(document).trigger(
-                            'lazyLoading:itemsReady',
-                            messages
-                          );
+                          $(document).trigger('lazyLoading:itemsReady', users);
                         })
                         ['catch'](function (error) {
                           _this.showRequestResult({
