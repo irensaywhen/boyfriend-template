@@ -142,7 +142,7 @@ export default class Chat {
           this._sendMessage(messageData, rawMessageData);
         }
       )
-      .on('lazyLoading:messagesReady', (event, ...messages) => {
+      .on('lazyLoading:itemsReady', (event, ...messages) => {
         /**
          * 1. Display messages
          * 2. Signal that the messages are displayed to re-init the observed target
@@ -152,9 +152,9 @@ export default class Chat {
         messages.forEach(message => this._displayMessage(message, true));
 
         // Listen to this event, too, and re-observe the messages
-        $document.trigger('messages:afterDisplay');
+        $document.trigger('items:afterDisplay');
       })
-      .on('lazyLoading:beforeObserve messages:afterDisplay', () => {
+      .on('lazyLoading:beforeObserve items:afterDisplay', () => {
         /**
          * 1. Get the last message from the currently displayed messages
          * 2. Pass it with event signaling that the last message was get
@@ -163,7 +163,7 @@ export default class Chat {
           .find(this.selectors.allMessages)
           .first()[0]);
 
-        $document.trigger('messages:afterGettingLastMessage', lastMessage);
+        $document.trigger('items:afterGettingLastItem', lastMessage);
       });
 
     /**

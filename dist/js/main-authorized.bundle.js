@@ -79385,6 +79385,9 @@
         /* harmony import */ var _modules_profileEdit_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
           /*! ./modules/profileEdit.js */ './js/modules/profileEdit.js'
         );
+        /* harmony import */ var _modules_usersLazyLoading_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
+          /*! ./modules/usersLazyLoading.js */ './js/modules/usersLazyLoading.js'
+        );
 
         window['PhotoUploader'] =
           _modules_uploader_js__WEBPACK_IMPORTED_MODULE_0__['default'];
@@ -79423,6 +79426,8 @@
           _modules_like_js__WEBPACK_IMPORTED_MODULE_15__['default'];
         window['ProfileEdit'] =
           _modules_profileEdit_js__WEBPACK_IMPORTED_MODULE_16__['default'];
+        window['UsersLazyLoading'] =
+          _modules_usersLazyLoading_js__WEBPACK_IMPORTED_MODULE_17__['default'];
 
         /***/
       },
@@ -80972,7 +80977,7 @@
                         _this._sendMessage(messageData, rawMessageData);
                       }
                     )
-                    .on('lazyLoading:messagesReady', function (event) {
+                    .on('lazyLoading:itemsReady', function (event) {
                       for (
                         var _len = arguments.length,
                           messages = new Array(_len > 1 ? _len - 1 : 0),
@@ -80992,10 +80997,10 @@
                         return _this._displayMessage(message, true);
                       }); // Listen to this event, too, and re-observe the messages
 
-                      $document.trigger('messages:afterDisplay');
+                      $document.trigger('items:afterDisplay');
                     })
                     .on(
-                      'lazyLoading:beforeObserve messages:afterDisplay',
+                      'lazyLoading:beforeObserve items:afterDisplay',
                       function () {
                         /**
                          * 1. Get the last message from the currently displayed messages
@@ -81006,7 +81011,7 @@
                           .first()[0]);
 
                         $document.trigger(
-                          'messages:afterGettingLastMessage',
+                          'items:afterGettingLastItem',
                           lastMessage
                         );
                       }
@@ -81348,7 +81353,7 @@
                       .first()
                       .outerHeight();
                   $document
-                    .on('lazyLoading:messagesReady', function (event) {
+                    .on('lazyLoading:itemsReady', function (event) {
                       /**
                        * 1. Get all the retrieved messages from the server
                        * 2. Compile template
@@ -81378,10 +81383,10 @@
                         scrollTop: '+=' + messageHeight,
                       }); // Listen to this event, too, and re-observe the messages
 
-                      $document.trigger('messages:afterDisplay');
+                      $document.trigger('items:afterDisplay');
                     })
                     .on(
-                      'lazyLoading:beforeObserve messages:afterDisplay',
+                      'lazyLoading:beforeObserve items:afterDisplay',
                       function () {
                         /**
                          * 1. Get the last message from the currently displayed messages
@@ -81392,7 +81397,7 @@
                           .last()[0];
 
                         $document.trigger(
-                          'messages:afterGettingLastMessage',
+                          'items:afterGettingLastItem',
                           lastMessage
                         );
                       }
@@ -84101,7 +84106,7 @@
                   var _this2 = this;
 
                   var $document = $(document);
-                  $document.on('messages:afterGettingLastMessage', function (
+                  $document.on('items:afterGettingLastItem', function (
                     event,
                     lastMessage
                   ) {
@@ -84642,7 +84647,7 @@
                        * 1. Get new messages from the server
                        * 2. Sort them according to the timestamp
                        * 3. Format timestamp and save as a human-readable time
-                       * 4. Trigger 'lazyLoading:messagesReady' event and pass messages with it
+                       * 4. Trigger 'lazyLoading:itemsReady' event and pass messages with it
                        *    This event is indicating that the messages are retrieved and prepared
                        */
 
@@ -84669,7 +84674,7 @@
                             }); // Send them to display
 
                           $(document).trigger(
-                            'lazyLoading:messagesReady',
+                            'lazyLoading:itemsReady',
                             messages
                           );
                         })
@@ -89613,6 +89618,178 @@
 
           return PhotoUploader;
         })(_modal_js__WEBPACK_IMPORTED_MODULE_10__['default']);
+
+        /***/
+      },
+
+    /***/ './js/modules/usersLazyLoading.js':
+      /*!****************************************!*\
+  !*** ./js/modules/usersLazyLoading.js ***!
+  \****************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return UsersLazyLoading;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__
+        );
+        /* harmony import */ var _lazyLoading_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! ./lazyLoading.js */ './js/modules/lazyLoading.js'
+        );
+
+        function _createSuper(Derived) {
+          var hasNativeReflectConstruct = _isNativeReflectConstruct();
+          return function _createSuperInternal() {
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
+                Derived
+              ),
+              result;
+            if (hasNativeReflectConstruct) {
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
+                this
+              ).constructor;
+              result = Reflect.construct(Super, arguments, NewTarget);
+            } else {
+              result = Super.apply(this, arguments);
+            }
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default()(
+              this,
+              result
+            );
+          };
+        }
+
+        function _isNativeReflectConstruct() {
+          if (typeof Reflect === 'undefined' || !Reflect.construct)
+            return false;
+          if (Reflect.construct.sham) return false;
+          if (typeof Proxy === 'function') return true;
+          try {
+            Date.prototype.toString.call(
+              Reflect.construct(Date, [], function () {})
+            );
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        var UsersLazyLoading = /*#__PURE__*/ (function (_LazyLoading) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default()(
+            UsersLazyLoading,
+            _LazyLoading
+          );
+
+          var _super = _createSuper(UsersLazyLoading);
+
+          function UsersLazyLoading(options) {
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              UsersLazyLoading
+            );
+
+            return _super.call(this, options);
+          }
+          /**
+           * This function is specific to each class utilizing lazy loading parent class
+           */
+
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
+            UsersLazyLoading,
+            [
+              {
+                key: '_initializeObserver',
+                value: function _initializeObserver() {
+                  var _this = this;
+
+                  this.observer =
+                    this.observer ||
+                    new IntersectionObserver(function (entries) {
+                      // Save the last message
+                      var element = entries[0];
+                      if (!element.isIntersecting) return;
+                      /**
+                       * 1. Get new messages from the server
+                       * 2. Sort them according to the timestamp
+                       * 3. Format timestamp and save as a human-readable time
+                       * 4. Trigger 'lazyLoading:itemsReady' event and pass messages with it
+                       *    This event is indicating that the messages are retrieved and prepared
+                       */
+
+                      _this
+                        ._getItems()
+                        .then(function (messages) {
+                          // Prepare messages
+                          messages
+                            .sort(function (firstMessage, secondMessage) {
+                              return firstMessage.timestamp <
+                                secondMessage.timestamp
+                                ? 1
+                                : firstMessage.timestamp >
+                                  secondMessage.timestamp
+                                ? -1
+                                : 0;
+                            })
+                            .forEach(function (message) {
+                              message.time = formatTime(message.timestamp);
+                            }); // Send them to display
+
+                          $(document).trigger(
+                            'lazyLoading:itemsReady',
+                            messages
+                          );
+                        })
+                        ['catch'](function (error) {
+                          _this.showRequestResult({
+                            title: error.name,
+                            text: error.message,
+                            icon: 'error',
+                          }); // For debugging
+
+                          console.error(error);
+                        });
+                    });
+                },
+              },
+            ]
+          );
+
+          return UsersLazyLoading;
+        })(_lazyLoading_js__WEBPACK_IMPORTED_MODULE_5__['default']);
 
         /***/
       },

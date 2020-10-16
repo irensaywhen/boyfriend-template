@@ -21,7 +21,7 @@ export default class MessagesLazyLoading extends LazyLoading {
          * 1. Get new messages from the server
          * 2. Sort them according to the timestamp
          * 3. Format timestamp and save as a human-readable time
-         * 4. Trigger 'lazyLoading:messagesReady' event and pass messages with it
+         * 4. Trigger 'lazyLoading:itemsReady' event and pass messages with it
          *    This event is indicating that the messages are retrieved and prepared
          */
         this._getItems()
@@ -40,7 +40,7 @@ export default class MessagesLazyLoading extends LazyLoading {
               });
 
             // Send them to display
-            $(document).trigger('lazyLoading:messagesReady', messages);
+            $(document).trigger('lazyLoading:itemsReady', messages);
           })
           .catch(error => {
             this.showRequestResult({

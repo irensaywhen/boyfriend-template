@@ -24,7 +24,7 @@ export default class ChatList {
         .outerHeight();
 
     $document
-      .on('lazyLoading:messagesReady', (event, ...messages) => {
+      .on('lazyLoading:itemsReady', (event, ...messages) => {
         /**
          * 1. Get all the retrieved messages from the server
          * 2. Compile template
@@ -40,16 +40,16 @@ export default class ChatList {
         });
 
         // Listen to this event, too, and re-observe the messages
-        $document.trigger('messages:afterDisplay');
+        $document.trigger('items:afterDisplay');
       })
-      .on('lazyLoading:beforeObserve messages:afterDisplay', () => {
+      .on('lazyLoading:beforeObserve items:afterDisplay', () => {
         /**
          * 1. Get the last message from the currently displayed messages
          * 2. Pass it with event signaling that the last message was get
          */
         let lastMessage = this.$chatList.find(this.selectors.message).last()[0];
 
-        $document.trigger('messages:afterGettingLastMessage', lastMessage);
+        $document.trigger('items:afterGettingLastItem', lastMessage);
       });
   }
 }

@@ -31,7 +31,7 @@ export default class LazyLoading extends ServerRequest {
   _setUpEventListeners() {
     let $document = $(document);
 
-    $document.on('messages:afterGettingLastMessage', (event, lastMessage) => {
+    $document.on('items:afterGettingLastItem', (event, lastMessage) => {
       // Stop observing the previously cached last message
       if (this.lastMessage) {
         this.observer.unobserve(this.lastMessage);
