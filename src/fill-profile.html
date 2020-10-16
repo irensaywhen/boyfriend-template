@@ -3457,21 +3457,6 @@
           },
         });
 
-        /* Buying premium initialization */
-        const sponsorPremium = new SponsorPremium({
-          isUsedOnThisPage: false,
-          isSelectUserBeforeUse: true,
-          selectors: {
-            bonus: '#premium',
-            modal: '#premiumModal',
-            userList: {
-              modal: '#userList-modal',
-              user: '.userList-user',
-              userName: '#premiumModal-user-name',
-            },
-          },
-        });
-
         /* Buy premium form initialization */
         const buyPremiumForm = new BuyPremiumForm({
           saveInitialInputValues: true,
@@ -3563,7 +3548,7 @@
                 'Content-Type': 'application/json',
               },
               endpoint:
-                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/card',
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/card-premium-for-chat',
             },
           },
           payment: true,
@@ -3588,6 +3573,22 @@
                 required: true,
                 cardNumber: true,
               },
+            },
+          },
+        });
+
+        /* Buying premium initialization */
+        const sponsorPremium = new SponsorPremium({
+          isUsedOnThisPage: false,
+          isSelectUserBeforeUse: true,
+          paymentForm: paymentForm,
+          selectors: {
+            bonus: '#premium',
+            modal: '#premiumModal',
+            userList: {
+              modal: '#userList-modal',
+              user: '.userList-user',
+              userName: '#premiumModal-user-name',
             },
           },
         });

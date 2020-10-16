@@ -20824,29 +20824,48 @@
                   var _sendFormInformation = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
                     /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
                       function _callee() {
-                        var response, customSubmittedEvent, errors;
+                        var _this$requests$submit,
+                          headers,
+                          method,
+                          endpoint,
+                          userId,
+                          response,
+                          customSubmittedEvent,
+                          errors;
+
                         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
                           function _callee$(_context) {
                             while (1) {
                               switch ((_context.prev = _context.next)) {
                                 case 0:
-                                  _context.prev = 0;
-                                  _context.next = 3;
+                                  (_this$requests$submit = this.requests
+                                    .submit),
+                                    (headers = _this$requests$submit.headers),
+                                    (method = _this$requests$submit.method),
+                                    (endpoint = _this$requests$submit.endpoint);
+                                  userId = localStorage.getItem('userId');
+
+                                  if (this.payment && userId) {
+                                    endpoint.searchParams.set('userId', userId);
+                                  }
+
+                                  _context.prev = 3;
+                                  _context.next = 6;
                                   return this.makeRequest({
-                                    headers: this.requests.submit.headers,
-                                    endpoint: this.requests.submit.endpoint,
-                                    method: this.requests.submit.method,
+                                    headers: headers,
+                                    endpoint: endpoint,
+                                    method: method,
                                     body: JSON.stringify(this.formData),
                                   });
 
-                                case 3:
+                                case 6:
                                   response = _context.sent;
-                                  _context.next = 9;
+                                  _context.next = 12;
                                   break;
 
-                                case 6:
-                                  _context.prev = 6;
-                                  _context.t0 = _context['catch'](0);
+                                case 9:
+                                  _context.prev = 9;
+                                  _context.t0 = _context['catch'](3);
                                   // Unsuccessful Popup
                                   this.showRequestResult({
                                     title: _context.t0.name,
@@ -20854,13 +20873,13 @@
                                     icon: 'error',
                                   });
 
-                                case 9:
-                                  _context.prev = 9;
+                                case 12:
+                                  _context.prev = 12;
                                   // Remove error messages
                                   this.$form.find('.error').remove();
-                                  return _context.finish(9);
+                                  return _context.finish(12);
 
-                                case 12:
+                                case 15:
                                   if (response.success) {
                                     // Generate submit event on the form
                                     if (this.generateSubmitEvent) {
@@ -20924,7 +20943,7 @@
 
                                   this.formData = {};
 
-                                case 14:
+                                case 17:
                                 case 'end':
                                   return _context.stop();
                               }
@@ -20932,7 +20951,7 @@
                           },
                           _callee,
                           this,
-                          [[0, 6, 9, 12]]
+                          [[3, 9, 12, 15]]
                         );
                       }
                     )

@@ -221,14 +221,21 @@ export default class Form extends ServerRequest {
   }
 
   async sendFormInformation() {
+    var { headers, method, endpoint } = this.requests.submit;
+
+    let userId = localStorage.getItem('userId');
+    if (this.payment && userId) {
+      endpoint.searchParams.set('userId', userId);
+    }
+
     let response;
 
     try {
       // Make request here
       response = await this.makeRequest({
-        headers: this.requests.submit.headers,
-        endpoint: this.requests.submit.endpoint,
-        method: this.requests.submit.method,
+        headers,
+        endpoint,
+        method,
         body: JSON.stringify(this.formData),
       });
     } catch (error) {

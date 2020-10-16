@@ -122,12 +122,17 @@ export default class Bonus extends ServerRequest {
           return;
         }
 
-        let endpoint = this.requests.use.endpoint;
+        if (currentBonusType !== 'premium') {
+          let endpoint = this.requests.use.endpoint;
 
-        // Remove previously saved params to avoid errors
-        removeSearchParams(endpoint);
+          // Remove previously saved params to avoid errors
+          removeSearchParams(endpoint);
 
-        endpoint.searchParams.set('userId', userId);
+          endpoint.searchParams.set('userId', userId);
+        }
+
+        // Save the current user id to perform transactions
+        localStorage.setItem('userId', userId);
 
         if (this.type === 'photo' || this.type === 'premium') {
           this.$userListModal.modal('hide');
@@ -174,7 +179,7 @@ export default class Bonus extends ServerRequest {
     const { identifier, redirect } = requestResult;
     localStorage.setItem(this.type, identifier);
 
-    console.log(redirect);
+    localStorage.removeItem('userId');
 
     // Redirect to chat to start using superlike there
     window.location.assign(

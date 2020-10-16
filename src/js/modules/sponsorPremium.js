@@ -10,6 +10,8 @@ export default class SponsorPremium extends Bonus {
       this.animation = new PremiumAnimation(options.animation);
     }
 
+    console.log(options.paymentForm);
+
     this._cacheElements();
     this._setUpEventListeners();
   }
