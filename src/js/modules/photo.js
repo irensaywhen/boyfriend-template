@@ -155,10 +155,6 @@ export default class Photo extends Bonus {
 
     // Hide modal footer
     this.$modalFooter.fadeOut(0);
-
-    // Delete photo information
-    localStorage.removeItem('photoDescription');
-    localStorage.removeItem('photoSrc');
   }
 
   /**

@@ -79981,9 +79981,13 @@
                     redirect = requestResult.redirect;
                   localStorage.setItem(this.type, identifier);
                   console.log(redirect); // Redirect to chat to start using superlike there
-                  //window.location.assign(
-                  //  `${redirect}?bonus=${this.type}&identifier=${identifier}`
-                  //);
+
+                  window.location.assign(
+                    ''
+                      .concat(redirect, '?bonus=')
+                      .concat(this.type, '&identifier=')
+                      .concat(identifier)
+                  );
                 },
               },
             ]
@@ -85510,10 +85514,7 @@
                   // Delete preview
                   this.$previewContainer.empty(); // Hide modal footer
 
-                  this.$modalFooter.fadeOut(0); // Delete photo information
-
-                  localStorage.removeItem('photoDescription');
-                  localStorage.removeItem('photoSrc');
+                  this.$modalFooter.fadeOut(0);
                 },
                 /**
                  * 1. Change the amount of available bonuses on markup
