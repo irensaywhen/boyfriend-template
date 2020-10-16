@@ -86579,16 +86579,9 @@
                     throw error;
                   }
 
-                  console.log(response);
-                  var redirect = response.redirect,
-                    data = response.data; // Add step to search params
+                  var redirect = response.redirect; // Add step to search params
 
                   redirect += '?step='.concat($target.data('step') || 1);
-
-                  for (var item in data) {
-                    redirect += '&'.concat(item, '=').concat(data[item]);
-                  }
-
                   window.location.assign(redirect);
                 })
                 ['catch'](function (error) {

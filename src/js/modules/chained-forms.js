@@ -18,17 +18,11 @@ export default class ChainedForms {
     if (options.showSteps) {
       Object.assign(ChainedForms.prototype, stepsMixin);
       this.initStepsMixin(options.stepsConfig);
+      this.showSteps = options.showSteps;
     }
 
     this._cacheElements();
     this._setUpEventListeners();
-
-    // Get search params
-    // If step is presented, show it
-    if (getUrlParams('step')) {
-      console.log(getUrlParams('step'));
-      this._showStep(1, 0);
-    }
   }
 
   _cacheElements() {
@@ -95,6 +89,21 @@ export default class ChainedForms {
         this._changeForm('forward', target);
       });
     }
+
+    $(window).on('load', () => {
+      // Get search params
+      // If step is presented, show it
+      let step = parseInt(getUrlParams('step'));
+      if (step) {
+        this._showStep(step, 0);
+
+        if (this.showSteps) {
+          for (let i = 0; i < step; i++) {
+            $(document).trigger('chainedForms:switchForm', 'forward');
+          }
+        }
+      }
+    });
   }
 
   _changeForm(direction, target) {

@@ -19909,26 +19909,12 @@
                 _stepsMixin_js__WEBPACK_IMPORTED_MODULE_2__['default']
               );
               this.initStepsMixin(options.stepsConfig);
+              this.showSteps = options.showSteps;
             }
 
             this._cacheElements();
 
-            this._setUpEventListeners(); // Get search params
-            // If step is presented, show it
-
-            if (
-              Object(_getUrlParams_js__WEBPACK_IMPORTED_MODULE_3__['default'])(
-                'step'
-              )
-            ) {
-              console.log(
-                Object(
-                  _getUrlParams_js__WEBPACK_IMPORTED_MODULE_3__['default']
-                )('step')
-              );
-
-              this._showStep(1, 0);
-            }
+            this._setUpEventListeners();
           }
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
@@ -19997,6 +19983,29 @@
                       _this._changeForm('forward', target);
                     });
                   }
+
+                  $(window).on('load', function () {
+                    // Get search params
+                    // If step is presented, show it
+                    var step = parseInt(
+                      Object(
+                        _getUrlParams_js__WEBPACK_IMPORTED_MODULE_3__['default']
+                      )('step')
+                    );
+
+                    if (step) {
+                      _this._showStep(step, 0);
+
+                      if (_this.showSteps) {
+                        for (var i = 0; i < step; i++) {
+                          $(document).trigger(
+                            'chainedForms:switchForm',
+                            'forward'
+                          );
+                        }
+                      }
+                    }
+                  });
                 },
               },
               {

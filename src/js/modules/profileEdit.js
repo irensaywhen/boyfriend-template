@@ -86,16 +86,11 @@ export default class ProfileEdit extends ServerRequest {
             error.name = response.title;
             throw error;
           }
-          console.log(response);
 
-          let { redirect, data } = response;
+          let { redirect } = response;
 
           // Add step to search params
           redirect += `?step=${$target.data('step') || 1}`;
-
-          for (let item in data) {
-            redirect += `&${item}=${data[item]}`;
-          }
 
           window.location.assign(redirect);
         })
