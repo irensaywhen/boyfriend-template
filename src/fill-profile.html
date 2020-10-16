@@ -3615,10 +3615,15 @@
         /* Photo bonus initialization */
         const photo = new Photo({
           isUsedOnThisPage: false,
+          isSelectUserBeforeUse: true,
           redirectToUse: './chat.html',
           selectors: {
             bonus: '#photo',
             amount: '.amount',
+            userList: {
+              modal: '#userList-modal',
+              user: '.userList-user',
+            },
             modal: '#photo-bonus',
             previewContainer: '#photoBonus-preview-container',
             input: '.photoBonus-input',
