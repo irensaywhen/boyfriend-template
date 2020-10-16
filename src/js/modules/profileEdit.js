@@ -1,5 +1,5 @@
 import ServerRequest from './requests.js';
-import Swal from 'sweetalert2';
+import prepareTemplates from './prepareTemplates.js';
 
 export default class ProfileEdit extends ServerRequest {
   constructor(options) {
@@ -46,11 +46,19 @@ export default class ProfileEdit extends ServerRequest {
 
     /**
      * Continue last payment
+     * 1. If unpaid attribute is not presented, do nothing
+     * 2. Make request to get data about the purchase
+     * 3. Adjust redirect depending on provided step attribute (1 by default)
+     *    - Steps are counted from zero
+     * 4. Redirect to buying premium page to continue purchase
      */
 
     const _$purchaseSummaryTable = $(
-      this.selectors.purchaseSummaryTable || '#purchaseSummary'
-    );
+        this.selectors.purchaseSummaryTable || '#purchaseSummary'
+      ),
+      _spinner = prepareTemplates(
+        'spinner-template' || options.templates.spinner
+      );
 
     _$purchaseSummaryTable.click(event => {
       let $target = $(event.target);
@@ -59,11 +67,45 @@ export default class ProfileEdit extends ServerRequest {
 
       event.preventDefault();
 
-      const redirect = `${$target.data('redirect')}?step=${
-        $target.data('step') || 2
-      }`;
+      let _$tableCell = $target.closest('td');
+      const _tableCellContent = _$tableCell.html();
 
-      window.location.assign(redirect);
+      // Insert spinner
+      _$tableCell.css('width', _$tableCell.css('width')).html(_spinner);
+
+      let { headers, method, endpoint } = this.requests.paymentData;
+
+      // Retrieve payment details
+      this.makeRequest({ headers, method, endpoint })
+        .then(response => {
+          // Insert initial content
+          _$tableCell.html(_tableCellContent);
+
+          if (!response.success) {
+            let error = new Error(response.message);
+            error.name = response.title;
+            throw error;
+          }
+          console.log(response);
+
+          let { redirect, data } = response;
+
+          // Add step to search params
+          redirect += `?step=${$target.data('step') || 1}`;
+
+          for (let item in data) {
+            redirect += `&${item}=${data[item]}`;
+          }
+
+          window.location.assign(redirect);
+        })
+        .catch(error => {
+          this.showRequestResult({
+            title: error.name,
+            text: error.message,
+            icon: 'error',
+          });
+        });
     });
   }
 }

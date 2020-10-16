@@ -19882,6 +19882,9 @@
         /* harmony import */ var _stepsMixin_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! ./stepsMixin.js */ './js/modules/stepsMixin.js'
         );
+        /* harmony import */ var _getUrlParams_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! ./getUrlParams.js */ './js/modules/getUrlParams.js'
+        );
 
         var ChainedForms = /*#__PURE__*/ (function () {
           function ChainedForms(options) {
@@ -19910,7 +19913,22 @@
 
             this._cacheElements();
 
-            this._setUpEventListeners();
+            this._setUpEventListeners(); // Get search params
+            // If step is presented, show it
+
+            if (
+              Object(_getUrlParams_js__WEBPACK_IMPORTED_MODULE_3__['default'])(
+                'step'
+              )
+            ) {
+              console.log(
+                Object(
+                  _getUrlParams_js__WEBPACK_IMPORTED_MODULE_3__['default']
+                )('step')
+              );
+
+              this._showStep(1, 0);
+            }
           }
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
@@ -20003,15 +20021,19 @@
                 value: function _showStep(step) {
                   var _this2 = this;
 
+                  var animation =
+                    arguments.length > 1 && arguments[1] !== undefined
+                      ? arguments[1]
+                      : 400;
                   if (step > this.$forms.length - 1) return;
                   var selectors = this.selectors; // Hide the current step and show the desired step
 
                   $(this.$forms.get(this.step))
                     .closest(selectors.wrapper)
-                    .fadeOut(400, function () {
+                    .fadeOut(animation, function () {
                       $(_this2.$forms.get(step))
                         .closest(selectors.wrapper)
-                        .fadeIn(400);
+                        .fadeIn(animation);
                     }); // Save the currently visible step
 
                   this.step = step;
@@ -20955,6 +20977,39 @@
 
           return Form;
         })(_requests_js__WEBPACK_IMPORTED_MODULE_8__['default']);
+
+        /***/
+      },
+
+    /***/ './js/modules/getUrlParams.js':
+      /*!************************************!*\
+  !*** ./js/modules/getUrlParams.js ***!
+  \************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return getUrlParams;
+          }
+        );
+        function getUrlParams(variable) {
+          var query = window.location.search.substring(1);
+          var vars = query.split('&');
+
+          for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split('=');
+
+            if (pair[0] == variable) {
+              return pair[1];
+            }
+          }
+
+          return false;
+        }
 
         /***/
       },

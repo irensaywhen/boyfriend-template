@@ -86432,11 +86432,8 @@
         /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! ./requests.js */ './js/modules/requests.js'
         );
-        /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-          /*! sweetalert2 */ '../node_modules/sweetalert2/dist/sweetalert2.all.js'
-        );
-        /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
-          sweetalert2__WEBPACK_IMPORTED_MODULE_5__
+        /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
         );
 
         function _createSuper(Derived) {
@@ -86536,20 +86533,71 @@
             });
             /**
              * Continue last payment
+             * 1. If unpaid attribute is not presented, do nothing
+             * 2. Make request to get data about the purchase
+             * 3. Adjust redirect depending on provided step attribute (1 by default)
+             *    - Steps are counted from zero
+             * 4. Redirect to buying premium page to continue purchase
              */
 
             var _$purchaseSummaryTable = $(
-              _this.selectors.purchaseSummaryTable || '#purchaseSummary'
-            );
+                _this.selectors.purchaseSummaryTable || '#purchaseSummary'
+              ),
+              _spinner = Object(
+                _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_5__['default']
+              )('spinner-template' || false);
 
             _$purchaseSummaryTable.click(function (event) {
               var $target = $(event.target);
               if (!$target.data('unpaid')) return;
               event.preventDefault();
-              var redirect = ''
-                .concat($target.data('redirect'), '?step=')
-                .concat($target.data('step') || 2);
-              window.location.assign(redirect);
+
+              var _$tableCell = $target.closest('td');
+
+              var _tableCellContent = _$tableCell.html(); // Insert spinner
+
+              _$tableCell.css('width', _$tableCell.css('width')).html(_spinner);
+
+              var _this$requests$paymen = _this.requests.paymentData,
+                headers = _this$requests$paymen.headers,
+                method = _this$requests$paymen.method,
+                endpoint = _this$requests$paymen.endpoint; // Retrieve payment details
+
+              _this
+                .makeRequest({
+                  headers: headers,
+                  method: method,
+                  endpoint: endpoint,
+                })
+                .then(function (response) {
+                  // Insert initial content
+                  _$tableCell.html(_tableCellContent);
+
+                  if (!response.success) {
+                    var error = new Error(response.message);
+                    error.name = response.title;
+                    throw error;
+                  }
+
+                  console.log(response);
+                  var redirect = response.redirect,
+                    data = response.data; // Add step to search params
+
+                  redirect += '?step='.concat($target.data('step') || 1);
+
+                  for (var item in data) {
+                    redirect += '&'.concat(item, '=').concat(data[item]);
+                  }
+
+                  window.location.assign(redirect);
+                })
+                ['catch'](function (error) {
+                  _this.showRequestResult({
+                    title: error.name,
+                    text: error.message,
+                    icon: 'error',
+                  });
+                });
             });
 
             return _this;

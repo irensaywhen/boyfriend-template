@@ -3034,11 +3034,7 @@
                       <td>12.99 zł</td>
                       <td class="text-danger">Not paid</td>
                       <td>
-                        <a
-                          href="#"
-                          class="blue-link"
-                          data-unpaid="true"
-                          data-redirect="./pricing.html"
+                        <a href="#" class="blue-link" data-unpaid="true"
                           >Finish payment</a
                         >
                       </td>
@@ -3887,6 +3883,12 @@
               endpoint:
                 // Change delete-account to delete-account-fail to test failure
                 'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/delete-account',
+            },
+            paymentData: {
+              method: 'GET',
+              headers: {},
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/get-payment-data-oneMonth',
             },
           },
           popups: {

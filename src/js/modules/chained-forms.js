@@ -1,4 +1,5 @@
 import stepsMixin from './stepsMixin.js';
+import getUrlParams from './getUrlParams.js';
 
 export default class ChainedForms {
   constructor(options) {
@@ -21,6 +22,13 @@ export default class ChainedForms {
 
     this._cacheElements();
     this._setUpEventListeners();
+
+    // Get search params
+    // If step is presented, show it
+    if (getUrlParams('step')) {
+      console.log(getUrlParams('step'));
+      this._showStep(1, 0);
+    }
   }
 
   _cacheElements() {
@@ -105,7 +113,7 @@ export default class ChainedForms {
     $(document).trigger('chainedForms:switchForm', direction);
   }
 
-  _showStep(step) {
+  _showStep(step, animation = 400) {
     if (step > this.$forms.length - 1) return;
 
     let selectors = this.selectors;
@@ -113,8 +121,8 @@ export default class ChainedForms {
     // Hide the current step and show the desired step
     $(this.$forms.get(this.step))
       .closest(selectors.wrapper)
-      .fadeOut(400, () => {
-        $(this.$forms.get(step)).closest(selectors.wrapper).fadeIn(400);
+      .fadeOut(animation, () => {
+        $(this.$forms.get(step)).closest(selectors.wrapper).fadeIn(animation);
       });
 
     // Save the currently visible step
