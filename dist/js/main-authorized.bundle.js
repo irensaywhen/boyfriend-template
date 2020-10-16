@@ -79922,7 +79922,6 @@
                         ]
                       )(endpoint);
                       endpoint.searchParams.set('userId', userId);
-                      currentBonusType = null;
 
                       if (
                         _this2.type === 'photo' ||
@@ -79982,13 +79981,9 @@
                     redirect = requestResult.redirect;
                   localStorage.setItem(this.type, identifier);
                   console.log(redirect); // Redirect to chat to start using superlike there
-
-                  window.location.assign(
-                    ''
-                      .concat(redirect, '?bonus=')
-                      .concat(this.type, '&identifier=')
-                      .concat(identifier)
-                  );
+                  //window.location.assign(
+                  //  `${redirect}?bonus=${this.type}&identifier=${identifier}`
+                  //);
                 },
               },
             ]

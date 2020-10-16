@@ -129,8 +129,6 @@ export default class Bonus extends ServerRequest {
 
         endpoint.searchParams.set('userId', userId);
 
-        currentBonusType = null;
-
         if (this.type === 'photo' || this.type === 'premium') {
           this.$userListModal.modal('hide');
         }
@@ -179,8 +177,8 @@ export default class Bonus extends ServerRequest {
     console.log(redirect);
 
     // Redirect to chat to start using superlike there
-    window.location.assign(
-      `${redirect}?bonus=${this.type}&identifier=${identifier}`
-    );
+    //window.location.assign(
+    //  `${redirect}?bonus=${this.type}&identifier=${identifier}`
+    //);
   }
 }
