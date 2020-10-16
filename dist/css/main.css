@@ -333,6 +333,8 @@ select.form-control optgroup {
   bottom: -25px;
   right: 20px;
   color: #6c757d;
+  min-width: 120px;
+  justify-content: flex-end;
 }
 .message .meta i {
   display: inline-block;

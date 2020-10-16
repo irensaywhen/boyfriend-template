@@ -147,7 +147,6 @@ export default class Chat {
          * 1. Display messages
          * 2. Signal that the messages are displayed to re-init the observed target
          */
-        console.log(messages);
 
         messages.forEach(message => this._displayMessage(message, true));
 
@@ -370,7 +369,10 @@ export default class Chat {
       .find(`.message[data-id='${id}']`)
       .find('.meta');
 
-    if (status === 'seen') {
+    let isSeenIconShown = !!$meta.find('.fa-check-circle').length;
+    console.log(isSeenIconShown);
+
+    if (status === 'seen' && !isSeenIconShown) {
       // If the message was seen
       $meta.prepend('<i class="fas fa-check-circle"></i>');
     }

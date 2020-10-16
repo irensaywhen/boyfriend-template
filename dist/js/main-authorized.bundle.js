@@ -80995,7 +80995,6 @@
                        * 1. Display messages
                        * 2. Signal that the messages are displayed to re-init the observed target
                        */
-                      console.log(messages);
                       messages.forEach(function (message) {
                         return _this._displayMessage(message, true);
                       }); // Listen to this event, too, and re-observe the messages
@@ -81270,8 +81269,10 @@
                   var $meta = this.$messagesContainer
                     .find(".message[data-id='".concat(id, "']"))
                     .find('.meta');
+                  var isSeenIconShown = !!$meta.find('.fa-check-circle').length;
+                  console.log(isSeenIconShown);
 
-                  if (status === 'seen') {
+                  if (status === 'seen' && !isSeenIconShown) {
                     // If the message was seen
                     $meta.prepend('<i class="fas fa-check-circle"></i>');
                   }
