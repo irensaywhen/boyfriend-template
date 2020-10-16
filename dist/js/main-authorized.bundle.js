@@ -79382,6 +79382,9 @@
         /* harmony import */ var _modules_like_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
           /*! ./modules/like.js */ './js/modules/like.js'
         );
+        /* harmony import */ var _modules_profileEdit_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
+          /*! ./modules/profileEdit.js */ './js/modules/profileEdit.js'
+        );
 
         window['PhotoUploader'] =
           _modules_uploader_js__WEBPACK_IMPORTED_MODULE_0__['default'];
@@ -79418,6 +79421,8 @@
           ];
         window['Like'] =
           _modules_like_js__WEBPACK_IMPORTED_MODULE_15__['default'];
+        window['ProfileEdit'] =
+          _modules_profileEdit_js__WEBPACK_IMPORTED_MODULE_16__['default'];
 
         /***/
       },
@@ -79764,8 +79769,11 @@
 
             _this = _super.call(this, options);
             _this.classes = options.classes;
-            _this.popups = options.popups;
-            _this.redirectToUse = options.redirectToUse; // Bind context
+            _this.redirectToUse = options.redirectToUse;
+
+            if (_this.popups && _this.popups.use) {
+              _this.popups.use.requestName = 'use';
+            } // Bind context
 
             _this._cacheElements = _this._cacheElements.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
@@ -80185,7 +80193,7 @@
                     }
 
                     _this2
-                      .askUsageApprovement(popup)
+                      .fireAlertWithRequest(popup)
                       .then(function (result) {
                         if (!result) return;
                         var success = result.success,
@@ -85184,9 +85192,7 @@
             );
             _this.configuration = {
               photoBonus: true,
-            }; // Save popups
-
-            _this.popups = options.popups;
+            };
 
             if (_this.isUsedOnThisPage) {
               // Initiate animation for icon in popup
@@ -86384,6 +86390,160 @@
         /***/
       },
 
+    /***/ './js/modules/profileEdit.js':
+      /*!***********************************!*\
+  !*** ./js/modules/profileEdit.js ***!
+  \***********************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return ProfileEdit;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! ./requests.js */ './js/modules/requests.js'
+        );
+        /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! sweetalert2 */ '../node_modules/sweetalert2/dist/sweetalert2.all.js'
+        );
+        /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          sweetalert2__WEBPACK_IMPORTED_MODULE_5__
+        );
+
+        function _createSuper(Derived) {
+          var hasNativeReflectConstruct = _isNativeReflectConstruct();
+          return function _createSuperInternal() {
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+                Derived
+              ),
+              result;
+            if (hasNativeReflectConstruct) {
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+                this
+              ).constructor;
+              result = Reflect.construct(Super, arguments, NewTarget);
+            } else {
+              result = Super.apply(this, arguments);
+            }
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(
+              this,
+              result
+            );
+          };
+        }
+
+        function _isNativeReflectConstruct() {
+          if (typeof Reflect === 'undefined' || !Reflect.construct)
+            return false;
+          if (Reflect.construct.sham) return false;
+          if (typeof Proxy === 'function') return true;
+          try {
+            Date.prototype.toString.call(
+              Reflect.construct(Date, [], function () {})
+            );
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        var ProfileEdit = /*#__PURE__*/ (function (_ServerRequest) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default()(
+            ProfileEdit,
+            _ServerRequest
+          );
+
+          var _super = _createSuper(ProfileEdit);
+
+          function ProfileEdit(options) {
+            var _this;
+
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              ProfileEdit
+            );
+
+            _this = _super.call(this, options); // Handle table and deleting account here
+
+            /**
+             * Handle deleting account
+             * When the "delete my account" button is clicked:
+             * 1. Show popup asking approvement
+             * 2. Send request to server
+             * 3. If everything is fine, redirect to main page
+             */
+
+            var _$deleteAccountButton = $(
+              _this.selectors.deleteAccount || '#deleteAccount'
+            );
+
+            _this.popups['delete'].requestName = 'delete';
+
+            _$deleteAccountButton.click(function (event) {
+              event.preventDefault();
+
+              _this
+                .fireAlertWithRequest(_this.popups['delete'])
+                .then(function (response) {
+                  if (!response) return;
+
+                  if (!response.success) {
+                    var error = new Error(response.message);
+                    error.name = response.title;
+                    throw error;
+                  }
+
+                  window.location.replace(response.redirect || '/');
+                })
+                ['catch'](function (error) {
+                  console.error(error);
+
+                  _this.showRequestResult({
+                    title: error.name,
+                    text: error.message,
+                    icon: 'error',
+                  });
+                });
+            });
+
+            return _this;
+          }
+
+          return ProfileEdit;
+        })(_requests_js__WEBPACK_IMPORTED_MODULE_4__['default']);
+
+        /***/
+      },
+
     /***/ './js/modules/profiles.js':
       /*!********************************!*\
   !*** ./js/modules/profiles.js ***!
@@ -87417,10 +87577,13 @@
               ServerRequest
             );
 
-            // Save passed options
+            // Bind context
+            this._throwError = this._throwError.bind(this); // Save passed options
+
             var selectors = (this.selectors = options.selectors);
             this.requests = options.requests;
-            this.errorText = options.errorText; // Transform endpoints into URL Objects
+            this.errorText = options.errorText;
+            this.popups = options.popups || null; // Transform endpoints into URL Objects
 
             this.makeURLObjects();
             Object.assign(
@@ -87464,6 +87627,14 @@
                     );
                   }
                 },
+              },
+              {
+                key: '_throwError',
+                value: function _throwError() {
+                  var error = new Error(response.statusText);
+                  error.name = response.status;
+                  throw error;
+                },
                 /**
                  * Make server request with the passed headers, endpoint, method and body.
                  * Function checks whether the method is GET and if so, sends request without body
@@ -87489,12 +87660,7 @@
                           //debugger;
                           return response.json();
                         } else {
-                          // Unsuccessful Popup
-                          _this2.showRequestResult({
-                            title: response.status,
-                            text: response.statusText,
-                            icon: 'error',
-                          });
+                          _this2._throwError();
                         }
                       })
                       .then(function (json) {
@@ -87522,12 +87688,7 @@
                         if (response.ok) {
                           return response.json();
                         } else {
-                          // Unsuccessful Popup
-                          _this2.showRequestResult({
-                            title: response.status,
-                            text: response.statusText,
-                            icon: 'error',
-                          });
+                          _this2._throwError();
                         }
                       })
                       .then(function (json) {
@@ -88026,9 +88187,7 @@
               SponsorPremium
             );
 
-            _this = _super.call(this, options); // Save popups
-
-            _this.popups = options.popups;
+            _this = _super.call(this, options);
 
             if (_this.isUsedOnThisPage) {
               // Initiate animation for icon in popup
@@ -88293,9 +88452,7 @@
               Superlike
             );
 
-            _this = _super.call(this, options); // Save popups
-
-            _this.popups = options.popups;
+            _this = _super.call(this, options);
 
             if (_this.isUsedOnThisPage) {
               // Initiate animation for icon in popup
@@ -88357,7 +88514,7 @@
                       if (type !== 'superlike') return;
 
                       _this2
-                        .askUsageApprovement(_this2.popups.use)
+                        .fireAlertWithRequest(_this2.popups.use)
                         .then(function (result) {
                           if (!result) return;
                           if (!result.success)
@@ -88705,7 +88862,7 @@
            * @param {String} imageUrl - Link to the image to show in the popup
            * @param {String} imageAlt - Image alttext
            */
-          askUsageApprovement: function askUsageApprovement(_ref5) {
+          fireAlertWithRequest: function fireAlertWithRequest(_ref5) {
             var _this2 = this;
 
             var title = _ref5.title,
@@ -88714,7 +88871,8 @@
               confirmButtonText = _ref5.confirmButtonText,
               cancelButtonText = _ref5.cancelButtonText,
               imageUrl = _ref5.imageUrl,
-              imageAlt = _ref5.imageAlt;
+              imageAlt = _ref5.imageAlt,
+              requestName = _ref5.requestName;
             return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a
               .fire({
                 title: title,
@@ -88736,11 +88894,11 @@
                  * 2. If the server is responded, return the response
                  */
                 preConfirm: function preConfirm() {
-                  var _this2$requests$use = _this2.requests.use,
-                    headers = _this2$requests$use.headers,
-                    endpoint = _this2$requests$use.endpoint,
-                    method = _this2$requests$use.method,
-                    body = _this2$requests$use.body;
+                  var _this2$requests$reque = _this2.requests[requestName],
+                    headers = _this2$requests$reque.headers,
+                    endpoint = _this2$requests$reque.endpoint,
+                    method = _this2$requests$reque.method,
+                    body = _this2$requests$reque.body;
                   return fetch(endpoint, {
                     method: method,
                     headers: headers,

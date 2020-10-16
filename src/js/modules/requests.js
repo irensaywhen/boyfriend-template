@@ -3,10 +3,15 @@ import loadingIndicatorMixin from './requestsIndictorMixin.js';
 
 export default class ServerRequest {
   constructor(options) {
+    // Bind context
+    this._throwError = this._throwError.bind(this);
+
     // Save passed options
     let selectors = (this.selectors = options.selectors);
     this.requests = options.requests;
     this.errorText = options.errorText;
+
+    this.popups = options.popups || null;
 
     // Transform endpoints into URL Objects
     this.makeURLObjects();
@@ -40,6 +45,12 @@ export default class ServerRequest {
     }
   }
 
+  _throwError() {
+    let error = new Error(response.statusText);
+    error.name = response.status;
+    throw error;
+  }
+
   /**
    * Make server request with the passed headers, endpoint, method and body.
    * Function checks whether the method is GET and if so, sends request without body
@@ -55,12 +66,7 @@ export default class ServerRequest {
             //debugger;
             return response.json();
           } else {
-            // Unsuccessful Popup
-            this.showRequestResult({
-              title: response.status,
-              text: response.statusText,
-              icon: 'error',
-            });
+            this._throwError();
           }
         })
         .then(json => {
@@ -88,12 +94,7 @@ export default class ServerRequest {
           if (response.ok) {
             return response.json();
           } else {
-            // Unsuccessful Popup
-            this.showRequestResult({
-              title: response.status,
-              text: response.statusText,
-              icon: 'error',
-            });
+            this._throwError();
           }
         })
         .then(json => {

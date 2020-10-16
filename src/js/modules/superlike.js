@@ -5,9 +5,6 @@ export default class Superlike extends Bonus {
   constructor(options) {
     super(options);
 
-    // Save popups
-    this.popups = options.popups;
-
     if (this.isUsedOnThisPage) {
       // Initiate animation for icon in popup
       this.animation = new SuperlikeAnimation(options.animation);
@@ -39,7 +36,7 @@ export default class Superlike extends Bonus {
       .on('bonus:startUsage', (event, { type }) => {
         if (type !== 'superlike') return;
 
-        this.askUsageApprovement(this.popups.use)
+        this.fireAlertWithRequest(this.popups.use)
           .then(result => {
             if (!result) return;
 

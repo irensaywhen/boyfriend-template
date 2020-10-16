@@ -13,9 +13,6 @@ export default class Photo extends Bonus {
 
     this.configuration = { photoBonus: true };
 
-    // Save popups
-    this.popups = options.popups;
-
     if (this.isUsedOnThisPage) {
       // Initiate animation for icon in popup
       this.animation = new PhotoAnimation(options.animation);

@@ -5,9 +5,6 @@ export default class SponsorPremium extends Bonus {
   constructor(options) {
     super(options);
 
-    // Save popups
-    this.popups = options.popups;
-
     if (this.isUsedOnThisPage) {
       // Initiate animation for icon in popup
       this.animation = new PremiumAnimation(options.animation);

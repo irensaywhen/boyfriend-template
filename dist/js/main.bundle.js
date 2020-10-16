@@ -22335,10 +22335,13 @@
               ServerRequest
             );
 
-            // Save passed options
+            // Bind context
+            this._throwError = this._throwError.bind(this); // Save passed options
+
             var selectors = (this.selectors = options.selectors);
             this.requests = options.requests;
-            this.errorText = options.errorText; // Transform endpoints into URL Objects
+            this.errorText = options.errorText;
+            this.popups = options.popups || null; // Transform endpoints into URL Objects
 
             this.makeURLObjects();
             Object.assign(
@@ -22382,6 +22385,14 @@
                     );
                   }
                 },
+              },
+              {
+                key: '_throwError',
+                value: function _throwError() {
+                  var error = new Error(response.statusText);
+                  error.name = response.status;
+                  throw error;
+                },
                 /**
                  * Make server request with the passed headers, endpoint, method and body.
                  * Function checks whether the method is GET and if so, sends request without body
@@ -22407,12 +22418,7 @@
                           //debugger;
                           return response.json();
                         } else {
-                          // Unsuccessful Popup
-                          _this2.showRequestResult({
-                            title: response.status,
-                            text: response.statusText,
-                            icon: 'error',
-                          });
+                          _this2._throwError();
                         }
                       })
                       .then(function (json) {
@@ -22440,12 +22446,7 @@
                         if (response.ok) {
                           return response.json();
                         } else {
-                          // Unsuccessful Popup
-                          _this2.showRequestResult({
-                            title: response.status,
-                            text: response.statusText,
-                            icon: 'error',
-                          });
+                          _this2._throwError();
                         }
                       })
                       .then(function (json) {
@@ -22960,7 +22961,7 @@
            * @param {String} imageUrl - Link to the image to show in the popup
            * @param {String} imageAlt - Image alttext
            */
-          askUsageApprovement: function askUsageApprovement(_ref5) {
+          fireAlertWithRequest: function fireAlertWithRequest(_ref5) {
             var _this2 = this;
 
             var title = _ref5.title,
@@ -22969,7 +22970,8 @@
               confirmButtonText = _ref5.confirmButtonText,
               cancelButtonText = _ref5.cancelButtonText,
               imageUrl = _ref5.imageUrl,
-              imageAlt = _ref5.imageAlt;
+              imageAlt = _ref5.imageAlt,
+              requestName = _ref5.requestName;
             return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a
               .fire({
                 title: title,
@@ -22991,11 +22993,11 @@
                  * 2. If the server is responded, return the response
                  */
                 preConfirm: function preConfirm() {
-                  var _this2$requests$use = _this2.requests.use,
-                    headers = _this2$requests$use.headers,
-                    endpoint = _this2$requests$use.endpoint,
-                    method = _this2$requests$use.method,
-                    body = _this2$requests$use.body;
+                  var _this2$requests$reque = _this2.requests[requestName],
+                    headers = _this2$requests$reque.headers,
+                    endpoint = _this2$requests$reque.endpoint,
+                    method = _this2$requests$reque.method,
+                    body = _this2$requests$reque.body;
                   return fetch(endpoint, {
                     method: method,
                     headers: headers,

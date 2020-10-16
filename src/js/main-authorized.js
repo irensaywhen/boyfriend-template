@@ -14,6 +14,7 @@ import EnlargePhoto from './modules/enlargePhoto.js';
 import Profiles from './modules/profiles.js';
 import MessagesLazyLoading from './modules/messagesLazyLoading.js';
 import Like from './modules/like.js';
+import ProfileEdit from './modules/profileEdit.js';
 
 window['PhotoUploader'] = PhotoUploader;
 window['PhotoEditor'] = PhotoEditor;
@@ -31,3 +32,4 @@ window['Profiles'] = Profiles;
 window['SponsorPremium'] = SponsorPremium;
 window['MessagesLazyLoading'] = MessagesLazyLoading;
 window['Like'] = Like;
+window['ProfileEdit'] = ProfileEdit;

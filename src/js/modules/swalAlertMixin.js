@@ -77,13 +77,14 @@ export default {
    * @param {String} imageUrl - Link to the image to show in the popup
    * @param {String} imageAlt - Image alttext
    */
-  askUsageApprovement({
+  fireAlertWithRequest({
     title,
     text = '',
     confirmButtonText,
     cancelButtonText,
     imageUrl,
     imageAlt,
+    requestName,
   }) {
     return Swal.fire({
       title,
@@ -104,7 +105,7 @@ export default {
        * 2. If the server is responded, return the response
        */
       preConfirm: () => {
-        let { headers, endpoint, method, body } = this.requests.use;
+        let { headers, endpoint, method, body } = this.requests[requestName];
         return fetch(endpoint, {
           method,
           headers,

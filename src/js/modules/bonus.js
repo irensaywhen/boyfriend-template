@@ -7,8 +7,11 @@ export default class Bonus extends ServerRequest {
     super(options);
 
     this.classes = options.classes;
-    this.popups = options.popups;
     this.redirectToUse = options.redirectToUse;
+
+    if (this.popups && this.popups.use) {
+      this.popups.use.requestName = 'use';
+    }
 
     // Bind context
     this._cacheElements = this._cacheElements.bind(this);

@@ -67,7 +67,7 @@ export default class Boost extends Bonus {
         var popup = this.popups.expire;
       }
 
-      this.askUsageApprovement(popup)
+      this.fireAlertWithRequest(popup)
         .then(result => {
           if (!result) return;
 

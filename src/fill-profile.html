@@ -3065,7 +3065,9 @@
 
               <!--Delete account start-->
               <div class="container text-center text-md-left">
-                <a href="#" class="small text-muted">Delete my account</a>
+                <a href="#" id="deleteAccount" class="small text-muted"
+                  >Delete my account</a
+                >
               </div>
             </div>
           </div>
@@ -3862,6 +3864,28 @@
               headers: { 'Content-Type': 'application/json;charset=utf-8' },
               endpoint:
                 'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/delete-photo',
+            },
+          },
+        });
+
+        /* Deleting account and table - profile functionality */
+        const profileEdit = new ProfileEdit({
+          selectors: {},
+          requests: {
+            delete: {
+              method: 'POST',
+              headers: {},
+              endpoint:
+                // Change delete-account to delete-account-fail to test failure
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/delete-account',
+            },
+          },
+          popups: {
+            delete: {
+              title: 'Do you want to delete your account?',
+              text: 'You will not be able to restore your bonuses',
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
             },
           },
         });
