@@ -21875,14 +21875,11 @@
           // Private variables
           var selectors,
             errorText,
-            avatar,
-            uploader,
             classes,
             isAjaxUpload,
             isAdvancedUpload,
             progressSelectors,
             progressTemplate,
-            photoBonus,
             droppedFiles = false;
 
           function _cacheElements() {
@@ -21956,12 +21953,17 @@
               droppedFiles = event.originalEvent.dataTransfer.files;
               if (droppedFiles.length === 0) return;
 
-              if (avatar || photoBonus) {
+              if (_this instanceof Avatar || _this instanceof Photo) {
                 _saveAndPreviewFile.call(_this, droppedFiles[0]);
 
-                if (photoBonus) _this._discardChanges();
-              } else if (uploader) {
+                if (_this instanceof Photo) _this._discardChanges();
+              } else if (_this instanceof PhotoUploader) {
                 console.log('We are in photo uploader!');
+                console.log(event.originalEvent.dataTransfer.files);
+
+                for (var i = 0; i < droppedFiles.length; i++) {
+                  _saveAndPreviewFile.call(_this, droppedFiles[i]);
+                }
               }
             });
           }
@@ -22102,8 +22104,7 @@
               return _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
                 /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
                   function _callee() {
-                    var _this2$configuration, isShowCameraCapturing;
-
+                    var isShowCameraCapturing;
                     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
                       function _callee$(_context) {
                         while (1) {
@@ -22120,12 +22121,7 @@
                               selectors = _this2.selectors.photoUpload;
                               errorText = _this2.errorText.photoUpload;
                               classes = _this2.classes;
-                              progressSelectors = selectors.progress; // Save configuration
-
-                              _this2$configuration = _this2.configuration;
-                              avatar = _this2$configuration.avatar;
-                              uploader = _this2$configuration.uploader;
-                              photoBonus = _this2$configuration.photoBonus;
+                              progressSelectors = selectors.progress;
 
                               _cacheElements.call(_this2);
                               /**
@@ -22140,7 +22136,7 @@
                                 );
                               })(); // Detect whether to show camera capturing for mobile and tablet devices
 
-                              _context.next = 14;
+                              _context.next = 10;
                               return _helper_js__WEBPACK_IMPORTED_MODULE_4__[
                                 'default'
                               ].isShowCameraCapturing.call(
@@ -22149,7 +22145,7 @@
                                 ]
                               );
 
-                            case 14:
+                            case 10:
                               isShowCameraCapturing = _context.sent;
 
                               /**
@@ -22226,7 +22222,7 @@
                                 );
                               }
 
-                            case 21:
+                            case 17:
                             case 'end':
                               return _context.stop();
                           }

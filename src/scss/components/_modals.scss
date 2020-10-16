@@ -15,6 +15,11 @@
     max-width: $modal-xl;
   }
 
+  .modal-dialog {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
   /* Modal with medium width starting from small screen */
   .modal-sm-md {
     @include screen-sm {

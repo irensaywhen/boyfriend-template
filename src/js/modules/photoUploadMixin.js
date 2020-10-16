@@ -7,14 +7,11 @@ export default (function () {
   // Private variables
   let selectors,
     errorText,
-    avatar,
-    uploader,
     classes,
     isAjaxUpload,
     isAdvancedUpload,
     progressSelectors,
     progressTemplate,
-    photoBonus,
     droppedFiles = false;
 
   function _cacheElements() {
@@ -83,12 +80,16 @@ export default (function () {
 
       if (droppedFiles.length === 0) return;
 
-      if (avatar || photoBonus) {
+      if (this instanceof Avatar || this instanceof Photo) {
         _saveAndPreviewFile.call(this, droppedFiles[0]);
 
-        if (photoBonus) this._discardChanges();
-      } else if (uploader) {
+        if (this instanceof Photo) this._discardChanges();
+      } else if (this instanceof PhotoUploader) {
         console.log('We are in photo uploader!');
+        console.log(event.originalEvent.dataTransfer.files);
+        for (let i = 0; i < droppedFiles.length; i++) {
+          _saveAndPreviewFile.call(this, droppedFiles[i]);
+        }
       }
     });
   }
@@ -216,9 +217,6 @@ export default (function () {
       errorText = this.errorText.photoUpload;
       classes = this.classes;
       progressSelectors = selectors.progress;
-
-      // Save configuration
-      ({ avatar, uploader, photoBonus } = this.configuration);
 
       _cacheElements.call(this);
 

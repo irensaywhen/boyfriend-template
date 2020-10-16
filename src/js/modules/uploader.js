@@ -215,6 +215,9 @@ export default class PhotoUploader extends EditorModal {
     } catch (error) {
       ids = null;
 
+      console.error(error);
+      console.log(this.ids);
+
       this.showRequestResult({
         title: error.name,
         text: error.message,

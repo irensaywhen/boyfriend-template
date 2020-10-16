@@ -683,6 +683,10 @@ select.form-control optgroup {
 .modal .modal-xl {
   max-width: 950px !important;
 }
+.modal .modal-dialog {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
 @media (min-width: 576px) {
   .modal .modal-sm-md {
     max-width: 450px !important;
