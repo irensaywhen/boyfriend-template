@@ -281,32 +281,26 @@
               <div class="row no-gutters">
                 <div class="col-12">
                   <div class="chat-list bg-white border-top" id="user-list">
-                    <!--Messages template start-->
-                    <script type="text/template" id="messageTemplate">
-                        {{#if seen}}
-                        <div
-                        class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3">
-                        {{else}}
-                        <div
-                        class="chatList-message unread border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3">
-                        {{/if}}
+                    <!--User template start-->
+                    <script type="text/template" id="userTemplate">
+                      <div
+                        class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                        data-user-id="{{id}}"
+                        data-user-name="{{name}}"
+                      >
+                        <!--Avatar-->
                         <figure class="avatar">
-                          <img src="{{avatar}}" alt="Profile image" />
+                          <img src="img/profile.jpg" alt="Profile image" />
                         </figure>
-                        <div class="pl-1 pl-sm-3 w-100">
-                          <div class="d-flex justify-content-between">
-                            <h3 class="name">
-                              {{userName}} <span class="badge badge-info ml-2">{{amount}}</span>
-                            </h3>
-                            <time class="date small text-secondary">{{time}}</time>
-                          </div>
-                          <p class="text text-secondary">
-                            {{text}}
-                          </p>
+
+                        <!--Name and user info-->
+                        <div class="pl-1 pl-sm-3">
+                          <h3 class="name mb-1">{{name}}</h3>
+                          <p class="small text-muted">{{City}}, {{age}}</p>
                         </div>
                       </div>
                     </script>
-                    <!--Messages template end-->
+                    <!--User template end-->
 
                     <!--User start-->
                     <div
@@ -3900,6 +3894,15 @@
               confirmButtonText: 'Yes!',
               cancelButtonText: 'No',
             },
+          },
+        });
+
+        /* User List initialization */
+        const chatList = new ChatList({
+          selectors: {
+            chatList: '#user-list',
+            message: '.userList-user',
+            templateId: 'userTemplate',
           },
         });
       });

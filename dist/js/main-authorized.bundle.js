@@ -83945,6 +83945,200 @@
         /***/
       },
 
+    /***/ './js/modules/lazyLoading.js':
+      /*!***********************************!*\
+  !*** ./js/modules/lazyLoading.js ***!
+  \***********************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return LazyLoading;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__
+        );
+        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+          /*! ./requests.js */ './js/modules/requests.js'
+        );
+
+        function _createSuper(Derived) {
+          var hasNativeReflectConstruct = _isNativeReflectConstruct();
+          return function _createSuperInternal() {
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+                Derived
+              ),
+              result;
+            if (hasNativeReflectConstruct) {
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+                this
+              ).constructor;
+              result = Reflect.construct(Super, arguments, NewTarget);
+            } else {
+              result = Super.apply(this, arguments);
+            }
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default()(
+              this,
+              result
+            );
+          };
+        }
+
+        function _isNativeReflectConstruct() {
+          if (typeof Reflect === 'undefined' || !Reflect.construct)
+            return false;
+          if (Reflect.construct.sham) return false;
+          if (typeof Proxy === 'function') return true;
+          try {
+            Date.prototype.toString.call(
+              Reflect.construct(Date, [], function () {})
+            );
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        var LazyLoading = /*#__PURE__*/ (function (_ServerRequest) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default()(
+            LazyLoading,
+            _ServerRequest
+          );
+
+          var _super = _createSuper(LazyLoading);
+
+          function LazyLoading(options) {
+            var _this;
+
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              LazyLoading
+            );
+
+            _this = _super.call(this, options); //Bind context
+
+            _this._getItems = _this._getItems.bind(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              )
+            );
+            _this._initializeObserver = _this._initializeObserver.bind(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              )
+            );
+
+            _this._setUpEventListeners();
+
+            var searchParams = options.searchParams;
+
+            for (var key in searchParams) {
+              _this.requests.items.endpoint.searchParams.set(
+                key,
+                searchParams[key]
+              );
+            }
+            /**
+             * 1. Save observer options
+             * 2. Get the root element
+             * 3. Trigger lazyLoading:beforeObserve:
+             * - This event is indicating that the observer is ready
+             *    to revieve message to observe
+             */
+
+            var observerOptions = options.observerOptions;
+            _this.observerRoot = observerOptions.root = document.getElementById(
+              observerOptions.root
+            );
+            $(document).trigger('lazyLoading:beforeObserve');
+            return _this;
+          }
+
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
+            LazyLoading,
+            [
+              {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
+                  var _this2 = this;
+
+                  var $document = $(document);
+                  $document.on('messages:afterGettingLastMessage', function (
+                    event,
+                    lastMessage
+                  ) {
+                    // Stop observing the previously cached last message
+                    if (_this2.lastMessage) {
+                      _this2.observer.unobserve(_this2.lastMessage);
+                    } // Initialize observer
+
+                    _this2._initializeObserver(); // Save the new last message and observe it
+
+                    _this2.observer.observe((_this2.lastMessage = lastMessage));
+                  });
+                },
+              },
+              {
+                key: '_getItems',
+                value: function _getItems() {
+                  var _this$requests$items = this.requests.items,
+                    headers = _this$requests$items.headers,
+                    endpoint = _this$requests$items.endpoint,
+                    method = _this$requests$items.method;
+                  return this.makeRequest({
+                    headers: headers,
+                    endpoint: endpoint,
+                    method: method,
+                  });
+                },
+              },
+            ]
+          );
+
+          return LazyLoading;
+        })(_requests_js__WEBPACK_IMPORTED_MODULE_6__['default']);
+
+        /***/
+      },
+
     /***/ './js/modules/like.js':
       /*!****************************!*\
   !*** ./js/modules/like.js ***!
@@ -84348,53 +84542,47 @@
         /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-          /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
-        );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-          /*! ./requests.js */ './js/modules/requests.js'
+        /* harmony import */ var _lazyLoading_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! ./lazyLoading.js */ './js/modules/lazyLoading.js'
         );
-        /* harmony import */ var _formatTime_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _formatTime_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./formatTime.js */ './js/modules/formatTime.js'
         );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
           return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
                 Derived
               ),
               result;
             if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
                 this
               ).constructor;
               result = Reflect.construct(Super, arguments, NewTarget);
             } else {
               result = Super.apply(this, arguments);
             }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default()(
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default()(
               this,
               result
             );
@@ -84416,152 +84604,92 @@
           }
         }
 
-        var MessagesLazyLoading = /*#__PURE__*/ (function (_ServerRequest) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3___default()(
+        var MessagesLazyLoading = /*#__PURE__*/ (function (_LazyLoading) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default()(
             MessagesLazyLoading,
-            _ServerRequest
+            _LazyLoading
           );
 
           var _super = _createSuper(MessagesLazyLoading);
 
           function MessagesLazyLoading(options) {
-            var _this;
-
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               MessagesLazyLoading
             );
 
-            _this = _super.call(this, options); // Binding context
-
-            _this._getMessages = _this._getMessages.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
-                _this
-              )
-            );
-
-            _this._setUpEventListeners();
-
-            var searchParams = options.searchParams;
-
-            for (var key in searchParams) {
-              _this.requests.messages.endpoint.searchParams.set(
-                key,
-                searchParams[key]
-              );
-            }
-            /**
-             * 1. Save observer options
-             * 2. Get the root element
-             * 3. Trigger lazyLoading:beforeObserve:
-             * - This event is indicating that the observer is ready
-             *    to revieve message to observe
-             */
-
-            var observerOptions = options.observerOptions;
-            _this.observerRoot = observerOptions.root = document.getElementById(
-              observerOptions.root
-            );
-            $(document).trigger('lazyLoading:beforeObserve');
-            return _this;
+            return _super.call(this, options);
           }
+          /**
+           * This function is specific to each class utilizing lazy loading parent class
+           */
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
             MessagesLazyLoading,
             [
               {
-                key: '_setUpEventListeners',
-                value: function _setUpEventListeners() {
-                  var _this2 = this;
+                key: '_initializeObserver',
+                value: function _initializeObserver() {
+                  var _this = this;
 
-                  var $document = $(document);
-                  $document.on('messages:afterGettingLastMessage', function (
-                    event,
-                    lastMessage
-                  ) {
-                    // Stop observing the previously cached last message
-                    if (_this2.lastMessage) {
-                      _this2.observer.unobserve(_this2.lastMessage);
-                    } // Initialize observer
+                  this.observer =
+                    this.observer ||
+                    new IntersectionObserver(function (entries) {
+                      // Save the last message
+                      var element = entries[0];
+                      if (!element.isIntersecting) return;
+                      /**
+                       * 1. Get new messages from the server
+                       * 2. Sort them according to the timestamp
+                       * 3. Format timestamp and save as a human-readable time
+                       * 4. Trigger 'lazyLoading:messagesReady' event and pass messages with it
+                       *    This event is indicating that the messages are retrieved and prepared
+                       */
 
-                    _this2.observer =
-                      _this2.observer ||
-                      new IntersectionObserver(function (entries) {
-                        // Save the last message
-                        var element = entries[0];
-                        if (!element.isIntersecting) return;
-                        /**
-                         * 1. Get new messages from the server
-                         * 2. Sort them according to the timestamp
-                         * 3. Format timestamp and save as a human-readable time
-                         * 4. Trigger 'lazyLoading:messagesReady' event and pass messages with it
-                         *    This event is indicating that the messages are retrieved and prepared
-                         */
-
-                        _this2
-                          ._getMessages()
-                          .then(function (messages) {
-                            // Prepare messages
-                            messages
-                              .sort(function (firstMessage, secondMessage) {
-                                return firstMessage.timestamp <
+                      _this
+                        ._getItems()
+                        .then(function (messages) {
+                          // Prepare messages
+                          messages
+                            .sort(function (firstMessage, secondMessage) {
+                              return firstMessage.timestamp <
+                                secondMessage.timestamp
+                                ? 1
+                                : firstMessage.timestamp >
                                   secondMessage.timestamp
-                                  ? 1
-                                  : firstMessage.timestamp >
-                                    secondMessage.timestamp
-                                  ? -1
-                                  : 0;
-                              })
-                              .forEach(function (message) {
-                                message.time = Object(
-                                  _formatTime_js__WEBPACK_IMPORTED_MODULE_7__[
-                                    'default'
-                                  ]
-                                )(message.timestamp);
-                              }); // Send them to display
+                                ? -1
+                                : 0;
+                            })
+                            .forEach(function (message) {
+                              message.time = Object(
+                                _formatTime_js__WEBPACK_IMPORTED_MODULE_6__[
+                                  'default'
+                                ]
+                              )(message.timestamp);
+                            }); // Send them to display
 
-                            $document.trigger(
-                              'lazyLoading:messagesReady',
-                              messages
-                            );
-                          })
-                          ['catch'](function (error) {
-                            _this2.showRequestResult({
-                              title: error.name,
-                              text: error.message,
-                              icon: 'error',
-                            }); // For debugging
+                          $(document).trigger(
+                            'lazyLoading:messagesReady',
+                            messages
+                          );
+                        })
+                        ['catch'](function (error) {
+                          _this.showRequestResult({
+                            title: error.name,
+                            text: error.message,
+                            icon: 'error',
+                          }); // For debugging
 
-                            console.error(error);
-                          });
-                      }); // Save the new last message and observe it
-
-                    _this2.observer.observe((_this2.lastMessage = lastMessage));
-                  });
-                },
-                /**
-                 * Function to get messages from the server
-                 */
-              },
-              {
-                key: '_getMessages',
-                value: function _getMessages() {
-                  var _this$requests$messag = this.requests.messages,
-                    headers = _this$requests$messag.headers,
-                    endpoint = _this$requests$messag.endpoint,
-                    method = _this$requests$messag.method;
-                  return this.makeRequest({
-                    headers: headers,
-                    endpoint: endpoint,
-                    method: method,
-                  });
+                          console.error(error);
+                        });
+                    });
                 },
               },
             ]
           );
 
           return MessagesLazyLoading;
-        })(_requests_js__WEBPACK_IMPORTED_MODULE_6__['default']);
+        })(_lazyLoading_js__WEBPACK_IMPORTED_MODULE_5__['default']);
 
         /***/
       },
