@@ -2560,6 +2560,22 @@ article .header time {
 .fill-profile-page .bonus-notzero-amount {
   background: #15d36c;
 }
+.fill-profile-page .nav-pills .nav-item {
+  margin-left: 0.5rem;
+}
+.fill-profile-page .nav-pills .nav-item:first-of-type {
+  margin-left: 0;
+}
+.fill-profile-page .nav-pills .nav-link {
+  border-radius: 0;
+}
+.fill-profile-page .nav-pills .nav-link:hover {
+  background: #0c609a;
+  color: #fff;
+}
+.fill-profile-page .tab-pane {
+  border-radius: 0;
+}
 .account .tab-title,
 .profile .tab-title,
 .modal .tab-title {

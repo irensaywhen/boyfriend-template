@@ -22,6 +22,29 @@
       }
     }
   }
+
+  .nav-pills {
+    .nav-item {
+      margin-left: 0.5rem;
+
+      &:first-of-type {
+        margin-left: 0;
+      }
+    }
+
+    .nav-link {
+      border-radius: 0;
+
+      &:hover {
+        background: $main-blue;
+        color: #fff;
+      }
+    }
+  }
+
+  .tab-pane {
+    border-radius: 0;
+  }
 }
 
 .account,
