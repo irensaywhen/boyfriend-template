@@ -183,6 +183,13 @@
     }
   }
 
+  .dropdown-item {
+    &:active {
+      background: #fff !important;
+      color: $label-color;
+    }
+  }
+
   /*Transparent white button*/
   .btn-outline-white {
     border-color: #fff;
