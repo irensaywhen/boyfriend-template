@@ -7,7 +7,6 @@ export default class Bonus extends ServerRequest {
     super(options);
 
     this.classes = options.classes;
-    this.redirectToUse = options.redirectToUse;
 
     if (this.popups && this.popups.use) {
       this.popups.use.requestName = 'use';
@@ -123,13 +122,12 @@ export default class Bonus extends ServerRequest {
           return;
         }
 
-        //let endpoint = this.requests.use.endpoint;
+        let endpoint = this.requests.use.endpoint;
 
         // Remove previously saved params to avoid errors
-        // You need to save to whom the bonus should be sent here somehow
-        //removeSearchParams(endpoint);
-        //
-        //endpoint.searchParams.set('userId', userId);
+        removeSearchParams(endpoint);
+
+        endpoint.searchParams.set('userId', userId);
 
         currentBonusType = null;
 
@@ -175,12 +173,14 @@ export default class Bonus extends ServerRequest {
    * Contains unique identifier to handle bonus usage on another page
    */
   _redirectToUseBonus(requestResult) {
-    const identifier = requestResult.identifier;
+    const { identifier, redirect } = requestResult;
     localStorage.setItem(this.type, identifier);
+
+    console.log(redirect);
 
     // Redirect to chat to start using superlike there
     window.location.assign(
-      `${this.redirectToUse}?bonus=${this.type}&identifier=${identifier}`
+      `${redirect}?bonus=${this.type}&identifier=${identifier}`
     );
   }
 }

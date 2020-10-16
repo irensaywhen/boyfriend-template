@@ -79769,7 +79769,6 @@
 
             _this = _super.call(this, options);
             _this.classes = options.classes;
-            _this.redirectToUse = options.redirectToUse;
 
             if (_this.popups && _this.popups.use) {
               _this.popups.use.requestName = 'use';
@@ -79908,13 +79907,16 @@
                         });
 
                         return;
-                      } //let endpoint = this.requests.use.endpoint;
-                      // Remove previously saved params to avoid errors
-                      // You need to save to whom the bonus should be sent here somehow
-                      //removeSearchParams(endpoint);
-                      //
-                      //endpoint.searchParams.set('userId', userId);
+                      }
 
+                      var endpoint = _this2.requests.use.endpoint; // Remove previously saved params to avoid errors
+
+                      Object(
+                        _removeSearchParams_js__WEBPACK_IMPORTED_MODULE_8__[
+                          'default'
+                        ]
+                      )(endpoint);
+                      endpoint.searchParams.set('userId', userId);
                       currentBonusType = null;
 
                       if (
@@ -79971,12 +79973,14 @@
               {
                 key: '_redirectToUseBonus',
                 value: function _redirectToUseBonus(requestResult) {
-                  var identifier = requestResult.identifier;
-                  localStorage.setItem(this.type, identifier); // Redirect to chat to start using superlike there
+                  var identifier = requestResult.identifier,
+                    redirect = requestResult.redirect;
+                  localStorage.setItem(this.type, identifier);
+                  console.log(redirect); // Redirect to chat to start using superlike there
 
                   window.location.assign(
                     ''
-                      .concat(this.redirectToUse, '?bonus=')
+                      .concat(redirect, '?bonus=')
                       .concat(this.type, '&identifier=')
                       .concat(identifier)
                   );
@@ -85304,24 +85308,21 @@
                           title = response.title,
                           text = response.text;
 
-                        if (success) {
-                          // Save description of the photo to the local storage
-                          localStorage.setItem(
-                            'photoDescription',
-                            $(_this2.selectors.photoDescription).val()
-                          );
+                        if (!success) {
+                          var error = new Error(text);
+                          error.name = title;
+                          throw error;
+                        } // Save description of the photo to the local storage
 
-                          if (_this2.isUsedOnThisPage) {
-                            _this2._useBonus();
-                          } else {
-                            _this2._redirectToUseBonus(response);
-                          }
+                        localStorage.setItem(
+                          'photoDescription',
+                          $(_this2.selectors.photoDescription).val()
+                        );
+
+                        if (_this2.isUsedOnThisPage) {
+                          _this2._useBonus();
                         } else {
-                          _this2.showRequestResult({
-                            title: title,
-                            text: text,
-                            icon: 'error',
-                          });
+                          _this2._redirectToUseBonus(response);
                         }
                       })
                       ['catch'](function (error) {

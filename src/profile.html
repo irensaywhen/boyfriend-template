@@ -2079,7 +2079,6 @@
         /* Superlike initialization */
         const superlike = new Superlike({
           isUsedOnThisPage: false,
-          redirectToUse: './chat.html',
           selectors: {
             bonus: '#superlike',
             amount: '.amount',
@@ -2116,7 +2115,6 @@
 
         const sponsorPremium = new SponsorPremium({
           isUsedOnThisPage: false,
-          redirectToUse: './chat.html',
           selectors: {
             bonus: '#premium',
             modal: '#premiumModal',
@@ -2126,7 +2124,6 @@
         /* Photo bonus initialization */
         const photo = new Photo({
           isUsedOnThisPage: false,
-          redirectToUse: './chat.html',
           selectors: {
             bonus: '#photo',
             amount: '.amount',
@@ -2294,7 +2291,8 @@
                 'Content-Type': 'application/json',
               },
               endpoint:
-                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/card',
+                // The response is the same as for card in buy premium, but redirect is set to chat
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/card-premium-for-chat',
             },
           },
           payment: true,

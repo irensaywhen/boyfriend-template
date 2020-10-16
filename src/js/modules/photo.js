@@ -85,20 +85,22 @@ export default class Photo extends Bonus {
         .then(response => {
           let { success, title, text } = response;
 
-          if (success) {
-            // Save description of the photo to the local storage
-            localStorage.setItem(
-              'photoDescription',
-              $(this.selectors.photoDescription).val()
-            );
+          if (!success) {
+            let error = new Error(text);
+            error.name = title;
+            throw error;
+          }
 
-            if (this.isUsedOnThisPage) {
-              this._useBonus();
-            } else {
-              this._redirectToUseBonus(response);
-            }
+          // Save description of the photo to the local storage
+          localStorage.setItem(
+            'photoDescription',
+            $(this.selectors.photoDescription).val()
+          );
+
+          if (this.isUsedOnThisPage) {
+            this._useBonus();
           } else {
-            this.showRequestResult({ title, text, icon: 'error' });
+            this._redirectToUseBonus(response);
           }
         })
         .catch(error => {
