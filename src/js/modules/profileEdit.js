@@ -43,5 +43,27 @@ export default class ProfileEdit extends ServerRequest {
           });
         });
     });
+
+    /**
+     * Continue last payment
+     */
+
+    const _$purchaseSummaryTable = $(
+      this.selectors.purchaseSummaryTable || '#purchaseSummary'
+    );
+
+    _$purchaseSummaryTable.click(event => {
+      let $target = $(event.target);
+
+      if (!$target.data('unpaid')) return;
+
+      event.preventDefault();
+
+      const redirect = `${$target.data('redirect')}?step=${
+        $target.data('step') || 2
+      }`;
+
+      window.location.assign(redirect);
+    });
   }
 }

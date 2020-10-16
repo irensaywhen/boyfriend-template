@@ -86534,6 +86534,23 @@
                   });
                 });
             });
+            /**
+             * Continue last payment
+             */
+
+            var _$purchaseSummaryTable = $(
+              _this.selectors.purchaseSummaryTable || '#purchaseSummary'
+            );
+
+            _$purchaseSummaryTable.click(function (event) {
+              var $target = $(event.target);
+              if (!$target.data('unpaid')) return;
+              event.preventDefault();
+              var redirect = ''
+                .concat($target.data('redirect'), '?step=')
+                .concat($target.data('step') || 2);
+              window.location.assign(redirect);
+            });
 
             return _this;
           }

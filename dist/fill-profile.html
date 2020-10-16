@@ -3016,7 +3016,10 @@
                 <h3 class="section-title text-dark pt-3 pb-1">
                   Previous Purchases
                 </h3>
-                <table class="account-table w-100 text-center mt-2 mb-1">
+                <table
+                  class="account-table w-100 text-center mt-2 mb-1"
+                  id="purchaseSummary"
+                >
                   <thead>
                     <tr>
                       <th>Name</th>
@@ -3029,9 +3032,15 @@
                     <tr>
                       <td>Premium Account</td>
                       <td>12.99 zł</td>
-                      <td class="text-danger">Not payed</td>
+                      <td class="text-danger">Not paid</td>
                       <td>
-                        <a href="#" class="blue-link">Finish payment</a>
+                        <a
+                          href="#"
+                          class="blue-link"
+                          data-unpaid="true"
+                          data-redirect="./pricing.html"
+                          >Finish payment</a
+                        >
                       </td>
                     </tr>
                     <tr>
