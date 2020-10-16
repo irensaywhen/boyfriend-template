@@ -86051,41 +86051,27 @@
         __webpack_require__.r(__webpack_exports__);
         /* harmony default export */ __webpack_exports__['default'] = {
           initializeDragNDrop: function initializeDragNDrop(_ref) {
+            var _this = this;
+
             var $container = _ref.$container;
-            // Save reference to drag'n'drop container
-            $dragNDropContainer = $container; // Save classes
-
-            classes = this.classes; // Bind context
-
-            _setUpEventListeners = _setUpEventListeners.bind(this); // Prepare drag'n'drop for usage
-
-            _setUpEventListeners();
+            $container
+              .on(
+                'drag dragstart dragend dragover dragenter dragleave drop',
+                function (event) {
+                  // Prevent browser default behavior
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+              ) // Handle dragover indicator to let the user know about ability
+              // to safety drop files
+              .on('dragover dragenter', function () {
+                $container.addClass(_this.classes.dragOver);
+              })
+              .on('dragleave dragend drop', function () {
+                $container.removeClass(_this.classes.dragOver);
+              });
           },
-        }; // Private variables
-
-        var $dragNDropContainer, classes;
-        /**
-         * Helper function to setup drag'n'drop event listeners
-         */
-
-        function _setUpEventListeners() {
-          $dragNDropContainer
-            .on(
-              'drag dragstart dragend dragover dragenter dragleave drop',
-              function (event) {
-                // Prevent browser default behavior
-                event.preventDefault();
-                event.stopPropagation();
-              }
-            ) // Handle dragover indicator to let the user know about ability
-            // to safety drop files
-            .on('dragover dragenter', function () {
-              $dragNDropContainer.addClass(classes.dragOver);
-            })
-            .on('dragleave dragend drop', function () {
-              $dragNDropContainer.removeClass(classes.dragOver);
-            });
-        }
+        };
 
         /***/
       },

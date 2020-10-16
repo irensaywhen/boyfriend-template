@@ -843,6 +843,10 @@ select.form-control optgroup {
   line-height: 77px;
   vertical-align: middle;
 }
+.swiper-profile-photos img {
+  -o-object-fit: cover;
+  object-fit: cover;
+}
 html {
   height: 100%;
 }
