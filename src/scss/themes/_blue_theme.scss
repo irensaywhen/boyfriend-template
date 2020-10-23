@@ -146,7 +146,7 @@
 
 .blue-theme .bg-success,
 .blue-theme .badge-success {
-  background-color: $success-green !important;
+  background-color: $success-blue !important;
 }
 
 .blue-theme .bg-orange,
@@ -181,6 +181,7 @@
   .badge-primary {
     background: $primary-color !important;
   }
+
   /*Additional badge and background*/
   .bg-pink,
   .badge-secondary {
@@ -246,13 +247,13 @@
   }
 
   /*Link effects*/
-  .blue-link {
+  .link-hover {
     @include ease-out;
     cursor: pointer;
 
     &:focus,
     &:hover {
-      color: lighten($primary-color, 10) !important;
+      color: $light-primary-color !important;
     }
   }
 

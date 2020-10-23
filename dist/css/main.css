@@ -1020,7 +1020,7 @@ nav ul {
 }
 .blue-theme .bg-success,
 .blue-theme .badge-success {
-  background-color: #15d36c !important;
+  background-color: #01d7f4 !important;
 }
 .blue-theme .bg-orange,
 .blue-theme .badge-orange {
@@ -1092,13 +1092,13 @@ nav ul {
   color: #fff;
   background: #0b0033 !important;
 }
-.blue-theme .blue-link {
+.blue-theme .link-hover {
   transition: all 0.5s ease-out;
   cursor: pointer;
 }
-.blue-theme .blue-link:focus,
-.blue-theme .blue-link:hover {
-  color: #fc6978 !important;
+.blue-theme .link-hover:focus,
+.blue-theme .link-hover:hover {
+  color: #ffd6da !important;
 }
 .blue-theme .page-item .page-link {
   transition: all 0.5s ease-out;
