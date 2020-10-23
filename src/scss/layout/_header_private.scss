@@ -14,7 +14,7 @@
 
 .private-header {
   width: 100%;
-  background: $main-blue !important;
+  background: $primary-color !important;
   height: 70px;
   position: fixed;
   padding: env(safe-area-inset-top);
@@ -70,7 +70,7 @@
       font-size: 12px;
       width: 75px;
       line-height: 1.5;
-      background: $main-pink;
+      background: $secondary-color;
       color: #fff;
       border-radius: 13px;
     }

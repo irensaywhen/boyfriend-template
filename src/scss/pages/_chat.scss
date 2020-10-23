@@ -77,8 +77,8 @@
         align-self: flex-start;
         background: linear-gradient(
           to right,
-          lighten($main-pink, 8),
-          $main-pink
+          lighten($secondary-color, 8),
+          $secondary-color
         );
         color: #fff;
       }
@@ -186,7 +186,7 @@
         display: flex;
         width: 24px;
         height: 100%;
-        color: $main-pink;
+        color: $secondary-color;
         cursor: pointer;
         font-size: 20px;
 
@@ -198,7 +198,7 @@
         }
 
         &:hover {
-          color: $hover-pink;
+          color: $light-secondary-color;
         }
 
         img {

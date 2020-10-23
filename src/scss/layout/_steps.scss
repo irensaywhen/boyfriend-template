@@ -42,13 +42,13 @@
 
         .current-mark {
           @include circular-badge(8px);
-          background: lighten($main-blue, 7);
+          background: lighten($primary-color, 7);
         }
       }
 
       &.step-further {
-        background: darken($main-blue, 5);
-        border: 1x solid darken($main-blue, 7);
+        background: darken($primary-color, 5);
+        border: 1x solid darken($primary-color, 7);
       }
     }
   }
@@ -64,7 +64,7 @@
 
     .step {
       .label {
-        color: darken($main-blue, 7);
+        color: darken($primary-color, 7);
       }
 
       &.step-passed {
@@ -73,7 +73,7 @@
 
       &.step-current {
         .current-mark {
-          background: lighten($main-blue, 7);
+          background: lighten($primary-color, 7);
         }
       }
 

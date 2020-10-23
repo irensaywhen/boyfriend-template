@@ -60,11 +60,11 @@
 .blue-theme .nav-pills .nav-link.active,
 .blue-theme .nav-pills .show > .nav-link,
 .blue-theme .loader-screen {
-  background-color: $main-blue;
+  background-color: $primary-color;
 }
 
 .blue-theme .btn-default {
-  background-color: $main-pink;
+  background-color: $secondary-color;
 }
 
 .blue-theme .filter,
@@ -93,7 +93,7 @@
 .blue-theme .btn-default:hover,
 .blue-theme .btn-default:focus {
   color: #ffffff;
-  background-color: $hover-pink;
+  background-color: $light-secondary-color;
 }
 
 .blue-theme .figure-profile,
@@ -102,7 +102,7 @@
 .blue-theme .custom-control-input:checked ~ .custom-control-label::before,
 .blue-theme .float-label .form-control:focus,
 .blue-theme .btn-outline-default {
-  border-color: $main-blue;
+  border-color: $primary-color;
 }
 
 .blue-theme .filter .form-control:focus,
@@ -116,14 +116,14 @@
 }
 
 .blue-theme .custom-control-input:focus ~ .custom-control-label::before {
-  box-shadow: 0 0 0 0.2rem $light-blue;
+  box-shadow: 0 0 0 0.2rem $light-primary-color;
 }
 
 .blue-theme .btn-light:hover,
 .blue-theme .btn-light:focus,
 .blue-theme .btn-light:not(:disabled):not(.disabled).active,
 .blue-theme .bg-template-light {
-  background-color: $light-blue;
+  background-color: $light-primary-color;
 }
 
 .blue-theme .text-template,
@@ -136,7 +136,7 @@
 .blue-theme .btn.btn-link-default:hover,
 .blue-theme .btn.btn-link-default:focus,
 .blue-theme .btn.btn-link-default.active {
-  color: $main-blue;
+  color: $secondary-color;
 }
 
 .blue-theme .bg-warning,
@@ -164,21 +164,38 @@
 }
 
 .blue-theme {
+  .text-secondary {
+    color: $secondary-color !important;
+  }
+
+  .form-control {
+    border: 1px solid $light-gray;
+  }
+
+  .float-label .form-control,
+  .float-label .chosen-container .chosen-choices,
+  .float-label .chosen-container .chosen-single {
+    border-width: 0 0 1px 0;
+  }
+
+  .badge-primary {
+    background: $primary-color !important;
+  }
   /*Additional badge and background*/
   .bg-pink,
-  .badge-pink {
-    background-color: $main-pink !important;
+  .badge-secondary {
+    background-color: $secondary-color !important;
   }
 
   .text-primary {
-    color: $main-pink !important;
+    color: $secondary-color !important;
   }
 
   a {
     &.text-primary {
       &:hover,
       &:focus {
-        color: $hover-pink !important;
+        color: $light-secondary-color !important;
       }
     }
   }
@@ -198,20 +215,20 @@
 
     &:focus,
     &:hover {
-      color: darken($main-blue, 10);
+      color: darken($primary-color, 10);
       background: #fff;
     }
   }
 
   .btn-outline-primary {
-    border: 1px solid $main-pink;
-    color: $main-pink;
+    border: 1px solid $secondary-color;
+    color: $secondary-color;
     background: transparent;
   }
 
   .btn-outline-primary:hover {
     color: #fff;
-    background: $main-pink !important;
+    background: $secondary-color !important;
   }
 
   .btn-success {
@@ -225,7 +242,7 @@
 
   .plan-input:checked ~ .plan-label {
     color: #fff;
-    background: $main-pink !important;
+    background: $secondary-color !important;
   }
 
   /*Link effects*/
@@ -235,27 +252,27 @@
 
     &:focus,
     &:hover {
-      color: lighten($main-blue, 10) !important;
+      color: lighten($primary-color, 10) !important;
     }
   }
 
   .page-item {
     .page-link {
       @include ease-out;
-      color: $main-pink;
+      color: $secondary-color;
     }
 
     &:hover .page-link,
     &:focus .page-link {
       color: #fff;
       border-color: #fff;
-      background: $main-pink;
+      background: $secondary-color;
     }
 
     &.active {
       .page-link {
         color: #fff;
-        background: $main-pink;
+        background: $secondary-color;
         border-color: #fff;
       }
     }
@@ -269,7 +286,7 @@
         &.jp-current,
         &:focus,
         &:hover {
-          background: $main-pink;
+          background: $secondary-color;
           color: #fff;
           border-color: #fff;
         }

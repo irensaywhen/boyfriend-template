@@ -130,10 +130,10 @@
 
   .chat-button {
     display: block;
-    background: $main-pink;
+    background: $secondary-color;
 
     &:hover {
-      background: darken($main-pink, 10);
+      background: darken($secondary-color, 10);
     }
   }
 }
