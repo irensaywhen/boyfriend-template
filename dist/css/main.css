@@ -341,7 +341,7 @@ select.form-control optgroup {
   height: 14px;
   font-size: 14px;
   padding-right: 3px;
-  color: #15d36c;
+  color: #01d7f4;
 }
 .message .text {
   max-width: 95%;
@@ -1072,6 +1072,17 @@ nav ul {
   color: #fa051e;
   background: #fff;
 }
+.blue-theme .btn-primary {
+  color: #fff;
+  background-color: #fb374b !important;
+}
+.blue-theme .btn-primary:hover,
+.blue-theme .btn-primary:focus {
+  background-color: #fa0d24 !important;
+}
+.blue-theme .btn-primary:active {
+  background-color: #fb374b !important;
+}
 .blue-theme .btn-outline-primary {
   border: 1px solid #0b0033;
   color: #0b0033;
@@ -1082,11 +1093,14 @@ nav ul {
   background: #0b0033 !important;
 }
 .blue-theme .btn-success {
-  transition: all 0.5s ease-out;
-  background: #15d36c;
+  background: #01d7f4 !important;
 }
-.blue-theme .btn-success:hover {
-  background: #13bc60;
+.blue-theme .btn-success:hover,
+.blue-theme .btn-success:focus {
+  background: #01c1db !important;
+}
+.blue-theme .btn-success:active {
+  background: #01d7f4 !important;
 }
 .blue-theme .plan-input:checked ~ .plan-label {
   color: #fff;
@@ -3386,7 +3400,7 @@ article .header time {
 }
 .chat .chat-content .message-general.alien {
   align-self: flex-start;
-  background: linear-gradient(to right, #14005c, #0b0033);
+  background: linear-gradient(to right, #fb4659, #fb374b);
   color: #fff;
 }
 .chat .chat-content .message-special {

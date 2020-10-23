@@ -221,6 +221,20 @@
     }
   }
 
+  .btn-primary {
+    color: #fff;
+    background-color: $primary-color !important;
+
+    &:hover,
+    &:focus {
+      background-color: $dark-primary-color !important;
+    }
+
+    &:active {
+      background-color: $primary-color !important;
+    }
+  }
+
   .btn-outline-primary {
     border: 1px solid $secondary-color;
     color: $secondary-color;
@@ -233,11 +247,15 @@
   }
 
   .btn-success {
-    @include ease-out;
-    background: $success-green;
+    background: $success-blue !important;
 
-    &:hover {
-      background: darken($success-green, 5);
+    &:hover,
+    &:focus {
+      background: darken($success-blue, 5) !important;
+    }
+
+    &:active {
+      background: $success-blue !important;
     }
   }
 
