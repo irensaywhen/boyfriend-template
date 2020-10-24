@@ -15,6 +15,7 @@ textarea {
 
 .form-control.error {
   color: #495057 !important;
+  border-bottom-color: $error !important;
 }
 
 .form-control::placeholder {

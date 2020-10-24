@@ -76,6 +76,7 @@ textarea {
 }
 .form-control.error {
   color: #495057 !important;
+  border-bottom-color: #fa900d !important;
 }
 .form-control::-moz-placeholder {
   color: #d5d3de;
@@ -144,15 +145,18 @@ select.form-control option,
 select.form-control optgroup {
   color: #000000;
 }
-.error {
+span.error {
   display: block;
-  color: #0b0033 !important;
+  color: #fa900d !important;
   padding-top: 7px;
   font-size: 16px !important;
 }
+span.error::before {
+  content: '\26A0\00A0';
+}
 .general-error,
 .upload-error {
-  color: #0b0033;
+  color: #fa900d;
   text-align: center !important;
 }
 .general-error.error-pb-0 p,
@@ -1024,7 +1028,7 @@ nav ul {
 }
 .blue-theme .bg-orange,
 .blue-theme .badge-orange {
-  background-color: #ff9133 !important;
+  background-color: #fa900d !important;
 }
 .blue-theme .bg-primary,
 .blue-theme .badge-primary {
@@ -2625,7 +2629,7 @@ article .header time {
   }
 }
 .fill-profile-page .bonus-zero-amount {
-  background: #ff9133;
+  background: #fa900d;
 }
 .fill-profile-page .bonus-notzero-amount {
   background: #15d36c;
