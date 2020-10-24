@@ -1632,6 +1632,11 @@ body.sidemenu-open .sidebar {
   z-index: 99;
   background-color: #046aaa;
 }
+.articles {
+  background-image: linear-gradient(135deg, #af0415, #fb374b);
+  background-size: cover;
+  min-height: 100%;
+}
 article h1 {
   font-size: 30px;
 }
