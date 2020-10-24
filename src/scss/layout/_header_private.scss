@@ -54,6 +54,11 @@
     text-align: center;
     vertical-align: middle;
     line-height: 50px;
+
+    &:hover,
+    &:focus {
+      color: $light-primary-color !important;
+    }
   }
 
   .boost {

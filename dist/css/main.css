@@ -345,7 +345,7 @@ span.error::before {
   height: 14px;
   font-size: 14px;
   padding-right: 3px;
-  color: #01d7f4;
+  color: #15d36c;
 }
 .message .text {
   max-width: 95%;
@@ -1040,9 +1040,6 @@ nav ul {
 .blue-theme .loader-screen {
   background-image: linear-gradient(135deg, #af0415, #fb374b);
 }
-.blue-theme .text-secondary {
-  color: #0b0033 !important;
-}
 .blue-theme .text-warning {
   color: #fa900d !important;
 }
@@ -1244,6 +1241,10 @@ nav ul {
   text-align: center;
   vertical-align: middle;
   line-height: 50px;
+}
+.private-header .account:hover,
+.private-header .account:focus {
+  color: #ffd6da !important;
 }
 .private-header .boost {
   width: 60px;
@@ -1659,7 +1660,7 @@ body.sidemenu-open .sidebar {
   z-index: 99;
   background-color: #046aaa;
 }
-.content {
+body > .content {
   background-image: linear-gradient(135deg, #af0415, #fb374b);
   background-size: cover;
   min-height: 100%;
@@ -3081,10 +3082,10 @@ article .header time {
   font-weight: 600;
 }
 .profile-page .bonus-zero-amount {
-  color: #dc3545;
+  color: #fa900d;
 }
 .profile-page .bonus-notzero-amount {
-  color: #0b0033;
+  color: #15d36c;
 }
 .profile {
   max-width: 612px;
@@ -3385,10 +3386,10 @@ article .header time {
   height: 60px;
 }
 .chat .chat-header .bonus-zero-amount {
-  color: #dc3545;
+  color: #fa900d;
 }
 .chat .chat-header .bonus-notzero-amount {
-  color: #0b0033;
+  color: #15d36c;
 }
 .chat .chat-content {
   background: #fff;
