@@ -259,6 +259,10 @@
     }
   }
 
+  .text-success {
+    color: $success-blue !important;
+  }
+
   .plan-input:checked ~ .plan-label {
     color: #fff;
     background: $secondary-color !important;
