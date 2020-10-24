@@ -64,7 +64,7 @@
 
     .step {
       .label {
-        color: darken($primary-color, 7);
+        color: $secondary-color;
       }
 
       &.step-passed {
@@ -73,7 +73,7 @@
 
       &.step-current {
         .current-mark {
-          background: lighten($primary-color, 7);
+          background: $secondary-color;
         }
       }
 

@@ -298,13 +298,12 @@
 
   /*Link effects*/
   .link-hover {
-    @include ease-out;
     cursor: pointer;
-    color: $primary-color;
+    color: $secondary-color;
 
     &:focus,
     &:hover {
-      color: $light-primary-color !important;
+      color: $light-secondary-color !important;
     }
   }
 

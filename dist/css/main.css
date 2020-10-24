@@ -1133,13 +1133,12 @@ nav ul {
   background: #0b0033 !important;
 }
 .blue-theme .link-hover {
-  transition: all 0.5s ease-out;
   cursor: pointer;
-  color: #fb374b;
+  color: #0b0033;
 }
 .blue-theme .link-hover:focus,
 .blue-theme .link-hover:hover {
-  color: #ffd6da !important;
+  color: #2c1c69 !important;
 }
 .blue-theme .link-underline:hover,
 .blue-theme .link-underline:focus {
@@ -2356,13 +2355,13 @@ article .header time {
   background: #fff;
 }
 .form-steps.checkout-form .step .label {
-  color: #fa142c;
+  color: #0b0033;
 }
 .form-steps.checkout-form .step.step-passed {
   text-align: center;
 }
 .form-steps.checkout-form .step.step-current .current-mark {
-  background: #fc5a6b;
+  background: #0b0033;
 }
 .form-steps.checkout-form .step.step-further {
   background: #fff;
@@ -2380,7 +2379,7 @@ article .header time {
 }
 .payment .material-icons {
   font-size: 80px;
-  color: #fb374b;
+  color: #0b0033;
 }
 .payment .price {
   font-size: 20px;
