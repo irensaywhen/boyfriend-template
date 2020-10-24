@@ -242,7 +242,7 @@ span.error::before {
   position: absolute;
   top: 15px;
   right: 0;
-  color: #3fa7ff;
+  color: #fb374b;
 }
 @-webkit-keyframes loading {
   0% {
@@ -2880,9 +2880,9 @@ article .header time {
 }
 .search-profiles-form .search-form .city-loader {
   position: absolute;
-  top: 49%;
+  top: 33px;
   right: 3px;
-  color: #3fa7ff;
+  color: #fb374b;
 }
 @media (min-width: 576px) {
   .search-profiles-form .search-form .form-area-sm {
@@ -2912,7 +2912,7 @@ article .header time {
   }
 }
 .search-profiles-form .search-form .noUi-connect {
-  background: #0b0033;
+  background: #fb374b;
 }
 .search-profiles-form .search-form .noUi-handle {
   outline: none;
