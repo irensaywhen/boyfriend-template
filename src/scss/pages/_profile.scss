@@ -97,7 +97,6 @@
   }
 
   .action {
-    @include ease-out;
     @include fluid-type($screen-xs, $screen-xl, 12.8px, 18px);
     border-radius: 5px;
     line-height: 1.3;

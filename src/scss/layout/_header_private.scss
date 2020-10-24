@@ -14,7 +14,11 @@
 
 .private-header {
   width: 100%;
-  background: $primary-color !important;
+  background-image: linear-gradient(
+    135deg,
+    darken($primary-color, 25),
+    $primary-color
+  );
   height: 70px;
   position: fixed;
   padding: env(safe-area-inset-top);

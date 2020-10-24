@@ -146,7 +146,7 @@
 
 .blue-theme .bg-success,
 .blue-theme .badge-success {
-  background-color: $success-blue !important;
+  background-color: $success-green !important;
 }
 
 .blue-theme .bg-orange,
@@ -263,7 +263,7 @@
   }
 
   .btn-success {
-    background: $success-blue !important;
+    background: $success-green !important;
 
     &:hover,
     &:focus {
@@ -276,7 +276,7 @@
   }
 
   .text-success {
-    color: $success-blue !important;
+    color: $success-green !important;
   }
 
   .plan-input:checked ~ .plan-label {

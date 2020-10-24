@@ -1024,7 +1024,7 @@ nav ul {
 }
 .blue-theme .bg-success,
 .blue-theme .badge-success {
-  background-color: #01d7f4 !important;
+  background-color: #15d36c !important;
 }
 .blue-theme .bg-orange,
 .blue-theme .badge-orange {
@@ -1110,7 +1110,7 @@ nav ul {
   background: #0b0033 !important;
 }
 .blue-theme .btn-success {
-  background: #01d7f4 !important;
+  background: #15d36c !important;
 }
 .blue-theme .btn-success:hover,
 .blue-theme .btn-success:focus {
@@ -1120,7 +1120,7 @@ nav ul {
   background: #01d7f4 !important;
 }
 .blue-theme .text-success {
-  color: #01d7f4 !important;
+  color: #15d36c !important;
 }
 .blue-theme .plan-input:checked ~ .plan-label {
   color: #fff;
@@ -1202,7 +1202,7 @@ nav ul {
 }
 .private-header {
   width: 100%;
-  background: #fb374b !important;
+  background-image: linear-gradient(135deg, #af0415, #fb374b);
   height: 70px;
   position: fixed;
   padding: env(safe-area-inset-top);
@@ -3231,7 +3231,6 @@ article .header time {
   }
 }
 .profile .action {
-  transition: all 0.5s ease-out;
   border-radius: 5px;
   line-height: 1.3;
   cursor: pointer;
@@ -3257,16 +3256,16 @@ article .header time {
   height: auto;
 }
 .profile .superlike {
-  background: #f2be41;
+  background: #fed52f;
 }
 .profile .superlike:hover {
-  background: #efae11;
+  background: #f9c801;
 }
 .profile .bonus {
-  background: #41b6f2;
+  background: #01d7f4;
 }
 .profile .bonus:hover {
-  background: #11a4ef;
+  background: #01aac1;
 }
 .profile .chat-button {
   display: block;
