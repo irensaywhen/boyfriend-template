@@ -241,6 +241,22 @@
     background: transparent;
   }
 
+  .btn-secondary {
+    color: #fff;
+    background: $secondary-color;
+    border-color: $secondary-color;
+
+    &:hover,
+    &:focus {
+      background: $light-secondary-color !important;
+      border-color: $light-secondary-color !important;
+    }
+
+    &:active {
+      background: $secondary-color !important;
+    }
+  }
+
   .btn-outline-primary:hover {
     color: #fff;
     background: $secondary-color !important;

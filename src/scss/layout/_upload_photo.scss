@@ -12,6 +12,13 @@
   width: 100%;
   overflow: hidden;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  background: radial-gradient(
+    $light-primary-color,
+    $light-primary-color 60%,
+    $primary-color
+  );
 }
 
 .figure-profile figure img {

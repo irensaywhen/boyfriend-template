@@ -1088,6 +1088,19 @@ nav ul {
   color: #0b0033;
   background: transparent;
 }
+.blue-theme .btn-secondary {
+  color: #fff;
+  background: #0b0033;
+  border-color: #0b0033;
+}
+.blue-theme .btn-secondary:hover,
+.blue-theme .btn-secondary:focus {
+  background: #2c1c69 !important;
+  border-color: #2c1c69 !important;
+}
+.blue-theme .btn-secondary:active {
+  background: #0b0033 !important;
+}
 .blue-theme .btn-outline-primary:hover {
   color: #fff;
   background: #0b0033 !important;
@@ -1745,6 +1758,9 @@ article .header time {
   width: 100%;
   overflow: hidden;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  background: radial-gradient(#ffd6da, #ffd6da 60%, #fb374b);
 }
 .figure-profile figure img {
   width: 100%;
@@ -2300,7 +2316,7 @@ article .header time {
   min-width: 50px;
 }
 .form-steps .steps .step.step-passed {
-  color: #14c565;
+  color: #0b0033;
 }
 .form-steps .steps .step.step-current {
   display: flex;

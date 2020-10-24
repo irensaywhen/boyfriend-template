@@ -32,7 +32,7 @@
       }
 
       &.step-passed {
-        color: darken($success-green, 3);
+        color: $secondary-color;
       }
 
       &.step-current {
