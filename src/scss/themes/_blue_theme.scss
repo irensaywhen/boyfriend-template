@@ -60,7 +60,7 @@
 .blue-theme .nav-pills .nav-link.active,
 .blue-theme .nav-pills .show > .nav-link,
 .blue-theme .loader-screen {
-  background-color: $primary-color;
+  background: $primary-color;
 }
 
 .blue-theme .btn-default {
@@ -164,8 +164,20 @@
 }
 
 .blue-theme {
+  .loader-screen {
+    background-image: linear-gradient(
+      135deg,
+      darken($primary-color, 25),
+      $primary-color
+    );
+  }
+
   .text-secondary {
     color: $secondary-color !important;
+  }
+
+  .text-warning {
+    color: $orange !important;
   }
 
   .form-control {
@@ -189,7 +201,7 @@
   }
 
   .text-primary {
-    color: $secondary-color !important;
+    color: $primary-color !important;
   }
 
   a {
@@ -288,10 +300,18 @@
   .link-hover {
     @include ease-out;
     cursor: pointer;
+    color: $primary-color;
 
     &:focus,
     &:hover {
       color: $light-primary-color !important;
+    }
+  }
+
+  .link-underline {
+    &:hover,
+    &:focus {
+      text-decoration: underline !important;
     }
   }
 

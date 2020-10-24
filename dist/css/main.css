@@ -949,7 +949,7 @@ nav ul {
 .blue-theme .nav-pills .nav-link.active,
 .blue-theme .nav-pills .show > .nav-link,
 .blue-theme .loader-screen {
-  background-color: #fb374b;
+  background: #fb374b;
 }
 .blue-theme .btn-default {
   background-color: #0b0033;
@@ -1037,8 +1037,14 @@ nav ul {
 .blue-theme .orange-slice {
   margin-right: -110px;
 }
+.blue-theme .loader-screen {
+  background-image: linear-gradient(135deg, #af0415, #fb374b);
+}
 .blue-theme .text-secondary {
   color: #0b0033 !important;
+}
+.blue-theme .text-warning {
+  color: #fa900d !important;
 }
 .blue-theme .form-control {
   border: 1px solid #d5d3de;
@@ -1056,7 +1062,7 @@ nav ul {
   background-color: #0b0033 !important;
 }
 .blue-theme .text-primary {
-  color: #0b0033 !important;
+  color: #fb374b !important;
 }
 .blue-theme a.text-primary:hover,
 .blue-theme a.text-primary:focus {
@@ -1129,10 +1135,15 @@ nav ul {
 .blue-theme .link-hover {
   transition: all 0.5s ease-out;
   cursor: pointer;
+  color: #fb374b;
 }
 .blue-theme .link-hover:focus,
 .blue-theme .link-hover:hover {
   color: #ffd6da !important;
+}
+.blue-theme .link-underline:hover,
+.blue-theme .link-underline:focus {
+  text-decoration: underline !important;
 }
 .blue-theme .page-item .page-link {
   transition: all 0.5s ease-out;
@@ -2632,7 +2643,7 @@ article .header time {
   background: #fa900d;
 }
 .fill-profile-page .bonus-notzero-amount {
-  background: #15d36c;
+  background: #0b0033;
 }
 .fill-profile-page .nav-pills .nav-item {
   margin-left: 0.5rem;
@@ -3074,7 +3085,7 @@ article .header time {
   color: #dc3545;
 }
 .profile-page .bonus-notzero-amount {
-  color: #15d36c;
+  color: #0b0033;
 }
 .profile {
   max-width: 612px;
@@ -3378,7 +3389,7 @@ article .header time {
   color: #dc3545;
 }
 .chat .chat-header .bonus-notzero-amount {
-  color: #15d36c;
+  color: #0b0033;
 }
 .chat .chat-content {
   background: #fff;
