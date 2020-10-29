@@ -18,6 +18,14 @@ textarea {
   border-bottom-color: $error !important;
 }
 
+textarea {
+  &.form-control {
+    &.error {
+      border: 1px solid $error !important;
+    }
+  }
+}
+
 .form-control::placeholder {
   color: $light-gray;
 }

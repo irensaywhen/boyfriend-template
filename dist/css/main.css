@@ -78,6 +78,9 @@ textarea {
   color: #495057 !important;
   border-bottom-color: #f9c46b !important;
 }
+textarea.form-control.error {
+  border: 1px solid #f9c46b !important;
+}
 .form-control::-moz-placeholder {
   color: #d5d3de;
 }
@@ -874,6 +877,7 @@ html {
   height: 100%;
 }
 body {
+  color: #2e384d;
   min-height: 100%;
   height: 100%;
   overflow-y: auto;
@@ -950,7 +954,6 @@ nav ul {
 .blue-theme .nav-pills .show > .nav-link,
 .blue-theme .loader-screen {
   background: #d327b6;
-  color: #2e384d;
 }
 .blue-theme .btn-default {
   background-color: #8a00d4;
@@ -1035,6 +1038,18 @@ nav ul {
 }
 .blue-theme .orange-slice {
   margin-right: -110px;
+}
+.blue-theme ::-moz-placeholder {
+  color: #6c757d;
+}
+.blue-theme :-ms-input-placeholder {
+  color: #6c757d;
+}
+.blue-theme ::-ms-input-placeholder {
+  color: #6c757d;
+}
+.blue-theme ::placeholder {
+  color: #6c757d;
 }
 .blue-theme .loader-screen {
   background-image: linear-gradient(135deg, #671359, #d327b6);
@@ -2750,9 +2765,8 @@ article .header time {
 .account .premium,
 .profile .premium,
 .modal .premium {
-  background: #f4f7fa;
+  background: #fff;
   border-radius: 15px;
-  border: 1px solid #6c757d;
   max-width: 270px;
 }
 .account .premium .active,
@@ -2804,15 +2818,20 @@ article .header time {
 .account-table {
   border-collapse: collapse;
   max-width: 700px;
+  color: #370055;
+}
+.account-table tr:nth-of-type(2n) {
+  background: #fde7f3;
 }
 .account-table th {
-  background: #e3eaf1;
+  background: #d327b6;
+  background: #f782c2;
+  color: #fff;
   font-weight: bold;
 }
 .account-table td,
 .account-table th {
   padding: 6px;
-  border: 1px solid #6c757d;
 }
 @media only screen and (max-width: 680px) {
   .account-table {

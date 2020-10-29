@@ -81,9 +81,8 @@
   }
 
   .premium {
-    background: lighten($main-background-color, 5);
+    background: #fff;
     border-radius: 15px;
-    border: 1px solid $bootstrap-secondary;
     max-width: 270px;
 
     .active {
@@ -125,16 +124,24 @@
 .account-table {
   border-collapse: collapse;
   max-width: 700px;
+  color: darken($secondary-color, 25);
+
+  tr {
+    &:nth-of-type(2n) {
+      background: lighten($light-primary-color, 21);
+    }
+  }
 
   th {
-    background: $main-background-color;
+    background: $primary-color;
+    background: $light-primary-color;
+    color: #fff;
     font-weight: bold;
   }
 
   td,
   th {
     padding: 6px;
-    border: 1px solid $bootstrap-secondary;
   }
 }
 
