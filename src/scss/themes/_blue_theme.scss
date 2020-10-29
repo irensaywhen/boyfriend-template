@@ -220,6 +220,14 @@
     color: $primary-color !important;
   }
 
+  .text-dark-emphasize {
+    color: $secondary-color;
+  }
+
+  .text-light-emphasize {
+    color: $light-primary-color;
+  }
+
   a {
     color: $dark;
 

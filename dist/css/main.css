@@ -1077,6 +1077,12 @@ nav ul {
 .blue-theme .text-primary {
   color: #d327b6 !important;
 }
+.blue-theme .text-dark-emphasize {
+  color: #8a00d4;
+}
+.blue-theme .text-light-emphasize {
+  color: #f782c2;
+}
 .blue-theme a {
   color: #2e384d;
 }
