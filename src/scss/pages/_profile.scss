@@ -4,7 +4,7 @@
   }
 
   .bonus-notzero-amount {
-    color: $success-green;
+    color: $secondary-color;
   }
 }
 
@@ -116,14 +116,6 @@
 
     &:hover {
       background: darken($superlike-yellow, 10);
-    }
-  }
-
-  .bonus {
-    background: $present-blue;
-
-    &:hover {
-      background: darken($present-blue, 10);
     }
   }
 

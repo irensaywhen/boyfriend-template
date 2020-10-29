@@ -3100,7 +3100,7 @@ article .header time {
   color: #f9c46b;
 }
 .profile-page .bonus-notzero-amount {
-  color: #15d36c;
+  color: #8a00d4;
 }
 .profile {
   max-width: 612px;
@@ -3282,16 +3282,10 @@ article .header time {
   height: auto;
 }
 .profile .superlike {
-  background: #fed52f;
+  background: #f9c46b;
 }
 .profile .superlike:hover {
-  background: #f9c801;
-}
-.profile .bonus {
-  background: #01d7f4;
-}
-.profile .bonus:hover {
-  background: #01aac1;
+  background: #f7b03a;
 }
 .profile .chat-button {
   display: block;
