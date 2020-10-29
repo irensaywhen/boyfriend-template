@@ -2,11 +2,13 @@ $front-page-background: url('');
 
 /*Colors*/
 
-$primary-color: #fb374b;
-$dark-primary-color: #fa0d24;
-$light-primary-color: #ffd6da;
-$secondary-color: #0b0033;
-$light-secondary-color: #2c1c69;
+$primary-color: #d327b6;
+$dark-primary-color: darken($primary-color, 10);
+$light-primary-color: #f782c2;
+$secondary-color: #8a00d4;
+$light-secondary-color: lighten($secondary-color, 5);
+$light-accent-color: #f9c46b;
+$dark: #2e384d;
 
 $primary-blue: #3fa7ff;
 $present-blue: #01d7f4;

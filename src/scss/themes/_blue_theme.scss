@@ -123,12 +123,11 @@
 .blue-theme .btn-light:focus,
 .blue-theme .btn-light:not(:disabled):not(.disabled).active,
 .blue-theme .bg-template-light {
-  background-color: $light-primary-color;
+  background-color: #fff;
 }
 
 .blue-theme .text-template,
 .blue-theme .btn-link,
-.blue-theme a,
 .blue-theme .float-label .form-control:focus + .form-control-label,
 .blue-theme .btn-light:hover,
 .blue-theme .btn-light:focus,
@@ -201,6 +200,8 @@
   }
 
   a {
+    color: $dark;
+
     &.text-primary {
       &:hover,
       &:focus {
