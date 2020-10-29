@@ -153,9 +153,8 @@
   background-color: $orange !important;
 }
 
-.blue-theme .bg-primary,
-.blue-theme .badge-primary {
-  background-color: $primary-blue !important;
+.blue-theme .bg-primary {
+  background-color: $primary-color !important;
 }
 
 .blue-theme .orange-slice {
@@ -187,6 +186,23 @@
 
   .badge-primary {
     background: $primary-color !important;
+  }
+
+  .badge-light {
+    background: $light-primary-color !important;
+    color: #fff !important;
+  }
+
+  .btn-light {
+    background: $light-primary-color;
+    color: #fff;
+
+    &:hover,
+    &:focus,
+    &:not(:disabled):not(.disabled).active {
+      background: lighten($light-primary-color, 7);
+      color: $secondary-color;
+    }
   }
 
   /*Additional badge and background*/
@@ -314,7 +330,6 @@
   .page-item {
     .page-link {
       @include ease-out;
-      color: $secondary-color;
     }
 
     &:hover .page-link,

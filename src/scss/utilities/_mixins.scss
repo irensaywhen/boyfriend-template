@@ -1,11 +1,6 @@
 @mixin background($image) {
   background-image: $image,
-    linear-gradient(
-      135deg,
-      darken($primary-color, 15),
-      $primary-color,
-      $light-primary-color
-    );
+    linear-gradient(135deg, darken($primary-color, 15), $primary-color);
   background-size: cover;
   min-height: 100%;
 }
