@@ -1064,7 +1064,10 @@ nav ul {
 .blue-theme .btn-light:focus,
 .blue-theme .btn-light:not(:disabled):not(.disabled).active {
   background: #f9a4d2;
-  color: #8a00d4;
+  color: #fff;
+}
+.blue-theme .text-dark-gray {
+  color: #2e384d !important;
 }
 .blue-theme .bg-pink,
 .blue-theme .badge-secondary {
@@ -2348,7 +2351,7 @@ article .header time {
   min-width: 50px;
 }
 .form-steps .steps .step.step-passed {
-  color: #8a00d4;
+  color: #d327b6;
 }
 .form-steps .steps .step.step-current {
   display: flex;
@@ -2366,7 +2369,7 @@ article .header time {
   background: #dc42c2;
 }
 .form-steps .steps .step.step-further {
-  background: #bd23a3;
+  background: radial-gradient(#d327b6, #bd23a3);
   border: 1x solid #b5219c;
 }
 .form-steps.checkout-form .progress .progress-bar {

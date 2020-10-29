@@ -201,8 +201,12 @@
     &:focus,
     &:not(:disabled):not(.disabled).active {
       background: lighten($light-primary-color, 7);
-      color: $secondary-color;
+      color: #fff;
     }
+  }
+
+  .text-dark-gray {
+    color: $dark !important;
   }
 
   /*Additional badge and background*/
