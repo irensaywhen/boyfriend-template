@@ -11,7 +11,7 @@ module.exports = {
       './js/main-authorized.js',
     ],
     main: ['./js/main.js'],
-    'main-landing': ['./js/main-landing.js'],
+    'main-landing': ['./js/main-landing.js', './js/main.js'],
   },
   output: {
     path: path.resolve(__dirname, 'dist/js'),
