@@ -15,7 +15,7 @@
 .private-header {
   width: 100%;
   background: $main-blue !important;
-  height: 70px;
+  min-height: 70px;
   position: fixed;
   padding: env(safe-area-inset-top);
   top: 0;
