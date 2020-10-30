@@ -66,7 +66,14 @@
             </ul>
           </div>
           <div class="col d-flex align-items-center justify-content-end">
-            <button type="button" class="btn btn-outline-white">Login</button>
+            <button
+              type="button"
+              class="btn btn-outline-white"
+              data-toggle="modal"
+              data-target="#signin-modal"
+            >
+              Login
+            </button>
           </div>
         </div>
         <div></div>
@@ -83,7 +90,7 @@
                 Find your next partner <span class="text-primary">now</span>
               </h2>
               <form class="border-bottom pb-4" id="signup">
-                <div class="general-error" id="general-error-signup-1"></div>
+                <div class="general-error" id="general-error-signup"></div>
                 <!--Name-->
                 <div class="form-group float-label">
                   <input
@@ -353,7 +360,12 @@
 
       <!-- footer -->
       <footer class="landing-footer d-lg-none">
-        <button type="button" class="btn btn-lg btn-default btn-rounded shadow">
+        <button
+          type="button"
+          class="btn btn-lg btn-default btn-rounded shadow"
+          data-toggle="modal"
+          data-target="#signup-modal"
+        >
           Meet new people
         </button>
       </footer>
@@ -380,6 +392,198 @@
     </div>
     <!-- notification ends -->
 
+    <!--Signup form modal start-->
+    <div
+      class="modal fade"
+      id="signup-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="signup-modal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <!--Modal header-->
+          <div class="modal-header pb-0 border-0">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <!--Modal body-->
+          <div class="modal-body pt-0 border-0">
+            <form id="signup-modalForm">
+              <div class="general-error" id="general-error-signup-modal"></div>
+              <!--Name-->
+              <div class="form-group float-label">
+                <input
+                  type="text"
+                  id="login-modal"
+                  name="login"
+                  class="form-control signup-input"
+                  autofocus
+                />
+                <label for="login-modal" class="form-control-label">Name</label>
+              </div>
+
+              <!--Email-->
+              <div class="form-group float-label">
+                <input
+                  type="email"
+                  id="email-modal"
+                  name="email"
+                  class="form-control signup-input"
+                />
+                <label for="email-modal" class="form-control-label"
+                  >Email address</label
+                >
+              </div>
+
+              <!--Password-->
+              <div class="form-group float-label">
+                <input
+                  type="password"
+                  id="password-modal"
+                  name="password"
+                  class="form-control signup-input"
+                />
+                <label for="password-modal" class="form-control-label"
+                  >Password</label
+                >
+              </div>
+
+              <!--Terms-->
+              <div class="form-group my-4 text-left">
+                <div class="custom-control custom-checkbox form-group">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input signup-input"
+                    id="terms-modal"
+                    name="terms"
+                  />
+                  <label class="custom-control-label" for="terms-modal"
+                    >I accept
+                    <a href="terms.html" class="blue-link text-underline"
+                      >Terms and Condition</a
+                    ></label
+                  >
+                </div>
+              </div>
+
+              <!--Signup button-->
+              <div class="row">
+                <div class="col-12 text-center">
+                  <button
+                    type="submit"
+                    class="btn btn-lg btn-default btn-rounded shadow"
+                    id="btn-signup-modal"
+                  >
+                    Start now <i class="material-icons">arrow_forward</i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Signup form modal end-->
+
+    <!--Signin form modal start-->
+    <div
+      class="modal fade"
+      id="signin-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="signup-modal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <!--Modal header-->
+          <div class="modal-header pb-0 border-0">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <!--Modal body-->
+          <div class="modal-body pt-0 border-0">
+            <form id="form-signin">
+              <div class="general-error" id="general-error-login"></div>
+              <div class="form-group float-label text-left">
+                <input
+                  type="email"
+                  id="email-login"
+                  name="email"
+                  class="form-control signin-input"
+                  autofocus
+                />
+                <label for="email-login" class="form-control-label"
+                  >Email address</label
+                >
+              </div>
+
+              <div class="form-group float-label text-left">
+                <input
+                  type="password"
+                  id="password-login"
+                  name="password"
+                  class="form-control signin-input"
+                />
+                <label for="password-login" class="form-control-label"
+                  >Password</label
+                >
+              </div>
+
+              <div class="form-group my-4 text-left">
+                <div class="custom-control custom-checkbox">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input signin-input"
+                    id="rememberme-login"
+                    name="rememberme"
+                  />
+                  <label class="custom-control-label" for="rememberme-login"
+                    >Remember Me</label
+                  >
+                </div>
+              </div>
+
+              <div class="row text-center">
+                <div class="col-12">
+                  <button
+                    type="submit"
+                    class="btn btn-lg btn-default btn-rounded shadow"
+                    id="btn-login"
+                  >
+                    <span>Sign in</span
+                    ><i class="material-icons">arrow_forward</i>
+                  </button>
+                </div>
+                <div class="col-12 align-self-center pt-2">
+                  <span class="blue-link pointer forward"
+                    >Forgot Password?</span
+                  >
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Signin form modal end-->
+
     <!-- jquery, popper and bootstrap js -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="vendor/popper/popper.min.js"></script>
@@ -392,6 +596,7 @@
 
     <!-- template custom js -->
     <script src="js/main.bundle.js"></script>
+    <script src="js/main-landing.bundle.js"></script>
 
     <script>
       $(window).on('load', function () {

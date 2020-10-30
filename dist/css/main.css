@@ -3558,5 +3558,8 @@ article .header time {
     padding-left: 10px;
   }
 }
+.landing .modal-sm {
+  max-width: 300px;
+}
 
 /*# sourceMappingURL=main.css.map */
