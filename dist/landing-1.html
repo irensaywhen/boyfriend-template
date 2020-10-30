@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="blue-theme">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="Maxartkiller" />
+
+    <title>Shop · GoFruit</title>
+
+    <!-- Material design icons CSS -->
+    <link rel="stylesheet" href="vendor/materializeicon/material-icons.css" />
+
+    <!-- Roboto fonts CSS -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--Fontawesome-->
+    <link rel="stylesheet" href="fontawesome/css/all.min.css" />
+
+    <!-- Bootstrap core CSS -->
+    <link
+      href="vendor/bootstrap-4.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!--SweetAlert2-->
+    <link href="vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body>
+    <!--Loader start-->
+    <div class="row no-gutters vh-100 loader-screen">
+      <div class="col align-self-center text-white text-center">
+        <img src="img/logo.png" alt="logo" />
+        <h1><span class="font-weight-light">Boy</span>friend</h1>
+        <div class="laoderhorizontal">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+    <!--Loader end-->
+
+    <div class="wrapper wrapper-padding">
+      <!-- header -->
+      <div class="private-header d-flex align-items-center">
+        <div class="container-fluid">
+          <div class="row no-gutters justify-content-between">
+            <!--Logo-->
+            <div class="col-4 text-center">
+              <a href="index.html">
+                <img
+                  src="img/logo.png"
+                  alt=""
+                  class="private-header-logo d-none d-md-inline-block"
+                />
+              </a>
+            </div>
+            <!--Icons-->
+          </div>
+        </div>
+      </div>
+      <!-- header ends -->
+
+      <!--Profiles start-->
+      <div class="container"></div>
+      <!--Profiles end-->
+
+      <!-- footer -->
+      <footer class="footer">
+        <div class="row no-gutters justify-content-center">fff</div>
+      </footer>
+      <!-- footer ends -->
+
+      <!-- notification -->
+      <div class="notification bg-white shadow border-primary">
+        <div class="row">
+          <div class="col-auto align-self-center pr-0">
+            <i class="material-icons text-primary md-36">fullscreen</i>
+          </div>
+          <div class="col">
+            <h6>Viewing in Phone?</h6>
+            <p class="mb-0 text-secondary">
+              Double tap to enter into fullscreen mode for each page.
+            </p>
+          </div>
+          <div class="col-auto align-self-center pl-0">
+            <button class="btn btn-link closenotification">
+              <i class="material-icons text-secondary text-mute md-18">close</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- notification ends -->
+    </div>
+
+    <!-- jquery, popper and bootstrap js -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
+
+    <!-- swiper js -->
+    <script src="vendor/swiper/js/swiper.min.js"></script>
+    <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
+
+    <!-- template custom js -->
+    <script src="js/main.bundle.js"></script>
+    <script src="js/main-authorized.bundle.js"></script>
+
+    <script>
+      $(window).on('load', function () {
+        /* notification view and hide */
+        setTimeout(function () {
+          $('.notification').addClass('active');
+          setTimeout(function () {
+            $('.notification').removeClass('active');
+          }, 3500);
+        }, 500);
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
+        });
+      });
+    </script>
+  </body>
+</html>

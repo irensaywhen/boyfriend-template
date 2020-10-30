@@ -8508,10 +8508,10 @@
         /***/
       },
 
-    /***/ '../node_modules/moment/locale sync recursive [\\/\\\\](pl(\\.js)?)$':
-      /*!*************************************************************!*\
-  !*** ../node_modules/moment/locale sync [\/\\](pl(\.js)?)$ ***!
-  \*************************************************************/
+    /***/ '../node_modules/moment/locale sync recursive [/\\\\](pl(\\.js)?)$':
+      /*!************************************************************!*\
+  !*** ../node_modules/moment/locale sync [/\\](pl(\.js)?)$ ***!
+  \************************************************************/
       /*! no static exports found */
       /***/ function (module, exports, __webpack_require__) {
         var map = {
@@ -8537,7 +8537,7 @@
         webpackContext.resolve = webpackContextResolve;
         module.exports = webpackContext;
         webpackContext.id =
-          '../node_modules/moment/locale sync recursive [\\/\\\\](pl(\\.js)?)$';
+          '../node_modules/moment/locale sync recursive [/\\\\](pl(\\.js)?)$';
 
         /***/
       },
@@ -10876,7 +10876,7 @@
                   oldLocale = globalLocale._abbr;
                   aliasedRequire = require;
                   __webpack_require__(
-                    '../node_modules/moment/locale sync recursive [\\/\\\\](pl(\\.js)?)$'
+                    '../node_modules/moment/locale sync recursive [/\\\\](pl(\\.js)?)$'
                   )('./' + name);
                   getSetGlobalLocale(oldLocale);
                 } catch (e) {
