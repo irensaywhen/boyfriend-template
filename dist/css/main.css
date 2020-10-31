@@ -1058,6 +1058,11 @@ nav ul {
   color: #08436b;
   background: #fff;
 }
+.blue-theme .btn-outline-white:active {
+  border-color: #fff;
+  background: transparent;
+  color: #fff;
+}
 .blue-theme .btn-outline-primary {
   border: 1px solid #ff0068;
   color: #ff0068;
@@ -3542,6 +3547,7 @@ article .header time {
 }
 .landing .user-data {
   position: absolute;
+  cursor: pointer;
   width: 100%;
   bottom: -20px;
   z-index: 5;

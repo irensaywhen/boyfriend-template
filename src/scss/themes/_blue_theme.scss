@@ -201,6 +201,12 @@
       color: darken($main-blue, 10);
       background: #fff;
     }
+
+    &:active {
+      border-color: #fff;
+      background: transparent;
+      color: #fff;
+    }
   }
 
   .btn-outline-primary {

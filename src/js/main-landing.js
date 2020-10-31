@@ -1,3 +1,6 @@
+import Landing from './modules/landing.js';
+window['Landing'] = Landing;
+
 // Custom animation for modal
 $(document)
   .on('show.bs.modal', event => {
@@ -17,6 +20,6 @@ $(document)
 
     $target
       .find('.modal-dialog')
-      .removeClass('animate__zoomIn animate__faster')
-      .addClass('animate__zoomOut');
+      .removeClass('animate__zoomIn animate__faster');
+    //.addClass('animate__zoomOut');
   });
