@@ -655,6 +655,17 @@
     </div>
     <!--Password reovery modal end-->
 
+    <!--Spinner template start-->
+    <template id="spinner-template">
+      <span
+        class="spinner-border spinner-border-sm mr-1"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      <span class="sr-only">Loading...</span>
+    </template>
+    <!--Spinner template end-->
+
     <!-- jquery, popper and bootstrap js -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
@@ -690,6 +701,51 @@
           profiles: true,
         },
       });
+
+      /* login form functionality start */
+      const signinForm = new Form({
+        selectors: {
+          form: '#form-signin',
+          'input-wrapper': '.form-group',
+          inputs: '.signin-input',
+          generalError: '#general-error-login',
+          loading: {
+            spinnerTemplateId: 'spinner-template',
+            submitButton: '#btn-login',
+            spinner: '.spinner-border',
+            text: 'Login...',
+          },
+        },
+        requests: {
+          submit: {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            endpoint:
+              'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/signin',
+          },
+        },
+        location: false,
+        showSuccessPopup: false,
+        showFailPopup: false,
+        frontendValidation: true,
+        redirectOnSubmit: true,
+        validatorOptions: {
+          errorElement: 'span',
+          rules: {
+            email: {
+              required: true,
+              email: true,
+            },
+            password: {
+              required: true,
+              minlength: 4,
+            },
+          },
+        },
+      });
+      /* login form functionality end */
     </script>
   </body>
 </html>
