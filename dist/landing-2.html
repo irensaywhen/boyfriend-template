@@ -20,14 +20,17 @@
       rel="stylesheet"
     />
 
+    <!-- Material design icons CSS -->
+    <link rel="stylesheet" href="vendor/materializeicon/material-icons.css" />
+
+    <!--Animate.css-->
+    <link rel="stylesheet" href="vendor/animate/animate.min.css" />
+
     <!-- Bootstrap core CSS -->
     <link
       href="vendor/bootstrap-4.4.1/css/bootstrap.min.css"
       rel="stylesheet"
     />
-
-    <!-- Swiper CSS -->
-    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" />
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="css/style.css" />
@@ -99,9 +102,10 @@
             </p>
             <div class="text-center text-md-left pt-3">
               <button
-                type="submit"
+                type="button"
                 class="btn btn-lg btn-default btn-rounded shadow"
-                id="btn-signup"
+                data-toggle="modal"
+                data-target="#signup-modal"
               >
                 Start dating now
               </button>
@@ -289,9 +293,10 @@
 
           <div class="col-12 text-center pt-3 pb-5">
             <button
-              type="submit"
+              type="button"
               class="btn btn-lg btn-default btn-rounded shadow"
-              id="btn-signup"
+              data-toggle="modal"
+              data-target="#signup-modal"
             >
               Start dating now
             </button>
@@ -350,26 +355,459 @@
     </div>
     <!-- notification ends -->
 
+    <!--Signup form modal start-->
+    <div
+      class="modal"
+      id="signup-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="signup-modal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <!--Modal header-->
+          <div class="modal-header pb-0 border-0">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <!--Modal body-->
+          <div class="modal-body pt-0 border-0">
+            <h2 class="text-center h5 font-weight-normal">Become a member</h2>
+            <form id="signup-modalForm" class="px-2 pb-2">
+              <div class="general-error" id="general-error-signupModal"></div>
+              <!--Name-->
+              <div class="form-group float-label">
+                <input
+                  type="text"
+                  id="login-modal"
+                  name="login"
+                  class="form-control signup-input"
+                  autofocus
+                />
+                <label for="login-modal" class="form-control-label">Name</label>
+              </div>
+
+              <!--Email-->
+              <div class="form-group float-label">
+                <input
+                  type="email"
+                  id="email-modal"
+                  name="email"
+                  class="form-control signup-input"
+                />
+                <label for="email-modal" class="form-control-label"
+                  >Email address</label
+                >
+              </div>
+
+              <!--Password-->
+              <div class="form-group float-label">
+                <input
+                  type="password"
+                  id="password-modal"
+                  name="password"
+                  class="form-control signup-input"
+                />
+                <label for="password-modal" class="form-control-label"
+                  >Password</label
+                >
+              </div>
+
+              <!--Terms-->
+              <div class="form-group my-4 text-left">
+                <div class="custom-control custom-checkbox form-group">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input signup-input"
+                    id="terms-modal"
+                    name="terms"
+                  />
+                  <label class="custom-control-label" for="terms-modal"
+                    >I accept
+                    <a href="terms.html" class="blue-link text-underline"
+                      >Terms and Condition</a
+                    ></label
+                  >
+                </div>
+              </div>
+
+              <!--Signup button-->
+              <div class="row">
+                <div class="col-12 text-center">
+                  <button
+                    type="submit"
+                    class="btn btn-lg btn-default btn-rounded shadow"
+                    id="btn-signup-modal"
+                  >
+                    Start now <i class="material-icons">arrow_forward</i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Signup form modal end-->
+
+    <!--Signin form modal start-->
+    <div
+      class="modal"
+      id="signin-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="signup-modal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <!--Modal header-->
+          <div class="modal-header pb-0 border-0">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <!--Modal body-->
+          <div class="modal-body pt-0 border-0">
+            <h2 class="text-center h5 font-weight-normal">Get started</h2>
+            <form id="form-signin" class="px-2 pb-2">
+              <div class="general-error" id="general-error-login"></div>
+              <div class="form-group float-label text-left">
+                <input
+                  type="email"
+                  id="email-login"
+                  name="email"
+                  class="form-control signin-input"
+                  autofocus
+                />
+                <label for="email-login" class="form-control-label"
+                  >Email address</label
+                >
+              </div>
+
+              <div class="form-group float-label text-left">
+                <input
+                  type="password"
+                  id="password-login"
+                  name="password"
+                  class="form-control signin-input"
+                />
+                <label for="password-login" class="form-control-label"
+                  >Password</label
+                >
+              </div>
+
+              <div class="form-group my-4 text-left">
+                <div class="custom-control custom-checkbox">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input signin-input"
+                    id="rememberme-login"
+                    name="rememberme"
+                  />
+                  <label class="custom-control-label" for="rememberme-login"
+                    >Remember Me</label
+                  >
+                </div>
+              </div>
+
+              <div class="row text-center">
+                <div class="col-12">
+                  <button
+                    type="submit"
+                    class="btn btn-lg btn-default btn-rounded shadow"
+                    id="btn-login"
+                  >
+                    <span>Sign in</span
+                    ><i class="material-icons">arrow_forward</i>
+                  </button>
+                </div>
+                <div class="col-12 align-self-center pt-2">
+                  <span
+                    class="blue-link pointer forward"
+                    id="forgot-password-btn"
+                    >Forgot Password?</span
+                  >
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Signin form modal end-->
+
+    <!--Password recovery modal start-->
+    <div
+      class="modal"
+      id="recovery-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="recoveryModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <!--Modal header-->
+          <div class="modal-header pb-0 border-0">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <!--Modal body-->
+          <div class="modal-body pt-0 border-0">
+            <h2 class="text-center h5 font-weight-normal mb-0">
+              Password Recovery
+            </h2>
+            <form
+              class="form-signin mt-0 pt-3 px-2 pb-2"
+              id="recovery-modalForm"
+            >
+              <div
+                class="general-error"
+                id="general-error-passwordRecovery"
+              ></div>
+              <p class="text-secondary small text-center">
+                Please provide email adress to recieve password recovery link
+              </p>
+              <div class="form-group float-label text-left">
+                <input
+                  type="email"
+                  id="email-recovery"
+                  name="email"
+                  class="form-control"
+                  autofocus
+                />
+                <label for="email-recovery" class="form-control-label"
+                  >Email address</label
+                >
+              </div>
+
+              <div class="row text-center">
+                <div class="col-12">
+                  <button
+                    type="submit"
+                    class="btn btn-lg btn-default btn-rounded shadow"
+                    id="btn-passwordRecovery"
+                  >
+                    <span>Reset password</span
+                    ><i class="material-icons">arrow_forward</i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Password recovery modal end-->
+
+    <!--Spinner template start-->
+    <template id="spinner-template">
+      <span
+        class="spinner-border spinner-border-sm mr-1"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      <span class="sr-only">Loading...</span>
+    </template>
+    <!--Spinner template end-->
+
     <!-- jquery, popper and bootstrap js -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
 
     <!-- template custom js -->
-    <script src="js/main.bundle.js"></script>
+    <script src="js/main-landing.bundle.js"></script>
 
     <!-- page level script -->
     <script>
-      $(window).on('load', function () {
-        /* notification view and hide */
+      /* notification view and hide */
+      setTimeout(function () {
+        $('.notification').addClass('active');
         setTimeout(function () {
-          $('.notification').addClass('active');
-          setTimeout(function () {
-            $('.notification').removeClass('active');
-          }, 3500);
-        }, 500);
-        $('.closenotification').on('click', function () {
-          $(this).closest('.notification').removeClass('active');
-        });
+          $('.notification').removeClass('active');
+        }, 3500);
+      }, 500);
+      $('.closenotification').on('click', function () {
+        $(this).closest('.notification').removeClass('active');
+      });
+
+      const landing = new Landing({
+        selectors: {
+          passwordRecovery: {
+            forgotPasswordBtn: '#forgot-password-btn',
+            recoveryPasswordModal: '#recovery-modal',
+          },
+          signUpModal: '#signup-modal',
+        },
+        requests: {},
+        config: {
+          profiles: true,
+        },
+      });
+
+      /* login form functionality start */
+      const signinForm = new Form({
+        selectors: {
+          form: '#form-signin',
+          'input-wrapper': '.form-group',
+          inputs: '.signin-input',
+          generalError: '#general-error-login',
+          loading: {
+            spinnerTemplateId: 'spinner-template',
+            submitButton: '#btn-login',
+            spinner: '.spinner-border',
+            text: 'Login...',
+          },
+        },
+        requests: {
+          submit: {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            endpoint:
+              'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/signin',
+          },
+        },
+        location: false,
+        showSuccessPopup: false,
+        showFailPopup: false,
+        frontendValidation: true,
+        redirectOnSubmit: true,
+        validatorOptions: {
+          errorElement: 'span',
+          rules: {
+            email: {
+              required: true,
+              email: true,
+            },
+            password: {
+              required: true,
+              minlength: 4,
+            },
+          },
+        },
+      });
+
+      /* Signup form initialization */
+      const signupModal = new Form({
+        selectors: {
+          form: '#signup-modalForm',
+          'input-wrapper': '.form-group',
+          inputs: '.signup-input',
+          generalError: '#general-error-signupModal',
+          loading: {
+            spinnerTemplateId: 'spinner-template',
+            submitButton: '#btn-signup-modal',
+            spinner: '.spinner-border',
+            text: 'Saving your info...',
+          },
+        },
+        requests: {
+          submit: {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            endpoint:
+              'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/signup-landing',
+          },
+        },
+        location: false,
+        showSuccessPopup: false,
+        showFailPopup: false,
+        frontendValidation: true,
+        generateSubmitEvent: false,
+        redirectOnSubmit: true,
+        validatorOptions: {
+          errorElement: 'span',
+          rules: {
+            login: {
+              required: true,
+              minlength: 3,
+            },
+            email: {
+              required: true,
+              email: true,
+            },
+            password: {
+              required: true,
+              minlength: 4,
+            },
+            terms: 'required',
+          },
+        },
+      });
+      const signup = new Form({
+        selectors: {
+          form: '#signup',
+          'input-wrapper': '.form-group',
+          inputs: '.signup-input',
+          generalError: '#general-error-signup',
+          loading: {
+            spinnerTemplateId: 'spinner-template',
+            submitButton: '#btn-signup',
+            spinner: '.spinner-border',
+            text: 'Saving your info...',
+          },
+        },
+        requests: {
+          submit: {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            endpoint:
+              'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/signup-landing',
+          },
+        },
+        location: false,
+        showSuccessPopup: false,
+        showFailPopup: false,
+        frontendValidation: true,
+        generateSubmitEvent: false,
+        redirectOnSubmit: true,
+        validatorOptions: {
+          errorElement: 'span',
+          rules: {
+            login: {
+              required: true,
+              minlength: 3,
+            },
+            email: {
+              required: true,
+              email: true,
+            },
+            password: {
+              required: true,
+              minlength: 4,
+            },
+            terms: 'required',
+          },
+        },
       });
     </script>
   </body>
