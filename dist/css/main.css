@@ -3497,7 +3497,7 @@ article .header time {
   padding-top: 80px;
   background: #fff;
 }
-.landing .private-header .private-header-logo {
+.landing .header-logo {
   max-width: 200px;
   height: auto;
 }
@@ -3566,6 +3566,22 @@ article .header time {
 }
 .landing .modal-sm {
   max-width: 300px;
+}
+.landing .top-section h1,
+.landing .top-section p {
+  max-width: 90%;
+}
+@media (min-width: 576px) {
+  .landing .top-section h1,
+  .landing .top-section p {
+    max-width: 80%;
+  }
+}
+@media (min-width: 992px) {
+  .landing .top-section h1,
+  .landing .top-section p {
+    max-width: 50%;
+  }
 }
 .landing-signup .login-and-registration {
   padding-top: calc(25px + 10vh);
