@@ -1,3 +1,5 @@
+import debounce from './debounce.js';
+
 export default (function () {
   // Private functions and variables
   // Timer id for debouncing
@@ -43,8 +45,13 @@ export default (function () {
 
     // Handle location input
     $locationInput.on('input focus', event => {
+      let target = event.target;
+
+      if (event.type === 'focus' && target.dataset.lat) {
+        return;
+      }
       // Prepare input for futher actions
-      _prepareCityInput(event.target);
+      _prepareCityInput(target);
       // Set delay based on event type
       let delay = event.type === 'focus' ? 0 : 300;
       // Debounce user input
@@ -143,6 +150,7 @@ export default (function () {
    * @param {Object} requestInfo - endpoint, headers and method fot the request to retrieve citis
    */
   function _getNewCities(requestInfo) {
+    console.log('Getting cities');
     let city = $locationInput.val();
 
     if (!city) return;

@@ -81687,6 +81687,44 @@
         /***/
       },
 
+    /***/ './js/modules/debounce.js':
+      /*!********************************!*\
+  !*** ./js/modules/debounce.js ***!
+  \********************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        var debounce = function debounce(func) {
+          var wait =
+            arguments.length > 1 && arguments[1] !== undefined
+              ? arguments[1]
+              : 0;
+          var timeout;
+          return function executedFunction() {
+            for (
+              var _len = arguments.length, args = new Array(_len), _key = 0;
+              _key < _len;
+              _key++
+            ) {
+              args[_key] = arguments[_key];
+            }
+
+            var later = function later() {
+              clearTimeout(timeout);
+              func.apply(void 0, args);
+            };
+
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+          };
+        };
+
+        /* harmony default export */ __webpack_exports__['default'] = debounce;
+
+        /***/
+      },
+
     /***/ './js/modules/editor.js':
       /*!******************************!*\
   !*** ./js/modules/editor.js ***!
@@ -84315,6 +84353,16 @@
       /***/ function (module, __webpack_exports__, __webpack_require__) {
         'use strict';
         __webpack_require__.r(__webpack_exports__);
+        /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/typeof */ '../node_modules/@babel/runtime/helpers/typeof.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _debounce_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! ./debounce.js */ './js/modules/debounce.js'
+        );
+
         /* harmony default export */ __webpack_exports__[
           'default'
         ] = (function () {
@@ -84362,8 +84410,22 @@
             var requestInfo = this.requests.location; // Handle location input
 
             $locationInput.on('input focus', function (event) {
-              // Prepare input for futher actions
-              _prepareCityInput(event.target); // Set delay based on event type
+              var target = event.target;
+
+              if (event.type === 'focus' && target.dataset.lat) {
+                console.log('Focusing!');
+                console.log(
+                  'Typeof lat: '.concat(
+                    _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(
+                      target.dataset.lat
+                    )
+                  )
+                );
+                console.log('Lat: '.concat(target.dataset.lat));
+                return;
+              } // Prepare input for futher actions
+
+              _prepareCityInput(target); // Set delay based on event type
 
               var delay = event.type === 'focus' ? 0 : 300; // Debounce user input
 
@@ -84461,6 +84523,7 @@
            */
 
           function _getNewCities(requestInfo) {
+            console.log('Getting cities');
             var city = $locationInput.val();
             if (!city) return; // Show loading indicator
 

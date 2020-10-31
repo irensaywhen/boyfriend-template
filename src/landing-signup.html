@@ -828,30 +828,30 @@
         });
 
         /* forms chainer initialization*/
-        const chainedForms = new ChainedForms({
-          selectors: {
-            formsContainer: '#forms-signup',
-            forms: '.form-step',
-            backward: '.backward',
-            wrapper: '.form-wrapper',
-          },
-          showSteps: true,
-          stepsConfig: {
-            selectors: {
-              wrapper: '.form-steps',
-              steps: '.step',
-              progressBar: '.progress-bar',
-              labels: '.label',
-              current: '.current-mark',
-              passed: '.passed',
-            },
-            classes: {
-              passed: 'step-passed',
-              current: 'step-current',
-              further: 'step-further',
-            },
-          },
-        });
+        //const chainedForms = new ChainedForms({
+        //  selectors: {
+        //    formsContainer: '#forms-signup',
+        //    forms: '.form-step',
+        //    backward: '.backward',
+        //    wrapper: '.form-wrapper',
+        //  },
+        //  showSteps: true,
+        //  stepsConfig: {
+        //    selectors: {
+        //      wrapper: '.form-steps',
+        //      steps: '.step',
+        //      progressBar: '.progress-bar',
+        //      labels: '.label',
+        //      current: '.current-mark',
+        //      passed: '.passed',
+        //    },
+        //    classes: {
+        //      passed: 'step-passed',
+        //      current: 'step-current',
+        //      further: 'step-further',
+        //    },
+        //  },
+        //});
 
         $('#continue').click(event => {
           event.preventDefault();
