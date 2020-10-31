@@ -150,7 +150,6 @@ export default (function () {
    * @param {Object} requestInfo - endpoint, headers and method fot the request to retrieve citis
    */
   function _getNewCities(requestInfo) {
-    console.log('Getting cities');
     let city = $locationInput.val();
 
     if (!city) return;

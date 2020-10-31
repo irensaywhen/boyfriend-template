@@ -21622,7 +21622,6 @@
            */
 
           function _getNewCities(requestInfo) {
-            console.log('Getting cities');
             var city = $locationInput.val();
             if (!city) return; // Show loading indicator
 

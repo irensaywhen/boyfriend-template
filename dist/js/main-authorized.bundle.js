@@ -84353,13 +84353,7 @@
       /***/ function (module, __webpack_exports__, __webpack_require__) {
         'use strict';
         __webpack_require__.r(__webpack_exports__);
-        /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-          /*! @babel/runtime/helpers/typeof */ '../node_modules/@babel/runtime/helpers/typeof.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__
-        );
-        /* harmony import */ var _debounce_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+        /* harmony import */ var _debounce_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
           /*! ./debounce.js */ './js/modules/debounce.js'
         );
 
@@ -84413,15 +84407,6 @@
               var target = event.target;
 
               if (event.type === 'focus' && target.dataset.lat) {
-                console.log('Focusing!');
-                console.log(
-                  'Typeof lat: '.concat(
-                    _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(
-                      target.dataset.lat
-                    )
-                  )
-                );
-                console.log('Lat: '.concat(target.dataset.lat));
                 return;
               } // Prepare input for futher actions
 
@@ -84523,7 +84508,6 @@
            */
 
           function _getNewCities(requestInfo) {
-            console.log('Getting cities');
             var city = $locationInput.val();
             if (!city) return; // Show loading indicator
 

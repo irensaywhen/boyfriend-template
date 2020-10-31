@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="css/main.css" />
   </head>
 
-  <body class="d-flex flex-column">
+  <body class="d-flex flex-column landing-signup">
     <div class="content">
       <!--Loader start-->
       <div class="row no-gutters vh-100 loader-screen">
@@ -240,15 +240,12 @@
       </header>
       <!-- header ends -->
 
-      <div
-        id="forms-signup"
-        class="login-and-registration pb-5 d-flex align-items-sm-center align-items-start"
-      >
+      <div id="forms-signup" class="login-and-registration pb-5">
         <!--Registration section start-->
         <section class="container">
           <div class="row no-gutters proh bg-template">
             <div class="col-12 align-self-center px-0 px-sm-3 text-center">
-              <h2 class="text-white pb-4">
+              <h2 class="text-white pt-3 pb-5 font-weight-normal">
                 Provide some information to let others discover you
               </h2>
 
@@ -506,7 +503,7 @@
 
                 <!--Back arrow-->
                 <div
-                  class="backward back-lg blue-link text-white d-flex align-items-center"
+                  class="backward back blue-link text-white d-flex align-items-center"
                 >
                   <i class="material-icons"> arrow_back </i>
                   back
@@ -828,30 +825,30 @@
         });
 
         /* forms chainer initialization*/
-        //const chainedForms = new ChainedForms({
-        //  selectors: {
-        //    formsContainer: '#forms-signup',
-        //    forms: '.form-step',
-        //    backward: '.backward',
-        //    wrapper: '.form-wrapper',
-        //  },
-        //  showSteps: true,
-        //  stepsConfig: {
-        //    selectors: {
-        //      wrapper: '.form-steps',
-        //      steps: '.step',
-        //      progressBar: '.progress-bar',
-        //      labels: '.label',
-        //      current: '.current-mark',
-        //      passed: '.passed',
-        //    },
-        //    classes: {
-        //      passed: 'step-passed',
-        //      current: 'step-current',
-        //      further: 'step-further',
-        //    },
-        //  },
-        //});
+        const chainedForms = new ChainedForms({
+          selectors: {
+            formsContainer: '#forms-signup',
+            forms: '.form-step',
+            backward: '.backward',
+            wrapper: '.form-wrapper',
+          },
+          showSteps: true,
+          stepsConfig: {
+            selectors: {
+              wrapper: '.form-steps',
+              steps: '.step',
+              progressBar: '.progress-bar',
+              labels: '.label',
+              current: '.current-mark',
+              passed: '.passed',
+            },
+            classes: {
+              passed: 'step-passed',
+              current: 'step-current',
+              further: 'step-further',
+            },
+          },
+        });
 
         $('#continue').click(event => {
           event.preventDefault();

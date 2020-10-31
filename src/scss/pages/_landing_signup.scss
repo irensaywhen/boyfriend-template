@@ -1,0 +1,10 @@
+.landing-signup {
+  .login-and-registration {
+    padding-top: calc(25px + 10vh);
+    min-height: 100vh;
+
+    h2 {
+      @include fluid-type($screen-xs, $screen-lg, 20px, 24px);
+    }
+  }
+}

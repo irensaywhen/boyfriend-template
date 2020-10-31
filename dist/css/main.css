@@ -3567,5 +3567,22 @@ article .header time {
 .landing .modal-sm {
   max-width: 300px;
 }
+.landing-signup .login-and-registration {
+  padding-top: calc(25px + 10vh);
+  min-height: 100vh;
+}
+.landing-signup .login-and-registration h2 {
+  font-size: 20px;
+}
+@media screen and (min-width: 320px) {
+  .landing-signup .login-and-registration h2 {
+    font-size: calc(20px + 4 * ((100vw - 320px) / 672));
+  }
+}
+@media screen and (min-width: 992px) {
+  .landing-signup .login-and-registration h2 {
+    font-size: 24px;
+  }
+}
 
 /*# sourceMappingURL=main.css.map */
