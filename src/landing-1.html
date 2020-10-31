@@ -747,7 +747,7 @@
       });
 
       /* Signup form initialization */
-      const signupFirstStep = new Form({
+      const signupModal = new Form({
         selectors: {
           form: '#signup-modalForm',
           'input-wrapper': '.form-group',
@@ -756,6 +756,55 @@
           loading: {
             spinnerTemplateId: 'spinner-template',
             submitButton: '#btn-signup-modal',
+            spinner: '.spinner-border',
+            text: 'Saving your info...',
+          },
+        },
+        requests: {
+          submit: {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            endpoint:
+              'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/signup-landing',
+          },
+        },
+        location: false,
+        showSuccessPopup: false,
+        showFailPopup: false,
+        frontendValidation: true,
+        generateSubmitEvent: false,
+        redirectOnSubmit: true,
+        validatorOptions: {
+          errorElement: 'span',
+          rules: {
+            login: {
+              required: true,
+              minlength: 3,
+            },
+            email: {
+              required: true,
+              email: true,
+            },
+            password: {
+              required: true,
+              minlength: 4,
+            },
+            terms: 'required',
+          },
+        },
+      });
+
+      const signup = new Form({
+        selectors: {
+          form: '#signup',
+          'input-wrapper': '.form-group',
+          inputs: '.signup-input',
+          generalError: '#general-error-signup',
+          loading: {
+            spinnerTemplateId: 'spinner-template',
+            submitButton: '#btn-signup',
             spinner: '.spinner-border',
             text: 'Saving your info...',
           },
