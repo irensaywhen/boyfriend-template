@@ -26,6 +26,9 @@
     <!--Animate.css-->
     <link rel="stylesheet" href="vendor/animate/animate.min.css" />
 
+    <!--SweetAlert2-->
+    <link href="vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+
     <!-- Bootstrap core CSS -->
     <link
       href="vendor/bootstrap-4.4.1/css/bootstrap.min.css"
@@ -638,6 +641,9 @@
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
     <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
 
+    <!--Sweetalert2-->
+    <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
+
     <!-- template custom js -->
     <script src="js/main-landing.bundle.js"></script>
 
@@ -806,6 +812,46 @@
               minlength: 4,
             },
             terms: 'required',
+          },
+        },
+      });
+
+      /* Password recovery form */
+      const passwordRecoveryForm = new Form({
+        selectors: {
+          form: '#recovery-modalForm',
+          'input-wrapper': '.form-group',
+          inputs: '.form-control',
+          generalError: '#general-error-passwordRecovery',
+          loading: {
+            spinnerTemplateId: 'spinner-template',
+            submitButton: '#btn-passwordRecovery',
+            spinner: '.spinner-border',
+            text: 'Login...',
+          },
+        },
+        requests: {
+          submit: {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            endpoint:
+              'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/signin',
+          },
+        },
+        location: false,
+        showSuccessPopup: true,
+        showFailPopup: false,
+        frontendValidation: true,
+        redirectOnSubmit: false,
+        validatorOptions: {
+          errorElement: 'span',
+          rules: {
+            email: {
+              required: true,
+              email: true,
+            },
           },
         },
       });
