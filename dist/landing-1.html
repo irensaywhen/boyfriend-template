@@ -415,7 +415,7 @@
           <div class="modal-body pt-0 border-0">
             <h2 class="text-center h5 font-weight-normal">Become a member</h2>
             <form id="signup-modalForm" class="px-2 pb-2">
-              <div class="general-error" id="general-error-signup-modal"></div>
+              <div class="general-error" id="general-error-signupModal"></div>
               <!--Name-->
               <div class="form-group float-label">
                 <input
@@ -745,7 +745,56 @@
           },
         },
       });
-      /* login form functionality end */
+
+      /* Signup form initialization */
+      const signupFirstStep = new Form({
+        selectors: {
+          form: '#signup-modalForm',
+          'input-wrapper': '.form-group',
+          inputs: '.signup-input',
+          generalError: '#general-error-signupModal',
+          loading: {
+            spinnerTemplateId: 'spinner-template',
+            submitButton: '#btn-signup-modal',
+            spinner: '.spinner-border',
+            text: 'Saving your info...',
+          },
+        },
+        requests: {
+          submit: {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            endpoint:
+              'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/signup-landing',
+          },
+        },
+        location: false,
+        showSuccessPopup: false,
+        showFailPopup: false,
+        frontendValidation: true,
+        generateSubmitEvent: false,
+        redirectOnSubmit: true,
+        validatorOptions: {
+          errorElement: 'span',
+          rules: {
+            login: {
+              required: true,
+              minlength: 3,
+            },
+            email: {
+              required: true,
+              email: true,
+            },
+            password: {
+              required: true,
+              minlength: 4,
+            },
+            terms: 'required',
+          },
+        },
+      });
     </script>
   </body>
 </html>
