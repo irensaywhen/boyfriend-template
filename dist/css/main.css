@@ -3583,6 +3583,33 @@ article .header time {
     max-width: 50%;
   }
 }
+.landing .single-section {
+  background: linear-gradient(to right, #08436b, #0c609a);
+  min-height: 100vh;
+}
+@media (min-width: 768px) {
+  .landing .single-section {
+    height: calc(100vh - 80px);
+    overflow: hidden;
+  }
+}
+.landing .single-section .single-section-content {
+  padding-top: 80px;
+  min-height: 100vh;
+}
+.landing .single-section .single-section-content .user-data {
+  color: #fff !important;
+}
+@media (min-width: 768px) {
+  .landing .single-section .single-section-content .user-profiles {
+    overflow-y: auto;
+    height: calc(100vh - 180px);
+  }
+}
+.landing .single-section h1,
+.landing .single-section p {
+  max-width: 90%;
+}
 .landing-signup .login-and-registration {
   padding-top: calc(25px + 10vh);
   min-height: 100vh;

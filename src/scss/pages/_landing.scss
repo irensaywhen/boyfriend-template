@@ -90,4 +90,36 @@
       }
     }
   }
+
+  // Landing with a single section
+  .single-section {
+    background: linear-gradient(to right, darken($main-blue, 10), $main-blue);
+    min-height: 100vh;
+
+    @include screen-md {
+      height: calc(100vh - 80px);
+      overflow: hidden;
+    }
+
+    .single-section-content {
+      padding-top: 80px;
+      min-height: 100vh;
+
+      .user-data {
+        color: #fff !important;
+      }
+
+      .user-profiles {
+        @include screen-md {
+          overflow-y: auto;
+          height: calc(100vh - 180px);
+        }
+      }
+    }
+
+    h1,
+    p {
+      max-width: 90%;
+    }
+  }
 }
