@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="gf-theme">
+<html lang="en" class="blue-theme">
   <head>
     <meta charset="utf-8" />
     <meta
@@ -37,16 +37,16 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/main-gf.css" />
+    <link rel="stylesheet" href="css/main.css" />
   </head>
 
-  <body class="d-flex flex-column">
+  <body class="d-flex flex-column landing-signup">
     <div class="content">
       <!--Loader start-->
       <div class="row no-gutters vh-100 loader-screen">
         <div class="col align-self-center text-white text-center">
           <img src="img/logo.png" alt="logo" />
-          <h1><span class="font-weight-light">Girl</span>friend</h1>
+          <h1><span class="font-weight-light">Boy</span>friend</h1>
           <div class="laoderhorizontal">
             <div></div>
             <div></div>
@@ -104,7 +104,7 @@
                   <div class="figure-profile shadow my-4">
                     <figure>
                       <img
-                        src="img/woman-placeholder-avatar.svg"
+                        src="img/placeholder-avatar.png"
                         id="avatar-preview"
                         alt="Avatar Placeholder"
                       />
@@ -227,48 +227,29 @@
       </div>
       <!--Modal for uploading avatar end-->
 
-      <!--Header start-->
-      <header class="public-header w-100 pb-4">
-        <div class="container-lg">
-          <div class="row no-gutters pb-3">
-            <div class="col-md-5 col-12 text-center my-3">
-              <a href="./index.html">
-                <img src="./img/logo.png" alt="logo" />
-              </a>
-            </div>
-            <div
-              class="col-md-7 col-12 d-flex align-items-center justify-content-center justify-content-xs-between justify-content-md-end"
-            >
-              <a
-                href="register.html"
-                class="mx-3 btn btn-lg btn-light text-white"
-              >
-                Zarejestruj
-              </a>
-              <a
-                href="login.html"
-                class="btn btn-lg btn-outline-white mx-3 text-white"
-              >
-                Zaloguj
-              </a>
+      <!-- header -->
+      <header class="private-header">
+        <div class="container">
+          <div class="row">
+            <div class="col text-center">
+              <img src="img/logo.png" alt="" class="private-header-logo" />
             </div>
           </div>
+          <div></div>
         </div>
       </header>
-      <!--Header end-->
+      <!-- header ends -->
 
-      <div
-        id="forms-signup"
-        class="login-and-registration pb-5 d-flex align-items-sm-center align-items-start"
-      >
+      <div id="forms-signup" class="login-and-registration pb-5">
         <!--Registration section start-->
         <section class="container">
-          <div class="row no-gutters proh">
+          <div class="row no-gutters proh bg-template">
             <div class="col-12 align-self-center px-0 px-sm-3 text-center">
-              <h2 class="text-white pb-4">
-                <span class="font-weight-light">Sign</span>Up
+              <h2 class="text-white pt-3 pb-5 font-weight-normal">
+                Provide some information to let others discover you
               </h2>
 
+              <!--Steps start-->
               <div class="form-steps py-3 mx-auto mb-5">
                 <div class="progress h-2">
                   <div
@@ -282,25 +263,22 @@
                   <div class="step step-current" data-step="0">
                     <i class="fas fa-check passed"></i>
                     <div class="current-mark"></div>
-                    <p class="label">General information</p>
+                    <p class="label">Write about yourself</p>
                   </div>
                   <div class="step step-further" data-step="1">
                     <i class="fas fa-check passed"></i>
                     <div class="current-mark"></div>
-                    <p class="label">Write about yourself</p>
-                  </div>
-                  <div class="step step-further" data-step="2">
-                    <i class="fas fa-check passed"></i>
-                    <div class="current-mark"></div>
                     <p class="label">Physical data</p>
                   </div>
-                  <div class="step step-further" data-step="3">
+                  <div class="step step-further" data-step="2">
                     <i class="fas fa-check passed"></i>
                     <div class="current-mark"></div>
                     <p class="label">Select avatar</p>
                   </div>
                 </div>
               </div>
+              <!--Steps end-->
+
               <!--Form step 1 start-->
               <div class="form-wrapper pt-3">
                 <form
@@ -309,87 +287,7 @@
                   data-step="0"
                 >
                   <div class="general-error" id="general-error-signup-1"></div>
-                  <!--Name-->
-                  <div class="form-group float-label">
-                    <input
-                      type="text"
-                      id="login"
-                      name="login"
-                      class="form-control signup-input"
-                      autofocus
-                    />
-                    <label for="login" class="form-control-label">Name</label>
-                  </div>
 
-                  <!--Email-->
-                  <div class="form-group float-label">
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      class="form-control signup-input"
-                    />
-                    <label for="email" class="form-control-label"
-                      >Email address</label
-                    >
-                  </div>
-
-                  <!--Password-->
-                  <div class="form-group float-label">
-                    <input
-                      type="password"
-                      id="password"
-                      name="password"
-                      class="form-control signup-input"
-                    />
-                    <label for="password" class="form-control-label"
-                      >Password</label
-                    >
-                  </div>
-
-                  <!--Terms-->
-                  <div class="form-group my-4 text-left">
-                    <div class="custom-control custom-checkbox form-group">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input signup-input"
-                        id="terms"
-                        name="terms"
-                      />
-                      <label class="custom-control-label" for="terms"
-                        >I accept
-                        <a href="terms.html" class="link-hover text-underline"
-                          >Terms and Condition</a
-                        ></label
-                      >
-                    </div>
-                  </div>
-
-                  <!--Signup button-->
-                  <div class="row">
-                    <div class="col-12 text-center">
-                      <button
-                        type="submit"
-                        class="btn btn-lg btn-default btn-rounded shadow"
-                        id="btn-firstStep"
-                      >
-                        <span>Sign Up</span
-                        ><i class="material-icons">arrow_forward</i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <!--Form step 1 end-->
-
-              <!--Form step 2 start-->
-              <div class="form-wrapper pt-3">
-                <form
-                  class="form-step form-signin shadow text-left"
-                  id="signup-2"
-                  data-step="1"
-                >
-                  <div class="general-error" id="general-error-signup-2"></div>
                   <!--Name-->
                   <div class="form-group float-label">
                     <input
@@ -420,7 +318,7 @@
                       <button
                         type="submit"
                         class="btn btn-lg btn-default btn-rounded shadow"
-                        id="btn-secondStep"
+                        id="submitBtn-firstStep"
                       >
                         <span>Next</span
                         ><i class="material-icons">arrow_forward</i>
@@ -429,16 +327,17 @@
                   </div>
                 </form>
               </div>
-              <!--Form step 2 start-->
+              <!--Form step 1 end-->
 
-              <!--Form step 3 start-->
-              <div class="form-wrapper pt-3" id="signup-3-wrapper">
+              <!--Form step 2 start-->
+              <div class="form-wrapper pt-3">
                 <form
-                  class="form-step form-signin-lg shadow text-left"
-                  id="signup-3"
-                  data-step="2"
+                  class="form-step form-signin shadow text-left"
+                  id="signup-2"
+                  data-step="1"
                 >
-                  <div class="general-error" id="general-error-signup-3"></div>
+                  <div class="general-error" id="general-error-signup-2"></div>
+
                   <!--City input start-->
                   <div
                     class="form-group float-label position-relative input-wrapper"
@@ -584,50 +483,56 @@
                       <option value="secret">Won't tell</option>
                     </select>
                   </div>
+                  <!--Preference end-->
 
+                  <!--Submit button start-->
                   <div class="row">
                     <div class="col-12 text-right">
                       <button
                         type="submit"
                         class="btn btn-lg btn-default btn-rounded shadow"
-                        id="btn-thirdStep"
+                        id="submitBtn-secondStep"
                       >
                         <span>Next</span
                         ><i class="material-icons">arrow_forward</i>
                       </button>
                     </div>
                   </div>
+                  <!--Submit button end-->
                 </form>
+
+                <!--Back arrow-->
                 <div
-                  class="backward back-lg link-hover text-white d-flex align-items-center"
+                  class="backward back blue-link text-white d-flex align-items-center"
                 >
                   <i class="material-icons"> arrow_back </i>
                   back
                 </div>
               </div>
-              <!--Form step 3 end-->
+              <!--Form step 2 start-->
 
-              <!--Form step 4 start-->
-              <div class="form-wrapper pt-3 text-left">
-                <div
-                  class="form-step form-signin shadow"
-                  id="signup-4"
-                  data-step="3"
+              <!--Form step 3 start-->
+              <div class="form-wrapper pt-3" id="signup-3-wrapper">
+                <form
+                  class="form-step form-signin-lg shadow text-left"
+                  id="signup-3"
+                  data-step="2"
                 >
-                  <div class="general-error" id="general-error-signup-4"></div>
+                  <div class="general-error" id="general-error-signup-3"></div>
+
                   <!--Profile photo upload start-->
                   <div class="text-center pb-5">
                     <h3 class="section-title">Upload your avatar</h3>
                     <div class="figure-profile shadow my-4">
                       <figure>
                         <img
-                          src="img/woman-placeholder-avatar.svg"
+                          src="img/placeholder-avatar.png"
                           class="avatar-image"
                           alt="Avatar"
                         />
                       </figure>
                       <div
-                        class="btn btn-secondary text-white floating-btn"
+                        class="btn btn-dark text-white floating-btn"
                         data-toggle="modal"
                         data-target="#upload-avatar"
                       >
@@ -636,6 +541,7 @@
                     </div>
                   </div>
                   <!--Profile photo upload end-->
+
                   <!--Signup button-->
                   <div class="row text-center">
                     <div class="col-12">
@@ -649,57 +555,21 @@
                       </a>
                     </div>
                   </div>
-                </div>
+                </form>
                 <div
-                  class="backward back link-hover text-white d-flex align-items-center"
+                  class="backward back-lg blue-link text-white d-flex align-items-center"
                 >
                   <i class="material-icons"> arrow_back </i>
                   back
                 </div>
               </div>
-              <!--Form step 4 end-->
-
-              <p class="text-center text-white pt-4">
-                Already have account?<br />
-                <a href="login.html" class="link-hover text-underline"
-                  >Sign In</a
-                >
-                here.
-              </p>
+              <!--Form step 3 end-->
             </div>
           </div>
         </section>
         <!--Registration section end-->
       </div>
     </div>
-
-    <!--Footer start-->
-    <footer
-      class="public-footer px-3 py-3 bg-light border-top border-light shadow-lg d-flex flex-column flex-md-row justify-content-center justify-content-md-between align-items-center"
-    >
-      <h2 class="d-flex align-items-center">
-        <a href="index.html" class="text-dark">Boyfriend.pl</a>
-      </h2>
-      <nav class="pt-2 pt-md-0 text-center">
-        <ul
-          class="p-0 m-0 d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center"
-        >
-          <li class="px-3 py-2 py-sm-0">
-            <a href="index.html" class="text-dark">Home</a>
-          </li>
-          <li class="px-3 py-2 py-sm-0">
-            <a href="login.html" class="text-dark">Logowanie</a>
-          </li>
-          <li class="px-3 py-2 py-sm-0">
-            <a href="register.html" class="text-dark">Regestracja</a>
-          </li>
-          <li class="px-3 py-2 py-sm-0">
-            <a href="terms.html" class="text-dark">Polityka</a>
-          </li>
-        </ul>
-      </nav>
-    </footer>
-    <!--Footer end-->
 
     <!-- notification -->
     <div class="notification bg-white shadow border-primary">
@@ -759,57 +629,9 @@
             generalError: '#general-error-signup-1',
             loading: {
               spinnerTemplateId: 'spinner-template',
-              submitButton: '#btn-firstStep',
+              submitButton: '#submitBtn-firstStep',
               spinner: '.spinner-border',
               text: 'Finishing the first step...',
-            },
-          },
-          requests: {
-            submit: {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              endpoint:
-                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/signin',
-            },
-          },
-          location: false,
-          showSuccessPopup: false,
-          showFailPopup: false,
-          frontendValidation: true,
-          generateSubmitEvent: true,
-          validatorOptions: {
-            errorElement: 'span',
-            rules: {
-              login: {
-                required: true,
-                minlength: 3,
-              },
-              email: {
-                required: true,
-                email: true,
-              },
-              password: {
-                required: true,
-                minlength: 4,
-              },
-              terms: 'required',
-            },
-          },
-        });
-
-        const signupSecondStep = new Form({
-          selectors: {
-            form: '#signup-2',
-            'input-wrapper': '.form-group',
-            inputs: '.signup-input',
-            generalError: '#general-error-signup-2',
-            loading: {
-              spinnerTemplateId: 'spinner-template',
-              submitButton: '#btn-secondStep',
-              spinner: '.spinner-border',
-              text: 'Finishing the second step...',
             },
           },
           requests: {
@@ -842,9 +664,9 @@
           },
         });
 
-        const signupThirdStep = new Form({
+        const signupSecondStep = new Form({
           selectors: {
-            form: '#signup-3',
+            form: '#signup-2',
             'input-wrapper': '.input-wrapper',
             inputs: '.signup-input',
             locationInput: '.location',
@@ -852,7 +674,7 @@
             'dropdown-toggle': '.dropdown-toggle',
             'dropdown-menu': '.dropdown-menu',
             locationLoadingIndicator: '.city-loader',
-            generalError: '#general-error-signup-3',
+            generalError: '#general-error-signup-2',
             date: {
               day: '#day',
               month: '#month',
@@ -860,9 +682,9 @@
             },
             loading: {
               spinnerTemplateId: 'spinner-template',
-              submitButton: '#btn-thirdStep',
+              submitButton: '#submitBtn-secondStep',
               spinner: '.spinner-border',
-              text: 'Finishing the third step...',
+              text: 'Finishing the second step...',
             },
           },
           requests: {

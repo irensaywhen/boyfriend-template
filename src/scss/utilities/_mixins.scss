@@ -112,6 +112,18 @@
   visibility: visible;
 }
 
+@mixin circle-online-badge {
+  position: absolute;
+  bottom: 0.5vw;
+  right: 0.5vw;
+  width: 20px;
+  height: 20px;
+  background: $success-green;
+  z-index: 100;
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+
 /*Responsize font size*/
 
 @mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {

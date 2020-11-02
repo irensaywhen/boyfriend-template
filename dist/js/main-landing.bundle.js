@@ -19380,6 +19380,41 @@
         /***/
       },
 
+    /***/ './js/main-landing.js':
+      /*!****************************!*\
+  !*** ./js/main-landing.js ***!
+  \****************************/
+      /*! no exports provided */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony import */ var _modules_landing_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! ./modules/landing.js */ './js/modules/landing.js'
+        );
+
+        window['Landing'] =
+          _modules_landing_js__WEBPACK_IMPORTED_MODULE_0__['default']; // Custom animation for modal
+
+        $(document)
+          .on('show.bs.modal', function (event) {
+            var $target = $(event.target);
+            if (!$target.hasClass('modal')) return;
+            $target
+              .find('.modal-dialog')
+              .removeClass('animate__zoomOut')
+              .addClass('animate__animated animate__zoomIn animate__faster');
+          })
+          .on('hide.bs.modal', function (event) {
+            var $target = $(event.target);
+            if (!$target.hasClass('modal')) return;
+            $target
+              .find('.modal-dialog')
+              .removeClass('animate__zoomIn animate__faster'); //.addClass('animate__zoomOut');
+          });
+
+        /***/
+      },
+
     /***/ './js/main.js':
       /*!********************!*\
   !*** ./js/main.js ***!
@@ -20326,6 +20361,44 @@
         /***/
       },
 
+    /***/ './js/modules/debounce.js':
+      /*!********************************!*\
+  !*** ./js/modules/debounce.js ***!
+  \********************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        var debounce = function debounce(func) {
+          var wait =
+            arguments.length > 1 && arguments[1] !== undefined
+              ? arguments[1]
+              : 0;
+          var timeout;
+          return function executedFunction() {
+            for (
+              var _len = arguments.length, args = new Array(_len), _key = 0;
+              _key < _len;
+              _key++
+            ) {
+              args[_key] = arguments[_key];
+            }
+
+            var later = function later() {
+              clearTimeout(timeout);
+              func.apply(void 0, args);
+            };
+
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+          };
+        };
+
+        /* harmony default export */ __webpack_exports__['default'] = debounce;
+
+        /***/
+      },
+
     /***/ './js/modules/fileReaderMixin.js':
       /*!***************************************!*\
   !*** ./js/modules/fileReaderMixin.js ***!
@@ -21242,6 +21315,132 @@
         /***/
       },
 
+    /***/ './js/modules/landing.js':
+      /*!*******************************!*\
+  !*** ./js/modules/landing.js ***!
+  \*******************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return Landing;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! ./requests.js */ './js/modules/requests.js'
+        );
+
+        function _createSuper(Derived) {
+          var hasNativeReflectConstruct = _isNativeReflectConstruct();
+          return function _createSuperInternal() {
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+                Derived
+              ),
+              result;
+            if (hasNativeReflectConstruct) {
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+                this
+              ).constructor;
+              result = Reflect.construct(Super, arguments, NewTarget);
+            } else {
+              result = Super.apply(this, arguments);
+            }
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(
+              this,
+              result
+            );
+          };
+        }
+
+        function _isNativeReflectConstruct() {
+          if (typeof Reflect === 'undefined' || !Reflect.construct)
+            return false;
+          if (Reflect.construct.sham) return false;
+          if (typeof Proxy === 'function') return true;
+          try {
+            Date.prototype.toString.call(
+              Reflect.construct(Date, [], function () {})
+            );
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        var Landing = /*#__PURE__*/ (function (_ServerRequest) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default()(
+            Landing,
+            _ServerRequest
+          );
+
+          var _super = _createSuper(Landing);
+
+          function Landing(options) {
+            var _this;
+
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              Landing
+            );
+
+            _this = _super.call(this, options); // Mimick private variables here. Apply all the knowledge you gained
+
+            var config = options.config;
+            var $document = $(document);
+            /**
+             * Show signup modal when profiles are clicked
+             * 1. Cache signup modal and save selector for profile
+             * 2. If profile is clicked, show signup modal
+             */
+
+            if (config.profiles) {
+              var bait = _this.selectors.profile || '.show-signup',
+                $signUpModal = $(_this.selectors.signUpModal);
+              $document.click(function (event) {
+                var $target = $(event.target);
+                if ($target.closest(bait).length === 0) return;
+                event.preventDefault();
+                $signUpModal.modal('show');
+              });
+            }
+
+            return _this;
+          }
+
+          return Landing;
+        })(_requests_js__WEBPACK_IMPORTED_MODULE_4__['default']);
+
+        /***/
+      },
+
     /***/ './js/modules/locationMixin.js':
       /*!*************************************!*\
   !*** ./js/modules/locationMixin.js ***!
@@ -21250,6 +21449,10 @@
       /***/ function (module, __webpack_exports__, __webpack_require__) {
         'use strict';
         __webpack_require__.r(__webpack_exports__);
+        /* harmony import */ var _debounce_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! ./debounce.js */ './js/modules/debounce.js'
+        );
+
         /* harmony default export */ __webpack_exports__[
           'default'
         ] = (function () {
@@ -21297,8 +21500,13 @@
             var requestInfo = this.requests.location; // Handle location input
 
             $locationInput.on('input focus', function (event) {
-              // Prepare input for futher actions
-              _prepareCityInput(event.target); // Set delay based on event type
+              var target = event.target;
+
+              if (event.type === 'focus' && target.dataset.lat) {
+                return;
+              } // Prepare input for futher actions
+
+              _prepareCityInput(target); // Set delay based on event type
 
               var delay = event.type === 'focus' ? 0 : 300; // Debounce user input
 
@@ -23113,11 +23321,7 @@
   \***********************************************/
       /*! no static exports found */
       /***/ function (module, exports, __webpack_require__) {
-        !(function webpackMissingModule() {
-          var e = new Error("Cannot find module './js/main-landing.js'");
-          e.code = 'MODULE_NOT_FOUND';
-          throw e;
-        })();
+        __webpack_require__(/*! ./js/main-landing.js */ './js/main-landing.js');
         module.exports = __webpack_require__(
           /*! ./js/main.js */ './js/main.js'
         );

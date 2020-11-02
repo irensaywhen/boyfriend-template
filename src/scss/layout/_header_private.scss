@@ -14,12 +14,18 @@
 
 .private-header {
   width: 100%;
-  background-image: linear-gradient(
-    135deg,
-    darken($primary-color, 15),
-    $primary-color
-  );
-  height: 70px;
+  @if $gf-theme {
+    background-image: linear-gradient(
+      135deg,
+      darken($primary-color, 15),
+      $primary-color
+    );
+    height: 70px;
+  } @else if $bf-theme {
+    background: $main-blue !important;
+    min-height: 70px;
+  }
+
   position: fixed;
   padding: env(safe-area-inset-top);
   top: 0;
