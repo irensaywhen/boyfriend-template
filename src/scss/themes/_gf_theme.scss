@@ -1,10 +1,10 @@
-.blue-theme .bg-background,
-.blue-theme .header.active,
-.blue-theme .list-group-item.active {
+.gf-theme .bg-background,
+.gf-theme .header.active,
+.gf-theme .list-group-item.active {
   background-color: #e7efff;
 }
 
-.blue-theme .wrapper {
+.gf-theme .wrapper {
   background-color: $main-background-color;
   background-image: -moz-radial-gradient(
     center,
@@ -49,119 +49,116 @@
   background-size: 100% 100%;
 }
 
-.blue-theme body,
-.blue-theme body.sidemenu-open,
-.blue-theme .bg-template,
-.blue-theme .custom-control-input:checked ~ .custom-control-label::before,
-.blue-theme .small-slide .swiper-slide .card:hover,
-.blue-theme .small-slide .swiper-slide .card:focus,
-.blue-theme .filter,
-.blue-theme .chosen-container .chosen-results li.highlighted,
-.blue-theme .nav-pills .nav-link.active,
-.blue-theme .nav-pills .show > .nav-link,
-.blue-theme .loader-screen {
+.gf-theme body,
+.gf-theme body.sidemenu-open,
+.gf-theme .bg-template,
+.gf-theme .custom-control-input:checked ~ .custom-control-label::before,
+.gf-theme .small-slide .swiper-slide .card:hover,
+.gf-theme .small-slide .swiper-slide .card:focus,
+.gf-theme .filter,
+.gf-theme .chosen-container .chosen-results li.highlighted,
+.gf-theme .nav-pills .nav-link.active,
+.gf-theme .nav-pills .show > .nav-link,
+.gf-theme .loader-screen {
   background: $primary-color;
 }
 
-.blue-theme .btn-default {
+.gf-theme .btn-default {
   background-color: $secondary-color;
 }
 
-.blue-theme .filter,
-.blue-theme .filter .form-control,
-.blue-theme .filter .form-group label,
-.blue-theme .float-label .chosen-container-multi .chosen-choices,
-.blue-theme
+.gf-theme .filter,
+.gf-theme .filter .form-control,
+.gf-theme .filter .form-group label,
+.gf-theme .float-label .chosen-container-multi .chosen-choices,
+.gf-theme
   .float-label
   .chosen-container-multi
   .chosen-choices
   li.search-field
   input[type='text'],
-.blue-theme .filter .chosen-container-multi .chosen-choices li.search-choice,
-.blue-theme .btn-default,
-.blue-theme .sidebar,
-.blue-theme .sidebar .main-menu .list-group-item,
-.blue-theme .small-slide .swiper-slide .card:hover *,
-.blue-theme .small-slide .swiper-slide .card:focus * {
+.gf-theme .filter .chosen-container-multi .chosen-choices li.search-choice,
+.gf-theme .btn-default,
+.gf-theme .sidebar,
+.gf-theme .sidebar .main-menu .list-group-item,
+.gf-theme .small-slide .swiper-slide .card:hover *,
+.gf-theme .small-slide .swiper-slide .card:focus * {
   color: #ffff !important;
 }
 
-.blue-theme .filter .form-group label {
+.gf-theme .filter .form-group label {
   opacity: 0.85;
 }
 
-.blue-theme .btn-default:hover,
-.blue-theme .btn-default:focus {
+.gf-theme .btn-default:hover,
+.gf-theme .btn-default:focus {
   color: #ffffff;
   background-color: $light-secondary-color;
 }
 
-.blue-theme .figure-profile,
-.blue-theme .form-control:focus,
-.blue-theme .custom-control-input:focus ~ .custom-control-label::before,
-.blue-theme .custom-control-input:checked ~ .custom-control-label::before,
-.blue-theme .float-label .form-control:focus,
-.blue-theme .btn-outline-default {
+.gf-theme .figure-profile,
+.gf-theme .form-control:focus,
+.gf-theme .custom-control-input:focus ~ .custom-control-label::before,
+.gf-theme .custom-control-input:checked ~ .custom-control-label::before,
+.gf-theme .float-label .form-control:focus,
+.gf-theme .btn-outline-default {
   border-color: $primary-color;
 }
 
-.blue-theme .filter .form-control:focus,
-.blue-theme .filter .custom-control-input:focus ~ .custom-control-label::before,
-.blue-theme
-  .filter
-  .custom-control-input:checked
-  ~ .custom-control-label::before,
-.blue-theme .filter .float-label .form-control:focus {
+.gf-theme .filter .form-control:focus,
+.gf-theme .filter .custom-control-input:focus ~ .custom-control-label::before,
+.gf-theme .filter .custom-control-input:checked ~ .custom-control-label::before,
+.gf-theme .filter .float-label .form-control:focus {
   border-color: #ffffff;
 }
 
-.blue-theme .custom-control-input:focus ~ .custom-control-label::before {
+.gf-theme .custom-control-input:focus ~ .custom-control-label::before {
   box-shadow: 0 0 0 0.2rem $light-primary-color;
 }
 
-.blue-theme .btn-light:hover,
-.blue-theme .btn-light:focus,
-.blue-theme .btn-light:not(:disabled):not(.disabled).active,
-.blue-theme .bg-template-light {
+.gf-theme .btn-light:hover,
+.gf-theme .btn-light:focus,
+.gf-theme .btn-light:not(:disabled):not(.disabled).active,
+.gf-theme .bg-template-light {
   background-color: #fff;
 }
 
-.blue-theme .text-template,
-.blue-theme .btn-link,
-.blue-theme .float-label .form-control:focus + .form-control-label,
-.blue-theme .btn-light:hover,
-.blue-theme .btn-light:focus,
-.blue-theme .btn-light:not(:disabled):not(.disabled).active,
-.blue-theme .btn.btn-link-default:hover,
-.blue-theme .btn.btn-link-default:focus,
-.blue-theme .btn.btn-link-default.active {
+.gf-theme .text-template,
+.gf-theme .btn-link,
+.gf-theme .float-label .form-control:focus + .form-control-label,
+.gf-theme .btn-light:hover,
+.gf-theme .btn-light:focus,
+.gf-theme .btn-light:not(:disabled):not(.disabled).active,
+.gf-theme .btn.btn-link-default:hover,
+.gf-theme .btn.btn-link-default:focus,
+.gf-theme .btn.btn-link-default.active {
   color: $secondary-color;
 }
 
-.blue-theme .bg-warning,
-.blue-theme .badge-warning {
+.gf-theme .bg-warning,
+.gf-theme .badge-warning {
   background-color: $warning-yellow !important;
 }
 
-.blue-theme .bg-success,
-.blue-theme .badge-success {
+.gf-theme .bg-success,
+.gf-theme .badge-success {
   background-color: $success-green !important;
 }
 
-.blue-theme .bg-orange,
-.blue-theme .badge-orange {
+.gf-theme .bg-orange,
+.gf-theme .badge-orange {
   background-color: $orange !important;
 }
 
-.blue-theme .bg-primary {
+.gf-theme .bg-primary {
   background-color: $primary-color !important;
 }
 
-.blue-theme .orange-slice {
+.gf-theme .orange-slice {
   margin-right: -110px;
 }
 
-.blue-theme {
+.gf-theme {
   ::placeholder {
     color: $bootstrap-secondary;
   }
