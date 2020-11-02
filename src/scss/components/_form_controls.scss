@@ -26,8 +26,10 @@ textarea {
   }
 }
 
-.form-control::placeholder {
-  color: $light-gray;
+@if $gf-theme {
+  .form-control::placeholder {
+    color: $light-gray;
+  }
 }
 
 .float-label {

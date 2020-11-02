@@ -128,7 +128,11 @@
 
   // Landing with a single section
   .single-section {
-    background: linear-gradient(to right, darken($main-blue, 10), $main-blue);
+    background: linear-gradient(
+      to right,
+      darken($primary-color, 10),
+      $primary-color
+    );
     min-height: 100vh;
 
     @include screen-md {

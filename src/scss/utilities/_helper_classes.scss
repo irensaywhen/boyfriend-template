@@ -21,8 +21,10 @@
 
 /* Text */
 
-.pink-text {
-  color: $secondary-color;
+@if $gf-theme {
+  .pink-text {
+    color: $secondary-color;
+  }
 }
 
 .text-underline {

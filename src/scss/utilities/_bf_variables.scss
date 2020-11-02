@@ -1,28 +1,26 @@
-$front-page-background: url('');
-$gf-theme: true;
-$bf-theme: false;
+$front-page-background: url('../img/main-bg.jpg');
+$bf-theme: true;
+$gf-theme: false;
 
 /*Colors*/
 
-$primary-color: #d327b6;
-$dark-primary-color: darken($primary-color, 10);
-$light-primary-color: #f782c2;
-$secondary-color: #8a00d4;
-$light-secondary-color: lighten($secondary-color, 5);
-$light-accent-color: #f9c46b;
-$dark: #2e384d;
+$primary-color: #0c609a;
+$text-above-background: #337db1;
+$light-primary-color: #c8daff;
+$secondary-color: #ff0068;
+$light-secondary-color: lighten($secondary-color, 10);
+$hover-pink: #dd015b;
 
 $primary-blue: #3fa7ff;
-$present-blue: #01d7f4;
+$present-blue: #41b6f2;
 $warning-yellow: #fdd835;
-$superlike-yellow: #f9c46b;
+$superlike-yellow: #f2be41;
 $success-green: #15d36c;
-$success-blue: #01d7f4;
-$orange: #f9c46b;
+$orange: #ff9133;
 $red: #dc3545;
 $error: $orange;
+$dark: #2e384d;
 
-// On svg
 $bonus-dark: #262626;
 $bonus-pink: #ee1f61;
 
@@ -33,8 +31,7 @@ $bootstrap-secondary: #6c757d;
 $disabled-gray-button: lighten($bootstrap-secondary, 30);
 
 $label-color: #212529;
-$label-border: #bab9c1;
-$light-gray: #d5d3de;
+$label-border: #ced4da;
 
 /*Text sizes*/
 $h1: 40px;
@@ -126,7 +123,5 @@ $modal-md: 450px !important;
 $modal-lg: 600px !important;
 $modal-xl: 950px !important;
 
-/* custom shadow */
-$shadow: 0px 5px 15px 5px #f782c2;
 // Landing
 $footer-height: 40px;

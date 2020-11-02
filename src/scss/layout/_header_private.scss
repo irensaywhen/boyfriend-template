@@ -22,7 +22,7 @@
     );
     height: 70px;
   } @else if $bf-theme {
-    background: $main-blue !important;
+    background: $primary-color !important;
     min-height: 70px;
   }
 
