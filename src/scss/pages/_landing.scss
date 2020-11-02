@@ -27,28 +27,61 @@
   }
 
   // Avatar
-  .avatar {
+  .avatar-wrapper {
     position: relative;
-    cursor: pointer;
 
-    img {
-      @include ease-out;
-      border-radius: 200px;
-      filter: blur(8px);
+    .badge-success {
+      position: absolute;
+      top: 10px;
+      right: 6px;
+    }
+
+    &::after {
+      content: '';
+      @include circle-online-badge;
+
+      @media screen and (min-width: 415px) {
+        bottom: 1vw;
+        right: 1vw;
+      }
+
+      @media screen and (min-width: 475px) {
+        bottom: 1.5vw;
+        right: 1.5vw;
+      }
+
+      @include screen-sm {
+        @include circle-online-badge;
+      }
+
+      @include screen-md {
+        display: none;
+      }
+    }
+
+    .avatar {
+      position: relative;
+      cursor: pointer;
+
+      img {
+        @include ease-out;
+        border-radius: 200px;
+        filter: blur(8px);
+
+        @include screen-md {
+          border-radius: unset;
+        }
+      }
 
       @include screen-md {
         border-radius: unset;
       }
-    }
 
-    @include screen-md {
-      border-radius: unset;
-    }
-
-    &:hover,
-    &:focus {
-      img {
-        filter: blur(5px);
+      &:hover,
+      &:focus {
+        img {
+          filter: blur(5px);
+        }
       }
     }
   }
