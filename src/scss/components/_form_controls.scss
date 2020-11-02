@@ -26,7 +26,7 @@ textarea {
   }
 }
 
-@if $gf-theme {
+@if $blue-theme {
   .form-control::placeholder {
     color: $light-gray;
   }

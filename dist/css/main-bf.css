@@ -941,7 +941,7 @@ nav ul {
   background-color: #0c609a;
 }
 .blue-theme .btn-default {
-  background-color: #ff0068;
+  background-color: #ff0068 !important;
 }
 .blue-theme .filter,
 .blue-theme .filter .form-control,
@@ -2551,6 +2551,10 @@ article .header time {
     linear-gradient(135deg, #063453, #0c609a);
   background-size: cover;
   min-height: 100%;
+}
+.top-section .btn-light {
+  background: #ff0068 !important;
+  color: #fff !important;
 }
 article .header {
   display: grid;
