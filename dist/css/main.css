@@ -1106,6 +1106,10 @@ nav ul {
   background: #ff0068;
   border-color: #fff;
 }
+.blue-theme .page-item.disabled .page-link {
+  color: #6c757d;
+  background: #fff;
+}
 .blue-theme .profile-list .pagination a {
   transition: all 0.5s ease-out;
   display: inline-block;
@@ -3493,6 +3497,9 @@ article .header time {
   width: 32px;
   height: auto;
 }
+.landing.modal-open {
+  overflow: visible !important;
+}
 .landing .wrapper {
   padding-top: 80px;
   background: #fff;
@@ -3549,7 +3556,6 @@ article .header time {
   position: absolute;
   cursor: pointer;
   width: 100%;
-  bottom: -20px;
   z-index: 5;
   margin: 0;
 }
@@ -3589,7 +3595,7 @@ article .header time {
 }
 @media (min-width: 768px) {
   .landing .single-section {
-    height: calc(100vh - 80px);
+    min-height: calc(100vh - 80px);
     overflow: hidden;
   }
 }

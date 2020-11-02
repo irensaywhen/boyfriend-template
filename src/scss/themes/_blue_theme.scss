@@ -265,6 +265,13 @@
         border-color: #fff;
       }
     }
+
+    &.disabled {
+      .page-link {
+        color: $bootstrap-secondary;
+        background: #fff;
+      }
+    }
   }
 
   .profile-list {

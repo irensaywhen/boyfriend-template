@@ -21416,36 +21416,18 @@
             var config = options.config;
             var $document = $(document);
             /**
-             * Password recovery
-             * 1. Cache elements
-             * 2. Set event listener to show password recovery modal
-             * when "Forgot password" is clicked
-             */
-
-            var _this$selectors$passw = _this.selectors.passwordRecovery,
-              forgotPasswordBtn = _this$selectors$passw.forgotPasswordBtn,
-              recoveryPasswordModal =
-                _this$selectors$passw.recoveryPasswordModal;
-            var $recoveryPasswordModal = $(recoveryPasswordModal),
-              $forgotPasswordBtn = $(forgotPasswordBtn); // Show password recovery modal
-
-            $forgotPasswordBtn.click(function (event) {
-              event.preventDefault();
-              $forgotPasswordBtn.closest('.modal').modal('hide');
-              $recoveryPasswordModal.modal('show');
-            });
-            /**
              * Show signup modal when profiles are clicked
              * 1. Cache signup modal and save selector for profile
              * 2. If profile is clicked, show signup modal
              */
 
             if (config.profiles) {
-              var profile = _this.selectors.profile || '.show-signup',
+              var bait = _this.selectors.profile || '.show-signup',
                 $signUpModal = $(_this.selectors.signUpModal);
               $document.click(function (event) {
                 var $target = $(event.target);
-                if ($target.closest(profile).length === 0) return;
+                if ($target.closest(bait).length === 0) return;
+                event.preventDefault();
                 $signUpModal.modal('show');
               });
             }

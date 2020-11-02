@@ -1,4 +1,7 @@
 .landing {
+  &.modal-open {
+    overflow: visible !important;
+  }
   .wrapper {
     padding-top: 80px;
     background: #fff;
@@ -54,7 +57,6 @@
     position: absolute;
     cursor: pointer;
     width: 100%;
-    bottom: -20px;
     z-index: 5;
     margin: 0;
 
@@ -97,7 +99,7 @@
     min-height: 100vh;
 
     @include screen-md {
-      height: calc(100vh - 80px);
+      min-height: calc(100vh - 80px);
       overflow: hidden;
     }
 
