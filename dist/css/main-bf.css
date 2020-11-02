@@ -333,7 +333,7 @@ span.error::before {
   height: 14px;
   font-size: 14px;
   padding-right: 3px;
-  color: #ff0068;
+  color: #15d36c;
 }
 .message .text {
   max-width: 95%;
@@ -862,7 +862,6 @@ html {
   height: 100%;
 }
 body {
-  color: #2e384d;
   min-height: 100%;
   height: 100%;
   overflow-y: auto;
@@ -967,7 +966,7 @@ nav ul {
 .blue-theme .btn-default:hover,
 .blue-theme .btn-default:focus {
   color: #ffffff;
-  background-color: #dd015b;
+  background-color: #dd015b !important;
 }
 .blue-theme .figure-profile,
 .blue-theme .form-control:focus,
@@ -1030,6 +1029,19 @@ nav ul {
 .blue-theme .badge-pink {
   background-color: #ff0068 !important;
 }
+.blue-theme .swal2-confirm {
+  background: #ff0068 !important;
+}
+.blue-theme .text-emphasize {
+  color: #15d36c;
+}
+.blue-theme .badge-secondary {
+  background-color: #15d36c !important;
+}
+.blue-theme .badge-light {
+  background-color: #3fa7ff !important;
+  color: #fff !important;
+}
 .blue-theme .text-primary {
   color: #ff0068 !important;
 }
@@ -1040,6 +1052,18 @@ nav ul {
 .blue-theme .dropdown-item:active {
   background: #fff !important;
   color: #212529;
+}
+.blue-theme .btn-light {
+  background: #ff0068;
+  color: #fff;
+}
+.blue-theme .btn-light:hover,
+.blue-theme .btn-light:focus {
+  background: #dd015b;
+}
+.blue-theme .btn-light:active,
+.blue-theme .btn-light.active {
+  background: #ff0068;
 }
 .blue-theme .btn-outline-white {
   border-color: #fff;
@@ -1056,14 +1080,20 @@ nav ul {
   background: transparent;
   color: #fff;
 }
-.blue-theme .btn-outline-primary {
+.blue-theme .btn-outline-default {
   border: 1px solid #ff0068;
   color: #ff0068;
   background: transparent;
 }
-.blue-theme .btn-outline-primary:hover {
+.blue-theme .btn-outline-default:hover,
+.blue-theme .btn-outline-default:focus {
   color: #fff;
   background: #ff0068 !important;
+}
+.blue-theme .btn-outline-default:active {
+  border: 1px solid #ff0068;
+  color: #ff0068;
+  background: transparent;
 }
 .blue-theme .btn-success {
   transition: all 0.5s ease-out;
@@ -1144,6 +1174,10 @@ nav ul {
   max-width: 100%;
   height: auto;
   max-width: 380px;
+}
+.public-header .btn-light {
+  background: #ff0068 !important;
+  color: #fff !important;
 }
 .wrapper.wrapper-padding {
   padding-top: 70px;
@@ -1607,14 +1641,6 @@ body.sidemenu-open .sidebar {
   z-index: 99;
   background-color: #046aaa;
 }
-body > .content {
-  background-image: linear-gradient(135deg, #063453, #0c609a);
-  background-size: cover;
-  min-height: 100%;
-}
-body > .content .swiper-pagination-bullet-active {
-  background: #c8daff !important;
-}
 article h1 {
   font-size: 30px;
 }
@@ -1652,7 +1678,7 @@ article .header .social {
   font-size: 32px;
 }
 article .header .social a {
-  color: #2e384d;
+  color: #343a40;
 }
 article .header time {
   grid-area: date;
@@ -2315,13 +2341,13 @@ article .header time {
   background: #fff;
 }
 .form-steps.checkout-form .step .label {
-  color: #ff0068;
+  color: #0c609a;
 }
 .form-steps.checkout-form .step.step-passed {
   text-align: center;
 }
 .form-steps.checkout-form .step.step-current .current-mark {
-  background: #ff0068;
+  background: #0c609a;
 }
 .form-steps.checkout-form .step.step-further {
   background: #fff;
@@ -2339,7 +2365,7 @@ article .header time {
 }
 .payment .material-icons {
   font-size: 80px;
-  color: #ff0068;
+  color: #0c609a;
 }
 .payment .price {
   font-size: 20px;
@@ -2355,10 +2381,17 @@ article .header time {
   position: absolute;
   top: 0;
 }
+.heart-wrapper .heart-empty path {
+  fill: #dc3545;
+}
 .heart-wrapper .heart-full {
   position: absolute;
   top: 1px;
   opacity: 0;
+}
+.heart-wrapper .heart-full path {
+  fill: #dc3545;
+  color: #dc3545;
 }
 .like-empty {
   -webkit-animation-name: like-empty;
@@ -2552,10 +2585,6 @@ article .header time {
   background-size: cover;
   min-height: 100%;
 }
-.top-section .btn-light {
-  background: #ff0068 !important;
-  color: #fff !important;
-}
 article .header {
   display: grid;
   grid-gap: 3px;
@@ -2604,7 +2633,7 @@ article .header time {
   background: #ff9133;
 }
 .fill-profile-page .bonus-notzero-amount {
-  background: #c8daff;
+  background: #15d36c;
 }
 .fill-profile-page .nav-pills .nav-item {
   margin-left: 0.5rem;
@@ -2749,14 +2778,13 @@ article .header time {
 .account-table {
   border-collapse: collapse;
   max-width: 700px;
-  color: #800034;
+  color: #343a40;
 }
 .account-table tr:nth-of-type(2n) {
-  background: #fff;
+  background: #e2ebff;
 }
 .account-table th {
   background: #0c609a;
-  background: #c8daff;
   color: #fff;
   font-weight: bold;
 }
@@ -3050,7 +3078,7 @@ article .header time {
   color: #ff9133;
 }
 .profile-page .bonus-notzero-amount {
-  color: #ff0068;
+  color: #15d36c;
 }
 .profile {
   max-width: 612px;
@@ -3231,10 +3259,22 @@ article .header time {
   min-width: 30px;
   height: auto;
 }
-.profile .superlike {
+.profile .action.present {
+  background: #3fa7ff;
+  color: #fff;
+}
+.profile .action.present:hover,
+.profile .action.present:focus {
+  background: #41b6f2;
+}
+.profile .action.present:active {
+  background: #3fa7ff;
+  color: #fff;
+}
+.profile .action.superlike {
   background: #f2be41;
 }
-.profile .superlike:hover {
+.profile .action.superlike:hover {
   background: #efae11;
 }
 .profile .chat-button {
@@ -3348,7 +3388,7 @@ article .header time {
   color: #ff9133;
 }
 .chat .chat-header .bonus-notzero-amount {
-  color: #ff0068;
+  color: #15d36c;
 }
 .chat .chat-content {
   background: #fff;
@@ -3388,7 +3428,7 @@ article .header time {
 }
 .chat .chat-content .message-general.alien {
   align-self: flex-start;
-  background: linear-gradient(to right, #0d69a8, #0c609a);
+  background: linear-gradient(to right, #ff0f71, #ff0068);
   color: #fff;
 }
 .chat .chat-content .message-special {
@@ -3512,7 +3552,8 @@ article .header time {
   background: #fff;
 }
 .landing .header-logo {
-  max-width: 200px;
+  width: auto !important;
+  max-width: 200px !important;
   height: auto;
 }
 .landing .landing-footer {
@@ -3689,6 +3730,11 @@ article .header time {
   .landing-signup .login-and-registration h2 {
     font-size: 24px;
   }
+}
+.landing-signup .header-logo {
+  width: auto !important;
+  max-width: 200px !important;
+  height: auto;
 }
 
 /*# sourceMappingURL=main-bf.css.map */

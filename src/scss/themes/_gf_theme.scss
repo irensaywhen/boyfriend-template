@@ -1,3 +1,21 @@
+body {
+  color: $dark;
+}
+/*---Articles---*/
+body > .content {
+  background-image: linear-gradient(
+    135deg,
+    darken($primary-color, 15),
+    $primary-color
+  );
+  background-size: cover;
+  min-height: 100%;
+
+  .swiper-pagination-bullet-active {
+    background: $light-primary-color !important;
+  }
+}
+
 .blue-theme .bg-background,
 .blue-theme .header.active,
 .blue-theme .list-group-item.active {
@@ -166,6 +184,10 @@
     color: $bootstrap-secondary;
   }
 
+  .swal2-confirm {
+    background: $secondary-color !important;
+  }
+
   .loader-screen {
     background-image: linear-gradient(
       135deg,
@@ -223,7 +245,7 @@
     color: $primary-color !important;
   }
 
-  .text-dark-emphasize {
+  .text-emphasize {
     color: $secondary-color;
   }
 
@@ -280,6 +302,30 @@
     border: 1px solid $primary-color;
     color: $primary-color;
     background: transparent;
+
+    &:active {
+      border: 1px solid $primary-color;
+      color: $primary-color;
+      background: transparent;
+    }
+  }
+
+  .btn-outline-default {
+    border: 1px solid $secondary-color;
+    color: $secondary-color;
+    background: transparent;
+
+    &:hover,
+    &:focus {
+      color: #fff;
+      background: $secondary-color !important;
+    }
+
+    &:active {
+      border: 1px solid $secondary-color;
+      color: $secondary-color;
+      background: transparent;
+    }
   }
 
   .btn-secondary {

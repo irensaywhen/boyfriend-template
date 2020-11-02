@@ -12,7 +12,11 @@
   }
   .material-icons {
     font-size: 80px;
-    color: $secondary-color;
+    @if $gf-theme {
+      color: $secondary-color;
+    } @else if $bf-theme {
+      color: $primary-color;
+    }
   }
 
   .price {

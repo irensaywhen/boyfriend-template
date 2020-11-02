@@ -64,7 +64,11 @@
 
     .step {
       .label {
-        color: $secondary-color;
+        @if $gf-theme {
+          color: $secondary-color;
+        } @else if $bf-theme {
+          color: $primary-color;
+        }
       }
 
       &.step-passed {
@@ -73,7 +77,11 @@
 
       &.step-current {
         .current-mark {
-          background: $secondary-color;
+          @if $gf-theme {
+            background: $secondary-color;
+          } @else if $bf-theme {
+            background: $primary-color;
+          }
         }
       }
 

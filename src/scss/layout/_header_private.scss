@@ -14,7 +14,7 @@
 
 .private-header {
   width: 100%;
-  @if $blue-theme {
+  @if $gf-theme {
     background-image: linear-gradient(
       135deg,
       darken($primary-color, 15),

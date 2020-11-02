@@ -17,7 +17,11 @@
       height: 14px;
       font-size: 14px;
       padding-right: 3px;
-      color: $secondary-color;
+      @if $gf-theme {
+        color: $secondary-color;
+      } @else if $bf-theme {
+        color: $success-green;
+      }
     }
   }
 

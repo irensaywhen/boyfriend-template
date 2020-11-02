@@ -1,18 +1,3 @@
-/*---Articles---*/
-body > .content {
-  background-image: linear-gradient(
-    135deg,
-    darken($primary-color, 15),
-    $primary-color
-  );
-  background-size: cover;
-  min-height: 100%;
-
-  .swiper-pagination-bullet-active {
-    background: $light-primary-color !important;
-  }
-}
-
 /*--Articles cards--*/
 
 article {

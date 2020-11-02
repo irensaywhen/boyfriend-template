@@ -7,4 +7,10 @@
       @include fluid-type($screen-xs, $screen-lg, 20px, 24px);
     }
   }
+
+  .header-logo {
+    width: auto !important;
+    max-width: 200px !important;
+    height: auto;
+  }
 }

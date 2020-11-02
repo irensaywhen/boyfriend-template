@@ -93,7 +93,7 @@
 .blue-theme .btn-default:hover,
 .blue-theme .btn-default:focus {
   color: #ffffff;
-  background-color: $hover-pink;
+  background-color: $hover-pink !important;
 }
 
 .blue-theme .figure-profile,
@@ -170,6 +170,23 @@
     background-color: $secondary-color !important;
   }
 
+  .swal2-confirm {
+    background: $secondary-color !important;
+  }
+
+  .text-emphasize {
+    color: $success-green;
+  }
+
+  .badge-secondary {
+    background-color: $success-green !important;
+  }
+
+  .badge-light {
+    background-color: $primary-blue !important;
+    color: #fff !important;
+  }
+
   .text-primary {
     color: $secondary-color !important;
   }
@@ -187,6 +204,21 @@
     &:active {
       background: #fff !important;
       color: $label-color;
+    }
+  }
+
+  .btn-light {
+    background: $secondary-color;
+    color: #fff;
+
+    &:hover,
+    &:focus {
+      background: $hover-pink;
+    }
+
+    &:active,
+    &.active {
+      background: $secondary-color;
     }
   }
 
@@ -209,15 +241,22 @@
     }
   }
 
-  .btn-outline-primary {
+  .btn-outline-default {
     border: 1px solid $secondary-color;
     color: $secondary-color;
     background: transparent;
-  }
 
-  .btn-outline-primary:hover {
-    color: #fff;
-    background: $secondary-color !important;
+    &:hover,
+    &:focus {
+      color: #fff;
+      background: $secondary-color !important;
+    }
+
+    &:active {
+      border: 1px solid $secondary-color;
+      color: $secondary-color;
+      background: transparent;
+    }
   }
 
   .btn-success {

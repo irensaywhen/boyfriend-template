@@ -3,12 +3,3 @@
 .top-section {
   @include background($front-page-background);
 }
-
-@if $bf-theme {
-  .top-section {
-    .btn-light {
-      background: $secondary-color !important;
-      color: #fff !important;
-    }
-  }
-}

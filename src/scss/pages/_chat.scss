@@ -35,7 +35,11 @@
     }
 
     .bonus-notzero-amount {
-      color: $secondary-color;
+      @if $gf-theme {
+        color: $secondary-color;
+      } @else if $bf-theme {
+        color: $success-green;
+      }
     }
   }
   /*Chat header end*/
@@ -75,11 +79,19 @@
 
       &.alien {
         align-self: flex-start;
-        background: linear-gradient(
-          to right,
-          lighten($primary-color, 3),
-          $primary-color
-        );
+        @if $gf-theme {
+          background: linear-gradient(
+            to right,
+            lighten($primary-color, 3),
+            $primary-color
+          );
+        } @else if $bf-theme {
+          background: linear-gradient(
+            to right,
+            lighten($secondary-color, 3),
+            $secondary-color
+          );
+        }
         color: #fff;
       }
     }

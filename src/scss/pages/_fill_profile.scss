@@ -4,9 +4,12 @@
   }
 
   .bonus-notzero-amount {
-    background: $light-primary-color;
+    @if $gf-theme {
+      background: $light-primary-color;
+    } @else {
+      background: $success-green;
+    }
   }
-
   .superlike {
     &:hover {
       .star-hover-infinite {
@@ -124,17 +127,28 @@
 .account-table {
   border-collapse: collapse;
   max-width: 700px;
-  color: darken($secondary-color, 25);
+  @if $gf-theme {
+    color: darken($secondary-color, 25);
+  } @else {
+    color: $dark;
+  }
 
   tr {
     &:nth-of-type(2n) {
-      background: lighten($light-primary-color, 21);
+      @if $gf-theme {
+        background: lighten($light-primary-color, 21);
+      } @else {
+        background: lighten($light-primary-color, 5);
+      }
     }
   }
 
   th {
-    background: $primary-color;
-    background: $light-primary-color;
+    @if $gf-theme {
+      background: $light-primary-color;
+    } @else {
+      background: $primary-color;
+    }
     color: #fff;
     font-weight: bold;
   }
