@@ -123,10 +123,18 @@
   }
 }
 
+.profile {
+  &.nav-pills {
+    .nav-item {
+      flex-grow: 1;
+    }
+  }
+}
+
 /* Table */
 .account-table {
   border-collapse: collapse;
-  max-width: 700px;
+
   @if $gf-theme {
     color: darken($secondary-color, 25);
   } @else {
