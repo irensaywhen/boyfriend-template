@@ -86518,7 +86518,9 @@
               $body.addClass('gallery');
             });
             $modal.on('shown.bs.modal', function () {
-              $animateOnShown.css('opacity', 1);
+              $animateOnShown.animate({
+                opacity: 1,
+              });
               shown = true;
             });
             $modal.on('hide.bs.modal', function (event) {
