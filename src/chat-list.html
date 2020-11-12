@@ -37,7 +37,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/main-gf.css" />
+    <link rel="stylesheet" href="css/main-bf.css" />
   </head>
 
   <body>
@@ -271,11 +271,13 @@
               <!--Messages template start-->
               <script type="text/template" id="messageTemplate">
                   {{#if seen}}
-                  <div
-                  class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3">
+                  <a
+                  class="chatList-message d-block border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+                  href="{{redirect}}">
                   {{else}}
-                  <div
-                  class="chatList-message unread border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3">
+                  <a
+                  class="chatList-message unread d-block border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+                  href="{{redirect}}">
                   {{/if}}
                   <figure class="avatar">
                     <img src="{{avatar}}" alt="Profile image" />
@@ -291,13 +293,14 @@
                       {{text}}
                     </p>
                   </div>
-                </div>
+                </a>
               </script>
               <!--Messages template end-->
 
               <!--New message-->
-              <div
-                class="chatList-message unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-3"
+              <a
+                class="chatList-message unread d-block border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-3"
+                href="./chat.html"
               >
                 <!--Avatar-->
                 <figure class="avatar">
@@ -316,10 +319,11 @@
                   <!--Message text-->
                   <p class="text text-secondary">Hey, how are you?</p>
                 </div>
-              </div>
+              </a>
               <!--New message-->
-              <div
-                class="chatList-message unread border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+              <a
+                class="chatList-message d-block unread border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+                href="./chat.html"
               >
                 <figure class="avatar">
                   <img src="img/profile.jpg" alt="Profile image" />
@@ -338,11 +342,12 @@
                     praesentium necessitatibus corrupti deserunt quod.
                   </p>
                 </div>
-              </div>
+              </a>
 
               <!--Just message-->
-              <div
-                class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+              <a
+                class="chatList-message d-block border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+                href="./chat.html"
               >
                 <figure class="avatar">
                   <img src="img/profile.jpg" alt="Profile image" />
@@ -359,11 +364,12 @@
                     praesentium necessitatibus corrupti deserunt quod.
                   </p>
                 </div>
-              </div>
+              </a>
 
               <!--Just message-->
-              <div
-                class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+              <a
+                class="chatList-message d-block border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+                href="./chat.html"
               >
                 <figure class="avatar">
                   <img src="img/profile.jpg" alt="Profile image" />
@@ -380,11 +386,12 @@
                     praesentium necessitatibus corrupti deserunt quod.
                   </p>
                 </div>
-              </div>
+              </a>
 
               <!--Just message-->
-              <div
-                class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+              <a
+                class="chatList-message d-block border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+                href="./chat.html"
               >
                 <figure class="avatar">
                   <img src="img/profile.jpg" alt="Profile image" />
@@ -401,11 +408,12 @@
                     praesentium necessitatibus corrupti deserunt quod.
                   </p>
                 </div>
-              </div>
+              </a>
 
               <!--Just message-->
-              <div
-                class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+              <a
+                class="chatList-message d-block border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+                href="./chat.html"
               >
                 <figure class="avatar">
                   <img src="img/profile.jpg" alt="Profile image" />
@@ -422,11 +430,12 @@
                     praesentium necessitatibus corrupti deserunt quod.
                   </p>
                 </div>
-              </div>
+              </a>
 
               <!--Just message-->
-              <div
-                class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+              <a
+                class="chatList-message d-block border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+                href="./chat.html"
               >
                 <figure class="avatar">
                   <img src="img/profile.jpg" alt="Profile image" />
@@ -443,11 +452,12 @@
                     praesentium necessitatibus corrupti deserunt quod.
                   </p>
                 </div>
-              </div>
+              </a>
 
               <!--Just message-->
-              <div
-                class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+              <a
+                class="chatList-message d-block border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
+                href="./chat.html"
               >
                 <figure class="avatar">
                   <img src="img/profile.jpg" alt="Profile image" />
@@ -464,7 +474,7 @@
                     praesentium necessitatibus corrupti deserunt quod.
                   </p>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
         </div>
