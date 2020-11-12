@@ -83253,7 +83253,13 @@
                     .find(selectors.modalPermissionButton)
                     .fadeOut(0);
                   this.$modalPrevArrow = this.$modal.find(selectors.prevArrow);
-                  this.$modalNextArrow = this.$modal.find(selectors.nextArrow); // Initialize modal preparation
+                  this.$modalNextArrow = this.$modal.find(selectors.nextArrow); // User avatar preparation
+
+                  var _selectors$avatar = selectors.avatar,
+                    imageWrapper = _selectors$avatar.imageWrapper,
+                    hiddenGallerySlide = _selectors$avatar.hiddenGallerySlide;
+                  this.$avatar = $(imageWrapper);
+                  this.$avatarSlide = this.$gallery.find(hiddenGallerySlide); // Initialize modal preparation
 
                   Object(
                     _preparePhotoModal_js__WEBPACK_IMPORTED_MODULE_5__[
@@ -83282,6 +83288,13 @@
                     if (target.tagName !== 'IMG') return;
 
                     _this2._generateModal(target);
+                  });
+                  /**
+                   * Show avatar in gallery when avatar is clicked
+                   */
+
+                  this.$avatar.click(function (event) {
+                    _this2.$avatarSlide.click();
                   });
                   /**
                    * Change currently shown photo when the photo is clicked

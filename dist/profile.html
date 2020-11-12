@@ -69,7 +69,7 @@
 
     <!--Modals start-->
     <div class="profile-modals">
-      <!--Avatar modal start-->
+      <!--Avatar modal start
       <div
         class="modal fade photo-modal"
         id="avatarModal"
@@ -84,10 +84,10 @@
         >
           <div class="modal-content">
             <div class="modal-body">
-              <!--Avatar photo-->
+              
               <figure class="photo avatar mx-auto">
                 <img src="img/profile.jpg" alt="Profile photo" />
-                <!--Closing button-->
+                
                 <button
                   type="button"
                   class="close"
@@ -100,7 +100,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
       <!--Avatar Modal end-->
 
       <!--Gallery modal start-->
@@ -1524,17 +1524,8 @@
           <!--Profile avatar-->
           <div class="col-12 col-sm-6 col-md-5">
             <div class="d-flex align-items-end h-100">
-              <figure
-                class="profile-avatar mx-auto"
-                data-toggle="modal"
-                data-target="#avatarModal"
-              >
-                <img
-                  src="img/profile.jpg"
-                  id="userAvatar"
-                  class="enlarge"
-                  alt="Profile photo"
-                />
+              <figure class="profile-avatar mx-auto show-a">
+                <img src="img/profile.jpg" alt="Profile photo" />
               </figure>
             </div>
           </div>
@@ -1716,6 +1707,21 @@
             >
               <div class="swiper-pagination"></div>
               <div class="swiper-wrapper" id="photos-container">
+                <!--Avatar-->
+                <div class="swiper-slide gallery-slide d-none">
+                  <img
+                    src="./img/profile.jpg"
+                    class="gallery-photo"
+                    id="userAvatar"
+                    data-toggle="modal"
+                    data-target="#userPhoto"
+                    data-id="1"
+                    data-description=""
+                    data-privacy="false"
+                    data-order="0"
+                    alt="photo 1"
+                  />
+                </div>
                 <!--Public photo-->
                 <div class="swiper-slide gallery-slide">
                   <img
@@ -1726,7 +1732,7 @@
                     data-id="1"
                     data-description="Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum"
                     data-privacy="false"
-                    data-order="0"
+                    data-order="1"
                     alt="photo 1"
                   />
                 </div>
@@ -1743,7 +1749,7 @@
                       data-id="10"
                       data-description="This photo is private. Please, ask for permission to gain access"
                       data-privacy="true"
-                      data-order="1"
+                      data-order="2"
                     />
                   </figure>
                 </div>
@@ -1758,7 +1764,7 @@
                     data-id="3"
                     data-description=""
                     data-privacy="false"
-                    data-order="2"
+                    data-order="3"
                     alt="photo 1"
                   />
                 </div>
@@ -1775,7 +1781,7 @@
                       data-id="2"
                       data-description="This photo is private. Please, ask for permission to gain access"
                       data-privacy="true"
-                      data-order="3"
+                      data-order="4"
                     />
                   </figure>
                 </div>
@@ -1790,7 +1796,7 @@
                     data-id="4"
                     data-description=""
                     data-privacy="false"
-                    data-order="4"
+                    data-order="5"
                     alt="photo 2"
                   />
                 </div>
@@ -1805,7 +1811,7 @@
                     data-id="5"
                     data-description=""
                     data-privacy="false"
-                    data-order="5"
+                    data-order="6"
                     alt="photo 1"
                   />
                 </div>
@@ -1820,7 +1826,7 @@
                     data-id="9"
                     data-description="Description"
                     data-privacy="false"
-                    data-order="6"
+                    data-order="7"
                     alt="photo 2"
                   />
                 </div>
@@ -2062,6 +2068,11 @@
               submitButton: '#btn-permission',
               spinner: '.spinner-border',
               text: 'Preparing...',
+            },
+            // Avatar setup
+            avatar: {
+              imageWrapper: '.profile-avatar',
+              hiddenGallerySlide: '#userAvatar',
             },
           },
           galleryManipulation: {
@@ -2394,14 +2405,6 @@
               endpoint:
                 'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/like',
             },
-          },
-        });
-
-        /* Photo enlargement initialization */
-        const enlargePhoto = new EnlargePhoto({
-          selectors: {
-            modal: '#avatarModal',
-            img: '#userAvatar',
           },
         });
       });
