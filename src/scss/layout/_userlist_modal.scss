@@ -14,6 +14,13 @@
     }
   }
 
+  // Searchbar
+  input {
+    border: 0 !important;
+    outline: 0 !important;
+  }
+
+  // User styles
   .userList-user {
     cursor: pointer;
 
@@ -43,7 +50,6 @@
 
     @include screen-sm {
       height: 75vh;
-      border-radius: 15px;
     }
   }
 }

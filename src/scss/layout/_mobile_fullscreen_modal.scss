@@ -26,7 +26,7 @@
   }
 
   .modal-title {
-    @include fluid-type($screen-xs, $screen-xl, 18px, 26px);
+    @include fluid-type($screen-xs, $screen-xl, 16px, 20px);
   }
 
   /*Close buttons*/
@@ -37,7 +37,7 @@
   .close-mobile {
     font-size: 20px;
     position: absolute;
-    top: 15px;
+    top: 5px;
     left: 0px;
   }
 }

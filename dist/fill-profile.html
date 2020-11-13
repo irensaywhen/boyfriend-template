@@ -249,7 +249,7 @@
         <div class="modal-content pb-3">
           <!--Modal header start-->
           <div
-            class="modal-header border-0 py-3 position-relative d-flex flex-column align-items-center"
+            class="modal-header border-0 px-0 py-0 position-relative d-flex flex-column align-items-center"
           >
             <button
               type="button"
@@ -261,16 +261,25 @@
             </button>
 
             <!--Modal title-->
-            <h2 class="modal-title">User List</h2>
+            <h2 class="modal-title py-2">User List</h2>
 
             <button
               type="button"
-              class="close d-none d-sm-block"
+              class="close py-3 d-none d-sm-block"
               data-dismiss="modal"
               aria-label="Close"
             >
               <span aria-hidden="true">&times;</span>
             </button>
+            <div class="text-left border-top py-2 px-2 w-100">
+              <label class="font-weight-bold" for="search-bar">Search:</label>
+              <input
+                class="px-3"
+                type="text"
+                id="search-bar"
+                name="search-bar"
+              />
+            </div>
           </div>
           <!--Modal header end-->
 
@@ -281,26 +290,6 @@
               <div class="row no-gutters">
                 <div class="col-12">
                   <div class="chat-list bg-white border-top" id="chat-list">
-                    <!--User template start
-                    <script type="text/template" id="userTemplate">
-                      <div
-                        class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                        data-user-id="{{id}}"
-                        data-user-name="{{name}}"
-                      >
-                        
-                        <figure class="avatar">
-                          <img src="img/profile.jpg" alt="Profile image" />
-                        </figure>
-
-                        
-                        <div class="pl-1 pl-sm-3">
-                          <h3 class="name mb-1">{{name}}</h3>
-                          <p class="small text-muted">{{city}}, {{age}}</p>
-                        </div>
-                      </div>
-                    </script>-->
-                    <!--User template end-->
                     <!--Messages template start-->
                     <script type="text/template" id="messageTemplate">
                         {{#if seen}}
