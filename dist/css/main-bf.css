@@ -358,6 +358,7 @@ span.error::before {
 .infinite-pulsing,
 .fill-profile-page .superlike:hover .star-hover-infinite,
 .fill-profile-page .premium-bonus:hover .premium-star-infinite,
+.profile-page .premium-bonus:hover .premium-star-infinite,
 .chat .chat-header .superlike:hover .star-hover-infinite,
 .chat .chat-header .premium-bonus:hover .premium-star-infinite {
   -webkit-animation-name: infinite-star;

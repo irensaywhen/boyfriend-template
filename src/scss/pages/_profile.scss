@@ -10,6 +10,14 @@
       color: $success-green;
     }
   }
+
+  .premium-bonus {
+    &:hover {
+      .premium-star-infinite {
+        @extend .infinite-pulsing;
+      }
+    }
+  }
 }
 
 .profile {
