@@ -18,6 +18,22 @@
       }
     }
 
+    .superlike {
+      &:hover {
+        .star-hover-infinite {
+          @extend .infinite-pulsing;
+        }
+      }
+    }
+
+    .premium-bonus {
+      &:hover {
+        .premium-star-infinite {
+          @extend .infinite-pulsing;
+        }
+      }
+    }
+
     .profile-avatar {
       @include avatar($chat-header-height, $chat-header-height, true);
     }

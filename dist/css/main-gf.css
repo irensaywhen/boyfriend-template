@@ -319,6 +319,7 @@ span.error::before {
 }
 .chat .dropdown-item .present,
 .profile .dropdown-item .present {
+  min-width: 70px;
   max-width: 70px;
 }
 .chat .dropdown-divider,
@@ -371,7 +372,9 @@ span.error::before {
 }
 .infinite-pulsing,
 .fill-profile-page .superlike:hover .star-hover-infinite,
-.fill-profile-page .premium-bonus:hover .premium-star-infinite {
+.fill-profile-page .premium-bonus:hover .premium-star-infinite,
+.chat .chat-header .superlike:hover .star-hover-infinite,
+.chat .chat-header .premium-bonus:hover .premium-star-infinite {
   -webkit-animation-name: infinite-star;
   animation-name: infinite-star;
   -webkit-animation-iteration-count: infinite;
