@@ -1,16 +1,21 @@
 import Handlebars from 'handlebars';
 import prepareTemplates from './prepareTemplates.js';
+import debounce from './debounce.js';
 
 export default class ChatList {
   constructor(options) {
     // Save selectors
-    this.selectors = options.selectors;
+    const selectors = (this.selectors = options.selectors);
 
     // Prepare template for message
     this.messageTemplate = prepareTemplates(options.selectors.templateId);
 
     // Get chatlist container
-    this.$chatList = $(this.selectors.chatList);
+    this.$chatList = $(selectors.chatList);
+
+    if (selectors.search) {
+      this.$search = $(selectors.search);
+    }
 
     // Prepare event listeners
     this._setUpEventListeners();
@@ -19,8 +24,20 @@ export default class ChatList {
   _setUpEventListeners() {
     let $document = $(document);
 
+    this.$search.on(
+      'input',
+      debounce(event => {
+        const searchData = event.target.value;
+
+        this.$chatList.empty();
+
+        $document.trigger('chatList:searchEnd', searchData);
+      }, 300)
+    );
+
     $document
-      .on('lazyLoading:itemsReady', (event, ...messages) => {
+      .on('lazyLoading:itemsReady', (event, config) => {
+        const { messages, scroll } = config;
         /**
          * 1. Get all the retrieved messages from the server
          * 2. Compile template
@@ -31,11 +48,13 @@ export default class ChatList {
         let template = Handlebars.compile(this.messageTemplate);
         messages.forEach(message => this.$chatList.append(template(message)));
 
-        this.$chatList.animate({
-          scrollTop:
-            '+=' +
-            this.$chatList.find(this.selectors.message).first().outerHeight(),
-        });
+        if (scroll) {
+          this.$chatList.animate({
+            scrollTop:
+              '+=' +
+              this.$chatList.find(this.selectors.message).first().outerHeight(),
+          });
+        }
 
         // Listen to this event, too, and re-observe the messages
         $document.trigger('items:afterDisplay');

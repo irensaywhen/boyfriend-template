@@ -81323,6 +81323,9 @@
         /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
         );
+        /* harmony import */ var _debounce_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! ./debounce.js */ './js/modules/debounce.js'
+        );
 
         var ChatList = /*#__PURE__*/ (function () {
           function ChatList(options) {
@@ -81332,13 +81335,17 @@
             );
 
             // Save selectors
-            this.selectors = options.selectors; // Prepare template for message
+            var selectors = (this.selectors = options.selectors); // Prepare template for message
 
             this.messageTemplate = Object(
               _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_3__['default']
             )(options.selectors.templateId); // Get chatlist container
 
-            this.$chatList = $(this.selectors.chatList); // Prepare event listeners
+            this.$chatList = $(selectors.chatList);
+
+            if (selectors.search) {
+              this.$search = $(selectors.search);
+            } // Prepare event listeners
 
             this._setUpEventListeners();
           }
@@ -81352,8 +81359,22 @@
                   var _this = this;
 
                   var $document = $(document);
+                  this.$search.on(
+                    'input',
+                    Object(
+                      _debounce_js__WEBPACK_IMPORTED_MODULE_4__['default']
+                    )(function (event) {
+                      var searchData = event.target.value;
+
+                      _this.$chatList.empty();
+
+                      $document.trigger('chatList:searchEnd', searchData);
+                    }, 300)
+                  );
                   $document
-                    .on('lazyLoading:itemsReady', function (event) {
+                    .on('lazyLoading:itemsReady', function (event, config) {
+                      var messages = config.messages,
+                        scroll = config.scroll;
                       /**
                        * 1. Get all the retrieved messages from the server
                        * 2. Compile template
@@ -81361,32 +81382,24 @@
                        * 4. Scroll the first message into view
                        * 5. Signal that the messages are displayed to re-init the observed target
                        */
+
                       var template = handlebars__WEBPACK_IMPORTED_MODULE_2___default.a.compile(
                         _this.messageTemplate
                       );
-
-                      for (
-                        var _len = arguments.length,
-                          messages = new Array(_len > 1 ? _len - 1 : 0),
-                          _key = 1;
-                        _key < _len;
-                        _key++
-                      ) {
-                        messages[_key - 1] = arguments[_key];
-                      }
-
                       messages.forEach(function (message) {
                         return _this.$chatList.append(template(message));
                       });
 
-                      _this.$chatList.animate({
-                        scrollTop:
-                          '+=' +
-                          _this.$chatList
-                            .find(_this.selectors.message)
-                            .first()
-                            .outerHeight(),
-                      }); // Listen to this event, too, and re-observe the messages
+                      if (scroll) {
+                        _this.$chatList.animate({
+                          scrollTop:
+                            '+=' +
+                            _this.$chatList
+                              .find(_this.selectors.message)
+                              .first()
+                              .outerHeight(),
+                        });
+                      } // Listen to this event, too, and re-observe the messages
 
                       $document.trigger('items:afterDisplay');
                     })
@@ -84185,11 +84198,17 @@
               },
               {
                 key: '_getItems',
-                value: function _getItems() {
+                value: function _getItems(searchData) {
                   var _this$requests$items = this.requests.items,
                     headers = _this$requests$items.headers,
                     endpoint = _this$requests$items.endpoint,
                     method = _this$requests$items.method;
+                  endpoint.searchParams['delete']('searchData');
+
+                  if (searchData) {
+                    endpoint.searchParams.set('searchData', searchData);
+                  }
+
                   return this.makeRequest({
                     headers: headers,
                     endpoint: endpoint,
@@ -84618,47 +84637,65 @@
         /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/get */ '../node_modules/@babel/runtime/helpers/get.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__
         );
-        /* harmony import */ var _lazyLoading_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+          /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7__
+        );
+        /* harmony import */ var _lazyLoading_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
           /*! ./lazyLoading.js */ './js/modules/lazyLoading.js'
         );
-        /* harmony import */ var _formatTime_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _formatTime_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
           /*! ./formatTime.js */ './js/modules/formatTime.js'
         );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
           return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                 Derived
               ),
               result;
             if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                 this
               ).constructor;
               result = Reflect.construct(Super, arguments, NewTarget);
             } else {
               result = Super.apply(this, arguments);
             }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default()(
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default()(
               this,
               result
             );
@@ -84681,7 +84718,7 @@
         }
 
         var MessagesLazyLoading = /*#__PURE__*/ (function (_LazyLoading) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default()(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(
             MessagesLazyLoading,
             _LazyLoading
           );
@@ -84689,24 +84726,110 @@
           var _super = _createSuper(MessagesLazyLoading);
 
           function MessagesLazyLoading(options) {
+            var _this;
+
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               MessagesLazyLoading
             );
 
-            return _super.call(this, options);
+            _this = _super.call(this, options);
+
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              ),
+              '_handleGettingItems',
+              function () {
+                var searchData =
+                  arguments.length > 0 && arguments[0] !== undefined
+                    ? arguments[0]
+                    : null;
+                var scroll =
+                  arguments.length > 1 && arguments[1] !== undefined
+                    ? arguments[1]
+                    : true;
+
+                _this
+                  ._getItems(searchData)
+                  .then(function (messages) {
+                    // Prepare messages
+                    messages
+                      .sort(function (firstMessage, secondMessage) {
+                        return firstMessage.timestamp < secondMessage.timestamp
+                          ? 1
+                          : firstMessage.timestamp > secondMessage.timestamp
+                          ? -1
+                          : 0;
+                      })
+                      .forEach(function (message) {
+                        message.time = Object(
+                          _formatTime_js__WEBPACK_IMPORTED_MODULE_9__['default']
+                        )(message.timestamp);
+                      }); // Send them to display
+
+                    $(document).trigger('lazyLoading:itemsReady', {
+                      messages: messages,
+                      scroll: scroll,
+                    });
+                  })
+                  ['catch'](function (error) {
+                    _this.showRequestResult({
+                      title: error.name,
+                      text: error.message,
+                      icon: 'error',
+                    }); // For debugging
+
+                    console.error(error);
+                  });
+              }
+            );
+
+            _this.searchData = null;
+            return _this;
           }
-          /**
-           * This function is specific to each class utilizing lazy loading parent class
-           */
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
             MessagesLazyLoading,
             [
               {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
+                  var _this2 = this;
+
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+                      MessagesLazyLoading.prototype
+                    ),
+                    '_setUpEventListeners',
+                    this
+                  ).call(this);
+
+                  $(document).on('chatList:searchEnd', function (
+                    event,
+                    searchData
+                  ) {
+                    _this2.searchData = searchData;
+
+                    _this2._handleGettingItems(searchData, false);
+                  });
+                },
+                /**
+                 * 1. Get new messages from the server
+                 * 2. Sort them according to the timestamp
+                 * 3. Format timestamp and save as a human-readable time
+                 * 4. Trigger 'lazyLoading:itemsReady' event and pass messages with it
+                 *    This event is indicating that the messages are retrieved and prepared
+                 */
+              },
+              {
                 key: '_initializeObserver',
+
+                /**
+                 * This function is specific to each class utilizing lazy loading parent class
+                 */
                 value: function _initializeObserver() {
-                  var _this = this;
+                  var _this3 = this;
 
                   this.observer =
                     this.observer ||
@@ -84714,50 +84837,8 @@
                       // Save the last message
                       var element = entries[0];
                       if (!element.isIntersecting) return;
-                      /**
-                       * 1. Get new messages from the server
-                       * 2. Sort them according to the timestamp
-                       * 3. Format timestamp and save as a human-readable time
-                       * 4. Trigger 'lazyLoading:itemsReady' event and pass messages with it
-                       *    This event is indicating that the messages are retrieved and prepared
-                       */
 
-                      _this
-                        ._getItems()
-                        .then(function (messages) {
-                          // Prepare messages
-                          messages
-                            .sort(function (firstMessage, secondMessage) {
-                              return firstMessage.timestamp <
-                                secondMessage.timestamp
-                                ? 1
-                                : firstMessage.timestamp >
-                                  secondMessage.timestamp
-                                ? -1
-                                : 0;
-                            })
-                            .forEach(function (message) {
-                              message.time = Object(
-                                _formatTime_js__WEBPACK_IMPORTED_MODULE_6__[
-                                  'default'
-                                ]
-                              )(message.timestamp);
-                            }); // Send them to display
-
-                          $(document).trigger(
-                            'lazyLoading:itemsReady',
-                            messages
-                          );
-                        })
-                        ['catch'](function (error) {
-                          _this.showRequestResult({
-                            title: error.name,
-                            text: error.message,
-                            icon: 'error',
-                          }); // For debugging
-
-                          console.error(error);
-                        });
+                      _this3._handleGettingItems(_this3.searchData || null);
                     });
                 },
               },
@@ -84765,7 +84846,7 @@
           );
 
           return MessagesLazyLoading;
-        })(_lazyLoading_js__WEBPACK_IMPORTED_MODULE_5__['default']);
+        })(_lazyLoading_js__WEBPACK_IMPORTED_MODULE_8__['default']);
 
         /***/
       },

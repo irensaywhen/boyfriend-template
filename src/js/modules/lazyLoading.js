@@ -44,8 +44,14 @@ export default class LazyLoading extends ServerRequest {
     });
   }
 
-  _getItems() {
+  _getItems(searchData) {
     let { headers, endpoint, method } = this.requests.items;
+
+    endpoint.searchParams.delete('searchData');
+
+    if (searchData) {
+      endpoint.searchParams.set('searchData', searchData);
+    }
 
     return this.makeRequest({
       headers,
