@@ -280,350 +280,447 @@
             <div class="container-fluid px-0">
               <div class="row no-gutters">
                 <div class="col-12">
-                  <div class="chat-list bg-white border-top" id="user-list">
-                    <!--User template start-->
+                  <div class="chat-list bg-white border-top" id="chat-list">
+                    <!--User template start
                     <script type="text/template" id="userTemplate">
                       <div
                         class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
                         data-user-id="{{id}}"
                         data-user-name="{{name}}"
                       >
-                        <!--Avatar-->
+                        
                         <figure class="avatar">
                           <img src="img/profile.jpg" alt="Profile image" />
                         </figure>
 
-                        <!--Name and user info-->
+                        
                         <div class="pl-1 pl-sm-3">
                           <h3 class="name mb-1">{{name}}</h3>
                           <p class="small text-muted">{{city}}, {{age}}</p>
                         </div>
                       </div>
-                    </script>
+                    </script>-->
                     <!--User template end-->
+                    <!--Messages template start-->
+                    <script type="text/template" id="messageTemplate">
+                        {{#if seen}}
+                        <div
+                        class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3">
+                        {{else}}
+                        <div
+                        class="chatList-message unread border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3">
+                        {{/if}}
+                        <figure class="avatar">
+                          <img src="{{avatar}}" alt="Profile image" />
+                        </figure>
+                        <div class="pl-1 pl-sm-3 w-100">
+                          <div class="d-flex justify-content-between">
+                            <h3 class="name">
+                              {{userName}} <span class="badge badge-light ml-2">{{amount}}</span>
+                            </h3>
+                            <time class="date small text-secondary">{{time}}</time>
+                          </div>
+                          <p class="text text-secondary">
+                            {{text}}
+                          </p>
+                        </div>
+                      </div>
+                    </script>
+                    <!--Messages template end-->
 
-                    <!--User start-->
+                    <!--New message start-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="1"
-                      data-user-name="David"
+                      class="chatList-message unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-3"
                     >
                       <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">David</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name">
+                            Amy <span class="badge badge-light ml-2">2</span>
+                          </h3>
+                          <!--Date and time-->
+                          <time class="date small text-secondary">13:55</time>
+                        </div>
+                        <!--Message text-->
+                        <p class="text text-secondary">Hey, how are you?</p>
                       </div>
                     </div>
-                    <!--User end-->
+                    <!--New message end-->
 
-                    <!--User start-->
+                    <!--New message start-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="chatList-message unread border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
                     >
-                      <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="name">
+                            Amy <span class="badge badge-light ml-2">2</span>
+                          </h3>
+                          <time class="date small text-secondary">13:55</time>
+                        </div>
+                        <p class="text text-secondary">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Eius at voluptatem alias voluptate, culpa
+                          pariatur aliquam error ipsam vel velit magni aperiam.
+                          Nam ex, excepturi praesentium necessitatibus corrupti
+                          deserunt quod.
+                        </p>
                       </div>
                     </div>
-                    <!--User end-->
+                    <!--New message end-->
 
-                    <!--User start-->
+                    <!--Just message-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
                     >
-                      <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="name">Amy</h3>
+                          <time class="date small text-secondary">13:55</time>
+                        </div>
+                        <p class="text text-secondary">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Eius at voluptatem alias voluptate, culpa
+                          pariatur aliquam error ipsam vel velit magni aperiam.
+                          Nam ex, excepturi praesentium necessitatibus corrupti
+                          deserunt quod.
+                        </p>
                       </div>
                     </div>
-                    <!--User end-->
+                    <!--Message end-->
 
-                    <!--User start-->
+                    <!--Just message-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
                     >
-                      <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="name">Amy</h3>
+                          <time class="date small text-secondary">13:55</time>
+                        </div>
+                        <p class="text text-secondary">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Eius at voluptatem alias voluptate, culpa
+                          pariatur aliquam error ipsam vel velit magni aperiam.
+                          Nam ex, excepturi praesentium necessitatibus corrupti
+                          deserunt quod.
+                        </p>
                       </div>
                     </div>
-                    <!--User end-->
+                    <!--Message end-->
 
-                    <!--User start-->
+                    <!--Just message-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
                     >
-                      <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="name">Amy</h3>
+                          <time class="date small text-secondary">13:55</time>
+                        </div>
+                        <p class="text text-secondary">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Eius at voluptatem alias voluptate, culpa
+                          pariatur aliquam error ipsam vel velit magni aperiam.
+                          Nam ex, excepturi praesentium necessitatibus corrupti
+                          deserunt quod.
+                        </p>
                       </div>
                     </div>
-                    <!--User end-->
+                    <!--Message end-->
 
-                    <!--User start-->
+                    <!--Just message-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="1"
-                      data-user-name="David"
+                      class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
                     >
-                      <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">David</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="name">Amy</h3>
+                          <time class="date small text-secondary">13:55</time>
+                        </div>
+                        <p class="text text-secondary">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Eius at voluptatem alias voluptate, culpa
+                          pariatur aliquam error ipsam vel velit magni aperiam.
+                          Nam ex, excepturi praesentium necessitatibus corrupti
+                          deserunt quod.
+                        </p>
                       </div>
                     </div>
-                    <!--User end-->
+                    <!--Message end-->
 
-                    <!--User start-->
+                    <!--Just message-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
                     >
-                      <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="name">Amy</h3>
+                          <time class="date small text-secondary">13:55</time>
+                        </div>
+                        <p class="text text-secondary">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Eius at voluptatem alias voluptate, culpa
+                          pariatur aliquam error ipsam vel velit magni aperiam.
+                          Nam ex, excepturi praesentium necessitatibus corrupti
+                          deserunt quod.
+                        </p>
                       </div>
                     </div>
-                    <!--User end-->
+                    <!--Message end-->
 
-                    <!--User start-->
+                    <!--Just message-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
                     >
-                      <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="name">Amy</h3>
+                          <time class="date small text-secondary">13:55</time>
+                        </div>
+                        <p class="text text-secondary">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Eius at voluptatem alias voluptate, culpa
+                          pariatur aliquam error ipsam vel velit magni aperiam.
+                          Nam ex, excepturi praesentium necessitatibus corrupti
+                          deserunt quod.
+                        </p>
                       </div>
                     </div>
-                    <!--User end-->
+                    <!--Message end-->
 
-                    <!--User start-->
+                    <!--Just message-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
                     >
-                      <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="name">Amy</h3>
+                          <time class="date small text-secondary">13:55</time>
+                        </div>
+                        <p class="text text-secondary">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Eius at voluptatem alias voluptate, culpa
+                          pariatur aliquam error ipsam vel velit magni aperiam.
+                          Nam ex, excepturi praesentium necessitatibus corrupti
+                          deserunt quod.
+                        </p>
                       </div>
                     </div>
-                    <!--User end-->
+                    <!--Message end-->
 
-                    <!--User start-->
+                    <!--Just message-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
                     >
-                      <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="name">Amy</h3>
+                          <time class="date small text-secondary">13:55</time>
+                        </div>
+                        <p class="text text-secondary">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Eius at voluptatem alias voluptate, culpa
+                          pariatur aliquam error ipsam vel velit magni aperiam.
+                          Nam ex, excepturi praesentium necessitatibus corrupti
+                          deserunt quod.
+                        </p>
                       </div>
                     </div>
-                    <!--User end-->
+                    <!--Message end-->
 
-                    <!--User start-->
+                    <!--Just message-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
                     >
-                      <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="name">Amy</h3>
+                          <time class="date small text-secondary">13:55</time>
+                        </div>
+                        <p class="text text-secondary">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Eius at voluptatem alias voluptate, culpa
+                          pariatur aliquam error ipsam vel velit magni aperiam.
+                          Nam ex, excepturi praesentium necessitatibus corrupti
+                          deserunt quod.
+                        </p>
                       </div>
                     </div>
-                    <!--User end-->
+                    <!--Message end-->
 
-                    <!--User start-->
+                    <!--Just message-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
                     >
-                      <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="name">Amy</h3>
+                          <time class="date small text-secondary">13:55</time>
+                        </div>
+                        <p class="text text-secondary">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Eius at voluptatem alias voluptate, culpa
+                          pariatur aliquam error ipsam vel velit magni aperiam.
+                          Nam ex, excepturi praesentium necessitatibus corrupti
+                          deserunt quod.
+                        </p>
                       </div>
                     </div>
-                    <!--User end-->
+                    <!--Message end-->
 
-                    <!--User start-->
+                    <!--Just message-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
                     >
-                      <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="name">Amy</h3>
+                          <time class="date small text-secondary">13:55</time>
+                        </div>
+                        <p class="text text-secondary">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Eius at voluptatem alias voluptate, culpa
+                          pariatur aliquam error ipsam vel velit magni aperiam.
+                          Nam ex, excepturi praesentium necessitatibus corrupti
+                          deserunt quod.
+                        </p>
                       </div>
                     </div>
-                    <!--User end-->
+                    <!--Message end-->
 
-                    <!--User start-->
+                    <!--Just message-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
                     >
-                      <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="name">Amy</h3>
+                          <time class="date small text-secondary">13:55</time>
+                        </div>
+                        <p class="text text-secondary">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Eius at voluptatem alias voluptate, culpa
+                          pariatur aliquam error ipsam vel velit magni aperiam.
+                          Nam ex, excepturi praesentium necessitatibus corrupti
+                          deserunt quod.
+                        </p>
                       </div>
                     </div>
-                    <!--User end-->
+                    <!--Message end-->
 
-                    <!--User start-->
+                    <!--Just message-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
                     >
-                      <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="name">Amy</h3>
+                          <time class="date small text-secondary">13:55</time>
+                        </div>
+                        <p class="text text-secondary">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Eius at voluptatem alias voluptate, culpa
+                          pariatur aliquam error ipsam vel velit magni aperiam.
+                          Nam ex, excepturi praesentium necessitatibus corrupti
+                          deserunt quod.
+                        </p>
                       </div>
                     </div>
-                    <!--User end-->
+                    <!--Message end-->
 
-                    <!--User start-->
+                    <!--Just message-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
                     >
-                      <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="name">Amy</h3>
+                          <time class="date small text-secondary">13:55</time>
+                        </div>
+                        <p class="text text-secondary">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Eius at voluptatem alias voluptate, culpa
+                          pariatur aliquam error ipsam vel velit magni aperiam.
+                          Nam ex, excepturi praesentium necessitatibus corrupti
+                          deserunt quod.
+                        </p>
                       </div>
                     </div>
-                    <!--User end-->
+                    <!--Message end-->
 
-                    <!--User start-->
+                    <!--Just message-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="chatList-message border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
                     >
-                      <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="name">Amy</h3>
+                          <time class="date small text-secondary">13:55</time>
+                        </div>
+                        <p class="text text-secondary">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Eius at voluptatem alias voluptate, culpa
+                          pariatur aliquam error ipsam vel velit magni aperiam.
+                          Nam ex, excepturi praesentium necessitatibus corrupti
+                          deserunt quod.
+                        </p>
                       </div>
                     </div>
-                    <!--User end-->
+                    <!--Message end-->
                   </div>
                 </div>
               </div>
@@ -3155,6 +3252,9 @@
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
     <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
 
+    <!--Crossbrowser text truncation-->
+    <script src="vendor/succinct/jQuery.succinct.min.js"></script>
+
     <!-- swiper js -->
     <script src="vendor/swiper/js/swiper.min.js"></script>
     <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
@@ -3193,6 +3293,11 @@
         }, 500);
         $('.closenotification').on('click', function () {
           $(this).closest('.notification').removeClass('active');
+        });
+
+        /* text truncation */
+        $('.chatList-message .text').succinct({
+          size: 120,
         });
 
         var $document = $(document);
@@ -3913,29 +4018,29 @@
         /* User List initialization */
         const chatList = new ChatList({
           selectors: {
-            chatList: '#user-list',
-            message: '.userList-user',
-            templateId: 'userTemplate',
+            chatList: '#chat-list',
+            message: '.chatList-message',
+            templateId: 'messageTemplate',
           },
         });
 
         /* Initializing lazy loading */
-        const usersLazyLoading = new UsersLazyLoading({
+        const messagesLazyLoading = new MessagesLazyLoading({
           selectors: {},
           observerOptions: {
             // Id of the root element to use as a observer container
-            root: 'user-list',
+            root: 'chat-list',
             rootMargin: '0px',
             // Whenever message is at least a bit visible, intersection occurs
             threshold: 0,
           },
-          searchParams: { amount: 20 },
+          searchParams: { chatList: true, messagesAmount: 20 },
           requests: {
             items: {
               headers: {},
               method: 'GET',
               endpoint:
-                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/users',
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/messages',
             },
           },
         });
