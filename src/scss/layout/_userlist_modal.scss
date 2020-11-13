@@ -18,6 +18,14 @@
   input {
     border: 0 !important;
     outline: 0 !important;
+    flex-grow: 1;
+  }
+
+  .searchBar-loader {
+    position: absolute;
+    right: 15px;
+    top: 3px;
+    color: $primary-color;
   }
 
   // User styles

@@ -2611,6 +2611,13 @@ article .header time {
 .userlist-modal input {
   border: 0 !important;
   outline: 0 !important;
+  flex-grow: 1;
+}
+.userlist-modal .searchBar-loader {
+  position: absolute;
+  right: 15px;
+  top: 3px;
+  color: #d327b6;
 }
 .userlist-modal .userList-user {
   cursor: pointer;

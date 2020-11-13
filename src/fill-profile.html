@@ -265,20 +265,27 @@
 
             <button
               type="button"
-              class="close py-3 d-none d-sm-block"
+              class="close py-2 d-none d-sm-block"
               data-dismiss="modal"
               aria-label="Close"
             >
               <span aria-hidden="true">&times;</span>
             </button>
-            <div class="text-left border-top py-2 px-2 w-100">
-              <label class="font-weight-bold" for="search-bar">Search:</label>
+            <div
+              class="text-left border-top py-2 px-2 w-100 d-flex position-relative"
+            >
+              <label class="font-weight-bold mb-0" for="search-bar"
+                >Search:</label
+              >
               <input
                 class="px-3"
                 type="text"
                 id="search-bar"
                 name="search-bar"
               />
+              <div class="spinner-border searchBar-loader" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
             </div>
           </div>
           <!--Modal header end-->
@@ -4011,6 +4018,7 @@
             message: '.chatList-message',
             templateId: 'messageTemplate',
             search: '#search-bar',
+            searchSpinner: '.searchBar-loader',
           },
         });
 

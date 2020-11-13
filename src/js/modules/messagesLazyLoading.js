@@ -10,9 +10,9 @@ export default class MessagesLazyLoading extends LazyLoading {
 
   _setUpEventListeners() {
     super._setUpEventListeners();
-    $(document).on('chatList:searchEnd', (event, searchData) => {
+    $(document).on('chatList:searchInputEnd', (event, searchData) => {
       this.searchData = searchData;
-      this._handleGettingItems(searchData, false);
+      this._handleGettingItems(searchData, false, true);
     });
   }
 
@@ -23,7 +23,7 @@ export default class MessagesLazyLoading extends LazyLoading {
    * 4. Trigger 'lazyLoading:itemsReady' event and pass messages with it
    *    This event is indicating that the messages are retrieved and prepared
    */
-  _handleGettingItems = (searchData = null, scroll = true) => {
+  _handleGettingItems = (searchData = null, scroll = true, search = false) => {
     this._getItems(searchData)
       .then(messages => {
         // Prepare messages
@@ -43,6 +43,7 @@ export default class MessagesLazyLoading extends LazyLoading {
         $(document).trigger('lazyLoading:itemsReady', {
           messages,
           scroll,
+          search,
         });
       })
       .catch(error => {

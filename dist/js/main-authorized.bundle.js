@@ -81345,6 +81345,10 @@
 
             if (selectors.search) {
               this.$search = $(selectors.search);
+            }
+
+            if (selectors.searchSpinner) {
+              this.$searchSpinner = $(selectors.searchSpinner).hide();
             } // Prepare event listeners
 
             this._setUpEventListeners();
@@ -81368,13 +81372,16 @@
 
                       _this.$chatList.empty();
 
-                      $document.trigger('chatList:searchEnd', searchData);
+                      _this.$searchSpinner.show();
+
+                      $document.trigger('chatList:searchInputEnd', searchData);
                     }, 300)
                   );
                   $document
                     .on('lazyLoading:itemsReady', function (event, config) {
                       var messages = config.messages,
-                        scroll = config.scroll;
+                        scroll = config.scroll,
+                        search = config.search;
                       /**
                        * 1. Get all the retrieved messages from the server
                        * 2. Compile template
@@ -81399,6 +81406,10 @@
                               .first()
                               .outerHeight(),
                         });
+                      }
+
+                      if (search) {
+                        _this.$searchSpinner.hide();
                       } // Listen to this event, too, and re-observe the messages
 
                       $document.trigger('items:afterDisplay');
@@ -84749,6 +84760,10 @@
                   arguments.length > 1 && arguments[1] !== undefined
                     ? arguments[1]
                     : true;
+                var search =
+                  arguments.length > 2 && arguments[2] !== undefined
+                    ? arguments[2]
+                    : false;
 
                 _this
                   ._getItems(searchData)
@@ -84771,6 +84786,7 @@
                     $(document).trigger('lazyLoading:itemsReady', {
                       messages: messages,
                       scroll: scroll,
+                      search: search,
                     });
                   })
                   ['catch'](function (error) {
@@ -84805,13 +84821,13 @@
                     this
                   ).call(this);
 
-                  $(document).on('chatList:searchEnd', function (
+                  $(document).on('chatList:searchInputEnd', function (
                     event,
                     searchData
                   ) {
                     _this2.searchData = searchData;
 
-                    _this2._handleGettingItems(searchData, false);
+                    _this2._handleGettingItems(searchData, false, true);
                   });
                 },
                 /**

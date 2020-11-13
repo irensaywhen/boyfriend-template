@@ -17,6 +17,10 @@ export default class ChatList {
       this.$search = $(selectors.search);
     }
 
+    if (selectors.searchSpinner) {
+      this.$searchSpinner = $(selectors.searchSpinner).hide();
+    }
+
     // Prepare event listeners
     this._setUpEventListeners();
   }
@@ -31,13 +35,15 @@ export default class ChatList {
 
         this.$chatList.empty();
 
-        $document.trigger('chatList:searchEnd', searchData);
+        this.$searchSpinner.show();
+
+        $document.trigger('chatList:searchInputEnd', searchData);
       }, 300)
     );
 
     $document
       .on('lazyLoading:itemsReady', (event, config) => {
-        const { messages, scroll } = config;
+        const { messages, scroll, search } = config;
         /**
          * 1. Get all the retrieved messages from the server
          * 2. Compile template
@@ -56,6 +62,9 @@ export default class ChatList {
           });
         }
 
+        if (search) {
+          this.$searchSpinner.hide();
+        }
         // Listen to this event, too, and re-observe the messages
         $document.trigger('items:afterDisplay');
       })
