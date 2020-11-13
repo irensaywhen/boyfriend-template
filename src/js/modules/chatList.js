@@ -28,18 +28,20 @@ export default class ChatList {
   _setUpEventListeners() {
     let $document = $(document);
 
-    this.$search.on(
-      'input',
-      debounce(event => {
-        const searchData = event.target.value;
+    if (this.$search) {
+      this.$search.on(
+        'input',
+        debounce(event => {
+          const searchData = event.target.value;
 
-        this.$chatList.empty();
+          this.$chatList.empty();
 
-        this.$searchSpinner.show();
+          this.$searchSpinner.show();
 
-        $document.trigger('chatList:searchInputEnd', searchData);
-      }, 300)
-    );
+          $document.trigger('chatList:searchInputEnd', searchData);
+        }, 300)
+      );
+    }
 
     $document
       .on('lazyLoading:itemsReady', (event, config) => {

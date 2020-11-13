@@ -81363,20 +81363,27 @@
                   var _this = this;
 
                   var $document = $(document);
-                  this.$search.on(
-                    'input',
-                    Object(
-                      _debounce_js__WEBPACK_IMPORTED_MODULE_4__['default']
-                    )(function (event) {
-                      var searchData = event.target.value;
 
-                      _this.$chatList.empty();
+                  if (this.$search) {
+                    this.$search.on(
+                      'input',
+                      Object(
+                        _debounce_js__WEBPACK_IMPORTED_MODULE_4__['default']
+                      )(function (event) {
+                        var searchData = event.target.value;
 
-                      _this.$searchSpinner.show();
+                        _this.$chatList.empty();
 
-                      $document.trigger('chatList:searchInputEnd', searchData);
-                    }, 300)
-                  );
+                        _this.$searchSpinner.show();
+
+                        $document.trigger(
+                          'chatList:searchInputEnd',
+                          searchData
+                        );
+                      }, 300)
+                    );
+                  }
+
                   $document
                     .on('lazyLoading:itemsReady', function (event, config) {
                       var messages = config.messages,
