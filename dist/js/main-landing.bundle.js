@@ -20624,6 +20624,22 @@
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               ),
+              'formResetHandler',
+              function (form) {
+                if (_this.$form[0] !== form) return;
+
+                _this.validator.resetForm();
+
+                _this.hideErrors();
+
+                _this.$form.find(':focus').blur();
+              }
+            );
+
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
+                _this
+              ),
               'hideErrors',
               function () {
                 _this.$form.find('input.error').each(function (_, elem) {
@@ -20673,7 +20689,9 @@
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
-            ); // cache
+            );
+            _this.payment = options.payment ? true : false;
+            _this.savedCardsExist = options.savedCardsExist ? true : false; // cache
 
             var selectors = _this.selectors,
               errorMessages = options.errorMessages; // Save error messages if provided
@@ -20716,7 +20734,6 @@
                 Form.prototype,
                 _paymentMixin_js__WEBPACK_IMPORTED_MODULE_11__['default']
               );
-              _this.payment = true;
               jQuery.validator.addMethod(
                 'expiration',
                 _this.creditCardExpirationValidation,
@@ -20824,7 +20841,15 @@
                 value: function _setUpEventListeners() {
                   var _this2 = this;
 
-                  // Form submission
+                  if (this.payment && this.savedCardsExist) {
+                    $(document).on(
+                      'paymentMethodSelection:formHidden',
+                      function (_, form) {
+                        return _this2.formResetHandler(form);
+                      }
+                    );
+                  } // Form submission
+
                   this.$form.submit(function (event) {
                     event.preventDefault();
                     event.stopPropagation();

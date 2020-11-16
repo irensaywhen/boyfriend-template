@@ -21,6 +21,9 @@ export default class Form extends ServerRequest {
     this.showGeneralError = this.showGeneralError.bind(this);
     this.deleteGeneralError = this.deleteGeneralError.bind(this);
 
+    this.payment = options.payment ? true : false;
+    this.savedCardsExist = options.savedCardsExist ? true : false;
+
     // cache
     let selectors = this.selectors,
       errorMessages = options.errorMessages;
@@ -53,7 +56,6 @@ export default class Form extends ServerRequest {
     // Handle payment form
     if (options.payment) {
       Object.assign(Form.prototype, payment);
-      this.payment = true;
 
       jQuery.validator.addMethod(
         'expiration',
@@ -145,7 +147,20 @@ export default class Form extends ServerRequest {
     this.$inputs = this.$form.find(this.selectors.inputs);
   }
 
+  formResetHandler = form => {
+    if (this.$form[0] !== form) return;
+
+    this.validator.resetForm();
+    this.hideErrors();
+    this.$form.find(':focus').blur();
+  };
+
   _setUpEventListeners() {
+    if (this.payment && this.savedCardsExist) {
+      $(document).on('paymentMethodSelection:formHidden', (_, form) =>
+        this.formResetHandler(form)
+      );
+    }
     // Form submission
     this.$form.submit(event => {
       event.preventDefault();

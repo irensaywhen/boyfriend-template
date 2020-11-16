@@ -15,11 +15,8 @@ export default class ChooseCardForm extends Form {
       $cvvInput.val('');
     });
 
-    $document.on('paymentMethodSelection:formHidden', (event, form) => {
-      if (this.$form[0] !== form) return;
-
-      this.validator.resetForm();
-      this.hideErrors();
+    $document.on('paymentMethodSelection:formHidden', (_, form) => {
+      this.formResetHandler(form);
       $cvvInput.blur();
     });
   }
