@@ -2684,6 +2684,36 @@ article .header time {
     height: 75vh;
   }
 }
+.saved-cards .saved-card-input:checked ~ .saved-card-label {
+  color: #fff;
+  background: #8a00d4 !important;
+}
+.saved-cards .saved-card {
+  width: 100%;
+}
+.saved-cards .saved-card .saved-card-label {
+  width: 100%;
+  color: #212529;
+}
+.saved-cards .saved-card:hover .saved-card-label,
+.saved-cards .saved-card:focus .saved-card-label {
+  color: #fff;
+}
+@media (min-width: 576px) {
+  .saved-cards .saved-card {
+    width: auto;
+  }
+  .saved-cards .saved-card .saved-card-label {
+    width: auto;
+  }
+}
+.saved-card-cvv input,
+.saved-card-cvv label {
+  max-width: 120px;
+}
+.saved-card-cvv .float-label .form-control:focus {
+  border-color: #8a00d4;
+}
 .top-section {
   background-image: url(''), linear-gradient(135deg, #921b7e, #d327b6);
   background-size: cover;
@@ -3069,6 +3099,14 @@ article .header time {
   .checkout .credit-card .title {
     font-size: 22px;
   }
+}
+.checkout .credit-card .add-new {
+  line-height: 1;
+  font-size: 14px;
+  text-transform: lowercase !important;
+}
+.checkout .credit-card .add-new .material-icons {
+  font-size: 16px;
 }
 .checkout .jp-card {
   min-width: 0;

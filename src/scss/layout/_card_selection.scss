@@ -1,0 +1,45 @@
+.saved-cards {
+  // Main buttons styles
+  .saved-card-input:checked ~ .saved-card-label {
+    color: #fff;
+    background: $secondary-color !important;
+  }
+
+  .saved-card {
+    width: 100%;
+
+    .saved-card-label {
+      width: 100%;
+      color: $label-color;
+    }
+
+    &:hover,
+    &:focus {
+      .saved-card-label {
+        color: #fff;
+      }
+    }
+
+    @include screen-sm {
+      width: auto;
+
+      .saved-card-label {
+        width: auto;
+      }
+    }
+  }
+}
+
+.saved-card-cvv {
+  input,
+  label {
+    max-width: 120px;
+  }
+  .float-label .form-control:focus {
+    border-color: $secondary-color;
+  }
+
+  .float-label .form-control:focus + .form-control-label {
+    //color: $secondary-color;
+  }
+}

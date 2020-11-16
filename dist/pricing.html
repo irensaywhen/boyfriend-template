@@ -824,300 +824,405 @@
         <!--Card payment input start-->
 
         <div class="form-wrapper pt-3">
-          <h2 class="h3 mx-3 pt-4 text-center">Review and pay:</h2>
-          <div class="row order-details" id="order-details">
-            <!--Template for plan details start-->
-            <script type="text/template" id="template-planDetails">
+          <div class="buy-premium-step" data-step="2">
+            <h2 class="h3 mx-3 pt-4 text-center">Review and pay:</h2>
+            <div class="row order-details" id="order-details">
+              <!--Template for plan details start-->
+              <script type="text/template" id="template-planDetails">
 
-                <!--Plan summary start-->
-              <div class="col-12 col-md-6 text-center text-md-left pt-4">
-                <div class="card shadow-sm border-0 plan">
-                  <div class="card-header text-left">
-                    <h4 class="my-0 h6 font-weight-normal title">
-                      Plan details:
-                    </h4>
-                  </div>
+                  <!--Plan summary start-->
+                <div class="col-12 col-md-6 text-center text-md-left pt-4">
+                  <div class="card shadow-sm border-0 plan">
+                    <div class="card-header text-left">
+                      <h4 class="my-0 h6 font-weight-normal title">
+                        Plan details:
+                      </h4>
+                    </div>
 
-                  <!--Plan details start-->
-                  <div class="card-body text-left">
-                    <ul class="list-unstyled">
-                      {{#each details}}
-                      <li class="text-capitalize">{{this}}</li>
-                      {{/each}}
-                    </ul>
-                  </div>
-                  <!--Plan details end-->
+                    <!--Plan details start-->
+                    <div class="card-body text-left">
+                      <ul class="list-unstyled">
+                        {{#each details}}
+                        <li class="text-capitalize">{{this}}</li>
+                        {{/each}}
+                      </ul>
+                    </div>
+                    <!--Plan details end-->
 
-                  <div class="card-footer text-left">
-                    <div class="row no-gutters">
-                      <div class="col-8">
-                        Plan cost:
-                      </div>
-                      <div class="col-4 font-weight-bolder text-right">
-                        <span class="pl-1">
-                          <span>{{price}}</span> zł <small class="text-muted">/ mo</small>
-                        </span>
+                    <div class="card-footer text-left">
+                      <div class="row no-gutters">
+                        <div class="col-8">
+                          Plan cost:
+                        </div>
+                        <div class="col-4 font-weight-bolder text-right">
+                          <span class="pl-1">
+                            <span>{{price}}</span> zł <small class="text-muted">/ mo</small>
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <!--Plan summary end-->
-            </script>
-            <!--Template for plan details end-->
+                <!--Plan summary end-->
+              </script>
+              <!--Template for plan details end-->
 
-            <!--Template for bonuses start-->
-            <script type="text/template" id="template-orderedBonuses">
-              <div class="col-12 col-md-6 text-center text-md-left pt-4">
-                <div class="card shadow-sm border-0 plan">
+              <!--Template for bonuses start-->
+              <script type="text/template" id="template-orderedBonuses">
+                <div class="col-12 col-md-6 text-center text-md-left pt-4">
+                  <div class="card shadow-sm border-0 plan">
 
-                  <!--Card title start-->
-                  <div class="card-header text-left">
-                    <h4 class="my-0 h6 font-weight-normal title">Bonuses:</h4>
-                  </div>
-                  <!--Card title end-->
+                    <!--Card title start-->
+                    <div class="card-header text-left">
+                      <h4 class="my-0 h6 font-weight-normal title">Bonuses:</h4>
+                    </div>
+                    <!--Card title end-->
 
-                  <!--Bonuses information start-->
-                  <div class="card-body py-0">
-                    <ul class="list-group text-left list-group-flush">
-                      {{#each details}}
-                      <!--Bonus start-->
-                      <li class="list-group-item px-0 py-1">
-                        <div class="row no-gutters align-items-center">
-                          <div class="col-4 col-md-2 align-self-center">
-                            <figure class="product-image h-auto">
-                              <img src={{imgSrc}} alt="" class="vm" />
-                            </figure>
-                          </div>
-                          <div class="col-6 col-md-7 pl-md-4 text-left pl-3">
-                            <h3 class="text-dark text-capitalize mb-1 h4 d-block bonus-title">
-                              {{name}}
-                            </h3>
-
-                            <div
-                              class="bonus-amount text-secondary font-weight-normal mb-0 pt-1"
-                            >
-                              amount: <span class="text-emphasize">{{amount}}</span>
+                    <!--Bonuses information start-->
+                    <div class="card-body py-0">
+                      <ul class="list-group text-left list-group-flush">
+                        {{#each details}}
+                        <!--Bonus start-->
+                        <li class="list-group-item px-0 py-1">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col-4 col-md-2 align-self-center">
+                              <figure class="product-image h-auto">
+                                <img src={{imgSrc}} alt="" class="vm" />
+                              </figure>
                             </div>
+                            <div class="col-6 col-md-7 pl-md-4 text-left pl-3">
+                              <h3 class="text-dark text-capitalize mb-1 h4 d-block bonus-title">
+                                {{name}}
+                              </h3>
+
+                              <div
+                                class="bonus-amount text-secondary font-weight-normal mb-0 pt-1"
+                              >
+                                amount: <span class="text-emphasize">{{amount}}</span>
+                              </div>
+                            </div>
+                            <div class="col-2 col-md-3 text-right">
+                              <span class="font-weight-normal mb-0 pt-1"
+                                >{{totalPrice}} zł</span
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <!--Bonus end-->
+                        {{/each}}
+                      </ul>
+                    </div>
+                    <!--Bonuses information end-->
+
+                    <!--Total price section start-->
+                    <div class="card-footer text-left pr-15">
+                      <div class="row no-gutters">
+                        <div class="col-10 col-md-9">
+                          Bonuses total:
+                        </div>
+                        <div class="col-2 col-md-3 font-weight-bolder text-right">
+                          <span class="pl-1">
+                            {{price}} zł
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <!--Total price section end-->
+                  </div>
+                </div>
+              </script>
+              <!--Template for bonuses end-->
+            </div>
+
+            <div class="row order-details pt-4">
+              <!--Cost summary start-->
+              <div class="col-12 text-left">
+                <div class="card border-0 shadow-sm">
+                  <div class="card-header text-left">
+                    <h4 class="my-0 h6 font-weight-normal title">Summary:</h4>
+                  </div>
+
+                  <!--Summary details start-->
+                  <div class="card-body text-left">
+                    <ul class="text-left pl-1 list-unstyled mb-0">
+                      <li class="px-0 py-1">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col-10 col-md-9 align-self-center">
+                            Sub-total
+                          </div>
+                          <div class="col-2 col-md-3 text-right">
+                            <span
+                              class="font-weight-normal mb-0 pt-1 card-total-price"
+                              >0 </span
+                            >zł
+                          </div>
+                        </div>
+                      </li>
+
+                      <li class="px-0 py-1">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col-10 col-md-9 align-self-center">
+                            Discount
+                            <span
+                              class="badge badge-secondary ml-1"
+                              id="discount-type"
+                              >15%</span
+                            >
                           </div>
                           <div class="col-2 col-md-3 text-right">
                             <span class="font-weight-normal mb-0 pt-1"
-                              >{{totalPrice}} zł</span
+                              >-<span id="discount-amount">0</span> zł</span
                             >
                           </div>
                         </div>
                       </li>
-                      <!--Bonus end-->
-                      {{/each}}
                     </ul>
                   </div>
-                  <!--Bonuses information end-->
+                  <!--Summary details end-->
 
-                  <!--Total price section start-->
                   <div class="card-footer text-left pr-15">
                     <div class="row no-gutters">
-                      <div class="col-10 col-md-9">
-                        Bonuses total:
-                      </div>
+                      <div class="col-10 col-md-9 font-weight-bold">Total:</div>
                       <div class="col-2 col-md-3 font-weight-bolder text-right">
                         <span class="pl-1">
-                          {{price}} zł
+                          <span class="card-discount-price">0</span> zł
                         </span>
                       </div>
                     </div>
                   </div>
-                  <!--Total price section end-->
                 </div>
               </div>
-            </script>
-            <!--Template for bonuses end-->
-          </div>
+              <!--Cost summary end-->
+            </div>
 
-          <div class="row order-details pt-4">
-            <!--Cost summary start-->
-            <div class="col-12 text-left">
-              <div class="card border-0 shadow-sm">
-                <div class="card-header text-left">
-                  <h4 class="my-0 h6 font-weight-normal title">Summary:</h4>
-                </div>
+            <div
+              class="credit-card mx-auto bg-white shadow-sm mt-4 mb-1 py-3 px-3 px-sm-5"
+            >
+              <form class="row" id="choose-card">
+                <div class="col-12">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <h3 class="mx-2 text-lighter py-2 title">
+                      Select saved card:
+                    </h3>
+                    <button
+                      type="button"
+                      class="d-none d-sm-block btn btn-outline-default add-new"
+                    >
+                      <i class="material-icons">add</i> add new
+                    </button>
+                  </div>
+                  <div class="d-flex flex-wrap saved-cards pt-3">
+                    <!--Payment card start-->
+                    <div class="position-relative px-2 pt-2 saved-card">
+                      <input
+                        type="radio"
+                        name="card-select"
+                        id="card-1"
+                        class="position-absolute invisible saved-card-input"
+                        checked
+                      />
 
-                <!--Summary details start-->
-                <div class="card-body text-left">
-                  <ul class="text-left pl-1 list-unstyled mb-0">
-                    <li class="px-0 py-1">
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-10 col-md-9 align-self-center">
-                          Sub-total
-                        </div>
-                        <div class="col-2 col-md-3 text-right">
-                          <span
-                            class="font-weight-normal mb-0 pt-1 card-total-price"
-                            >0 </span
-                          >zł
-                        </div>
-                      </div>
-                    </li>
-
-                    <li class="px-0 py-1">
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-10 col-md-9 align-self-center">
-                          Discount
-                          <span
-                            class="badge badge-secondary ml-1"
-                            id="discount-type"
-                            >15%</span
-                          >
-                        </div>
-                        <div class="col-2 col-md-3 text-right">
-                          <span class="font-weight-normal mb-0 pt-1"
-                            >-<span id="discount-amount">0</span> zł</span
-                          >
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <!--Summary details end-->
-
-                <div class="card-footer text-left pr-15">
-                  <div class="row no-gutters">
-                    <div class="col-10 col-md-9 font-weight-bold">Total:</div>
-                    <div class="col-2 col-md-3 font-weight-bolder text-right">
-                      <span class="pl-1">
-                        <span class="card-discount-price">0</span> zł
-                      </span>
+                      <label
+                        class="saved-card-label btn btn-outline-default border-0 shadow-sm py-3"
+                        for="card-1"
+                      >
+                        <h4 class="h6">Visa</h4>
+                        <p>XXXX-2255</p>
+                      </label>
                     </div>
+                    <!--Payment card end-->
+
+                    <!--Payment card start-->
+                    <div class="position-relative px-2 pt-2 saved-card">
+                      <input
+                        type="radio"
+                        name="card-select"
+                        id="card-2"
+                        class="position-absolute invisible saved-card-input"
+                      />
+
+                      <label
+                        class="saved-card-label btn btn-outline-default border-0 shadow-sm py-3"
+                        for="card-2"
+                      >
+                        <h4 class="h6">Mastercard</h4>
+                        <p>XXXX-0000</p>
+                      </label>
+                    </div>
+                    <!--Payment card end-->
+                  </div>
+                </div>
+
+                <div class="col-12 saved-card-cvv pt-2">
+                  <div class="form-group float-label px-2">
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      class="form-control"
+                    />
+                    <label
+                      for="password"
+                      class="form-control-label px-2 text-dark"
+                      >CVV</label
+                    >
+                  </div>
+                </div>
+
+                <!--Submission button start-->
+                <div class="col-12 col-lg-8 offset-lg-2 py-4">
+                  <button
+                    type="submit"
+                    id="paymentForm-checkout"
+                    class="mb-2 btn btn-block btn-rounded btn-default submit"
+                  >
+                    Buy plan and bonuses
+                  </button>
+                  <p class="text-center small text-muted">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  </p>
+                </div>
+                <!--Submission button end-->
+
+                <!--Add new for mobile screens start-->
+                <div class="col-12 text-right">
+                  <button
+                    type="button"
+                    class="d-sm-none btn btn-outline-default add-new"
+                  >
+                    <i class="material-icons">add</i> add new
+                  </button>
+                </div>
+                <!--Add new for mobile screens end-->
+              </form>
+            </div>
+
+            <form
+              class="row credit-card mx-auto bg-white shadow-sm mt-4 mb-1 py-3 px-3 px-sm-5"
+              id="credit-card"
+            >
+              <div class="col-12 text-center">
+                <h3 class="mx-3 text-lighter pb-3 pt-2 title">
+                  Provide your card details:
+                </h3>
+              </div>
+              <!--Card start-->
+              <div class="col-12 card-wrapper pb-4"></div>
+              <!--Card number start-->
+              <div class="col-12 col-sm-6 col-lg-4 offset-lg-2">
+                <div class="form-group">
+                  <label for="number">Card number</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm payment-input"
+                    name="number"
+                    id="number"
+                    placeholder="•••• •••• •••• ••••"
+                  />
+                </div>
+              </div>
+              <!--Card number end-->
+
+              <!--Card expiration start-->
+              <div class="col-12 col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <label for="expiry">Expiration date</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm payment-input"
+                    name="expiry"
+                    id="expiry"
+                    placeholder="MM/YY"
+                  />
+                </div>
+              </div>
+              <!--Card expiration end-->
+
+              <!--Full name start-->
+              <div class="col-12 col-sm-6 col-lg-4 offset-lg-2">
+                <div class="form-group">
+                  <label for="name">Full name</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm payment-input"
+                    name="name"
+                    id="name"
+                    placeholder="Full Name"
+                  />
+                </div>
+              </div>
+              <!--Full name end-->
+
+              <!--CVC start-->
+              <div class="col-12 col-sm-6 col-lg-4">
+                <div class="form-group">
+                  <label for="cvc">CVC Code</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm payment-input"
+                    name="cvc"
+                    id="cvc"
+                    placeholder="CVC"
+                  />
+                </div>
+              </div>
+              <!--CVC end-->
+              <!--Card end-->
+
+              <!--Terms of service start-->
+              <div class="col-12 offset-lg-2">
+                <div class="custom-control custom-checkbox form-group">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input payment-input"
+                    id="terms"
+                    name="terms"
+                  />
+                  <label class="custom-control-label" for="terms"
+                    >I accept
+                    <a href="terms.html" class="link-hover text-underline"
+                      >terms and conditions</a
+                    ></label
+                  >
+                </div>
+              </div>
+              <!--Terms of service end-->
+
+              <!--Submission button start-->
+              <div class="col-12 col-lg-8 offset-lg-2 py-4">
+                <button
+                  type="submit"
+                  id="paymentForm-checkout"
+                  class="mb-2 btn btn-block btn-rounded btn-default submit"
+                >
+                  Buy plan and bonuses
+                </button>
+                <p class="text-center small text-muted">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </p>
+              </div>
+              <!--Submission button end-->
+            </form>
+
+            <!--Arrow back start-->
+            <div class="container px-0">
+              <div class="row no-gutters justify-content-center">
+                <div class="col-12 p-0 credit-card">
+                  <div
+                    class="backward link-hover text-secondary d-flex align-items-center"
+                  >
+                    <i class="material-icons"> arrow_back </i>
+                    back
                   </div>
                 </div>
               </div>
             </div>
-            <!--Cost summary end-->
+            <!--Arrow back end-->
           </div>
-
-          <form
-            class="row credit-card buy-premium-step mx-auto bg-white shadow-sm mt-4 mb-1 py-3 px-3 px-sm-5"
-            id="credit-card"
-            data-step="2"
-          >
-            <div class="col-12 text-center">
-              <h3 class="mx-3 text-lighter pb-3 pt-2 title">
-                Provide your card details:
-              </h3>
-            </div>
-            <!--Card start-->
-            <div class="col-12 card-wrapper pb-4"></div>
-            <!--Card number start-->
-            <div class="col-12 col-sm-6 col-lg-4 offset-lg-2">
-              <div class="form-group">
-                <label for="number">Card number</label>
-                <input
-                  type="text"
-                  class="form-control form-control-sm payment-input"
-                  name="number"
-                  id="number"
-                  placeholder="•••• •••• •••• ••••"
-                />
-              </div>
-            </div>
-            <!--Card number end-->
-
-            <!--Card expiration start-->
-            <div class="col-12 col-sm-6 col-lg-4">
-              <div class="form-group">
-                <label for="expiry">Expiration date</label>
-                <input
-                  type="text"
-                  class="form-control form-control-sm payment-input"
-                  name="expiry"
-                  id="expiry"
-                  placeholder="MM/YY"
-                />
-              </div>
-            </div>
-            <!--Card expiration end-->
-
-            <!--Full name start-->
-            <div class="col-12 col-sm-6 col-lg-4 offset-lg-2">
-              <div class="form-group">
-                <label for="name">Full name</label>
-                <input
-                  type="text"
-                  class="form-control form-control-sm payment-input"
-                  name="name"
-                  id="name"
-                  placeholder="Full Name"
-                />
-              </div>
-            </div>
-            <!--Full name end-->
-
-            <!--CVC start-->
-            <div class="col-12 col-sm-6 col-lg-4">
-              <div class="form-group">
-                <label for="cvc">CVC Code</label>
-                <input
-                  type="text"
-                  class="form-control form-control-sm payment-input"
-                  name="cvc"
-                  id="cvc"
-                  placeholder="CVC"
-                />
-              </div>
-            </div>
-            <!--CVC end-->
-            <!--Card end-->
-
-            <!--Terms of service start-->
-            <div class="col-12 offset-lg-2">
-              <div class="custom-control custom-checkbox form-group">
-                <input
-                  type="checkbox"
-                  class="custom-control-input payment-input"
-                  id="terms"
-                  name="terms"
-                />
-                <label class="custom-control-label" for="terms"
-                  >I accept
-                  <a href="terms.html" class="link-hover text-underline"
-                    >terms and conditions</a
-                  ></label
-                >
-              </div>
-            </div>
-            <!--Terms of service end-->
-
-            <!--Submission button start-->
-            <div class="col-12 col-lg-8 offset-lg-2 py-4">
-              <button
-                type="submit"
-                id="paymentForm-checkout"
-                class="mb-2 btn btn-block btn-rounded btn-default submit"
-              >
-                Buy plan and bonuses<!--<span class="card-discount-price">0 </span>zł / month-->
-              </button>
-              <p class="text-center small text-muted">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              </p>
-            </div>
-            <!--Submission button end-->
-          </form>
-
-          <!--Arrow back start-->
-          <div class="container px-0">
-            <div class="row no-gutters justify-content-center">
-              <div class="col-12 p-0 credit-card">
-                <div
-                  class="backward link-hover text-secondary d-flex align-items-center"
-                >
-                  <i class="material-icons"> arrow_back </i>
-                  back
-                </div>
-              </div>
-            </div>
-          </div>
-          <!--Arrow back end-->
+          <!--Card payment input end-->
         </div>
-        <!--Card payment input end-->
       </div>
 
       <!-- footer -->
@@ -1387,7 +1492,7 @@
         },
       });
 
-      /* forms chainer initialization */
+      /* forms chainer initialization
       const chainedForms = new ChainedForms({
         selectors: {
           formsContainer: '#checkout',
@@ -1412,7 +1517,7 @@
             further: 'step-further',
           },
         },
-      });
+      });*/
     </script>
   </body>
 </html>
