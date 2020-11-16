@@ -1015,7 +1015,7 @@
                   </div>
                   <div class="d-flex flex-wrap saved-cards pt-3">
                     <!--Payment card start-->
-                    <div class="position-relative px-2 pt-2 saved-card">
+                    <div class="position-relative mx-2 mt-2 saved-card">
                       <input
                         type="radio"
                         name="card-select"
@@ -1035,7 +1035,7 @@
                     <!--Payment card end-->
 
                     <!--Payment card start-->
-                    <div class="position-relative px-2 pt-2 saved-card">
+                    <div class="position-relative mx-2 mt-2 saved-card">
                       <input
                         type="radio"
                         name="card-select"
@@ -1059,8 +1059,8 @@
                   <div class="form-group float-label px-2">
                     <input
                       type="password"
-                      id="password"
-                      name="password"
+                      id="saved-card-cvv"
+                      name="cvv"
                       class="form-control"
                     />
                     <label
@@ -1099,112 +1099,124 @@
               </form>
             </div>
 
-            <form
-              class="row credit-card mx-auto bg-white shadow-sm mt-4 mb-1 py-3 px-3 px-sm-5"
-              id="credit-card"
+            <!--New card start-->
+            <div
+              class="credit-card mx-auto bg-white shadow-sm mt-4 mb-1 py-3 px-3 px-sm-5"
             >
-              <div class="col-12 text-center">
-                <h3 class="mx-3 text-lighter pb-3 pt-2 title">
-                  Provide your card details:
-                </h3>
-              </div>
-              <!--Card start-->
-              <div class="col-12 card-wrapper pb-4"></div>
-              <!--Card number start-->
-              <div class="col-12 col-sm-6 col-lg-4 offset-lg-2">
-                <div class="form-group">
-                  <label for="number">Card number</label>
-                  <input
-                    type="text"
-                    class="form-control form-control-sm payment-input"
-                    name="number"
-                    id="number"
-                    placeholder="•••• •••• •••• ••••"
-                  />
+              <form
+                class="row new-credit-card position-relative"
+                id="credit-card"
+              >
+                <!--Credit card title start-->
+                <div class="col-12 text-center">
+                  <h3 class="mx-3 text-lighter pb-3 pt-2 title">
+                    Provide your card details:
+                  </h3>
+                  <button type="button" class="close discard-new-card">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
-              </div>
-              <!--Card number end-->
+                <!--Credit card title end-->
 
-              <!--Card expiration start-->
-              <div class="col-12 col-sm-6 col-lg-4">
-                <div class="form-group">
-                  <label for="expiry">Expiration date</label>
-                  <input
-                    type="text"
-                    class="form-control form-control-sm payment-input"
-                    name="expiry"
-                    id="expiry"
-                    placeholder="MM/YY"
-                  />
+                <!--Card start-->
+                <div class="col-12 card-wrapper pb-4"></div>
+                <!--Card number start-->
+                <div class="col-12 col-sm-6 col-lg-4 offset-lg-2">
+                  <div class="form-group">
+                    <label for="number">Card number</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm payment-input"
+                      name="number"
+                      id="number"
+                      placeholder="•••• •••• •••• ••••"
+                    />
+                  </div>
                 </div>
-              </div>
-              <!--Card expiration end-->
+                <!--Card number end-->
 
-              <!--Full name start-->
-              <div class="col-12 col-sm-6 col-lg-4 offset-lg-2">
-                <div class="form-group">
-                  <label for="name">Full name</label>
-                  <input
-                    type="text"
-                    class="form-control form-control-sm payment-input"
-                    name="name"
-                    id="name"
-                    placeholder="Full Name"
-                  />
+                <!--Card expiration start-->
+                <div class="col-12 col-sm-6 col-lg-4">
+                  <div class="form-group">
+                    <label for="expiry">Expiration date</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm payment-input"
+                      name="expiry"
+                      id="expiry"
+                      placeholder="MM/YY"
+                    />
+                  </div>
                 </div>
-              </div>
-              <!--Full name end-->
+                <!--Card expiration end-->
 
-              <!--CVC start-->
-              <div class="col-12 col-sm-6 col-lg-4">
-                <div class="form-group">
-                  <label for="cvc">CVC Code</label>
-                  <input
-                    type="text"
-                    class="form-control form-control-sm payment-input"
-                    name="cvc"
-                    id="cvc"
-                    placeholder="CVC"
-                  />
+                <!--Full name start-->
+                <div class="col-12 col-sm-6 col-lg-4 offset-lg-2">
+                  <div class="form-group">
+                    <label for="name">Full name</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm payment-input"
+                      name="name"
+                      id="name"
+                      placeholder="Full Name"
+                    />
+                  </div>
                 </div>
-              </div>
-              <!--CVC end-->
-              <!--Card end-->
+                <!--Full name end-->
 
-              <!--Terms of service start-->
-              <div class="col-12 offset-lg-2">
-                <div class="custom-control custom-checkbox form-group">
-                  <input
-                    type="checkbox"
-                    class="custom-control-input payment-input"
-                    id="terms"
-                    name="terms"
-                  />
-                  <label class="custom-control-label" for="terms"
-                    >I accept
-                    <a href="terms.html" class="link-hover text-underline"
-                      >terms and conditions</a
-                    ></label
+                <!--CVC start-->
+                <div class="col-12 col-sm-6 col-lg-4">
+                  <div class="form-group">
+                    <label for="cvc">CVC Code</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm payment-input"
+                      name="cvc"
+                      id="cvc"
+                      placeholder="CVC"
+                    />
+                  </div>
+                </div>
+                <!--CVC end-->
+                <!--Card end-->
+
+                <!--Terms of service start-->
+                <div class="col-12 offset-lg-2">
+                  <div class="custom-control custom-checkbox form-group">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input payment-input"
+                      id="terms"
+                      name="terms"
+                    />
+                    <label class="custom-control-label" for="terms"
+                      >I accept
+                      <a href="terms.html" class="link-hover text-underline"
+                        >terms and conditions</a
+                      ></label
+                    >
+                  </div>
+                </div>
+                <!--Terms of service end-->
+
+                <!--Submission button start-->
+                <div class="col-12 col-lg-8 offset-lg-2 py-4">
+                  <button
+                    type="submit"
+                    id="paymentForm-checkout"
+                    class="mb-2 btn btn-block btn-rounded btn-default submit"
                   >
+                    Buy plan and bonuses
+                  </button>
+                  <p class="text-center small text-muted">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  </p>
                 </div>
-              </div>
-              <!--Terms of service end-->
-
-              <!--Submission button start-->
-              <div class="col-12 col-lg-8 offset-lg-2 py-4">
-                <button
-                  type="submit"
-                  id="paymentForm-checkout"
-                  class="mb-2 btn btn-block btn-rounded btn-default submit"
-                >
-                  Buy plan and bonuses
-                </button>
-                <p class="text-center small text-muted">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                </p>
-              </div>
-              <!--Submission button end-->
-            </form>
+                <!--Submission button end-->
+              </form>
+            </div>
+            <!--New card end-->
 
             <!--Arrow back start-->
             <div class="container px-0">

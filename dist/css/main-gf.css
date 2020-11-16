@@ -2714,6 +2714,16 @@ article .header time {
 .saved-card-cvv .float-label .form-control:focus {
   border-color: #8a00d4;
 }
+form.new-credit-card button.close {
+  position: absolute;
+  top: 0;
+  right: 15px;
+}
+@media (min-width: 576px) {
+  form.new-credit-card button.close {
+    right: -15px;
+  }
+}
 .top-section {
   background-image: url(''), linear-gradient(135deg, #921b7e, #d327b6);
   background-size: cover;

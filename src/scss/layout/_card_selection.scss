@@ -43,3 +43,16 @@
     //color: $secondary-color;
   }
 }
+
+// New card
+form.new-credit-card {
+  button.close {
+    position: absolute;
+    top: 0;
+    right: 15px;
+
+    @include screen-sm {
+      right: -15px;
+    }
+  }
+}
