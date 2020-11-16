@@ -81649,7 +81649,10 @@
                       title: title,
                       text: message,
                       icon: 'success',
-                    });
+                    }); // Remove the card from the markup
+
+                    $card.remove();
+                    $(document).trigger('chooseCardForm:cardDeleted');
                   })
                   ['catch'](function (error) {
                     console.log(error); // Handle errors here
@@ -85552,7 +85555,10 @@
           );
           var $newCardWrapper = $(newCardSelectors.wrapper).hide();
           var $newCardForm = $newCardWrapper.find(newCardSelectors.form);
-          var $newCardFormInputs = $newCardForm.find(newCardSelectors.input); // Add new card handler
+          var $newCardFormInputs = $newCardForm.find(newCardSelectors.input);
+          var newCardFormSwitcher = $newCardForm.find(
+            newCardSelectors.switcher
+          ); // Add new card handler
 
           $chooseCardWrapper.click(function (event) {
             var $target = $(event.target);
@@ -85599,6 +85605,16 @@
                 'paymentMethodSelection:formHidden',
                 $newCardForm
               );
+            });
+          });
+          $document.on('chooseCardForm:cardDeleted', function () {
+            var $cards = $chooseCardWrapper.find(chooseCardSelectors.card);
+            if ($cards.length !== 0) return;
+            $chooseCardWrapper.fadeOut(200, function () {
+              newCardFormSwitcher.remove();
+              $newCardWrapper.fadeIn(200, function () {
+                $chooseCardWrapper.remove();
+              });
             });
           });
         };

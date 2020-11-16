@@ -16,6 +16,7 @@ export default class PaymentMethodSelection {
     const $newCardWrapper = $(newCardSelectors.wrapper).hide();
     const $newCardForm = $newCardWrapper.find(newCardSelectors.form);
     const $newCardFormInputs = $newCardForm.find(newCardSelectors.input);
+    const newCardFormSwitcher = $newCardForm.find(newCardSelectors.switcher);
 
     // Add new card handler
     $chooseCardWrapper.click(event => {
@@ -63,6 +64,19 @@ export default class PaymentMethodSelection {
         });
 
         $document.trigger('paymentMethodSelection:formHidden', $newCardForm);
+      });
+    });
+
+    $document.on('chooseCardForm:cardDeleted', () => {
+      const $cards = $chooseCardWrapper.find(chooseCardSelectors.card);
+
+      if ($cards.length !== 0) return;
+
+      $chooseCardWrapper.fadeOut(200, () => {
+        newCardFormSwitcher.remove();
+        $newCardWrapper.fadeIn(200, () => {
+          $chooseCardWrapper.remove();
+        });
       });
     });
   }

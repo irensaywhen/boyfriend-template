@@ -84,6 +84,11 @@ export default class ChooseCardForm extends Form {
           text: message,
           icon: 'success',
         });
+
+        // Remove the card from the markup
+        $card.remove();
+
+        $(document).trigger('chooseCardForm:cardDeleted');
       })
       .catch(error => {
         console.log(error);
