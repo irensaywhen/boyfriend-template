@@ -2688,15 +2688,38 @@ article .header time {
   color: #fff;
   background: #8a00d4 !important;
 }
+.saved-cards .saved-card-input:checked ~ .saved-card-label .close {
+  color: #fff;
+  opacity: 0.9;
+}
+.saved-cards .saved-card-input:checked ~ .saved-card-label .close span {
+  color: #fff;
+}
 .saved-cards .saved-card {
   width: 100%;
 }
 .saved-cards .saved-card .saved-card-label {
   width: 100%;
   color: #212529;
+  position: relative;
+}
+.saved-cards .saved-card .saved-card-label .close {
+  position: absolute;
+  top: 0;
+  right: 5px;
+  text-shadow: none;
 }
 .saved-cards .saved-card:hover .saved-card-label,
 .saved-cards .saved-card:focus .saved-card-label {
+  color: #fff;
+}
+.saved-cards .saved-card:hover .saved-card-label .close,
+.saved-cards .saved-card:focus .saved-card-label .close {
+  color: #fff;
+  opacity: 0.9;
+}
+.saved-cards .saved-card:hover .saved-card-label .close span,
+.saved-cards .saved-card:focus .saved-card-label .close span {
   color: #fff;
 }
 @media (min-width: 576px) {

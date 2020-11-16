@@ -3,6 +3,14 @@
   .saved-card-input:checked ~ .saved-card-label {
     color: #fff;
     background: $secondary-color !important;
+
+    .close {
+      color: #fff;
+      opacity: 0.9;
+      span {
+        color: #fff;
+      }
+    }
   }
 
   .saved-card {
@@ -11,12 +19,28 @@
     .saved-card-label {
       width: 100%;
       color: $label-color;
+      position: relative;
+
+      .close {
+        position: absolute;
+        top: 0;
+        right: 5px;
+        text-shadow: none;
+      }
     }
 
     &:hover,
     &:focus {
       .saved-card-label {
         color: #fff;
+
+        .close {
+          color: #fff;
+          opacity: 0.9;
+          span {
+            color: #fff;
+          }
+        }
       }
     }
 
