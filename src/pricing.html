@@ -1016,7 +1016,9 @@
                   </div>
                   <div class="d-flex flex-wrap saved-cards pt-3">
                     <!--Payment card start-->
-                    <div class="position-relative mx-2 mt-2 saved-card">
+                    <div
+                      class="position-relative mx-2 mt-2 saved-card form-group"
+                    >
                       <input
                         type="radio"
                         name="card-select"
@@ -1036,7 +1038,9 @@
                     <!--Payment card end-->
 
                     <!--Payment card start-->
-                    <div class="position-relative mx-2 mt-2 saved-card">
+                    <div
+                      class="position-relative mx-2 mt-2 saved-card form-group"
+                    >
                       <input
                         type="radio"
                         name="card-select"
@@ -1520,6 +1524,45 @@
             switcher: '.discard-new-card',
             form: '#credit-card',
             input: '.payment-input',
+          },
+        },
+      });
+
+      /* Choose card form */
+      const chooseCardForm = new ChooseCardForm({
+        selectors: {
+          form: '#choose-card',
+          'input-wrapper': '.form-group',
+          inputs: '.form-control',
+          cvv: '#saved-card-cvv',
+          loading: {
+            spinnerTemplateId: 'spinner-template',
+            submitButton: '#selectedCard-checkout',
+            spinner: '.spinner-border',
+            text: 'Purchasing...',
+          },
+        },
+        requests: {
+          submit: {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            endpoint:
+              'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/card',
+          },
+        },
+        frontendValidation: true,
+        redirectOnSubmit: true,
+        showSuccessPopup: true,
+        validatorOptions: {
+          errorElement: 'span',
+          rules: {
+            'card-select': 'required',
+            cvv: {
+              required: true,
+              minlength: 3,
+            },
           },
         },
       });

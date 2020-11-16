@@ -321,6 +321,12 @@ export default class Form extends ServerRequest {
     });
   }
 
+  hideErrors = () => {
+    this.$form.find('input.error').each((_, elem) => {
+      $(elem).removeClass('error');
+    });
+  };
+
   showGeneralError(errorText) {
     this.$generalError.append($('<p></p>').addClass('pb-4').text(errorText));
   }

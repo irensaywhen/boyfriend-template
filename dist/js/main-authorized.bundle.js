@@ -79391,6 +79391,9 @@
         /* harmony import */ var _modules_paymentMethodSelection_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(
           /*! ./modules/paymentMethodSelection.js */ './js/modules/paymentMethodSelection.js'
         );
+        /* harmony import */ var _modules_chooseCardForm_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(
+          /*! ./modules/chooseCardForm.js */ './js/modules/chooseCardForm.js'
+        );
 
         window['PhotoUploader'] =
           _modules_uploader_js__WEBPACK_IMPORTED_MODULE_0__['default'];
@@ -79435,6 +79438,8 @@
           _modules_paymentMethodSelection_js__WEBPACK_IMPORTED_MODULE_18__[
             'default'
           ];
+        window['ChooseCardForm'] =
+          _modules_chooseCardForm_js__WEBPACK_IMPORTED_MODULE_19__['default'];
 
         /***/
       },
@@ -81456,6 +81461,135 @@
         /***/
       },
 
+    /***/ './js/modules/chooseCardForm.js':
+      /*!**************************************!*\
+  !*** ./js/modules/chooseCardForm.js ***!
+  \**************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return ChooseCardForm;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! ./form.js */ './js/modules/form.js'
+        );
+
+        function _createSuper(Derived) {
+          var hasNativeReflectConstruct = _isNativeReflectConstruct();
+          return function _createSuperInternal() {
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+                Derived
+              ),
+              result;
+            if (hasNativeReflectConstruct) {
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+                this
+              ).constructor;
+              result = Reflect.construct(Super, arguments, NewTarget);
+            } else {
+              result = Super.apply(this, arguments);
+            }
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(
+              this,
+              result
+            );
+          };
+        }
+
+        function _isNativeReflectConstruct() {
+          if (typeof Reflect === 'undefined' || !Reflect.construct)
+            return false;
+          if (Reflect.construct.sham) return false;
+          if (typeof Proxy === 'function') return true;
+          try {
+            Date.prototype.toString.call(
+              Reflect.construct(Date, [], function () {})
+            );
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        var ChooseCardForm = /*#__PURE__*/ (function (_Form) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default()(
+            ChooseCardForm,
+            _Form
+          );
+
+          var _super = _createSuper(ChooseCardForm);
+
+          function ChooseCardForm(options) {
+            var _this;
+
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              ChooseCardForm
+            );
+
+            _this = _super.call(this, options);
+
+            var $cvvInput = _this.$form.find(_this.selectors.cvv);
+
+            var $document = $(document);
+
+            _this.$form.on('change', function (event) {
+              var $target = $(event.target);
+              if (!$target.is(':radio')) return;
+              $cvvInput.val('');
+            });
+
+            $document.on('paymentMethodSelection:formHidden', function (
+              event,
+              form
+            ) {
+              if (_this.$form[0] !== form) return;
+
+              _this.validator.resetForm();
+
+              _this.hideErrors();
+
+              $cvvInput.blur();
+            });
+            return _this;
+          }
+
+          return ChooseCardForm;
+        })(_form_js__WEBPACK_IMPORTED_MODULE_4__['default']);
+
+        /***/
+      },
+
     /***/ './js/modules/dateMixin.js':
       /*!*********************************!*\
   !*** ./js/modules/dateMixin.js ***!
@@ -82542,19 +82676,25 @@
         /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__
         );
-        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+          /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8__
+        );
+        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
           /*! ./requests.js */ './js/modules/requests.js'
         );
-        /* harmony import */ var _locationMixin_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+        /* harmony import */ var _locationMixin_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
           /*! ./locationMixin.js */ './js/modules/locationMixin.js'
         );
-        /* harmony import */ var _paymentMixin_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+        /* harmony import */ var _paymentMixin_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
           /*! ./paymentMixin.js */ './js/modules/paymentMixin.js'
         );
-        /* harmony import */ var _restrictLengthMixin_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+        /* harmony import */ var _restrictLengthMixin_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
           /*! ./restrictLengthMixin.js */ './js/modules/restrictLengthMixin.js'
         );
-        /* harmony import */ var _dateMixin_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+        /* harmony import */ var _dateMixin_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
           /*! ./dateMixin.js */ './js/modules/dateMixin.js'
         );
 
@@ -82612,6 +82752,18 @@
             );
 
             _this = _super.call(this, options); // Data that will be sent to the server
+
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
+                _this
+              ),
+              'hideErrors',
+              function () {
+                _this.$form.find('input.error').each(function (_, elem) {
+                  $(elem).removeClass('error');
+                });
+              }
+            );
 
             _this.formData = {}; // Bind context
 
@@ -82674,7 +82826,7 @@
               // Add location methods to the form prototype
               Object.assign(
                 Form.prototype,
-                _locationMixin_js__WEBPACK_IMPORTED_MODULE_9__['default']
+                _locationMixin_js__WEBPACK_IMPORTED_MODULE_10__['default']
               );
               _this.location = true;
 
@@ -82685,7 +82837,7 @@
               // Add date validation method to the form prototype
               Object.assign(
                 Form.prototype,
-                _dateMixin_js__WEBPACK_IMPORTED_MODULE_12__['default']
+                _dateMixin_js__WEBPACK_IMPORTED_MODULE_13__['default']
               );
               _this.date = true;
 
@@ -82695,7 +82847,7 @@
             if (options.payment) {
               Object.assign(
                 Form.prototype,
-                _paymentMixin_js__WEBPACK_IMPORTED_MODULE_10__['default']
+                _paymentMixin_js__WEBPACK_IMPORTED_MODULE_11__['default']
               );
               _this.payment = true;
               jQuery.validator.addMethod(
@@ -82765,7 +82917,7 @@
             _this.showFailPopup = options.showFailPopup ? true : false; // Restrict input length
 
             if (options.restrictInputLength) {
-              _restrictLengthMixin_js__WEBPACK_IMPORTED_MODULE_11__[
+              _restrictLengthMixin_js__WEBPACK_IMPORTED_MODULE_12__[
                 'default'
               ].init.call(
                 _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
@@ -83076,7 +83228,7 @@
           );
 
           return Form;
-        })(_requests_js__WEBPACK_IMPORTED_MODULE_8__['default']);
+        })(_requests_js__WEBPACK_IMPORTED_MODULE_9__['default']);
 
         /***/
       },
@@ -85245,39 +85397,17 @@
         /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
         );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-          /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__
-        );
 
         var PaymentMethodSelection = function PaymentMethodSelection(options) {
-          var _this = this;
-
           _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
             this,
             PaymentMethodSelection
           );
 
-          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(
-            this,
-            '_cleanForm',
-            function ($form) {
-              _this.$inputs.each(function (index, elem) {
-                var $elem = $(elem);
-                if ($elem.is('select') || $elem.hasClass('preserve')) return;
-                elem.value = '';
-              });
-
-              $;
-            }
-          );
-
           var _options$selectors = options.selectors,
             chooseCardSelectors = _options$selectors.chooseCard,
             newCardSelectors = _options$selectors.newCard;
-          this.selectors = options.selectors;
+          var $document = $(document);
           var $chooseCardWrapper = $(chooseCardSelectors.wrapper);
           var $chooseCardForm = $chooseCardWrapper.find(
             chooseCardSelectors.form
@@ -85308,6 +85438,10 @@
                 .find('input[type=radio]')
                 .first()
                 .prop('checked', true);
+              $document.trigger(
+                'paymentMethodSelection:formHidden',
+                $chooseCardForm
+              );
             });
           }); // Remove new card handler
 
@@ -85326,6 +85460,10 @@
                   elem.value = '';
                 }
               });
+              $document.trigger(
+                'paymentMethodSelection:formHidden',
+                $newCardForm
+              );
             });
           });
         };

@@ -17,6 +17,7 @@ import Like from './modules/like.js';
 import ProfileEdit from './modules/profileEdit.js';
 import UsersLazyLoading from './modules/usersLazyLoading.js';
 import PaymentMethodSelection from './modules/paymentMethodSelection.js';
+import ChooseCardForm from './modules/chooseCardForm.js';
 
 window['PhotoUploader'] = PhotoUploader;
 window['PhotoEditor'] = PhotoEditor;
@@ -37,3 +38,4 @@ window['Like'] = Like;
 window['ProfileEdit'] = ProfileEdit;
 window['UsersLazyLoading'] = UsersLazyLoading;
 window['PaymentMethodSelection'] = PaymentMethodSelection;
+window['ChooseCardForm'] = ChooseCardForm;

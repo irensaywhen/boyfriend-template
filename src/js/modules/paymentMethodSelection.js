@@ -5,7 +5,7 @@ export default class PaymentMethodSelection {
       newCard: newCardSelectors,
     } = options.selectors;
 
-    this.selectors = options.selectors;
+    const $document = $(document);
 
     const $chooseCardWrapper = $(chooseCardSelectors.wrapper);
     const $chooseCardForm = $chooseCardWrapper.find(chooseCardSelectors.form);
@@ -37,6 +37,8 @@ export default class PaymentMethodSelection {
         });
 
         $chooseCardForm.find('input[type=radio]').first().prop('checked', true);
+
+        $document.trigger('paymentMethodSelection:formHidden', $chooseCardForm);
       });
     });
 
@@ -59,6 +61,8 @@ export default class PaymentMethodSelection {
             elem.value = '';
           }
         });
+
+        $document.trigger('paymentMethodSelection:formHidden', $newCardForm);
       });
     });
   }
