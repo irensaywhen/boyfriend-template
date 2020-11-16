@@ -2628,6 +2628,10 @@ form.new-credit-card button.close {
   top: 0;
   right: 15px;
 }
+form.new-credit-card button.close:focus,
+form.new-credit-card button.close:active {
+  outline: 0;
+}
 @media (min-width: 576px) {
   form.new-credit-card button.close {
     right: -15px;

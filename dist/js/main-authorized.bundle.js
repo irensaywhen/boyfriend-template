@@ -79388,6 +79388,9 @@
         /* harmony import */ var _modules_usersLazyLoading_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
           /*! ./modules/usersLazyLoading.js */ './js/modules/usersLazyLoading.js'
         );
+        /* harmony import */ var _modules_paymentMethodSelection_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(
+          /*! ./modules/paymentMethodSelection.js */ './js/modules/paymentMethodSelection.js'
+        );
 
         window['PhotoUploader'] =
           _modules_uploader_js__WEBPACK_IMPORTED_MODULE_0__['default'];
@@ -79428,6 +79431,10 @@
           _modules_profileEdit_js__WEBPACK_IMPORTED_MODULE_16__['default'];
         window['UsersLazyLoading'] =
           _modules_usersLazyLoading_js__WEBPACK_IMPORTED_MODULE_17__['default'];
+        window['PaymentMethodSelection'] =
+          _modules_paymentMethodSelection_js__WEBPACK_IMPORTED_MODULE_18__[
+            'default'
+          ];
 
         /***/
       },
@@ -85213,6 +85220,115 @@
         /* harmony default export */ __webpack_exports__[
           'default'
         ] = EditorModal;
+
+        /***/
+      },
+
+    /***/ './js/modules/paymentMethodSelection.js':
+      /*!**********************************************!*\
+  !*** ./js/modules/paymentMethodSelection.js ***!
+  \**********************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return PaymentMethodSelection;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__
+        );
+
+        var PaymentMethodSelection = function PaymentMethodSelection(options) {
+          var _this = this;
+
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+            this,
+            PaymentMethodSelection
+          );
+
+          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(
+            this,
+            '_cleanForm',
+            function ($form) {
+              _this.$inputs.each(function (index, elem) {
+                var $elem = $(elem);
+                if ($elem.is('select') || $elem.hasClass('preserve')) return;
+                elem.value = '';
+              });
+
+              $;
+            }
+          );
+
+          var _options$selectors = options.selectors,
+            chooseCardSelectors = _options$selectors.chooseCard,
+            newCardSelectors = _options$selectors.newCard;
+          this.selectors = options.selectors;
+          var $chooseCardWrapper = $(chooseCardSelectors.wrapper);
+          var $chooseCardForm = $chooseCardWrapper.find(
+            chooseCardSelectors.form
+          );
+          var $chooseCardFormInputs = $chooseCardForm.find(
+            chooseCardSelectors.input
+          );
+          var $newCardWrapper = $(newCardSelectors.wrapper).hide();
+          var $newCardForm = $newCardWrapper.find(newCardSelectors.form);
+          var $newCardFormInputs = $newCardForm.find(newCardSelectors.input); // Add new card handler
+
+          $chooseCardWrapper.click(function (event) {
+            var $target = $(event.target);
+            if ($target.closest(chooseCardSelectors.switcher).length === 0)
+              return;
+            $chooseCardWrapper.fadeOut(200, function () {
+              $newCardWrapper.fadeIn(200);
+              $chooseCardFormInputs.each(function (_, elem) {
+                var $elem = $(elem);
+
+                if ($elem.is(':radio')) {
+                  $elem.prop('checked', false);
+                } else {
+                  elem.value = '';
+                }
+              });
+              $chooseCardForm
+                .find('input[type=radio]')
+                .first()
+                .prop('checked', true);
+            });
+          }); // Remove new card handler
+
+          $newCardWrapper.click(function (event) {
+            var $target = $(event.target);
+            if ($target.closest(newCardSelectors.switcher).length === 0) return;
+            $newCardWrapper.fadeOut(200, function () {
+              $chooseCardWrapper.fadeIn(200); // Form inputs cleanup
+
+              $newCardFormInputs.each(function (_, elem) {
+                var $elem = $(elem);
+
+                if ($elem.is(':checkbox')) {
+                  $elem.prop('checked', false);
+                } else {
+                  elem.value = '';
+                }
+              });
+            });
+          });
+        };
 
         /***/
       },

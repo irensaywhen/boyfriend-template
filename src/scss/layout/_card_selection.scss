@@ -51,6 +51,11 @@ form.new-credit-card {
     top: 0;
     right: 15px;
 
+    &:focus,
+    &:active {
+      outline: 0;
+    }
+
     @include screen-sm {
       right: -15px;
     }

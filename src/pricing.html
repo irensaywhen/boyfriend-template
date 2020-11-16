@@ -997,6 +997,7 @@
 
             <div
               class="credit-card mx-auto bg-white shadow-sm mt-4 mb-1 py-3 px-3 px-sm-5"
+              id="choose-card-wrapper"
             >
               <form class="row" id="choose-card">
                 <div class="col-12">
@@ -1020,7 +1021,7 @@
                         type="radio"
                         name="card-select"
                         id="card-1"
-                        class="position-absolute invisible saved-card-input"
+                        class="form-control position-absolute invisible saved-card-input"
                         checked
                       />
 
@@ -1040,7 +1041,7 @@
                         type="radio"
                         name="card-select"
                         id="card-2"
-                        class="position-absolute invisible saved-card-input"
+                        class="form-control position-absolute invisible saved-card-input"
                       />
 
                       <label
@@ -1075,7 +1076,7 @@
                 <div class="col-12 col-lg-8 offset-lg-2 py-4">
                   <button
                     type="submit"
-                    id="paymentForm-checkout"
+                    id="selectedCard-checkout"
                     class="mb-2 btn btn-block btn-rounded btn-default submit"
                   >
                     Buy plan and bonuses
@@ -1102,6 +1103,7 @@
             <!--New card start-->
             <div
               class="credit-card mx-auto bg-white shadow-sm mt-4 mb-1 py-3 px-3 px-sm-5"
+              id="credit-card-wrapper"
             >
               <form
                 class="row new-credit-card position-relative"
@@ -1500,6 +1502,24 @@
               required: true,
               cardNumber: true,
             },
+          },
+        },
+      });
+
+      /* Payment method selection */
+      const paymentMethodSelection = new PaymentMethodSelection({
+        selectors: {
+          chooseCard: {
+            wrapper: '#choose-card-wrapper',
+            switcher: '.add-new',
+            form: '#choose-card',
+            input: '.form-control',
+          },
+          newCard: {
+            wrapper: '#credit-card-wrapper',
+            switcher: '.discard-new-card',
+            form: '#credit-card',
+            input: '.payment-input',
           },
         },
       });
