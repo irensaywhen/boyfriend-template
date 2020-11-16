@@ -81587,11 +81587,11 @@
                   title = _this$popup.title,
                   cancelButtonText = _this$popup.cancelButtonText,
                   confirmButtonText = _this$popup.confirmButtonText;
-                var html = '\n    <label class="delete-card w-75 text-center text-dark border-0 shadow-sm py-3 position-relative">\n        <h4 class="h5 text-capitalize">'
+                var html = '\n    <label class="delete-card w-75 text-center text-dark border-0 shadow py-3 position-relative">\n        <h4 class="h5 text-capitalize">'
                   .concat($card.data('card-type'), '</h4>\n        <p>XXXX-')
                   .concat(
                     $card.data('card-digits'),
-                    '</p>\n    </label>\n    <h3 class="h5 pt-2">'
+                    '</p>\n    </label>\n    <h3 class="h5 pt-3">'
                   )
                   .concat(title, '</h3>\n    ');
                 sweetalert2__WEBPACK_IMPORTED_MODULE_7___default.a
@@ -81634,6 +81634,7 @@
                     },
                   })
                   .then(function (result) {
+                    if (result.isDismissed) return;
                     var _result$value = result.value,
                       success = _result$value.success,
                       title = _result$value.title,

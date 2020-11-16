@@ -35,11 +35,11 @@ export default class ChooseCardForm extends Form {
   handleCardRemoval = $card => {
     const { title, cancelButtonText, confirmButtonText } = this.popup;
     const html = `
-    <label class="delete-card w-75 text-center text-dark border-0 shadow-sm py-3 position-relative">
+    <label class="delete-card w-75 text-center text-dark border-0 shadow py-3 position-relative">
         <h4 class="h5 text-capitalize">${$card.data('card-type')}</h4>
         <p>XXXX-${$card.data('card-digits')}</p>
     </label>
-    <h3 class="h5 pt-2">${title}</h3>
+    <h3 class="h5 pt-3">${title}</h3>
     `;
     Swal.fire({
       html,
@@ -71,6 +71,8 @@ export default class ChooseCardForm extends Form {
       allowOutsideClick: () => !Swal.isLoading(),
     })
       .then(result => {
+        if (result.isDismissed) return;
+
         const { success, title, message } = result.value;
         if (!success) {
           let error = new Error(message);
