@@ -2617,6 +2617,7 @@ article .header time {
   top: 0;
   right: 5px;
   text-shadow: none;
+  outline: 0;
 }
 .saved-cards .saved-card:hover .saved-card-label,
 .saved-cards .saved-card:focus .saved-card-label {

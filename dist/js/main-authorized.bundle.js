@@ -81482,44 +81482,62 @@
         /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1__
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5__
+        );
+        /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! ./form.js */ './js/modules/form.js'
+        );
+        /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+          /*! sweetalert2 */ '../node_modules/sweetalert2/dist/sweetalert2.all.js'
+        );
+        /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
+          sweetalert2__WEBPACK_IMPORTED_MODULE_7__
         );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
           return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
                 Derived
               ),
               result;
             if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
                 this
               ).constructor;
               result = Reflect.construct(Super, arguments, NewTarget);
             } else {
               result = Super.apply(this, arguments);
             }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default()(
               this,
               result
             );
@@ -81542,7 +81560,7 @@
         }
 
         var ChooseCardForm = /*#__PURE__*/ (function (_Form) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_1___default()(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default()(
             ChooseCardForm,
             _Form
           );
@@ -81559,9 +81577,96 @@
 
             _this = _super.call(this, options);
 
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1___default()(
+                _this
+              ),
+              'handleCardRemoval',
+              function ($card) {
+                var _this$popup = _this.popup,
+                  title = _this$popup.title,
+                  cancelButtonText = _this$popup.cancelButtonText,
+                  confirmButtonText = _this$popup.confirmButtonText;
+                var html = '\n    <label class="delete-card w-75 text-center text-dark border-0 shadow-sm py-3 position-relative">\n        <h4 class="h5 text-capitalize">'
+                  .concat($card.data('card-type'), '</h4>\n        <p>XXXX-')
+                  .concat(
+                    $card.data('card-digits'),
+                    '</p>\n    </label>\n    <h3 class="h5 pt-2">'
+                  )
+                  .concat(title, '</h3>\n    ');
+                sweetalert2__WEBPACK_IMPORTED_MODULE_7___default.a
+                  .fire({
+                    html: html,
+                    cancelButtonText: cancelButtonText,
+                    confirmButtonText: confirmButtonText,
+                    showCancelButton: true,
+                    showLoaderOnConfirm: true,
+
+                    /**
+                     * After the user confirms that he wants to use bonus:
+                     * 1. Make a request to the server
+                     * 2. If the server is responded, return the response
+                     */
+                    preConfirm: function preConfirm() {
+                      var _this$requests$delete = _this.requests.deleteCard,
+                        headers = _this$requests$delete.headers,
+                        endpoint = _this$requests$delete.endpoint,
+                        method = _this$requests$delete.method;
+                      return fetch(endpoint, {
+                        method: method,
+                        headers: headers,
+                      })
+                        .then(function (response) {
+                          if (!response.ok) {
+                            throw new Error(response.statusText);
+                          }
+
+                          return response.json();
+                        })
+                        ['catch'](function (error) {
+                          sweetalert2__WEBPACK_IMPORTED_MODULE_7___default.a.showValidationMessage(
+                            'Request failed: '.concat(error)
+                          );
+                        });
+                    },
+                    allowOutsideClick: function allowOutsideClick() {
+                      return !sweetalert2__WEBPACK_IMPORTED_MODULE_7___default.a.isLoading();
+                    },
+                  })
+                  .then(function (result) {
+                    var _result$value = result.value,
+                      success = _result$value.success,
+                      title = _result$value.title,
+                      message = _result$value.message;
+
+                    if (!success) {
+                      var error = new Error(message);
+                      error.name = title;
+                      throw error;
+                    }
+
+                    _this.showRequestResult({
+                      title: title,
+                      text: message,
+                      icon: 'success',
+                    });
+                  })
+                  ['catch'](function (error) {
+                    console.log(error); // Handle errors here
+
+                    _this.showRequestResult({
+                      title: error.name,
+                      text: error.message,
+                      icon: 'error',
+                    });
+                  });
+              }
+            );
+
             var $cvvInput = _this.$form.find(_this.selectors.cvv);
 
             var $document = $(document);
+            _this.popup = options.popup;
 
             _this.$form.on('change', function (event) {
               var $target = $(event.target);
@@ -81577,11 +81682,20 @@
 
               $cvvInput.blur();
             });
+
+            _this.$form.click(function (event) {
+              var $target = $(event.target);
+              if ($target.closest(_this.selectors.deleteCardBtn).length === 0)
+                return;
+
+              _this.handleCardRemoval($target.closest(_this.selectors.card));
+            });
+
             return _this;
           }
 
           return ChooseCardForm;
-        })(_form_js__WEBPACK_IMPORTED_MODULE_4__['default']);
+        })(_form_js__WEBPACK_IMPORTED_MODULE_6__['default']);
 
         /***/
       },
