@@ -81338,6 +81338,9 @@
         /* harmony import */ var _debounce_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! ./debounce.js */ './js/modules/debounce.js'
         );
+        /* harmony import */ var _modifyHandle_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! ./modifyHandle.js */ './js/modules/modifyHandle.js'
+        );
 
         var ChatList = /*#__PURE__*/ (function () {
           function ChatList(options) {
@@ -81413,7 +81416,13 @@
                         _this.messageTemplate
                       );
                       messages.forEach(function (message) {
-                        return _this.$chatList.append(template(message));
+                        message.handle = Object(
+                          _modifyHandle_js__WEBPACK_IMPORTED_MODULE_5__[
+                            'default'
+                          ]
+                        )(message.handle);
+
+                        _this.$chatList.append(template(message));
                       });
 
                       if (scroll) {
@@ -85515,6 +85524,28 @@
         /***/
       },
 
+    /***/ './js/modules/modifyHandle.js':
+      /*!************************************!*\
+  !*** ./js/modules/modifyHandle.js ***!
+  \************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return modifyHandle;
+          }
+        );
+        function modifyHandle(handle) {
+          return handle[0] === '@' ? handle : '@'.concat(handle);
+        }
+
+        /***/
+      },
+
     /***/ './js/modules/paymentMethodSelection.js':
       /*!**********************************************!*\
   !*** ./js/modules/paymentMethodSelection.js ***!
@@ -87370,6 +87401,9 @@
         /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/ __webpack_require__.n(
           handlebars__WEBPACK_IMPORTED_MODULE_9__
         );
+        /* harmony import */ var _modifyHandle_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+          /*! ./modifyHandle.js */ './js/modules/modifyHandle.js'
+        );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -87663,7 +87697,7 @@
                           })
                           .forEach(function (profile) {
                             // Modify handle
-                            profile.profile.handle = '@'.concat(
+                            profile.profile.handle = modifyHandle(
                               profile.profile.handle
                             ); // Display profiles
 

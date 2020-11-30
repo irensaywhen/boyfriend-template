@@ -1,6 +1,7 @@
 import prepareTemplates from './prepareTemplates.js';
 import ServerRequest from './requests.js';
 import Handlebars from 'handlebars';
+import './modifyHandle.js';
 
 export default class Profiles extends ServerRequest {
   _arePagesHidden = false;
@@ -163,7 +164,7 @@ export default class Profiles extends ServerRequest {
             })
             .forEach(profile => {
               // Modify handle
-              profile.profile.handle = `@${profile.profile.handle}`;
+              profile.profile.handle = modifyHandle(profile.profile.handle);
 
               // Display profiles
               let template = Handlebars.compile(this.profileTemplate);

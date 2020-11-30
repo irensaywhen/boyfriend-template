@@ -1,6 +1,7 @@
 import Handlebars from 'handlebars';
 import prepareTemplates from './prepareTemplates.js';
 import debounce from './debounce.js';
+import modifyHandle from './modifyHandle.js';
 
 export default class ChatList {
   constructor(options) {
@@ -54,7 +55,10 @@ export default class ChatList {
          * 5. Signal that the messages are displayed to re-init the observed target
          */
         let template = Handlebars.compile(this.messageTemplate);
-        messages.forEach(message => this.$chatList.append(template(message)));
+        messages.forEach(message => {
+          message.handle = modifyHandle(message.handle);
+          this.$chatList.append(template(message));
+        });
 
         if (scroll) {
           this.$chatList.animate({
