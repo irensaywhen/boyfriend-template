@@ -2732,6 +2732,12 @@ article .header time {
     max-width: 750px;
   }
 }
+.fill-profile-page .chatList-message .avatar {
+  width: 74px !important;
+  min-width: 74px !important;
+  height: 74px !important;
+  min-height: 74px !important;
+}
 .fill-profile-page .bonus-zero-amount {
   background: #ff9133;
 }
