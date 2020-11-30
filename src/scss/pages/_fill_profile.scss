@@ -1,4 +1,14 @@
 .fill-profile-page {
+  .fill-profile-tab {
+    max-width: 612px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    @include screen-md {
+      max-width: 750px;
+    }
+  }
+
   .bonus-zero-amount {
     background: $orange;
   }
