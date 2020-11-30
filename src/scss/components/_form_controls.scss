@@ -15,10 +15,21 @@ textarea {
 
 .form-control.error {
   color: #495057 !important;
+  border-bottom-color: $error !important;
 }
 
-.form-control::placeholder {
-  color: #bbbbbb;
+textarea {
+  &.form-control {
+    &.error {
+      border: 1px solid $error !important;
+    }
+  }
+}
+
+@if $gf-theme {
+  .form-control::placeholder {
+    color: $light-gray;
+  }
 }
 
 .float-label {

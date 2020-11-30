@@ -3,4 +3,11 @@
     @include image;
     max-width: 380px;
   }
+
+  @if $bf-theme {
+    .btn-light {
+      background: $secondary-color !important;
+      color: #fff !important;
+    }
+  }
 }

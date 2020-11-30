@@ -37,7 +37,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/main-bf.css" />
   </head>
 
   <body class="profile-page">
@@ -45,7 +45,7 @@
     <div class="row no-gutters vh-100 loader-screen">
       <div class="col align-self-center text-white text-center">
         <img src="img/logo.png" alt="logo" />
-        <h1><span class="font-weight-light">Boy</span>friend</h1>
+        <h1><span class="font-weight-light">Girl</span>friend</h1>
         <div class="laoderhorizontal">
           <div></div>
           <div></div>
@@ -69,7 +69,7 @@
 
     <!--Modals start-->
     <div class="profile-modals">
-      <!--Avatar modal start-->
+      <!--Avatar modal start
       <div
         class="modal fade photo-modal"
         id="avatarModal"
@@ -84,10 +84,10 @@
         >
           <div class="modal-content">
             <div class="modal-body">
-              <!--Avatar photo-->
+              
               <figure class="photo avatar mx-auto">
                 <img src="img/profile.jpg" alt="Profile photo" />
-                <!--Closing button-->
+                
                 <button
                   type="button"
                   class="close"
@@ -100,7 +100,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
       <!--Avatar Modal end-->
 
       <!--Gallery modal start-->
@@ -413,7 +413,7 @@
             <!--Special proposition for buying premium-->
             <p class="small text-muted m-0 d-block pt-1">
               You will recieve
-              <span class="text-success">50%</span> of the premium time
+              <span class="text-emphasize">50%</span> of the premium time
             </p>
 
             <button
@@ -460,7 +460,7 @@
                           />
                           <label
                             for="oneMonth"
-                            class="btn btn-outline-primary btn-rounded btn-block plan-label"
+                            class="btn btn-outline-default btn-rounded btn-block plan-label"
                           >
                             Select plan</label
                           >
@@ -498,7 +498,7 @@
                           />
                           <label
                             for="threeMonths"
-                            class="btn btn-outline-primary btn-rounded btn-block plan-label"
+                            class="btn btn-outline-default btn-rounded btn-block plan-label"
                           >
                             Select plan</label
                           >
@@ -536,7 +536,7 @@
                           />
                           <label
                             for="sixMonths"
-                            class="btn btn-outline-primary btn-rounded btn-block plan-label"
+                            class="btn btn-outline-default btn-rounded btn-block plan-label"
                           >
                             Select plan</label
                           >
@@ -574,7 +574,7 @@
                           />
                           <label
                             for="twelveMonths"
-                            class="btn btn-outline-primary btn-rounded btn-block plan-label"
+                            class="btn btn-outline-default btn-rounded btn-block plan-label"
                           >
                             Select plan</label
                           >
@@ -969,7 +969,7 @@
                 <div class="row">
                   <div class="col-12 pt-2">
                     <div
-                      class="backward blue-link text-secondary d-flex align-items-center"
+                      class="backward link-hover text-secondary d-flex align-items-center"
                     >
                       <i class="material-icons"> arrow_back </i>
                       back
@@ -1244,7 +1244,7 @@
                     />
                     <label class="custom-control-label" for="terms"
                       >I accept
-                      <a href="terms.html" class="blue-link text-underline"
+                      <a href="terms.html" class="link-hover text-underline"
                         >terms and conditions</a
                       ></label
                     >
@@ -1273,7 +1273,7 @@
                 <div class="row no-gutters justify-content-center">
                   <div class="col-12 p-0 credit-card">
                     <div
-                      class="backward blue-link text-secondary d-flex align-items-center"
+                      class="backward link-hover text-secondary d-flex align-items-center"
                     >
                       <i class="material-icons"> arrow_back </i>
                       back
@@ -1353,7 +1353,7 @@
             <a
               href="notification.html"
               class="list-group-item list-group-item-action"
-              >Messages <span class="badge badge-pink ml-2">15</span></a
+              >Messages <span class="badge badge-light ml-2">15</span></a
             >
             <a
               href="all-products.html"
@@ -1363,12 +1363,12 @@
             <a
               href="likes-you.html"
               class="list-group-item list-group-item-action"
-              >Who likes you <span class="badge badge-pink ml-2">7</span></a
+              >Who likes you <span class="badge badge-light ml-2">7</span></a
             >
             <a
               href="viewed-you.html"
               class="list-group-item list-group-item-action"
-              >Who Visited you <span class="badge badge-pink ml-2">2</span></a
+              >Who Visited you <span class="badge badge-light ml-2">2</span></a
             >
             <a
               href="setting.html"
@@ -1505,10 +1505,10 @@
                     <!--Svg for boost end-->
                   </div>
                 </div>
-                <a href="#" class="btn btn-default text-white premium mr-3"
+                <a href="#" class="btn btn-light text-white premium mr-3"
                   >Premium</a
                 >
-                <a href="profile.html" class="btn blue-link text-white account"
+                <a href="profile.html" class="btn text-white account"
                   ><i class="material-icons">account_circle</i></a
                 >
               </div>
@@ -1519,22 +1519,13 @@
       <!-- header ends -->
 
       <!--Profile start-->
-      <div class="container-md bg-white profile pt-2 pt-sm-5 pb-4">
+      <div class="container-md bg-white profile pt-2 pt-sm-5 pb-5">
         <div class="row">
           <!--Profile avatar-->
           <div class="col-12 col-sm-6 col-md-5">
             <div class="d-flex align-items-end h-100">
-              <figure
-                class="profile-avatar mx-auto"
-                data-toggle="modal"
-                data-target="#avatarModal"
-              >
-                <img
-                  src="img/profile.jpg"
-                  id="userAvatar"
-                  class="enlarge"
-                  alt="Profile photo"
-                />
+              <figure class="profile-avatar mx-auto show-a">
+                <img src="img/profile.jpg" alt="Profile photo" />
               </figure>
             </div>
           </div>
@@ -1548,7 +1539,7 @@
                   <div
                     class="d-flex justify-content-center justify-content-sm-between align-items-center py-3 pt-sm-0"
                   >
-                    <h2 class="name text-center text-sm-left pr-3">Davidoff</h2>
+                    <h2 class="name text-center text-sm-left pr-3">Natali</h2>
                     <div class="heart-wrapper" id="heart-wrapper">
                       <svg
                         viewBox="0 -28 512.001 512"
@@ -1557,7 +1548,7 @@
                         id="heart-empty"
                       >
                         <path
-                          fill="#f24167"
+                          fill="#f782c2"
                           d="m256 455.515625c-7.289062 0-14.316406-2.640625-19.792969-7.4375-20.683593-18.085937-40.625-35.082031-58.21875-50.074219l-.089843-.078125c-51.582032-43.957031-96.125-81.917969-127.117188-119.3125-34.644531-41.804687-50.78125-81.441406-50.78125-124.742187 0-42.070313 14.425781-80.882813 40.617188-109.292969 26.503906-28.746094 62.871093-44.578125 102.414062-44.578125 29.554688 0 56.621094 9.34375 80.445312 27.769531 12.023438 9.300781 22.921876 20.683594 32.523438 33.960938 9.605469-13.277344 20.5-24.660157 32.527344-33.960938 23.824218-18.425781 50.890625-27.769531 80.445312-27.769531 39.539063 0 75.910156 15.832031 102.414063 44.578125 26.191406 28.410156 40.613281 67.222656 40.613281 109.292969 0 43.300781-16.132812 82.9375-50.777344 124.738281-30.992187 37.398437-75.53125 75.355469-127.105468 119.308594-17.625 15.015625-37.597657 32.039062-58.328126 50.167969-5.472656 4.789062-12.503906 7.429687-19.789062 7.429687zm-112.96875-425.523437c-31.066406 0-59.605469 12.398437-80.367188 34.914062-21.070312 22.855469-32.675781 54.449219-32.675781 88.964844 0 36.417968 13.535157 68.988281 43.882813 105.605468 29.332031 35.394532 72.960937 72.574219 123.476562 115.625l.09375.078126c17.660156 15.050781 37.679688 32.113281 58.515625 50.332031 20.960938-18.253907 41.011719-35.34375 58.707031-50.417969 50.511719-43.050781 94.136719-80.222656 123.46875-115.617188 30.34375-36.617187 43.878907-69.1875 43.878907-105.605468 0-34.515625-11.605469-66.109375-32.675781-88.964844-20.757813-22.515625-49.300782-34.914062-80.363282-34.914062-22.757812 0-43.652344 7.234374-62.101562 21.5-16.441406 12.71875-27.894532 28.796874-34.609375 40.046874-3.453125 5.785157-9.53125 9.238282-16.261719 9.238282s-12.808594-3.453125-16.261719-9.238282c-6.710937-11.25-18.164062-27.328124-34.609375-40.046874-18.449218-14.265626-39.34375-21.5-62.097656-21.5zm0 0"
                         />
                       </svg>
@@ -1570,7 +1561,6 @@
                       >
                         <path
                           d="M289 178.9c0 43.3-16.1 82.9-50.8 124.7-31 37.4-75.5 75.4-127.1 119.3-17.6 15-37.6 32-58.3 50.2-5.5 4.8-12.5 7.4-19.8 7.4s-14.3-2.6-19.8-7.4C-7.5 455-27.4 438-45 423l-.1-.1c-51.6-44-96.1-81.9-127.1-119.3-34.6-41.8-50.8-81.4-50.8-124.7 0-42.1 14.4-80.9 40.6-109.3C-155.9 40.8-119.5 25-80 25c29.6 0 56.6 9.3 80.4 27.8 12 9.3 22.9 20.7 32.5 34 9.6-13.3 20.5-24.7 32.5-34C89.3 34.3 116.4 25 146 25c39.5 0 75.9 15.8 102.4 44.6C274.6 98 289 136.8 289 178.9z"
-                          fill="#f24167"
                         />
                       </svg>
                     </div>
@@ -1627,7 +1617,7 @@
                       data-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"
-                      class="bonus action mr-2 py-1 d-flex flex-column flex-sm-row justify-content-sm-left justify-content-md-center pl-sm-2 pl-md-0 align-items-center mt-sm-2"
+                      class="present action mr-2 py-1 d-flex flex-column flex-sm-row justify-content-sm-left justify-content-md-center pl-sm-2 pl-md-0 align-items-center mt-sm-2"
                     >
                       <img src="img/gift.svg" alt="" />
                       <span class="pl-sm-3 pr-sm-1">Give</span>
@@ -1680,8 +1670,8 @@
                           <h3 class="h5 title mb-1">Buy premium</h3>
                           <p class="small text-muted subtitle m-0">
                             You will recieve
-                            <span class="text-success">50%</span> of the premium
-                            time
+                            <span class="text-emphasize">50%</span> of the
+                            premium time
                           </p>
                         </div>
                       </li>
@@ -1717,6 +1707,21 @@
             >
               <div class="swiper-pagination"></div>
               <div class="swiper-wrapper" id="photos-container">
+                <!--Avatar-->
+                <div class="swiper-slide gallery-slide d-none">
+                  <img
+                    src="./img/profile.jpg"
+                    class="gallery-photo"
+                    id="userAvatar"
+                    data-toggle="modal"
+                    data-target="#userPhoto"
+                    data-id="1"
+                    data-description=""
+                    data-privacy="false"
+                    data-order="0"
+                    alt="photo 1"
+                  />
+                </div>
                 <!--Public photo-->
                 <div class="swiper-slide gallery-slide">
                   <img
@@ -1727,7 +1732,7 @@
                     data-id="1"
                     data-description="Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum"
                     data-privacy="false"
-                    data-order="0"
+                    data-order="1"
                     alt="photo 1"
                   />
                 </div>
@@ -1744,7 +1749,7 @@
                       data-id="10"
                       data-description="This photo is private. Please, ask for permission to gain access"
                       data-privacy="true"
-                      data-order="1"
+                      data-order="2"
                     />
                   </figure>
                 </div>
@@ -1759,7 +1764,7 @@
                     data-id="3"
                     data-description=""
                     data-privacy="false"
-                    data-order="2"
+                    data-order="3"
                     alt="photo 1"
                   />
                 </div>
@@ -1776,7 +1781,7 @@
                       data-id="2"
                       data-description="This photo is private. Please, ask for permission to gain access"
                       data-privacy="true"
-                      data-order="3"
+                      data-order="4"
                     />
                   </figure>
                 </div>
@@ -1791,7 +1796,7 @@
                     data-id="4"
                     data-description=""
                     data-privacy="false"
-                    data-order="4"
+                    data-order="5"
                     alt="photo 2"
                   />
                 </div>
@@ -1806,7 +1811,7 @@
                     data-id="5"
                     data-description=""
                     data-privacy="false"
-                    data-order="5"
+                    data-order="6"
                     alt="photo 1"
                   />
                 </div>
@@ -1821,7 +1826,7 @@
                     data-id="9"
                     data-description="Description"
                     data-privacy="false"
-                    data-order="6"
+                    data-order="7"
                     alt="photo 2"
                   />
                 </div>
@@ -1863,7 +1868,12 @@
               <span>chat</span>
             </a>
           </div>
+        </div>
+      </div>
+      <!--Profile end-->
 
+      <div class="container-md px-0 pt-2 pb-3 profile">
+        <div class="row no-gutters">
           <!--Complain button-->
           <div class="col-12 col-sm-4 offset-sm-8 text-right mb-3">
             <button
@@ -1878,7 +1888,6 @@
           </div>
         </div>
       </div>
-      <!--Profile end-->
 
       <!-- footer -->
       <footer class="footer">
@@ -1901,7 +1910,7 @@
                   class="btn btn-default shadow centerbutton d-flex justify-content-center align-items-center position-relative"
                 >
                   <i class="far fa-envelope icon"></i>
-                  <span class="badge-circle badge-primary mb-1">3</span>
+                  <span class="badge-circle badge-light mb-1">3</span>
                 </a>
               </div>
               <div class="col-auto">
@@ -2059,6 +2068,11 @@
               submitButton: '#btn-permission',
               spinner: '.spinner-border',
               text: 'Preparing...',
+            },
+            // Avatar setup
+            avatar: {
+              imageWrapper: '.profile-avatar',
+              hiddenGallerySlide: '#userAvatar',
             },
           },
           galleryManipulation: {
@@ -2391,14 +2405,6 @@
               endpoint:
                 'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/like',
             },
-          },
-        });
-
-        /* Photo enlargement initialization */
-        const enlargePhoto = new EnlargePhoto({
-          selectors: {
-            modal: '#avatarModal',
-            img: '#userAvatar',
           },
         });
       });

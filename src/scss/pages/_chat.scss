@@ -31,11 +31,15 @@
     }
 
     .bonus-zero-amount {
-      color: $red;
+      color: $orange;
     }
 
     .bonus-notzero-amount {
-      color: $success-green;
+      @if $gf-theme {
+        color: $secondary-color;
+      } @else if $bf-theme {
+        color: $success-green;
+      }
     }
   }
   /*Chat header end*/
@@ -75,11 +79,19 @@
 
       &.alien {
         align-self: flex-start;
-        background: linear-gradient(
-          to right,
-          lighten($main-pink, 8),
-          $main-pink
-        );
+        @if $gf-theme {
+          background: linear-gradient(
+            to right,
+            lighten($primary-color, 3),
+            $primary-color
+          );
+        } @else if $bf-theme {
+          background: linear-gradient(
+            to right,
+            lighten($secondary-color, 3),
+            $secondary-color
+          );
+        }
         color: #fff;
       }
     }
@@ -186,7 +198,7 @@
         display: flex;
         width: 24px;
         height: 100%;
-        color: $main-pink;
+        color: $secondary-color;
         cursor: pointer;
         font-size: 20px;
 
@@ -198,7 +210,7 @@
         }
 
         &:hover {
-          color: $hover-pink;
+          color: $light-secondary-color;
         }
 
         img {

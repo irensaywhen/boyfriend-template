@@ -80944,12 +80944,26 @@
                     $target.val()
                       ? _this.$sendButton.fadeIn()
                       : _this.$sendButton.fadeOut(300);
-                  }); // Submitting the message form
+                  });
+                  /**
+                   * Submitting message textarea:
+                   * 1. Prepare message for sending to the server
+                   * 2. Clean textarea
+                   * 3. Send message
+                   */
 
                   this.$sendMessageForm.submit(function (event) {
                     event.preventDefault();
 
-                    _this._sendMessage('general');
+                    var messageData = _this._prepareMessage({
+                      type: 'general',
+                    });
+
+                    console.log(_this.$sendMessageTextarea);
+
+                    _this.$sendMessageTextarea.val('');
+
+                    _this._sendMessage(messageData);
                   }); // Keyboard events
 
                   this.$sendMessageForm.on('keydown', function (event) {
@@ -81120,9 +81134,6 @@
                   this._sendMessageToServer(messageData, bonusData) // Maybe we can handle successful/unsuccessful response here
                     .then(function (response) {
                       if (response.success) {
-                        console.log('Response after sending a message:');
-                        console.log(response);
-
                         switch (response.type) {
                           case 'general':
                             // Show general message
@@ -81270,7 +81281,6 @@
                     .find(".message[data-id='".concat(id, "']"))
                     .find('.meta');
                   var isSeenIconShown = !!$meta.find('.fa-check-circle').length;
-                  console.log(isSeenIconShown);
 
                   if (status === 'seen' && !isSeenIconShown) {
                     // If the message was seen
@@ -83253,7 +83263,13 @@
                     .find(selectors.modalPermissionButton)
                     .fadeOut(0);
                   this.$modalPrevArrow = this.$modal.find(selectors.prevArrow);
-                  this.$modalNextArrow = this.$modal.find(selectors.nextArrow); // Initialize modal preparation
+                  this.$modalNextArrow = this.$modal.find(selectors.nextArrow); // User avatar preparation
+
+                  var _selectors$avatar = selectors.avatar,
+                    imageWrapper = _selectors$avatar.imageWrapper,
+                    hiddenGallerySlide = _selectors$avatar.hiddenGallerySlide;
+                  this.$avatar = $(imageWrapper);
+                  this.$avatarSlide = this.$gallery.find(hiddenGallerySlide); // Initialize modal preparation
 
                   Object(
                     _preparePhotoModal_js__WEBPACK_IMPORTED_MODULE_5__[
@@ -83282,6 +83298,13 @@
                     if (target.tagName !== 'IMG') return;
 
                     _this2._generateModal(target);
+                  });
+                  /**
+                   * Show avatar in gallery when avatar is clicked
+                   */
+
+                  this.$avatar.click(function (event) {
+                    _this2.$avatarSlide.click();
                   });
                   /**
                    * Change currently shown photo when the photo is clicked
@@ -86505,7 +86528,9 @@
               $body.addClass('gallery');
             });
             $modal.on('shown.bs.modal', function () {
-              $animateOnShown.css('opacity', 1);
+              $animateOnShown.animate({
+                opacity: 1,
+              });
               shown = true;
             });
             $modal.on('hide.bs.modal', function (event) {
@@ -89058,7 +89083,7 @@
               cancelButtonText: cancelButtonText,
               confirmButtonText: confirmButtonText,
               showCancelButton: true,
-              confirmButtonColor: '#ff0068',
+              confirmButtonColor: '#fb374b',
               cancelButtonColor: '#bbb',
             });
           },
@@ -89127,7 +89152,7 @@
                 cancelButtonText: cancelButtonText,
                 confirmButtonText: confirmButtonText,
                 showCancelButton: true,
-                confirmButtonColor: '#ff0068',
+                confirmButtonColor: '#fb374b',
                 cancelButtonColor: '#bbb',
                 imageUrl: imageUrl,
                 imageAlt: imageAlt,

@@ -1,5 +1,6 @@
 @mixin background($image) {
-  background-image: $image;
+  background-image: $image,
+    linear-gradient(135deg, darken($primary-color, 15), $primary-color);
   background-size: cover;
   min-height: 100%;
 }
@@ -53,7 +54,7 @@
   background: #fff;
   border: 1px solid #dee2e6;
   border-right: none;
-  color: $main-pink;
+  color: $secondary-color;
   cursor: pointer;
 }
 

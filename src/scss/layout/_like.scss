@@ -9,12 +9,21 @@
     transform: scale3d(1, 1, 1);
     position: absolute;
     top: 0;
+
+    path {
+      fill: $like-heart;
+    }
   }
 
   .heart-full {
     position: absolute;
     top: 1px;
     opacity: 0;
+
+    path {
+      fill: $like-heart;
+      color: $like-heart;
+    }
   }
 }
 

@@ -13,7 +13,7 @@ export default function preparePhotoModal({ modal, animateOnShown }) {
     });
 
     $modal.on('shown.bs.modal', () => {
-      $animateOnShown.css('opacity', 1);
+      $animateOnShown.animate({ opacity: 1 });
       shown = true;
     });
 

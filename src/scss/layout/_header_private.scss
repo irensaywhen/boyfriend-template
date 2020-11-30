@@ -14,8 +14,18 @@
 
 .private-header {
   width: 100%;
-  background: $main-blue !important;
-  min-height: 70px;
+  @if $gf-theme {
+    background-image: linear-gradient(
+      135deg,
+      darken($primary-color, 15),
+      $primary-color
+    );
+    height: 70px;
+  } @else if $bf-theme {
+    background: $primary-color !important;
+    min-height: 70px;
+  }
+
   position: fixed;
   padding: env(safe-area-inset-top);
   top: 0;
@@ -50,6 +60,11 @@
     text-align: center;
     vertical-align: middle;
     line-height: 50px;
+
+    &:hover,
+    &:focus {
+      color: $light-primary-color !important;
+    }
   }
 
   .boost {
@@ -70,7 +85,7 @@
       font-size: 12px;
       width: 75px;
       line-height: 1.5;
-      background: $main-pink;
+      background: $secondary-color;
       color: #fff;
       border-radius: 13px;
     }

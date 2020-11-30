@@ -23027,7 +23027,7 @@
               cancelButtonText: cancelButtonText,
               confirmButtonText: confirmButtonText,
               showCancelButton: true,
-              confirmButtonColor: '#ff0068',
+              confirmButtonColor: '#fb374b',
               cancelButtonColor: '#bbb',
             });
           },
@@ -23096,7 +23096,7 @@
                 cancelButtonText: cancelButtonText,
                 confirmButtonText: confirmButtonText,
                 showCancelButton: true,
-                confirmButtonColor: '#ff0068',
+                confirmButtonColor: '#fb374b',
                 cancelButtonColor: '#bbb',
                 imageUrl: imageUrl,
                 imageAlt: imageAlt,

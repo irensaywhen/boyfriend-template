@@ -36,7 +36,7 @@ export default {
       cancelButtonText,
       confirmButtonText,
       showCancelButton: true,
-      confirmButtonColor: '#ff0068',
+      confirmButtonColor: '#fb374b',
       cancelButtonColor: '#bbb',
     });
   },
@@ -92,7 +92,7 @@ export default {
       cancelButtonText,
       confirmButtonText,
       showCancelButton: true,
-      confirmButtonColor: '#ff0068',
+      confirmButtonColor: '#fb374b',
       cancelButtonColor: '#bbb',
       imageUrl,
       imageAlt,

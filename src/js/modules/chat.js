@@ -107,11 +107,19 @@ export default class Chat {
       $target.val() ? this.$sendButton.fadeIn() : this.$sendButton.fadeOut(300);
     });
 
-    // Submitting the message form
+    /**
+     * Submitting message textarea:
+     * 1. Prepare message for sending to the server
+     * 2. Clean textarea
+     * 3. Send message
+     */
     this.$sendMessageForm.submit(event => {
       event.preventDefault();
 
-      this._sendMessage('general');
+      const messageData = this._prepareMessage({ type: 'general' });
+      this.$sendMessageTextarea.val('');
+
+      this._sendMessage(messageData);
     });
 
     // Keyboard events
@@ -253,9 +261,6 @@ export default class Chat {
       // Maybe we can handle successful/unsuccessful response here
       .then(response => {
         if (response.success) {
-          console.log('Response after sending a message:');
-          console.log(response);
-
           switch (response.type) {
             case 'general':
               // Show general message
@@ -370,7 +375,6 @@ export default class Chat {
       .find('.meta');
 
     let isSeenIconShown = !!$meta.find('.fa-check-circle').length;
-    console.log(isSeenIconShown);
 
     if (status === 'seen' && !isSeenIconShown) {
       // If the message was seen

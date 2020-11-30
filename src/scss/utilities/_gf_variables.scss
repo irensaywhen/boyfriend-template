@@ -1,0 +1,134 @@
+$front-page-background: url('');
+$gf-theme: true;
+$bf-theme: false;
+
+/*Colors*/
+
+$primary-color: #d327b6;
+$dark-primary-color: darken($primary-color, 10);
+$light-primary-color: #f782c2;
+$secondary-color: #8a00d4;
+$light-secondary-color: lighten($secondary-color, 5);
+$light-accent-color: #f9c46b;
+$dark: #2e384d;
+
+$primary-blue: #3fa7ff;
+$present-blue: #01d7f4;
+$warning-yellow: #fdd835;
+$superlike-yellow: #f9c46b;
+$success-green: #15d36c;
+$success-blue: #01d7f4;
+$orange: #f9c46b;
+$red: #dc3545;
+$error: $orange;
+
+$like-heart: #f782c2;
+
+// On svg
+$bonus-dark: #262626;
+$bonus-pink: #ee1f61;
+
+/*Private pages colors*/
+$main-background-color: #e3eaf1;
+
+$bootstrap-secondary: #6c757d;
+$disabled-gray-button: lighten($bootstrap-secondary, 30);
+
+$label-color: #212529;
+$label-border: #bab9c1;
+$light-gray: #d5d3de;
+
+/*Text sizes*/
+$h1: 40px;
+$h2: 32px;
+$h3: 20px;
+$icon-size: 24px;
+$paragraph-size: 14px;
+$badge-size: 12px;
+
+/*breakpoints*/
+
+$screen-xs: 320px;
+$screen-sm: 576px;
+$screen-md: 768px;
+$screen-lg: 992px;
+$screen-xl: 1200px;
+
+/*bootstrap container width*/
+$container-xs: auto;
+$container-sm: 540px;
+$container-md: 720px;
+$container-lg: 960px;
+$container-xl: 1140px;
+
+/* Skeleton card */
+$skeleton-base-color: #ddd;
+$skeleton-shine-color: #e8e8e8;
+
+$card-height: 300px;
+/*radiuses*/
+$photo-modal-radius: 5px;
+$progress-bar-radius: 20px;
+
+/*spacing*/
+$dropdown-item-y-padding: 10px;
+$dropdown-item-x-padding: 10px;
+
+/*footer*/
+$centerbutton-height: 60px;
+$chat-centerbutton-height-lg: 50px;
+
+/*forms*/
+$formWidth: 320px;
+$formWidth-lg: 450px;
+
+/* header and footer */
+$private-header-height: 70px;
+
+/*chat*/
+$chat-header-height: 77px;
+$chat-footer-height: 45px;
+$chat-footer-height-lg: 60px;
+$chat-message-height: 40px;
+$chat-message-height-lg: 60px;
+$chat-message-max-width: 450px;
+$chat-width: 576px;
+$chat-width-lg: 800px;
+$max-message-width: 85%;
+$message-width: 85%;
+$message-border-radius: 30px;
+
+/*special message types*/
+$icon-width: 76px;
+$photo-max-width: 300px;
+
+/* animated icons specific variables */
+/* variables */
+$icon-pink: #ee1f61;
+$superlike-gray: #262626;
+$animated-icon-height: 150px;
+$animated-icon-width: 150px;
+
+/* Modal default styles */
+$modal-border-radius: 15px !important;
+$modal-dialog-width: 100% !important;
+$modal-dialog-height: auto !important;
+$modal-dialog-min-height: auto !important;
+$modal-dialog-margin: 0.5rem auto !important;
+
+/* Modal mobile styles */
+
+$modal-mobile-border-radius: 0px !important;
+$modal-dialog-mobile-margin: 0 !important;
+$modal-dialog-mobile-width: 100vw !important;
+$modal-dialog-mobile-min-height: 100vh !important;
+
+/* Modal dialog width */
+$modal-md: 450px !important;
+$modal-lg: 600px !important;
+$modal-xl: 950px !important;
+
+/* custom shadow */
+$shadow: 0px 5px 15px 5px #f782c2;
+// Landing
+$footer-height: 40px;

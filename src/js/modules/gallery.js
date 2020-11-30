@@ -15,7 +15,7 @@ export default class Gallery extends ServerRequest {
   }
 
   _cacheElements() {
-    let selectors = this.selectors;
+    const selectors = this.selectors;
     // Swiper slider
     this.$gallery = $(selectors.gallery);
     this.$slides = this.$gallery.find(selectors.photoContainer);
@@ -35,6 +35,11 @@ export default class Gallery extends ServerRequest {
     this.$modalPrevArrow = this.$modal.find(selectors.prevArrow);
     this.$modalNextArrow = this.$modal.find(selectors.nextArrow);
 
+    // User avatar preparation
+    const { imageWrapper, hiddenGallerySlide } = selectors.avatar;
+    this.$avatar = $(imageWrapper);
+    this.$avatarSlide = this.$gallery.find(hiddenGallerySlide);
+
     // Initialize modal preparation
     preparePhotoModal({ modal, animateOnShown }).init();
   }
@@ -53,6 +58,13 @@ export default class Gallery extends ServerRequest {
       if (target.tagName !== 'IMG') return;
 
       this._generateModal(target);
+    });
+
+    /**
+     * Show avatar in gallery when avatar is clicked
+     */
+    this.$avatar.click(event => {
+      this.$avatarSlide.click();
     });
 
     /**

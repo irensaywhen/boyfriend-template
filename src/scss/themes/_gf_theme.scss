@@ -1,3 +1,21 @@
+body {
+  color: $dark;
+}
+/*---Articles---*/
+body > .content {
+  background-image: linear-gradient(
+    135deg,
+    darken($primary-color, 15),
+    $primary-color
+  );
+  background-size: cover;
+  min-height: 100%;
+
+  .swiper-pagination-bullet-active {
+    background: $light-primary-color !important;
+  }
+}
+
 .blue-theme .bg-background,
 .blue-theme .header.active,
 .blue-theme .list-group-item.active {
@@ -60,11 +78,11 @@
 .blue-theme .nav-pills .nav-link.active,
 .blue-theme .nav-pills .show > .nav-link,
 .blue-theme .loader-screen {
-  background-color: $main-blue;
+  background: $primary-color;
 }
 
 .blue-theme .btn-default {
-  background-color: $main-pink;
+  background-color: $secondary-color;
 }
 
 .blue-theme .filter,
@@ -93,7 +111,7 @@
 .blue-theme .btn-default:hover,
 .blue-theme .btn-default:focus {
   color: #ffffff;
-  background-color: $hover-pink;
+  background-color: $light-secondary-color;
 }
 
 .blue-theme .figure-profile,
@@ -102,7 +120,7 @@
 .blue-theme .custom-control-input:checked ~ .custom-control-label::before,
 .blue-theme .float-label .form-control:focus,
 .blue-theme .btn-outline-default {
-  border-color: $main-blue;
+  border-color: $primary-color;
 }
 
 .blue-theme .filter .form-control:focus,
@@ -116,19 +134,18 @@
 }
 
 .blue-theme .custom-control-input:focus ~ .custom-control-label::before {
-  box-shadow: 0 0 0 0.2rem $light-blue;
+  box-shadow: 0 0 0 0.2rem $light-primary-color;
 }
 
 .blue-theme .btn-light:hover,
 .blue-theme .btn-light:focus,
 .blue-theme .btn-light:not(:disabled):not(.disabled).active,
 .blue-theme .bg-template-light {
-  background-color: $light-blue;
+  background-color: #fff;
 }
 
 .blue-theme .text-template,
 .blue-theme .btn-link,
-.blue-theme a,
 .blue-theme .float-label .form-control:focus + .form-control-label,
 .blue-theme .btn-light:hover,
 .blue-theme .btn-light:focus,
@@ -136,7 +153,7 @@
 .blue-theme .btn.btn-link-default:hover,
 .blue-theme .btn.btn-link-default:focus,
 .blue-theme .btn.btn-link-default.active {
-  color: $main-blue;
+  color: $secondary-color;
 }
 
 .blue-theme .bg-warning,
@@ -154,9 +171,8 @@
   background-color: $orange !important;
 }
 
-.blue-theme .bg-primary,
-.blue-theme .badge-primary {
-  background-color: $primary-blue !important;
+.blue-theme .bg-primary {
+  background-color: $primary-color !important;
 }
 
 .blue-theme .orange-slice {
@@ -164,21 +180,86 @@
 }
 
 .blue-theme {
+  ::placeholder {
+    color: $bootstrap-secondary;
+  }
+
+  .swal2-confirm {
+    background: $secondary-color !important;
+  }
+
+  .loader-screen {
+    background-image: linear-gradient(
+      135deg,
+      darken($primary-color, 25),
+      $primary-color
+    );
+  }
+
+  .text-warning {
+    color: $orange !important;
+  }
+
+  .form-control {
+    border: 1px solid $light-gray;
+  }
+
+  .float-label .form-control,
+  .float-label .chosen-container .chosen-choices,
+  .float-label .chosen-container .chosen-single {
+    border-width: 0 0 1px 0;
+  }
+
+  .badge-primary {
+    background: $primary-color !important;
+  }
+
+  .badge-light {
+    background: $light-primary-color !important;
+    color: #fff !important;
+  }
+
+  .btn-light {
+    background: $light-primary-color;
+    color: #fff;
+
+    &:hover,
+    &:focus,
+    &:not(:disabled):not(.disabled).active {
+      background: lighten($light-primary-color, 7);
+      color: #fff;
+    }
+  }
+
+  .text-dark-gray {
+    color: $dark !important;
+  }
+
   /*Additional badge and background*/
   .bg-pink,
-  .badge-pink {
-    background-color: $main-pink !important;
+  .badge-secondary {
+    background-color: $secondary-color !important;
   }
 
   .text-primary {
-    color: $main-pink !important;
+    color: $primary-color !important;
+  }
+
+  .text-emphasize {
+    color: $secondary-color;
+  }
+
+  .text-light-emphasize {
+    color: $light-primary-color;
   }
 
   a {
+    color: $dark;
+
     &.text-primary {
       &:hover,
       &:focus {
-        color: $hover-pink !important;
+        color: $light-secondary-color !important;
       }
     }
   }
@@ -198,78 +279,133 @@
 
     &:focus,
     &:hover {
-      color: darken($main-blue, 10);
+      color: darken($primary-color, 10);
       background: #fff;
+    }
+  }
+
+  .btn-primary {
+    color: #fff;
+    background-color: $primary-color !important;
+
+    &:hover,
+    &:focus {
+      background-color: $dark-primary-color !important;
     }
 
     &:active {
-      border-color: #fff;
-      background: transparent;
-      color: #fff;
+      background-color: $primary-color !important;
     }
   }
 
   .btn-outline-primary {
-    border: 1px solid $main-pink;
-    color: $main-pink;
+    border: 1px solid $primary-color;
+    color: $primary-color;
     background: transparent;
+
+    &:active {
+      border: 1px solid $primary-color;
+      color: $primary-color;
+      background: transparent;
+    }
+  }
+
+  .btn-outline-default {
+    border: 1px solid $secondary-color;
+    color: $secondary-color;
+    background: transparent;
+
+    &:hover,
+    &:focus {
+      color: #fff;
+      background: $secondary-color !important;
+    }
+
+    &:active {
+      border: 1px solid $secondary-color;
+      color: $secondary-color;
+      background: transparent;
+    }
+  }
+
+  .btn-secondary {
+    color: #fff;
+    background: $secondary-color;
+    border-color: $secondary-color;
+
+    &:hover,
+    &:focus {
+      background: $light-secondary-color !important;
+      border-color: $light-secondary-color !important;
+    }
+
+    &:active {
+      background: $secondary-color !important;
+    }
   }
 
   .btn-outline-primary:hover {
     color: #fff;
-    background: $main-pink !important;
+    background: $primary-color !important;
   }
 
   .btn-success {
-    @include ease-out;
-    background: $success-green;
+    background: $success-green !important;
 
-    &:hover {
-      background: darken($success-green, 5);
+    &:hover,
+    &:focus {
+      background: darken($success-blue, 5) !important;
     }
+
+    &:active {
+      background: $success-blue !important;
+    }
+  }
+
+  .text-success {
+    color: $success-green !important;
   }
 
   .plan-input:checked ~ .plan-label {
     color: #fff;
-    background: $main-pink !important;
+    background: $secondary-color !important;
   }
 
   /*Link effects*/
-  .blue-link {
-    @include ease-out;
+  .link-hover {
     cursor: pointer;
+    color: $secondary-color;
 
     &:focus,
     &:hover {
-      color: lighten($main-blue, 10) !important;
+      color: $light-secondary-color !important;
+    }
+  }
+
+  .link-underline {
+    &:hover,
+    &:focus {
+      text-decoration: underline !important;
     }
   }
 
   .page-item {
     .page-link {
       @include ease-out;
-      color: $main-pink;
     }
 
     &:hover .page-link,
     &:focus .page-link {
       color: #fff;
       border-color: #fff;
-      background: $main-pink;
+      background: $secondary-color;
     }
 
     &.active {
       .page-link {
         color: #fff;
-        background: $main-pink;
+        background: $secondary-color;
         border-color: #fff;
-      }
-    }
-
-    &.disabled {
-      .page-link {
-        color: $bootstrap-secondary;
-        background: #fff;
       }
     }
   }
@@ -282,7 +418,7 @@
         &.jp-current,
         &:focus,
         &:hover {
-          background: $main-pink;
+          background: $secondary-color;
           color: #fff;
           border-color: #fff;
         }

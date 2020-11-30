@@ -1,10 +1,14 @@
 .profile-page {
   .bonus-zero-amount {
-    color: $red;
+    color: $orange;
   }
 
   .bonus-notzero-amount {
-    color: $success-green;
+    @if $gf-theme {
+      color: $secondary-color;
+    } @else if $bf-theme {
+      color: $success-green;
+    }
   }
 }
 
@@ -97,7 +101,6 @@
   }
 
   .action {
-    @include ease-out;
     @include fluid-type($screen-xs, $screen-xl, 12.8px, 18px);
     border-radius: 5px;
     line-height: 1.3;
@@ -110,30 +113,52 @@
       min-width: 30px;
       height: auto;
     }
-  }
 
-  .superlike {
-    background: $superlike-yellow;
+    &.present {
+      @if $gf-theme {
+        background: $primary-color;
+        color: #fff;
 
-    &:hover {
-      background: darken($superlike-yellow, 10);
+        &:hover,
+        &:focus {
+          background: $dark-primary-color;
+        }
+
+        &:active {
+          background: $primary-color;
+          color: #fff;
+        }
+      } @else if $bf-theme {
+        background: $primary-blue;
+        color: #fff;
+
+        &:hover,
+        &:focus {
+          background: $present-blue;
+        }
+
+        &:active {
+          background: $primary-blue;
+          color: #fff;
+        }
+      }
     }
-  }
 
-  .bonus {
-    background: $present-blue;
+    &.superlike {
+      background: $superlike-yellow;
 
-    &:hover {
-      background: darken($present-blue, 10);
+      &:hover {
+        background: darken($superlike-yellow, 10);
+      }
     }
   }
 
   .chat-button {
     display: block;
-    background: $main-pink;
+    background: $secondary-color;
 
     &:hover {
-      background: darken($main-pink, 10);
+      background: darken($secondary-color, 10);
     }
   }
 }

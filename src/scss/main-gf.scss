@@ -1,5 +1,5 @@
 /*Utilities*/
-@import 'utilities/variables';
+@import 'utilities/gf_variables';
 @import 'utilities/helper_classes';
 @import 'utilities/mixins';
 @import 'utilities/functions';
@@ -31,7 +31,7 @@
 
 /*Themes*/
 @import 'themes/main_theme';
-@import 'themes/blue_theme';
+@import 'themes/gf_theme';
 
 /*Layout*/
 @import 'layout/header_public';

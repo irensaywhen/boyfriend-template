@@ -6,9 +6,9 @@
     /* Spinner for city input */
     .city-loader {
       position: absolute;
-      top: 49%;
+      top: 33px;
       right: 3px;
-      color: $primary-blue;
+      color: $primary-color;
     }
 
     .form-area-sm {
@@ -31,7 +31,7 @@
 
     /* slider styles */
     .noUi-connect {
-      background: $main-pink;
+      background: $primary-color;
     }
 
     .noUi-handle {
