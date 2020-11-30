@@ -87662,7 +87662,11 @@
                               : 0;
                           })
                           .forEach(function (profile) {
-                            // Display profiles
+                            // Modify handle
+                            profile.profile.handle = '@'.concat(
+                              profile.profile.handle
+                            ); // Display profiles
+
                             var template = handlebars__WEBPACK_IMPORTED_MODULE_9___default.a.compile(
                               _this3.profileTemplate
                             );

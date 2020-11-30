@@ -862,6 +862,11 @@ span.error::before {
   -o-object-fit: cover;
   object-fit: cover;
 }
+.handle {
+  line-height: 1.2;
+  font-size: 80%;
+  font-weight: bold;
+}
 html {
   height: 100%;
 }
@@ -1938,7 +1943,6 @@ article .header time {
   }
 }
 .profile-list .column .card {
-  max-height: 300px;
   min-height: 300px;
 }
 .profile-list .column .card-footer {

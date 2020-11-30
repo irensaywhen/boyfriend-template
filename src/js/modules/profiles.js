@@ -162,6 +162,9 @@ export default class Profiles extends ServerRequest {
                 : 0;
             })
             .forEach(profile => {
+              // Modify handle
+              profile.profile.handle = `@${profile.profile.handle}`;
+
               // Display profiles
               let template = Handlebars.compile(this.profileTemplate);
               template = template(profile);
