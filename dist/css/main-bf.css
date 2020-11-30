@@ -2597,6 +2597,14 @@ article .header time {
     height: 75vh;
   }
 }
+.userlist-modal .chat-list .send-present {
+  width: 50px;
+  height: 45px;
+  align-self: center;
+}
+.userlist-modal .chat-list .send-present svg {
+  width: 80%;
+}
 .saved-cards .saved-card-input:checked ~ .saved-card-label {
   color: #fff;
   background: #ff0068 !important;

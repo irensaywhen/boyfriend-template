@@ -59,5 +59,14 @@
     @include screen-sm {
       height: 75vh;
     }
+
+    .send-present {
+      width: 50px;
+      height: 45px;
+      align-self: center;
+      svg {
+        width: 80%;
+      }
+    }
   }
 }
