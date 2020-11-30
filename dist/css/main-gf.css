@@ -2759,7 +2759,7 @@ form.new-credit-card button.close:active {
   background-repeat: no-repeat;
   min-height: 100%;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .top-section {
     background-image: url('../img/bg-gf.png'),
       linear-gradient(135deg, #a81f91, #d327b6);

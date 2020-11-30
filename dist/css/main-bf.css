@@ -2668,7 +2668,7 @@ form.new-credit-card button.close:active {
   background-repeat: no-repeat;
   min-height: 100%;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .top-section {
     background-image: url('../img/bg-bf.png'),
       linear-gradient(135deg, #08436b, #0c609a);

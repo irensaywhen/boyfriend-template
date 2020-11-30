@@ -35,7 +35,7 @@
     $primary-color
   );
 
-  @include screen-md {
+  @include screen-lg {
     background-image: $image,
       linear-gradient(135deg, darken($primary-color, 10), $primary-color);
   }
