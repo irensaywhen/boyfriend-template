@@ -1,7 +1,47 @@
+/*Media queries*/
+
+@mixin screen-xs {
+  @content;
+}
+
+@mixin screen-sm {
+  @media (min-width: $screen-sm) {
+    @content;
+  }
+}
+
+@mixin screen-md {
+  @media (min-width: $screen-md) {
+    @content;
+  }
+}
+
+@mixin screen-lg {
+  @media (min-width: $screen-lg) {
+    @content;
+  }
+}
+
+@mixin screen-xl {
+  @media (min-width: $screen-xl) {
+    @content;
+  }
+}
+
 @mixin background($image) {
-  background-image: $image,
-    linear-gradient(135deg, darken($primary-color, 15), $primary-color);
-  background-size: cover;
+  background-image: linear-gradient(
+    135deg,
+    darken($primary-color, 10),
+    $primary-color
+  );
+
+  @include screen-md {
+    background-image: $image,
+      linear-gradient(135deg, darken($primary-color, 10), $primary-color);
+  }
+  background-position: top right, top left;
+  background-size: contain;
+  background-repeat: no-repeat;
   min-height: 100%;
 }
 
@@ -157,34 +197,4 @@
 
 @mixin ease-in {
   transition: all 0.3s ease-out;
-}
-
-/*Media queries*/
-
-@mixin screen-xs {
-  @content;
-}
-
-@mixin screen-sm {
-  @media (min-width: $screen-sm) {
-    @content;
-  }
-}
-
-@mixin screen-md {
-  @media (min-width: $screen-md) {
-    @content;
-  }
-}
-
-@mixin screen-lg {
-  @media (min-width: $screen-lg) {
-    @content;
-  }
-}
-
-@mixin screen-xl {
-  @media (min-width: $screen-xl) {
-    @content;
-  }
 }

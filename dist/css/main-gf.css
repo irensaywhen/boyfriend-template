@@ -2753,9 +2753,16 @@ form.new-credit-card button.close:active {
   }
 }
 .top-section {
-  background-image: url(''), linear-gradient(135deg, #921b7e, #d327b6);
-  background-size: cover;
+  background-image: linear-gradient(135deg, #a81f91, #d327b6);
+  background-position: top right, top left;
+  background-size: contain;
+  background-repeat: no-repeat;
   min-height: 100%;
+}
+@media (min-width: 768px) {
+  .top-section {
+    background-image: url(''), linear-gradient(135deg, #a81f91, #d327b6);
+  }
 }
 article .header {
   display: grid;
