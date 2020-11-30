@@ -17,16 +17,18 @@ export default class PhotoEditor extends EditorModal {
   constructor(options) {
     super(options);
 
-    this.configuration.editor = true;
-
     // Binding context
-    this.prepareModal = this.prepareModal.bind(this);
+    this._prepareModal = this._prepareModal.bind(this);
     this._updateMarkup = this._updateMarkup.bind(this);
-    this.updatePhotoInformation = this.updatePhotoInformation.bind(this);
 
     // Prepare editor
     this._cacheElements();
     this._setUpEventListeners();
+
+    if (this.selectors.loading) {
+      // Initializing loading indicator when the form is submitted
+      this.initializeLoadingIndicators(this.$form);
+    }
   }
 
   /**
@@ -36,19 +38,13 @@ export default class PhotoEditor extends EditorModal {
     // Cache elements required for gallery to work
     super._cacheElements();
 
-    // Description
+    // Elements of the modal
     this.$description = this.$modal.find(this.selectors.description);
-
-    // Privacy input
     this.$privacyInput = this.$modal.find(this.selectors['privacy-input']);
-
-    // Privacy label
     this.$privacyLabel = this.$modal.find(this.selectors['privacy-label']);
-
-    // Photo in editor
     this.$modalPhotoElement = this.$modal.find('img');
 
-    // Photos gallery
+    // Photo gallery
     this.$gallery = $(this.selectors.gallery);
   }
 
@@ -74,79 +70,125 @@ export default class PhotoEditor extends EditorModal {
       this.savePhotoInformation(this.photo.dataset);
 
       // Adjust modal
-      this.prepareModal(photoId);
+      this._prepareModal(photoId);
     });
 
-    // Delete photo when user clicks on deleting button
-    this.$deleteButton.click(event => {
-      this.deletePhoto(event, this.photo);
-    });
-
-    this.$form.submit(event => {
+    /**
+     * When the user clicks on delete button:
+     * 1. Make request to delete photo
+     * 2. If everything is fine, remove photo from the markup and close the modal
+     * 3. Show error popup otherwise
+     */
+    this.$deleteButton.click(async event => {
       event.preventDefault();
 
-      this.updatePhotoInformation();
+      let { headers, method, endpoint } = this.requests.deletePhoto;
+
+      // Show loading indicator
+      this.triggerLoadingIndicator();
+
+      try {
+        // Make server request to delete photo
+        var response = await this.makeRequest({
+          headers,
+          endpoint,
+          method,
+          body: JSON.stringify({ id: this.photo.dataset.id }),
+        });
+      } catch (error) {
+        // Unsuccessful Popup
+        this.showRequestResult({
+          title: error.name,
+          text: error.message,
+          icon: 'error',
+        });
+      }
+
+      if (response.success) {
+        // Delete photo container and close modal
+        $(this.photo).closest(this.selectors.container).remove();
+        this.closeModal();
+
+        var icon = 'success';
+      } else {
+        var icon = 'error';
+      }
+
+      // Show resulting popup
+      this.showRequestResult({
+        title: response.title,
+        text: response.message,
+        icon,
+      });
     });
-  }
 
-  async updatePhotoInformation() {
-    // Cache id
-    let id = this.photo.dataset.id;
+    /**
+     * When the form with new photo information is submitted:
+     * 1. Save photo information to photoData
+     * 2. Make request to the server
+     * 3. If everything is fine, update markup, close modal, and show success popup
+     * 4. If something went wrong, show error popup
+     */
+    this.$form.submit(async event => {
+      event.preventDefault();
 
-    // Save information
-    this.savePhotoInformation({
-      id: id,
-      privacy: this.$privacyInput.is(':checked'),
-      description: this.$description.val(),
-    });
+      // Cache
+      let id = this.photo.dataset.id;
 
-    let response;
-
-    try {
-      // Make server request to update photo information
-      response = await super.sendPhotoInformationToServer({
+      // Save information
+      this.savePhotoInformation({
         id: id,
-        privacy: this.photoData[id].privacy,
-        description: this.photoData[id].description,
-        headers: this.requests.savePhoto.headers,
-        endpoint: this.requests.savePhoto.endpoint,
-        method: this.requests.savePhoto.method,
+        privacy: this.$privacyInput.is(':checked'),
+        description: this.$description.val(),
       });
-    } catch (error) {
-      // Unsuccessful Popup
-      this.showRequestResult({
-        title: error.name,
-        text: error.message,
-        icon: 'error',
-      });
-    }
 
-    if (response.success) {
-      // Delete photo container
-      this._updateMarkup();
+      let [privacy, description] = [
+          this.photoData[id].privacy,
+          this.photoData[id].description,
+        ],
+        { headers, method, endpoint } = this.requests.savePhoto;
 
-      // Successful Popup
+      try {
+        // Make server request to update photo information
+        var response = await this.makeRequest({
+          headers,
+          endpoint,
+          method,
+          body: JSON.stringify({ id, privacy, description }),
+        });
+      } catch (error) {
+        // Unsuccessful Popup
+        this.showRequestResult({
+          title: error.name,
+          text: error.message,
+          icon: 'error',
+        });
+      }
+
+      if (response.success) {
+        // Update photo in the markup and close modal
+        this._updateMarkup();
+        this.closeModal();
+
+        // Set icon
+        var icon = 'success';
+      } else {
+        var icon = 'error';
+      }
+
+      // Show resulting popup
       this.showRequestResult({
         title: response.title,
         text: response.message,
-        icon: 'success',
+        icon,
       });
-
-      this.closeModal();
-    } else {
-      // Unsuccessful Popup
-      this.showRequestResult({
-        title: response.title,
-        text: response.message,
-        icon: 'error',
-      });
-    }
+    });
   }
 
   /**
    * Function updating photo in the gallery
    */
-  updateMarkup() {
+  _updateMarkup() {
     let values = this.photoData[this.photo.dataset.id];
 
     for (let property in values) {
@@ -161,7 +203,7 @@ export default class PhotoEditor extends EditorModal {
    * depending on the attributes of the clicked photo
    * @param {Number} id - database id of the photo
    */
-  prepareModal(id) {
+  _prepareModal(id) {
     // Set photo
     this.$modalPhotoElement.attr('src', this.photoData[id].src);
 

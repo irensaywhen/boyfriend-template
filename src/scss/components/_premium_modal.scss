@@ -1,0 +1,31 @@
+.sponsorePremium-modal {
+  .card {
+    min-height: 100%;
+
+    .card-title {
+      margin-bottom: 0;
+    }
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .form-group {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .section-title {
+    @include fluid-type($screen-xs, $screen-xl, 20px, 28px);
+  }
+
+  .section-subtitle {
+    @include fluid-type($screen-xs, $screen-xl, 18px, 24px);
+  }
+
+  .profile-avatar {
+    @include avatar($chat-header-height, $chat-header-height, true);
+  }
+}

@@ -23,7 +23,6 @@ class EditorModal extends ServerRequest {
     this._cacheElements = this._cacheElements.bind(this);
     this._setUpEventListeners = this._setUpEventListeners.bind(this);
     this.savePhotoInformation = this.savePhotoInformation.bind(this);
-    this._generateFormData = this._generateFormData.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.deletePhoto = this.deletePhoto.bind(this);
     this.makeURLObjects = this.makeURLObjects.bind(this);
@@ -88,50 +87,8 @@ class EditorModal extends ServerRequest {
    * If used in uploader, it will find the photo containing the currently clicked button
    * and delete the photo container
    */
-  async deletePhoto(event, photo) {
+  async deletePhoto(event) {
     event.preventDefault();
-
-    if (this.configuration.editor) {
-      let response;
-
-      try {
-        // Make server request to delete photo
-        response = await super.deletePhotoOnServer({
-          id: photo.dataset.id,
-          headers: this.requests.deletePhoto.headers,
-          endpoint: this.requests.deletePhoto.endpoint,
-          method: this.requests.deletePhoto.method,
-        });
-      } catch (error) {
-        // Unsuccessful Popup
-        this.showRequestResult({
-          title: error.name,
-          text: error.message,
-          icon: 'error',
-        });
-      }
-
-      if (response.success) {
-        // Delete photo container
-        $(photo).closest(this.selectors.container).remove();
-
-        // Successful Popup
-        this.showRequestResult({
-          title: response.title,
-          text: response.message,
-          icon: 'success',
-        });
-
-        this.closeModal();
-      } else {
-        // Unsuccessful Popup
-        this.showRequestResult({
-          title: response.title,
-          text: response.message,
-          icon: 'error',
-        });
-      }
-    }
 
     if (this.configuration.uploader) {
       $(event.target).closest(this.selectors.container).remove();
@@ -166,20 +123,6 @@ class EditorModal extends ServerRequest {
       this.photoData[id].privacy = false;
     }
     this.photoData[id].description = description;
-  }
-
-  _generateFormData() {
-    this.formData = new FormData();
-
-    if (this.configuration.uploader) {
-      for (let id in this.photoData) {
-        for (let property in this.photoData[id]) {
-          // Don't send src for previews
-          if (property === 'src') continue;
-          this.formData.append(property + id, this.photoData[id][property]);
-        }
-      }
-    }
   }
 }
 

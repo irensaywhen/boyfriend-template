@@ -1,6 +1,10 @@
 import Handlebars from 'handlebars';
 import HttpError from './httpError.js';
 import prepareTemplates from './prepareTemplates.js';
+import getAllUrlParams from './getAllUrlParams.js';
+import permissionMixin from './permissionMixin.js';
+import formatTime from './formatTime.js';
+import removeSearchParams from './removeSearchParams.js';
 
 export default class Chat {
   constructor(options) {
@@ -25,16 +29,6 @@ export default class Chat {
     // Save selectors
     this.selectors = options.selectors;
 
-    // Prepare testdata for displaying messages
-    this.testData = {
-      type: 'general',
-      mine: false,
-      text: 'Testing templating',
-      time: '13:55',
-      id: 125,
-      seen: false,
-    };
-
     // Save class names
     this.classNames = options.classNames;
 
@@ -44,16 +38,34 @@ export default class Chat {
     this._cacheElements();
     this._setUpEventListeners();
 
-    //this._displayMessage(this.testData);
+    // Scroll to the bottom on the initialization step
+    this.$chatContent.scrollTop(this.$messagesContainer.outerHeight());
+
+    // Indicator signaling that the initial scroll was performed
+    this.initialScroll = true;
+
+    Object.assign(Chat.prototype, permissionMixin);
+    this.initializePhotoPermissionHandling(options.photoPermissionConfig);
   }
 
   _cacheElements() {
     let selectors = this.selectors;
 
     this.$chat = $(selectors.chat);
+
+    // Container in which the messages will be displayed
     this.$messagesContainer = this.$chat.find(selectors.messagesContainer);
+
+    // Container with everything in the chat except header
+    this.$chatContent = this.$chat.find(selectors.chatContent);
+
+    // Button to send typed message
     this.$sendButton = this.$chat.find(selectors.sendButton).fadeOut(0);
+
+    // Form containing textarea for typing messages
     this.$sendMessageForm = this.$chat.find(selectors.sendMessageForm);
+
+    // Textarea to type message
     this.$sendMessageTextarea = this.$chat.find(selectors.message);
   }
 
@@ -61,6 +73,30 @@ export default class Chat {
     // Cache
     let classNames = this.classNames,
       $document = $(document);
+
+    /**
+     * 1. Get query params
+     * 2. If there is no params, or if there is no need to send message, return
+     * 3. Get permission identifier from localStorage
+     * 4. If it is doesn't match with the passed with query params, return
+     * 5. Send asking permission message
+     */
+    $(window).on('load', () => {
+      // Get search params here
+      // And if we need to send message right after the chat is being opened, do it
+      let params = getAllUrlParams();
+      if (!params || !('sendMessage' in params)) return;
+
+      let type = params.type;
+
+      const permissionIdentifier = localStorage.getItem(type);
+
+      localStorage.removeItem(type);
+
+      if (params.identifier !== permissionIdentifier) return;
+
+      $document.trigger('chat:sendMessageOnLoad', params);
+    });
 
     // View sending button if message input is not empty
     this.$chat.on('input', event => {
@@ -75,18 +111,7 @@ export default class Chat {
     this.$sendMessageForm.submit(event => {
       event.preventDefault();
 
-      console.log('Submitting message form!');
-
       this._sendMessage('general');
-    });
-
-    // Send message when the sending button is clicked
-    this.$sendMessageForm.click(event => {
-      let $target = event.target;
-
-      if (!$target.closest(this.selectors.sendButton)) return;
-
-      this.$sendMessageForm.submit();
     });
 
     // Keyboard events
@@ -104,17 +129,77 @@ export default class Chat {
     });
 
     // Send bonus message to the server
-    $document.on('present:send', (event, bonusData, formData = null) => {
-      // Prepare information to send it to the server
-      let messageData = this._prepareMessage(bonusData, formData);
-      // Send message data to the server
+    $document
+      .on(
+        'present:send chat:sendMessageOnLoad permission:actionChosen',
+        (event, rawMessageData = null) => {
+          // Prepare information to send it to the server
 
-      this._sendMessage(messageData, bonusData);
+          // Get rid of formdata here to send base64 string instead
+          let messageData = this._prepareMessage(rawMessageData);
+
+          // Send message data to the server
+          this._sendMessage(messageData, rawMessageData);
+        }
+      )
+      .on('lazyLoading:itemsReady', (event, ...messages) => {
+        /**
+         * 1. Display messages
+         * 2. Signal that the messages are displayed to re-init the observed target
+         */
+
+        messages.forEach(message => this._displayMessage(message, true));
+
+        // Listen to this event, too, and re-observe the messages
+        $document.trigger('items:afterDisplay');
+      })
+      .on('lazyLoading:beforeObserve items:afterDisplay', () => {
+        /**
+         * 1. Get the last message from the currently displayed messages
+         * 2. Pass it with event signaling that the last message was get
+         */
+        let lastMessage = (this.lastMessage = this.$chat
+          .find(this.selectors.allMessages)
+          .first()[0]);
+
+        $document.trigger('items:afterGettingLastItem', lastMessage);
+      });
+
+    /**
+     * Event handler to preserve scroll position on prepend
+     * 1. Get the current scroll of the chat container
+     * 2. If it is 0, and initial scroll was performed, preserve the position
+     *    of the last message
+     */
+    this.$chatContent.on('scroll', () => {
+      let scroll = this.$chatContent.scrollTop();
+
+      if (scroll < 1 && this.initialScroll) {
+        this.$chatContent.scrollTop(2);
+      }
     });
   }
 
-  _prepareMessage(bonusData, formData) {
-    let type = bonusData.type;
+  /**
+   * This method prepares information to send it to the server
+   *
+   * With general messages:
+   * 1. Get the message text from the message textarea
+   * 2. Return stringified json with type = general, message text,
+   * and indicator that the message is mine
+   *
+   * With superlike, return stringified json with type = superlike
+   * and indicator that the message is mine
+   *
+   * With ptoho, return formData object, which can be send to the server
+   * formData object contains all the information about the sent photo
+   *
+   * @param {Object} bonusData - information about the bonus - ex. type
+   * @param {FormData object} formData - photo information to send it to the server
+   */
+  _prepareMessage(rawMessageData) {
+    // Get the bonus type
+    let type = rawMessageData.type;
 
     switch (type) {
       case 'general':
@@ -122,25 +207,49 @@ export default class Chat {
         let messageText = this._getMessageText();
 
         return JSON.stringify({
-          type: type,
+          type,
           mine: true,
           text: messageText,
         });
-
+      case 'permissionRequest':
+        return {
+          type,
+          mine: true,
+          id: rawMessageData.id,
+        };
+      case 'permissionResponse':
+        return {
+          type,
+          mine: true,
+          action: rawMessageData.action,
+        };
       case 'superlike':
+      case 'premium':
         return JSON.stringify({
-          type: type,
+          type,
           mine: true,
         });
 
       case 'photo':
-        return formData;
+        return JSON.stringify({
+          type,
+          mine: true,
+          photoSrc: localStorage.getItem('photoSrc'),
+          description: localStorage.getItem('photoDescription'),
+        });
     }
   }
 
+  /**
+   *
+   * @param {Object or FormData Object} messageData - message information
+   * which will be sent to the server
+   *
+   * @param {*} bonusData - additional bonus information
+   */
   _sendMessage(messageData, bonusData = null) {
     // Send message to server
-    this._sendMessageToServer(messageData)
+    this._sendMessageToServer(messageData, bonusData)
       // Maybe we can handle successful/unsuccessful response here
       .then(response => {
         if (response.success) {
@@ -155,19 +264,22 @@ export default class Chat {
 
             case 'special':
               if (response['photo']) {
-                // Get src and description
-                let { src, description } = bonusData;
-                // Save src and description
-                response['src'] = src;
-                response['description'] = description;
+                let description = localStorage.getItem('photoDescription');
+                // Get photo information from local storage
+                response['description'] =
+                  description === 'undefined' ? '' : description;
+                response['src'] = localStorage.getItem('photoSrc');
               }
+
               // Show message after a delay to not to distract the user
               setTimeout(this._displayMessage, 1000, response);
+
+              $(document).trigger('chat:photoSent');
               break;
           }
         } else {
           // We need to handle unsuccessful response here
-          console.log('Error!');
+          throw new Error('Something went wrong');
         }
       })
       .catch(error => {
@@ -175,8 +287,29 @@ export default class Chat {
       });
   }
 
-  _sendMessageToServer(messageData) {
+  /**
+   * This method is used to imulate client-server communication
+   * Will be changed to WebSockets
+   *
+   * @param {String or FormData} messageData - information to send to the server
+   * about the current bonus
+   */
+  _sendMessageToServer(messageData, bonusData = null) {
     let { method, headers, endpoint } = this.requests.send;
+
+    // Clean previously saved key/value pairs if presented
+    removeSearchParams(endpoint);
+
+    // Configure endpoint
+    if (bonusData) {
+      endpoint.searchParams.set(bonusData.type, true);
+
+      if (bonusData.type === 'permissionResponse') {
+        endpoint.searchParams.set('action', bonusData.action);
+      }
+    } else {
+      endpoint.searchParams.set('general', true);
+    }
 
     //Make a request here
     return fetch(endpoint, {
@@ -196,25 +329,38 @@ export default class Chat {
       });
   }
 
+  /**
+   * Get inputed message text from the message textarea
+   */
   _getMessageText() {
     return this.$sendMessageTextarea.val();
   }
 
-  _displayMessage(data) {
+  _displayMessage(data, lazy = false) {
+    // Format timestamp before displaying message
+    data.time = formatTime(data.timestamp);
+
     // Prepare template for compilation - for general or special message type
     let compiled = Handlebars.compile(this.messageTemplates[data.type]);
 
     // Compile template with passed data
     compiled = compiled(data);
 
-    $(compiled)
-      .appendTo(this.$messagesContainer)
-      .addClass('visible')[0]
-      .scrollIntoView({ behavior: 'smooth' });
+    if (!lazy) {
+      // Default message displaying
+      $(compiled)
+        .appendTo(this.$messagesContainer)
+        .addClass('visible')[0]
+        .scrollIntoView({ behavior: 'smooth' });
+    } else {
+      let initialHeight = this.$messagesContainer.outerHeight();
+
+      $(compiled).prependTo(this.$messagesContainer).addClass('visible');
+    }
 
     // Change message status after a second for general message type
     // for testing purposes
-    setTimeout(this._setMessageStatus, 1000, { id: 123, status: 'seen' });
+    setTimeout(this._setMessageStatus, 1000, { id: data.id, status: 'seen' });
   }
 
   _setMessageStatus({ id, status }) {
@@ -223,7 +369,10 @@ export default class Chat {
       .find(`.message[data-id='${id}']`)
       .find('.meta');
 
-    if (status === 'seen') {
+    let isSeenIconShown = !!$meta.find('.fa-check-circle').length;
+    console.log(isSeenIconShown);
+
+    if (status === 'seen' && !isSeenIconShown) {
       // If the message was seen
       $meta.prepend('<i class="fas fa-check-circle"></i>');
     }

@@ -1,3 +1,13 @@
+.profile-page {
+  .bonus-zero-amount {
+    color: $red;
+  }
+
+  .bonus-notzero-amount {
+    color: $success-green;
+  }
+}
+
 .profile {
   max-width: 612px;
 
@@ -92,9 +102,12 @@
     border-radius: 5px;
     line-height: 1.3;
     cursor: pointer;
+    text-transform: capitalize !important;
+    font-weight: normal;
 
     img {
       width: 30px;
+      min-width: 30px;
       height: auto;
     }
   }
@@ -115,7 +128,7 @@
     }
   }
 
-  .chat {
+  .chat-button {
     display: block;
     background: $main-pink;
 
@@ -173,42 +186,5 @@
 
   .modal-button {
     max-width: 300px;
-  }
-
-  /* Superlike */
-  .superlike {
-    figure {
-      position: relative;
-
-      img {
-        max-width: 100px;
-      }
-
-      @include screen-sm {
-        img {
-          max-width: 150px;
-        }
-      }
-
-      .close {
-        @include modal-close(-20px, 10px);
-      }
-    }
-
-    .amount {
-      max-width: 150px;
-    }
-  }
-
-  /* Present */
-  .present {
-    figure {
-      img {
-        max-width: 100px;
-      }
-    }
-    .amount {
-      max-width: 150px;
-    }
   }
 }

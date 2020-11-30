@@ -9,6 +9,8 @@
     bottom: -25px;
     right: 20px;
     color: $bootstrap-secondary;
+    min-width: 120px;
+    justify-content: flex-end;
 
     i {
       display: inline-block;

@@ -110,7 +110,7 @@
   /******/ /******/ __webpack_require__.p = '/dist'; // Load entry module and return exports
   /******/
   /******/
-  /******/ /******/ return __webpack_require__((__webpack_require__.s = 1));
+  /******/ /******/ return __webpack_require__((__webpack_require__.s = 16));
   /******/
 })(
   /************************************************************************/
@@ -8508,10 +8508,10 @@
         /***/
       },
 
-    /***/ '../node_modules/moment/locale sync recursive [\\/\\\\](pl(\\.js)?)$':
-      /*!*************************************************************!*\
-  !*** ../node_modules/moment/locale sync [\/\\](pl(\.js)?)$ ***!
-  \*************************************************************/
+    /***/ '../node_modules/moment/locale sync recursive [/\\\\](pl(\\.js)?)$':
+      /*!************************************************************!*\
+  !*** ../node_modules/moment/locale sync [/\\](pl(\.js)?)$ ***!
+  \************************************************************/
       /*! no static exports found */
       /***/ function (module, exports, __webpack_require__) {
         var map = {
@@ -8537,7 +8537,7 @@
         webpackContext.resolve = webpackContextResolve;
         module.exports = webpackContext;
         webpackContext.id =
-          '../node_modules/moment/locale sync recursive [\\/\\\\](pl(\\.js)?)$';
+          '../node_modules/moment/locale sync recursive [/\\\\](pl(\\.js)?)$';
 
         /***/
       },
@@ -10876,7 +10876,7 @@
                   oldLocale = globalLocale._abbr;
                   aliasedRequire = require;
                   __webpack_require__(
-                    '../node_modules/moment/locale sync recursive [\\/\\\\](pl(\\.js)?)$'
+                    '../node_modules/moment/locale sync recursive [/\\\\](pl(\\.js)?)$'
                   )('./' + name);
                   getSetGlobalLocale(oldLocale);
                 } catch (e) {
@@ -19760,9 +19760,7 @@
               {
                 key: 'clean',
                 value: function clean() {
-                  // Delete formData object
-                  this.formData = null; // Update previous avatar link
-
+                  // Update previous avatar link
                   this.prevAvatarLink = this.$avatarPreview.attr('src'); // Discard new link
 
                   this.newAvatarLink = null; // Return the previous avatar status
@@ -19790,23 +19788,6 @@
                   this.$avatarPreview.attr('src', this.prevAvatarLink);
                 },
                 /**
-                 * Function to generate formData object to send avatar to the server
-                 */
-              },
-              {
-                key: '_generateFormData',
-                value: function _generateFormData() {
-                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
-                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
-                      Avatar.prototype
-                    ),
-                    '_generateFormData',
-                    this
-                  ).call(this);
-
-                  this.formData.append('avatar', this.avatar, this.avatar.name);
-                },
-                /**
                  * Function to submit avatar to the server
                  */
               },
@@ -19819,27 +19800,22 @@
                     headers = _this$requests$saveAv.headers,
                     endpoint = _this$requests$saveAv.endpoint,
                     method = _this$requests$saveAv.method;
-
-                  this._generateFormData();
-
+                  var formData = new FormData();
+                  formData.append('avatar', this.avatar, this.avatar.name);
                   this.makeRequest({
                     headers: headers,
                     endpoint: endpoint,
                     method: method,
-                    body: this.formData,
+                    body: formData,
                   })
                     .then(function (response) {
                       if (response.success) {
                         // Save uploaded progress
                         _this3.uploaded = true; // Update markup
 
-                        _this3._updateMarkup(); // Show successful Popup
+                        _this3._updateMarkup();
 
-                        _this3.showRequestResult({
-                          title: response.title,
-                          text: response.message,
-                          icon: 'success',
-                        });
+                        var icon = 'success';
 
                         _this3.closeModal();
 
@@ -19847,13 +19823,14 @@
 
                         _this3.clean();
                       } else {
-                        // Show unsuccessful Popup
-                        _this3.showRequestResult({
-                          title: response.title,
-                          text: response.message,
-                          icon: 'error',
-                        });
+                        var icon = 'error';
                       }
+
+                      _this3.showRequestResult({
+                        title: response.title,
+                        text: response.message,
+                        icon: icon,
+                      });
                     })
                     ['catch'](function (error) {
                       console.error(error); // Unsuccessful Popup
@@ -19905,6 +19882,9 @@
         /* harmony import */ var _stepsMixin_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! ./stepsMixin.js */ './js/modules/stepsMixin.js'
         );
+        /* harmony import */ var _getUrlParams_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! ./getUrlParams.js */ './js/modules/getUrlParams.js'
+        );
 
         var ChainedForms = /*#__PURE__*/ (function () {
           function ChainedForms(options) {
@@ -19915,7 +19895,9 @@
 
             // Bind context
             this._cacheElements = this._cacheElements.bind(this);
-            this._setUpEventListeners = this._setUpEventListeners.bind(this); // Save current step
+            this._setUpEventListeners = this._setUpEventListeners.bind(this);
+            this._changeForm = this._changeForm.bind(this);
+            this._showStep = this._showStep.bind(this); // Save current step
 
             this.step = 0; // Save options
 
@@ -19927,6 +19909,7 @@
                 _stepsMixin_js__WEBPACK_IMPORTED_MODULE_2__['default']
               );
               this.initStepsMixin(options.stepsConfig);
+              this.showSteps = options.showSteps;
             }
 
             this._cacheElements();
@@ -19972,48 +19955,97 @@
                   var selectors = this.selectors; // Show next form when the current is submitted
 
                   this.$forms.on('submitted', function (event) {
-                    _this._changeForm('forward');
+                    event.stopPropagation();
+                    var target = event.target;
+
+                    _this._changeForm('forward', target);
+                  });
+                  $(document).on('premium:changeUser', function () {
+                    _this._showStep(0);
                   });
 
                   if (selectors.backward) {
                     // Show previous form when the "back" button is clicked"
                     this.$backwardButton.click(function (event) {
-                      _this._changeForm('backward');
+                      event.stopPropagation();
+                      var target = event.target;
+
+                      _this._changeForm('backward', target);
                     });
                   }
 
                   if (selectors.forward) {
                     // Show next form
                     this.$forwardButton.click(function (event) {
-                      _this._changeForm('forward');
+                      event.stopPropagation();
+                      var target = event.target;
+
+                      _this._changeForm('forward', target);
                     });
                   }
+
+                  $(window).on('load', function () {
+                    // Get search params
+                    // If step is presented, show it
+                    var step = parseInt(
+                      Object(
+                        _getUrlParams_js__WEBPACK_IMPORTED_MODULE_3__['default']
+                      )('step')
+                    );
+
+                    if (step) {
+                      _this._showStep(step, 0);
+
+                      if (_this.showSteps) {
+                        for (var i = 0; i < step; i++) {
+                          $(document).trigger(
+                            'chainedForms:switchForm',
+                            'forward'
+                          );
+                        }
+                      }
+                    }
+                  });
                 },
               },
               {
                 key: '_changeForm',
-                value: function _changeForm(direction) {
-                  var _this2 = this;
-
-                  event.stopPropagation();
+                value: function _changeForm(direction, target) {
                   var selectors = this.selectors;
-                  var $form = $(event.target)
+                  var $form = $(target)
                     .closest(selectors.wrapper)
                     .find(selectors.forms);
                   var step =
                     direction === 'forward'
                       ? Number($form.data('step')) + 1
-                      : Number($form.data('step')) - 1;
-                  if (step > this.$forms.length - 1) return; // Save the current step;
+                      : Number($form.data('step')) - 1; // Show the calculated step
+
+                  this._showStep(step);
+
+                  $(document).trigger('chainedForms:switchForm', direction);
+                },
+              },
+              {
+                key: '_showStep',
+                value: function _showStep(step) {
+                  var _this2 = this;
+
+                  var animation =
+                    arguments.length > 1 && arguments[1] !== undefined
+                      ? arguments[1]
+                      : 400;
+                  if (step > this.$forms.length - 1) return;
+                  var selectors = this.selectors; // Hide the current step and show the desired step
+
+                  $(this.$forms.get(this.step))
+                    .closest(selectors.wrapper)
+                    .fadeOut(animation, function () {
+                      $(_this2.$forms.get(step))
+                        .closest(selectors.wrapper)
+                        .fadeIn(animation);
+                    }); // Save the currently visible step
 
                   this.step = step;
-                  $form.closest(selectors.wrapper).fadeOut(400, function () {
-                    // Show the form wrapper of the previous form
-                    $(_this2.$forms.get(step))
-                      .closest(selectors.wrapper)
-                      .fadeIn(400);
-                  });
-                  $(document).trigger('chainedForms:switchForm', direction);
                 },
               },
             ]
@@ -20294,6 +20326,44 @@
         /***/
       },
 
+    /***/ './js/modules/debounce.js':
+      /*!********************************!*\
+  !*** ./js/modules/debounce.js ***!
+  \********************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        var debounce = function debounce(func) {
+          var wait =
+            arguments.length > 1 && arguments[1] !== undefined
+              ? arguments[1]
+              : 0;
+          var timeout;
+          return function executedFunction() {
+            for (
+              var _len = arguments.length, args = new Array(_len), _key = 0;
+              _key < _len;
+              _key++
+            ) {
+              args[_key] = arguments[_key];
+            }
+
+            var later = function later() {
+              clearTimeout(timeout);
+              func.apply(void 0, args);
+            };
+
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+          };
+        };
+
+        /* harmony default export */ __webpack_exports__['default'] = debounce;
+
+        /***/
+      },
+
     /***/ './js/modules/fileReaderMixin.js':
       /*!***************************************!*\
   !*** ./js/modules/fileReaderMixin.js ***!
@@ -20302,73 +20372,75 @@
       /***/ function (module, __webpack_exports__, __webpack_require__) {
         'use strict';
         __webpack_require__.r(__webpack_exports__);
-        /* harmony default export */ __webpack_exports__['default'] = {
-          initializeFileReader: function initializeFileReader(config) {
-            // Save passed information
-            errorText = config.errorText;
-            // Bind context
-            _setReaderEventListeners = _setReaderEventListeners.bind(this);
-            _readFile = _readFile.bind(this);
-          },
-          _readFile: _readFile,
-        }; // Private varibles
+        /* harmony default export */ __webpack_exports__[
+          'default'
+        ] = (function () {
+          var errorText;
+          /**
+           * Function to read file and start loading it
+           * It instantiates a FileReader Object for the current file
+           * Sets event listeners to listen to events on reader
+           * And then, starts reading it to generate URL
+           * @param {File Object} file
+           */
 
-        var errorText;
-        /** Private functions */
+          function _readFile(_ref) {
+            var file = _ref.file,
+              $progressBar = _ref.$progressBar;
+            var reader = new FileReader(); // Save progress bar for the current reader
 
-        /**
-         * Function to read file and start loading it
-         * It instantiates a FileReader Object for the current file
-         * Sets event listeners to listen to events on reader
-         * And then, starts reading it to generate URL
-         * @param {File Object} file
-         */
+            reader.$progressBar = $progressBar; // Prepare reader fo reading file
 
-        function _readFile(_ref) {
-          var file = _ref.file,
-            $progressBar = _ref.$progressBar;
-          var reader = new FileReader(); // Save progress bar for the current reader
+            _setReaderEventListeners.call(this, reader); // Read file
 
-          reader.$progressBar = $progressBar; // Prepare reader fo reading file
+            reader.readAsDataURL(file);
+          }
+          /**
+           * Function setting event listeners to the current reader
+           * @param {FileReader Object} reader - reader to set event listeners to
+           */
 
-          _setReaderEventListeners(reader); // Read file
+          function _setReaderEventListeners(reader) {
+            var _this = this;
 
-          reader.readAsDataURL(file);
-        }
-        /**
-         * Function setting event listeners to the current reader
-         * @param {FileReader Object} reader - reader to set event listeners to
-         */
-
-        function _setReaderEventListeners(reader) {
-          var _this = this;
-
-          reader.addEventListener('loadstart', function (event) {
-            _this._hideError();
-          });
-          reader.addEventListener('progress', function (event) {
-            // Show progress for the current reader
-            _this._showProgress({
-              loaded: event.loaded,
-              total: event.total,
-              $progressBar: event.target.$progressBar,
+            reader.addEventListener('loadstart', function () {
+              _this._hideError();
             });
-          });
-          reader.addEventListener('loadend', function (event) {
-            var target = event.target; // Indicate that the file related to the current progress bar was loaded
+            reader.addEventListener('progress', function (event) {
+              // Show progress for the current reader
+              _this._showProgress({
+                loaded: event.loaded,
+                total: event.total,
+                $progressBar: event.target.$progressBar,
+              });
+            });
+            reader.addEventListener('loadend', function (event) {
+              var target = event.target; // Indicate that the file related to the current progress bar was loaded
 
-            target.$progressBar.addClass('loadend');
-          });
-          reader.addEventListener('load', function (event) {
-            var target = event.target;
-            setTimeout(_this._preview, 500, target); // Show submit button
+              target.$progressBar.addClass('loadend');
+            });
+            reader.addEventListener('load', function (event) {
+              var target = event.target;
+              setTimeout(_this._preview, 500, target); // Show submit button
 
-            _this.$modalFooter.show();
-          });
-          reader.addEventListener('error', function () {
-            _this._showError(errorText.read);
-          });
-        }
+              _this.$modalFooter.show();
+            });
+            reader.addEventListener('error', function () {
+              _this._showError(errorText.read);
+            });
+          }
+
+          return {
+            initializeFileReader: function initializeFileReader(config) {
+              // Save passed information
+              errorText = config.errorText;
+              // Bind context
+              this.initializeFileReader = this.initializeFileReader.bind(this);
+              this._readFile = this._readFile.bind(this);
+            },
+            _readFile: _readFile,
+          };
+        })();
 
         /***/
       },
@@ -20669,6 +20741,14 @@
               );
             }
 
+            if (options.saveInitialInputValues) {
+              _this.$inputs.each(function (index, input) {
+                input.setAttribute('data-initial-value', input.value);
+              });
+
+              _this.initialValuesSaved = true;
+            }
+
             return _this;
           }
 
@@ -20681,9 +20761,7 @@
                   // Form
                   this.$form = $(this.selectors.form); // General error container
 
-                  this.$generalError = this.$form.find(
-                    this.selectors.generalError
-                  ); // Input fields
+                  this.$generalError = $(this.selectors.generalError); // Input fields
 
                   this.$inputs = this.$form.find(this.selectors.inputs);
                 },
@@ -20701,6 +20779,8 @@
                     if (!_this2.frontendValidation) {
                       // If this form doesn't require frontend validation (as with checkboxes)
                       _this2.collectFormInputs();
+
+                      _this2.deleteGeneralError();
 
                       _this2.sendFormInformation();
 
@@ -20769,7 +20849,7 @@
                       var value = $element.val();
                       var numericValue = Number(value); // Perform type conversion if the value is a number
 
-                      _this3.formData[name] = numericValue.isNaN
+                      _this3.formData[name] = isNaN(numericValue)
                         ? value
                         : numericValue;
                     }
@@ -20782,29 +20862,48 @@
                   var _sendFormInformation = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
                     /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
                       function _callee() {
-                        var response, customSubmittedEvent, errors;
+                        var _this$requests$submit,
+                          headers,
+                          method,
+                          endpoint,
+                          userId,
+                          response,
+                          customSubmittedEvent,
+                          errors;
+
                         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
                           function _callee$(_context) {
                             while (1) {
                               switch ((_context.prev = _context.next)) {
                                 case 0:
-                                  _context.prev = 0;
-                                  _context.next = 3;
+                                  (_this$requests$submit = this.requests
+                                    .submit),
+                                    (headers = _this$requests$submit.headers),
+                                    (method = _this$requests$submit.method),
+                                    (endpoint = _this$requests$submit.endpoint);
+                                  userId = localStorage.getItem('userId');
+
+                                  if (this.payment && userId) {
+                                    endpoint.searchParams.set('userId', userId);
+                                  }
+
+                                  _context.prev = 3;
+                                  _context.next = 6;
                                   return this.makeRequest({
-                                    headers: this.requests.submit.headers,
-                                    endpoint: this.requests.submit.endpoint,
-                                    method: this.requests.submit.method,
+                                    headers: headers,
+                                    endpoint: endpoint,
+                                    method: method,
                                     body: JSON.stringify(this.formData),
                                   });
 
-                                case 3:
+                                case 6:
                                   response = _context.sent;
-                                  _context.next = 9;
+                                  _context.next = 12;
                                   break;
 
-                                case 6:
-                                  _context.prev = 6;
-                                  _context.t0 = _context['catch'](0);
+                                case 9:
+                                  _context.prev = 9;
+                                  _context.t0 = _context['catch'](3);
                                   // Unsuccessful Popup
                                   this.showRequestResult({
                                     title: _context.t0.name,
@@ -20812,14 +20911,15 @@
                                     icon: 'error',
                                   });
 
-                                case 9:
-                                  _context.prev = 9;
+                                case 12:
+                                  _context.prev = 12;
                                   // Remove error messages
                                   this.$form.find('.error').remove();
-                                  return _context.finish(9);
+                                  return _context.finish(12);
 
-                                case 12:
+                                case 15:
                                   if (response.success) {
+                                    // Generate submit event on the form
                                     if (this.generateSubmitEvent) {
                                       // Make custom event for form submission
                                       customSubmittedEvent = new CustomEvent(
@@ -20830,6 +20930,11 @@
                                         customSubmittedEvent
                                       );
                                     }
+
+                                    $(document).trigger('form:submitted', {
+                                      response: response,
+                                      $form: this.$form,
+                                    });
 
                                     if (this.showSuccessPopup) {
                                       // Successful Popup
@@ -20876,7 +20981,7 @@
 
                                   this.formData = {};
 
-                                case 14:
+                                case 17:
                                 case 'end':
                                   return _context.stop();
                               }
@@ -20884,7 +20989,7 @@
                           },
                           _callee,
                           this,
-                          [[0, 6, 9, 12]]
+                          [[3, 9, 12, 15]]
                         );
                       }
                     )
@@ -20938,6 +21043,39 @@
 
           return Form;
         })(_requests_js__WEBPACK_IMPORTED_MODULE_8__['default']);
+
+        /***/
+      },
+
+    /***/ './js/modules/getUrlParams.js':
+      /*!************************************!*\
+  !*** ./js/modules/getUrlParams.js ***!
+  \************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return getUrlParams;
+          }
+        );
+        function getUrlParams(variable) {
+          var query = window.location.search.substring(1);
+          var vars = query.split('&');
+
+          for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split('=');
+
+            if (pair[0] == variable) {
+              return pair[1];
+            }
+          }
+
+          return false;
+        }
 
         /***/
       },
@@ -21150,6 +21288,10 @@
       /***/ function (module, __webpack_exports__, __webpack_require__) {
         'use strict';
         __webpack_require__.r(__webpack_exports__);
+        /* harmony import */ var _debounce_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! ./debounce.js */ './js/modules/debounce.js'
+        );
+
         /* harmony default export */ __webpack_exports__[
           'default'
         ] = (function () {
@@ -21197,8 +21339,13 @@
             var requestInfo = this.requests.location; // Handle location input
 
             $locationInput.on('input focus', function (event) {
-              // Prepare input for futher actions
-              _prepareCityInput(event.target); // Set delay based on event type
+              var target = event.target;
+
+              if (event.type === 'focus' && target.dataset.lat) {
+                return;
+              } // Prepare input for futher actions
+
+              _prepareCityInput(target); // Set delay based on event type
 
               var delay = event.type === 'focus' ? 0 : 300; // Debounce user input
 
@@ -21417,56 +21564,50 @@
         /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-          /*! @babel/runtime/helpers/get */ '../node_modules/@babel/runtime/helpers/get.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5__
-        );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7__
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
           /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8__
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__
         );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
           /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9__
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8__
         );
-        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
           /*! ./requests.js */ './js/modules/requests.js'
         );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
           return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(
                 Derived
               ),
               result;
             if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(
                 this
               ).constructor;
               result = Reflect.construct(Super, arguments, NewTarget);
             } else {
               result = Super.apply(this, arguments);
             }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default()(
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default()(
               this,
               result
             );
@@ -21489,7 +21630,7 @@
         }
 
         var EditorModal = /*#__PURE__*/ (function (_ServerRequest) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default()(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default()(
             EditorModal,
             _ServerRequest
           );
@@ -21506,7 +21647,7 @@
 
             _this = _super.call(this, options); // Making configuration object
 
-            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8___default()(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               ),
@@ -21538,11 +21679,6 @@
               )
             );
             _this.savePhotoInformation = _this.savePhotoInformation.bind(
-              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
-                _this
-              )
-            );
-            _this._generateFormData = _this._generateFormData.bind(
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
@@ -21645,8 +21781,7 @@
                 value: (function () {
                   var _deletePhoto = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
                     /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee(event, photo) {
-                        var response;
+                      function _callee(event) {
                         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
                           function _callee$(_context) {
                             while (1) {
@@ -21654,86 +21789,26 @@
                                 case 0:
                                   event.preventDefault();
 
-                                  if (!this.configuration.editor) {
-                                    _context.next = 12;
-                                    break;
-                                  }
-
-                                  _context.prev = 2;
-                                  _context.next = 5;
-                                  return _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_5___default()(
-                                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(
-                                      EditorModal.prototype
-                                    ),
-                                    'deletePhotoOnServer',
-                                    this
-                                  ).call(this, {
-                                    id: photo.dataset.id,
-                                    headers: this.requests.deletePhoto.headers,
-                                    endpoint: this.requests.deletePhoto
-                                      .endpoint,
-                                    method: this.requests.deletePhoto.method,
-                                  });
-
-                                case 5:
-                                  response = _context.sent;
-                                  _context.next = 11;
-                                  break;
-
-                                case 8:
-                                  _context.prev = 8;
-                                  _context.t0 = _context['catch'](2);
-                                  // Unsuccessful Popup
-                                  this.showRequestResult({
-                                    title: _context.t0.name,
-                                    text: _context.t0.message,
-                                    icon: 'error',
-                                  });
-
-                                case 11:
-                                  if (response.success) {
-                                    // Delete photo container
-                                    $(photo)
-                                      .closest(this.selectors.container)
-                                      .remove(); // Successful Popup
-
-                                    this.showRequestResult({
-                                      title: response.title,
-                                      text: response.message,
-                                      icon: 'success',
-                                    });
-                                    this.closeModal();
-                                  } else {
-                                    // Unsuccessful Popup
-                                    this.showRequestResult({
-                                      title: response.title,
-                                      text: response.message,
-                                      icon: 'error',
-                                    });
-                                  }
-
-                                case 12:
                                   if (this.configuration.uploader) {
                                     $(event.target)
                                       .closest(this.selectors.container)
                                       .remove();
                                   }
 
-                                case 13:
+                                case 2:
                                 case 'end':
                                   return _context.stop();
                               }
                             }
                           },
                           _callee,
-                          this,
-                          [[2, 8]]
+                          this
                         );
                       }
                     )
                   );
 
-                  function deletePhoto(_x, _x2) {
+                  function deletePhoto(_x) {
                     return _deletePhoto.apply(this, arguments);
                   }
 
@@ -21781,30 +21856,11 @@
                   this.photoData[id].description = description;
                 },
               },
-              {
-                key: '_generateFormData',
-                value: function _generateFormData() {
-                  this.formData = new FormData();
-
-                  if (this.configuration.uploader) {
-                    for (var id in this.photoData) {
-                      for (var property in this.photoData[id]) {
-                        // Don't send src for previews
-                        if (property === 'src') continue;
-                        this.formData.append(
-                          property + id,
-                          this.photoData[id][property]
-                        );
-                      }
-                    }
-                  }
-                },
-              },
             ]
           );
 
           return EditorModal;
-        })(_requests_js__WEBPACK_IMPORTED_MODULE_10__['default']);
+        })(_requests_js__WEBPACK_IMPORTED_MODULE_9__['default']);
 
         /* harmony default export */ __webpack_exports__[
           'default'
@@ -21894,12 +21950,6 @@
                 return false;
             }
 
-            console.log('currentYear === year:');
-            console.log(currentYear === year);
-            console.log('currentMonth < month');
-            console.log(currentMonth < month);
-            console.log('currentYear > year');
-            console.log(currentYear > year);
             return currentYear === year
               ? currentMonth < month
                 ? true
@@ -21949,371 +21999,377 @@
           handlebars__WEBPACK_IMPORTED_MODULE_5__
         );
 
-        /* harmony default export */ __webpack_exports__['default'] = {
-          initializePhotoUpload: function initializePhotoUpload() {
+        /* harmony default export */ __webpack_exports__[
+          'default'
+        ] = (function () {
+          // Private variables
+          var selectors,
+            errorText,
+            classes,
+            isAjaxUpload,
+            isAdvancedUpload,
+            progressSelectors,
+            progressTemplate,
+            droppedFiles = false;
+
+          function _cacheElements() {
+            // Buttons to disable while file is being read
+            this.$disableWhileLoad = this.$modal.find(
+              selectors.disableWhileLoad
+            ); // Containers
+            // Progress
+
+            this.$progressContainer = this.$modal.find(
+              progressSelectors.progress
+            ); // Error
+
+            this.$errorContainer = this.$modal.find(selectors.errorContainer); // Photo upload
+
+            this.$photoUploadContainer = this.$modal.find(
+              selectors.uploadContainer
+            ); // Template
+
+            progressTemplate = document.getElementById(
+              progressSelectors.templateId
+            );
+          }
+          /**
+           * Helper function to set event listeners
+           */
+
+          function _setUpEventListeners() {
             var _this = this;
 
-            return _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-              /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                function _callee() {
-                  var _this$configuration, isShowCameraCapturing;
+            /**
+             * Handling photo upload using file input:
+             * 1. Save target of the change event and its FileList property value
+             * 2. Don't do anything if it doesn't have files
+             * 3. For each file in the file list, load it
+             */
+            this.$form.on('change', function (event) {
+              var files = event.target.files;
+              if (!files || !files[0]) return;
 
-                  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                    function _callee$(_context) {
-                      while (1) {
-                        switch ((_context.prev = _context.next)) {
-                          case 0:
-                            // Bind context
-                            _cacheElements = _cacheElements.bind(_this);
-                            _setUpEventListeners = _setUpEventListeners.bind(
-                              _this
-                            );
-                            _prepareTemplate = _prepareTemplate.bind(_this);
-                            _insertProgressBar = _insertProgressBar.bind(_this);
-                            _showProgress = _showProgress.bind(_this);
-                            _generateRandomId = _generateRandomId.bind(_this);
-                            _saveAndPreviewFile = _saveAndPreviewFile.bind(
-                              _this
-                            );
-                            _handleLegacyBrowsers = _handleLegacyBrowsers.bind(
-                              _this
-                            );
-                            _showError = _showError.bind(_this);
-                            _hideError = _hideError.bind(_this); // Cache
+              _this.$form.trigger('photoUpload:filesInputed', {
+                amount: files.length,
+              });
 
-                            selectors = _this.selectors.photoUpload;
-                            errorText = _this.errorText.photoUpload;
-                            classes = _this.classes;
-                            progressSelectors = selectors.progress; // Save configuration
+              for (var i = 0; i < files.length; i++) {
+                _saveAndPreviewFile.call(_this, files[i]);
+              }
+            });
+            /**
+             * Handling hiding loading indicator after the animation is ended
+             * 1. Remove progress indicator
+             * 2. Enable buttons that waere disabled while loading
+             */
 
-                            _this$configuration = _this.configuration;
-                            avatar = _this$configuration.avatar;
-                            uploader = _this$configuration.uploader;
-                            photoBonus = _this$configuration.photoBonus;
+            this.$modal.on('transitionend', function (event) {
+              var $target = $(event.target);
+              if (!$target.hasClass('loadend')) return;
+              $target.closest(progressSelectors.fileProgressWrapper).remove();
 
-                            _cacheElements();
-                            /**
-                             *  Check for browser support of FormData and FileReader
-                             *  FileReader is used to preview files,
-                             *  while FormData - to send data to server
-                             */
+              _this.$disableWhileLoad.attr('disabled', false);
+            });
+            if (!isAdvancedUpload) return;
+            /**
+             * Handle photo upload via Drag'n'Drop:
+             * 1. Get the dropped files
+             * 2. Save and preview only the first file in case of photo bonus and avatar
+             * 3. Preview all the files in case of photo upload in profile
+             */
 
-                            isAjaxUpload = (function () {
-                              return (
-                                'FormData' in window && 'FileReader' in window
-                              );
-                            })(); // Detect whether to show camera capturing for mobile and tablet devices
+            this.$photoUploadContainer.on('drop', function (event) {
+              droppedFiles = event.originalEvent.dataTransfer.files;
+              if (droppedFiles.length === 0) return;
 
-                            _context.next = 22;
-                            return _helper_js__WEBPACK_IMPORTED_MODULE_4__[
-                              'default'
-                            ].isShowCameraCapturing.call(
-                              _helper_js__WEBPACK_IMPORTED_MODULE_4__['default']
-                            );
+              if (_this instanceof Avatar || _this instanceof Photo) {
+                _saveAndPreviewFile.call(_this, droppedFiles[0]);
 
-                          case 22:
-                            isShowCameraCapturing = _context.sent;
+                if (_this instanceof Photo) _this._discardChanges();
+              } else if (_this instanceof PhotoUploader) {
+                _this.$form.trigger('photoUpload:filesInputed', {
+                  amount: droppedFiles.length,
+                });
 
-                            /**
-                             * If we're dealing with mobile devices:
-                             * Don't show Drag'n'drop, and add icon of mobile photo upload
-                             * Else, check for support of drag'n'drop API
-                             */
-                            if (isShowCameraCapturing) {
-                              isAdvancedUpload = false;
-                              $photoUploadContainer.addClass(
-                                classes.mobilePhotoUpload
-                              );
-                            } else {
-                              $photoUploadContainer.removeClass(
-                                classes.mobilePhotoUpload
-                              ); // Detect support of Drag'n'Drop
-
-                              isAdvancedUpload = (function () {
-                                var div = document.createElement('div');
-                                return (
-                                  ('draggable' in div ||
-                                    ('ondragstart' in div &&
-                                      'ondrop' in div)) &&
-                                  isAjaxUpload
-                                );
-                              })();
-                            }
-
-                            if (isAjaxUpload) {
-                              // Assign fileReaderMixin to the prototype of the current class
-                              Object.assign(
-                                _this.__proto__,
-                                _fileReaderMixin__WEBPACK_IMPORTED_MODULE_2__[
-                                  'default'
-                                ]
-                              ); // Initializing File Reader handler
-
-                              _this.initializeFileReader({
-                                errorText: errorText,
-                              });
-                            } else {
-                              _handleLegacyBrowsers();
-                            }
-
-                            if (isAdvancedUpload) {
-                              // Change container visual appearance
-                              $photoUploadContainer.addClass(classes.dragNDrop); // Assign drag'n'drop methods to the prototype
-
-                              Object.assign(
-                                _this.__proto__,
-                                _photosDragnDropMixin__WEBPACK_IMPORTED_MODULE_3__[
-                                  'default'
-                                ]
-                              ); // Initialize drag'n'drop
-
-                              _this.initializeDragNDrop({
-                                $container: $photoUploadContainer,
-                              });
-                            }
-
-                            _setUpEventListeners(); // Binding functions from the Class
-
-                            _this._preview = _this._preview.bind(_this);
-                            _this._saveFile = _this._saveFile.bind(_this);
-
-                          case 29:
-                          case 'end':
-                            return _context.stop();
-                        }
-                      }
-                    },
-                    _callee
-                  );
+                for (var i = 0; i < droppedFiles.length; i++) {
+                  _saveAndPreviewFile.call(_this, droppedFiles[i]);
                 }
-              )
-            )();
-          },
-          _showProgress: _showProgress,
-          _showError: _showError,
-          _hideError: _hideError,
-        }; // Private variables
-
-        var selectors,
-          errorText,
-          avatar,
-          uploader,
-          classes,
-          isAjaxUpload,
-          isAdvancedUpload,
-          progressSelectors,
-          $progressContainer,
-          $disableWhileLoad,
-          $errorContainer,
-          progressTemplate,
-          $photoUploadContainer,
-          photoBonus,
-          droppedFiles = false;
-        /**Private functions */
-
-        /**
-         * Helper function to cache elements:
-         * progress container, progress template
-         */
-
-        function _cacheElements() {
-          // Buttons to disable while file is being read
-          $disableWhileLoad = this.$modal.find(selectors.disableWhileLoad); // Containers
-          // Progress
-
-          $progressContainer = this.$modal.find(progressSelectors.progress); // Error
-
-          this.$errorContainer = $errorContainer = this.$modal.find(
-            selectors.errorContainer
-          ); // Photo upload
-
-          $photoUploadContainer = this.$modal.find(selectors.uploadContainer); // Template
-
-          progressTemplate = document.getElementById(
-            progressSelectors.templateId
-          );
-        }
-        /**
-         * Helper function to set event listeners
-         */
-
-        function _setUpEventListeners() {
-          var _this2 = this;
-
+              }
+            });
+          }
           /**
-           * Handling photo upload using file input:
-           * 1. Save target of the change event and its FileList property value
-           * 2. Don't do anything if it doesn't have files
-           * 3. For each file in the file list, load it
+           * Function saving the file for further upload
+           * and initializing reading and previewing the file:
+           * 1. Allow only image files
+           * 2. Disable buttons while uploading
+           * 3. Call class-specific method to save file for further upload
+           * 4. Show progress bar
+           * 5. Start reading the file
+           * @param {File Object} file - file to save and preview
            */
-          this.$form.on('change', function (event) {
-            var files = event.target.files;
-            if (!files || !files[0]) return;
 
-            for (var i = 0; i < files.length; i++) {
-              _saveAndPreviewFile(files[i]);
+          function _saveAndPreviewFile(file) {
+            var isImage = _helper_js__WEBPACK_IMPORTED_MODULE_4__[
+              'default'
+            ].MIMETypeIsImage(file);
+
+            if (!isImage) {
+              this._showError(errorText.wrongFileType);
+
+              return;
+            } // Prepare for file read
+
+            this.$disableWhileLoad.attr('disabled', true);
+
+            if (this._saveFile) {
+              this._saveFile(file);
             }
-          });
+
+            var $progressBar = _insertProgressBar.call(this, {
+              fileName: file.name,
+            }); // Read file
+
+            this._readFile.call(this, {
+              file: file,
+              $progressBar: $progressBar,
+            });
+          }
           /**
-           * Handling hiding loading indicator after the animation is ended
-           * 1. Remove progress indicator
-           * 2. Enable buttons that waere disabled while loading
+           * Function to notify the user that his browser is outdated
+           * And it will not support file upload
            */
 
-          this.$modal.on('transitionend', function (event) {
-            var $target = $(event.target);
-            if (!$target.hasClass('loadend')) return;
-            $target.closest(progressSelectors.fileProgressWrapper).remove();
-            $disableWhileLoad.attr('disabled', false);
-          });
-          if (!isAdvancedUpload) return;
+          function _handleLegacyBrowsers() {
+            this.$photoUploadContainer.hide();
+
+            this._showError(errorText.legacyBrowser);
+          }
           /**
-           * Handle photo upload via Drag'n'Drop:
-           * 1. Get the dropped files
-           * 2. Save and preview only the first file in case of photo bonus and avatar
-           * 3. Preview all the files in case of photo upload in profile
+           * Function showing errors that are not handled via alerts in error container
            */
 
-          $photoUploadContainer.on('drop', function (event) {
-            droppedFiles = event.originalEvent.dataTransfer.files;
-            if (droppedFiles.length === 0) return;
+          function _showError(errorMessage) {
+            this.$errorContainer.text(errorMessage);
+          }
+          /**
+           * Function hiding previously displayed error in the error container
+           */
 
-            if (avatar || photoBonus) {
-              _saveAndPreviewFile(droppedFiles[0]);
+          function _hideError() {
+            this.$errorContainer.empty();
+          }
+          /**
+           * Function copying template
+           * and compiling it with provided filename
+           * This function will be assigned to editor prototype,
+           * but it is only for internal use of it in fileReader Mixin and photos Drag'n'Drop mixin
+           * @param {String} fileName - name of the file being loaded
+           */
 
-              if (photoBonus) _this2._discardChanges();
-            } else if (uploader) {
-              console.log('We are in photo uploader!');
-            }
-          });
-        }
-        /**
-         * Function saving the file for further upload
-         * and initializing reading and previewing the file:
-         * 1. Allow only image files
-         * 2. Disable buttons while uploading
-         * 3. Call class-specific method to save file for further upload
-         * 4. Show progress bar
-         * 5. Start reading the file
-         * @param {File Object} file - file to save and preview
-         */
+          function _prepareTemplate(fileName) {
+            // Get template content
+            var progress = progressTemplate.innerHTML,
+              id = _generateRandomId(); // Compile template with provided filename
 
-        function _saveAndPreviewFile(file) {
-          var isImage = _helper_js__WEBPACK_IMPORTED_MODULE_4__[
-            'default'
-          ].MIMETypeIsImage(file);
+            progress = handlebars__WEBPACK_IMPORTED_MODULE_5___default.a.compile(
+              progress
+            );
+            progress = progress({
+              name: fileName,
+              id: id,
+            });
+            return {
+              template: progress,
+              id: id,
+            };
+          }
+          /**
+           * Function to generate random number that can be used as id.
+           * Here it will be used to pass it to the template for further reference
+           */
 
-          if (!isImage) {
-            _showError(errorText.wrongFileType);
+          function _generateRandomId() {
+            return Math.round(Math.random() * 1000);
+          }
+          /**
+           * Function inserting progress bar
+           * @param {String} fileName - name of the file being loaded
+           */
 
-            return;
-          } // Prepare for file read
+          function _insertProgressBar(_ref) {
+            var fileName = _ref.fileName;
 
-          $disableWhileLoad.attr('disabled', true);
+            // Prepare template for insertion
+            var _prepareTemplate2 = _prepareTemplate(fileName),
+              template = _prepareTemplate2.template,
+              id = _prepareTemplate2.id; // Insert the template into the progress container
 
-          this._saveFile(file);
+            this.$progressContainer.append(template); // Save progress bar
 
-          var $progressBar = _insertProgressBar({
-            fileName: file.name,
-          }); // Read file
+            var $progressBar = this.$progressContainer.find('#'.concat(id));
+            return $progressBar;
+          }
+          /**
+           * Function showing progress of photo read
+           * 1. Calculate progress amount
+           * 2. Update the visual indicator of the progress
+           * @param {Number} loaded - amount of loaded bytes
+           * @param {Number} total - amount of total bytes to load
+           */
 
-          this._readFile({
-            file: file,
-            $progressBar: $progressBar,
-          });
-        }
-        /**
-         * Function to notify the user that his browser is outdated
-         * And it will not support file upload
-         */
+          function _showProgress(_ref2) {
+            var loaded = _ref2.loaded,
+              total = _ref2.total,
+              $progressBar = _ref2.$progressBar;
+            // Calculate progress
+            var progress = Math.round((loaded / total) * 100); // Update progress
 
-        function _handleLegacyBrowsers() {
-          $photoUploadContainer.hide();
+            $progressBar.css('width', ''.concat(progress, '%'));
+          }
 
-          _showError(errorText.legacyBrowser);
-        }
-        /**
-         * Function showing errors that are not handled via alerts in error container
-         */
-
-        function _showError(errorMessage) {
-          $errorContainer.text(errorMessage);
-        }
-        /**
-         * Function hiding previously displayed error in the error container
-         */
-
-        function _hideError() {
-          $errorContainer.empty();
-        }
-        /**
-         * Function copying template
-         * and compiling it with provided filename
-         * This function will be assigned to editor prototype,
-         * but it is only for internal use of it in fileReader Mixin and photos Drag'n'Drop mixin
-         * @param {String} fileName - name of the file being loaded
-         */
-
-        function _prepareTemplate(fileName) {
-          // Get template content
-          var progress = progressTemplate.innerHTML,
-            id = _generateRandomId(); // Compile template with provided filename
-
-          progress = handlebars__WEBPACK_IMPORTED_MODULE_5___default.a.compile(
-            progress
-          );
-          progress = progress({
-            name: fileName,
-            id: id,
-          });
           return {
-            template: progress,
-            id: id,
+            initializePhotoUpload: function initializePhotoUpload() {
+              var _this2 = this;
+
+              return _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
+                /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
+                  function _callee() {
+                    var isShowCameraCapturing;
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
+                      function _callee$(_context) {
+                        while (1) {
+                          switch ((_context.prev = _context.next)) {
+                            case 0:
+                              // Bind context
+                              _this2._showError = _this2._showError.bind(
+                                _this2
+                              );
+                              _this2._hideError = _this2._hideError.bind(
+                                _this2
+                              ); // Cache
+
+                              selectors = _this2.selectors.photoUpload;
+                              errorText = _this2.errorText.photoUpload;
+                              classes = _this2.classes;
+                              progressSelectors = selectors.progress;
+
+                              _cacheElements.call(_this2);
+                              /**
+                               *  Check for browser support of FormData and FileReader
+                               *  FileReader is used to preview files,
+                               *  while FormData - to send data to server
+                               */
+
+                              isAjaxUpload = (function () {
+                                return (
+                                  'FormData' in window && 'FileReader' in window
+                                );
+                              })(); // Detect whether to show camera capturing for mobile and tablet devices
+
+                              _context.next = 10;
+                              return _helper_js__WEBPACK_IMPORTED_MODULE_4__[
+                                'default'
+                              ].isShowCameraCapturing.call(
+                                _helper_js__WEBPACK_IMPORTED_MODULE_4__[
+                                  'default'
+                                ]
+                              );
+
+                            case 10:
+                              isShowCameraCapturing = _context.sent;
+
+                              /**
+                               * If we're dealing with mobile devices:
+                               * Don't show Drag'n'drop, and add icon of mobile photo upload
+                               * Else, check for support of drag'n'drop API
+                               */
+                              if (isShowCameraCapturing) {
+                                isAdvancedUpload = false;
+
+                                _this2.$photoUploadContainer.addClass(
+                                  classes.mobilePhotoUpload
+                                );
+                              } else {
+                                _this2.$photoUploadContainer.removeClass(
+                                  classes.mobilePhotoUpload
+                                ); // Detect support of Drag'n'Drop
+
+                                isAdvancedUpload = (function () {
+                                  var div = document.createElement('div');
+                                  return (
+                                    ('draggable' in div ||
+                                      ('ondragstart' in div &&
+                                        'ondrop' in div)) &&
+                                    isAjaxUpload
+                                  );
+                                })();
+                              }
+
+                              if (isAjaxUpload) {
+                                // Assign fileReaderMixin to the prototype of the current class
+                                Object.assign(
+                                  _this2.__proto__,
+                                  _fileReaderMixin__WEBPACK_IMPORTED_MODULE_2__[
+                                    'default'
+                                  ]
+                                ); // Initializing File Reader handler
+
+                                _this2.initializeFileReader({
+                                  errorText: errorText,
+                                });
+                              } else {
+                                _handleLegacyBrowsers.call(_this2);
+                              }
+
+                              if (isAdvancedUpload) {
+                                // Change container visual appearance
+                                _this2.$photoUploadContainer.addClass(
+                                  classes.dragNDrop
+                                ); //--------------------------------------------
+                                // Here,$photoUpload container is from uploader for photo bonus
+                                // Assign drag'n'drop methods to the prototype
+
+                                Object.assign(
+                                  _this2.__proto__,
+                                  _photosDragnDropMixin__WEBPACK_IMPORTED_MODULE_3__[
+                                    'default'
+                                  ]
+                                ); // Initialize drag'n'drop
+
+                                _this2.initializeDragNDrop({
+                                  $container: _this2.$photoUploadContainer,
+                                });
+                              }
+
+                              _setUpEventListeners.call(_this2); // Binding functions from the Class
+
+                              _this2._preview = _this2._preview.bind(_this2); //------------
+                              // Change how avatar handles sending file to send it via base64 string
+
+                              if (_this2._saveFile) {
+                                _this2._saveFile = _this2._saveFile.bind(
+                                  _this2
+                                );
+                              }
+
+                            case 17:
+                            case 'end':
+                              return _context.stop();
+                          }
+                        }
+                      },
+                      _callee
+                    );
+                  }
+                )
+              )();
+            },
+            _showProgress: _showProgress,
+            _showError: _showError,
+            _hideError: _hideError,
           };
-        }
-        /**
-         * Function to generate random number that can be used as id.
-         * Here it will be used to pass it to the template for further reference
-         */
-
-        function _generateRandomId() {
-          return Math.round(Math.random() * 1000);
-        }
-        /**
-         * Function inserting progress bar
-         * @param {String} fileName - name of the file being loaded
-         */
-
-        function _insertProgressBar(_ref) {
-          var fileName = _ref.fileName;
-
-          // Prepare template for insertion
-          var _prepareTemplate2 = _prepareTemplate(fileName),
-            template = _prepareTemplate2.template,
-            id = _prepareTemplate2.id; // Insert the template into the progress container
-
-          $progressContainer.append(template); // Save progress bar
-
-          var $progressBar = $progressContainer.find('#'.concat(id));
-          return $progressBar;
-        }
-        /**
-         * Function showing progress of photo read
-         * 1. Calculate progress amount
-         * 2. Update the visual indicator of the progress
-         * @param {Number} loaded - amount of loaded bytes
-         * @param {Number} total - amount of total bytes to load
-         */
-
-        function _showProgress(_ref2) {
-          var loaded = _ref2.loaded,
-            total = _ref2.total,
-            $progressBar = _ref2.$progressBar;
-          // Calculate progress
-          var progress = Math.round((loaded / total) * 100); // Update progress
-
-          $progressBar.css('width', ''.concat(progress, '%'));
-        }
+        })();
 
         /***/
       },
@@ -22328,43 +22384,27 @@
         __webpack_require__.r(__webpack_exports__);
         /* harmony default export */ __webpack_exports__['default'] = {
           initializeDragNDrop: function initializeDragNDrop(_ref) {
+            var _this = this;
+
             var $container = _ref.$container;
-            // Save reference to drag'n'drop container
-            $dragNDropContainer = $container; // Save classes
-
-            classes = this.classes; // Bind context
-
-            _setUpEventListeners = _setUpEventListeners.bind(this); // Prepare drag'n'drop for usage
-
-            _setUpEventListeners();
+            $container
+              .on(
+                'drag dragstart dragend dragover dragenter dragleave drop',
+                function (event) {
+                  // Prevent browser default behavior
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+              ) // Handle dragover indicator to let the user know about ability
+              // to safety drop files
+              .on('dragover dragenter', function () {
+                $container.addClass(_this.classes.dragOver);
+              })
+              .on('dragleave dragend drop', function () {
+                $container.removeClass(_this.classes.dragOver);
+              });
           },
-        }; // Private variables
-
-        var $dragNDropContainer,
-          classes,
-          droppedFiles = false;
-        /**
-         * Helper function to setup drag'n'drop event listeners
-         */
-
-        function _setUpEventListeners() {
-          $dragNDropContainer
-            .on(
-              'drag dragstart dragend dragover dragenter dragleave drop',
-              function (event) {
-                // Prevent browser default behavior
-                event.preventDefault();
-                event.stopPropagation();
-              }
-            ) // Handle dragover indicator to let the user know about ability
-            // to safety drop files
-            .on('dragover dragenter', function () {
-              $dragNDropContainer.addClass(classes.dragOver);
-            })
-            .on('dragleave dragend drop', function () {
-              $dragNDropContainer.removeClass(classes.dragOver);
-            });
-        }
+        };
 
         /***/
       },
@@ -22384,34 +22424,22 @@
             return ServerRequest;
           }
         );
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-          /*! @babel/runtime/regenerator */ '../node_modules/@babel/runtime/regenerator/index.js'
-        );
-        /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-          /*! @babel/runtime/helpers/asyncToGenerator */ '../node_modules/@babel/runtime/helpers/asyncToGenerator.js'
-        );
-        /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__
-        );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
           /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
           /*! @babel/runtime/helpers/createClass */ '../node_modules/@babel/runtime/helpers/createClass.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _swalAlertMixin_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _swalAlertMixin_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! ./swalAlertMixin.js */ './js/modules/swalAlertMixin.js'
         );
-        /* harmony import */ var _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! ./requestsIndictorMixin.js */ './js/modules/requestsIndictorMixin.js'
         );
 
@@ -22419,36 +22447,36 @@
           function ServerRequest(options) {
             var _this = this;
 
-            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               ServerRequest
             );
 
             // Bind context
-            this.sendPhotoInformationToServer = this.sendPhotoInformationToServer.bind(
-              this
-            );
-            this.deletePhotoOnServer = this.deletePhotoOnServer.bind(this);
-            this.getPhotosIds = this.getPhotosIds.bind(this); // Save passed options
+            this._throwError = this._throwError.bind(this); // Save passed options
 
-            this.selectors = options.selectors;
+            var selectors = (this.selectors = options.selectors);
             this.requests = options.requests;
-            this.errorText = options.errorText; // Transform endpoints into URL Objects
+            this.errorText = options.errorText;
+            this.popups = options.popups || null; // Transform endpoints into URL Objects
 
             this.makeURLObjects();
             Object.assign(
               ServerRequest.prototype,
-              _swalAlertMixin_js__WEBPACK_IMPORTED_MODULE_4__['default']
+              _swalAlertMixin_js__WEBPACK_IMPORTED_MODULE_2__['default']
             );
             Object.assign(
               ServerRequest.prototype,
-              _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_5__['default']
+              _requestsIndictorMixin_js__WEBPACK_IMPORTED_MODULE_3__['default']
             );
             /**
              * If selector for disabling buttons is not empty, disable buttons on request
              */
 
-            if (this.selectors.disableButtonsOnRequest) {
+            if (selectors.disableButtonsOnRequest) {
+              this.$disableButtonsOnRequest = $(
+                selectors.disableButtonsOnRequest
+              );
               $(this)
                 .on('beforeRequest', function () {
                   _this.$disableButtonsOnRequest.attr('disabled', true);
@@ -22462,7 +22490,7 @@
            * Transform endpoints into URL objects
            */
 
-          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(
+          _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
             ServerRequest,
             [
               {
@@ -22473,6 +22501,14 @@
                       this.requests[request].endpoint
                     );
                   }
+                },
+              },
+              {
+                key: '_throwError',
+                value: function _throwError() {
+                  var error = new Error(response.statusText);
+                  error.name = response.status;
+                  throw error;
                 },
                 /**
                  * Make server request with the passed headers, endpoint, method and body.
@@ -22496,14 +22532,10 @@
                     })
                       .then(function (response) {
                         if (response.ok) {
+                          //debugger;
                           return response.json();
                         } else {
-                          // Unsuccessful Popup
-                          _this2.showRequestResult({
-                            title: response.status,
-                            text: response.statusText,
-                            icon: 'error',
-                          });
+                          _this2._throwError();
                         }
                       })
                       .then(function (json) {
@@ -22512,7 +22544,8 @@
                         return json;
                       })
                       ['catch'](function (error) {
-                        // Unsuccessful Popup
+                        console.error(error); // Unsuccessful Popup
+
                         _this2.showRequestResult({
                           title: error.name,
                           text: error.message,
@@ -22530,12 +22563,7 @@
                         if (response.ok) {
                           return response.json();
                         } else {
-                          // Unsuccessful Popup
-                          _this2.showRequestResult({
-                            title: response.status,
-                            text: response.statusText,
-                            icon: 'error',
-                          });
+                          _this2._throwError();
                         }
                       })
                       .then(function (json) {
@@ -22554,168 +22582,6 @@
                       });
                   }
                 },
-              },
-              {
-                key: 'deletePhotoOnServer',
-                value: (function () {
-                  var _deletePhotoOnServer = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee(_ref2) {
-                        var id, headers, endpoint, method;
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee$(_context) {
-                            while (1) {
-                              switch ((_context.prev = _context.next)) {
-                                case 0:
-                                  (id = _ref2.id),
-                                    (headers = _ref2.headers),
-                                    (endpoint = _ref2.endpoint),
-                                    (method = _ref2.method);
-                                  _context.next = 3;
-                                  return this.makeRequest({
-                                    headers: headers,
-                                    endpoint: endpoint,
-                                    method: method,
-                                    body: JSON.stringify({
-                                      id: id,
-                                    }),
-                                  });
-
-                                case 3:
-                                  return _context.abrupt(
-                                    'return',
-                                    _context.sent
-                                  );
-
-                                case 4:
-                                case 'end':
-                                  return _context.stop();
-                              }
-                            }
-                          },
-                          _callee,
-                          this
-                        );
-                      }
-                    )
-                  );
-
-                  function deletePhotoOnServer(_x) {
-                    return _deletePhotoOnServer.apply(this, arguments);
-                  }
-
-                  return deletePhotoOnServer;
-                })(),
-              },
-              {
-                key: 'sendPhotoInformationToServer',
-                value: (function () {
-                  var _sendPhotoInformationToServer = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee2(_ref3) {
-                        var id, privacy, description, headers, endpoint, method;
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee2$(_context2) {
-                            while (1) {
-                              switch ((_context2.prev = _context2.next)) {
-                                case 0:
-                                  (id = _ref3.id),
-                                    (privacy = _ref3.privacy),
-                                    (description = _ref3.description),
-                                    (headers = _ref3.headers),
-                                    (endpoint = _ref3.endpoint),
-                                    (method = _ref3.method);
-                                  _context2.next = 3;
-                                  return this.makeRequest({
-                                    headers: headers,
-                                    endpoint: endpoint,
-                                    method: method,
-                                    body: JSON.stringify({
-                                      id: id,
-                                      privacy: privacy,
-                                      description: description,
-                                    }),
-                                  });
-
-                                case 3:
-                                  return _context2.abrupt(
-                                    'return',
-                                    _context2.sent
-                                  );
-
-                                case 4:
-                                case 'end':
-                                  return _context2.stop();
-                              }
-                            }
-                          },
-                          _callee2,
-                          this
-                        );
-                      }
-                    )
-                  );
-
-                  function sendPhotoInformationToServer(_x2) {
-                    return _sendPhotoInformationToServer.apply(this, arguments);
-                  }
-
-                  return sendPhotoInformationToServer;
-                })(),
-              },
-              {
-                key: 'getPhotosIds',
-                value: (function () {
-                  var _getPhotosIds = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()(
-                    /*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(
-                      function _callee3(_ref4) {
-                        var filesAmount, headers, endpoint, method;
-                        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(
-                          function _callee3$(_context3) {
-                            while (1) {
-                              switch ((_context3.prev = _context3.next)) {
-                                case 0:
-                                  (filesAmount = _ref4.filesAmount),
-                                    (headers = _ref4.headers),
-                                    (endpoint = _ref4.endpoint),
-                                    (method = _ref4.method);
-                                  // Add amount of files as a query parameter
-                                  this.requests.getIds.endpoint.searchParams.set(
-                                    'amount',
-                                    String(filesAmount)
-                                  );
-                                  _context3.next = 4;
-                                  return this.makeRequest({
-                                    headers: headers,
-                                    endpoint: endpoint,
-                                    method: method,
-                                  });
-
-                                case 4:
-                                  return _context3.abrupt(
-                                    'return',
-                                    _context3.sent
-                                  );
-
-                                case 5:
-                                case 'end':
-                                  return _context3.stop();
-                              }
-                            }
-                          },
-                          _callee3,
-                          this
-                        );
-                      }
-                    )
-                  );
-
-                  function getPhotosIds(_x3) {
-                    return _getPhotosIds.apply(this, arguments);
-                  }
-
-                  return getPhotosIds;
-                })(),
               },
             ]
           );
@@ -22743,6 +22609,9 @@
             // Bind context
             this.initializeLoadingIndicators = this.initializeLoadingIndicators.bind(
               this
+            );
+            this.triggerLoadingIndicator = this.triggerLoadingIndicator.bind(
+              this
             ); // Save loading data to the form
 
             this.loading = this.selectors.loading; // Save information about submit button
@@ -22753,21 +22622,7 @@
             template = document.getElementById(this.loading.spinnerTemplateId); // Event handling
 
             $form.submit(function () {
-              // Don't show loading indicator if the form isn't valid
-              if (jQuery.validator && !_this.$form.valid()) return;
-              var spinner = template.content.cloneNode(true),
-                loading = _this.loading,
-                $submitButton = _this.$submitButton; // Preserve width and get rid of the previous content
-
-              $submitButton
-                .css('min-width', $submitButton.outerWidth() + 'px')
-                .empty(); // Change button text
-
-              loading.text === undefined
-                ? $submitButton.text('').addClass('text-center')
-                : $submitButton.text(loading.text).addClass('text-capitalize'); //Change button state
-
-              $submitButton.attr('disabled', true)[0].prepend(spinner);
+              _this.triggerLoadingIndicator($form);
             });
             $(this).on('successfulRequest failedRequest', function () {
               // Change button and remove spinner
@@ -22779,6 +22634,26 @@
                 .find(_this.loading.spinner)
                 .remove();
             });
+          },
+          triggerLoadingIndicator: function triggerLoadingIndicator($form) {
+            // Don't show loading indicator if the form isn't valid
+            if (jQuery.validator && this.frontendValidation) {
+              if (!$form.valid()) return;
+            }
+
+            var spinner = template.content.cloneNode(true),
+              loading = this.loading,
+              $submitButton = this.$submitButton; // Preserve width and get rid of the previous content
+
+            $submitButton
+              .css('min-width', $submitButton.outerWidth() + 'px')
+              .empty(); // Change button text
+
+            loading.text === undefined
+              ? $submitButton.text('').addClass('text-center')
+              : $submitButton.text(loading.text).addClass('text-capitalize'); //Change button state
+
+            $submitButton.attr('disabled', true)[0].prepend(spinner);
           },
         }; // Private variables
 
@@ -23203,7 +23078,7 @@
            * @param {String} imageUrl - Link to the image to show in the popup
            * @param {String} imageAlt - Image alttext
            */
-          askUsageApprovement: function askUsageApprovement(_ref5) {
+          fireAlertWithRequest: function fireAlertWithRequest(_ref5) {
             var _this2 = this;
 
             var title = _ref5.title,
@@ -23212,7 +23087,8 @@
               confirmButtonText = _ref5.confirmButtonText,
               cancelButtonText = _ref5.cancelButtonText,
               imageUrl = _ref5.imageUrl,
-              imageAlt = _ref5.imageAlt;
+              imageAlt = _ref5.imageAlt,
+              requestName = _ref5.requestName;
             return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a
               .fire({
                 title: title,
@@ -23234,11 +23110,11 @@
                  * 2. If the server is responded, return the response
                  */
                 preConfirm: function preConfirm() {
-                  var _this2$requests$use = _this2.requests.use,
-                    headers = _this2$requests$use.headers,
-                    endpoint = _this2$requests$use.endpoint,
-                    method = _this2$requests$use.method,
-                    body = _this2$requests$use.body;
+                  var _this2$requests$reque = _this2.requests[requestName],
+                    headers = _this2$requests$reque.headers,
+                    endpoint = _this2$requests$reque.endpoint,
+                    method = _this2$requests$reque.method,
+                    body = _this2$requests$reque.body;
                   return fetch(endpoint, {
                     method: method,
                     headers: headers,
@@ -23278,7 +23154,7 @@
         /***/
       },
 
-    /***/ 1:
+    /***/ 16:
       /*!**************************!*\
   !*** multi ./js/main.js ***!
   \**************************/

@@ -1234,218 +1234,216 @@
     <script src="js/main-authorized.bundle.js"></script>
 
     <script>
-      $(window).on('load', function () {
-        /* notification view and hide */
+      /* notification view and hide */
+      setTimeout(function () {
+        $('.notification').addClass('active');
         setTimeout(function () {
-          $('.notification').addClass('active');
-          setTimeout(function () {
-            $('.notification').removeClass('active');
-          }, 3500);
-        }, 500);
-        $('.closenotification').on('click', function () {
-          $(this).closest('.notification').removeClass('active');
-        });
+          $('.notification').removeClass('active');
+        }, 3500);
+      }, 500);
+      $('.closenotification').on('click', function () {
+        $(this).closest('.notification').removeClass('active');
+      });
 
-        /* Credit card initialization */
-        var card = new Card({
-          form: '#credit-card',
-          container: '.card-wrapper',
-          debug: true,
-        });
+      /* Credit card initialization */
+      var card = new Card({
+        form: '#credit-card',
+        container: '.card-wrapper',
+        debug: true,
+      });
 
-        /* Boost initialization */
-        const boost = new Boost({
-          selectors: {
-            bonus: '.boost',
-            timer: {
-              element: '.timer',
-              hours: '.hours',
-              minutes: '.minutes',
-              seconds: '.seconds',
-            },
+      /* Boost initialization */
+      const boost = new Boost({
+        selectors: {
+          bonus: '.boost',
+          timer: {
+            element: '.timer',
+            hours: '.hours',
+            minutes: '.minutes',
+            seconds: '.seconds',
           },
-          requests: {
-            use: {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              endpoint:
-                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/use-bonus',
+        },
+        requests: {
+          use: {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
             },
+            endpoint:
+              'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/use-bonus',
           },
-          popups: {
-            buy: {
-              title: 'Oops!',
-              text:
-                "You don't have any photo bonuses available. Do you want to buy some?",
-              confirmButtonText: 'Yes!',
-              cancelButtonText: 'No',
-            },
-            use: {
-              title: 'Do you want to use boost?',
-              confirmButtonText: 'Yes!',
-              cancelButtonText: 'No',
-              imageUrl: 'img/boost.svg',
-              imageAlt: 'Boost icon',
-            },
-            expire: {
-              title: 'Oops! Your boost expired!',
-              text: 'Do you want to activate it again?',
-              confirmButtonText: 'Yes!',
-              cancelButtonText: 'No',
-              imageUrl: 'img/boost.svg',
-              imageAlt: 'Boost icon',
-            },
+        },
+        popups: {
+          buy: {
+            title: 'Oops!',
+            text:
+              "You don't have any photo bonuses available. Do you want to buy some?",
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No',
           },
-        });
+          use: {
+            title: 'Do you want to use boost?',
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No',
+            imageUrl: 'img/boost.svg',
+            imageAlt: 'Boost icon',
+          },
+          expire: {
+            title: 'Oops! Your boost expired!',
+            text: 'Do you want to activate it again?',
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No',
+            imageUrl: 'img/boost.svg',
+            imageAlt: 'Boost icon',
+          },
+        },
+      });
 
-        /* Buy premium form initialization */
-        const buyPremiumForm = new BuyPremiumForm({
-          selectors: {
-            form: '#buy-premium',
-            disableButtonsOnRequest: '.disable-on-request',
-            // Spinner to show when the price is being loaded
+      /* Buy premium form initialization */
+      const buyPremiumForm = new BuyPremiumForm({
+        selectors: {
+          form: '#buy-premium',
+          disableButtonsOnRequest: '.disable-on-request',
+          // Spinner to show when the price is being loaded
+          spinner: '.spinner-border',
+          priceContainer: '.price-container',
+          'input-wrapper': '.form-group',
+          inputs: '.buy-premium-input',
+          // Wrapper of the bonus input
+          'bonus-inputs': '.input-group',
+          // + and - buttons to add/remove bonuses
+          'bonus-control': '.bonus-control',
+          'add-bonus-input-className': 'input-group-append',
+          'card-total-price': '.card-total-price',
+          'card-discount-price': '.card-discount-price',
+          'total-price': '.total-price',
+          'previous-price': '.previous-price',
+          // Container to preview order details
+          orderDetails: '#order-details',
+          // Discount
+          discount: {
+            type: '#discount-type',
+            amount: '#discount-amount',
+          },
+          loading: {
+            spinnerTemplateId: 'spinner-template',
+            submitButton: '#buyPremium-checkout',
             spinner: '.spinner-border',
-            priceContainer: '.price-container',
-            'input-wrapper': '.form-group',
-            inputs: '.buy-premium-input',
-            // Wrapper of the bonus input
-            'bonus-inputs': '.input-group',
-            // + and - buttons to add/remove bonuses
-            'bonus-control': '.bonus-control',
-            'add-bonus-input-className': 'input-group-append',
-            'card-total-price': '.card-total-price',
-            'card-discount-price': '.card-discount-price',
-            'total-price': '.total-price',
-            'previous-price': '.previous-price',
-            // Container to preview order details
-            orderDetails: '#order-details',
-            // Discount
-            discount: {
-              type: '#discount-type',
-              amount: '#discount-amount',
+            text: 'Checking out...',
+          },
+          templateIds: {
+            plan: 'template-planDetails',
+            bonuses: 'template-orderedBonuses',
+          },
+        },
+        requests: {
+          price: {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
             },
-            loading: {
-              spinnerTemplateId: 'spinner-template',
-              submitButton: '#buyPremium-checkout',
-              spinner: '.spinner-border',
-              text: 'Checking out...',
+            endpoint:
+              'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/price',
+          },
+          submit: {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
             },
-            templateIds: {
-              plan: 'template-planDetails',
-              bonuses: 'template-orderedBonuses',
+            endpoint:
+              'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/price',
+          },
+        },
+        location: false,
+        showSuccessPopup: false,
+        generateSubmitEvent: true,
+        showFailPopup: false,
+        frontendValidation: false,
+      });
+
+      /* Bank transfer handling */
+      $('#bank-transfer').click(function () {
+        $(this).find('#bank-transfer-form').submit();
+      });
+
+      /* Payment with credit card form initialization */
+      const paymentForm = new Form({
+        selectors: {
+          form: '#credit-card',
+          'input-wrapper': '.form-group',
+          inputs: '.payment-input',
+          loading: {
+            spinnerTemplateId: 'spinner-template',
+            submitButton: '#paymentForm-checkout',
+            spinner: '.spinner-border',
+            text: 'Saving avatar...',
+          },
+        },
+        requests: {
+          submit: {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            endpoint:
+              'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/card',
+          },
+        },
+        location: false,
+        showSuccessPopup: true,
+        showFailPopup: false,
+        payment: true,
+        frontendValidation: true,
+        redirectOnSubmit: true,
+        validatorOptions: {
+          errorElement: 'span',
+          rules: {
+            terms: 'required',
+            name: {
+              required: true,
+              minlength: 5,
+            },
+            cvc: {
+              required: true,
+              minlength: 3,
+            },
+            expiry: {
+              required: true,
+              expiration: true,
+            },
+            number: {
+              required: true,
+              cardNumber: true,
             },
           },
-          requests: {
-            price: {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              endpoint:
-                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/price',
-            },
-            submit: {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              endpoint:
-                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/price',
-            },
-          },
-          location: false,
-          showSuccessPopup: false,
-          generateSubmitEvent: true,
-          showFailPopup: false,
-          frontendValidation: false,
-        });
+        },
+      });
 
-        /* Bank transfer handling */
-        $('#bank-transfer').click(function () {
-          $(this).find('#bank-transfer-form').submit();
-        });
-
-        /* Payment with credit card form initialization */
-        const paymentForm = new Form({
+      /* forms chainer initialization */
+      const chainedForms = new ChainedForms({
+        selectors: {
+          formsContainer: '#checkout',
+          forms: '.buy-premium-step',
+          forward: '.forward',
+          backward: '.backward',
+          wrapper: '.form-wrapper',
+        },
+        showSteps: true,
+        stepsConfig: {
           selectors: {
-            form: '#credit-card',
-            'input-wrapper': '.form-group',
-            inputs: '.payment-input',
-            loading: {
-              spinnerTemplateId: 'spinner-template',
-              submitButton: '#paymentForm-checkout',
-              spinner: '.spinner-border',
-              text: 'Saving avatar...',
-            },
+            wrapper: '.form-steps',
+            steps: '.step',
+            progressBar: '.progress-bar',
+            labels: '.label',
+            current: '.current-mark',
+            passed: '.passed',
           },
-          requests: {
-            submit: {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              endpoint:
-                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/card',
-            },
+          classes: {
+            passed: 'step-passed',
+            current: 'step-current',
+            further: 'step-further',
           },
-          location: false,
-          showSuccessPopup: true,
-          showFailPopup: false,
-          payment: true,
-          frontendValidation: true,
-          redirectOnSubmit: true,
-          validatorOptions: {
-            errorElement: 'span',
-            rules: {
-              terms: 'required',
-              name: {
-                required: true,
-                minlength: 5,
-              },
-              cvc: {
-                required: true,
-                minlength: 3,
-              },
-              expiry: {
-                required: true,
-                expiration: true,
-              },
-              number: {
-                required: true,
-                cardNumber: true,
-              },
-            },
-          },
-        });
-
-        /* forms chainer initialization */
-        const chainedForms = new ChainedForms({
-          selectors: {
-            formsContainer: '#checkout',
-            forms: '.buy-premium-step',
-            forward: '.forward',
-            backward: '.backward',
-            wrapper: '.form-wrapper',
-          },
-          showSteps: true,
-          stepsConfig: {
-            selectors: {
-              wrapper: '.form-steps',
-              steps: '.step',
-              progressBar: '.progress-bar',
-              labels: '.label',
-              current: '.current-mark',
-              passed: '.passed',
-            },
-            classes: {
-              passed: 'step-passed',
-              current: 'step-current',
-              further: 'step-further',
-            },
-          },
-        });
+        },
       });
     </script>
   </body>

@@ -20,14 +20,20 @@ export default class Boost extends Bonus {
   _cacheElements() {
     super._cacheElements();
 
+    let selectors = this.selectors;
+
     // Timer and elements to display time
-    this.$timer = $(this.selectors.timer.element);
-    this.$hours = this.$timer.find(this.selectors.timer.hours);
-    this.$minutes = this.$timer.find(this.selectors.timer.minutes);
-    this.$seconds = this.$timer.find(this.selectors.timer.seconds);
+    this.$timer = $(selectors.timer.element);
+    this.$hours = this.$timer.find(selectors.timer.hours);
+    this.$minutes = this.$timer.find(selectors.timer.minutes);
+    this.$seconds = this.$timer.find(selectors.timer.seconds);
 
     // Hide timer after caching
     this.$timer.fadeOut(0);
+
+    if (selectors.amount) {
+      this.$amount = this.$bonus.find(selectors.amount);
+    }
   }
 
   _setUpEventListeners() {
@@ -49,7 +55,7 @@ export default class Boost extends Bonus {
      *     - Hide timer
      *     - Deactivate boost
      */
-    $(document).on('bonus:startUsage', (event, type) => {
+    $(document).on('bonus:startUsage', (event, { type }) => {
       if (type !== 'boost') return;
 
       if (this.activated && !this.finished) return;
@@ -61,7 +67,7 @@ export default class Boost extends Bonus {
         var popup = this.popups.expire;
       }
 
-      this.askUsageApprovement(popup)
+      this.fireAlertWithRequest(popup)
         .then(result => {
           if (!result) return;
 
@@ -102,6 +108,11 @@ export default class Boost extends Bonus {
 
     // Change the amount of boosts available
     this._decreaseBonusAmountAvailable();
+
+    // Update amount if the selector is presented
+    if (this.$amount) {
+      this._updateAmountOnMarkup();
+    }
 
     // Start timer
     this._startTimer();

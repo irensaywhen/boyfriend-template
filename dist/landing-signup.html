@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en" class="blue-theme">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no"
+    />
+    <meta name="description" content="Boyfriend template" />
+    <meta name="author" content="Maxartkiller" />
+
+    <title>Front Page</title>
+
+    <!-- Material design icons CSS -->
+    <link rel="stylesheet" href="vendor/materializeicon/material-icons.css" />
+
+    <!-- Roboto fonts CSS -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--Fontawesome-->
+    <link rel="stylesheet" href="fontawesome/css/all.min.css" />
+
+    <!-- Bootstrap core CSS -->
+    <link
+      href="vendor/bootstrap-4.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Swiper CSS -->
+    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" />
+
+    <!--SweetAlert2-->
+    <link href="vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body class="d-flex flex-column landing-signup">
+    <div class="content">
+      <!--Loader start-->
+      <div class="row no-gutters vh-100 loader-screen">
+        <div class="col align-self-center text-white text-center">
+          <img src="img/logo.png" alt="logo" />
+          <h1><span class="font-weight-light">Boy</span>friend</h1>
+          <div class="laoderhorizontal">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+      <!--Loader end-->
+
+      <!--Spinner template start-->
+      <template id="spinner-template">
+        <span
+          class="spinner-border spinner-border-sm mr-1"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        <span class="sr-only">Loading...</span>
+      </template>
+      <!--Spinner template end-->
+
+      <!--Modal for uploading avatar start-->
+      <div
+        class="modal fade upload-avatar pr-0"
+        id="upload-avatar"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="uploadAvatarModal"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog modal-dialog-centered modal-lg"
+          role="document"
+        >
+          <div class="modal-content">
+            <form action="" id="avatar-editor">
+              <!--Modal header start-->
+              <div class="modal-header">
+                <h3 class="title">Upload your avatar:</h3>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <!--Modal header end-->
+
+              <!--Modal body start-->
+              <div class="modal-body">
+                <!--Current avatar and preview start-->
+                <div class="text-center">
+                  <div class="figure-profile shadow my-4">
+                    <figure>
+                      <img
+                        src="img/placeholder-avatar.png"
+                        id="avatar-preview"
+                        alt="Avatar Placeholder"
+                      />
+                    </figure>
+                  </div>
+                </div>
+                <!--Current avatar and preview end-->
+
+                <!--Container holding read and legacy errors-->
+                <p id="uploadErrorContainer" class="upload-error"></p>
+
+                <!--Upload progress indicator start-->
+                <div class="upload-progress" id="fileRead-progress"></div>
+                <!--Upload progress indicator end-->
+
+                <!--Template for progress indicator start-->
+                <script id="progress-template" type="text/template">
+                  <div class="fileProgress-wrapper">
+                    <div class="filename text-muted">
+                      <span class="name d-inline-block pb-1">{{name}}</span>
+                    </div>
+                    <div class="progress mb-3 h-4">
+                      <div
+                        class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                        id={{id}}
+                        role="progressbar"
+                        style="width: 0%"
+                        aria-valuenow="0"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                    </div>
+                  </div>
+                </script>
+                <!--Template for progress indicator end-->
+
+                <!--Avatar upload and drag'n'drop start-->
+                <div class="photo-upload" id="dragNDropUploadContainer">
+                  <div class="drag-n-drop">
+                    <div class="icon">
+                      <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <p
+                      class="text-center text-uppercase info d-flex flex-column"
+                    >
+                      <strong class="title">Drag & drop</strong>
+                      <span class="pt-2">to upload, or</span>
+                    </p>
+                  </div>
+
+                  <div class="d-flex flex-column align-items-center py-4">
+                    <!--Select file from device start-->
+                    <div class="position-relative">
+                      <input
+                        type="file"
+                        id="avatar-file-input"
+                        name="avatar-file-input"
+                        class="invisible position-absolute avatar-input disable-while-load"
+                        accept="image/*"
+                      />
+                      <label
+                        for="avatar-file-input"
+                        class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm select"
+                      >
+                        <i class="fas fa-file-upload"></i> select file
+                      </label>
+                    </div>
+                    <!--Select file from device end-->
+
+                    <!--Capture photo start-->
+                    <div class="position-relative">
+                      <input
+                        type="file"
+                        id="make-avatar"
+                        name="make-avatar"
+                        class="invisible position-absolute avatar-input disable-while-load"
+                        accept="image/*"
+                        capture
+                      />
+                      <label
+                        for="make-avatar"
+                        class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm capture"
+                      >
+                        <i class="fas fa-camera-retro"></i> take photo
+                      </label>
+                    </div>
+                    <!--Capture photo end-->
+                  </div>
+                </div>
+                <!--Avatar upload and drag'n'drop end-->
+
+                <!--Avatar requirements-->
+                <div class="avatar-requirements border-top">
+                  <h4 class="section-title pt-3">Avatar requirements</h4>
+                  <ul class="pl-1">
+                    <li>Rozmiar: 500x500px</li>
+                    <li>Dostępne rozszerzenia</li>
+                    <li>Lorem ipsum</li>
+                  </ul>
+                </div>
+              </div>
+              <!--Modal body end-->
+              <!--Modal footer start-->
+              <div class="modal-footer">
+                <div class="px-0 py-3 text-center w-100">
+                  <button
+                    type="submit"
+                    class="btn btn-lg btn-default text-white btn-rounded shadow disable-while-load"
+                    id="submitButton-avatar"
+                  >
+                    <span>Submit</span
+                    ><i class="material-icons">arrow_forward</i>
+                  </button>
+                </div>
+              </div>
+              <!--Modal footer end-->
+            </form>
+          </div>
+        </div>
+      </div>
+      <!--Modal for uploading avatar end-->
+
+      <!-- header -->
+      <header class="private-header">
+        <div class="container">
+          <div class="row">
+            <div class="col text-center">
+              <img src="img/logo.png" alt="" class="private-header-logo" />
+            </div>
+          </div>
+          <div></div>
+        </div>
+      </header>
+      <!-- header ends -->
+
+      <div id="forms-signup" class="login-and-registration pb-5">
+        <!--Registration section start-->
+        <section class="container">
+          <div class="row no-gutters proh bg-template">
+            <div class="col-12 align-self-center px-0 px-sm-3 text-center">
+              <h2 class="text-white pt-3 pb-5 font-weight-normal">
+                Provide some information to let others discover you
+              </h2>
+
+              <!--Steps start-->
+              <div class="form-steps py-3 mx-auto mb-5">
+                <div class="progress h-2">
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    aria-valuenow="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+                <div class="steps d-flex justify-content-around">
+                  <div class="step step-current" data-step="0">
+                    <i class="fas fa-check passed"></i>
+                    <div class="current-mark"></div>
+                    <p class="label">Write about yourself</p>
+                  </div>
+                  <div class="step step-further" data-step="1">
+                    <i class="fas fa-check passed"></i>
+                    <div class="current-mark"></div>
+                    <p class="label">Physical data</p>
+                  </div>
+                  <div class="step step-further" data-step="2">
+                    <i class="fas fa-check passed"></i>
+                    <div class="current-mark"></div>
+                    <p class="label">Select avatar</p>
+                  </div>
+                </div>
+              </div>
+              <!--Steps end-->
+
+              <!--Form step 1 start-->
+              <div class="form-wrapper pt-3">
+                <form
+                  class="form-step form-signin shadow text-left"
+                  id="signup-1"
+                  data-step="0"
+                >
+                  <div class="general-error" id="general-error-signup-1"></div>
+
+                  <!--Name-->
+                  <div class="form-group float-label">
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      class="form-control signup-input"
+                    />
+                    <label for="name" class="form-control-label">Name</label>
+                  </div>
+
+                  <!--Textarea-->
+                  <div class="form-group text-left">
+                    <label for="description" class="section-subtitle"
+                      >Write about yourself</label
+                    >
+                    <textarea
+                      class="form-control form-control-lg signup-input"
+                      rows="3"
+                      id="description"
+                      name="description"
+                    ></textarea>
+                  </div>
+
+                  <!--Submit button-->
+                  <div class="row">
+                    <div class="col-12 text-right">
+                      <button
+                        type="submit"
+                        class="btn btn-lg btn-default btn-rounded shadow"
+                        id="submitBtn-firstStep"
+                      >
+                        <span>Next</span
+                        ><i class="material-icons">arrow_forward</i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!--Form step 1 end-->
+
+              <!--Form step 2 start-->
+              <div class="form-wrapper pt-3">
+                <form
+                  class="form-step form-signin shadow text-left"
+                  id="signup-2"
+                  data-step="1"
+                >
+                  <div class="general-error" id="general-error-signup-2"></div>
+
+                  <!--City input start-->
+                  <div
+                    class="form-group float-label position-relative input-wrapper"
+                  >
+                    <input
+                      type="text"
+                      name="city"
+                      class="form-control location signup-input"
+                    />
+                    <label class="form-control-label">City</label>
+                    <div class="spinner-border city-loader" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="dropdown location-dropdown">
+                      <button
+                        class="btn btn-primary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        Cities dropdown
+                      </button>
+                      <ul class="dropdown-menu"></ul>
+                    </div>
+                  </div>
+                  <!--City input end-->
+
+                  <!--Date input start-->
+                  <h4 class="section-subtitle">Date of birth</h4>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-12 col-sm-4 px-0 pr-sm-2">
+                        <div class="form-group float-label mb-1 input-wrapper">
+                          <input
+                            type="text"
+                            name="day"
+                            id="day"
+                            data-restrictLength="true"
+                            data-maxlength="2"
+                            data-date="true"
+                            class="form-control signup-input"
+                          />
+                          <label class="form-control-label">Day</label>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-4 px-0 pl-sm-1 pr-sm-2">
+                        <div class="form-group float-label mb-1 input-wrapper">
+                          <select
+                            class="form-control signup-input"
+                            name="month"
+                            data-date="true"
+                            data-day="true"
+                            id="month"
+                          >
+                            <option value="null" disabled selected></option>
+                            <option value="01">January</option>
+                            <option value="02">February</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="06">June</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                          </select>
+                          <label class="form-control-label">Month</label>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-4 pr-0 pl-0 pl-sm-1">
+                        <div class="form-group float-label mb-1 input-wrapper">
+                          <input
+                            type="text"
+                            name="year"
+                            id="year"
+                            data-restrictLength="true"
+                            data-maxlength="4"
+                            data-day="true"
+                            class="form-control signup-input"
+                          />
+                          <label class="form-control-label">Year</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Date input end-->
+
+                  <!--Weight and height start-->
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-6 pl-0">
+                        <div class="form-group float-label input-wrapper">
+                          <input
+                            type="number"
+                            name="weight"
+                            id="weight"
+                            data-restrictLength="true"
+                            data-maxlength="3"
+                            class="form-control signup-input"
+                          />
+                          <label class="form-control-label">Weight</label>
+                        </div>
+                      </div>
+                      <div class="col-6 pr-0">
+                        <div class="form-group float-label input-wrapper">
+                          <input
+                            type="number"
+                            name="height"
+                            maxlength="3"
+                            id="height"
+                            data-restrictLength="true"
+                            data-maxlength="3"
+                            class="form-control signup-input"
+                          />
+                          <label class="form-control-label">Height</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Weight and height end-->
+
+                  <!--Preference start-->
+
+                  <div class="form-group input-wrapper">
+                    <label for="preference" class="section-subtitle"
+                      >Preference</label
+                    >
+                    <select
+                      class="form-control preference signup-input"
+                      id="preference"
+                      name="preference"
+                    >
+                      <option value="" disabled selected hidden>
+                        Choose you preference
+                      </option>
+                      <option value="active">Active</option>
+                      <option value="passive">Passive</option>
+                      <option value="both">Both</option>
+                      <option value="secret">Won't tell</option>
+                    </select>
+                  </div>
+                  <!--Preference end-->
+
+                  <!--Submit button start-->
+                  <div class="row">
+                    <div class="col-12 text-right">
+                      <button
+                        type="submit"
+                        class="btn btn-lg btn-default btn-rounded shadow"
+                        id="submitBtn-secondStep"
+                      >
+                        <span>Next</span
+                        ><i class="material-icons">arrow_forward</i>
+                      </button>
+                    </div>
+                  </div>
+                  <!--Submit button end-->
+                </form>
+
+                <!--Back arrow-->
+                <div
+                  class="backward back blue-link text-white d-flex align-items-center"
+                >
+                  <i class="material-icons"> arrow_back </i>
+                  back
+                </div>
+              </div>
+              <!--Form step 2 start-->
+
+              <!--Form step 3 start-->
+              <div class="form-wrapper pt-3" id="signup-3-wrapper">
+                <form
+                  class="form-step form-signin-lg shadow text-left"
+                  id="signup-3"
+                  data-step="2"
+                >
+                  <div class="general-error" id="general-error-signup-3"></div>
+
+                  <!--Profile photo upload start-->
+                  <div class="text-center pb-5">
+                    <h3 class="section-title">Upload your avatar</h3>
+                    <div class="figure-profile shadow my-4">
+                      <figure>
+                        <img
+                          src="img/placeholder-avatar.png"
+                          class="avatar-image"
+                          alt="Avatar"
+                        />
+                      </figure>
+                      <div
+                        class="btn btn-dark text-white floating-btn"
+                        data-toggle="modal"
+                        data-target="#upload-avatar"
+                      >
+                        <i class="material-icons">camera_alt</i>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Profile photo upload end-->
+
+                  <!--Signup button-->
+                  <div class="row text-center">
+                    <div class="col-12">
+                      <a
+                        href="#"
+                        id="continue"
+                        class="btn btn-lg btn-default text-white btn-rounded shadow"
+                      >
+                        <span>Continue</span
+                        ><i class="material-icons">arrow_forward</i>
+                      </a>
+                    </div>
+                  </div>
+                </form>
+                <div
+                  class="backward back-lg blue-link text-white d-flex align-items-center"
+                >
+                  <i class="material-icons"> arrow_back </i>
+                  back
+                </div>
+              </div>
+              <!--Form step 3 end-->
+            </div>
+          </div>
+        </section>
+        <!--Registration section end-->
+      </div>
+    </div>
+
+    <!-- notification -->
+    <div class="notification bg-white shadow border-primary">
+      <div class="row">
+        <div class="col-auto align-self-center pr-0">
+          <i class="material-icons text-primary md-36">fullscreen</i>
+        </div>
+        <div class="col">
+          <h6>Viewing in Phone?</h6>
+          <p class="mb-0 text-secondary">
+            Double tap to enter into fullscreen mode for each page.
+          </p>
+        </div>
+        <div class="col-auto align-self-center pl-0">
+          <button class="btn btn-link closenotification">
+            <i class="material-icons text-secondary text-mute md-18">close</i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- notification ends -->
+
+    <!-- jquery, popper and bootstrap js -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
+
+    <!-- swiper js -->
+    <script src="vendor/swiper/js/swiper.min.js"></script>
+    <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
+
+    <!-- template custom js -->
+    <script src="js/main.bundle.js"></script>
+
+    <!-- page level script -->
+    <script>
+      $(window).on('load', function () {
+        /* notification view and hide */
+        setTimeout(function () {
+          $('.notification').addClass('active');
+          setTimeout(function () {
+            $('.notification').removeClass('active');
+          }, 3500);
+        }, 500);
+        $('.closenotification').on('click', function () {
+          $(this).closest('.notification').removeClass('active');
+        });
+
+        var $document = $(document);
+
+        const signupFirstStep = new Form({
+          selectors: {
+            form: '#signup-1',
+            'input-wrapper': '.form-group',
+            inputs: '.signup-input',
+            generalError: '#general-error-signup-1',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitBtn-firstStep',
+              spinner: '.spinner-border',
+              text: 'Finishing the first step...',
+            },
+          },
+          requests: {
+            submit: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/signin',
+            },
+          },
+          location: false,
+          showSuccessPopup: false,
+          showFailPopup: false,
+          frontendValidation: true,
+          generateSubmitEvent: true,
+          validatorOptions: {
+            errorElement: 'span',
+            rules: {
+              name: {
+                required: true,
+                minlength: 3,
+              },
+              description: {
+                required: true,
+                minlength: 10,
+              },
+            },
+          },
+        });
+
+        const signupSecondStep = new Form({
+          selectors: {
+            form: '#signup-2',
+            'input-wrapper': '.input-wrapper',
+            inputs: '.signup-input',
+            locationInput: '.location',
+            'location-dropdown': '.location-dropdown',
+            'dropdown-toggle': '.dropdown-toggle',
+            'dropdown-menu': '.dropdown-menu',
+            locationLoadingIndicator: '.city-loader',
+            generalError: '#general-error-signup-2',
+            date: {
+              day: '#day',
+              month: '#month',
+              year: '#year',
+            },
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitBtn-secondStep',
+              spinner: '.spinner-border',
+              text: 'Finishing the second step...',
+            },
+          },
+          requests: {
+            submit: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/signin',
+            },
+            location: {
+              method: 'GET',
+              headers: {},
+              endpoint: 'https://nominatim.openstreetmap.org/search',
+              searchParams: {
+                format: 'json',
+                addressdetails: '1',
+                countrycodes: 'pl',
+                'accept-language': 'pl,en',
+              },
+            },
+          },
+          restrictInputLength: true,
+          errorMessages: {
+            year: {
+              emptyDayAndMonth: 'Please, fill out day and month fields first',
+              age: 'You should be 18 to register',
+              format: 'Please enter year in YY or YYYY format',
+            },
+          },
+          date: true,
+          location: true,
+          showSuccessPopup: false,
+          showFailPopup: false,
+          frontendValidation: true,
+          generateSubmitEvent: true,
+          validatorOptions: {
+            errorElement: 'span',
+            showErrors: function (errorMap) {
+              this.defaultShowErrors();
+              if ('year' in errorMap) {
+                $document.trigger('validator:yearIsInvalid');
+              }
+            },
+            rules: {
+              city: {
+                required: true,
+                location: true,
+              },
+
+              day: {
+                required: true,
+                min: 1,
+                max: 31,
+                day: true,
+              },
+              month: 'required',
+              year: {
+                required: true,
+                year: true,
+                max: 2020,
+              },
+              weight: 'required',
+              height: 'required',
+              preference: 'required',
+            },
+            messages: {
+              city: {
+                required: 'Please, provide your city',
+                location: 'Enter a valid city',
+              },
+            },
+          },
+        });
+
+        /* Avatar initializaiton */
+        const avatar = new Avatar({
+          selectors: {
+            elementSelector: '.avatar-image',
+            modal: '#upload-avatar',
+            'modal-footer': '.modal-footer',
+            input: '.avatar-input',
+            preview: '#avatar-preview',
+            form: '#avatar-editor',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitButton-avatar',
+              spinner: '.spinner-border',
+              text: 'Saving avatar...',
+            },
+            // Photo upload selectors
+            photoUpload: {
+              disableWhileLoad: '.disable-while-load',
+              uploadContainer: '#dragNDropUploadContainer',
+              errorContainer: '#uploadErrorContainer',
+              // Progress bar selectors
+              progress: {
+                progress: '#fileRead-progress',
+                progressBar: '.progress-bar',
+                templateId: 'progress-template',
+                fileProgressWrapper: '.fileProgress-wrapper',
+              },
+            },
+          },
+          // Predefined error texts
+          errorText: {
+            photoUpload: {
+              // Read error while uploading photo
+              read:
+                'Something went wrong while reading the file. Please, try again',
+              // Too old browser
+              legacyBrowser:
+                'Your browser is outdated. Please, update your browser and try again',
+              // Unsupported image file type
+              wrongFileType: 'Please, upload image file',
+            },
+          },
+          classes: {
+            // Input for files upload
+            input: 'avatar-input',
+            // Drag'n'Drop
+            dragNDrop: 'advanced-upload',
+            dragOver: 'is-dragover',
+            // To show mobile photo capturing
+            mobilePhotoUpload: 'mobile',
+          },
+          requests: {
+            saveAvatar: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/save-avatar',
+            },
+          },
+        });
+
+        /* forms chainer initialization*/
+        const chainedForms = new ChainedForms({
+          selectors: {
+            formsContainer: '#forms-signup',
+            forms: '.form-step',
+            backward: '.backward',
+            wrapper: '.form-wrapper',
+          },
+          showSteps: true,
+          stepsConfig: {
+            selectors: {
+              wrapper: '.form-steps',
+              steps: '.step',
+              progressBar: '.progress-bar',
+              labels: '.label',
+              current: '.current-mark',
+              passed: '.passed',
+            },
+            classes: {
+              passed: 'step-passed',
+              current: 'step-current',
+              further: 'step-further',
+            },
+          },
+        });
+
+        $('#continue').click(event => {
+          event.preventDefault();
+          window.location.replace('./profile.html');
+        });
+      });
+    </script>
+  </body>
+</html>

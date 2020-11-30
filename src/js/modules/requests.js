@@ -4,16 +4,14 @@ import loadingIndicatorMixin from './requestsIndictorMixin.js';
 export default class ServerRequest {
   constructor(options) {
     // Bind context
-    this.sendPhotoInformationToServer = this.sendPhotoInformationToServer.bind(
-      this
-    );
-    this.deletePhotoOnServer = this.deletePhotoOnServer.bind(this);
-    this.getPhotosIds = this.getPhotosIds.bind(this);
+    this._throwError = this._throwError.bind(this);
 
     // Save passed options
-    this.selectors = options.selectors;
+    let selectors = (this.selectors = options.selectors);
     this.requests = options.requests;
     this.errorText = options.errorText;
+
+    this.popups = options.popups || null;
 
     // Transform endpoints into URL Objects
     this.makeURLObjects();
@@ -24,7 +22,8 @@ export default class ServerRequest {
     /**
      * If selector for disabling buttons is not empty, disable buttons on request
      */
-    if (this.selectors.disableButtonsOnRequest) {
+    if (selectors.disableButtonsOnRequest) {
+      this.$disableButtonsOnRequest = $(selectors.disableButtonsOnRequest);
       $(this)
         .on('beforeRequest', () => {
           this.$disableButtonsOnRequest.attr('disabled', true);
@@ -46,6 +45,12 @@ export default class ServerRequest {
     }
   }
 
+  _throwError() {
+    let error = new Error(response.statusText);
+    error.name = response.status;
+    throw error;
+  }
+
   /**
    * Make server request with the passed headers, endpoint, method and body.
    * Function checks whether the method is GET and if so, sends request without body
@@ -58,14 +63,10 @@ export default class ServerRequest {
       })
         .then(response => {
           if (response.ok) {
+            //debugger;
             return response.json();
           } else {
-            // Unsuccessful Popup
-            this.showRequestResult({
-              title: response.status,
-              text: response.statusText,
-              icon: 'error',
-            });
+            this._throwError();
           }
         })
         .then(json => {
@@ -74,6 +75,7 @@ export default class ServerRequest {
           return json;
         })
         .catch(error => {
+          console.error(error);
           // Unsuccessful Popup
           this.showRequestResult({
             title: error.name,
@@ -92,12 +94,7 @@ export default class ServerRequest {
           if (response.ok) {
             return response.json();
           } else {
-            // Unsuccessful Popup
-            this.showRequestResult({
-              title: response.status,
-              text: response.statusText,
-              icon: 'error',
-            });
+            this._throwError();
           }
         })
         .then(json => {
@@ -115,44 +112,5 @@ export default class ServerRequest {
           });
         });
     }
-  }
-
-  async deletePhotoOnServer({ id, headers, endpoint, method }) {
-    return await this.makeRequest({
-      headers,
-      endpoint,
-      method,
-      body: JSON.stringify({ id }),
-    });
-  }
-
-  async sendPhotoInformationToServer({
-    id,
-    privacy,
-    description,
-    headers,
-    endpoint,
-    method,
-  }) {
-    return await this.makeRequest({
-      headers,
-      endpoint,
-      method,
-      body: JSON.stringify({ id, privacy, description }),
-    });
-  }
-
-  async getPhotosIds({ filesAmount, headers, endpoint, method }) {
-    // Add amount of files as a query parameter
-    this.requests.getIds.endpoint.searchParams.set(
-      'amount',
-      String(filesAmount)
-    );
-
-    return await this.makeRequest({
-      headers,
-      endpoint,
-      method,
-    });
   }
 }

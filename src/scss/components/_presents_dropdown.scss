@@ -1,4 +1,5 @@
-.chat {
+.chat,
+.profile {
   /*hide dropdown arrow*/
   .dropdown-toggle::after {
     content: none;

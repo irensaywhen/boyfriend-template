@@ -183,6 +183,13 @@
     }
   }
 
+  .dropdown-item {
+    &:active {
+      background: #fff !important;
+      color: $label-color;
+    }
+  }
+
   /*Transparent white button*/
   .btn-outline-white {
     border-color: #fff;
@@ -193,6 +200,12 @@
     &:hover {
       color: darken($main-blue, 10);
       background: #fff;
+    }
+
+    &:active {
+      border-color: #fff;
+      background: transparent;
+      color: #fff;
     }
   }
 
@@ -250,6 +263,13 @@
         color: #fff;
         background: $main-pink;
         border-color: #fff;
+      }
+    }
+
+    &.disabled {
+      .page-link {
+        color: $bootstrap-secondary;
+        background: #fff;
       }
     }
   }

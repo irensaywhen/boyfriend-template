@@ -1,22 +1,22 @@
 import IconAnimation from './animatedIcons.js';
+import { timingSafeEqual } from 'crypto';
 
 export default class SuperlikeAnimation extends IconAnimation {
   constructor(options) {
     super(options);
+
+    this.type = 'superlikeAnimation';
   }
 
   _setUpEventListeners() {
     $(document).on(
       'webkitAnimationEnd oAnimationEnd msAnimationEnd animationend',
       event => {
+        if (this.type !== 'superlikeAnimation') return;
+
         let animationName = event.originalEvent.animationName,
           target = event.target,
           iconElements = this.iconElements;
-
-        // Add more specific statement here
-        // to not to calculate all the if statemests for all animations together
-
-        if (!target.closest(this.selectors.popup)) return;
 
         if (animationName === 'superlike-stars') {
           // Add final color to the stars
@@ -32,6 +32,11 @@ export default class SuperlikeAnimation extends IconAnimation {
     );
   }
 
+  /**
+   * This method is called before modal with animated icon is being opened
+   * @param {HTMLElement} modal - popup that will be opened. The icon will be
+   * inserted in this popup
+   */
   prepareAnimation(modal) {
     return new Promise(resolve => {
       // Append icon through calling parent method
@@ -43,7 +48,7 @@ export default class SuperlikeAnimation extends IconAnimation {
   }
 
   startAnimation() {
-    // Start the first part of the animation
+    // Start the first part of the animation by animation hand movement
     this.iconElements.$hand.addClass('superlike-hand');
   }
 }

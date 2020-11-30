@@ -18,6 +18,7 @@
 @import 'components/presents_dropdown';
 @import 'components/default_private_footer';
 @import 'components/messages';
+@import 'components/infinite_icon_animation';
 @import 'components/superlike';
 @import 'components/photo';
 @import 'components/premium';
@@ -25,6 +26,8 @@
 @import 'components/icons_modal';
 @import 'components/modals';
 @import 'components/order_summary';
+@import 'components/premium_modal';
+@import 'components/swiper_photos';
 
 /*Themes*/
 @import 'themes/main_theme';
@@ -48,9 +51,12 @@
 @import 'layout/wrapper';
 @import 'layout/skeleton';
 @import 'layout/gallery';
-@import 'layout/chat';
 @import 'layout/photo_upload';
 @import 'layout/steps';
+@import 'layout/payment_method';
+@import 'layout/like';
+@import 'layout/_mobile_fullscreen_modal';
+@import 'layout/userlist_modal';
 
 /*Pages*/
 @import 'pages/front_page';
@@ -62,5 +68,8 @@
 @import 'pages/chat_list';
 @import 'pages/profile';
 @import 'pages/thank_you';
+@import 'pages/chat';
+@import 'pages/landing';
+@import 'pages/landing_signup';
 
 @import 'utilities/media';

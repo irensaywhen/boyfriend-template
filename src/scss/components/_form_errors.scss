@@ -10,6 +10,14 @@
   text-align: center !important;
 }
 
+.general-error {
+  &.error-pb-0 {
+    p {
+      padding-bottom: 0 !important;
+    }
+  }
+}
+
 .upload-error {
   @extend .general-error;
 }

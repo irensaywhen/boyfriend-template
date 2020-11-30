@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="css/main.css" />
   </head>
 
-  <body>
+  <body class="fill-profile-page">
     <!--Loader start-->
     <div class="row no-gutters vh-100 loader-screen">
       <div class="col align-self-center text-white text-center">
@@ -56,11 +56,1546 @@
     </div>
     <!--Loader end-->
 
+    <!--Spinner template start-->
+    <template id="spinner-template">
+      <span
+        class="spinner-border spinner-border-sm mr-1"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      <span class="sr-only">Loading...</span>
+    </template>
+    <!--Spinner template end-->
+
     <!--Modals start-->
+
+    <!--Photo bonus modal start-->
+    <div
+      class="modal fade upload-avatar pr-0"
+      id="photo-bonus"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="addPhotosModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <!--Modal content start-->
+        <div class="modal-content">
+          <form action="" id="photoBonus-uploader">
+            <!--Modal header start-->
+            <div class="modal-header">
+              <h3 class="title">Upload your photo:</h3>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <!--Modal header end-->
+
+            <!--Modal body start-->
+            <div class="modal-body">
+              <!--Photos preview start-->
+              <div class="container-fluid">
+                <div
+                  class="row justify-content-center"
+                  id="photoBonus-preview-container"
+                ></div>
+              </div>
+              <!--Photos preview end-->
+
+              <!--Template for photo preview start-->
+              <script id="template-photoPreview" type="text/template">
+                <div
+                  class="col-12 col-sm-6 col-md-4 col-xl-3 photo-container"
+                  data-id="121"
+                >
+                  <div class="photo-description">
+                    <figure>
+                      <img src="{{src}}" alt="" />
+                    </figure>
+                    <div class="form-group">
+                      <label for="photo-upload-description">
+                        Add photo description
+                      </label>
+                      <textarea
+                        id="photo-upload-description"
+                        rows="4"
+                        placeholder="Photo description"
+                        class="form-control new-photo-description"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </script>
+              <!--Template for photo preview end-->
+
+              <!--Container holding read and legacy errors-->
+              <p id="photoBonus-uploadErrorContainer" class="upload-error"></p>
+
+              <!--Upload progress indicator start-->
+              <div
+                class="upload-progress"
+                id="photoBonus-fileRead-progress"
+              ></div>
+              <!--Upload progress indicator end-->
+
+              <!--Photo upload and drag'n'drop start-->
+              <div
+                class="photo-upload"
+                id="photoBonus-dragNDropUploadContainer"
+              >
+                <!--Drag'n'drop start-->
+                <div class="drag-n-drop">
+                  <div class="icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </div>
+                  <p class="text-center text-uppercase info d-flex flex-column">
+                    <strong class="title">Drag & drop</strong>
+                    <span class="pt-2">to upload, or</span>
+                  </p>
+                </div>
+                <!--Drag'n'drop end-->
+
+                <div class="d-flex flex-column align-items-center py-4">
+                  <!--Select file from device start-->
+                  <div class="position-relative">
+                    <input
+                      type="file"
+                      id="photoBonus-file-input"
+                      name="photo-file-input"
+                      class="invisible position-absolute photoBonus-input disable-while-load"
+                      accept="image/*"
+                    />
+                    <label
+                      for="photoBonus-file-input"
+                      class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm select"
+                    >
+                      <i class="fas fa-file-upload"></i> select file
+                    </label>
+                  </div>
+                  <!--Select file from device end-->
+
+                  <!--Capture photo start-->
+                  <div class="position-relative">
+                    <input
+                      type="file"
+                      id="photoBonus-make-photo"
+                      name="make-photo"
+                      class="invisible position-absolute photoBonus-input disable-while-load"
+                      accept="image/*"
+                      capture
+                    />
+                    <label
+                      for="photoBonus-make-photo"
+                      class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm capture"
+                    >
+                      <i class="fas fa-camera-retro"></i> take photo
+                    </label>
+                  </div>
+                  <!--Capture photo end-->
+                </div>
+              </div>
+              <!--Photo upload and drag'n'drop end-->
+
+              <!--Photo requirements-->
+              <div class="avatar-requirements border-top">
+                <h4 class="section-title pt-3">Photo requirements</h4>
+                <ul class="pl-1">
+                  <li>Rozmiar: 500x500px</li>
+                  <li>Dostępne rozszerzenia</li>
+                  <li>Lorem ipsum</li>
+                </ul>
+              </div>
+            </div>
+            <!--Modal body end-->
+
+            <!--Modal footer start-->
+            <div class="modal-footer">
+              <div class="px-0 py-3 text-center w-100">
+                <button
+                  type="submit"
+                  class="btn btn-lg btn-default text-white btn-rounded shadow w-50 disable-while-load"
+                  id="photoBonus-submitButton"
+                >
+                  <span>Submit</span><i class="material-icons">arrow_forward</i>
+                </button>
+              </div>
+            </div>
+            <!--Modal footer end-->
+          </form>
+        </div>
+        <!--Modal content end-->
+      </div>
+    </div>
+    <!--Photo bonus modal end-->
+
+    <!--Userlist modal start-->
+    <div
+      class="modal mobile-fullscreen-modal userlist-modal"
+      id="userList-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="userListModal"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-dialog-centered modal-sm-md"
+        role="document"
+      >
+        <div class="modal-content pb-3">
+          <!--Modal header start-->
+          <div
+            class="modal-header border-0 py-3 position-relative d-flex flex-column align-items-center"
+          >
+            <button
+              type="button"
+              class="btn close-mobile d-sm-none font-weight-light pt-0"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true"><i class="fas fa-arrow-left"></i></span>
+            </button>
+
+            <!--Modal title-->
+            <h2 class="modal-title">User List</h2>
+
+            <button
+              type="button"
+              class="close d-none d-sm-block"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!--Modal header end-->
+
+          <!--Modal body start-->
+          <div class="modal-body">
+            <!--Chat list start-->
+            <div class="container-fluid px-0">
+              <div class="row no-gutters">
+                <div class="col-12">
+                  <div class="chat-list bg-white border-top" id="user-list">
+                    <!--User template start-->
+                    <script type="text/template" id="userTemplate">
+                      <div
+                        class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                        data-user-id="{{id}}"
+                        data-user-name="{{name}}"
+                      >
+                        <!--Avatar-->
+                        <figure class="avatar">
+                          <img src="img/profile.jpg" alt="Profile image" />
+                        </figure>
+
+                        <!--Name and user info-->
+                        <div class="pl-1 pl-sm-3">
+                          <h3 class="name mb-1">{{name}}</h3>
+                          <p class="small text-muted">{{city}}, {{age}}</p>
+                        </div>
+                      </div>
+                    </script>
+                    <!--User template end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="1"
+                      data-user-name="David"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">David</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                      data-user-name="Lukasz"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">Lukasz</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                      data-user-name="Lukasz"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">Lukasz</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                      data-user-name="Lukasz"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">Lukasz</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                      data-user-name="Lukasz"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">Lukasz</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="1"
+                      data-user-name="David"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">David</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                      data-user-name="Lukasz"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">Lukasz</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                      data-user-name="Lukasz"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">Lukasz</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                      data-user-name="Lukasz"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">Lukasz</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                      data-user-name="Lukasz"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">Lukasz</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                      data-user-name="Lukasz"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">Lukasz</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                      data-user-name="Lukasz"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">Lukasz</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                      data-user-name="Lukasz"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">Lukasz</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                      data-user-name="Lukasz"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">Lukasz</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                      data-user-name="Lukasz"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">Lukasz</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                      data-user-name="Lukasz"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">Lukasz</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      data-user-id="2"
+                      data-user-name="Lukasz"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+
+                      <!--Name and user info-->
+                      <div class="pl-1 pl-sm-3">
+                        <h3 class="name mb-1">Lukasz</h3>
+                        <p class="small text-muted">Krakow, 21 years</p>
+                      </div>
+                    </div>
+                    <!--User end-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--Chat list end-->
+          </div>
+          <!--Modal body end-->
+        </div>
+      </div>
+    </div>
+    <!--Userlist modal end-->
+
+    <!--Modal for sponsoring premium start-->
+    <div
+      class="modal fade sponsorePremium-modal mobile-fullscreen-modal checkout"
+      id="premiumModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="premiumModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+          <!--Modal header start-->
+          <div
+            class="modal-header py-1 py-sm-2 position-relative d-flex flex-column align-items-center"
+          >
+            <button
+              type="button"
+              class="btn close-mobile d-sm-none font-weight-light"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true"><i class="fas fa-arrow-left"></i></span>
+            </button>
+
+            <!--Modal title-->
+            <h2 class="modal-title">Sponsor premium account</h2>
+            <p class="font-weight-normal small mb-1 mb-sm-0 pr-3 pt-1">
+              For:
+              <strong class="h6 mb-0" id="premiumModal-user-name"></strong>
+            </p>
+
+            <!--Special proposition for buying premium-->
+            <p class="small text-muted m-0 d-block pt-1">
+              You will recieve
+              <span class="text-success">50%</span> of the premium time
+            </p>
+
+            <button
+              type="button"
+              class="close d-none d-sm-block"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!--Modal header end-->
+
+          <!--Modal body start-->
+          <div class="modal-body" id="checkout">
+            <!--Form for selecting plans and presents start-->
+            <div class="form-wrapper">
+              <form id="buy-premium" class="buy-premium-step" data-step="0">
+                <div class="row my-3 text-center">
+                  <!--Plan start-->
+                  <div class="col-12 col-sm-6 col-md-4 col-lg-3 pb-3">
+                    <div class="card shadow-sm border-0">
+                      <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">1 month</h4>
+                      </div>
+                      <div class="card-body">
+                        <h3 class="card-title pricing-card-title mb-2">
+                          14.99 zł <small class="text-muted">/ mo</small>
+                        </h3>
+                        <ul class="list-unstyled">
+                          <li>10 users included</li>
+                          <li>2 GB of storage</li>
+                          <li>Email support</li>
+                          <li>Help center access</li>
+                        </ul>
+                        <!--Plan's input start-->
+                        <div class="form-group position-relative">
+                          <input
+                            type="radio"
+                            name="plan"
+                            id="oneMonth"
+                            value="oneMonth"
+                            class="position-absolute d-none plan-input buy-premium-input preserve"
+                          />
+                          <label
+                            for="oneMonth"
+                            class="btn btn-outline-primary btn-rounded btn-block plan-label"
+                          >
+                            Select plan</label
+                          >
+                        </div>
+                        <!--Plan's input end-->
+                      </div>
+                    </div>
+                  </div>
+                  <!--Plan end-->
+
+                  <!--Plan start-->
+                  <div class="col-12 col-sm-6 col-md-4 col-lg-3 pb-3">
+                    <div class="card shadow-sm border-0">
+                      <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">3 months</h4>
+                      </div>
+                      <div class="card-body">
+                        <h3 class="card-title pricing-card-title mb-2">
+                          14.99 zł <small class="text-muted">/ mo</small>
+                        </h3>
+                        <ul class="list-unstyled">
+                          <li>20 users included</li>
+                          <li>10 GB of storage</li>
+                          <li>Priority email support</li>
+                          <li>Help center access</li>
+                        </ul>
+                        <!--Plan's input start-->
+                        <div class="form-group position-relative">
+                          <input
+                            type="radio"
+                            name="plan"
+                            id="threeMonths"
+                            value="threeMonths"
+                            class="position-absolute d-none plan-input buy-premium-input preserve"
+                          />
+                          <label
+                            for="threeMonths"
+                            class="btn btn-outline-primary btn-rounded btn-block plan-label"
+                          >
+                            Select plan</label
+                          >
+                        </div>
+                        <!--Plan's input end-->
+                      </div>
+                    </div>
+                  </div>
+                  <!--Plan end-->
+
+                  <!--Plan start-->
+                  <div class="col-12 col-sm-6 col-md-4 col-lg-3 pb-3">
+                    <div class="card shadow-sm border-0">
+                      <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">6 months</h4>
+                      </div>
+                      <div class="card-body">
+                        <h3 class="card-title pricing-card-title mb-2">
+                          14.99 zł <small class="text-muted">/ mo</small>
+                        </h3>
+                        <ul class="list-unstyled">
+                          <li>30 users included</li>
+                          <li>15 GB of storage</li>
+                          <li>Phone and email support</li>
+                          <li>Help center access</li>
+                        </ul>
+                        <!--Plan's input start-->
+                        <div class="form-group position-relative">
+                          <input
+                            type="radio"
+                            name="plan"
+                            id="sixMonths"
+                            value="sixMonths"
+                            class="position-absolute d-none plan-input buy-premium-input preserve"
+                          />
+                          <label
+                            for="sixMonths"
+                            class="btn btn-outline-primary btn-rounded btn-block plan-label"
+                          >
+                            Select plan</label
+                          >
+                        </div>
+                        <!--Plan's input end-->
+                      </div>
+                    </div>
+                  </div>
+                  <!--Plan end-->
+
+                  <!--Plan start-->
+                  <div class="col-12 col-sm-6 col-md-4 col-lg-3 pb-3">
+                    <div class="card shadow-sm border-0">
+                      <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">12 months</h4>
+                      </div>
+                      <div class="card-body">
+                        <h3 class="card-title pricing-card-title mb-2">
+                          14.99 zł <small class="text-muted">/ mo</small>
+                        </h3>
+                        <ul class="list-unstyled">
+                          <li>30 users included</li>
+                          <li>15 GB of storage</li>
+                          <li>Phone and email support</li>
+                          <li>Help center access</li>
+                        </ul>
+                        <!--Plan's input start-->
+                        <div class="form-group position-relative">
+                          <input
+                            type="radio"
+                            name="plan"
+                            id="twelveMonths"
+                            value="twelveMonths"
+                            class="position-absolute d-none plan-input buy-premium-input preserve"
+                          />
+                          <label
+                            for="twelveMonths"
+                            class="btn btn-outline-primary btn-rounded btn-block plan-label"
+                          >
+                            Select plan</label
+                          >
+                        </div>
+                        <!--Plan's input end-->
+                      </div>
+                    </div>
+                  </div>
+                  <!--Plan end-->
+                </div>
+
+                <!--Bonuses selection start-->
+                <div class="row">
+                  <div class="col text-center text-md-left pb-5">
+                    <!--Toggle button start-->
+                    <button
+                      class="btn btn-lg btn-default mb-2 collapsed premiumBonus-selectBonuses"
+                      type="button"
+                      data-toggle="collapse"
+                      data-expanded="false"
+                      data-target="#bonuses"
+                      aria-expanded="false"
+                      aria-controls="bonuses"
+                    >
+                      <i class="material-icons"> card_giftcard </i>
+                      <span class="align-middle">Select bonuses</span>
+                      <i class="fa fa-chevron-down"></i>
+                    </button>
+                    <!--Toggle button end-->
+
+                    <!--Bonuses container start-->
+                    <div class="collapse pt-4" id="bonuses">
+                      <ul class="list-group list-group-flush mb-4">
+                        <!--Superlike start-->
+                        <li class="list-group-item pb-5 pb-md-3">
+                          <div class="row">
+                            <div class="col-12 col-md-2 align-self-center">
+                              <figure class="product-image h-auto">
+                                <img
+                                  src="img/superlike.svg"
+                                  alt=""
+                                  class="vm"
+                                />
+                              </figure>
+                            </div>
+                            <div
+                              class="col-12 col-md-7 pl-md-4 text-center text-md-left"
+                            >
+                              <h3 class="text-dark mb-1 h4 d-block">
+                                Super Like
+                              </h3>
+
+                              <div
+                                class="text-secondary font-weight-normal mb-0 pt-1"
+                              >
+                                Price: <span class="text-success">10 </span>
+                                <span class="text-success">zł</span>
+                              </div>
+
+                              <p class="text-secondary pb-2 pb-md-0 pt-2">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Facilis dolorem iure ullam
+                                repudiandae velit! Rem, reprehenderit! Eos,
+                                libero aut? Reiciendis, non illo culpa iusto
+                                numquam laborum adipisci illum ab excepturi?
+                              </p>
+                            </div>
+
+                            <!--Amount input start-->
+                            <div
+                              class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
+                            >
+                              <div
+                                class="input-group input-group-sm form-group"
+                              >
+                                <!--Substration button-->
+                                <div class="input-group-prepend bonus-control">
+                                  <button
+                                    class="btn btn-light-grey px-1"
+                                    type="button"
+                                  >
+                                    <i class="material-icons">remove</i>
+                                  </button>
+                                </div>
+
+                                <!--Input-->
+                                <input
+                                  type="text"
+                                  name="super-like"
+                                  id="super-like"
+                                  class="form-control w-35 buy-premium-input preserve"
+                                  value="0"
+                                />
+
+                                <!--Addition button-->
+                                <div class="input-group-append bonus-control">
+                                  <button
+                                    class="btn btn-light-grey px-1"
+                                    type="button"
+                                  >
+                                    <i class="material-icons">add</i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <!--Amount input end-->
+                          </div>
+                        </li>
+                        <!--Superlike end-->
+
+                        <!--Boost start-->
+                        <li class="list-group-item pb-5 pb-md-3">
+                          <div class="row">
+                            <div class="col-12 col-md-2 align-self-center">
+                              <figure class="product-image h-auto">
+                                <img
+                                  src="img/boost-static.svg"
+                                  alt=""
+                                  class="vm"
+                                />
+                              </figure>
+                            </div>
+                            <div
+                              class="col-12 col-md-7 pl-md-4 text-center text-md-left"
+                            >
+                              <h3 class="text-dark mb-1 h4 d-block">Boost</h3>
+
+                              <div
+                                class="text-secondary font-weight-normal mb-0 pt-1"
+                              >
+                                Price: <span class="text-success">15 </span>
+                                <span class="text-success">zł</span>
+                              </div>
+
+                              <p class="text-secondary pb-2 pb-md-0 pt-2">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Facilis dolorem iure ullam
+                                repudiandae velit! Rem, reprehenderit! Eos,
+                                libero aut? Reiciendis, non illo culpa iusto
+                                numquam laborum adipisci illum ab excepturi?
+                              </p>
+                            </div>
+
+                            <!--Amount input start-->
+                            <div
+                              class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
+                            >
+                              <div
+                                class="input-group input-group-sm form-group"
+                              >
+                                <!--Substration button-->
+                                <div class="input-group-prepend bonus-control">
+                                  <button
+                                    class="btn btn-light-grey px-1"
+                                    type="button"
+                                  >
+                                    <i class="material-icons">remove</i>
+                                  </button>
+                                </div>
+
+                                <!--Input-->
+                                <input
+                                  type="text"
+                                  name="boost"
+                                  id="boost"
+                                  class="form-control w-35 buy-premium-input preserve"
+                                  value="0"
+                                />
+
+                                <!--Addition button-->
+                                <div class="input-group-append bonus-control">
+                                  <button
+                                    class="btn btn-light-grey px-1"
+                                    type="button"
+                                  >
+                                    <i class="material-icons">add</i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <!--Amount input end-->
+                          </div>
+                        </li>
+                        <!--Boost end-->
+
+                        <!--Photo cart start-->
+                        <li class="list-group-item pb-5 pb-md-3">
+                          <div class="row">
+                            <div class="col-12 col-md-2 align-self-center">
+                              <figure class="product-image h-auto">
+                                <img src="img/photo.svg" alt="" class="vm" />
+                              </figure>
+                            </div>
+                            <div
+                              class="col-12 col-md-7 pl-md-4 text-center text-md-left"
+                            >
+                              <h3 class="text-dark mb-1 h4 d-block">
+                                Photo Card
+                              </h3>
+
+                              <div
+                                class="text-secondary font-weight-normal mb-0 pt-1"
+                              >
+                                Price: <span class="text-success">12 </span>
+                                <span class="text-success">zł</span>
+                              </div>
+
+                              <p class="text-secondary pb-2 pb-md-0 pt-2">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Facilis dolorem iure ullam
+                                repudiandae velit! Rem, reprehenderit! Eos,
+                                libero aut? Reiciendis, non illo culpa iusto
+                                numquam laborum adipisci illum ab excepturi?
+                              </p>
+                            </div>
+
+                            <!--Amount input start-->
+                            <div
+                              class="col-12 col-md-3 align-self-center bonus-amount mx-auto mt-2 mt-md-0"
+                            >
+                              <div
+                                class="input-group input-group-sm form-group"
+                              >
+                                <!--Substration button-->
+                                <div class="input-group-prepend bonus-control">
+                                  <button
+                                    class="btn btn-light-grey px-1"
+                                    type="button"
+                                  >
+                                    <i class="material-icons">remove</i>
+                                  </button>
+                                </div>
+
+                                <!--Input-->
+                                <input
+                                  type="text"
+                                  name="photo-card"
+                                  id="photo-card"
+                                  class="form-control w-35 buy-premium-input preserve"
+                                  value="0"
+                                />
+
+                                <!--Addition button-->
+                                <div class="input-group-append bonus-control">
+                                  <button
+                                    class="btn btn-light-grey px-1"
+                                    type="button"
+                                  >
+                                    <i class="material-icons">add</i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <!--Amount input end-->
+                          </div>
+                        </li>
+                        <!--Photo cart end-->
+                      </ul>
+                    </div>
+                    <!--Bonus container end-->
+                  </div>
+                </div>
+                <!--Bonuses selection end-->
+
+                <!--Button for total price start-->
+                <div class="row plan-and-bonuses-checkout">
+                  <div class="col-12">
+                    <!-- Total amount to pay container start-->
+                    <div class="mb-4 border-0 shadow py-4 text-center">
+                      <p class="text-secondary my-1">Total amount to pay:</p>
+
+                      <!--Price-->
+                      <div class="price-container h3 mb-4">
+                        <span
+                          class="total-price premiumBonus-discard"
+                          data-initial-value="0"
+                          >0</span
+                        >
+                        &nbsp;<span>zł</span> &nbsp;
+                        <del
+                          class="text-secondary small premiumBonus-discard"
+                          data-initial-state="hidden"
+                        >
+                          <span
+                            class="previous-price premiumBonus-discard"
+                            data-initial-value="0"
+                            >0</span
+                          >zł
+                        </del>
+                      </div>
+
+                      <!--Spinner for price loading-->
+                      <div class="spinner-border text-dark mb-4" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+
+                      <!--Button to submit form-->
+                      <button
+                        type="submit"
+                        id="buyPremium-checkout"
+                        class="mb-2 mx-auto btn btn-block btn-lg btn-rounded btn-default disable-on-request premiumBonus-discard"
+                        data-initial-state="disabled"
+                      >
+                        Checkout <i class="material-icons">arrow_forward</i>
+                      </button>
+                    </div>
+                    <!-- Total amount to pay container end-->
+                  </div>
+                </div>
+                <!--Button for total price end-->
+              </form>
+            </div>
+            <!--Form for selecting plans and presents end-->
+            <div class="form-wrapper">
+              <div class="buy-premium-step" data-step="1">
+                <!--Payment selection start-->
+                <div class="row">
+                  <div class="col-12">
+                    <h2
+                      class="h3 mx-3 text-center text-sm-left pb-4 pt-3 section-title"
+                    >
+                      Choose payment method:
+                    </h2>
+                  </div>
+                </div>
+
+                <!--Card payment start-->
+                <div
+                  class="row payment bg-white shadow rounded py-4 mx-3 mb-5 forward"
+                >
+                  <div
+                    class="col-12 col-sm-4 col-md-2 d-none d-sm-block text-center"
+                  >
+                    <span class="material-icons align-middle"> payment </span>
+                  </div>
+                  <div
+                    class="col-12 col-sm-7 d-flex flex-column justify-content-center align-items-center align-items-sm-start"
+                  >
+                    <h3 class="title">
+                      Card payment - <span class="text-success">20% off</span>
+                    </h3>
+                    <div class="price font-weight-normal mb-0 pt-1">
+                      <span class="small text-secondary">total:</span>
+                      <span
+                        class="text-success card-discount-price premiumBonus-discard"
+                        data-initial-value="0"
+                        >0
+                      </span>
+                      <span class="text-success">zł</span>
+                      &nbsp;
+                      <del
+                        class="text-secondary small premiumBonus-discard"
+                        data-initial-state="hidden"
+                      >
+                        <span
+                          class="card-total-price premiumBonus-discard"
+                          data-initial-value="0"
+                          >0</span
+                        >&nbsp;zł
+                      </del>
+                    </div>
+                    <p class="text-secondary small pt-3">subscription</p>
+                  </div>
+                </div>
+                <!--Card payment end-->
+
+                <!--Bank transfer start-->
+                <div
+                  class="row payment bg-white shadow rounded py-4 mx-3"
+                  id="bank-transfer"
+                >
+                  <div
+                    class="col-12 col-sm-4 col-md-2 d-none d-sm-block text-center"
+                  >
+                    <span class="material-icons"> account_balance </span>
+                  </div>
+                  <div
+                    class="col-12 col-sm-7 d-flex flex-column justify-content-center align-items-center align-items-sm-start"
+                  >
+                    <h3 class="title">Bank transfer</h3>
+                    <div class="price font-weight-normal mb-0 pt-1">
+                      <span class="small text-secondary">total:</span>
+                      <span
+                        class="text-secondary total-price premiumBonus-discard"
+                        data-initial-value="0"
+                        >0</span
+                      >&nbsp; <span class="text-secondary">zł</span> &nbsp;
+                      <del
+                        class="text-secondary small premiumBonus-discard"
+                        data-initial-state="hidden"
+                      >
+                        <span
+                          class="previous-price premiumBonus-discard"
+                          data-initial-value="0"
+                          >0</span
+                        >&nbsp;zł
+                      </del>
+                    </div>
+
+                    <!--Hidden form for bank transfer start-->
+                    <form
+                      action="https://pay.cashbill.pl/form/pay.php"
+                      id="bank-transfer-form"
+                      method="POST"
+                      target="_blank"
+                    >
+                      <input type="hidden" name="service" value="{$service}" />
+                      <input type="hidden" name="amount" value="{$amount}" />
+                      <input type="hidden" name="desc" value="{$desc}" />
+                      <input
+                        type="hidden"
+                        name="userdata"
+                        value="{$userdata}"
+                      />
+                      <input type="hidden" name="sign" value="{$sign}" />
+                    </form>
+                    <!--Hidden form for bank transfer end-->
+                  </div>
+                </div>
+
+                <!--Bank transfer end-->
+              </div>
+
+              <!--Arrow back start-->
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-12 pt-2">
+                    <div
+                      class="backward blue-link text-secondary d-flex align-items-center"
+                    >
+                      <i class="material-icons"> arrow_back </i>
+                      back
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--Arrow back end-->
+            </div>
+            <!--Payment selection end-->
+
+            <!--Card payment input start-->
+
+            <div class="form-wrapper">
+              <h2 class="h3 mx-3 pt-4 text-center section-title">
+                Review and pay:
+              </h2>
+              <div class="row order-details" id="order-details">
+                <!--Template for plan details start-->
+                <script type="text/template" id="template-planDetails">
+
+                    <!--Plan summary start-->
+                  <div class="col-12 col-md-6 text-center text-md-left pt-4">
+                    <div class="card shadow-sm border-0 plan">
+                      <div class="card-header text-left">
+                        <h4 class="my-0 h6 font-weight-normal title">
+                          Plan details:
+                        </h4>
+                      </div>
+
+                      <!--Plan details start-->
+                      <div class="card-body text-left">
+                        <ul class="list-unstyled">
+                          {{#each details}}
+                          <li class="text-capitalize">{{this}}</li>
+                          {{/each}}
+                        </ul>
+                      </div>
+                      <!--Plan details end-->
+
+                      <div class="card-footer text-left">
+                        <div class="row no-gutters">
+                          <div class="col-8">
+                            Plan cost:
+                          </div>
+                          <div class="col-4 font-weight-bolder text-right">
+                            <span class="pl-1">
+                              <span>{{price}}</span> zł <small class="text-muted">/ mo</small>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Plan summary end-->
+                </script>
+                <!--Template for plan details end-->
+
+                <!--Template for bonuses start-->
+                <script type="text/template" id="template-orderedBonuses">
+                  <div class="col-12 col-md-6 text-center text-md-left pt-4">
+                    <div class="card shadow-sm border-0 plan">
+
+                      <!--Card title start-->
+                      <div class="card-header text-left">
+                        <h4 class="my-0 h6 font-weight-normal title">Bonuses:</h4>
+                      </div>
+                      <!--Card title end-->
+
+                      <!--Bonuses information start-->
+                      <div class="card-body py-0">
+                        <ul class="list-group text-left list-group-flush">
+                          {{#each details}}
+                          <!--Bonus start-->
+                          <li class="list-group-item px-0 py-1">
+                            <div class="row no-gutters align-items-center">
+                              <div class="col-4 col-md-2 align-self-center">
+                                <figure class="product-image h-auto">
+                                  <img src={{imgSrc}} alt="" class="vm" />
+                                </figure>
+                              </div>
+                              <div class="col-6 col-md-7 pl-md-4 text-left pl-3">
+                                <h3 class="text-dark text-capitalize mb-1 h4 d-block bonus-title">
+                                  {{name}}
+                                </h3>
+
+                                <div
+                                  class="bonus-amount text-secondary font-weight-normal mb-0 pt-1"
+                                >
+                                  amount: <span>{{amount}}</span>
+                                </div>
+                              </div>
+                              <div class="col-2 col-md-3 text-right">
+                                <span class="font-weight-normal mb-0 pt-1"
+                                  >{{totalPrice}} zł</span
+                                >
+                              </div>
+                            </div>
+                          </li>
+                          <!--Bonus end-->
+                          {{/each}}
+                        </ul>
+                      </div>
+                      <!--Bonuses information end-->
+
+                      <!--Total price section start-->
+                      <div class="card-footer text-left pr-15">
+                        <div class="row no-gutters">
+                          <div class="col-10 col-md-9">
+                            Bonuses total:
+                          </div>
+                          <div class="col-2 col-md-3 font-weight-bolder text-right">
+                            <span class="pl-1">
+                              {{price}} zł
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <!--Total price section end-->
+                    </div>
+                  </div>
+                </script>
+                <!--Template for bonuses end-->
+              </div>
+
+              <div class="row order-details pt-4">
+                <!--Cost summary start-->
+                <div class="col-12 text-left">
+                  <div class="card border-0 shadow-sm">
+                    <div class="card-header text-left">
+                      <h4 class="my-0 h6 font-weight-normal title">Summary:</h4>
+                    </div>
+
+                    <!--Summary details start-->
+                    <div class="card-body text-left">
+                      <ul class="text-left pl-1 list-unstyled mb-0">
+                        <li class="px-0 py-1">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col-10 col-md-9 align-self-center">
+                              Sub-total
+                            </div>
+                            <div class="col-2 col-md-3 text-right">
+                              <span
+                                class="font-weight-normal mb-0 pt-1 card-total-price premiumBonus-discard"
+                                data-initial-value="0"
+                                >0</span
+                              >&nbsp;zł
+                            </div>
+                          </div>
+                        </li>
+
+                        <li class="px-0 py-1">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col-10 col-md-9 align-self-center">
+                              Discount
+                              <span
+                                class="badge badge-success ml-1"
+                                id="discount-type"
+                                >15%</span
+                              >
+                            </div>
+                            <div class="col-2 col-md-3 text-right">
+                              <span class="font-weight-normal mb-0 pt-1"
+                                >-<span
+                                  id="discount-amount premiumBonus-discard"
+                                  data-initial-value="0"
+                                  >0</span
+                                >
+                                zł</span
+                              >
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <!--Summary details end-->
+
+                    <div class="card-footer text-left pr-15">
+                      <div class="row no-gutters">
+                        <div class="col-10 col-md-9 font-weight-bold">
+                          Total:
+                        </div>
+                        <div
+                          class="col-2 col-md-3 font-weight-bolder text-right"
+                        >
+                          <span class="pl-1">
+                            <span
+                              class="card-discount-price premiumBonus-discard"
+                              data-initial-value="0"
+                              >0</span
+                            >
+                            zł
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--Cost summary end-->
+              </div>
+
+              <form
+                class="row credit-card buy-premium-step mx-auto bg-white shadow mt-4 mb-1 py-3 px-3 px-sm-5"
+                id="credit-card"
+                data-step="2"
+              >
+                <div class="col-12 text-center">
+                  <h3 class="mx-3 text-lighter pb-3 pt-2 section-subtitle">
+                    Provide your card details:
+                  </h3>
+                </div>
+                <!--Card start-->
+                <div class="col-12 card-wrapper pb-4"></div>
+                <!--Card number start-->
+                <div class="col-12 col-sm-6 col-lg-4 offset-lg-2">
+                  <div class="form-group">
+                    <label for="number">Card number</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm payment-input"
+                      name="number"
+                      id="number"
+                      placeholder="•••• •••• •••• ••••"
+                    />
+                  </div>
+                </div>
+                <!--Card number end-->
+
+                <!--Card expiration start-->
+                <div class="col-12 col-sm-6 col-lg-4">
+                  <div class="form-group">
+                    <label for="expiry">Expiration date</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm payment-input"
+                      name="expiry"
+                      id="expiry"
+                      placeholder="MM/YY"
+                    />
+                  </div>
+                </div>
+                <!--Card expiration end-->
+
+                <!--Full name start-->
+                <div class="col-12 col-sm-6 col-lg-4 offset-lg-2">
+                  <div class="form-group">
+                    <label for="name">Full name</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm payment-input"
+                      name="name"
+                      id="name"
+                      placeholder="Full Name"
+                    />
+                  </div>
+                </div>
+                <!--Full name end-->
+
+                <!--CVC start-->
+                <div class="col-12 col-sm-6 col-lg-4">
+                  <div class="form-group">
+                    <label for="cvc">CVC Code</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm payment-input"
+                      name="cvc"
+                      id="cvc"
+                      placeholder="CVC"
+                    />
+                  </div>
+                </div>
+                <!--CVC end-->
+                <!--Card end-->
+
+                <!--Terms of service start-->
+                <div class="col-12 offset-lg-2">
+                  <div class="custom-control custom-checkbox form-group">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input payment-input"
+                      id="terms"
+                      name="terms"
+                    />
+                    <label class="custom-control-label" for="terms"
+                      >I accept
+                      <a href="terms.html" class="blue-link text-underline"
+                        >terms and conditions</a
+                      ></label
+                    >
+                  </div>
+                </div>
+                <!--Terms of service end-->
+
+                <!--Submission button start-->
+                <div class="col-12 col-lg-8 offset-lg-2 py-4">
+                  <button
+                    type="submit"
+                    id="paymentForm-checkout"
+                    class="mb-2 btn btn-block btn-rounded btn-default submit"
+                  >
+                    Buy plan and bonuses
+                  </button>
+                  <p class="text-center small text-secondary">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  </p>
+                </div>
+                <!--Submission button end-->
+              </form>
+
+              <!--Arrow back start-->
+              <div class="container credit-card px-0">
+                <div class="row no-gutters justify-content-center">
+                  <div class="col-12 p-0 credit-card">
+                    <div
+                      class="backward blue-link text-secondary d-flex align-items-center"
+                    >
+                      <i class="material-icons"> arrow_back </i>
+                      back
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--Arrow back end-->
+            </div>
+            <!--Card payment input end-->
+          </div>
+          <!--Modalbody end-->
+        </div>
+      </div>
+    </div>
+    <!--Modal for sponsoring premium end-->
 
     <!--Modal for uploading avatar start-->
     <div
-      class="modal fade upload-avatar"
+      class="modal fade upload-avatar pr-0"
       id="upload-avatar"
       tabindex="-1"
       role="dialog"
@@ -73,6 +1608,8 @@
             <!--Modal header start-->
             <div class="modal-header">
               <h3 class="title">Upload your avatar:</h3>
+
+              <!--Closing button-->
               <button
                 type="button"
                 class="close"
@@ -83,9 +1620,10 @@
               </button>
             </div>
             <!--Modal header end-->
+
             <!--Modal body start-->
             <div class="modal-body">
-              <!--Current avatar and preview-->
+              <!--Current avatar and preview start-->
               <div class="text-center">
                 <div class="figure-profile shadow my-4">
                   <figure>
@@ -97,48 +1635,88 @@
                   </figure>
                 </div>
               </div>
+              <!--Current avatar and preview end-->
 
-              <!--Avatar Upload-->
-              <ul class="pl-1">
-                <!--Avatar upload from the computer-->
-                <li class="position-relative">
-                  <label
-                    for="avatar-file-input"
-                    class="upload-photo-label text-center"
-                  >
-                    <img src="img/upload.svg" alt="Upload photo" />
-                  </label>
-                  <input
-                    type="file"
-                    id="avatar-file-input"
-                    name="avatar-file-input"
-                    class="invisible position-absolute avatar-input"
-                    accept="image/*"
-                  />
-                  <p class="d-inline-block pl-3">
-                    Upload your avatar from your computer
+              <!--Container holding read and legacy errors-->
+              <p class="upload-error uploadErrorContainer"></p>
+
+              <!--Upload progress indicator start-->
+              <div class="upload-progress fileRead-progress"></div>
+              <!--Upload progress indicator end-->
+
+              <!--Template for progress indicator start-->
+              <script id="progress-template" type="text/template">
+                <div class="fileProgress-wrapper">
+                  <div class="filename text-muted">
+                    <span class="name d-inline-block pb-1">{{name}}</span>
+                  </div>
+                  <div class="progress mb-3 h-4">
+                    <div
+                      class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                      id={{id}}
+                      role="progressbar"
+                      style="width: 0%"
+                      aria-valuenow="0"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </div>
+              </script>
+              <!--Template for progress indicator end-->
+
+              <!--Avatar upload and drag'n'drop start-->
+              <div class="photo-upload dragNDropUploadContainer">
+                <div class="drag-n-drop">
+                  <div class="icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </div>
+                  <p class="text-center text-uppercase info d-flex flex-column">
+                    <strong class="title">Drag & drop</strong>
+                    <span class="pt-2">to upload, or</span>
                   </p>
-                </li>
+                </div>
 
-                <!--Capturing avatar from device-->
-                <li class="position-relative d-lg-none">
-                  <label
-                    for="make-avatar"
-                    class="upload-photo-label text-center"
-                  >
-                    <i class="fas fa-camera-retro"></i>
-                  </label>
-                  <input
-                    type="file"
-                    id="make-avatar"
-                    name="make-avatar"
-                    class="invisible position-absolute avatar-input"
-                    accept="image/*"
-                    capture
-                  />
-                  <p class="d-inline-block pl-3">Make photo from your camera</p>
-                </li>
-              </ul>
+                <div class="d-flex flex-column align-items-center py-4">
+                  <!--Select file from device start-->
+                  <div class="position-relative">
+                    <input
+                      type="file"
+                      id="avatar-file-input"
+                      name="avatar-file-input"
+                      class="invisible position-absolute avatar-input disable-while-load"
+                      accept="image/*"
+                    />
+                    <label
+                      for="avatar-file-input"
+                      class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm select"
+                    >
+                      <i class="fas fa-file-upload"></i> select file
+                    </label>
+                  </div>
+                  <!--Select file from device end-->
+
+                  <!--Capture photo start-->
+                  <div class="position-relative">
+                    <input
+                      type="file"
+                      id="make-avatar"
+                      name="make-avatar"
+                      class="invisible position-absolute avatar-input disable-while-load"
+                      accept="image/*"
+                      capture
+                    />
+                    <label
+                      for="make-avatar"
+                      class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm capture"
+                    >
+                      <i class="fas fa-camera-retro"></i> take photo
+                    </label>
+                  </div>
+                  <!--Capture photo end-->
+                </div>
+              </div>
+              <!--Avatar upload and drag'n'drop end-->
 
               <!--Avatar requirements-->
               <div class="avatar-requirements border-top">
@@ -156,6 +1734,7 @@
               <div class="px-0 py-3 text-center w-100">
                 <button
                   type="submit"
+                  id="submitButton-avatar"
                   class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
                 >
                   <span>Submit</span><i class="material-icons">arrow_forward</i>
@@ -171,7 +1750,7 @@
 
     <!--Modal for uploading photos start-->
     <div
-      class="modal fade upload-avatar"
+      class="modal fade upload-avatar pr-0"
       id="add-photos"
       tabindex="-1"
       role="dialog"
@@ -184,6 +1763,8 @@
             <!--Modal header start-->
             <div class="modal-header">
               <h3 class="title">Upload your photos:</h3>
+
+              <!--Closing button-->
               <button
                 type="button"
                 class="close"
@@ -194,6 +1775,7 @@
               </button>
             </div>
             <!--Modal header end-->
+
             <!--Modal body start-->
             <div class="modal-body">
               <!--Photos preview start-->
@@ -201,48 +1783,133 @@
                 <div class="row" id="photos-previews-container"></div>
               </div>
               <!--Photos preview end-->
-              <!--Photo Upload-->
-              <ul class="pl-1">
-                <!--Upload photos from your device-->
-                <li class="position-relative">
-                  <label
-                    for="photos-file-input"
-                    class="upload-photo-label text-center"
+
+              <!--Container holding read and legacy errors-->
+              <p class="upload-error uploadErrorContainer"></p>
+
+              <!--Upload progress indicator start-->
+              <div class="upload-progress fileRead-uploader-progress"></div>
+              <!--Upload progress indicator end-->
+
+              <!--Template for photo preview start-->
+              <script type="text/template" id="photoUploadPreview">
+                <!-- Photo preview example-->
+
+                <div
+                    class="col-12 col-sm-6 col-md-4 photo-container"
+                    data-id="{{id}}"
                   >
-                    <img src="img/upload.svg" alt="Upload photo" />
-                  </label>
-                  <input
-                    type="file"
-                    id="photos-file-input"
-                    name="photos-file-input"
-                    class="invisible position-absolute photo-input"
-                    accept="image/*"
-                    multiple
-                  />
-                  <p class="d-inline-block pl-3">
-                    Upload your photos from your device
+                    <div class="card h-100 border-0 justify-content-end">
+                      <div class="photo-description card-header p-0">
+                        <!--Image start-->
+                        <figure class="mb-0">
+                          <img
+                            class="card-img-top"
+                            src="{{src}}"
+                            alt="Card image cap"
+                          />
+                          <div
+                            class="privacy bg-white rounded d-flex justify-content-between align-items-center px-1"
+                          >
+                            <!--Privacy label-->
+                            <h4 class="m-0">Privacy</h4>
+                            <div class="custom-control custom-switch">
+                              <input
+                                type="checkbox"
+                                id="photo-upload-privacy-{{id}}"
+                                class="custom-control-input privacy-input"
+                              /><label
+                              for="photo-upload-privacy-{{id}}"
+                                class="custom-control-label privacy-label"
+                              ></label>
+                            </div>
+                          </div>
+
+                          <!--Delete button-->
+                          <button
+                            type="button"
+                            class="delete bg-white rounded d-flex justify-content-between align-items-center px-1"
+                          >
+                            Delete<i class="fas fa-trash-alt"></i>
+                          </button>
+                        </figure>
+                        <!--Image end-->
+                      </div>
+                      <div class="card-body px-0">
+                        <!--Description-->
+                        <div class="form-group">
+                          <label class="card-title" for="upload-description-{{id}}"
+                            >Add photo description</label
+                          ><textarea
+                          id="upload-description-{{id}}"
+                            rows="4"
+                            placeholder="Photo description"
+                            class="form-control new-photo-description"
+                          ></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <!--Photo preview end-->
+              </script>
+              <!--Template for photo preview end-->
+
+              <!--Photo upload and drag'n'drop start-->
+              <div class="photo-upload dragNDropUploadContainer">
+                <!--Drag'n'drop start-->
+                <div class="drag-n-drop">
+                  <div class="icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </div>
+                  <p class="text-center text-uppercase info d-flex flex-column">
+                    <strong class="title">Drag & drop</strong>
+                    <span class="pt-2">to upload, or</span>
                   </p>
-                </li>
-                <!--Capture photo-->
-                <li class="position-relative d-lg-none">
-                  <label
-                    for="make-photo"
-                    class="upload-photo-label text-center"
-                  >
-                    <i class="fas fa-camera-retro"></i>
-                  </label>
-                  <input
-                    type="file"
-                    id="make-photo"
-                    name="make-photo"
-                    class="invisible position-absolute photo-input"
-                    accept="image/*"
-                    capture
-                    multiple
-                  />
-                  <p class="d-inline-block pl-3">Make photo from your camera</p>
-                </li>
-              </ul>
+                </div>
+                <!--Drag'n'drop end-->
+
+                <div class="d-flex flex-column align-items-center py-4">
+                  <!--Select file from device start-->
+                  <div class="position-relative">
+                    <input
+                      type="file"
+                      id="photo-file-input"
+                      name="photo-file-input"
+                      class="invisible position-absolute photo-input disable-while-load"
+                      accept="image/*"
+                      multiple
+                    />
+                    <label
+                      for="photo-file-input"
+                      class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm select"
+                    >
+                      <i class="fas fa-file-upload"></i> select file
+                    </label>
+                  </div>
+                  <!--Select file from device end-->
+
+                  <!--Capture photo start-->
+                  <div class="position-relative">
+                    <input
+                      type="file"
+                      id="make-photo"
+                      name="make-photo"
+                      class="invisible position-absolute photo-input disable-while-load"
+                      accept="image/*"
+                      capture
+                      multiple
+                    />
+                    <label
+                      for="make-photo"
+                      class="text-center mb-0 pointer upload-photo-label btn btn-lg btn-outline-secondary btn-rounded shadow-sm capture"
+                    >
+                      <i class="fas fa-camera-retro"></i> take photo
+                    </label>
+                  </div>
+                  <!--Capture photo end-->
+                </div>
+              </div>
+              <!--Photo upload and drag'n'drop end-->
 
               <!--Photo requirements-->
               <div class="avatar-requirements border-top">
@@ -261,6 +1928,7 @@
                 <button
                   type="submit"
                   class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
+                  id="submitButton-photo-uploader"
                 >
                   <span>Submit</span><i class="material-icons">arrow_forward</i>
                 </button>
@@ -287,6 +1955,8 @@
           <!--Modal header start-->
           <div class="modal-header">
             <h3 class="title">Edit your photo information:</h3>
+
+            <!--Closing button-->
             <button
               type="button"
               class="close"
@@ -301,8 +1971,11 @@
           <div class="modal-body">
             <form action="fill-profile.html" method="POST" id="photo-editor">
               <div class="photo-description">
+                <!--Photo container-->
                 <figure class="text-center">
                   <img src="img/photo1.jpg" alt="photo 1" />
+
+                  <!--Privacy input and label-->
                   <div
                     class="privacy bg-white rounded d-flex justify-content-between align-items-center px-1"
                   >
@@ -310,7 +1983,7 @@
                     <div class="custom-control custom-switch">
                       <input
                         type="checkbox"
-                        class="custom-control-input privacy-input"
+                        class="custom-control-input privacy-input disable-on-request"
                         id="private-photo-1"
                       />
                       <label
@@ -319,15 +1992,23 @@
                       ></label>
                     </div>
                   </div>
+
+                  <!--Delete button-->
                   <button
-                    class="delete bg-white rounded d-flex justify-content-between align-items-center px-1"
+                    class="delete bg-white rounded d-flex justify-content-between align-items-center px-1 disable-on-request"
                   >
                     Delete
                     <i class="fas fa-trash-alt"></i>
                   </button>
                 </figure>
+
+                <!--Label for photo description-->
                 <label for="photo-description">Add photo description</label>
+
+                <!--Subtitle-->
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+
+                <!--Textarea input start-->
                 <div class="form-group">
                   <textarea
                     class="form-control"
@@ -337,8 +2018,10 @@
                     placeholder="Photo description"
                   ></textarea>
                   <div class="px-0 py-3 text-center">
+                    <!--Submit button-->
                     <button
                       type="submit"
+                      id="submitBtn-photo-editor"
                       class="btn btn-lg btn-default text-white btn-rounded shadow w-50"
                     >
                       <span>Submit</span
@@ -346,6 +2029,7 @@
                     </button>
                   </div>
                 </div>
+                <!--Textarea input end-->
               </div>
             </form>
           </div>
@@ -363,7 +2047,7 @@
       <div class="text-center">
         <div class="figure-menu shadow">
           <figure>
-            <img src="img/photo1.jpg" class="avatar-image" alt="Avatar" />
+            <img src="img/photo1.jpg" class="avatar-image h-100" alt="Avatar" />
           </figure>
         </div>
         <h5 class="mb-1">Lukasz</h5>
@@ -581,7 +2265,11 @@
 
         <!--Profile info start-->
         <div>
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <ul
+            class="nav nav-pills nav-justified profile mx-auto"
+            id="myTab"
+            role="tablist"
+          >
             <li class="nav-item">
               <a
                 class="nav-link active px-5"
@@ -622,7 +2310,7 @@
           <div class="tab-content" id="myTabContent">
             <!--Profile tab start-->
             <div
-              class="tab-pane fade show active profile"
+              class="tab-pane fade show active profile mx-auto"
               id="profile"
               role="tabpanel"
               aria-labelledby="profile-tab"
@@ -630,9 +2318,11 @@
               <div class="container">
                 <div class="row">
                   <div class="col-12">
-                    <h2 class="tab-title pt-4 pb-2">
-                      In quae ab nesciunt velit veniam.
-                    </h2>
+                    <div
+                      class="general-error error-pb-0 pt-3"
+                      id="general-error-profile-information"
+                    ></div>
+                    <h2 class="tab-title pt-3 pb-2 mb-0">Your profile</h2>
                     <p class="tab-description pb-2">Lorem ipsum dolor.</p>
                   </div>
                 </div>
@@ -728,9 +2418,9 @@
                       <div class="swiper-button-next swiper-button-white"></div>
                     </div>
                   </div>
-                  <div class="col-12 col-md-4 pl-0">
+                  <div class="col-12 col-md-4 pl-md-0">
                     <div
-                      class="upload w-100 h-100 d-flex justify-content-center align-items-center"
+                      class="upload pointer mt-2 mt-md-0 w-100 h-100 d-flex justify-content-center align-items-center"
                       data-toggle="modal"
                       data-target="#add-photos"
                     >
@@ -773,6 +2463,9 @@
                           class="form-control location"
                         />
                         <label class="form-control-label">City</label>
+                        <div class="spinner-border city-loader" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
                         <div class="dropdown location-dropdown">
                           <button
                             class="btn btn-primary dropdown-toggle"
@@ -793,36 +2486,62 @@
                       <h4 class="section-subtitle">Date of birth</h4>
                       <div class="container">
                         <div class="row">
-                          <div class="col-4 pl-0">
-                            <div class="form-group float-label">
+                          <div class="col-12 col-sm-4 px-0 pr-sm-2">
+                            <div
+                              class="form-group float-label mb-1 input-wrapper"
+                            >
                               <input
-                                type="number"
+                                type="text"
                                 name="day"
-                                min="1"
-                                max="31"
-                                class="form-control"
+                                id="day"
+                                data-restrictLength="true"
+                                data-maxlength="2"
+                                data-date="true"
+                                class="form-control signup-input"
                               />
                               <label class="form-control-label">Day</label>
                             </div>
                           </div>
-                          <div class="col-4">
-                            <div class="form-group float-label">
-                              <input
-                                type="number"
+                          <div class="col-12 col-sm-4 px-0 pl-sm-1 pr-sm-2">
+                            <div
+                              class="form-group float-label mb-1 input-wrapper"
+                            >
+                              <select
+                                class="form-control signup-input"
                                 name="month"
-                                min="1"
-                                max="12"
-                                class="form-control"
-                              />
+                                data-date="true"
+                                data-day="true"
+                                id="month"
+                              >
+                                <option value="null" disabled selected></option>
+                                <option value="01">January</option>
+                                <option value="02">February</option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                              </select>
                               <label class="form-control-label">Month</label>
                             </div>
                           </div>
-                          <div class="col-4">
-                            <div class="form-group float-label">
+                          <div class="col-12 col-sm-4 pr-0 pl-0 pl-sm-1">
+                            <div
+                              class="form-group float-label mb-1 input-wrapper"
+                            >
                               <input
-                                type="number"
+                                type="text"
                                 name="year"
-                                class="form-control"
+                                id="year"
+                                data-restrictLength="true"
+                                data-maxlength="4"
+                                data-day="true"
+                                class="form-control signup-input"
                               />
                               <label class="form-control-label">Year</label>
                             </div>
@@ -869,6 +2588,7 @@
                     <div class="col-12 px-0 text-center text-lg-right">
                       <button
                         type="submit"
+                        id="submitBtn-profileInfo"
                         class="btn btn-lg btn-default text-white btn-rounded shadow mr-lg-3"
                       >
                         <span>Submit</span
@@ -895,6 +2615,10 @@
                 method="POST"
                 action="fill-profile.html"
               >
+                <div
+                  class="general-error error-pb-0 pt-3"
+                  id="general-error-notifications"
+                ></div>
                 <div class="container pb-4">
                   <div class="row mt-3">
                     <div class="col-12 px-0">
@@ -1012,6 +2736,7 @@
                     <div class="col-12 px-0 text-center text-lg-right">
                       <button
                         type="submit"
+                        id="submitBtn-notifications"
                         class="btn btn-lg btn-default text-white btn-rounded shadow mr-lg-3"
                       >
                         <span>Submit</span
@@ -1034,6 +2759,10 @@
             >
               <!--Change password form start-->
               <form id="change-password" method="POST" action="">
+                <div
+                  class="general-error error-pb-0 pt-3"
+                  id="general-error-change-password"
+                ></div>
                 <div class="container">
                   <div class="row">
                     <div class="col-12">
@@ -1068,6 +2797,7 @@
                     <div class="col-12 px-0 text-center text-md-right">
                       <button
                         type="submit"
+                        id="submitBtn-change-password"
                         class="btn btn-lg btn-default text-white btn-rounded shadow mr-md-3"
                       >
                         <span>Submit</span
@@ -1105,7 +2835,7 @@
                         >Premium is not activated</span
                       >
                       <a
-                        href="#"
+                        href="./pricing.html"
                         class="btn btn-default text-white btn-rounded shadow my-1 py-2 px-3"
                         >Buy premium</a
                       >
@@ -1114,21 +2844,168 @@
                   <div class="col-12 col-md-7">
                     <h3 class="section-title text-dark pt-3">Extras</h3>
                     <div class="d-flex flex-wrap py-2">
-                      <div class="extra">
-                        <img src="img/boost.svg" alt="boost" />
-                        <span class="amount text-center bg-success">x2</span>
+                      <div
+                        class="extra boost pointer"
+                        data-amount="2"
+                        data-type="boost"
+                        data-redirect="./pricing.html"
+                      >
+                        <!--Svg for boost start-->
+                        <div class="svg-wrapper">
+                          <svg
+                            version="1.1"
+                            class="svg-icon"
+                            x="0px"
+                            y="0px"
+                            viewBox="0 0 500 500"
+                            style="enable-background: new 0 0 500 500"
+                          >
+                            <path
+                              id="XMLID_28_"
+                              class="heart"
+                              d="M396.9,228.1c-37.8-42.3-102.1-48.2-147.3-17C176.9,161.1,76.3,211.2,76,296c0,61.1,33.9,110.8,83.4,148.3
+                            c40,30.3,80.2,45.1,84.6,46.7c3.4,1.2,7.6,1.3,11.1,0c4.4-1.6,44.6-16.4,84.6-46.7c49.5-37.5,83.4-87.2,83.4-148.3
+                            C423.1,271.1,413.7,247,396.9,228.1L396.9,228.1z M249.6,470.4C230.2,463,98.2,408.6,98.2,296.1c0.3-71.1,87.8-109.6,144.2-63.3
+                            c4.1,3.4,10.3,3.4,14.4,0c57-46.7,144-7.2,144.2,63.3C401,408.5,269.2,462.9,249.6,470.4L249.6,470.4z"
+                            />
+                            <path
+                              id="XMLID_2_"
+                              class="heart"
+                              d="M353.8,256.6c-5.2,3.1-6.8,9.6-3.6,14.6c9.5,14.6,11,36.4,4.2,59.8c-2,6.8,3.4,13.4,10.7,13.4
+                     c4.9,0,9.3-3.1,10.7-7.8c8.5-29.6,6.1-56.8-6.8-76.7C365.8,255.1,359,253.5,353.8,256.6L353.8,256.6z"
+                            />
+                            <path
+                              id="XMLID_1_"
+                              class="st0 heart"
+                              d="M334.5,234.2c-5.5-1.7-11.5-2.8-17.7-3.2c-6.1-0.4-11.4,4-11.8,9.9c-0.4,5.8,4.2,10.9,10.3,11.3
+                     c4.4,0.3,8.6,1,12.4,2.2c5.8,1.8,12.1-1.3,13.9-6.8C343.5,242,340.3,236,334.5,234.2L334.5,234.2z"
+                            />
+                            <g id="XMLID_6_">
+                              <polygon
+                                id="XMLID_24_"
+                                class="st0"
+                                points="258.5,84 249.6,92.5 240.7,84 249.6,92.3 	"
+                              />
+                              <path
+                                id="XMLID_23_"
+                                class="st0 arrow-up"
+                                d="M318.2,157.9c-22.9-21.9-45.7-43.6-68.5-65.5l8.8-8.4l-8.9,8.3l-8.9-8.3l8.8,8.4
+                       c-22.8,21.9-45.7,43.7-68.5,65.6c-11.4,11-29.2-6.1-17.8-17.1c25.8-24.8,51.7-49.5,77.5-74.3c4.8-4.6,13-4.6,17.8,0
+                       c25.8,24.7,51.7,49.5,77.5,74.2C347.4,151.9,329.7,168.9,318.2,157.9z"
+                              />
+                              <path
+                                id="XMLID_17_"
+                                class="st0"
+                                d="M240.7,84l8.9,8.3c0,0-0.1,0.1-0.1,0.1L240.7,84z"
+                              />
+                              <path
+                                id="XMLID_18_"
+                                class="st0"
+                                d="M258.5,84l-8.8,8.4c0,0-0.1-0.1-0.1-0.1L258.5,84z"
+                              />
+                            </g>
+                            <g id="XMLID_7_">
+                              <polygon
+                                id="XMLID_22_"
+                                class="st0"
+                                points="258.5,29.2 249.6,37.7 240.7,29.2 249.6,37.7 	"
+                              />
+                              <path
+                                id="XMLID_20_"
+                                class="st0 arrow-up"
+                                d="M318.2,103.4l-68.6-65.7l8.9-8.5l-8.9,8.5l-8.9-8.5l8.9,8.5L181,103.4
+                       c-11.4,11-29.2-6.1-17.8-17c25.8-24.7,51.7-49.5,77.5-74.2c4.8-4.6,13-4.6,17.8,0c25.8,24.7,51.7,49.5,77.5,74.2
+                       C347.4,97.3,329.7,114.3,318.2,103.4z"
+                              />
+                              <polygon
+                                id="XMLID_16_"
+                                class="st0"
+                                points="249.6,37.7 249.6,37.7 240.7,29.2 	"
+                              />
+                              <polygon
+                                id="XMLID_15_"
+                                class="st0"
+                                points="258.5,29.2 249.6,37.7 249.6,37.7 	"
+                              />
+                            </g>
+                          </svg>
+                        </div>
+                        <!--Svg for boost end-->
+                        <span class="amount text-center bonus-notzero-amount"
+                          >2</span
+                        >
                       </div>
-                      <div class="extra">
-                        <img src="img/premium.svg" alt="premium" />
-                        <span class="amount text-center bg-success">x2</span>
+                      <div
+                        class="extra pointer premium-bonus"
+                        id="premium"
+                        data-type="premium"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="-709 191 500 500"
+                        >
+                          <path
+                            d="M-381.3 245c-2.9-7.9-3.5-14.7-3.6-16.1l-3.8-37.9-27 25.5c-7 6.6-41.3 14.1-67.8 16.8l-11.3 1.8c-33.6 5.3-53.9 16.1-64 34.1-8.9 15.9-8.4 34.8-7.8 54.8v.8c.1 4.9.3 9.9.3 15.3l.5 16.8c-10.8 7.9-13.3 25.3-7.2 50.5 3.1 12.6 12 23.5 21.8 26.8 4.5 12.1 16.3 40.4 36.8 62.5-43.5 11.5-82.6 35.3-110.5 67.4-29.4 33.9-45 74.4-45 117.2v9.7h434.3v-9.7c0-42.7-15.5-83.1-44.8-117-27.7-32-66.7-55.9-110.1-67.4 14.8-15.7 27.2-37.1 35.3-60.5 10.4-4.6 18.8-15.3 22.1-28.3 1.6-6.3 4.2-16.9 4.2-27l-15.4-4.4s-4 10.1-8.2 26.5c-2.6 10.5-9.9 16.4-15.1 15.5l-1.4-.3-.5 1.4c-3.8 11.4-18.2 50.3-45.6 72.4-3.2 2.6-6.5 4.8-9.6 6.6-5.2 3-10.7 5.2-16.4 6.4-4.1.9-7.8 1.4-11.4 1.4-3.6 0-7.4-.5-11.6-1.4-5.8-1.3-11.4-3.4-16.6-6.4-3.1-1.8-6.3-4-9.6-6.7-18.3-14.7-35.1-41.7-44.9-72.3l-.5-1.4-1.5.3c-4.8 1-14-5.3-16.7-16.2-3.3-13.1-3.9-28.7.3-29.9 1.3-.4 2.8-.1 4.5.8l2.5 1.3v-34.8c0-5.9-.2-11.6-.3-17-1.1-40.2-1.7-62.4 66-69.6l7.4-.8-.8-.3c16-2.1 54-7.9 69.4-19.1.5 4.8 2.2 14.3 6.9 24.6l.3.6.6.2m-99 253.9c13.8 9.4 28.6 14.2 43.9 14.2 15.2 0 29.9-4.7 43.7-14.1 10.1 2 19.7 4.6 28.7 7.7-17 23.1-44.1 36.8-72.8 36.8-28.7 0-55.7-13.7-72.7-36.8 9.2-3.2 19-5.8 29.2-7.8zm156.1 159V631c0-5.4-4.4-9.7-9.7-9.7-5.4 0-9.7 4.4-9.7 9.7v40.4h-186.2V631c0-5.4-4.4-9.7-9.7-9.7-5.4 0-9.7 4.4-9.7 9.7v40.4h-84.9c3.9-60.7 44.4-115.6 106.2-143.9 20.5 30.6 54.5 48.9 91.1 48.9 36.6 0 70.6-18.2 91.1-48.9 61.9 28.3 102.4 83.2 106.3 143.9H-340z"
+                          />
+                          <path
+                            d="M-283.2 376c-1.5 0-3-.5-4.3-1.4l-45-32.7-45 32.7c-2.5 1.8-6 1.8-8.5 0s-3.6-5.1-2.6-8.1l17.2-52.9-45-32.7c-2.5-1.8-3.6-5.1-2.6-8.1s3.8-5 6.9-5h55.6l17.2-52.9c1-3 3.8-5 6.9-5s5.9 2 6.9 5l17.2 52.9h55.6c3.1 0 5.9 2 6.9 5s-.1 6.3-2.6 8.1l-45 32.7 17.2 52.9c1 3-.1 6.3-2.6 8.1-1.5.9-3 1.4-4.4 1.4zm-49.3-50.3c1.5 0 3 .5 4.3 1.4l31.2 22.7-11.9-36.7c-1-3 .1-6.3 2.6-8.1l31.2-22.7h-38.6c-3.1 0-5.9-2-6.9-5l-11.9-36.7-11.9 36.7c-1 3-3.8 5-6.9 5h-38.6l31.2 22.7c2.5 1.8 3.6 5.1 2.6 8.1l-11.9 36.7 31.2-22.7c1.3-.9 2.8-1.4 4.3-1.4z"
+                            class="premium-star-infinite"
+                            fill="#ee1f61"
+                          />
+                        </svg>
                       </div>
-                      <div class="extra">
-                        <img src="img/superlike.svg" alt="superlike" />
-                        <span class="amount text-center bg-orange">x0</span>
+                      <div
+                        class="extra superlike pointer"
+                        id="superlike"
+                        data-amount="1"
+                        data-type="superlike"
+                        data-redirect="./pricing.html"
+                      >
+                        <svg
+                          version="1.1"
+                          id="Warstwa_1"
+                          xmlns="http://www.w3.org/2000/svg"
+                          x="0"
+                          y="0"
+                          viewBox="0 0 500 500"
+                          xml:space="preserve"
+                        >
+                          <path
+                            id="XMLID_16_"
+                            d="M494.4 41.4c0-25.4-10.3-35.8-35.5-35.8H92.7C68 5.6 57.8 15.8 57.8 40.7c-.1 48-.1 95.9-.1 143.9 0 28.8 18.4 43.4 46.5 36.2 3.4-.9 7.6-6 8-9.5.3-2.6-4.4-7.1-7.8-8.5-3.8-1.6-8.6-.6-12.9-.7-12-.2-14.9-2.8-14.9-14.8-.1-49-.1-98.1 0-147.1 0-12.7 2.7-15.2 15.5-15.2 36-.1 71.9 0 107.9 0h259.4c13.4 0 15.7 1.9 15.7 13.5.1 50.1 0 100.3.1 150.4 0 9.2-3.9 13.3-13.1 13.1-17.8-.2-35.6-.7-53.4.3-6.2.3-13.3 3.4-17.9 7.5-9.1 8-16.9 17.7-26.3 27.9-10.6-11-18.9-20.6-28.4-28.9-4.2-3.7-10.6-6.4-16.2-6.6-20.3-.8-40.7-.1-61-.5-3.2-.1-8.1-2-9.4-4.6-9.3-17.5-24.5-25.8-42.8-30.8-9.4-2.6-14.4-.1-17.5 8.8-4.8 14.1-11 27.7-15 42-8.7 31.2-28.5 51.5-55.9 61.5-10-2.9-18-6.9-26.2-7.3-18.8-1-37.8-.5-56.7-.3-18.4.2-29.2 11-29.2 29.2-.2 54.9-.2 109.7 0 164.6.1 17.5 11.2 28.6 28.6 28.9 19.3.3 38.5.7 57.8-.3 6.8-.3 13.3-4.8 20-6.8 3.9-1.2 8.4-2.6 12.2-1.8 12.8 2.4 25.4 8 38.1 8.3 46.1 1.1 92.3.9 138.4.4 23.4-.3 38.7-22.5 32.3-45.1-.7-2.3-1.4-4.7-2-6.9 34.2-16.4 19.8-51.1 19.8-51.1s18.2-4.2 18.2-36.8c0-24.6-19.6-30.9-19.6-30.9 11.2-58.3-41.5-52.1-41.5-52.1s-30.5.3-45.8.3h-20.5c5.1-17.4 9.7-32.9 14.7-49.6 20.6 0 43.1-3.5 63.7 1.3 12.1 2.8 21.2 18.8 31.7 28.8l1.5 1.5c6.7 7.6 13.1 7.4 20.3.1 10.7-10.8 20.1-25.4 33.2-30.5 13.5-5.3 30.8-1.4 46.4-1.4 2.5 0 5.1 0 7.6-.1 22.3-.3 33.1-11.4 33.1-33.9V41.4zM88 474.8c-16.7.1-33.4-.2-50.1.1-8.6.2-12.7-2.9-12.7-12 .2-53.4.1-106.8-.1-160.2 0-8.9 3.6-12.8 12.4-12.4 5 .2 9.5 0 16.5 0v12.4c0 33.8.1 67.6 0 101.3 0 7 2.2 12.9 10.1 12.8 7.2-.2 9.3-5.7 9.1-12.3-.1-2.5-.2-5.1-.2-7.6V291.1c2-.4 4.8-.8 6.6-.9 21.8-1 22.5-.4 22.5 21.6 0 49.4.1 98.8 0 148.2 0 13.5-1.2 14.7-14.1 14.8zm220.8-184.6c3.3 0 6.6-.1 9.8.3 9.2 1 14.6 6.1 14.9 15.6.3 8.9-6 15.5-15.8 15.8-15.2.4-30.5.2-45.8.1-7.3 0-15 .4-14.8 10 .2 8.7 7.4 9.4 14.4 9.4 21.1 0 42.1 0 63.2.1 12.2.1 19.5 6 19.6 15.6.1 9.5-7.2 15.9-19.3 16-19.3.2-38.5.1-57.8.1-2.9 0-5.8 0-8.7.1-6.5.3-12.7 2.8-11.1 9.9.8 3.6 7.1 8.3 11.1 8.6 15.5 1 31.2.2 46.8.5 4.2.1 10.1.2 12.3 2.7 3.8 4.5 7.3 11 7.2 16.5-.2 8.1-7.1 12.4-15.2 12.6-16.4.3-32.7.2-49 .1-6.7 0-13.2.9-13.5 9-.3 8.9 6.6 10.1 13.6 10.2 9.1.1 18.2-.2 27.2.1 11.4.3 18.1 6.5 17.9 16.1-.2 9.2-6.6 15.2-17.5 15.3-44.3.1-88.6 0-133-.1-2.9 0-5.8-.3-8.7-.7-33.3-4.9-35.2-7.1-35.2-40.1 0-41.8.1-83.5-.1-125.3 0-6 .8-10.3 7.1-12.9 35.5-14.8 56.2-42.1 66.1-78.6 2.7-10.1 7-19.7 10.8-30.1 25.3 7.3 35.1 25.2 27.7 48.8-3.7 11.8-7.7 23.4-11.7 35.1-5.3 15.8-2.7 19.4 14.3 19.5 24.5-.2 48.8-.3 73.2-.3zM54.3 442.3c3.4 2.9 6.6 7.7 10.4 8.2 2.9.4 6.5-4.6 12.6-9.4-6.7-3.9-10.8-8.1-14.4-7.8-3.2.4-5.8 5.8-8.6 9z"
+                            fill="#262626"
+                          />
+                          <path
+                            id="XMLID_1963_"
+                            class="star-hover-infinite"
+                            d="M194.5 88.1c-11.8-1.5-18.3-6.2-23.1-17.1-5.5-12.4-20.9-13.1-26.6-1.3-5.6 11.6-12.5 17.3-25.6 18.8-12.8 1.5-17.3 15.6-8.1 24.6 9.1 8.9 15 17.3 9.5 28.4-.7 14.8 10.9 23 22.5 16.5 10.2-5.7 18.4-6.8 28.8-.3 4 2.5 12.8 1.8 16.7-1.1 3.8-2.9 6.6-11 5.5-15.9-2.5-10.9.2-18 8.3-25.5 11.4-10.7 7.3-25.1-7.9-27.1zm-19.7 50.1c-11.8-8-22-9-34.6 1.2 4.3-14.7 2.2-25-11.2-33.9 15.7-.3 24.3-6.3 28.7-20.8 4.7 14 12.3 20.8 25.9 21.4-10.5 8.2-12.6 18.3-8.8 32.1z"
+                          />
+                          <path
+                            id="XMLID_2_"
+                            class="star-hover-infinite"
+                            d="M312.2 88.1c-11.8-1.5-18.3-6.2-23.1-17.1-5.5-12.4-20.9-13.1-26.6-1.3-5.6 11.6-12.5 17.3-25.6 18.9-12.8 1.5-17.3 15.6-8.1 24.6 9.1 8.9 15 17.3 9.5 28.4-.7 14.8 10.9 23 22.5 16.5 10.2-5.7 18.4-6.8 28.8-.3 4 2.5 12.8 1.8 16.7-1.1 3.8-2.9 6.6-11 5.5-15.9-2.5-10.9.2-18 8.3-25.5 11.5-10.8 7.3-25.2-7.9-27.2zm-19.7 50.1c-11.8-8-22-9-34.6 1.2 4.3-14.7 2.2-25-11.2-33.9 15.7-.3 24.3-6.3 28.7-20.8 4.7 14 12.3 20.8 25.9 21.4-10.5 8.2-12.5 18.3-8.8 32.1z"
+                          />
+                          <path
+                            id="XMLID_6_"
+                            class="star-hover-infinite"
+                            d="M430 88.1c-11.8-1.5-18.3-6.2-23.1-17.1-5.5-12.4-20.9-13.1-26.6-1.3-5.6 11.6-12.5 17.3-25.6 18.8-12.8 1.5-17.3 15.6-8.1 24.6 9.1 8.9 15 17.3 9.5 28.4-.7 14.8 10.9 23 22.5 16.5 10.2-5.7 18.4-6.8 28.8-.3 4 2.5 12.8 1.8 16.7-1.1 3.8-2.9 6.6-11 5.5-15.9-2.5-10.9.2-18 8.3-25.5 11.4-10.7 7.3-25.1-7.9-27.1zm-19.8 50.1c-11.8-8-22-9-34.6 1.2 4.3-14.7 2.2-25-11.2-33.9 15.7-.3 24.3-6.3 28.7-20.8 4.7 14 12.3 20.8 25.9 21.4-10.5 8.2-12.5 18.3-8.8 32.1z"
+                          />
+                        </svg>
+                        <span class="amount text-center bonus-notzero-amount"
+                          >1</span
+                        >
                       </div>
-                      <div class="extra">
+                      <div
+                        class="extra pointer"
+                        id="photo"
+                        data-amount="1"
+                        data-type="photo"
+                        data-redirect="./pricing.html"
+                      >
                         <img src="img/camera.svg" alt="camera" />
-                        <span class="amount text-center bg-success">x2</span>
+                        <span class="amount text-center bonus-notzero-amount"
+                          >2</span
+                        >
                       </div>
                     </div>
                   </div>
@@ -1141,7 +3018,10 @@
                 <h3 class="section-title text-dark pt-3 pb-1">
                   Previous Purchases
                 </h3>
-                <table class="account-table w-100 text-center mt-2 mb-1">
+                <table
+                  class="account-table w-100 text-center mt-2 mb-1"
+                  id="purchaseSummary"
+                >
                   <thead>
                     <tr>
                       <th>Name</th>
@@ -1154,35 +3034,35 @@
                     <tr>
                       <td>Premium Account</td>
                       <td>12.99 zł</td>
-                      <td>12/20/2020</td>
+                      <td class="text-danger">Not paid</td>
                       <td>
-                        <a href="#" class="blue-link">Preview</a> &nbsp; |
-                        &nbsp;
-                        <a href="#" class="blue-link">Change</a>
+                        <a href="#" class="blue-link" data-unpaid="true"
+                          >Finish payment</a
+                        >
                       </td>
                     </tr>
                     <tr>
                       <td>Premium Account</td>
                       <td>12.99 zł</td>
-                      <td>12/20/2020</td>
+                      <td class="text-success">12/20/2020</td>
                       <td>
-                        <a href="#" class="blue-link">Preview</a>
+                        <a href="invoice.html" class="blue-link">Preview</a>
                       </td>
                     </tr>
                     <tr>
                       <td>Premium Account</td>
                       <td>12.99 zł</td>
-                      <td>12/20/2020</td>
+                      <td class="text-success">12/20/2020</td>
                       <td>
-                        <a href="#" class="blue-link">Preview</a>
+                        <a href="invoice.html" class="blue-link">Preview</a>
                       </td>
                     </tr>
                     <tr>
                       <td>Premium Account</td>
                       <td>12.99 zł</td>
-                      <td>12/20/2020</td>
+                      <td class="text-success">12/20/2020</td>
                       <td>
-                        <a href="#" class="blue-link">Preview</a>
+                        <a href="invoice.html" class="blue-link">Preview</a>
                       </td>
                     </tr>
                   </tbody>
@@ -1192,7 +3072,9 @@
 
               <!--Delete account start-->
               <div class="container text-center text-md-left">
-                <a href="#" class="small text-muted">Delete my account</a>
+                <a href="#" id="deleteAccount" class="small text-muted"
+                  >Delete my account</a
+                >
               </div>
             </div>
           </div>
@@ -1308,19 +3190,35 @@
           $(this).closest('.notification').removeClass('active');
         });
 
-        // In caching elements we'll need to check whether
-        // photos and description attribute is specified
+        var $document = $(document);
 
-        // Profile Information Form start
+        /* Profile information form initialization */
         const profileInformationForm = new Form({
           selectors: {
             form: '#profile-information',
-            locationInput: '.location',
             'input-wrapper': '.form-group',
             inputs: '.form-control',
+            // Location input selectors
+            locationInput: '.location',
             'location-dropdown': '.location-dropdown',
             'dropdown-toggle': '.dropdown-toggle',
             'dropdown-menu': '.dropdown-menu',
+            locationLoadingIndicator: '.city-loader',
+            // Loading indicator for submittion
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitBtn-profileInfo',
+              spinner: '.spinner-border',
+              text: 'Saving profile information...',
+            },
+            // For date validation
+            date: {
+              day: '#day',
+              month: '#month',
+              year: '#year',
+            },
+            // General error
+            generalError: '#general-error-profile-information',
           },
           requests: {
             submit: {
@@ -1329,7 +3227,7 @@
                 'Content-Type': 'application/json',
               },
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/submit-profile',
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail-general',
             },
             location: {
               method: 'GET',
@@ -1343,14 +3241,32 @@
               },
             },
           },
+          restrictInputLength: true,
+          errorMessages: {
+            year: {
+              emptyDayAndMonth: 'Please, fill out day and month fields first',
+              age: 'You should be 18 to register',
+              format: 'Please enter year in YY or YYYY format',
+            },
+          },
+          date: true,
           location: true,
           showSuccessPopup: true,
           showFailPopup: true,
           frontendValidation: true,
           validatorOptions: {
             errorElement: 'span',
+            showErrors: function (errorMap) {
+              this.defaultShowErrors();
+              if ('year' in errorMap) {
+                $document.trigger('validator:yearIsInvalid');
+              }
+            },
             rules: {
-              name: 'required',
+              name: {
+                required: true,
+                minlength: 3,
+              },
               city: {
                 required: true,
                 location: true,
@@ -1359,26 +3275,46 @@
                 required: true,
                 min: 1,
                 max: 31,
+                day: true,
               },
-              month: {
+              month: 'required',
+              year: {
                 required: true,
-                min: 1,
-                max: 12,
+                year: true,
+                max: 2020,
               },
-              year: 'required',
+              weight: 'required',
+              height: 'required',
               preference: 'required',
-              about: 'required',
+              about: {
+                required: true,
+                minlength: 10,
+              },
+            },
+            messages: {
+              city: {
+                required: 'Please, provide your city',
+                location: 'Enter a valid city',
+              },
             },
           },
         });
-        // Profile Information Form end
 
-        // Profile Notifications Form start
+        /* Profile Notifications Form initialization */
         const profileNotificationsForm = new Form({
           selectors: {
             form: '#notifications',
             'input-wrapper': '.custom-control.custom-switch',
             inputs: '.custom-control-input',
+            // Loading indicator for submittion
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitBtn-notifications',
+              spinner: '.spinner-border',
+              text: 'Saving profile information...',
+            },
+            // General error
+            generalError: '#general-error-notifications',
           },
           requests: {
             submit: {
@@ -1387,22 +3323,29 @@
                 'Content-Type': 'application/json',
               },
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin',
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/signin-fail-general',
             },
           },
-          location: false,
           showSuccessPopup: true,
-          showFailPopup: true,
+          showFailPopup: false,
           frontendValidation: false,
+          location: false,
         });
-        // Profile notifications form end
 
-        // Change password form start
+        /* Change password form initialization */
         const profileChangePasswordForm = new Form({
           selectors: {
             form: '#change-password',
             'input-wrapper': '.form-group',
             inputs: '.form-control',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitBtn-change-password',
+              spinner: '.spinner-border',
+              text: 'Saving new password...',
+            },
+            // General error
+            generalError: '#general-error-change-password',
           },
           requests: {
             submit: {
@@ -1416,7 +3359,7 @@
           },
           location: false,
           showSuccessPopup: true,
-          showFailPopup: true,
+          showFailPopup: false,
           frontendValidation: true,
           cleanFields: true,
           validatorOptions: {
@@ -1433,12 +3376,12 @@
             },
           },
         });
-        // Change password form end
 
-        // Boosts initialization start
+        /* Boost initialization */
         const boost = new Boost({
           selectors: {
             bonus: '.boost',
+            amount: '.amount',
             timer: {
               element: '.timer',
               hours: '.hours',
@@ -1456,17 +3399,309 @@
                 'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/use-bonus',
             },
           },
-          popupData: {
-            title: 'Do you want to use boost?',
-            confirmButtonText: 'Yes!',
-            cancelButtonText: 'No',
-            imageUrl: 'img/boost.svg',
-            imageAlt: 'Boost icon',
+          popups: {
+            buy: {
+              title: 'Oops!',
+              text:
+                "You don't have any photo bonuses available. Do you want to buy some?",
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+            },
+            use: {
+              title: 'Do you want to use boost?',
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+              imageUrl: 'img/boost.svg',
+              imageAlt: 'Boost icon',
+            },
+            expire: {
+              title: 'Oops! Your boost expired!',
+              text: 'Do you want to activate it again?',
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+              imageUrl: 'img/boost.svg',
+              imageAlt: 'Boost icon',
+            },
           },
         });
-        // Boosts initialization end
 
-        // Avatar start
+        /* Superlike initialization */
+        const superlike = new Superlike({
+          isUsedOnThisPage: false,
+          isSelectUserBeforeUse: true,
+          selectors: {
+            bonus: '#superlike',
+            amount: '.amount',
+            userList: {
+              modal: '#userList-modal',
+              user: '.userList-user',
+            },
+          },
+          requests: {
+            use: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/use-superlike',
+            },
+          },
+          popups: {
+            buy: {
+              title: 'Oops!',
+              text:
+                "You don't have any superlikes available. Do you want to buy some?",
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+            },
+            use: {
+              title: 'Do you want to send a superlike?',
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+              imageUrl: 'img/superlike-animated.svg',
+              imageAlt: 'Superlike icon',
+            },
+          },
+        });
+
+        /* Buy premium form initialization */
+        const buyPremiumForm = new BuyPremiumForm({
+          saveInitialInputValues: true,
+          selectors: {
+            form: '#buy-premium',
+            // Elements which initial state will be set on user change
+            discard: '.premiumBonus-discard',
+            showBonusesButton: '.premiumBonus-selectBonuses',
+            disableButtonsOnRequest: '.disable-on-request',
+            // Spinner to show when the price is being loaded
+            spinner: '.spinner-border',
+            priceContainer: '.price-container',
+            'input-wrapper': '.form-group',
+            inputs: '.buy-premium-input',
+            // Wrapper of the bonus input
+            'bonus-inputs': '.input-group',
+            // + and - buttons to add/remove bonuses
+            'bonus-control': '.bonus-control',
+            'add-bonus-input-className': 'input-group-append',
+            'card-total-price': '.card-total-price',
+            'card-discount-price': '.card-discount-price',
+            'total-price': '.total-price',
+            'previous-price': '.previous-price',
+            // Container to preview order details
+            orderDetails: '#order-details',
+            // Discount
+            discount: {
+              type: '#discount-type',
+              amount: '#discount-amount',
+            },
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#buyPremium-checkout',
+              spinner: '.spinner-border',
+              text: 'Checking out...',
+            },
+            templateIds: {
+              plan: 'template-planDetails',
+              bonuses: 'template-orderedBonuses',
+            },
+          },
+          requests: {
+            price: {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/price',
+            },
+            submit: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/price',
+            },
+          },
+          location: false,
+          showSuccessPopup: false,
+          generateSubmitEvent: true,
+          showFailPopup: false,
+          frontendValidation: false,
+        });
+
+        /* Bank transfer handling */
+        $('#bank-transfer').click(function () {
+          $(this).find('#bank-transfer-form').submit();
+        });
+
+        /* Payment with credit card form initialization */
+        const paymentForm = new Form({
+          selectors: {
+            form: '#credit-card',
+            'input-wrapper': '.form-group',
+            inputs: '.payment-input',
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#paymentForm-checkout',
+              spinner: '.spinner-border',
+              text: 'Recieving payment...',
+            },
+          },
+          requests: {
+            submit: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/card-premium-for-chat',
+            },
+          },
+          payment: true,
+          frontendValidation: true,
+          validatorOptions: {
+            errorElement: 'span',
+            rules: {
+              terms: 'required',
+              name: {
+                required: true,
+                minlength: 5,
+              },
+              cvc: {
+                required: true,
+                minlength: 3,
+              },
+              expiry: {
+                required: true,
+                expiration: true,
+              },
+              number: {
+                required: true,
+                cardNumber: true,
+              },
+            },
+          },
+        });
+
+        /* Buying premium initialization */
+        const sponsorPremium = new SponsorPremium({
+          isUsedOnThisPage: false,
+          isSelectUserBeforeUse: true,
+          selectors: {
+            bonus: '#premium',
+            modal: '#premiumModal',
+            userList: {
+              modal: '#userList-modal',
+              user: '.userList-user',
+              userName: '#premiumModal-user-name',
+            },
+          },
+        });
+
+        /* forms chainer initialization */
+        const chainedForms = new ChainedForms({
+          selectors: {
+            formsContainer: '#checkout',
+            forms: '.buy-premium-step',
+            forward: '.forward',
+            backward: '.backward',
+            wrapper: '.form-wrapper',
+          },
+          showSteps: false,
+        });
+
+        /* Photo bonus initialization */
+        const photo = new Photo({
+          isUsedOnThisPage: false,
+          isSelectUserBeforeUse: true,
+          selectors: {
+            bonus: '#photo',
+            amount: '.amount',
+            userList: {
+              modal: '#userList-modal',
+              user: '.userList-user',
+            },
+            modal: '#photo-bonus',
+            previewContainer: '#photoBonus-preview-container',
+            input: '.photoBonus-input',
+            form: '#photoBonus-uploader',
+            // Loading indicator for buttons
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#photoBonus-submitButton',
+              spinner: '.spinner-border',
+              text: 'Saving avatar...',
+            },
+            closeModalButton: '.close',
+            photoDescription: '#photo-upload-description',
+            // Photo upload selectors
+            photoUpload: {
+              disableWhileLoad: '.disable-while-load',
+              uploadContainer: '#photoBonus-dragNDropUploadContainer',
+              errorContainer: '#photoBonus-uploadErrorContainer',
+              // Progress bar selectors
+              progress: {
+                progress: '#photoBonus-fileRead-progress',
+                progressBar: '.progress-bar',
+                templateId: 'progress-template',
+                fileProgressWrapper: '.fileProgress-wrapper',
+              },
+            },
+          },
+          // Predefined error texts
+          errorText: {
+            photoUpload: {
+              // Read error while uploading photo
+              read:
+                'Something went wrong while reading the file. Please, try again',
+              // Too old browser
+              legacyBrowser:
+                'Your browser is outdated. Please, update your browser and try again',
+              // Unsupported image file type
+              wrongFileType: 'Please, upload image file',
+            },
+          },
+          classes: {
+            // Input for files upload
+            input: 'photoBonus-input',
+            // Drag'n'Drop
+            dragNDrop: 'advanced-upload',
+            dragOver: 'is-dragover',
+            // To show mobile photo capturing
+            mobilePhotoUpload: 'mobile',
+          },
+          photoTemplates: {
+            preview: 'template-photoPreview',
+          },
+          requests: {
+            use: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/use-photo',
+            },
+          },
+          popups: {
+            buy: {
+              title: 'Oops!',
+              text:
+                "You don't have any photo bonuses available. Do you want to buy some?",
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
+            },
+            uploadError: {
+              title: 'Oops!',
+              text:
+                'Something went wrong while uploading your photo. Please, try again.',
+            },
+          },
+        });
+
+        /* Avatar initialization */
         const avatar = new Avatar({
           selectors: {
             elementSelector: '.avatar-image',
@@ -1475,6 +3710,48 @@
             input: '.avatar-input',
             preview: '#avatar-preview',
             form: '#avatar-editor',
+            // Loading indicator
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitButton-avatar',
+              spinner: '.spinner-border',
+              text: 'Saving avatar...',
+            },
+            // Photo upload selectors
+            photoUpload: {
+              disableWhileLoad: '.disable-while-load',
+              uploadContainer: '.dragNDropUploadContainer',
+              errorContainer: '.uploadErrorContainer',
+              // Progress bar selectors
+              progress: {
+                progress: '.fileRead-progress',
+                progressBar: '.progress-bar',
+                templateId: 'progress-template',
+                fileProgressWrapper: '.fileProgress-wrapper',
+              },
+            },
+          },
+          // Predefined error texts
+          errorText: {
+            photoUpload: {
+              // Read error while uploading photo
+              read:
+                'Something went wrong while reading the file. Please, try again',
+              // Too old browser
+              legacyBrowser:
+                'Your browser is outdated. Please, update your browser and try again',
+              // Unsupported image file type
+              wrongFileType: 'Please, upload image file',
+            },
+          },
+          classes: {
+            // Input for files upload
+            input: 'avatar-input',
+            // Drag'n'Drop
+            dragNDrop: 'advanced-upload',
+            dragOver: 'is-dragover',
+            // To show mobile photo capturing
+            mobilePhotoUpload: 'mobile',
           },
           requests: {
             saveAvatar: {
@@ -1487,12 +3764,88 @@
             },
           },
         });
-        // Avatar end
 
-        // Photo Editor start
+        /* Photo Uploader initialization */
+        const photoUploader = new PhotoUploader({
+          selectors: {
+            modal: '#add-photos',
+            'modal-footer': '.modal-footer',
+            form: '#photo-uploader',
+            description: '.new-photo-description',
+            input: '.photo-input',
+            'privacy-input': '.privacy-input',
+            container: '.photo-container',
+            previewContainer: '#photos-previews-container',
+            gallery: '#photos-container',
+            photos: '.gallery-photo',
+            // Loading indicator
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitButton-photo-uploader',
+              spinner: '.spinner-border',
+              text: 'Saving avatar...',
+            },
+            // Photo upload selectors
+            photoUpload: {
+              disableWhileLoad: '.disable-while-load',
+              uploadContainer: '.dragNDropUploadContainer',
+              errorContainer: '.uploadErrorContainer',
+              // Progress bar selectors
+              progress: {
+                progress: '.fileRead-uploader-progress',
+                progressBar: '.progress-bar',
+                templateId: 'progress-template',
+                fileProgressWrapper: '.fileProgress-wrapper',
+              },
+            },
+            // Template id for photo preview
+            previewTemplateId: 'photoUploadPreview',
+          },
+          // Predefined error texts
+          errorText: {
+            photoUpload: {
+              // Read error while uploading photo
+              read:
+                'Something went wrong while reading the file. Please, try again',
+              // Too old browser
+              legacyBrowser:
+                'Your browser is outdated. Please, update your browser and try again',
+              // Unsupported image file type
+              wrongFileType: 'Please, upload image file',
+            },
+          },
+          classes: {
+            // Input for files upload
+            input: 'photo-input',
+            // Drag'n'Drop
+            dragNDrop: 'advanced-upload',
+            dragOver: 'is-dragover',
+            // To show mobile photo capturing
+            mobilePhotoUpload: 'mobile',
+          },
+          requests: {
+            getIds: {
+              method: 'GET',
+              headers: {},
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/get-id',
+            },
+            savePhotos: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+              endpoint:
+                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-avatar',
+            },
+          },
+        });
+
+        /* Photo editor initialization */
         const photoEditor = new PhotoEditor({
           selectors: {
             modal: '#edit-photo',
+            disableButtonsOnRequest: '.disable-on-request',
             form: '#photo-editor',
             deleteButton: '.delete',
             description: '#photo-description',
@@ -1500,6 +3853,13 @@
             'privacy-label': '.privacy-label',
             gallery: '#photos-container',
             container: '.gallery-slide',
+            // Loading indicator
+            loading: {
+              spinnerTemplateId: 'spinner-template',
+              submitButton: '#submitBtn-photo-editor',
+              spinner: '.spinner-border',
+              text: 'Saving photo information...',
+            },
           },
           requests: {
             savePhoto: {
@@ -1516,40 +3876,64 @@
             },
           },
         });
-        // Photo Editor end
 
-        // Photo Uploader start
-        const photoUploader = new PhotoUploader({
-          selectors: {
-            modal: '#add-photos',
-            'modal-footer': '.modal-footer',
-            form: '#photo-uploader',
-            description: '.new-photo-description',
-            input: '.photo-input',
-            'privacy-input': '.privacy-input',
-            container: '.photo-container',
-            previewContainer: '#photos-previews-container',
-            gallery: '#photos-container',
-            photos: '.gallery-photo',
-          },
+        /* Deleting account and table - profile functionality */
+        const profileEdit = new ProfileEdit({
+          selectors: {},
           requests: {
-            getIds: {
+            delete: {
+              method: 'POST',
+              headers: {},
+              endpoint:
+                // Change delete-account to delete-account-fail to test failure
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/delete-account',
+            },
+            paymentData: {
               method: 'GET',
               headers: {},
               endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/get-id',
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/get-payment-data',
             },
-            savePhotos: {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-              endpoint:
-                'https://75544141-e211-4cd4-ba0c-f2777b16bad7.mock.pstmn.io/save-photos',
+          },
+          popups: {
+            delete: {
+              title: 'Do you want to delete your account?',
+              text: 'You will not be able to restore your bonuses',
+              confirmButtonText: 'Yes!',
+              cancelButtonText: 'No',
             },
           },
         });
-        // Photo Uploader end
+
+        /* User List initialization */
+        const chatList = new ChatList({
+          selectors: {
+            chatList: '#user-list',
+            message: '.userList-user',
+            templateId: 'userTemplate',
+          },
+        });
+
+        /* Initializing lazy loading */
+        const usersLazyLoading = new UsersLazyLoading({
+          selectors: {},
+          observerOptions: {
+            // Id of the root element to use as a observer container
+            root: 'user-list',
+            rootMargin: '0px',
+            // Whenever message is at least a bit visible, intersection occurs
+            threshold: 0,
+          },
+          searchParams: { amount: 20 },
+          requests: {
+            items: {
+              headers: {},
+              method: 'GET',
+              endpoint:
+                'https://cfab5f14-ffc4-4cce-8049-fd468ad053e2.mock.pstmn.io/users',
+            },
+          },
+        });
       });
     </script>
   </body>

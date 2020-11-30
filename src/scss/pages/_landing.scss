@@ -1,0 +1,160 @@
+.landing {
+  &.modal-open {
+    overflow: visible !important;
+  }
+  .wrapper {
+    padding-top: 80px;
+    background: #fff;
+  }
+
+  // Header
+  .header-logo {
+    max-width: 200px;
+    height: auto;
+  }
+
+  // Footer
+  .landing-footer {
+    @include footer;
+    height: $footer-height;
+
+    .btn {
+      position: absolute;
+      width: 200px;
+      top: -50%;
+      left: calc(50% - 100px);
+    }
+  }
+
+  // Avatar
+  .avatar-wrapper {
+    position: relative;
+
+    .badge-success {
+      position: absolute;
+      top: 10px;
+      right: 6px;
+    }
+
+    &::after {
+      content: '';
+      @include circle-online-badge;
+
+      @media screen and (min-width: 415px) {
+        bottom: 1vw;
+        right: 1vw;
+      }
+
+      @media screen and (min-width: 475px) {
+        bottom: 1.5vw;
+        right: 1.5vw;
+      }
+
+      @include screen-sm {
+        @include circle-online-badge;
+      }
+
+      @include screen-md {
+        display: none;
+      }
+    }
+
+    .avatar {
+      position: relative;
+      cursor: pointer;
+
+      img {
+        @include ease-out;
+        border-radius: 200px;
+        filter: blur(8px);
+
+        @include screen-md {
+          border-radius: unset;
+        }
+      }
+
+      @include screen-md {
+        border-radius: unset;
+      }
+
+      &:hover,
+      &:focus {
+        img {
+          filter: blur(5px);
+        }
+      }
+    }
+  }
+
+  .user-data {
+    position: absolute;
+    cursor: pointer;
+    width: 100%;
+    z-index: 5;
+    margin: 0;
+
+    @include screen-md {
+      bottom: 3px;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff !important;
+      width: calc(100% - 6px);
+      left: 3px;
+      text-align: left !important;
+      padding-left: 10px;
+    }
+  }
+
+  // Form
+  .modal-sm {
+    max-width: 300px;
+  }
+
+  // Landing with top section
+
+  .top-section {
+    h1,
+    p {
+      max-width: 90%;
+
+      @include screen-sm {
+        max-width: 80%;
+      }
+
+      @include screen-lg {
+        max-width: 50%;
+      }
+    }
+  }
+
+  // Landing with a single section
+  .single-section {
+    background: linear-gradient(to right, darken($main-blue, 10), $main-blue);
+    min-height: 100vh;
+
+    @include screen-md {
+      min-height: calc(100vh - 80px);
+      overflow: hidden;
+    }
+
+    .single-section-content {
+      padding-top: 80px;
+      min-height: 100vh;
+
+      .user-data {
+        color: #fff !important;
+      }
+
+      .user-profiles {
+        @include screen-md {
+          overflow-y: auto;
+          height: calc(100vh - 180px);
+        }
+      }
+    }
+
+    h1,
+    p {
+      max-width: 90%;
+    }
+  }
+}

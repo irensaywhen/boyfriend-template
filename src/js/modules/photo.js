@@ -5,12 +5,6 @@ import prepareTemplates from './prepareTemplates.js';
 import photoUploadMixin from './photoUploadMixin';
 
 export default class Photo extends Bonus {
-  // Uploaded photo information to show it in the chat
-  photoData = { type: 'photo' };
-
-  // Uploaded photo information to send it to the server
-  formData = new FormData();
-
   constructor(options) {
     super(options);
 
@@ -19,11 +13,10 @@ export default class Photo extends Bonus {
 
     this.configuration = { photoBonus: true };
 
-    // Save popups
-    this.popups = options.popups;
-
-    // Initiate animation for icon in popup
-    this.animation = new PhotoAnimation(options.animation);
+    if (this.isUsedOnThisPage) {
+      // Initiate animation for icon in popup
+      this.animation = new PhotoAnimation(options.animation);
+    }
 
     // Prepare photo preview template
     this.photoTemplates = prepareTemplates(options.photoTemplates);
@@ -54,7 +47,6 @@ export default class Photo extends Bonus {
     this.$closeButton = this.$modal.find(selectors.closeModalButton);
     this.$modalFooter = this.$modal.find('.modal-footer').fadeOut(0);
     this.$previewContainer = this.$modal.find(selectors.previewContainer);
-    this.$photoInputs = this.$modal.find(selectors.input);
     this.$form = this.$modal.find(selectors.form);
   }
 
@@ -93,10 +85,22 @@ export default class Photo extends Bonus {
         .then(response => {
           let { success, title, text } = response;
 
-          if (success) {
+          if (!success) {
+            let error = new Error(text);
+            error.name = title;
+            throw error;
+          }
+
+          // Save description of the photo to the local storage
+          localStorage.setItem(
+            'photoDescription',
+            $(this.selectors.photoDescription).val()
+          );
+
+          if (this.isUsedOnThisPage) {
             this._useBonus();
           } else {
-            this.showRequestResult({ title, text, icon: 'error' });
+            this._redirectToUseBonus(response);
           }
         })
         .catch(error => {
@@ -108,13 +112,21 @@ export default class Photo extends Bonus {
         });
     });
 
-    $(document).on('bonus:startUsage', (event, type) => {
+    $(document).on('bonus:startUsage', (event, { type }) => {
       if (type !== 'photo') return;
+
       this.$modal.modal('show');
     });
 
     this.$closeButton.click(() => {
+      if (this.usingBonus) return;
+
       this._discardChanges();
+    });
+
+    $document.on('chat:photoSent', () => {
+      this._discardChanges();
+      this.usingBonus = false;
     });
 
     $document.on('photoModal:onBeforeOpen', (event, modal) => {
@@ -143,10 +155,6 @@ export default class Photo extends Bonus {
 
     // Hide modal footer
     this.$modalFooter.fadeOut(0);
-
-    // Delete photo information
-    this.photoData = { type: 'photo' };
-    this.formData = new FormData();
   }
 
   /**
@@ -156,36 +164,22 @@ export default class Photo extends Bonus {
    * 4. Close modal
    * 5. Show bonus animation
    */
-  _useBonus() {
+  _useBonus(type = this.type) {
+    if (type !== this.type) return;
+
     // Change the amount of bonuses available
     this._decreaseBonusAmountAvailable();
     this._updateAmountOnMarkup();
 
-    // Save description to photoData object
-    this.photoData['description'] = $(this.selectors.photoDescription).val();
-
-    // Prepare formData to send photo information to the server
-    this._generateFormData();
-
+    this.usingBonus = true;
     // Generate event to send the photo to the user
-    $(document).trigger('present:send', this.photoData, this.formData);
+    $(document).trigger('present:send', { type: 'photo' });
 
     // Close modal
     this.$closeButton.click();
 
     // Call alert here with custom animation for photo icon
     this.fireSendAlert(this.popups.send);
-  }
-
-  _generateFormData() {
-    // Cache
-    let photoData = this.photoData;
-
-    for (let item in photoData) {
-      // Save photo information except src
-      if (item === 'src') continue;
-      this.formData.append(item, photoData[item]);
-    }
   }
 
   /**----------------------------------------------------
@@ -204,20 +198,13 @@ export default class Photo extends Bonus {
   _preview(fileReader) {
     let src = fileReader.result;
 
-    this.photoData['src'] = src;
+    // Save src to localStorage to send it to the server in the future
+    localStorage.setItem('photoSrc', src);
 
     let compiledPhotoTemplate = Handlebars.compile(this.photoTemplates.preview);
     compiledPhotoTemplate = compiledPhotoTemplate({ src });
 
     // Append template
     this.$previewContainer.append(compiledPhotoTemplate);
-  }
-
-  /**
-   * It saves file to allow futher upload in case of submitting the form
-   * @param {File Object} file - reference to the file in the system
-   */
-  _saveFile(file) {
-    this.formData.append('photo', file);
   }
 }

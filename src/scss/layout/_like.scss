@@ -1,0 +1,60 @@
+/*--- Helper styles ---*/
+.heart-wrapper {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+
+  .heart-empty {
+    transform: scale3d(1, 1, 1);
+    position: absolute;
+    top: 0;
+  }
+
+  .heart-full {
+    position: absolute;
+    top: 1px;
+    opacity: 0;
+  }
+}
+
+/*--- Animation ---*/
+
+.like-empty {
+  animation-name: like-empty;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.like-full {
+  animation-name: like-full;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-delay: 0.25s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes like-empty {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1.1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes like-full {
+  0% {
+    transform: scale3d(1.1, 1.1, 1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+    opacity: 1;
+  }
+}

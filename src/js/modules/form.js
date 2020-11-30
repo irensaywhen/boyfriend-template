@@ -124,6 +124,14 @@ export default class Form extends ServerRequest {
     if (options.restrictInputLength) {
       restrictLength.init.call(this, this.$form);
     }
+
+    if (options.saveInitialInputValues) {
+      this.$inputs.each((index, input) => {
+        input.setAttribute('data-initial-value', input.value);
+      });
+
+      this.initialValuesSaved = true;
+    }
   }
 
   _cacheElements() {
@@ -131,7 +139,7 @@ export default class Form extends ServerRequest {
     this.$form = $(this.selectors.form);
 
     // General error container
-    this.$generalError = this.$form.find(this.selectors.generalError);
+    this.$generalError = $(this.selectors.generalError);
 
     // Input fields
     this.$inputs = this.$form.find(this.selectors.inputs);
@@ -146,6 +154,7 @@ export default class Form extends ServerRequest {
       if (!this.frontendValidation) {
         // If this form doesn't require frontend validation (as with checkboxes)
         this.collectFormInputs();
+        this.deleteGeneralError();
         this.sendFormInformation();
 
         return;
@@ -206,20 +215,27 @@ export default class Form extends ServerRequest {
         let numericValue = Number(value);
 
         // Perform type conversion if the value is a number
-        this.formData[name] = numericValue.isNaN ? value : numericValue;
+        this.formData[name] = isNaN(numericValue) ? value : numericValue;
       }
     });
   }
 
   async sendFormInformation() {
+    var { headers, method, endpoint } = this.requests.submit;
+
+    let userId = localStorage.getItem('userId');
+    if (this.payment && userId) {
+      endpoint.searchParams.set('userId', userId);
+    }
+
     let response;
 
     try {
       // Make request here
       response = await this.makeRequest({
-        headers: this.requests.submit.headers,
-        endpoint: this.requests.submit.endpoint,
-        method: this.requests.submit.method,
+        headers,
+        endpoint,
+        method,
         body: JSON.stringify(this.formData),
       });
     } catch (error) {
@@ -234,6 +250,7 @@ export default class Form extends ServerRequest {
       this.$form.find('.error').remove();
     }
     if (response.success) {
+      // Generate submit event on the form
       if (this.generateSubmitEvent) {
         // Make custom event for form submission
         let customSubmittedEvent = new CustomEvent('submitted');
@@ -241,6 +258,8 @@ export default class Form extends ServerRequest {
         // Dispatch custom event
         this.$form[0].dispatchEvent(customSubmittedEvent);
       }
+
+      $(document).trigger('form:submitted', { response, $form: this.$form });
 
       if (this.showSuccessPopup) {
         // Successful Popup
