@@ -37,7 +37,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/main-gf.css" />
+    <link rel="stylesheet" href="css/main-bf.css" />
   </head>
 
   <body class="fill-profile-page">
@@ -249,7 +249,7 @@
         <div class="modal-content pb-3">
           <!--Modal header start-->
           <div
-            class="modal-header border-0 py-3 position-relative d-flex flex-column align-items-center"
+            class="modal-header border-0 px-0 py-0 position-relative d-flex flex-column align-items-center"
           >
             <button
               type="button"
@@ -261,16 +261,32 @@
             </button>
 
             <!--Modal title-->
-            <h2 class="modal-title">User List</h2>
+            <h2 class="modal-title py-2">User List</h2>
 
             <button
               type="button"
-              class="close d-none d-sm-block"
+              class="close py-2 d-none d-sm-block"
               data-dismiss="modal"
               aria-label="Close"
             >
               <span aria-hidden="true">&times;</span>
             </button>
+            <div
+              class="text-left border-top py-2 px-2 w-100 d-flex position-relative"
+            >
+              <label class="font-weight-bold mb-0" for="search-bar"
+                >Search:</label
+              >
+              <input
+                class="px-3"
+                type="text"
+                id="search-bar"
+                name="search-bar"
+              />
+              <div class="spinner-border searchBar-loader" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
           </div>
           <!--Modal header end-->
 
@@ -280,347 +296,505 @@
             <div class="container-fluid px-0">
               <div class="row no-gutters">
                 <div class="col-12">
-                  <div class="chat-list bg-white border-top" id="user-list">
-                    <!--User template start-->
-                    <script type="text/template" id="userTemplate">
+                  <div class="chat-list bg-white border-top" id="chat-list">
+                    <!--Messages template start-->
+                    <script type="text/template" id="messageTemplate">
                       <div
-                        class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                        class="userList-user border-bottom mx-1 mx-sm-4 d-flex align-items-center py-3"
                         data-user-id="{{id}}"
-                        data-user-name="{{name}}"
-                      >
-                        <!--Avatar-->
+                        data-user-name="{{name}}">
                         <figure class="avatar">
-                          <img src="img/profile.jpg" alt="Profile image" />
+                          <img src="{{avatar}}" alt="Profile image" />
                         </figure>
-
-                        <!--Name and user info-->
-                        <div class="pl-1 pl-sm-3">
-                          <h3 class="name mb-1">{{name}}</h3>
-                          <p class="small text-muted">{{city}}, {{age}}</p>
+                        <div class="pl-1 pl-sm-3 w-100">
+                          <div class="d-flex justify-content-between">
+                            <h3 class="name d-flex flex-column align-items-start">
+                              <span>{{ name }} </span>
+                              <span class="handle text-secondary mt-1 d-block">
+                                {{ handle }}
+                              </span>
+                            </h3>
+                            <button class="btn btn-default send-present">
+                              <img src="img/gift.svg" alt="" />
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </script>
-                    <!--User template end-->
+                    <!--Messages template end-->
 
                     <!--User start-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      class="userList-user unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-2"
                       data-user-id="1"
-                      data-user-name="David"
+                      data-user-name="Amy"
                     >
                       <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">David</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name d-flex flex-column align-items-start">
+                            <span>Amy </span>
+                            <span class="handle text-secondary mt-1 d-block">
+                              @amily
+                            </span>
+                          </h3>
+                          <button class="btn btn-default send-present">
+                            <img src="img/gift.svg" alt="" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <!--User end-->
 
                     <!--User start-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
-                    >
-                      <!--Avatar-->
-                      <figure class="avatar">
-                        <img src="img/profile.jpg" alt="Profile image" />
-                      </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
-                      </div>
-                    </div>
-                    <!--User end-->
-
-                    <!--User start-->
-                    <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
-                    >
-                      <!--Avatar-->
-                      <figure class="avatar">
-                        <img src="img/profile.jpg" alt="Profile image" />
-                      </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
-                      </div>
-                    </div>
-                    <!--User end-->
-
-                    <!--User start-->
-                    <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
-                    >
-                      <!--Avatar-->
-                      <figure class="avatar">
-                        <img src="img/profile.jpg" alt="Profile image" />
-                      </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
-                      </div>
-                    </div>
-                    <!--User end-->
-
-                    <!--User start-->
-                    <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
-                    >
-                      <!--Avatar-->
-                      <figure class="avatar">
-                        <img src="img/profile.jpg" alt="Profile image" />
-                      </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
-                      </div>
-                    </div>
-                    <!--User end-->
-
-                    <!--User start-->
-                    <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
+                      class="userList-user unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-2"
                       data-user-id="1"
-                      data-user-name="David"
+                      data-user-name="Amy"
                     >
                       <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">David</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name d-flex flex-column align-items-start">
+                            <span>Amy </span>
+                            <span class="handle text-secondary mt-1 d-block">
+                              @amily
+                            </span>
+                          </h3>
+                          <button class="btn btn-default send-present">
+                            <img src="img/gift.svg" alt="" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <!--User end-->
 
                     <!--User start-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="userList-user unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-2"
+                      data-user-id="1"
+                      data-user-name="Amy"
                     >
                       <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name d-flex flex-column align-items-start">
+                            <span>Amy </span>
+                            <span class="handle text-secondary mt-1 d-block">
+                              @amily
+                            </span>
+                          </h3>
+                          <button class="btn btn-default send-present">
+                            <img src="img/gift.svg" alt="" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <!--User end-->
 
                     <!--User start-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="userList-user unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-2"
+                      data-user-id="1"
+                      data-user-name="Amy"
                     >
                       <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name d-flex flex-column align-items-start">
+                            <span>Amy </span>
+                            <span class="handle text-secondary mt-1 d-block">
+                              @amily
+                            </span>
+                          </h3>
+                          <button class="btn btn-default send-present">
+                            <img src="img/gift.svg" alt="" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <!--User end-->
 
                     <!--User start-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="userList-user unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-2"
+                      data-user-id="1"
+                      data-user-name="Amy"
                     >
                       <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name d-flex flex-column align-items-start">
+                            <span>Amy </span>
+                            <span class="handle text-secondary mt-1 d-block">
+                              @amily
+                            </span>
+                          </h3>
+                          <button class="btn btn-default send-present">
+                            <img src="img/gift.svg" alt="" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <!--User end-->
 
                     <!--User start-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="userList-user unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-2"
+                      data-user-id="1"
+                      data-user-name="Amy"
                     >
                       <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name d-flex flex-column align-items-start">
+                            <span>Amy </span>
+                            <span class="handle text-secondary mt-1 d-block">
+                              @amily
+                            </span>
+                          </h3>
+                          <button class="btn btn-default send-present">
+                            <img src="img/gift.svg" alt="" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <!--User end-->
 
                     <!--User start-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="userList-user unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-2"
+                      data-user-id="1"
+                      data-user-name="Amy"
                     >
                       <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name d-flex flex-column align-items-start">
+                            <span>Amy </span>
+                            <span class="handle text-secondary mt-1 d-block">
+                              @amily
+                            </span>
+                          </h3>
+                          <button class="btn btn-default send-present">
+                            <img src="img/gift.svg" alt="" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <!--User end-->
 
                     <!--User start-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="userList-user unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-2"
+                      data-user-id="1"
+                      data-user-name="Amy"
                     >
                       <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name d-flex flex-column align-items-start">
+                            <span>Amy </span>
+                            <span class="handle text-secondary mt-1 d-block">
+                              @amily
+                            </span>
+                          </h3>
+                          <button class="btn btn-default send-present">
+                            <img src="img/gift.svg" alt="" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <!--User end-->
 
                     <!--User start-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="userList-user unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-2"
+                      data-user-id="1"
+                      data-user-name="Amy"
                     >
                       <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name d-flex flex-column align-items-start">
+                            <span>Amy </span>
+                            <span class="handle text-secondary mt-1 d-block">
+                              @amily
+                            </span>
+                          </h3>
+                          <button class="btn btn-default send-present">
+                            <img src="img/gift.svg" alt="" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <!--User end-->
 
                     <!--User start-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="userList-user unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-2"
+                      data-user-id="1"
+                      data-user-name="Amy"
                     >
                       <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name d-flex flex-column align-items-start">
+                            <span>Amy </span>
+                            <span class="handle text-secondary mt-1 d-block">
+                              @amily
+                            </span>
+                          </h3>
+                          <button class="btn btn-default send-present">
+                            <img src="img/gift.svg" alt="" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <!--User end-->
 
                     <!--User start-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="userList-user unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-2"
+                      data-user-id="1"
+                      data-user-name="Amy"
                     >
                       <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name d-flex flex-column align-items-start">
+                            <span>Amy </span>
+                            <span class="handle text-secondary mt-1 d-block">
+                              @amily
+                            </span>
+                          </h3>
+                          <button class="btn btn-default send-present">
+                            <img src="img/gift.svg" alt="" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <!--User end-->
 
                     <!--User start-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="userList-user unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-2"
+                      data-user-id="1"
+                      data-user-name="Amy"
                     >
                       <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
-
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name d-flex flex-column align-items-start">
+                            <span>Amy </span>
+                            <span class="handle text-secondary mt-1 d-block">
+                              @amily
+                            </span>
+                          </h3>
+                          <button class="btn btn-default send-present">
+                            <img src="img/gift.svg" alt="" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <!--User end-->
 
                     <!--User start-->
                     <div
-                      class="userList-user border-bottom d-flex align-items-center justify-content-start py-1 pl-2 d-flex align-items-center"
-                      data-user-id="2"
-                      data-user-name="Lukasz"
+                      class="userList-user unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-2"
+                      data-user-id="1"
+                      data-user-name="Amy"
                     >
                       <!--Avatar-->
                       <figure class="avatar">
                         <img src="img/profile.jpg" alt="Profile image" />
                       </figure>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name d-flex flex-column align-items-start">
+                            <span>Amy </span>
+                            <span class="handle text-secondary mt-1 d-block">
+                              @amily
+                            </span>
+                          </h3>
+                          <button class="btn btn-default send-present">
+                            <img src="img/gift.svg" alt="" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!--User end-->
 
-                      <!--Name and user info-->
-                      <div class="pl-1 pl-sm-3">
-                        <h3 class="name mb-1">Lukasz</h3>
-                        <p class="small text-muted">Krakow, 21 years</p>
+                    <!--User start-->
+                    <div
+                      class="userList-user unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-2"
+                      data-user-id="1"
+                      data-user-name="Amy"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name d-flex flex-column align-items-start">
+                            <span>Amy </span>
+                            <span class="handle text-secondary mt-1 d-block">
+                              @amily
+                            </span>
+                          </h3>
+                          <button class="btn btn-default send-present">
+                            <img src="img/gift.svg" alt="" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-2"
+                      data-user-id="1"
+                      data-user-name="Amy"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name d-flex flex-column align-items-start">
+                            <span>Amy </span>
+                            <span class="handle text-secondary mt-1 d-block">
+                              @amily
+                            </span>
+                          </h3>
+                          <button class="btn btn-default send-present">
+                            <img src="img/gift.svg" alt="" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-2"
+                      data-user-id="1"
+                      data-user-name="Amy"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name d-flex flex-column align-items-start">
+                            <span>Amy </span>
+                            <span class="handle text-secondary mt-1 d-block">
+                              @amily
+                            </span>
+                          </h3>
+                          <button class="btn btn-default send-present">
+                            <img src="img/gift.svg" alt="" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!--User end-->
+
+                    <!--User start-->
+                    <div
+                      class="userList-user unread border-bottom mx-1 mx-sm-4 d-flex align-items-center justify-content-start py-2"
+                      data-user-id="1"
+                      data-user-name="Amy"
+                    >
+                      <!--Avatar-->
+                      <figure class="avatar">
+                        <img src="img/profile.jpg" alt="Profile image" />
+                      </figure>
+                      <div class="pl-1 pl-sm-3 w-100">
+                        <!--Name and date-->
+                        <div class="d-flex justify-content-between">
+                          <!--Name with badge (if exists)-->
+                          <h3 class="name d-flex flex-column align-items-start">
+                            <span>Amy </span>
+                            <span class="handle text-secondary mt-1 d-block">
+                              @amily
+                            </span>
+                          </h3>
+                          <button class="btn btn-default send-present">
+                            <img src="img/gift.svg" alt="" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <!--User end-->
@@ -2264,11 +2438,11 @@
         <!--Profile info start-->
         <div>
           <ul
-            class="nav nav-pills nav-justified profile mx-auto"
+            class="nav nav-pills d-flex flex-column flex-md-row text-center profile mx-auto"
             id="myTab"
             role="tablist"
           >
-            <li class="nav-item">
+            <li class="nav-item mx-0 mr-md-1 mb-1 mb-md-0">
               <a
                 class="nav-link active px-5"
                 id="profile-tab"
@@ -2280,7 +2454,7 @@
                 >Profile</a
               >
             </li>
-            <li class="nav-item">
+            <li class="nav-item mx-0 mr-md-1 mb-1 mb-md-0">
               <a
                 class="nav-link px-5"
                 id="notifications-tab"
@@ -2292,7 +2466,7 @@
                 >Notifications</a
               >
             </li>
-            <li class="nav-item">
+            <li class="nav-item mx-0">
               <a
                 class="nav-link px-5"
                 id="account-tab"
@@ -2308,7 +2482,7 @@
           <div class="tab-content" id="myTabContent">
             <!--Profile tab start-->
             <div
-              class="tab-pane fade show active profile mx-auto"
+              class="tab-pane fade show active profile mx-auto fill-profile-tab"
               id="profile"
               role="tabpanel"
               aria-labelledby="profile-tab"
@@ -2452,6 +2626,15 @@
                       </div>
                     </div>
 
+                    <!--Nickname-->
+                    <div class="col-12 col-md-6">
+                      <div class="form-group float-label">
+                        <input type="text" name="name" class="form-control" />
+                        <label class="form-control-label">Nickname</label>
+                        <!--<span class="error">Error! Please fill your name</span>-->
+                      </div>
+                    </div>
+
                     <!--City-->
                     <div class="col-12 col-md-6">
                       <div class="form-group float-label">
@@ -2479,6 +2662,8 @@
                         </div>
                       </div>
                     </div>
+
+                    <div class="w-100"></div>
                     <!--Date-->
                     <div class="col-12 col-md-6 date">
                       <h4 class="section-subtitle">Date of birth</h4>
@@ -2602,7 +2787,7 @@
 
             <!--Notifications tab start-->
             <div
-              class="tab-pane fade"
+              class="tab-pane fade fill-profile-tab"
               id="notifications"
               role="tabpanel"
               aria-labelledby="notifications-tab"
@@ -2750,7 +2935,7 @@
 
             <!--Account tab-->
             <div
-              class="tab-pane fade account"
+              class="tab-pane fade account fill-profile-tab"
               id="account"
               role="tabpanel"
               aria-labelledby="account-tab"
@@ -2812,11 +2997,11 @@
                 <div class="row"></div>
                 <div class="row">
                   <div class="col-12 col-md-5">
-                    <h3 class="section-title text-dark pt-3">Premium Status</h3>
+                    <h3 class="section-title text-dark py-3">Premium Status</h3>
 
                     <!--Activated premium status-->
                     <div
-                      class="d-flex flex-column align-items-center premium py-2 mx-auto shadow"
+                      class="d-flex flex-column align-items-center premium py-2 shadow"
                     >
                       <span class="badge badge-secondary mb-1 active"
                         >Active</span
@@ -2827,7 +3012,7 @@
                     <br />
                     <!--Disactivated premium status-->
                     <div
-                      class="d-flex flex-column align-items-center premium py-2 mx-auto shadow"
+                      class="d-flex flex-column align-items-center premium py-2 shadow"
                     >
                       <span class="small mb-1">Premium is not activated</span>
                       <a
@@ -2838,7 +3023,7 @@
                     </div>
                   </div>
                   <div class="col-12 col-md-7">
-                    <h3 class="section-title text-dark pt-3">Extras</h3>
+                    <h3 class="section-title text-dark py-3">Extras</h3>
                     <div class="d-flex flex-wrap py-2">
                       <div
                         class="extra boost pointer"
@@ -3011,7 +3196,7 @@
 
               <!--Table start-->
               <div class="container">
-                <h3 class="section-title text-dark pt-3 pb-1">
+                <h3 class="section-title text-dark pt-5 pb-3">
                   Previous Purchases
                 </h3>
                 <table
@@ -3076,7 +3261,7 @@
               <!--Table end-->
 
               <!--Delete account start-->
-              <div class="container text-center text-md-left">
+              <div class="container text-center text-md-left pt-2">
                 <a href="#" id="deleteAccount" class="small text-muted"
                   >Delete my account</a
                 >
@@ -3154,6 +3339,9 @@
     <script src="vendor/popper/popper.min.js"></script>
     <script src="vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
     <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
+
+    <!--Crossbrowser text truncation-->
+    <script src="vendor/succinct/jQuery.succinct.min.js"></script>
 
     <!-- swiper js -->
     <script src="vendor/swiper/js/swiper.min.js"></script>
@@ -3913,23 +4101,25 @@
         /* User List initialization */
         const chatList = new ChatList({
           selectors: {
-            chatList: '#user-list',
+            chatList: '#chat-list',
             message: '.userList-user',
-            templateId: 'userTemplate',
+            templateId: 'messageTemplate',
+            search: '#search-bar',
+            searchSpinner: '.searchBar-loader',
           },
         });
 
         /* Initializing lazy loading */
-        const usersLazyLoading = new UsersLazyLoading({
+        const messagesLazyLoading = new MessagesLazyLoading({
           selectors: {},
           observerOptions: {
             // Id of the root element to use as a observer container
-            root: 'user-list',
+            root: 'chat-list',
             rootMargin: '0px',
             // Whenever message is at least a bit visible, intersection occurs
             threshold: 0,
           },
-          searchParams: { amount: 20 },
+          searchParams: { chatList: true, messagesAmount: 20 },
           requests: {
             items: {
               headers: {},

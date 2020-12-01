@@ -79388,6 +79388,12 @@
         /* harmony import */ var _modules_usersLazyLoading_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
           /*! ./modules/usersLazyLoading.js */ './js/modules/usersLazyLoading.js'
         );
+        /* harmony import */ var _modules_paymentMethodSelection_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(
+          /*! ./modules/paymentMethodSelection.js */ './js/modules/paymentMethodSelection.js'
+        );
+        /* harmony import */ var _modules_chooseCardForm_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(
+          /*! ./modules/chooseCardForm.js */ './js/modules/chooseCardForm.js'
+        );
 
         window['PhotoUploader'] =
           _modules_uploader_js__WEBPACK_IMPORTED_MODULE_0__['default'];
@@ -79428,6 +79434,12 @@
           _modules_profileEdit_js__WEBPACK_IMPORTED_MODULE_16__['default'];
         window['UsersLazyLoading'] =
           _modules_usersLazyLoading_js__WEBPACK_IMPORTED_MODULE_17__['default'];
+        window['PaymentMethodSelection'] =
+          _modules_paymentMethodSelection_js__WEBPACK_IMPORTED_MODULE_18__[
+            'default'
+          ];
+        window['ChooseCardForm'] =
+          _modules_chooseCardForm_js__WEBPACK_IMPORTED_MODULE_19__['default'];
 
         /***/
       },
@@ -80959,8 +80971,6 @@
                       type: 'general',
                     });
 
-                    console.log(_this.$sendMessageTextarea);
-
                     _this.$sendMessageTextarea.val('');
 
                     _this._sendMessage(messageData);
@@ -81333,6 +81343,12 @@
         /* harmony import */ var _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! ./prepareTemplates.js */ './js/modules/prepareTemplates.js'
         );
+        /* harmony import */ var _debounce_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! ./debounce.js */ './js/modules/debounce.js'
+        );
+        /* harmony import */ var _modifyHandle_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! ./modifyHandle.js */ './js/modules/modifyHandle.js'
+        );
 
         var ChatList = /*#__PURE__*/ (function () {
           function ChatList(options) {
@@ -81342,13 +81358,21 @@
             );
 
             // Save selectors
-            this.selectors = options.selectors; // Prepare template for message
+            var selectors = (this.selectors = options.selectors); // Prepare template for message
 
             this.messageTemplate = Object(
               _prepareTemplates_js__WEBPACK_IMPORTED_MODULE_3__['default']
             )(options.selectors.templateId); // Get chatlist container
 
-            this.$chatList = $(this.selectors.chatList); // Prepare event listeners
+            this.$chatList = $(selectors.chatList);
+
+            if (selectors.search) {
+              this.$search = $(selectors.search);
+            }
+
+            if (selectors.searchSpinner) {
+              this.$searchSpinner = $(selectors.searchSpinner).hide();
+            } // Prepare event listeners
 
             this._setUpEventListeners();
           }
@@ -81362,8 +81386,32 @@
                   var _this = this;
 
                   var $document = $(document);
+
+                  if (this.$search) {
+                    this.$search.on(
+                      'input',
+                      Object(
+                        _debounce_js__WEBPACK_IMPORTED_MODULE_4__['default']
+                      )(function (event) {
+                        var searchData = event.target.value;
+
+                        _this.$chatList.empty();
+
+                        _this.$searchSpinner.show();
+
+                        $document.trigger(
+                          'chatList:searchInputEnd',
+                          searchData
+                        );
+                      }, 300)
+                    );
+                  }
+
                   $document
-                    .on('lazyLoading:itemsReady', function (event) {
+                    .on('lazyLoading:itemsReady', function (event, config) {
+                      var messages = config.messages,
+                        scroll = config.scroll,
+                        search = config.search;
                       /**
                        * 1. Get all the retrieved messages from the server
                        * 2. Compile template
@@ -81371,32 +81419,34 @@
                        * 4. Scroll the first message into view
                        * 5. Signal that the messages are displayed to re-init the observed target
                        */
+
                       var template = handlebars__WEBPACK_IMPORTED_MODULE_2___default.a.compile(
                         _this.messageTemplate
                       );
-
-                      for (
-                        var _len = arguments.length,
-                          messages = new Array(_len > 1 ? _len - 1 : 0),
-                          _key = 1;
-                        _key < _len;
-                        _key++
-                      ) {
-                        messages[_key - 1] = arguments[_key];
-                      }
-
                       messages.forEach(function (message) {
-                        return _this.$chatList.append(template(message));
+                        message.handle = Object(
+                          _modifyHandle_js__WEBPACK_IMPORTED_MODULE_5__[
+                            'default'
+                          ]
+                        )(message.handle);
+
+                        _this.$chatList.append(template(message));
                       });
 
-                      _this.$chatList.animate({
-                        scrollTop:
-                          '+=' +
-                          _this.$chatList
-                            .find(_this.selectors.message)
-                            .first()
-                            .outerHeight(),
-                      }); // Listen to this event, too, and re-observe the messages
+                      if (scroll) {
+                        _this.$chatList.animate({
+                          scrollTop:
+                            '+=' +
+                            _this.$chatList
+                              .find(_this.selectors.message)
+                              .first()
+                              .outerHeight(),
+                        });
+                      }
+
+                      if (search) {
+                        _this.$searchSpinner.hide();
+                      } // Listen to this event, too, and re-observe the messages
 
                       $document.trigger('items:afterDisplay');
                     })
@@ -81424,6 +81474,249 @@
 
           return ChatList;
         })();
+
+        /***/
+      },
+
+    /***/ './js/modules/chooseCardForm.js':
+      /*!**************************************!*\
+  !*** ./js/modules/chooseCardForm.js ***!
+  \**************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return ChooseCardForm;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__
+        );
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5__
+        );
+        /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+          /*! ./form.js */ './js/modules/form.js'
+        );
+        /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+          /*! sweetalert2 */ '../node_modules/sweetalert2/dist/sweetalert2.all.js'
+        );
+        /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
+          sweetalert2__WEBPACK_IMPORTED_MODULE_7__
+        );
+
+        function _createSuper(Derived) {
+          var hasNativeReflectConstruct = _isNativeReflectConstruct();
+          return function _createSuperInternal() {
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
+                Derived
+              ),
+              result;
+            if (hasNativeReflectConstruct) {
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
+                this
+              ).constructor;
+              result = Reflect.construct(Super, arguments, NewTarget);
+            } else {
+              result = Super.apply(this, arguments);
+            }
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default()(
+              this,
+              result
+            );
+          };
+        }
+
+        function _isNativeReflectConstruct() {
+          if (typeof Reflect === 'undefined' || !Reflect.construct)
+            return false;
+          if (Reflect.construct.sham) return false;
+          if (typeof Proxy === 'function') return true;
+          try {
+            Date.prototype.toString.call(
+              Reflect.construct(Date, [], function () {})
+            );
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        var ChooseCardForm = /*#__PURE__*/ (function (_Form) {
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default()(
+            ChooseCardForm,
+            _Form
+          );
+
+          var _super = _createSuper(ChooseCardForm);
+
+          function ChooseCardForm(options) {
+            var _this;
+
+            _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+              this,
+              ChooseCardForm
+            );
+
+            _this = _super.call(this, options);
+
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_1___default()(
+                _this
+              ),
+              'handleCardRemoval',
+              function ($card) {
+                var _this$popup = _this.popup,
+                  title = _this$popup.title,
+                  cancelButtonText = _this$popup.cancelButtonText,
+                  confirmButtonText = _this$popup.confirmButtonText;
+                var html = '\n    <label class="delete-card w-75 text-center text-dark border-0 shadow py-3 position-relative">\n        <h4 class="h5 text-capitalize">'
+                  .concat($card.data('card-type'), '</h4>\n        <p>XXXX-')
+                  .concat(
+                    $card.data('card-digits'),
+                    '</p>\n    </label>\n    <h3 class="h5 pt-3">'
+                  )
+                  .concat(title, '</h3>\n    ');
+                sweetalert2__WEBPACK_IMPORTED_MODULE_7___default.a
+                  .fire({
+                    html: html,
+                    cancelButtonText: cancelButtonText,
+                    confirmButtonText: confirmButtonText,
+                    showCancelButton: true,
+                    showLoaderOnConfirm: true,
+
+                    /**
+                     * After the user confirms that he wants to use bonus:
+                     * 1. Make a request to the server
+                     * 2. If the server is responded, return the response
+                     */
+                    preConfirm: function preConfirm() {
+                      var _this$requests$delete = _this.requests.deleteCard,
+                        headers = _this$requests$delete.headers,
+                        endpoint = _this$requests$delete.endpoint,
+                        method = _this$requests$delete.method;
+                      return fetch(endpoint, {
+                        method: method,
+                        headers: headers,
+                      })
+                        .then(function (response) {
+                          if (!response.ok) {
+                            throw new Error(response.statusText);
+                          }
+
+                          return response.json();
+                        })
+                        ['catch'](function (error) {
+                          sweetalert2__WEBPACK_IMPORTED_MODULE_7___default.a.showValidationMessage(
+                            'Request failed: '.concat(error)
+                          );
+                        });
+                    },
+                    allowOutsideClick: function allowOutsideClick() {
+                      return !sweetalert2__WEBPACK_IMPORTED_MODULE_7___default.a.isLoading();
+                    },
+                  })
+                  .then(function (result) {
+                    if (result.isDismissed) return;
+                    var _result$value = result.value,
+                      success = _result$value.success,
+                      title = _result$value.title,
+                      message = _result$value.message;
+
+                    if (!success) {
+                      var error = new Error(message);
+                      error.name = title;
+                      throw error;
+                    }
+
+                    _this.showRequestResult({
+                      title: title,
+                      text: message,
+                      icon: 'success',
+                    }); // Remove the card from the markup
+
+                    $card.remove();
+                    $(document).trigger('chooseCardForm:cardDeleted');
+                  })
+                  ['catch'](function (error) {
+                    console.log(error); // Handle errors here
+
+                    _this.showRequestResult({
+                      title: error.name,
+                      text: error.message,
+                      icon: 'error',
+                    });
+                  });
+              }
+            );
+
+            var $cvvInput = _this.$form.find(_this.selectors.cvv);
+
+            var $document = $(document);
+            _this.popup = options.popup;
+
+            _this.$form.on('change', function (event) {
+              var $target = $(event.target);
+              if (!$target.is(':radio')) return;
+              $cvvInput.val('');
+            });
+
+            $document.on('paymentMethodSelection:formHidden', function (
+              _,
+              form
+            ) {
+              _this.formResetHandler(form);
+
+              $cvvInput.blur();
+            });
+
+            _this.$form.click(function (event) {
+              var $target = $(event.target);
+              if ($target.closest(_this.selectors.deleteCardBtn).length === 0)
+                return;
+
+              _this.handleCardRemoval($target.closest(_this.selectors.card));
+            });
+
+            return _this;
+          }
+
+          return ChooseCardForm;
+        })(_form_js__WEBPACK_IMPORTED_MODULE_6__['default']);
 
         /***/
       },
@@ -82514,19 +82807,25 @@
         /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__
         );
-        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+          /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8__
+        );
+        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
           /*! ./requests.js */ './js/modules/requests.js'
         );
-        /* harmony import */ var _locationMixin_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+        /* harmony import */ var _locationMixin_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
           /*! ./locationMixin.js */ './js/modules/locationMixin.js'
         );
-        /* harmony import */ var _paymentMixin_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+        /* harmony import */ var _paymentMixin_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
           /*! ./paymentMixin.js */ './js/modules/paymentMixin.js'
         );
-        /* harmony import */ var _restrictLengthMixin_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+        /* harmony import */ var _restrictLengthMixin_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
           /*! ./restrictLengthMixin.js */ './js/modules/restrictLengthMixin.js'
         );
-        /* harmony import */ var _dateMixin_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+        /* harmony import */ var _dateMixin_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
           /*! ./dateMixin.js */ './js/modules/dateMixin.js'
         );
 
@@ -82585,6 +82884,34 @@
 
             _this = _super.call(this, options); // Data that will be sent to the server
 
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
+                _this
+              ),
+              'formResetHandler',
+              function (form) {
+                if (_this.$form[0] !== form) return;
+
+                _this.validator.resetForm();
+
+                _this.hideErrors();
+
+                _this.$form.find(':focus').blur();
+              }
+            );
+
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
+                _this
+              ),
+              'hideErrors',
+              function () {
+                _this.$form.find('input.error').each(function (_, elem) {
+                  $(elem).removeClass('error');
+                });
+              }
+            );
+
             _this.formData = {}; // Bind context
 
             _this._cacheElements = _this._cacheElements.bind(
@@ -82626,7 +82953,9 @@
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
-            ); // cache
+            );
+            _this.payment = options.payment ? true : false;
+            _this.savedCardsExist = options.savedCardsExist ? true : false; // cache
 
             var selectors = _this.selectors,
               errorMessages = options.errorMessages; // Save error messages if provided
@@ -82646,7 +82975,7 @@
               // Add location methods to the form prototype
               Object.assign(
                 Form.prototype,
-                _locationMixin_js__WEBPACK_IMPORTED_MODULE_9__['default']
+                _locationMixin_js__WEBPACK_IMPORTED_MODULE_10__['default']
               );
               _this.location = true;
 
@@ -82657,7 +82986,7 @@
               // Add date validation method to the form prototype
               Object.assign(
                 Form.prototype,
-                _dateMixin_js__WEBPACK_IMPORTED_MODULE_12__['default']
+                _dateMixin_js__WEBPACK_IMPORTED_MODULE_13__['default']
               );
               _this.date = true;
 
@@ -82667,9 +82996,8 @@
             if (options.payment) {
               Object.assign(
                 Form.prototype,
-                _paymentMixin_js__WEBPACK_IMPORTED_MODULE_10__['default']
+                _paymentMixin_js__WEBPACK_IMPORTED_MODULE_11__['default']
               );
-              _this.payment = true;
               jQuery.validator.addMethod(
                 'expiration',
                 _this.creditCardExpirationValidation,
@@ -82737,7 +83065,7 @@
             _this.showFailPopup = options.showFailPopup ? true : false; // Restrict input length
 
             if (options.restrictInputLength) {
-              _restrictLengthMixin_js__WEBPACK_IMPORTED_MODULE_11__[
+              _restrictLengthMixin_js__WEBPACK_IMPORTED_MODULE_12__[
                 'default'
               ].init.call(
                 _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
@@ -82777,7 +83105,15 @@
                 value: function _setUpEventListeners() {
                   var _this2 = this;
 
-                  // Form submission
+                  if (this.payment && this.savedCardsExist) {
+                    $(document).on(
+                      'paymentMethodSelection:formHidden',
+                      function (_, form) {
+                        return _this2.formResetHandler(form);
+                      }
+                    );
+                  } // Form submission
+
                   this.$form.submit(function (event) {
                     event.preventDefault();
                     event.stopPropagation();
@@ -83048,7 +83384,7 @@
           );
 
           return Form;
-        })(_requests_js__WEBPACK_IMPORTED_MODULE_8__['default']);
+        })(_requests_js__WEBPACK_IMPORTED_MODULE_9__['default']);
 
         /***/
       },
@@ -84208,11 +84544,17 @@
               },
               {
                 key: '_getItems',
-                value: function _getItems() {
+                value: function _getItems(searchData) {
                   var _this$requests$items = this.requests.items,
                     headers = _this$requests$items.headers,
                     endpoint = _this$requests$items.endpoint,
                     method = _this$requests$items.method;
+                  endpoint.searchParams['delete']('searchData');
+
+                  if (searchData) {
+                    endpoint.searchParams.set('searchData', searchData);
+                  }
+
                   return this.makeRequest({
                     headers: headers,
                     endpoint: endpoint,
@@ -84641,47 +84983,65 @@
         /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @babel/runtime/helpers/assertThisInitialized */ '../node_modules/@babel/runtime/helpers/assertThisInitialized.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @babel/runtime/helpers/get */ '../node_modules/@babel/runtime/helpers/get.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3__
+        );
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
           /*! @babel/runtime/helpers/inherits */ '../node_modules/@babel/runtime/helpers/inherits.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__
+        /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
           /*! @babel/runtime/helpers/possibleConstructorReturn */ '../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__
+        /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
           /*! @babel/runtime/helpers/getPrototypeOf */ '../node_modules/@babel/runtime/helpers/getPrototypeOf.js'
         );
-        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/ __webpack_require__.n(
-          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__
+        /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__
         );
-        /* harmony import */ var _lazyLoading_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+          /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7__
+        );
+        /* harmony import */ var _lazyLoading_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
           /*! ./lazyLoading.js */ './js/modules/lazyLoading.js'
         );
-        /* harmony import */ var _formatTime_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+        /* harmony import */ var _formatTime_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
           /*! ./formatTime.js */ './js/modules/formatTime.js'
         );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
           return function _createSuperInternal() {
-            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
+            var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                 Derived
               ),
               result;
             if (hasNativeReflectConstruct) {
-              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default()(
+              var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
                 this
               ).constructor;
               result = Reflect.construct(Super, arguments, NewTarget);
             } else {
               result = Super.apply(this, arguments);
             }
-            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default()(
+            return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default()(
               this,
               result
             );
@@ -84704,7 +85064,7 @@
         }
 
         var MessagesLazyLoading = /*#__PURE__*/ (function (_LazyLoading) {
-          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2___default()(
+          _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(
             MessagesLazyLoading,
             _LazyLoading
           );
@@ -84712,24 +85072,115 @@
           var _super = _createSuper(MessagesLazyLoading);
 
           function MessagesLazyLoading(options) {
+            var _this;
+
             _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
               this,
               MessagesLazyLoading
             );
 
-            return _super.call(this, options);
+            _this = _super.call(this, options);
+
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(
+                _this
+              ),
+              '_handleGettingItems',
+              function () {
+                var searchData =
+                  arguments.length > 0 && arguments[0] !== undefined
+                    ? arguments[0]
+                    : null;
+                var scroll =
+                  arguments.length > 1 && arguments[1] !== undefined
+                    ? arguments[1]
+                    : true;
+                var search =
+                  arguments.length > 2 && arguments[2] !== undefined
+                    ? arguments[2]
+                    : false;
+
+                _this
+                  ._getItems(searchData)
+                  .then(function (messages) {
+                    // Prepare messages
+                    messages
+                      .sort(function (firstMessage, secondMessage) {
+                        return firstMessage.timestamp < secondMessage.timestamp
+                          ? 1
+                          : firstMessage.timestamp > secondMessage.timestamp
+                          ? -1
+                          : 0;
+                      })
+                      .forEach(function (message) {
+                        message.time = Object(
+                          _formatTime_js__WEBPACK_IMPORTED_MODULE_9__['default']
+                        )(message.timestamp);
+                      }); // Send them to display
+
+                    $(document).trigger('lazyLoading:itemsReady', {
+                      messages: messages,
+                      scroll: scroll,
+                      search: search,
+                    });
+                  })
+                  ['catch'](function (error) {
+                    _this.showRequestResult({
+                      title: error.name,
+                      text: error.message,
+                      icon: 'error',
+                    }); // For debugging
+
+                    console.error(error);
+                  });
+              }
+            );
+
+            _this.searchData = null;
+            return _this;
           }
-          /**
-           * This function is specific to each class utilizing lazy loading parent class
-           */
 
           _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(
             MessagesLazyLoading,
             [
               {
+                key: '_setUpEventListeners',
+                value: function _setUpEventListeners() {
+                  var _this2 = this;
+
+                  _babel_runtime_helpers_get__WEBPACK_IMPORTED_MODULE_3___default()(
+                    _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(
+                      MessagesLazyLoading.prototype
+                    ),
+                    '_setUpEventListeners',
+                    this
+                  ).call(this);
+
+                  $(document).on('chatList:searchInputEnd', function (
+                    event,
+                    searchData
+                  ) {
+                    _this2.searchData = searchData;
+
+                    _this2._handleGettingItems(searchData, false, true);
+                  });
+                },
+                /**
+                 * 1. Get new messages from the server
+                 * 2. Sort them according to the timestamp
+                 * 3. Format timestamp and save as a human-readable time
+                 * 4. Trigger 'lazyLoading:itemsReady' event and pass messages with it
+                 *    This event is indicating that the messages are retrieved and prepared
+                 */
+              },
+              {
                 key: '_initializeObserver',
+
+                /**
+                 * This function is specific to each class utilizing lazy loading parent class
+                 */
                 value: function _initializeObserver() {
-                  var _this = this;
+                  var _this3 = this;
 
                   this.observer =
                     this.observer ||
@@ -84737,50 +85188,8 @@
                       // Save the last message
                       var element = entries[0];
                       if (!element.isIntersecting) return;
-                      /**
-                       * 1. Get new messages from the server
-                       * 2. Sort them according to the timestamp
-                       * 3. Format timestamp and save as a human-readable time
-                       * 4. Trigger 'lazyLoading:itemsReady' event and pass messages with it
-                       *    This event is indicating that the messages are retrieved and prepared
-                       */
 
-                      _this
-                        ._getItems()
-                        .then(function (messages) {
-                          // Prepare messages
-                          messages
-                            .sort(function (firstMessage, secondMessage) {
-                              return firstMessage.timestamp <
-                                secondMessage.timestamp
-                                ? 1
-                                : firstMessage.timestamp >
-                                  secondMessage.timestamp
-                                ? -1
-                                : 0;
-                            })
-                            .forEach(function (message) {
-                              message.time = Object(
-                                _formatTime_js__WEBPACK_IMPORTED_MODULE_6__[
-                                  'default'
-                                ]
-                              )(message.timestamp);
-                            }); // Send them to display
-
-                          $(document).trigger(
-                            'lazyLoading:itemsReady',
-                            messages
-                          );
-                        })
-                        ['catch'](function (error) {
-                          _this.showRequestResult({
-                            title: error.name,
-                            text: error.message,
-                            icon: 'error',
-                          }); // For debugging
-
-                          console.error(error);
-                        });
+                      _this3._handleGettingItems(_this3.searchData || null);
                     });
                 },
               },
@@ -84788,7 +85197,7 @@
           );
 
           return MessagesLazyLoading;
-        })(_lazyLoading_js__WEBPACK_IMPORTED_MODULE_5__['default']);
+        })(_lazyLoading_js__WEBPACK_IMPORTED_MODULE_8__['default']);
 
         /***/
       },
@@ -85132,6 +85541,136 @@
         /* harmony default export */ __webpack_exports__[
           'default'
         ] = EditorModal;
+
+        /***/
+      },
+
+    /***/ './js/modules/modifyHandle.js':
+      /*!************************************!*\
+  !*** ./js/modules/modifyHandle.js ***!
+  \************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return modifyHandle;
+          }
+        );
+        function modifyHandle(handle) {
+          return handle[0] === '@' ? handle : '@'.concat(handle);
+        }
+
+        /***/
+      },
+
+    /***/ './js/modules/paymentMethodSelection.js':
+      /*!**********************************************!*\
+  !*** ./js/modules/paymentMethodSelection.js ***!
+  \**********************************************/
+      /*! exports provided: default */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        'use strict';
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          'default',
+          function () {
+            return PaymentMethodSelection;
+          }
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @babel/runtime/helpers/classCallCheck */ '../node_modules/@babel/runtime/helpers/classCallCheck.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__
+        );
+
+        var PaymentMethodSelection = function PaymentMethodSelection(options) {
+          _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(
+            this,
+            PaymentMethodSelection
+          );
+
+          var _options$selectors = options.selectors,
+            chooseCardSelectors = _options$selectors.chooseCard,
+            newCardSelectors = _options$selectors.newCard;
+          var $document = $(document);
+          var $chooseCardWrapper = $(chooseCardSelectors.wrapper);
+          var $chooseCardForm = $chooseCardWrapper.find(
+            chooseCardSelectors.form
+          );
+          var $chooseCardFormInputs = $chooseCardForm.find(
+            chooseCardSelectors.input
+          );
+          var $newCardWrapper = $(newCardSelectors.wrapper).hide();
+          var $newCardForm = $newCardWrapper.find(newCardSelectors.form);
+          var $newCardFormInputs = $newCardForm.find(newCardSelectors.input);
+          var newCardFormSwitcher = $newCardForm.find(
+            newCardSelectors.switcher
+          ); // Add new card handler
+
+          $chooseCardWrapper.click(function (event) {
+            var $target = $(event.target);
+            if ($target.closest(chooseCardSelectors.switcher).length === 0)
+              return;
+            $chooseCardWrapper.fadeOut(200, function () {
+              $newCardWrapper.fadeIn(200);
+              $chooseCardFormInputs.each(function (_, elem) {
+                var $elem = $(elem);
+
+                if ($elem.is(':radio')) {
+                  $elem.prop('checked', false);
+                } else {
+                  elem.value = '';
+                }
+              });
+              $chooseCardForm
+                .find('input[type=radio]')
+                .first()
+                .prop('checked', true);
+              $document.trigger(
+                'paymentMethodSelection:formHidden',
+                $chooseCardForm
+              );
+            });
+          }); // Remove new card handler
+
+          $newCardWrapper.click(function (event) {
+            var $target = $(event.target);
+            if ($target.closest(newCardSelectors.switcher).length === 0) return;
+            $newCardWrapper.fadeOut(200, function () {
+              $chooseCardWrapper.fadeIn(200); // Form inputs cleanup
+
+              $newCardFormInputs.each(function (_, elem) {
+                var $elem = $(elem);
+
+                if ($elem.is(':checkbox')) {
+                  $elem.prop('checked', false);
+                } else {
+                  elem.value = '';
+                }
+              });
+              $document.trigger(
+                'paymentMethodSelection:formHidden',
+                $newCardForm
+              );
+            });
+          });
+          $document.on('chooseCardForm:cardDeleted', function () {
+            var $cards = $chooseCardWrapper.find(chooseCardSelectors.card);
+            if ($cards.length !== 0) return;
+            $chooseCardWrapper.fadeOut(200, function () {
+              newCardFormSwitcher.remove();
+              $newCardWrapper.fadeIn(200, function () {
+                $chooseCardWrapper.remove();
+              });
+            });
+          });
+        };
 
         /***/
       },
@@ -86885,6 +87424,9 @@
         /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/ __webpack_require__.n(
           handlebars__WEBPACK_IMPORTED_MODULE_9__
         );
+        /* harmony import */ var _modifyHandle_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+          /*! ./modifyHandle.js */ './js/modules/modifyHandle.js'
+        );
 
         function _createSuper(Derived) {
           var hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -87177,7 +87719,11 @@
                               : 0;
                           })
                           .forEach(function (profile) {
-                            // Display profiles
+                            // Modify handle
+                            profile.profile.handle = modifyHandle(
+                              profile.profile.handle
+                            ); // Display profiles
+
                             var template = handlebars__WEBPACK_IMPORTED_MODULE_9___default.a.compile(
                               _this3.profileTemplate
                             );

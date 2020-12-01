@@ -20543,19 +20543,25 @@
         /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/ __webpack_require__.n(
           _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__
         );
-        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+          /*! @babel/runtime/helpers/defineProperty */ '../node_modules/@babel/runtime/helpers/defineProperty.js'
+        );
+        /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/ __webpack_require__.n(
+          _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8__
+        );
+        /* harmony import */ var _requests_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
           /*! ./requests.js */ './js/modules/requests.js'
         );
-        /* harmony import */ var _locationMixin_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+        /* harmony import */ var _locationMixin_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
           /*! ./locationMixin.js */ './js/modules/locationMixin.js'
         );
-        /* harmony import */ var _paymentMixin_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+        /* harmony import */ var _paymentMixin_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
           /*! ./paymentMixin.js */ './js/modules/paymentMixin.js'
         );
-        /* harmony import */ var _restrictLengthMixin_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+        /* harmony import */ var _restrictLengthMixin_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
           /*! ./restrictLengthMixin.js */ './js/modules/restrictLengthMixin.js'
         );
-        /* harmony import */ var _dateMixin_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+        /* harmony import */ var _dateMixin_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
           /*! ./dateMixin.js */ './js/modules/dateMixin.js'
         );
 
@@ -20614,6 +20620,34 @@
 
             _this = _super.call(this, options); // Data that will be sent to the server
 
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
+                _this
+              ),
+              'formResetHandler',
+              function (form) {
+                if (_this.$form[0] !== form) return;
+
+                _this.validator.resetForm();
+
+                _this.hideErrors();
+
+                _this.$form.find(':focus').blur();
+              }
+            );
+
+            _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8___default()(
+              _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
+                _this
+              ),
+              'hideErrors',
+              function () {
+                _this.$form.find('input.error').each(function (_, elem) {
+                  $(elem).removeClass('error');
+                });
+              }
+            );
+
             _this.formData = {}; // Bind context
 
             _this._cacheElements = _this._cacheElements.bind(
@@ -20655,7 +20689,9 @@
               _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
                 _this
               )
-            ); // cache
+            );
+            _this.payment = options.payment ? true : false;
+            _this.savedCardsExist = options.savedCardsExist ? true : false; // cache
 
             var selectors = _this.selectors,
               errorMessages = options.errorMessages; // Save error messages if provided
@@ -20675,7 +20711,7 @@
               // Add location methods to the form prototype
               Object.assign(
                 Form.prototype,
-                _locationMixin_js__WEBPACK_IMPORTED_MODULE_9__['default']
+                _locationMixin_js__WEBPACK_IMPORTED_MODULE_10__['default']
               );
               _this.location = true;
 
@@ -20686,7 +20722,7 @@
               // Add date validation method to the form prototype
               Object.assign(
                 Form.prototype,
-                _dateMixin_js__WEBPACK_IMPORTED_MODULE_12__['default']
+                _dateMixin_js__WEBPACK_IMPORTED_MODULE_13__['default']
               );
               _this.date = true;
 
@@ -20696,9 +20732,8 @@
             if (options.payment) {
               Object.assign(
                 Form.prototype,
-                _paymentMixin_js__WEBPACK_IMPORTED_MODULE_10__['default']
+                _paymentMixin_js__WEBPACK_IMPORTED_MODULE_11__['default']
               );
-              _this.payment = true;
               jQuery.validator.addMethod(
                 'expiration',
                 _this.creditCardExpirationValidation,
@@ -20766,7 +20801,7 @@
             _this.showFailPopup = options.showFailPopup ? true : false; // Restrict input length
 
             if (options.restrictInputLength) {
-              _restrictLengthMixin_js__WEBPACK_IMPORTED_MODULE_11__[
+              _restrictLengthMixin_js__WEBPACK_IMPORTED_MODULE_12__[
                 'default'
               ].init.call(
                 _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(
@@ -20806,7 +20841,15 @@
                 value: function _setUpEventListeners() {
                   var _this2 = this;
 
-                  // Form submission
+                  if (this.payment && this.savedCardsExist) {
+                    $(document).on(
+                      'paymentMethodSelection:formHidden',
+                      function (_, form) {
+                        return _this2.formResetHandler(form);
+                      }
+                    );
+                  } // Form submission
+
                   this.$form.submit(function (event) {
                     event.preventDefault();
                     event.stopPropagation();
@@ -21077,7 +21120,7 @@
           );
 
           return Form;
-        })(_requests_js__WEBPACK_IMPORTED_MODULE_8__['default']);
+        })(_requests_js__WEBPACK_IMPORTED_MODULE_9__['default']);
 
         /***/
       },

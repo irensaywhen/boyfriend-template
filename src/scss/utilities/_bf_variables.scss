@@ -1,4 +1,4 @@
-$front-page-background: url('../img/main-bg.jpg');
+/* config */
 $bf-theme: true;
 $gf-theme: false;
 
@@ -34,6 +34,8 @@ $disabled-gray-button: lighten($bootstrap-secondary, 30);
 
 $label-color: #212529;
 $label-border: #ced4da;
+
+$front-page-background: url('../img/bg-bf.png');
 
 /*Text sizes*/
 $h1: 40px;

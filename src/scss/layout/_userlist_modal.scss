@@ -14,6 +14,21 @@
     }
   }
 
+  // Searchbar
+  input {
+    border: 0 !important;
+    outline: 0 !important;
+    flex-grow: 1;
+  }
+
+  .searchBar-loader {
+    position: absolute;
+    right: 15px;
+    top: 3px;
+    color: $primary-color;
+  }
+
+  // User styles
   .userList-user {
     cursor: pointer;
 
@@ -43,7 +58,15 @@
 
     @include screen-sm {
       height: 75vh;
-      border-radius: 15px;
+    }
+
+    .send-present {
+      width: 50px;
+      height: 45px;
+      align-self: center;
+      svg {
+        width: 80%;
+      }
     }
   }
 }

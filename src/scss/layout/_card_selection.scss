@@ -1,0 +1,88 @@
+.saved-cards {
+  // Main buttons styles
+  .saved-card-input:checked ~ .saved-card-label {
+    color: #fff;
+    background: $secondary-color !important;
+
+    .close {
+      color: #fff;
+      opacity: 0.9;
+      span {
+        color: #fff;
+      }
+    }
+  }
+
+  .saved-card {
+    width: 100%;
+
+    .saved-card-label {
+      width: 100%;
+      color: $label-color;
+      position: relative;
+
+      .close {
+        position: absolute;
+        top: 0;
+        right: 5px;
+        text-shadow: none;
+        outline: 0;
+      }
+    }
+
+    &:hover,
+    &:focus {
+      .saved-card-label {
+        color: #fff;
+
+        .close {
+          color: #fff;
+          opacity: 0.9;
+          span {
+            color: #fff;
+          }
+        }
+      }
+    }
+
+    @include screen-sm {
+      width: auto;
+
+      .saved-card-label {
+        width: auto;
+      }
+    }
+  }
+}
+
+.saved-card-cvv {
+  input,
+  label {
+    max-width: 120px;
+  }
+  .float-label .form-control:focus {
+    border-color: $secondary-color;
+  }
+
+  .float-label .form-control:focus + .form-control-label {
+    //color: $secondary-color;
+  }
+}
+
+// New card
+form.new-credit-card {
+  button.close {
+    position: absolute;
+    top: 0;
+    right: 15px;
+
+    &:focus,
+    &:active {
+      outline: 0;
+    }
+
+    @include screen-sm {
+      right: -15px;
+    }
+  }
+}

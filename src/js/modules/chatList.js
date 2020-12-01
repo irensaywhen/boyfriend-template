@@ -1,16 +1,26 @@
 import Handlebars from 'handlebars';
 import prepareTemplates from './prepareTemplates.js';
+import debounce from './debounce.js';
+import modifyHandle from './modifyHandle.js';
 
 export default class ChatList {
   constructor(options) {
     // Save selectors
-    this.selectors = options.selectors;
+    const selectors = (this.selectors = options.selectors);
 
     // Prepare template for message
     this.messageTemplate = prepareTemplates(options.selectors.templateId);
 
     // Get chatlist container
-    this.$chatList = $(this.selectors.chatList);
+    this.$chatList = $(selectors.chatList);
+
+    if (selectors.search) {
+      this.$search = $(selectors.search);
+    }
+
+    if (selectors.searchSpinner) {
+      this.$searchSpinner = $(selectors.searchSpinner).hide();
+    }
 
     // Prepare event listeners
     this._setUpEventListeners();
@@ -19,8 +29,24 @@ export default class ChatList {
   _setUpEventListeners() {
     let $document = $(document);
 
+    if (this.$search) {
+      this.$search.on(
+        'input',
+        debounce(event => {
+          const searchData = event.target.value;
+
+          this.$chatList.empty();
+
+          this.$searchSpinner.show();
+
+          $document.trigger('chatList:searchInputEnd', searchData);
+        }, 300)
+      );
+    }
+
     $document
-      .on('lazyLoading:itemsReady', (event, ...messages) => {
+      .on('lazyLoading:itemsReady', (event, config) => {
+        const { messages, scroll, search } = config;
         /**
          * 1. Get all the retrieved messages from the server
          * 2. Compile template
@@ -29,14 +55,22 @@ export default class ChatList {
          * 5. Signal that the messages are displayed to re-init the observed target
          */
         let template = Handlebars.compile(this.messageTemplate);
-        messages.forEach(message => this.$chatList.append(template(message)));
-
-        this.$chatList.animate({
-          scrollTop:
-            '+=' +
-            this.$chatList.find(this.selectors.message).first().outerHeight(),
+        messages.forEach(message => {
+          message.handle = modifyHandle(message.handle);
+          this.$chatList.append(template(message));
         });
 
+        if (scroll) {
+          this.$chatList.animate({
+            scrollTop:
+              '+=' +
+              this.$chatList.find(this.selectors.message).first().outerHeight(),
+          });
+        }
+
+        if (search) {
+          this.$searchSpinner.hide();
+        }
         // Listen to this event, too, and re-observe the messages
         $document.trigger('items:afterDisplay');
       })

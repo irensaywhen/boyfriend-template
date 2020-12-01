@@ -37,6 +37,16 @@
       @include fluid-type($screen-xs, $screen-xl, 18px, 22px);
       font-weight: 500;
     }
+
+    .add-new {
+      line-height: 1;
+      font-size: 14px;
+      text-transform: lowercase !important;
+
+      .material-icons {
+        font-size: 16px;
+      }
+    }
   }
 
   .jp-card {
