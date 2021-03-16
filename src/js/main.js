@@ -2,6 +2,8 @@ import Form from './modules/form.js';
 import ChainedForms from './modules/chained-forms.js';
 import Avatar from './modules/avatar.js';
 
+const testFunc = () => console.log(123);
+
 window['Form'] = Form;
 window['ChainedForms'] = ChainedForms;
 window['Avatar'] = Avatar;

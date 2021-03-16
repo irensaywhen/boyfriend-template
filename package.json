@@ -4,7 +4,8 @@
   "description": "Boyfriend template",
   "main": "index.js",
   "scripts": {
-    "sass": "node-sass -w scss/ -o css/ --recursive"
+    "sass": "node-sass -w scss/ -o css/ --recursive",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -49,6 +50,7 @@
     "pretty-quick": "^3.0.2",
     "raw-loader": "^4.0.1",
     "webpack": "^4.43.0",
+    "webpack-cli": "^4.2.0",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0"
   }
